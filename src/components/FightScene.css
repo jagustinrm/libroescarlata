@@ -1,0 +1,103 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #282c34;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container to hold both characters */
+.fight-scene {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    max-width: 900px;
+    padding: 20px;
+    background: linear-gradient(145deg, #333a42, #202428);
+    border-radius: 15px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
+    
+}
+
+/* Character containers */
+.PlayerChar, .EnemyChar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    padding: 20px;
+    background-color: #3c3f47;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Character information */
+.PlayerChar p, .EnemyChar p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
+
+/* Styling for buttons */
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #e63946;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d62828;
+}
+
+button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Styling for the action log div */
+.action-log {
+    width: 400px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #343a40;
+    color: #ffffff;
+    font-size: 1rem;
+    text-align: left;
+    border-top: 2px solid #495057;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 10px 10px;
+    max-height: 200px; /* Limita la altura del contenedor */
+    overflow-y: auto; /* Permite el scroll si el contenido es más grande */
+    list-style-type: none; /* Elimina los puntos de la lista */
+    padding-left: 0; /* Asegura que no haya indentación extra */
+}
+
+/* Estilo para cada mensaje en la lista */
+.action-log li {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #ffc107;
+}
+
+.experience-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.experience-bar {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 10px;
+}
