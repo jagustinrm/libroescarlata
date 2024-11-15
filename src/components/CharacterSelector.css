@@ -1,0 +1,82 @@
+/* General container styling */
+.containerClases {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #505050;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
+    font-family: 'Arial', sans-serif;
+
+}
+p {
+
+}
+
+/* Heading styles */
+.containerClases h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+/* Paragraph styles */
+.containerClases p {
+    font-size: 1.2rem;
+    align-self: center;
+    color:#fff;
+    margin-bottom: 20px;
+}
+
+/* Buttons container */
+.botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-left: 300px;
+    align-self: center;
+}
+
+/* Class buttons */
+.botonesClases {
+    background-color: #fa5656;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    max-width: 100px;
+    margin-left: 5px;
+}
+
+.botonesClases:hover {
+    background-color: #b30000;
+    transform: scale(1.05);
+}
+
+.botonesClases:active {
+    background-color: #b30000;
+}
+
+/* Link styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Error message */
+.container p {
+    color: #ffffff;
+    font-weight: bold;
+}

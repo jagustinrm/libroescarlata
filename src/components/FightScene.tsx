@@ -3,70 +3,81 @@ import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
 // @ts-expect-error Para que funcione 
 import { usePlayerStats } from '../customHooks/usePlayerStats.js';
+// @ts-expect-error Para que funcione 
+import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
+// @ts-expect-error Para que funcione 
+import {checkLevelUp} from '../utils/checkLevelUp.js'
+// @ts-expect-error Para que funcione 
+import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
+import { handleAttack} from '../utils/combatHandlers';
+
 
 export default function FightScene() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState<string | null>('');
+    const [username, setUsername] = useState<string>('');
     const [classC, setClassC] = useState<string | null>('');
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
-    const {prevLevelXp, playerHealth, setPlayerHealth, playerXp, gainXP, playerLevel, setPlayerLevel, xpToNextLevel, gainXpToNextLevel } = usePlayerStats();
+    const {prevLevelXp, playerHealth, setPlayerHealth, playerXp, 
+        gainXP, playerLevel, setPlayerLevel, xpToNextLevel, 
+        gainXpToNextLevel, playerHealthLeft, setPlayerHealthLeft, 
+        hitDie } = usePlayerStats();
     const [playerMana, setPlayerMana] = useState<number>(100);
 
-    // Estados para el enemigo
-    const [enemyHealth, setEnemyHealth] = useState<number>(100);
-    const [enemyLevel] = useState<number>(1);
 
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
-        setUsername(storedUsername);
+        setUsername(storedUsername ?? "");
         const storedclassC = localStorage.getItem('classC');
         setClassC(storedclassC);
-        checkLevelUp();
-    }, [playerXp]);
-
-    useEffect(() => {
+        handleCheckLevelUp(); // Verificar subida de nivel
         localStorage.setItem('playerExp', playerXp.toString());
-    }, [playerXp]);
-
-    // Función para verificar y manejar el aumento de nivel
-    const checkLevelUp = () => {
-        // Verificar si la experiencia actual es suficiente para subir de nivel
-        if (playerXp >= xpToNextLevel) {
-            const newLevel = playerLevel + 1;
-            setPlayerLevel(newLevel);  // Subir el nivel
-            gainXpToNextLevel(newLevel);  // Actualizar la experiencia necesaria para el próximo nivel
-            setActionMessages((prevMessages) => [
-                ...prevMessages,
-                `¡Has subido al nivel ${newLevel}!`
-            ]);
-        }
-    };
-
-    // Función para manejar el ataque del jugador
-    const handleAttack = () => {
-        // Calcular daño del jugador y del enemigo
-        const playerDamage = Math.floor(Math.random() * 20) + 10; // Daño entre 10 y 30
-        const enemyDamage = Math.floor(Math.random() * 10) + 5;  // Daño entre 5 y 15
-        const playerMessage = `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`;
-        const enemyMessage = `Te han atacado y causado ${enemyDamage} puntos de daño.`;
-        setActionMessages((prevMessages) => [...prevMessages, playerMessage]);
-        setActionMessages((prevMessages) => [...prevMessages, enemyMessage]);
-        
-        // Actualizar la vida del enemigo de manera funcional
-        setEnemyHealth(prevEnemyHealth => {
-            const newEnemyHealth = Math.max(prevEnemyHealth - playerDamage, 0);
-            // Verificar si el enemigo ha sido derrotado
-            if (newEnemyHealth <= 0) {
-                gainXP(enemyLevel * 1000);  // Ganar experiencia tras derrotar al enemigo
-            }
-            return newEnemyHealth;
+        localStorage.setItem('playerHealthLeft', playerHealthLeft.toString())
+    }, [playerXp, playerHealthLeft]);
+    
+    const handleCheckLevelUp = () => {
+        checkLevelUp({
+            playerXp,
+            playerLevel,
+            xpToNextLevel,
+            setPlayerLevel,
+            gainXpToNextLevel,
+            setActionMessages,
+            hitDie,
+            playerHealth,
+            setPlayerHealth,
+            calculateInitialHealth,
+            playerHealthLeft,
+            setPlayerHealthLeft
         });
-
-        // Si el enemigo aún tiene vida, ataca de vuelta
-        if (enemyHealth > 0) {
-            setPlayerHealth(prev => Math.max(prev - enemyDamage, 0));
-        }
     };
+
+    // Estados para el enemigo
+
+    const { enemy, isLoading, error } = useEnemyLoader(1);
+
+    // Inicializamos los estados sin depender directamente de `enemy`
+    const [enemyHealth, setEnemyHealth] = useState<number | null>(null);
+    const [enemyLevel, setenemyLevel] = useState<number | null>(null);
+    
+    // Efecto para actualizar los estados cuando `enemy` esté disponible
+    useEffect(() => {
+        if (enemy) {
+            setEnemyHealth(enemy.health);
+            setenemyLevel(enemy.level);
+
+        }
+    }, [enemy]);
+
+    if (isLoading) {
+        return <p>Cargando enemigo...</p>;
+    }
+    
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+    
+
+
 
     // Función para manejar el botón de "Huir"
     const handleRun = () => {
@@ -79,22 +90,43 @@ export default function FightScene() {
     };
 
     const xpPercentage = ((playerXp - prevLevelXp) / (xpToNextLevel - prevLevelXp)) * 100;
-
+    const healthPercentage = (playerHealthLeft / playerHealth) * 100;
     return (
         <div className="fight-scene">
             <div className="PlayerChar">
                 <p>{username}</p>
                 <p>{classC}</p>
                 <p>Nivel {playerLevel}</p>
-                                {/* Barra de experiencia */}
-                <div className="experience-bar-container">
-                    <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
-                </div>
-                <p>Experiencia: {playerXp} / {xpToNextLevel}</p>
-                <p>Vida: {playerHealth}/100</p>
+
+
+            {/* Barra de vida */}
+            <div className="health-bar-container">
+                <div className="health-bar" style={{ width: `${healthPercentage}%` }}></div>
+                <span className="health-text">{playerHealthLeft} / {playerHealth}</span>
+            </div>
+                
                 <p>Maná: {playerMana}/100</p>
-                <button onClick={handleAttack} disabled={enemyHealth === 0 || playerHealth === 0}>Atacar</button>
-                <button onClick={handleRun}>Huir</button>
+                            {/* Barra de experiencia */}
+            <div className="experience-bar-container">
+                <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
+                <span className="experience-text">{playerXp} / {xpToNextLevel}</span>
+            </div>
+                <button onClick={() =>
+                    handleAttack({
+                        username,
+                        navigate,
+                        playerHealthLeft,
+                        setPlayerHealthLeft,
+                        enemyHealth,
+                        setEnemyHealth,
+                        enemyLevel,
+                        gainXP,
+                        setActionMessages,
+                    })
+                } disabled={enemyHealth === 0 || playerHealthLeft === 0}>
+                    ⚔️ Atacar
+                </button>
+                <button onClick={handleRun}> 😨 Huir</button>
             </div>
 
             <div >
@@ -103,7 +135,7 @@ export default function FightScene() {
                         <li key={index}>{message}</li>  // Cada mensaje es un li
                     ))}
                 </ul>
-                {playerHealth === 0 && <p>¡Has sido derrotado!</p>}
+                {playerHealthLeft === 0 && <p>¡Has sido derrotado!</p>}
                 {enemyHealth === 0 && 
                 <div>
                     <p>¡Has derrotado al enemigo!</p>
@@ -112,12 +144,23 @@ export default function FightScene() {
                 }
             </div>
             <div className="EnemyChar">
-                <p>Goblin</p>
+            {enemy ? (
+    <div>
+        <h3>{enemy.name}</h3>
+        <p>Nivel: {enemy.level}</p>
+        <p>Vida: {enemyHealth}</p>
+        {/* <p>Maná: {currentEnemy.mana}</p> */}
+    </div>
+) : (
+    <p>No hay enemigo seleccionado.</p>
+)}
+                {/* <p>Goblin</p>
                 <p>Guerrero</p>
                 <p>Nivel {enemyLevel}</p>
                 <p>Vida: {enemyHealth}/100</p>
-                <p>Maná: 100/100</p>
+                <p>Maná: 100/100</p> */}
             </div>
         </div>
     );
 }
+

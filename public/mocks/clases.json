@@ -1,136 +1,122 @@
-{
-    "classes": [
-        {
-            "name": "Guerrero",
-            "hitDie": "1d10",
-            "armorClass": "varía según la armadura equipada",
-            "baseAttackBonus": "+1",
-            "saves": {
-                "fortitude": "+2",
-                "reflex": "+0",
-                "will": "+0"
-            },
-            "classFeatures": ["competencia en todas las armas y armaduras", "bono de ataque adicional"]
+[
+    {
+        "name": "Mago",
+        "hitDie": "d4",
+        "armorClass": "10",
+        "baseAttackBonus": "0",
+        "saves": {
+            "fortitude": "0",
+            "reflex": "0",
+            "will": "2"
         },
-        {
-            "name": "Mago",
-            "hitDie": "1d4",
-            "armorClass": "varía según la destreza, sin armadura",
-            "baseAttackBonus": "+0",
-            "saves": {
-                "fortitude": "+0",
-                "reflex": "+0",
-                "will": "+2"
-            },
-            "classFeatures": ["conjuros de nivel 1", "familiar opcional"]
+        "classFeatures": ["Hechizos", "Familiar"]
+    },
+    {
+        "name": "Guerrero",
+        "hitDie": "d10",
+        "armorClass": "15",
+        "baseAttackBonus": "1",
+        "saves": {
+            "fortitude": "2",
+            "reflex": "0",
+            "will": "0"
         },
-        {
-            "name": "Clérigo",
-            "hitDie": "1d8",
-            "armorClass": "varía según la armadura equipada",
-            "baseAttackBonus": "+0",
-            "saves": {
-                "fortitude": "+2",
-                "reflex": "+0",
-                "will": "+2"
-            },
-            "classFeatures": ["conjuros divinos de nivel 1", "canalización de energía"]
+        "classFeatures": ["Ataque poderoso", "Resistencia"]
+    },
+    {
+        "name": "Pícaro",
+        "hitDie": "d6",
+        "armorClass": "12",
+        "baseAttackBonus": "0",
+        "saves": {
+            "fortitude": "0",
+            "reflex": "2",
+            "will": "0"
         },
-        {
-            "name": "Pícaro",
-            "hitDie": "1d6",
-            "armorClass": "varía según la armadura ligera",
-            "baseAttackBonus": "+0",
-            "saves": {
-                "fortitude": "+0",
-                "reflex": "+2",
-                "will": "+0"
-            },
-            "classFeatures": ["ataque furtivo +1d6", "evasión"]
+        "classFeatures": ["Ataque furtivo", "Evasión", "Esquivar"]
+    },
+    {
+        "name": "Clérigo",
+        "hitDie": "d8",
+        "armorClass": "14",
+        "baseAttackBonus": "0",
+        "saves": {
+            "fortitude": "2",
+            "reflex": "0",
+            "will": "2"
         },
-        {
-            "name": "Bárbaro",
-            "hitDie": "1d12",
-            "armorClass": "varía según la armadura ligera",
-            "baseAttackBonus": "+1",
-            "saves": {
-                "fortitude": "+2",
-                "reflex": "+0",
-                "will": "+0"
-            },
-            "classFeatures": ["ira 1/día", "movimiento rápido"]
+        "classFeatures": ["Hechizos divinos", "Reprender muertos vivientes", "Curación"]
+    },
+    {
+        "name": "Bárbaro",
+        "hitDie": "d12",
+        "armorClass": "13",
+        "baseAttackBonus": "1",
+        "saves": {
+            "fortitude": "2",
+            "reflex": "0",
+            "will": "0"
         },
-        {
-            "name": "Explorador",
-            "hitDie": "1d8",
-            "armorClass": "varía según la armadura ligera",
-            "baseAttackBonus": "+1",
-            "saves": {
-                "fortitude": "+2",
-                "reflex": "+2",
-                "will": "+0"
-            },
-            "classFeatures": ["enemigo predilecto", "combate con dos armas"]
+        "classFeatures": ["Furia", "Movimiento rápido", "Esquiva asombrosa"]
+    },
+    {
+        "name": "Bardo",
+        "hitDie": "d6",
+        "armorClass": "11",
+        "baseAttackBonus": "0",
+        "saves": {
+            "fortitude": "0",
+            "reflex": "2",
+            "will": "2"
         },
-        {
-            "name": "Monje",
-            "hitDie": "1d8",
-            "armorClass": "varía según la destreza y sabiduría",
-            "baseAttackBonus": "+0",
-            "saves": {
-                "fortitude": "+2",
-                "reflex": "+2",
-                "will": "+2"
-            },
-            "classFeatures": ["golpe sin armas", "bono a la CA por sabiduría"]
+        "classFeatures": ["Inspiración bardica", "Hechizos arcanos", "Conocimiento de bardo"]
+    },
+    {
+        "name": "Druida",
+        "hitDie": "d8",
+        "armorClass": "12",
+        "baseAttackBonus": "0",
+        "saves": {
+            "fortitude": "2",
+            "reflex": "0",
+            "will": "2"
         },
-        {
-            "name": "Druida",
-            "hitDie": "1d8",
-            "armorClass": "varía según la armadura natural",
-            "baseAttackBonus": "+0",
-            "saves": {
-                "fortitude": "+2",
-                "reflex": "+0",
-                "will": "+2"
-            },
-            "classFeatures": ["conjuros divinos de nivel 1", "compañero animal"]
+        "classFeatures": ["Forma salvaje", "Hechizos divinos", "Conexión con la naturaleza"]
+    },
+    {
+        "name": "Explorador",
+        "hitDie": "d8",
+        "armorClass": "13",
+        "baseAttackBonus": "1",
+        "saves": {
+            "fortitude": "2",
+            "reflex": "2",
+            "will": "0"
         },
-        {
-            "name": "Hechicero",
-            "hitDie": "1d4",
-            "armorClass": "varía según la destreza, sin armadura",
-            "baseAttackBonus": "+0",
-            "saves": {
-                "fortitude": "+0",
-                "reflex": "+0",
-                "will": "+2"
-            },
-            "classFeatures": ["conjuros de nivel 1 (espontáneos)", "uso de magia sin preparación"]
+        "classFeatures": ["Enemigo predilecto", "Empatía salvaje", "Combate con dos armas"]
+    },
+    {
+        "name": "Paladín",
+        "hitDie": "d10",
+        "armorClass": "14",
+        "baseAttackBonus": "1",
+        "saves": {
+            "fortitude": "2",
+            "reflex": "0",
+            "will": "2"
         },
-        {
-            "name": "Paladín",
-            "hitDie": "1d10",
-            "armorClass": "varía según la armadura equipada",
-            "baseAttackBonus": "+1",
-            "saves": {
-                "fortitude": "+2",
-                "reflex": "+0",
-                "will": "+0"
-            },
-            "classFeatures": ["detecta el mal", "imposición de manos"]
+        "classFeatures": ["Detectar mal", "Imposición de manos", "Aura de coraje"]
+    },
+    {
+        "name": "Monje",
+        "hitDie": "d8",
+        "armorClass": "10",
+        "baseAttackBonus": "0",
+        "saves": {
+            "fortitude": "2",
+            "reflex": "2",
+            "will": "2"
         },
-        {
-            "name": "Bardo",
-            "hitDie": "1d6",
-            "armorClass": "varía según la armadura ligera",
-            "baseAttackBonus": "+0",
-            "saves": {
-                "fortitude": "+0",
-                "reflex": "+2",
-                "will": "+2"
-            },
-            "classFeatures": ["inspiración musical", "conjuros arcanos de nivel 1"]
-        }
-    ]
-}
+        "classFeatures": ["Golpe sin armas", "Esquiva sobrenatural", "Movimiento rápido"]
+    }
+]
