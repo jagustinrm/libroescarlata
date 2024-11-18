@@ -1,0 +1,108 @@
+{
+    "weapons": [
+        {
+            "id": 1,
+            "name": "Espada Larga",
+            "type": "Cuerpo a cuerpo",
+            "damage": "1d8",
+            "critical": "19-20/x2",
+            "weight": "4 lb",
+            "cost": "15 gp",
+            "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros."
+        },
+        {
+            "id": 2,
+            "name": "Daga",
+            "type": "Cuerpo a cuerpo o distancia",
+            "damage": "1d4",
+            "critical": "19-20/x2",
+            "range": "10 ft",
+            "weight": "1 lb",
+            "cost": "2 gp",
+            "description": "Ligera y fácil de ocultar, ideal como arma secundaria."
+        },
+        {
+            "id": 3,
+            "name": "Hacha de Batalla",
+            "type": "Cuerpo a cuerpo",
+            "damage": "1d8",
+            "critical": "x3",
+            "weight": "6 lb",
+            "cost": "10 gp",
+            "description": "Un arma poderosa capaz de infligir daños devastadores."
+        },
+        {
+            "id": 4,
+            "name": "Arco Largo",
+            "type": "Distancia",
+            "damage": "1d8",
+            "critical": "x3",
+            "range": "100 ft",
+            "weight": "3 lb",
+            "cost": "75 gp",
+            "description": "Un arco de gran alcance, preferido por arqueros experimentados."
+        },
+        {
+            "id": 5,
+            "name": "Maza",
+            "type": "Cuerpo a cuerpo",
+            "damage": "1d6",
+            "critical": "x2",
+            "weight": "5 lb",
+            "cost": "8 gp",
+            "description": "Perfecta para romper armaduras y golpear con fuerza contundente."
+        },
+        {
+            "id": 6,
+            "name": "Espadón",
+            "type": "Cuerpo a cuerpo",
+            "damage": "2d6",
+            "critical": "19-20/x2",
+            "weight": "8 lb",
+            "cost": "50 gp",
+            "description": "Un arma imponente que requiere ambas manos para su uso."
+        },
+        {
+            "id": 7,
+            "name": "Lanza",
+            "type": "Cuerpo a cuerpo o distancia",
+            "damage": "1d8",
+            "critical": "x3",
+            "range": "20 ft",
+            "weight": "6 lb",
+            "cost": "5 gp",
+            "description": "Versátil para el combate cercano o para arrojar a distancia."
+        },
+        {
+            "id": 8,
+            "name": "Ballesta Ligera",
+            "type": "Distancia",
+            "damage": "1d8",
+            "critical": "19-20/x2",
+            "range": "80 ft",
+            "weight": "4 lb",
+            "cost": "35 gp",
+            "description": "Un arma fácil de usar, ideal para ataques a distancia precisos."
+        },
+        {
+            "id": 9,
+            "name": "Martillo de Guerra",
+            "type": "Cuerpo a cuerpo",
+            "damage": "1d8",
+            "critical": "x3",
+            "weight": "5 lb",
+            "cost": "12 gp",
+            "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados."
+        },
+        {
+            "id": 10,
+            "name": "Bastón",
+            "type": "Cuerpo a cuerpo",
+            "damage": "1d6",
+            "critical": "x2",
+            "weight": "4 lb",
+            "cost": "0 gp",
+            "description": "Un arma simple que puede utilizarse como herramienta o defensa."
+        }
+    ]
+}

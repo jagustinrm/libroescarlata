@@ -13,7 +13,8 @@ export default function Home() {
         setUsername(storedUsername);
         const storedclassC = localStorage.getItem('classC');
         setClassC(storedclassC);
-
+        const arma = localStorage.getItem('initialWeaponId')
+        console.log(arma)
     }, []);
 
     const handleHealthRecover = () => {
@@ -39,7 +40,7 @@ export default function Home() {
                 <a href="#"><button onClick={() => handleHealthRecover()}>🏥 Hospital</button></a>
                 <a href="#"><button>🛒 Tienda</button></a>
                 <a href="#"><button>⚔️ Armería</button></a>
-                <a href="#"><button>🐾 Mascotas</button></a>
+                <a href="/petStore"><button>🐾 Mascotas</button></a>
             </div>
         </div>
     );

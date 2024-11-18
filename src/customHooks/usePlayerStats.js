@@ -1,6 +1,6 @@
 // usePlayerStats.js
 import { useState, useEffect } from "react";
-import { calculateInitialHealth } from "../utils/calculateInitialHealth";
+// import { calculateInitialHealth } from "../utils/calculateInitialHealth";
 export function usePlayerStats() {
     const additionalData = localStorage.getItem('additionalData');
     const [xpTable, setXpTable] = useState({}); 

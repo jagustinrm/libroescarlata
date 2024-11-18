@@ -21,7 +21,7 @@ export default function FightScene() {
         gainXP, playerLevel, setPlayerLevel, xpToNextLevel, 
         gainXpToNextLevel, playerHealthLeft, setPlayerHealthLeft, 
         hitDie } = usePlayerStats();
-    const [playerMana, setPlayerMana] = useState<number>(100);
+    // const [playerMana, setPlayerMana] = useState<number>(100);
 
 
     useEffect(() => {
@@ -105,7 +105,7 @@ export default function FightScene() {
                 <span className="health-text">{playerHealthLeft} / {playerHealth}</span>
             </div>
                 
-                <p>Maná: {playerMana}/100</p>
+                {/* <p>Maná: {playerMana}/100</p> */}
                             {/* Barra de experiencia */}
             <div className="experience-bar-container">
                 <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
