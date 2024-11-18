@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './PetStore.css'
 export default function PetStore() {
   // Estado para almacenar las criaturas y la mascota seleccionada
   const [pets, setpets] = useState<any[]>([]);
@@ -31,14 +31,10 @@ export default function PetStore() {
         {pets? (
           pets.map((creature) => (
             <button
+              className='buttonPet'
               key={creature.name}
               onClick={() => handleSelectPet(creature.name)}
-              style={{
-                margin: '10px',
-                padding: '10px',
-                fontSize: '16px',
-                cursor: 'pointer',
-              }}
+
             >
               {creature.name}
             </button>
@@ -51,21 +47,25 @@ export default function PetStore() {
       {selectedPet && (
         <div>
           <h2>Detalles de {selectedPet}</h2>
-          <p>
+          <div  className='containerPets'>
             {pets
               .filter((pets) => pets.name === selectedPet)
               .map((creature) => (
                 <div key={creature.name}>
-                  <p><strong>Tipo:</strong> {creature.type}</p>
-                  <p><strong>Alineación:</strong> {creature.alignment}</p>
-                  <p><strong>Puntos de vida:</strong> {creature.hitPoints}</p>
-                  <p><strong>Clase de armadura:</strong> {creature.armorClass}</p>
-                  <p><strong>Habilidades especiales:</strong> {creature.specialAbilities.join(', ')}</p>
+                  <img className='imgPet' src={creature.img} alt="" />
+                  <div className='containerPetStats'>
+                    <p><strong>Tipo:</strong> {creature.type}</p>
+                    <p><strong>Alineación:</strong> {creature.alignment}</p>
+                    <p><strong>Puntos de vida:</strong> {creature.hitPoints}</p>
+                    <p><strong>Clase de armadura:</strong> {creature.armorClass}</p>
+                    <p><strong>Habilidades especiales:</strong> {creature.specialAbilities.join(', ')}</p>
+                  </div>  
                 </div>
               ))}
-          </p>
+          </div>
         </div>
       )}
+      <a href="/home"><button>Volver</button></a>
     </div>
   );
 }

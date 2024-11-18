@@ -2,7 +2,7 @@
     "pets": [
       {
         "name": "Gato",
-        "type": "animal",
+        "type": "mamífero",
         "alignment": "neutral",
         "level": 1,
         "hitPoints": "1d4",
@@ -10,7 +10,8 @@
         "attack": {
           "melee": "mordisco +2 (1d2 daño)"
         },
-        "specialAbilities": ["visión nocturna", "sigilo"]
+        "specialAbilities": ["visión nocturna", "sigilo"],
+        "img": "/img/cat.png"
       },
       {
         "name": "Camaleón",
@@ -22,11 +23,12 @@
         "attack": {
           "melee": "mordisco +1 (1d3 daño)"
         },
-        "specialAbilities": ["cambio de color (invisibilidad parcial)", "visibilidad en la oscuridad"]
-      },
+        "specialAbilities": ["cambio de color (invisibilidad parcial)", "visibilidad en la oscuridad"],
+        "img": "/img/chameleon.png"
+    },
       {
-        "name": "Pájaro",
-        "type": "animal",
+        "name": "Cuervo",
+        "type": "ave",
         "alignment": "neutral",
         "level": 1,
         "hitPoints": "1d4",
@@ -34,11 +36,12 @@
         "attack": {
           "melee": "picotazo +1 (1d3 daño)"
         },
-        "specialAbilities": ["vuelo", "visión aguda"]
+        "specialAbilities": ["vuelo", "visión aguda"],
+        "img": "/img/crow.png"
       },
       {
         "name": "Perro",
-        "type": "animal",
+        "type": "mamífero",
         "alignment": "neutral",
         "level": 1,
         "hitPoints": "1d6+1",
@@ -46,7 +49,8 @@
         "attack": {
           "melee": "mordisco +3 (1d4 daño)"
         },
-        "specialAbilities": ["olfato agudo", "sentidos agudos"]
+        "specialAbilities": ["olfato agudo", "sentidos agudos"],
+        "img": "/img/dog.png"
       }
     ]
   }

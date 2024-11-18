@@ -1,0 +1,44 @@
+.imgPet {
+    width: 100px;
+    height: 100px;
+}
+
+.buttonPet {
+    background-color: #fa5656;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    max-width: 100px;
+    margin-left: 5px;
+}
+
+.buttonPet:hover {
+    background-color: #b30000;
+    transform: scale(1.05);
+}
+
+.buttonPet:active {
+    background-color: #b30000;
+}
+
+.containerPetStats {
+    width: 300px; /* Tamaño inicial */
+    word-wrap: break-word;
+    word-break: break-all; 
+    line-height: 1.5; 
+    overflow-wrap: break-word;
+
+}
+
+.containerPets {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(104, 104, 104);
+
+
+}
