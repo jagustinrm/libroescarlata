@@ -1,23 +1,29 @@
 import { useEffect, useState } from "react";
 // @ts-expect-error Para que funcione 
 import { usePlayerStats } from '../customHooks/usePlayerStats.js';
+// @ts-expect-error Para que funcione 
+import { useLoadWeapons } from "../customHooks/useLoadWeapons.js";
 import './Home.css'
 
 export default function Home() {
     const [username, setUsername] = useState<string | null>('');
     const [classC, setClassC] = useState<string | null>('');
     const { setPlayerHealthLeft, playerHealthLeft, playerHealth, playerXp, playerLevel, xpToNextLevel} = usePlayerStats();
+    const {initialWeapons, charWeapon} = useLoadWeapons()
     const [pet, setPet] = useState<string | null>('')
+
+  
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
         setUsername(storedUsername);
+    
         const storedclassC = localStorage.getItem('classC');
         setClassC(storedclassC);
-        const arma = localStorage.getItem('initialWeaponId');
+    
         const pet = localStorage.getItem('pet');
-        setPet(pet)
-
-    }, []);
+        setPet(pet);
+        
+    }, []); 
 
     const handleHealthRecover = () => {
         setPlayerHealthLeft(playerHealth)
@@ -33,9 +39,10 @@ export default function Home() {
                 <p>⭐ Nivel: {playerLevel}</p>
                 <p>❤️ Vida: {playerHealthLeft} / {playerHealth}</p>
                 <p>✨ Exp: {playerXp} / {xpToNextLevel}</p>
+                <p>Arma actual: {charWeapon || "Sin arma equipada"}</p>
                 {pet? <p>🐶 Mascota: {pet} </p> : <></>} 
             </div>
-    
+   
             {/* Botones en dos columnas a la derecha */}
             <div className="buttons">
                 <a href="/fightScene"><button>⚔️ Pelear</button></a>

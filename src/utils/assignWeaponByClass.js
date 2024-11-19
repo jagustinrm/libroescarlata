@@ -1,4 +1,4 @@
-export function assignWeaponByClass(characterClass) {
+export function assignIdWeaponByClass(characterClass) {
    let weaponId = null;
     switch (characterClass) {
         case "Mago":
@@ -37,7 +37,6 @@ export function assignWeaponByClass(characterClass) {
     }
 
     // Guardar el ID del arma en el localStorage
-    localStorage.setItem("initialWeaponId", weaponId.toString());
-    console.log('holaa')
+    localStorage.setItem("charWeaponId", weaponId.toString());
     console.log(`ID del arma inicial asignado para ${characterClass}: ${weaponId}`);
 }
