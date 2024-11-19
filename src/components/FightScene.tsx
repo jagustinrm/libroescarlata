@@ -21,6 +21,8 @@ export default function FightScene() {
         gainXP, playerLevel, setPlayerLevel, xpToNextLevel, 
         gainXpToNextLevel, playerHealthLeft, setPlayerHealthLeft, 
         hitDie } = usePlayerStats();
+        const [pet, setPet] = useState<string | null>('')
+    
     // const [playerMana, setPlayerMana] = useState<number>(100);
 
 
@@ -29,6 +31,8 @@ export default function FightScene() {
         setUsername(storedUsername ?? "");
         const storedclassC = localStorage.getItem('classC');
         setClassC(storedclassC);
+        const pet = localStorage.getItem('pet')
+        setPet(pet)
         handleCheckLevelUp(); // Verificar subida de nivel
         localStorage.setItem('playerExp', playerXp.toString());
         localStorage.setItem('playerHealthLeft', playerHealthLeft.toString())
@@ -126,6 +130,7 @@ export default function FightScene() {
                 } disabled={enemyHealth === 0 || playerHealthLeft === 0}>
                     ⚔️ Atacar
                 </button>
+                {pet? <p>Mascota: {pet}</p> : <></>}
                 <button onClick={handleRun}> 😨 Huir</button>
             </div>
 
@@ -149,6 +154,7 @@ export default function FightScene() {
         <h3>{enemy.name}</h3>
         <p>Nivel: {enemy.level}</p>
         <p>Vida: {enemyHealth}</p>
+
         {/* <p>Maná: {currentEnemy.mana}</p> */}
     </div>
 ) : (

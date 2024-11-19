@@ -24,6 +24,10 @@ export default function PetStore() {
     setSelectedPet(petName);
   };
 
+  const handleSelectedPet = (selectedPet: string) => {
+    localStorage.setItem('pet', selectedPet)
+    alert('Seleccionaste: ' + selectedPet)
+  };
   return (
     <div>
       <h1>Selecciona tu mascota</h1>
@@ -59,7 +63,8 @@ export default function PetStore() {
                     <p><strong>Puntos de vida:</strong> {creature.hitPoints}</p>
                     <p><strong>Clase de armadura:</strong> {creature.armorClass}</p>
                     <p><strong>Habilidades especiales:</strong> {creature.specialAbilities.join(', ')}</p>
-                  </div>  
+                  </div> 
+                  <button onClick={() => handleSelectedPet(selectedPet)}>Seleccionar</button> 
                 </div>
               ))}
           </div>

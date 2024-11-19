@@ -7,14 +7,16 @@ export default function Home() {
     const [username, setUsername] = useState<string | null>('');
     const [classC, setClassC] = useState<string | null>('');
     const { setPlayerHealthLeft, playerHealthLeft, playerHealth, playerXp, playerLevel, xpToNextLevel} = usePlayerStats();
-
+    const [pet, setPet] = useState<string | null>('')
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
         setUsername(storedUsername);
         const storedclassC = localStorage.getItem('classC');
         setClassC(storedclassC);
-        const arma = localStorage.getItem('initialWeaponId')
-        console.log(arma)
+        const arma = localStorage.getItem('initialWeaponId');
+        const pet = localStorage.getItem('pet');
+        setPet(pet)
+
     }, []);
 
     const handleHealthRecover = () => {
@@ -31,6 +33,7 @@ export default function Home() {
                 <p>⭐ Nivel: {playerLevel}</p>
                 <p>❤️ Vida: {playerHealthLeft} / {playerHealth}</p>
                 <p>✨ Exp: {playerXp} / {xpToNextLevel}</p>
+                {pet? <p>🐶 Mascota: {pet} </p> : <></>} 
             </div>
     
             {/* Botones en dos columnas a la derecha */}
