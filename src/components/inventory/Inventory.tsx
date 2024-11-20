@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 // @ts-expect-error Para que funcione
 import { getInventory, loadActualInventory } from '../../utils/inventoryUtils.js';
 import './Inventory.css'
-import { Item, Inventory } from '../interfaces/InventoryInterface.js';
+import { Item, InventoryInt } from '../interfaces/InventoryInterface.js';
 
 
 export default function Inventory() {
-    const [totalInventory, setTotalInventory] = useState<Inventory | null>(null);
+    // const [totalInventory, setTotalInventory] = useState<Inventory | null>(null);
     const [actualInventory, setActualInventory] = useState<Array<Item> | null>(null);
 
     useEffect(() => {
-        const inventario = getInventory();
-        setTotalInventory(inventario);
+        getInventory();
+        
     }, []);
 
-    const handleLoadActualInventory = async (category: keyof Inventory) => {
+    const handleLoadActualInventory = async (category: keyof InventoryInt) => {
         const result = await loadActualInventory(category); // Llama a la función desde utils
         setActualInventory(result);
     };

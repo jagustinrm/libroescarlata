@@ -1,4 +1,4 @@
-export interface Inventory {
+export interface InventoryInt {
     weapons: Array<Item>;
     armors: Array<Item>;
     potions: Array<Item>;
