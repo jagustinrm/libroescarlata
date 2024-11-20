@@ -43,4 +43,4 @@ export const useHomeContext = () => {
         throw new Error("useHomeContext debe usarse dentro de un HomeProvider");
     }
     return context;
-}
+};
