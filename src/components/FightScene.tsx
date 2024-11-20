@@ -21,7 +21,9 @@ export default function FightScene() {
         gainXP, playerLevel, setPlayerLevel, xpToNextLevel, 
         gainXpToNextLevel, playerHealthLeft, setPlayerHealthLeft, 
         hitDie } = usePlayerStats();
-        const [pet, setPet] = useState<string | null>('')
+    const [charActualWeapon, setCharActualWeapon] = useState<Array<object>>([]);
+
+    const [pet, setPet] = useState<string | null>('')
     
     // const [playerMana, setPlayerMana] = useState<number>(100);
 
@@ -33,9 +35,12 @@ export default function FightScene() {
         setClassC(storedclassC);
         const pet = localStorage.getItem('pet')
         setPet(pet)
+        const weapon = localStorage.getItem('charActualWeapon');
+        setCharActualWeapon(weapon ? JSON.parse(weapon) : null);
         handleCheckLevelUp(); // Verificar subida de nivel
         localStorage.setItem('playerExp', playerXp.toString());
         localStorage.setItem('playerHealthLeft', playerHealthLeft.toString())
+
     }, [playerXp, playerHealthLeft]);
     
     const handleCheckLevelUp = () => {
@@ -60,8 +65,8 @@ export default function FightScene() {
     const { enemy, isLoading, error } = useEnemyLoader(1);
 
     // Inicializamos los estados sin depender directamente de `enemy`
-    const [enemyHealth, setEnemyHealth] = useState<number | null>(null);
-    const [enemyLevel, setenemyLevel] = useState<number | null>(null);
+    const [enemyHealth, setEnemyHealth] = useState<number>(0);
+    const [enemyLevel, setenemyLevel] = useState<number>(1);
     
     // Efecto para actualizar los estados cuando `enemy` esté disponible
     useEffect(() => {
@@ -79,22 +84,19 @@ export default function FightScene() {
     if (error) {
         return <p>Error: {error}</p>;
     }
-    
 
-
-
-    // Función para manejar el botón de "Huir"
     const handleRun = () => {
         alert(`¡${username} ha huido del combate!`);
-        navigate("/home"); // Redirige a la ruta "/home"
+        navigate("/home"); 
     };
     const handleBack = () => {
         alert(`${username} regresa sano y salvo a su pueblo.`);
-        navigate("/home"); // Redirige a la ruta "/home"
+        navigate("/home"); 
     };
 
     const xpPercentage = ((playerXp - prevLevelXp) / (xpToNextLevel - prevLevelXp)) * 100;
     const healthPercentage = (playerHealthLeft / playerHealth) * 100;
+   
     return (
         <div className="fight-scene">
             <div className="PlayerChar">
@@ -126,6 +128,8 @@ export default function FightScene() {
                         enemyLevel,
                         gainXP,
                         setActionMessages,
+                        charActualWeapon,
+                        enemy
                     })
                 } disabled={enemyHealth === 0 || playerHealthLeft === 0}>
                     ⚔️ Atacar
@@ -149,22 +153,18 @@ export default function FightScene() {
                 }
             </div>
             <div className="EnemyChar">
-            {enemy ? (
-    <div>
-        <h3>{enemy.name}</h3>
-        <p>Nivel: {enemy.level}</p>
-        <p>Vida: {enemyHealth}</p>
-
-        {/* <p>Maná: {currentEnemy.mana}</p> */}
-    </div>
-) : (
-    <p>No hay enemigo seleccionado.</p>
-)}
-                {/* <p>Goblin</p>
-                <p>Guerrero</p>
-                <p>Nivel {enemyLevel}</p>
-                <p>Vida: {enemyHealth}/100</p>
-                <p>Maná: 100/100</p> */}
+                {enemy ? (
+                    <div>
+                        <h3>{enemy.name}</h3>
+                        <img className="imgEnemy" src={enemy.img} alt={enemy.name} />
+                        <p>Nivel: {enemy.level}</p>
+                        <p>Vida: {enemyHealth}</p>
+                            
+                        {/* <p>Maná: {currentEnemy.mana}</p> */}
+                    </div>
+                ) : (
+                    <p>No hay enemigo seleccionado.</p>
+                )}
             </div>
         </div>
     );

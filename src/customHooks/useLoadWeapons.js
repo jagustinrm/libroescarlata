@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export function useLoadWeapons() {
     const [initialWeapons, setInitialWeapons] = useState([]);
-    const [charWeapon, setCharWeapon] = useState(null);
+
 
     useEffect(() => {
         // Cargar armas desde el archivo JSON
@@ -27,16 +27,16 @@ export function useLoadWeapons() {
         const charWeaponId = localStorage.getItem('charWeaponId');
         
         if (charWeaponId && initialWeapons.length > 0) {
-            console.log(initialWeapons)
             const weapon = initialWeapons.find(w => w.id === parseInt(charWeaponId));
             if (weapon) {
-                setCharWeapon(weapon.name); // Asigna el nombre del arma al estado
+                
+                localStorage.setItem("charActualWeapon", JSON.stringify(weapon));
             } else {
                 console.warn(`Arma con ID ${charWeaponId} no encontrada`);
-                setCharWeapon(null); // Limpia el estado si no se encuentra el arma
+  
             }
         }
     }, [initialWeapons]); // Dependemos de que las armas iniciales estén cargadas
 
-    return { initialWeapons, charWeapon };
+    return { initialWeapons };
 }

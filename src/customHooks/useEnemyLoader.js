@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { calculateEnemyInitialHealth } from '../utils/calculateEnemyInitialHealth.js';
 
+import { rollDice } from '../utils/rollDice.js';
 export function useEnemyLoader(level) {
     const [enemy, setEnemy] = useState(null); // Cambia el estado inicial a `null` para diferenciar "sin cargar".
     const [isLoading, setIsLoading] = useState(true); // Nuevo estado para la carga.
@@ -20,7 +20,7 @@ export function useEnemyLoader(level) {
 
                 const randomIndex = Math.floor(Math.random() * filteredCreatures.length);
                 const selectedEnemy = filteredCreatures[randomIndex];
-                const initialHealth = calculateEnemyInitialHealth(selectedEnemy.hitPoints);
+                const initialHealth = rollDice(selectedEnemy.hitPoints);
 
                 const enemyWithHealth = {
                     ...selectedEnemy,

@@ -2,4 +2,7 @@ El libro escarlata
 
 Cosas para hacer:
 
-Daño aleatorio dependiendo del ataque tanto enemigo como del player.
+Buscar si se pueden crear interfaces en otro lado del código.
+Imagenes de enemigos
+Inventario
+Enemigos más fuertes dependiendo del nivel.

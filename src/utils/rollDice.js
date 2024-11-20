@@ -1,13 +1,8 @@
-export function calculateEnemyInitialHealth(hitPoints) {
-    // Expresión regular para capturar los valores del formato XdY + Z
+export function rollDice(dice) {
     const regex = /(\d+)d(\d+)(?:\s*\+\s*(\d+))?/;
+    const match = dice.match(regex);
 
-    const match = hitPoints.match(regex);
-
-    if (!match) {
-        throw new Error(`Formato de hitPoints inválido: ${hitPoints}`);
-    }
-
+ 
     const numDice = parseInt(match[1], 10); // Número de dados
     const dieSides = parseInt(match[2], 10); // Lados del dado
     const bonus = match[3] ? parseInt(match[3], 10) : 0; // Bonus adicional, si existe

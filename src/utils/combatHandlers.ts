@@ -1,35 +1,42 @@
 // src/utils/combatHandlers.ts
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction } from 'react-router-dom';
+// @ts-expect-error Para que funcione 
+import {rollDice} from './rollDice.js'
 
 interface CombatHandlersProps {
     playerHealthLeft: number;
     setPlayerHealthLeft: Dispatch<SetStateAction<number>>;
     enemyHealth: number;
-    setEnemyHealth: Dispatch<SetStateAction<number>>;
+    setEnemyHealth: Dispatch<SetStateAction<number>>
     enemyLevel: number;
     gainXP: (xp: number) => void;
     username: string;
+    charActualWeapon: object;
+    enemy: object;
     setActionMessages: Dispatch<SetStateAction<string[]>>;
     navigate: NavigateFunction;
 }
 
 // Función para manejar el ataque del jugador
 export const handleAttack = ({
-    playerHealthLeft,
+    // playerHealthLeft,
     setPlayerHealthLeft,
     enemyHealth,
     setEnemyHealth,
     enemyLevel,
     gainXP,
-    username,
     setActionMessages,
+    charActualWeapon,
+    enemy,
 }: CombatHandlersProps) => {
-    const playerDamage = Math.floor(Math.random() * 3) + 1;
-    const enemyDamage = Math.floor(Math.random() * 3) + 1;
+    
+    const playerDamage = rollDice(charActualWeapon.damage)
+    
+    const enemyDamage = rollDice(enemy.attacks[0].damage) + parseInt(enemy.attacks[0].bonus)
 
     const playerMessage = `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`;
-    const enemyMessage = `Te han atacado y causado ${enemyDamage} puntos de daño.`;
+    const enemyMessage = `Te han atacado con ${enemy.attacks[0].name} y causado ${enemyDamage} puntos de daño.`;
 
     setActionMessages((prevMessages) => [...prevMessages, playerMessage, enemyMessage]);
 

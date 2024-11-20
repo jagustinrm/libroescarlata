@@ -9,7 +9,9 @@ export default function Home() {
     const [username, setUsername] = useState<string | null>('');
     const [classC, setClassC] = useState<string | null>('');
     const { setPlayerHealthLeft, playerHealthLeft, playerHealth, playerXp, playerLevel, xpToNextLevel} = usePlayerStats();
-    const {initialWeapons, charWeapon} = useLoadWeapons()
+    const {initialWeapons, charWeapon} = useLoadWeapons();
+    const [charActualWeapon, setCharActualWeapon] = useState<Array<object>>([]);
+
     const [pet, setPet] = useState<string | null>('')
 
   
@@ -23,6 +25,8 @@ export default function Home() {
         const pet = localStorage.getItem('pet');
         setPet(pet);
         
+        const weapon = localStorage.getItem('charActualWeapon');
+        setCharActualWeapon(weapon ? JSON.parse(weapon) : null);
     }, []); 
 
     const handleHealthRecover = () => {
@@ -39,13 +43,13 @@ export default function Home() {
                 <p>⭐ Nivel: {playerLevel}</p>
                 <p>❤️ Vida: {playerHealthLeft} / {playerHealth}</p>
                 <p>✨ Exp: {playerXp} / {xpToNextLevel}</p>
-                <p>Arma actual: {charWeapon || "Sin arma equipada"}</p>
+                <p>Arma actual: {charActualWeapon.name || "Sin arma equipada"}</p>
                 {pet? <p>🐶 Mascota: {pet} </p> : <></>} 
             </div>
    
             {/* Botones en dos columnas a la derecha */}
             <div className="buttons">
-                <a href="/fightScene"><button>⚔️ Pelear</button></a>
+                <a href="/fightScene"><button disabled={playerHealthLeft === 0}>⚔️ Pelear</button></a>
                 <a href="/townMap"><button>🏠 Hogar</button></a>
                 <a href="#"><button onClick={() => handleHealthRecover()}>🏥 Hospital</button></a>
                 <a href="#"><button>🛒 Tienda</button></a>
