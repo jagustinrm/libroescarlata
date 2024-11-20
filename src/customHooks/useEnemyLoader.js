@@ -1,43 +1,56 @@
 import { useState, useEffect } from 'react';
-
 import { rollDice } from '../utils/rollDice.js';
+
 export function useEnemyLoader(level) {
-    const [enemy, setEnemy] = useState(null); // Cambia el estado inicial a `null` para diferenciar "sin cargar".
-    const [isLoading, setIsLoading] = useState(true); // Nuevo estado para la carga.
-    const [error, setError] = useState(null); // Maneja posibles errores.
+    const [enemy, setEnemy] = useState(null); // Estado inicial de enemigo.
+    const [isLoading, setIsLoading] = useState(true); // Indica si está cargando.
+    const [error, setError] = useState(null); // Manejo de errores.
 
     useEffect(() => {
         const loadEnemies = async () => {
             try {
                 const res = await fetch('/mocks/creatures.json');
-                const creatures = await res.json();
+                const data = await res.json();
 
-                const filteredCreatures = creatures.creatures.filter(creature => creature.level === level);
+                // Extraer criaturas
+                const creatures = data.creatures;
 
-                if (filteredCreatures.length === 0) {
-                    throw new Error(`No se encontraron enemigos de nivel ${level}`);
+                // Filtrar enemigos por nivel
+                const filteredCreatures = creatures.filter(creature => creature.level === level);
+
+                // Si no hay enemigos del nivel, buscar el nivel máximo
+                const finalCreatures =
+                    filteredCreatures.length > 0
+                        ? filteredCreatures
+                        : creatures.filter(
+                              creature => creature.level === Math.max(...creatures.map(c => c.level))
+                          );
+
+                if (finalCreatures.length === 0) {
+                    throw new Error(`No se encontraron enemigos de nivel ${level}.`);
                 }
 
-                const randomIndex = Math.floor(Math.random() * filteredCreatures.length);
-                const selectedEnemy = filteredCreatures[randomIndex];
+                // Seleccionar enemigo aleatorio
+                const randomIndex = Math.floor(Math.random() * finalCreatures.length);
+                const selectedEnemy = finalCreatures[randomIndex];
+
+                // Calcular puntos de vida iniciales
                 const initialHealth = rollDice(selectedEnemy.hitPoints);
 
-                const enemyWithHealth = {
+                // Configurar enemigo con salud inicial
+                setEnemy({
                     ...selectedEnemy,
                     health: initialHealth,
-                };
-
-                setEnemy(enemyWithHealth);
+                });
             } catch (err) {
                 setError(err.message);
             } finally {
                 setIsLoading(false);
             }
         };
-        console.log(enemy)
+
         loadEnemies();
-    }, [level]);
+    }, []);
 
-    return { enemy, isLoading, error }; // Devuelve más datos.
+    return { enemy, isLoading, error }; // Devolver estado.
 }
-

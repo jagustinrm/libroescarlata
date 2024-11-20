@@ -62,7 +62,7 @@ export default function FightScene() {
 
     // Estados para el enemigo
 
-    const { enemy, isLoading, error } = useEnemyLoader(1);
+    const { enemy, isLoading, error } = useEnemyLoader(playerLevel);
 
     // Inicializamos los estados sin depender directamente de `enemy`
     const [enemyHealth, setEnemyHealth] = useState<number>(0);
@@ -93,6 +93,10 @@ export default function FightScene() {
         alert(`${username} regresa sano y salvo a su pueblo.`);
         navigate("/home"); 
     };
+    const handleNewEnemy = () => {
+        alert(`${username} busca un nuevo enemigo...`);
+        window.location.reload();
+    }
 
     const xpPercentage = ((playerXp - prevLevelXp) / (xpToNextLevel - prevLevelXp)) * 100;
     const healthPercentage = (playerHealthLeft / playerHealth) * 100;
@@ -148,7 +152,9 @@ export default function FightScene() {
                 {enemyHealth === 0 && 
                 <div>
                     <p>¡Has derrotado al enemigo!</p>
+                    <button onClick={handleNewEnemy}> ⚔️ Buscar otro enemigo</button>
                     <button onClick={handleBack}>Volver</button>
+
                 </div>
                 }
             </div>

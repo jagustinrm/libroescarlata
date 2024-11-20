@@ -117,6 +117,60 @@
                 "veneno (1d6 CON)",
                 "visión en la oscuridad"
             ]
+        },
+        {
+            "name": "Gnoll",
+            "img": "/img/enemies/gnoll.png",
+            "type": "humanoide",
+            "alignment": "caótico maligno",
+            "level": 2,
+            "hitPoints": "2d8",
+            "armorClass": 16,
+            "attacks": [
+                {
+                    "name": "hacha de batalla",
+                    "type": "melee",
+                    "bonus": "+4",
+                    "damage": "1d8"
+                },
+                {
+                    "name": "arco largo",
+                    "type": "rango",
+                    "bonus": "+3",
+                    "damage": "1d8"
+                }
+            ],
+            "specialAbilities": [
+                "olfato agudo",
+                "carga feroz"
+            ]
+        },
+        {
+            "name": "Hobgoblin",
+            "img": "/img/enemies/hobgoblin.png",
+            "type": "humanoide",
+            "alignment": "legal maligno",
+            "level": 2,
+            "hitPoints": "2d8",
+            "armorClass": 17,
+            "attacks": [
+                {
+                    "name": "espada larga",
+                    "type": "melee",
+                    "bonus": "+3",
+                    "damage": "1d8"
+                },
+                {
+                    "name": "ballesta ligera",
+                    "type": "rango",
+                    "bonus": "+2",
+                    "damage": "1d8"
+                }
+            ],
+            "specialAbilities": [
+                "disciplina marcial",
+                "visión en la oscuridad"
+            ]
         }
     ]
 }
