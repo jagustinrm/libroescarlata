@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import GridMap from './townMap/GridMap';
 // import Inventory from './Inventory';
 

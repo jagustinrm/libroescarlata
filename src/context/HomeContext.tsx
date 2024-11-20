@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */ 
+// IMPORTANTE ELIMINAR LO DE ARRIBA, SIRVE PARA CANCELAR TS
+
 // HomeContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface HomeContextType {
     gridWidth: number;
@@ -15,6 +18,7 @@ interface GridItem {
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
 export const HomeProvider = ({ children }: { children: ReactNode }) => {
+
     const [gridWidth, setGridWidth] = useState(10);  // Ancho de la cuadrícula
     const [gridHeight, setGridHeight] = useState(5); // Altura de la cuadrícula
     const [gridData, setGridData] = useState<GridItem[]>(Array(gridWidth * gridHeight).fill({ name: '' }));

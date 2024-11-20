@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './LandingPage.css';
 
 export default function LandingPage() {
     const [name, setName] = useState('');
@@ -13,7 +14,8 @@ export default function LandingPage() {
 
     return (
         <>
-            <h1>El Libro Escarlata</h1>
+        <div className='landingContainer'>
+        <h1>El Libro Escarlata</h1>
             <input 
                 type="text" 
                 placeholder="Ingresá tu nombre" 
@@ -21,6 +23,7 @@ export default function LandingPage() {
                 onChange={handleNameChange}
             />
             <a href="/characterSelector"><button onClick={handleButtonClick}>Ingresar</button></a>
+        </div>
         </>
     );
 }

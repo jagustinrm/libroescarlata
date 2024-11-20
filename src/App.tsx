@@ -8,9 +8,8 @@ import Home from './components/Home';
 import FightScene from './components/FightScene';
 import TownMap from './components/TownMap';
 import { HomeProvider } from './context/HomeContext';
-import PetStore from './components/petStore/petStore'
+import PetStore from './components/petStore/PetStore'
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     <>

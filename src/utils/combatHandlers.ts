@@ -3,6 +3,8 @@ import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction } from 'react-router-dom';
 // @ts-expect-error Para que funcione 
 import {rollDice} from './rollDice.js'
+import { Weapon } from '../components/interfaces/Weapon.js';
+import {CreatureInterface} from '../components/interfaces/CreatureInterface.js'
 
 interface CombatHandlersProps {
     playerHealthLeft: number;
@@ -12,8 +14,8 @@ interface CombatHandlersProps {
     enemyLevel: number;
     gainXP: (xp: number) => void;
     username: string;
-    charActualWeapon: object;
-    enemy: object;
+    charActualWeapon: Weapon;
+    enemy: CreatureInterface;
     setActionMessages: Dispatch<SetStateAction<string[]>>;
     navigate: NavigateFunction;
 }

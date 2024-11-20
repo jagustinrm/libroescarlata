@@ -1,5 +1,5 @@
 // CellMap.tsx
-import React from 'react';
+// import React from 'react';
 import { useHomeContext } from '../../context/HomeContext';
 
 export default function CellMap({ index }: { index: number }) {

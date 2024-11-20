@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './PetStore.css'
+import {PetInterface} from '../interfaces/PetInterface'
+
 export default function PetStore() {
   // Estado para almacenar las criaturas y la mascota seleccionada
-  const [pets, setpets] = useState<any[]>([]);
+  const [pets, setpets] = useState<PetInterface[]>([]);
   const [selectedPet, setSelectedPet] = useState<string | null>(null);
 
   // Efecto para cargar los datos del JSON
