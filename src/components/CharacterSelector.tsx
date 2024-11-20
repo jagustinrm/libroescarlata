@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 // @ts-expect-error Armas por clase
 import {assignIdWeaponByClass} from '../utils/assignWeaponByClass.js'
+// @ts-expect-error Inventario
+import {createInitialInventory} from '../utils/inventoryUtils.js'
+
 export default function CharacterSelector() {
     const [username, setUsername] = useState<string | null>('');
     const [charClasses, setCharClasses] = useState<Class[]>([]); // Cambiado a arreglo de Class
@@ -67,7 +70,11 @@ export default function CharacterSelector() {
         localStorage.setItem('playerHealth', InitialHealth)
         localStorage.setItem('playerHealthLeft', InitialHealth)
         localStorage.setItem('additionalData', JSON.stringify(additionalData));
+        createInitialInventory()
         assignIdWeaponByClass(clase)
+        
+        
+        
     };
 
     return (

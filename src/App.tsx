@@ -7,16 +7,15 @@ import Home from './components/Home';
 
 import FightScene from './components/FightScene';
 import TownMap from './components/TownMap';
-import { HomeProvider, InventoryProvider } from './context/HomeContext';
+import { HomeProvider } from './context/HomeContext';
 import PetStore from './components/petStore/PetStore'
-import Inventary from './components/inventary/Inventary';
+import Inventory from './components/inventory/Inventory';
 
 function App() {
 
   return (
     <>
     <BrowserRouter>
-    <InventoryProvider>
     <HomeProvider>
       <Routes>
         <Route path="/" element={<LandingPage />}/>
@@ -25,10 +24,9 @@ function App() {
         <Route path="/fightScene" element={<FightScene/>}/>
         <Route path="/townMap" element={<TownMap/>}/>
         <Route path="/petStore" element={<PetStore/>}/>
-        <Route path="/inventary" element={<Inventary/>}/>
+        <Route path="/inventary" element={<Inventory/>}/>
       </Routes>
       </HomeProvider>
-      </InventoryProvider>
     </BrowserRouter>
 
     </>

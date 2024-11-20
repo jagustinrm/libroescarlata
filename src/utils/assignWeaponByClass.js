@@ -1,3 +1,6 @@
+
+import {addItemToInventory} from './inventoryUtils.js'
+
 export function assignIdWeaponByClass(characterClass) {
    let weaponId = null;
     switch (characterClass) {
@@ -38,5 +41,7 @@ export function assignIdWeaponByClass(characterClass) {
 
     // Guardar el ID del arma en el localStorage
     localStorage.setItem("charWeaponId", weaponId.toString());
+
+    addItemToInventory('weapons', weaponId.toString())
     console.log(`ID del arma inicial asignado para ${characterClass}: ${weaponId}`);
 }
