@@ -15,6 +15,40 @@ interface GridItem {
     name: string;
 }
 
+
+
+const InventoryContext = createContext<HomeContextType | undefined>(undefined);
+
+
+export const InventoryProvider = ({ children }: { children: ReactNode }) => {
+
+    const [gridWidth] = useState(5);  // Ancho de la cuadrícula
+    const [gridHeight] = useState(5); // Altura de la cuadrícula
+    const [gridData] = useState<GridItem[]>(Array(gridWidth * gridHeight).fill({ name: '' }));
+
+
+
+    const addItemToCell = (index: number) => {
+        // Lógica para añadir un ítem a la celda
+        console.log(index)
+    };
+
+    return (
+        <InventoryContext.Provider value={{ gridWidth, gridHeight, gridData, addItemToCell }}>
+            {children}
+        </InventoryContext.Provider>
+    );
+};
+
+export const useInventoryContext = () => {
+    const context = useContext(InventoryContext);
+    if (!context) {
+        throw new Error("useHomeContext debe usarse dentro de un InventoryProvider");
+    }
+    return context;
+};
+
+
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
 export const HomeProvider = ({ children }: { children: ReactNode }) => {
@@ -44,3 +78,4 @@ export const useHomeContext = () => {
     }
     return context;
 };
+

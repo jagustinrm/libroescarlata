@@ -48,6 +48,7 @@ export default function Home() {
                 <p>✨ Exp: {playerXp} / {xpToNextLevel}</p>
                 <p>Arma actual: {charActualWeapon?.name || "Sin arma equipada"}</p>
                 {pet? <p>🐶 Mascota: {pet} </p> : <></>} 
+                <a href="/inventary"><button>📜 Inventario</button></a>
             </div>
    
             {/* Botones en dos columnas a la derecha */}
@@ -58,6 +59,8 @@ export default function Home() {
                 <a href="#"><button>🛒 Tienda</button></a>
                 <a href="#"><button>⚔️ Armería</button></a>
                 <a href="/petStore"><button>🐾 Mascotas</button></a>
+                <a href="#"><button>🐉 Bestiario</button></a>
+                <a href="#"><button>🗺️ Misiones</button></a>
             </div>
         </div>
     );
