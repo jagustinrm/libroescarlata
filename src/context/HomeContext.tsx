@@ -19,12 +19,15 @@ const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
 export const HomeProvider = ({ children }: { children: ReactNode }) => {
 
-    const [gridWidth, setGridWidth] = useState(10);  // Ancho de la cuadrícula
-    const [gridHeight, setGridHeight] = useState(5); // Altura de la cuadrícula
-    const [gridData, setGridData] = useState<GridItem[]>(Array(gridWidth * gridHeight).fill({ name: '' }));
+    const [gridWidth] = useState(10);  // Ancho de la cuadrícula
+    const [gridHeight] = useState(5); // Altura de la cuadrícula
+    const [gridData] = useState<GridItem[]>(Array(gridWidth * gridHeight).fill({ name: '' }));
+
+
 
     const addItemToCell = (index: number) => {
         // Lógica para añadir un ítem a la celda
+        console.log(index)
     };
 
     return (
@@ -40,4 +43,4 @@ export const useHomeContext = () => {
         throw new Error("useHomeContext debe usarse dentro de un HomeProvider");
     }
     return context;
-};
+}

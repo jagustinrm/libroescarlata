@@ -14,7 +14,7 @@ interface CombatHandlersProps {
     enemyLevel: number;
     gainXP: (xp: number) => void;
     username: string;
-    charActualWeapon: Weapon;
+    charActualWeapon: Weapon | null;
     enemy: CreatureInterface;
     setActionMessages: Dispatch<SetStateAction<string[]>>;
     navigate: NavigateFunction;
@@ -33,7 +33,7 @@ export const handleAttack = ({
     enemy,
 }: CombatHandlersProps) => {
     
-    const playerDamage = rollDice(charActualWeapon.damage)
+    const playerDamage = rollDice(charActualWeapon?.damage)
     
     const enemyDamage = rollDice(enemy.attacks[0].damage) + parseInt(enemy.attacks[0].bonus)
 

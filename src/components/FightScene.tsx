@@ -10,7 +10,7 @@ import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 import { handleAttack} from '../utils/combatHandlers';
-
+import { Weapon } from "./interfaces/Weapon.js";
 
 export default function FightScene() {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function FightScene() {
         gainXP, playerLevel, setPlayerLevel, xpToNextLevel, 
         gainXpToNextLevel, playerHealthLeft, setPlayerHealthLeft, 
         hitDie } = usePlayerStats();
-    const [charActualWeapon, setCharActualWeapon] = useState<Array<object>>([]);
+    const [charActualWeapon, setCharActualWeapon] = useState<Weapon | null>(null);
 
     const [pet, setPet] = useState<string | null>('')
     
