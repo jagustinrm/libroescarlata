@@ -73,7 +73,7 @@ export default function CharacterSelector() {
         createInitialInventory()
         assignIdWeaponByClass(clase)
         
-        
+        window.location.href = "/home"; 
         
     };
 
@@ -81,8 +81,8 @@ export default function CharacterSelector() {
         <div className='containerClases'>
             <h1>Hola, {username ? username : 'Invitado'}</h1>
             <p>Elige tu clase:</p>
-            <div className='botones'>
-                <a href="/home">
+            <div className='buttonsClasses'>
+               
                     {charClasses? 
                     charClasses.map((clase: Class) => (
                         <button
@@ -106,7 +106,7 @@ export default function CharacterSelector() {
                     :
                     <p>Error</p>
                     }
-                </a>
+
             </div>
         </div>
     );

@@ -3,26 +3,9 @@
     height: 100px;
 }
 
-.buttonPet {
-    background-color: #fa5656;
-    color: #fff;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    max-width: 100px;
-    margin-left: 5px;
-}
-
-.buttonPet:hover {
-    background-color: #b30000;
-    transform: scale(1.05);
-}
-
-.buttonPet:active {
-    background-color: #b30000;
+.buttonsPet{
+    display: flex;
+    flex-direction: row;
 }
 
 .containerPetStats {
@@ -41,4 +24,12 @@
     background-color: rgb(57, 57, 57);
     border-radius: 5%;
     padding-left: 10px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(128, 88, 50, 0.74);
+    width: 500px;
 }

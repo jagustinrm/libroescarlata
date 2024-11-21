@@ -31,9 +31,9 @@ export default function PetStore() {
     alert('Seleccionaste: ' + selectedPet)
   };
   return (
-    <div>
+    <section>
       <h1>Selecciona tu mascota</h1>
-      <div>
+      <div className='buttonsPet'>
         {pets? (
           pets.map((creature) => (
             <button
@@ -73,6 +73,6 @@ export default function PetStore() {
         </div>
       )}
       <a href="/home"><button>Volver</button></a>
-    </div>
+    </section>
   );
 }

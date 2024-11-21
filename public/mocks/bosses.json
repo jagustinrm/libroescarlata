@@ -1,0 +1,281 @@
+[
+    {
+        "name": "Rey Esqueleto",
+        "img": "/img/bosses/rey_esqueleto.png",
+        "type": "no-muerto",
+        "alignment": "caótico maligno",
+        "level": 5,
+        "hitPoints": "8d10",
+        "armorClass": 18,
+        "attacks": [
+            {
+                "name": "Espada Maldita",
+                "type": "melee",
+                "bonus": "+4",
+                "damage": "2d8"
+            },
+            {
+                "name": "Rayo de Oscuridad",
+                "type": "rango",
+                "bonus": "+3",
+                "damage": "3d6"
+            }
+        ],
+        "specialAbilities": [
+            "aura de terror",
+            "resistencia a daño no mágico",
+            "visión en la oscuridad"
+        ]
+    },
+    {
+        "name": "Dragón de Fuego",
+        "img": "/img/bosses/dragon_fuego.png",
+        "type": "dragón",
+        "alignment": "neutral maligno",
+        "level": 10,
+        "hitPoints": "15d12",
+        "armorClass": 20,
+        "attacks": [
+            {
+                "name": "Mordida",
+                "type": "melee",
+                "bonus": "+6",
+                "damage": "3d10"
+            },
+            {
+                "name": "Aliento de Fuego",
+                "type": "rango",
+                "bonus": "+5",
+                "damage": "8d6"
+            }
+        ],
+        "specialAbilities": [
+            "inmunidad al fuego",
+            "vuelo",
+            "visión verdadera"
+        ]
+    },
+    {
+        "name": "Demonio de la Desesperación",
+        "img": "/img/bosses/demonio_desesperacion.png",
+        "type": "demonio",
+        "alignment": "caótico maligno",
+        "level": 7,
+        "hitPoints": "10d10",
+        "armorClass": 16,
+        "attacks": [
+            {
+                "name": "Garras",
+                "type": "melee",
+                "bonus": "+5",
+                "damage": "2d6"
+            },
+            {
+                "name": "Llama Infernal",
+                "type": "rango",
+                "bonus": "+4",
+                "damage": "4d8"
+            }
+        ],
+        "specialAbilities": [
+            "invocar demonios menores",
+            "teletransporte",
+            "aura de desesperación"
+        ]
+    },
+    {
+        "name": "Titan de Piedra",
+        "img": "/img/bosses/titan_piedra.png",
+        "type": "constructo",
+        "alignment": "neutral",
+        "level": 8,
+        "hitPoints": "12d10",
+        "armorClass": 22,
+        "attacks": [
+            {
+                "name": "Martillo Gigante",
+                "type": "melee",
+                "bonus": "+5",
+                "damage": "4d10"
+            },
+            {
+                "name": "Lanzamiento de Rocas",
+                "type": "rango",
+                "bonus": "+3",
+                "damage": "3d8"
+            }
+        ],
+        "specialAbilities": [
+            "inmunidad al veneno",
+            "resistencia a ataques mágicos",
+            "regeneración"
+        ]
+    },
+    {
+        "name": "Hechicera de Hielo",
+        "img": "/img/bosses/hechicera_hielo.png",
+        "type": "humanoide",
+        "alignment": "neutral maligno",
+        "level": 6,
+        "hitPoints": "7d8",
+        "armorClass": 14,
+        "attacks": [
+            {
+                "name": "Rayo de Escarcha",
+                "type": "rango",
+                "bonus": "+4",
+                "damage": "3d6"
+            },
+            {
+                "name": "Explosión de Hielo",
+                "type": "área",
+                "bonus": "+3",
+                "damage": "4d8"
+            }
+        ],
+        "specialAbilities": [
+            "control del clima",
+            "inmunidad al frío",
+            "invocar elementales de hielo"
+        ]
+    },
+    {
+        "name": "Bandido",
+        "img": "/img/bosses/bandido.png",
+        "type": "humanoide",
+        "alignment": "neutral maligno",
+        "level": 2,
+        "hitPoints": "2d8",
+        "armorClass": 13,
+        "attacks": [
+            {
+                "name": "Espada corta",
+                "type": "melee",
+                "bonus": "+2",
+                "damage": "1d6"
+            },
+            {
+                "name": "Arco corto",
+                "type": "rango",
+                "bonus": "+2",
+                "damage": "1d6"
+            }
+        ],
+        "specialAbilities": [
+            "esquivar",
+            "sigilo"
+        ]
+    },
+    {
+        "name": "Lobo Alfa",
+        "img": "/img/bosses/lobo_alfa.png",
+        "type": "bestia",
+        "alignment": "neutral",
+        "level": 1,
+        "hitPoints": "2d6",
+        "armorClass": 12,
+        "attacks": [
+            {
+                "name": "Mordida",
+                "type": "melee",
+                "bonus": "+1",
+                "damage": "1d8"
+            }
+        ],
+        "specialAbilities": [
+            "aullido intimidante",
+            "percepción aguda"
+        ]
+    },
+    {
+        "name": "Araña Gigante",
+        "img": "/img/bosses/arana_gigante.png",
+        "type": "bestia",
+        "alignment": "neutral maligno",
+        "level": 3,
+        "hitPoints": "3d8",
+        "armorClass": 14,
+        "attacks": [
+            {
+                "name": "Mordida",
+                "type": "melee",
+                "bonus": "+3",
+                "damage": "1d10 + veneno"
+            }
+        ],
+        "specialAbilities": [
+            "veneno paralizante",
+            "trepar paredes",
+            "tejido de telaraña"
+        ]
+    },
+    {
+        "name": "Zombi",
+        "img": "/img/bosses/zombi.png",
+        "type": "no-muerto",
+        "alignment": "neutral maligno",
+        "level": 1,
+        "hitPoints": "2d8",
+        "armorClass": 10,
+        "attacks": [
+            {
+                "name": "Golpe",
+                "type": "melee",
+                "bonus": "+1",
+                "damage": "1d6"
+            }
+        ],
+        "specialAbilities": [
+            "resistencia al daño cortante",
+            "inmunidad a veneno"
+        ]
+    },
+    {
+        "name": "Gnomo Ilusionista",
+        "img": "/img/bosses/gnomo_ilusionista.png",
+        "type": "humanoide",
+        "alignment": "neutral",
+        "level": 2,
+        "hitPoints": "2d8",
+        "armorClass": 12,
+        "attacks": [
+            {
+                "name": "Dardo mágico",
+                "type": "rango",
+                "bonus": "+3",
+                "damage": "1d6"
+            }
+        ],
+        "specialAbilities": [
+            "crear ilusiones menores",
+            "invisibilidad"
+        ]
+    },
+    {
+        "name": "Goblin Chiflado",
+        "img": "/img/bosses/goblin_chiflado.png",
+        "type": "humanoide",
+        "alignment": "caótico maligno",
+        "level": 2,
+        "hitPoints": "2d6",
+        "armorClass": 13,
+        "attacks": [
+            {
+                "name": "Bombas caseras",
+                "type": "rango",
+                "bonus": "+2",
+                "damage": "1d8"
+            },
+            {
+                "name": "Daga oxidada",
+                "type": "melee",
+                "bonus": "+1",
+                "damage": "1d4"
+            }
+        ],
+        "specialAbilities": [
+            "trampas explosivas",
+            "locura impredecible"
+        ]
+    }
+]

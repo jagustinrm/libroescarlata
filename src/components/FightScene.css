@@ -127,3 +127,8 @@ button:disabled {
     left: 0;
     z-index: 1;
 }
+
+
+.bossSign {
+    color: red;
+}

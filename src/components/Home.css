@@ -11,12 +11,16 @@
     
 }
 
-
-
 .stats {
-    flex: 1;
-    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+}
 
+.stats p {
+    margin: 5px;
+    margin-top: 10px;
 }
 
 .buttons {
@@ -27,23 +31,8 @@
     width: 300px; /* Para asegurar que el contenedor ocupe todo el espacio */
 }
 
-button {
-    padding: 15px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%; /* Los botones ocupan todo el espacio disponible en cada columna */
-    box-sizing: border-box; /* Para asegurar el mismo tamaño al incluir el padding */
+.buttons button {
+    width: 120px;
+    height: 40px;
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
-button:active {
-    transform: scale(0.95);
-}

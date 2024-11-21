@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // @ts-expect-error Para que funcione 
 import { usePlayerStats } from '../customHooks/usePlayerStats.js';
 // @ts-expect-error Para que funcione 
@@ -16,7 +17,11 @@ export default function Home() {
     const [pet, setPet] = useState<string | null>('')
 
 
-      
+    const navigate = useNavigate();
+
+    const handleFight = (type: string) => {
+        navigate("/fightScene?type="+ type);
+    };
   
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
@@ -53,7 +58,10 @@ export default function Home() {
    
             {/* Botones en dos columnas a la derecha */}
             <div className="buttons">
-                <a href="/fightScene"><button disabled={playerHealthLeft === 0}>⚔️ Pelear</button></a>
+                 <button onClick={() => handleFight('normal')} disabled={playerHealthLeft === 0}>
+                ⚔️ Pelear
+                </button>
+                <button onClick={() => handleFight('dungeon')} disabled={playerHealthLeft === 0} > 🏔️ Dungeon</button>
                 <a href="/townMap"><button>🏠 Hogar</button></a>
                 <a href="#"><button onClick={() => handleHealthRecover()}>🏥 Hospital</button></a>
                 <a href="#"><button>🛒 Tienda</button></a>

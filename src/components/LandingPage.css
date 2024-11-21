@@ -19,3 +19,23 @@ body {
     background-repeat: no-repeat;   /* Evita que la imagen se repita */
     background-attachment: fixed;   /* Fija la imagen al fondo cuando se hace scroll */
   }
+
+  button {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 12px;
+    border: none;
+    background-color: #8b4513;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #a0522d; /* Match hover effect of list items */
+}
+button:active {
+    transform: scale(0.95);
+}

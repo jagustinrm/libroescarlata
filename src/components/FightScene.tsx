@@ -1,3 +1,5 @@
+import { useSearchParams } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
@@ -13,6 +15,9 @@ import { handleAttack} from '../utils/combatHandlers';
 import { Weapon } from "./interfaces/Weapon.js";
 
 export default function FightScene() {
+    const [searchParams] = useSearchParams();
+    const fightType = searchParams.get("type") || "normal";
+
     const navigate = useNavigate();
     const [username, setUsername] = useState<string>('');
     const [classC, setClassC] = useState<string | null>('');
@@ -62,8 +67,8 @@ export default function FightScene() {
 
     // Estados para el enemigo
 
-    const { enemy, isLoading, error } = useEnemyLoader(playerLevel);
-
+    const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel);
+    console.log(typeEnemy)
     // Inicializamos los estados sin depender directamente de `enemy`
     const [enemyHealth, setEnemyHealth] = useState<number>(0);
     const [enemyLevel, setenemyLevel] = useState<number>(1);
@@ -139,7 +144,8 @@ export default function FightScene() {
                     ⚔️ Atacar
                 </button>
                 {pet? <p>Mascota: {pet}</p> : <></>}
-                <button onClick={handleRun}> 😨 Huir</button>
+
+                {fightType === 'normal' || playerHealthLeft === 0 ?  <button onClick={handleRun}> 😨 Huir</button> : <></>}
             </div>
 
             <div >
@@ -153,12 +159,14 @@ export default function FightScene() {
                 <div>
                     <p>¡Has derrotado al enemigo!</p>
                     <button onClick={handleNewEnemy}> ⚔️ Buscar otro enemigo</button>
-                    <button onClick={handleBack}>Volver</button>
+                    {fightType === 'normal'?  <button onClick={handleBack}> 😨 Volver</button> : <></>}
+                    
 
                 </div>
                 }
             </div>
             <div className="EnemyChar">
+                {typeEnemy === 'boss'? <h1 className="bossSign">BOSS</h1> : <></>}
                 {enemy ? (
                     <div>
                         <h3>{enemy.name}</h3>
