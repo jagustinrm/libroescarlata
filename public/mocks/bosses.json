@@ -113,7 +113,7 @@
     },
     {
         "name": "Hechicera de Hielo",
-        "img": "/img/bosses/hechicera_hielo.png",
+        "img": "/img/bosses/frozenWitch.png",
         "type": "humanoide",
         "alignment": "neutral maligno",
         "level": 6,
@@ -141,7 +141,7 @@
     },
     {
         "name": "Bandido",
-        "img": "/img/bosses/bandido.png",
+        "img": "/img/bosses/bandit.png",
         "type": "humanoide",
         "alignment": "neutral maligno",
         "level": 2,
@@ -168,7 +168,7 @@
     },
     {
         "name": "Lobo Alfa",
-        "img": "/img/bosses/lobo_alfa.png",
+        "img": "/img/bosses/wolfAlfa.png",
         "type": "bestia",
         "alignment": "neutral",
         "level": 1,
@@ -189,7 +189,7 @@
     },
     {
         "name": "Araña Gigante",
-        "img": "/img/bosses/arana_gigante.png",
+        "img": "/img/bosses/gigantSpider.png",
         "type": "bestia",
         "alignment": "neutral maligno",
         "level": 3,
@@ -211,7 +211,7 @@
     },
     {
         "name": "Zombi",
-        "img": "/img/bosses/zombi.png",
+        "img": "/img/bosses/zombiBoss.png",
         "type": "no-muerto",
         "alignment": "neutral maligno",
         "level": 1,
@@ -232,7 +232,7 @@
     },
     {
         "name": "Gnomo Ilusionista",
-        "img": "/img/bosses/gnomo_ilusionista.png",
+        "img": "/img/bosses/gnomeIluminist.png",
         "type": "humanoide",
         "alignment": "neutral",
         "level": 2,
@@ -253,7 +253,7 @@
     },
     {
         "name": "Goblin Chiflado",
-        "img": "/img/bosses/goblin_chiflado.png",
+        "img": "/img/bosses/crazyGoblin.png",
         "type": "humanoide",
         "alignment": "caótico maligno",
         "level": 2,

@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.js';
 import { useSearchParams } from "react-router-dom";
 
-export function useEnemyLoader( level) {
+export function useEnemyLoader( level, dungeonLevel) {
     const [enemy, setEnemy] = useState(null); // Estado inicial de enemigo.
     const [isLoading, setIsLoading] = useState(true); // Indica si está cargando.
     const [error, setError] = useState(null); // Manejo de errores.
     const [searchParams] = useSearchParams();
     const [typeEnemy, setTypeEnemy] = useState(null)
     const type = searchParams.get("type") || "normal"; // "normal" por defecto
-    
+    const dungeonLevelInt = parseInt(dungeonLevel)
     useEffect(() => {
         const loadEnemies = async () => {
             try {
@@ -26,17 +26,17 @@ export function useEnemyLoader( level) {
 
                 if (type === 'dungeon') {
                     // Generar probabilidad del 5% para bosses
-                    const isBoss = Math.random() < 0.05; // 5% de probabilidades
+                    const isBoss = Math.random() < 0.5; // 5% de probabilidades
          
                     if (isBoss && bosses.length > 0) {
                                    
                         // Elegir un boss aleatorio si hay alguno
-                        const filteredBosses = bosses.filter(boss => boss.level === level);
+                        const filteredBosses = bosses.filter(boss => boss.level === dungeonLevelInt);
                         const finalBosses =
                         filteredBosses.length > 0
                             ? filteredBosses
                             : bosses.filter(
-                                boss => boss.level < level
+                                boss => boss.level < dungeonLevelInt
                               );
                         const randomBossIndex = Math.floor(Math.random() * finalBosses.length);
                         console.log(finalBosses)

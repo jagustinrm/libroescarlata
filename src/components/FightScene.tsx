@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import  usePostCombatActions  from "../customHooks/usePostCombatActions"; // Asegúrate de importar el hook
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,10 +16,12 @@ import { handleAttack} from '../utils/combatHandlers';
 import { Weapon } from "./interfaces/Weapon.js";
 
 export default function FightScene() {
+    
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
-
+    const [triggerPostActions, setTriggerPostActions] = useState(false);
     const navigate = useNavigate();
+    
     const [username, setUsername] = useState<string>('');
     const [classC, setClassC] = useState<string | null>('');
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
@@ -29,7 +32,19 @@ export default function FightScene() {
     const [charActualWeapon, setCharActualWeapon] = useState<Weapon | null>(null);
 
     const [pet, setPet] = useState<string | null>('')
+        // Estados para el enemigo
+        const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
+            const storedLevel = localStorage.getItem("dungeonLevel");
+            return storedLevel ? parseInt(storedLevel, 10) : 1;
+        });
     
+        console.log(dungeonLevel)
+        const { handlePostCombatActions } = usePostCombatActions(setDungeonLevel);
+        const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel, dungeonLevel);
+    
+        // Inicializamos los estados sin depender directamente de `enemy`
+        const [enemyHealth, setEnemyHealth] = useState<number>(1);
+        const [enemyLevel, setenemyLevel] = useState<number>(1);
     // const [playerMana, setPlayerMana] = useState<number>(100);
 
 
@@ -48,6 +63,14 @@ export default function FightScene() {
 
     }, [playerXp, playerHealthLeft]);
     
+    useEffect(() => {
+        if (triggerPostActions) {
+            handlePostCombatActions(fightType, enemyHealth, typeEnemy);
+            setTriggerPostActions(false); // Resetea el trigger
+        }
+    }, [triggerPostActions, enemyHealth, handlePostCombatActions]);
+
+
     const handleCheckLevelUp = () => {
         checkLevelUp({
             playerXp,
@@ -65,13 +88,7 @@ export default function FightScene() {
         });
     };
 
-    // Estados para el enemigo
 
-    const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel);
-    console.log(typeEnemy)
-    // Inicializamos los estados sin depender directamente de `enemy`
-    const [enemyHealth, setEnemyHealth] = useState<number>(0);
-    const [enemyLevel, setenemyLevel] = useState<number>(1);
     
     // Efecto para actualizar los estados cuando `enemy` esté disponible
     useEffect(() => {
@@ -85,11 +102,11 @@ export default function FightScene() {
     if (isLoading) {
         return <p>Cargando enemigo...</p>;
     }
-    
     if (error) {
         return <p>Error: {error}</p>;
     }
 
+    
     const handleRun = () => {
         alert(`¡${username} ha huido del combate!`);
         navigate("/home"); 
@@ -102,12 +119,37 @@ export default function FightScene() {
         alert(`${username} busca un nuevo enemigo...`);
         window.location.reload();
     }
+    
+    const executeAttack = () => {
+        handleAttack({
+            username,
+            navigate,
+            playerHealthLeft,
+            setPlayerHealthLeft,
+            enemyHealth,
+            setEnemyHealth,
+            enemyLevel,
+            gainXP,
+            setActionMessages,
+            charActualWeapon,
+            enemy,
+            fightType,
+            typeEnemy,
+        });
+        
+        // Activa las acciones posteriores
+        setTriggerPostActions(true);
+    };
+
+
+
 
     const xpPercentage = ((playerXp - prevLevelXp) / (xpToNextLevel - prevLevelXp)) * 100;
     const healthPercentage = (playerHealthLeft / playerHealth) * 100;
    
     return (
         <div className="fight-scene">
+            
             <div className="PlayerChar">
                 <p>{username}</p>
                 <p>{classC}</p>
@@ -126,21 +168,7 @@ export default function FightScene() {
                 <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
                 <span className="experience-text">{playerXp} / {xpToNextLevel}</span>
             </div>
-                <button onClick={() =>
-                    handleAttack({
-                        username,
-                        navigate,
-                        playerHealthLeft,
-                        setPlayerHealthLeft,
-                        enemyHealth,
-                        setEnemyHealth,
-                        enemyLevel,
-                        gainXP,
-                        setActionMessages,
-                        charActualWeapon,
-                        enemy
-                    })
-                } disabled={enemyHealth === 0 || playerHealthLeft === 0}>
+                <button  onClick={executeAttack} disabled={enemyHealth === 0 || playerHealthLeft === 0}>
                     ⚔️ Atacar
                 </button>
                 {pet? <p>Mascota: {pet}</p> : <></>}
@@ -149,6 +177,7 @@ export default function FightScene() {
             </div>
 
             <div >
+            {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
                 <ul className="action-log">
                     {actionMessages.map((message, index) => (
                         <li key={index}>{message}</li>  // Cada mensaje es un li
@@ -159,7 +188,7 @@ export default function FightScene() {
                 <div>
                     <p>¡Has derrotado al enemigo!</p>
                     <button onClick={handleNewEnemy}> ⚔️ Buscar otro enemigo</button>
-                    {fightType === 'normal'?  <button onClick={handleBack}> 😨 Volver</button> : <></>}
+                    {fightType === 'normal'?  <button onClick={handleBack}> Volver</button> : <></>}
                     
 
                 </div>

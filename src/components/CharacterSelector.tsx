@@ -58,7 +58,7 @@ export default function CharacterSelector() {
         localStorage.setItem('playerExp', '0');
         localStorage.setItem('xpToNextLevel', '1000');
         localStorage.setItem('prevLevelXp', '0');
-        
+        localStorage.setItem('dungeonLevel', '1') // NIVEL INICIAL DEL DUNGEON
         const additionalData = {
             hitDie,
             armorClass,
