@@ -10,6 +10,7 @@ import TownMap from './components/TownMap';
 import { HomeProvider } from './context/HomeContext';
 import PetStore from './components/petStore/PetStore'
 import Inventory from './components/inventory/Inventory';
+import Quests from './components/quests/Quests';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/townMap" element={<TownMap/>}/>
         <Route path="/petStore" element={<PetStore/>}/>
         <Route path="/inventary" element={<Inventory/>}/>
+        <Route path="/Quests" element={<Quests/>}/>
       </Routes>
       </HomeProvider>
     </BrowserRouter>

@@ -16,7 +16,6 @@ export default function Home() {
 
     const [pet, setPet] = useState<string | null>('')
 
-
     const navigate = useNavigate();
 
     const handleFight = (type: string) => {
@@ -41,6 +40,16 @@ export default function Home() {
         setPlayerHealthLeft(playerHealth)
         localStorage.setItem('playerHealthLeft', playerHealth);
     }
+
+    const openMissions = () => {
+        const windowFeatures = 'width=400,height=400,top=100,left=100';
+            // Obtener la URL actual y agregar el segmento "/quests"
+        const currentUrl = window.location.origin; 
+        const newUrl = `${currentUrl}/quests`;
+
+        // Abrir la ventana con la nueva URL
+        window.open(newUrl, '_blank', windowFeatures);
+        }
 
     return (
         <div className="container">
@@ -68,7 +77,7 @@ export default function Home() {
                 <a href="#"><button>⚔️ Armería</button></a>
                 <a href="/petStore"><button>🐾 Mascotas</button></a>
                 <a href="#"><button>🐉 Bestiario</button></a>
-                <a href="#"><button>🗺️ Misiones</button></a>
+                <button onClick={openMissions}>🗺️ Misiones</button>
             </div>
         </div>
     );

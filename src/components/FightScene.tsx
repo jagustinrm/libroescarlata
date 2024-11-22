@@ -14,7 +14,7 @@ import {checkLevelUp} from '../utils/checkLevelUp.js'
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 import { handleAttack} from '../utils/combatHandlers';
 import { Weapon } from "./interfaces/Weapon.js";
-
+import { EnemyDeleted } from "./interfaces/characterProperties";
 export default function FightScene() {
     
     const [searchParams] = useSearchParams();
@@ -37,10 +37,14 @@ export default function FightScene() {
             const storedLevel = localStorage.getItem("dungeonLevel");
             return storedLevel ? parseInt(storedLevel, 10) : 1;
         });
-    
-        console.log(dungeonLevel)
-        const { handlePostCombatActions } = usePostCombatActions(setDungeonLevel);
+
+        const [enemiesDeleted, setEnemiesDeleted] = useState<Array<EnemyDeleted>>(() => {
+            const storageEnemiesDeleted = localStorage.getItem('deletedEnemies');
+            return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
+        } )
         const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel, dungeonLevel);
+        const { handlePostCombatActions } = usePostCombatActions(setDungeonLevel, setEnemiesDeleted, enemiesDeleted, enemy);
+
     
         // Inicializamos los estados sin depender directamente de `enemy`
         const [enemyHealth, setEnemyHealth] = useState<number>(1);
@@ -60,7 +64,7 @@ export default function FightScene() {
         handleCheckLevelUp(); // Verificar subida de nivel
         localStorage.setItem('playerExp', playerXp.toString());
         localStorage.setItem('playerHealthLeft', playerHealthLeft.toString())
-
+        
     }, [playerXp, playerHealthLeft]);
     
     useEffect(() => {

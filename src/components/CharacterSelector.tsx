@@ -22,7 +22,7 @@ export default function CharacterSelector() {
         };
         classFeatures: string[];
     }
-
+    
     
     
 
@@ -37,7 +37,7 @@ export default function CharacterSelector() {
             }
         };
         loadCharacters();
-
+     
     }, []);
 
     useEffect(() => {
@@ -72,9 +72,32 @@ export default function CharacterSelector() {
         localStorage.setItem('additionalData', JSON.stringify(additionalData));
         createInitialInventory()
         assignIdWeaponByClass(clase)
-        
+        type enemyCounter = {
+            id: number;
+            name: string;
+            count: number;
+        }
+        const deletedEnemies: enemyCounter[] = [];
+        localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies))
+        type typeCompletedMQuests = {
+            id: number;
+            name: string;
+            completed: boolean;
+        }
+        const completedQuests: typeCompletedMQuests[] = [
+            {
+                id: 1,
+                name: "Derrotar al Esqueleto Humanoide",
+                completed: true
+            }
+
+        ];
+        localStorage.setItem('completedQuests', JSON.stringify(completedQuests))
+
+
+
         window.location.href = "/home"; 
-        
+
     };
 
     return (
