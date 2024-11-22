@@ -24,6 +24,7 @@ export default function Quests() {
                                 <label>{quest.name}</label>
                                 <p>{quest.description}</p>
                                 <p>Objetivo: {quest.objective}</p>
+                                <p>Cantidad: {quest.progress}/{quest.counter}</p>
                                 <p>Recompensa: {quest.reward} puntos</p>
                                 <input 
                                     type="checkbox" 
@@ -46,6 +47,7 @@ export default function Quests() {
                                 <p>{quest.description}</p>
                                 <p>Objetivo: {quest.objective}</p>
                                 <p>Recompensa: {quest.reward} puntos</p>
+                                <p>Cantidad: {quest.progress}/{quest.counter}</p>
                                 <input 
                                     type="checkbox" 
                                     id={quest.name} 
@@ -68,6 +70,7 @@ export default function Quests() {
                                     <p>{quest.description}</p>
                                     <p>Objetivo: {quest.objective}</p>
                                     <p>Recompensa: {quest.reward} puntos</p>
+                                    <p>Cantidad: {quest.progress}/{quest.counter}</p>
                                     <input 
                                         type="checkbox" 
                                         id={quest.name} 

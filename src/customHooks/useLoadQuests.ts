@@ -1,33 +1,20 @@
 import { useState, useEffect } from "react";
 // @ts-expect-error Chequear quests
 import checkQuestsFinished from '../utils/checkQuestFinished.js'
+import {QuestData} from '../components/interfaces/QuestsInt.ts'
 
-interface Quest {
-    name: string;
-    description: string;
-    counter: number;
-    objective: string;
-    reward: number;
-    type: string;
-    finished: boolean;
-}
-
-interface QuestsData {
-    questTree: {
-        history: Quest[];
-        secondary: Quest[];
-        others: Quest[];
-    };
-}
 
 export function useLoadQuests() {
-    const [quests, setQuests] = useState<QuestsData | null>(null);
+    const [quests, setQuests] = useState<QuestData | null>(null);
 
 
     useEffect(() => {
         // Comprobar si las quests ya están en localStorage
+
+         // ****************ESTO NO EXISTE*************************
         const storedQuests = localStorage.getItem('quests');
-        
+        // ************************************************************* 
+
         if (storedQuests) {
             // Si existe en localStorage, lo usamos
             setQuests(JSON.parse(storedQuests));
@@ -41,7 +28,7 @@ export function useLoadQuests() {
                     }
                     return response.json();
                 })
-                .then((data: QuestsData) => {
+                .then((data: QuestData) => {
                     
                     setQuests(checkQuestsFinished(data));
 

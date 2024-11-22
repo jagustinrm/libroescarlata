@@ -1,20 +1,21 @@
-
 export default function checkQuestsFinished(quests) {
     // Obtener las misiones completadas desde el localStorage
     const completedQuests = JSON.parse(localStorage.getItem('completedQuests') || '[]');
-    
-    // Recorrer cada rama de misiones (history, secondary, others)
+
+    // Función para actualizar el progreso y estado de finalización de las misiones
     const updateQuests = (questCategory) => {
         return questCategory.map((quest) => {
             const completedQuest = completedQuests.find((completed) => completed.name === quest.name);
-            
-            if (completedQuest && completedQuest.completed) {
-                // Si la misión está completada, marcarla como finished
-                return { ...quest, finished: true };
+
+            if (completedQuest) {
+                const progress = Math.min(completedQuest.progress || 0, quest.counter); // Asegura que el progreso no exceda el máximo
+                const finished = completedQuest.completed || progress >= quest.counter; // Misión completada si cumple el objetivo
+
+                return { ...quest, progress, finished };
             }
 
-            // Si no está completada, dejarla como está
-            return { ...quest, finished: false };
+            // Si no hay progreso registrado, dejar los valores por defecto
+            return { ...quest, progress: 0, finished: false };
         });
     };
 
@@ -25,6 +26,6 @@ export default function checkQuestsFinished(quests) {
         others: updateQuests(quests.questTree.others),
     };
 
-    // Devolver las misiones actualizadas con el estado 'finished'
+    // Devolver las misiones actualizadas con el progreso y el estado 'finished'
     return { ...quests, questTree: updatedQuestTree };
 }

@@ -54,7 +54,8 @@ export default function Home() {
     return (
         <div className="container">
             {/* Estadísticas del personaje a la izquierda */}
-            <div className="stats">
+            <div className="player">
+                <div className="stats" >
                 <p>👤 {username}</p>
                 <p>🛡️ {classC}</p>
                 <p>⭐ Nivel: {playerLevel}</p>
@@ -62,6 +63,7 @@ export default function Home() {
                 <p>✨ Exp: {playerXp} / {xpToNextLevel}</p>
                 <p>Arma actual: {charActualWeapon?.name || "Sin arma equipada"}</p>
                 {pet? <p>🐶 Mascota: {pet} </p> : <></>} 
+                </div>
                 <a href="/inventary"><button>📜 Inventario</button></a>
             </div>
    

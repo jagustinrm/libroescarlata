@@ -82,16 +82,10 @@ export default function CharacterSelector() {
         type typeCompletedMQuests = {
             id: number;
             name: string;
+            progress: number;
             completed: boolean;
         }
-        const completedQuests: typeCompletedMQuests[] = [
-            {
-                id: 1,
-                name: "Derrotar al Esqueleto Humanoide",
-                completed: true
-            }
-
-        ];
+        const completedQuests: typeCompletedMQuests[] = [];
         localStorage.setItem('completedQuests', JSON.stringify(completedQuests))
 
 

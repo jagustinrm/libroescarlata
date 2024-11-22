@@ -6,11 +6,18 @@ export default function checkQuests(quests) {
         const alreadyCompleted = completedQuests.some(completed => completed.name === quest.name && completed.completed);
         if (alreadyCompleted) return true;
 
+        
         const matchingEnemy = deletedEnemies.find(enemy => enemy.name === quest.objective);
+
+        
         if (matchingEnemy && matchingEnemy.count >= quest.counter) {
-            completedQuests.push({ id: Date.now(), name: quest.name, completed: true });
+            
+            completedQuests.push({ id: Date.now(), name: quest.name, completed: true, progress: matchingEnemy.count });
             localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
             return true;
+        } else if (matchingEnemy && matchingEnemy.count < quest.counter)  {
+            completedQuests.push({ id: Date.now(), name: quest.name, completed: false, progress: matchingEnemy.count });
+            localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
         }
 
         return false;

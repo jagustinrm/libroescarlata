@@ -39,6 +39,8 @@ const usePostCombatActions = (
                 updatedEnemies[existingEnemyIndex].count += 1;
                 setEnemiesDeleted(updatedEnemies);
                 localStorage.setItem('deletedEnemies', JSON.stringify(updatedEnemies))
+                // *******Corroborar si terminó la misión****
+                checkQuests(quests)
             } else {
 
                 // Si el enemigo no existe, agregarlo a la lista
@@ -52,13 +54,15 @@ const usePostCombatActions = (
                     ];
 
                     localStorage.setItem('deletedEnemies', JSON.stringify(updatedEnemies))
+                       // *******Corroborar si terminó la misión****
+                       checkQuests(quests)
                     return updatedEnemies;
                 });
             }
 
+            // const probando = localStorage.getItem('deletedEnemies')
+            // console.log(probando)
 
-            // *******Corroborar si terminó la misión****
-            checkQuests(quests)
 
         }
     };

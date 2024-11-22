@@ -7,6 +7,7 @@ interface Quest {
     reward: number; // Recompensa al completar la misión
     type: string; // Tipo de misión (por ejemplo, "kill")
     finished: boolean; // Estado de finalización de la misión
+    progress: number;
 }
 
 // Interfaz para las categorías de misiones
