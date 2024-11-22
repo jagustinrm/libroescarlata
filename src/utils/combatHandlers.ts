@@ -58,11 +58,11 @@ export const handleAttack = ({
     const enemyMessage = `Te han atacado con ${enemy.attacks[0].name} y causado ${enemyDamage} puntos de daño.`;
 
     setActionMessages((prevMessages) => [...prevMessages, playerMessage, enemyMessage]);
-    console.log("Hola, antes de setEnemyHealt")
+
     // Actualizar la vida del enemigo
     setEnemyHealth((prevEnemyHealth) => {
         const newEnemyHealth = updateEnemyHealth(prevEnemyHealth, playerDamage);
-        console.log("new enemy"+ newEnemyHealth)
+     
         // Llamar a handlePostCombatActions para manejar XP y dungeon level si es necesario
         handlePostCombatActions(newEnemyHealth, enemyLevel, gainXP);
 

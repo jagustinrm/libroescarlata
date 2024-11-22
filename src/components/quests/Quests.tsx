@@ -6,7 +6,11 @@ import { useLoadQuests } from "../../customHooks/useLoadQuests";
 export default function Quests() {
 
     const {quests} = useLoadQuests();
-    
+
+    function closeWindow() {
+        window.close();
+    }
+
     return (
         <>
             <h1>Misiones</h1>
@@ -77,7 +81,9 @@ export default function Quests() {
                         )}
                     </ul>
                 </div>
+
             </div>
+            <button className='closeWindow' onClick={closeWindow}> ❌ Cerrar</button>
         </>
     );
 }

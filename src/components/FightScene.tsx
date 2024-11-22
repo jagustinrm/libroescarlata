@@ -15,6 +15,8 @@ import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 import { handleAttack} from '../utils/combatHandlers';
 import { Weapon } from "./interfaces/Weapon.js";
 import { EnemyDeleted } from "./interfaces/characterProperties";
+import { useLoadQuests } from "../customHooks/useLoadQuests.js";
+import { QuestData }from "./interfaces/QuestsInt.ts";
 export default function FightScene() {
     
     const [searchParams] = useSearchParams();
@@ -29,6 +31,7 @@ export default function FightScene() {
         gainXP, playerLevel, setPlayerLevel, xpToNextLevel, 
         gainXpToNextLevel, playerHealthLeft, setPlayerHealthLeft, 
         hitDie } = usePlayerStats();
+    const {quests} = useLoadQuests();
     const [charActualWeapon, setCharActualWeapon] = useState<Weapon | null>(null);
 
     const [pet, setPet] = useState<string | null>('')
@@ -43,7 +46,14 @@ export default function FightScene() {
             return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
         } )
         const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel, dungeonLevel);
-        const { handlePostCombatActions } = usePostCombatActions(setDungeonLevel, setEnemiesDeleted, enemiesDeleted, enemy);
+        const defaultQuests: QuestData = {
+            questTree: {
+                history: [],
+                secondary: [],
+                others: []
+            }
+        };
+        const { handlePostCombatActions } = usePostCombatActions(setDungeonLevel, setEnemiesDeleted, enemiesDeleted, enemy, quests || defaultQuests);
 
     
         // Inicializamos los estados sin depender directamente de `enemy`

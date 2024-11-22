@@ -18,6 +18,10 @@
     margin: 0; /* Remove default margin */
 }
 
+.closeWindow {
+    font-size: 20px;
+}
+
 .questContainer li {
     background-color: #8b4513; /* Slightly darker than the background */
     padding: 8px;

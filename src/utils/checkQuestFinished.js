@@ -1,3 +1,4 @@
+
 export default function checkQuestsFinished(quests) {
     // Obtener las misiones completadas desde el localStorage
     const completedQuests = JSON.parse(localStorage.getItem('completedQuests') || '[]');
