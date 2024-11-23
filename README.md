@@ -10,8 +10,12 @@ Carga y descarga de personaje
 
 Agregarle un chat
 
-
-
+Enemigos: hada
+troll
+elfo
+mascota: dragón bebé
+POCIONES
+Huevo de dragón
 
 PARA CENTRALIZAR MANEJO DE LOCALSTORAGE
 

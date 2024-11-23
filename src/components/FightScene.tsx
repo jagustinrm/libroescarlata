@@ -60,7 +60,22 @@ export default function FightScene() {
         const [enemyHealth, setEnemyHealth] = useState<number>(1);
         const [enemyLevel, setenemyLevel] = useState<number>(1);
     // const [playerMana, setPlayerMana] = useState<number>(100);
-
+    const handleCheckLevelUp = () => {
+        checkLevelUp({
+            playerXp,
+            playerLevel,
+            xpToNextLevel,
+            setPlayerLevel,
+            gainXpToNextLevel,
+            setActionMessages,
+            hitDie,
+            playerHealth,
+            setPlayerHealth,
+            calculateInitialHealth,
+            playerHealthLeft,
+            setPlayerHealthLeft
+        });
+    };
 
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
@@ -85,22 +100,7 @@ export default function FightScene() {
     }, [triggerPostActions, enemyHealth, handlePostCombatActions]);
 
 
-    const handleCheckLevelUp = () => {
-        checkLevelUp({
-            playerXp,
-            playerLevel,
-            xpToNextLevel,
-            setPlayerLevel,
-            gainXpToNextLevel,
-            setActionMessages,
-            hitDie,
-            playerHealth,
-            setPlayerHealth,
-            calculateInitialHealth,
-            playerHealthLeft,
-            setPlayerHealthLeft
-        });
-    };
+
 
 
     

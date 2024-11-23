@@ -1,6 +1,8 @@
 // src/utils/checkLevelUp.js
 
-export function checkLevelUp({setPlayerHealthLeft, calculateInitialHealth, playerHealth, setPlayerHealth, hitDie, playerXp, playerLevel, xpToNextLevel, setPlayerLevel, gainXpToNextLevel, setActionMessages }) {
+export function checkLevelUp({setPlayerHealthLeft, calculateInitialHealth, 
+    playerHealth, setPlayerHealth, hitDie, playerXp, playerLevel, xpToNextLevel, 
+    setPlayerLevel, gainXpToNextLevel, setActionMessages }) {
     // Verificar si la experiencia actual es suficiente para subir de nivel
     if (playerXp >= xpToNextLevel) {
         const newLevel = playerLevel + 1;

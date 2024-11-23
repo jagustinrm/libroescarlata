@@ -1,60 +1,35 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // @ts-expect-error Para que funcione 
 import { usePlayerStats } from '../customHooks/usePlayerStats.js';
 // @ts-expect-error Para que funcione 
 import { useLoadWeapons } from "../customHooks/useLoadWeapons.js";
 import './Home.css'
-import { Weapon } from './interfaces/Weapon'; 
+import openMissions from '../utils/openMissionsWindow.ts'
+import usePlayerStore from '../stores/playerStore';
 
-export default function Home() {
-    const [username, setUsername] = useState<string | null>('');
-    const [classC, setClassC] = useState<string | null>('');
-    const { setPlayerHealthLeft, playerHealthLeft, playerHealth, playerXp, playerLevel, xpToNextLevel} = usePlayerStats();
+const Home: React.FC = () => {
+    const { player, setPlayerName } = usePlayerStore();
+    const { classC, pet, setPlayerHealthLeft, playerHealthLeft, 
+        playerHealth, playerXp, playerLevel, 
+        xpToNextLevel, username, charActualWeapon
+    } = usePlayerStats();
     useLoadWeapons();
-    const [charActualWeapon, setCharActualWeapon] = useState<Weapon | null>(null);
-
-    const [pet, setPet] = useState<string | null>('')
-
+   
     const navigate = useNavigate();
-
     const handleFight = (type: string) => {
         navigate("/fightScene?type="+ type);
     };
   
-    useEffect(() => {
-        const storedUsername = localStorage.getItem('username');
-        setUsername(storedUsername);
-    
-        const storedclassC = localStorage.getItem('classC');
-        setClassC(storedclassC);
-    
-        const pet = localStorage.getItem('pet');
-        setPet(pet);
-        
-        const weapon = localStorage.getItem('charActualWeapon');
-        setCharActualWeapon(weapon ? JSON.parse(weapon) : null);
-    }, []); 
-
     const handleHealthRecover = () => {
         setPlayerHealthLeft(playerHealth)
         localStorage.setItem('playerHealthLeft', playerHealth);
     }
 
-    const openMissions = () => {
-        const windowFeatures = 'width=400,height=400,top=100,left=100';
-            // Obtener la URL actual y agregar el segmento "/quests"
-        const currentUrl = window.location.origin; 
-        const newUrl = `${currentUrl}/quests`;
-
-        // Abrir la ventana con la nueva URL
-        window.open(newUrl, '_blank', windowFeatures);
-        }
-
     return (
         <div className="container">
             {/* Estadísticas del personaje a la izquierda */}
             <div className="player">
+                <p>{player.name}</p>
                 <div className="stats" >
                 <p>👤 {username}</p>
                 <p>🛡️ {classC}</p>
@@ -83,7 +58,7 @@ export default function Home() {
             </div>
         </div>
     );
-    
-    
-    
 }
+
+
+export default Home;

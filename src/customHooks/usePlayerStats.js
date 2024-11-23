@@ -1,8 +1,27 @@
 // usePlayerStats.js
 import { useState, useEffect } from "react";
+// import { Weapon } from '../components/interfaces/Weapon.ts' 
 // import { calculateInitialHealth } from "../utils/calculateInitialHealth";
 export function usePlayerStats() {
-    const additionalData = localStorage.getItem('additionalData');
+    const [username, setUsername] = useState( () => {
+        const storedUsername = localStorage.getItem('username');
+        return  String(storedUsername); 
+    })
+
+    const [classC, setClassC] = useState( () => {
+        const storedclassC = localStorage.getItem('classC');
+        return  String(storedclassC); 
+    })
+
+    const [pet, setPet] = useState( () => {
+        const storedPet = localStorage.getItem('pet');
+        return  String(storedPet); 
+    })
+
+    const [charActualWeapon, setCharActualWeapon] = useState( () => {
+        const storedWeapon = localStorage.getItem('charActualWeapon');
+        return  (storedWeapon ? JSON.parse(storedWeapon) : null); 
+    })
     const [xpTable, setXpTable] = useState({}); 
     const [prevLevelXp, setPrevLevelXp] = useState(() => {
         const xpPrevNextLevel = localStorage.getItem('prevLevelXp');
@@ -12,12 +31,6 @@ export function usePlayerStats() {
         const xpToNextLevel = localStorage.getItem('xpToNextLevel');
         return  Number(xpToNextLevel); 
     }); 
-    
-// Estados para additionalData
-
-    const [hitDie, setHitDie] = useState(() => {
-        return additionalData ? JSON.parse(additionalData).hitDie || 'd4' : 'd4'; // Usa 'd4' como valor predeterminado si no está presente
-    });
     const [playerHealth, setPlayerHealth] = useState(() => 
         {
             const playerHealth = localStorage.getItem('playerHealth') 
@@ -28,10 +41,25 @@ export function usePlayerStats() {
             const playerHealthLeft = localStorage.getItem('playerHealthLeft') 
             return  Number(playerHealthLeft);
         });
+        const [playerLevel, setPlayerLevel] = useState(() => {
+            const storedLevel = localStorage.getItem('level');
+            return storedLevel ? Number(storedLevel) : 1;  // Usar el valor guardado o 0 si no existe
+        });
+        const [playerXp, setPlayerXp] = useState(() => {
+            const storedXp = localStorage.getItem('playerExp');
+            return storedXp ? Number(storedXp) : 0;  // Usar el valor guardado o 0 si no existe
+        });
+
+// Estados para additionalData
+const additionalData = localStorage.getItem('additionalData');
+    const [hitDie, setHitDie] = useState(() => {
+        return additionalData ? JSON.parse(additionalData).hitDie || 'd4' : 'd4'; // Usa 'd4' como valor predeterminado si no está presente
+    });
 
 
     const [armorClass, setArmorClass] = useState(() => localStorage.getItem('armorClass') || '');
     const [baseAttackBonus, setBaseAttackBonus] = useState(() => localStorage.getItem('baseAttackBonus') || '');
+    
     const [saves, setSaves] = useState(() => {
         const savedSaves = localStorage.getItem('saves');
         return savedSaves ? JSON.parse(savedSaves) : { fortitude: '', reflex: '', will: '' };
@@ -41,6 +69,7 @@ export function usePlayerStats() {
         return savedFeatures ? JSON.parse(savedFeatures) : [];
     });
 
+    
     const gainXpToNextLevel = (level) => {
         const levelSum = level + 1
         const nextLevelXp = xpTable[levelSum.toString()] || xpTable[20]; // Evitar que supere el nivel 20
@@ -49,14 +78,7 @@ export function usePlayerStats() {
         setPrevLevelXp(prevLevelXp)
     };
 
-    const [playerLevel, setPlayerLevel] = useState(() => {
-        const storedLevel = localStorage.getItem('level');
-        return storedLevel ? Number(storedLevel) : 1;  // Usar el valor guardado o 0 si no existe
-    });
-    const [playerXp, setPlayerXp] = useState(() => {
-        const storedXp = localStorage.getItem('playerExp');
-        return storedXp ? Number(storedXp) : 0;  // Usar el valor guardado o 0 si no existe
-    });
+
     useEffect(() => {
         // Cargar el JSON al montar el componente
         const loadXpTable = async () => {
@@ -78,6 +100,7 @@ export function usePlayerStats() {
         localStorage.setItem('xpToNextLevel', xpToNextLevel.toString());
         localStorage.setItem('prevLevelXp', prevLevelXp.toString())
         localStorage.setItem('playerHealth', playerHealth.toString())
+        
     }, [playerXp, playerLevel, xpToNextLevel]);
 
     const gainXP = (amount) => {
@@ -99,6 +122,10 @@ export function usePlayerStats() {
         prevLevelXp,
         hitDie,
         playerHealthLeft, 
-        setPlayerHealthLeft
+        setPlayerHealthLeft,
+        username,setUsername,
+        classC, setClassC,
+        pet, setPet,
+        charActualWeapon, setCharActualWeapon
     };
 }
