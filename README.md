@@ -1,8 +1,9 @@
 El libro escarlata
 
 Cosas para hacer:
-
-
+PONER EN EL FIGHTSCENE EL 
+setUpdateEnemy(false) 
+para que vuelva la est
 
 Bestiario de criaturas derrotadas y cantidad.
 Imágenes de clases

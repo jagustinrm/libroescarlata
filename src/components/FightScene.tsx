@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import  usePostCombatActions  from "../customHooks/usePostCombatActions"; // Asegúrate de importar el hook
-
+import {usePlayerStore} from '../stores/playerStore.js';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
@@ -12,7 +12,7 @@ import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
-import { handleAttack} from '../utils/combatHandlers';
+import { handleAttack, handleRun, handleBack, handleNewEnemy} from '../utils/combatHandlers';
 import { Weapon } from "./interfaces/Weapon.js";
 import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
@@ -23,8 +23,7 @@ export default function FightScene() {
     const fightType = searchParams.get("type") || "normal";
     const [triggerPostActions, setTriggerPostActions] = useState(false);
     const navigate = useNavigate();
-    
-    const [username, setUsername] = useState<string>('');
+    const {player} = usePlayerStore();
     const [classC, setClassC] = useState<string | null>('');
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
     const {prevLevelXp, playerHealth, setPlayerHealth, playerXp, 
@@ -45,7 +44,8 @@ export default function FightScene() {
             const storageEnemiesDeleted = localStorage.getItem('deletedEnemies');
             return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
         } )
-        const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel, dungeonLevel);
+        const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
+        const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel, dungeonLevel, updateEnemy);
         const defaultQuests: QuestData = {
             questTree: {
                 history: [],
@@ -78,8 +78,6 @@ export default function FightScene() {
     };
 
     useEffect(() => {
-        const storedUsername = localStorage.getItem('username');
-        setUsername(storedUsername ?? "");
         const storedclassC = localStorage.getItem('classC');
         setClassC(storedclassC);
         const pet = localStorage.getItem('pet')
@@ -120,23 +118,16 @@ export default function FightScene() {
         return <p>Error: {error}</p>;
     }
 
-    
-    const handleRun = () => {
-        alert(`¡${username} ha huido del combate!`);
-        navigate("/home"); 
+    const handleNewEnemyClick = () => {
+        handleNewEnemy(player.name);
+        updateEnemy? setUpdateEnemy(false) : setUpdateEnemy(true) 
     };
-    const handleBack = () => {
-        alert(`${username} regresa sano y salvo a su pueblo.`);
-        navigate("/home"); 
-    };
-    const handleNewEnemy = () => {
-        alert(`${username} busca un nuevo enemigo...`);
-        window.location.reload();
-    }
+
+ 
     
     const executeAttack = () => {
         handleAttack({
-            username,
+            player,
             navigate,
             playerHealthLeft,
             setPlayerHealthLeft,
@@ -165,7 +156,7 @@ export default function FightScene() {
         <div className="fight-scene">
             
             <div className="PlayerChar">
-                <p>{username}</p>
+                <p>{player.name}</p>
                 <p>{classC}</p>
                 <p>Nivel {playerLevel}</p>
 
@@ -187,7 +178,7 @@ export default function FightScene() {
                 </button>
                 {pet? <p>Mascota: {pet}</p> : <></>}
 
-                {fightType === 'normal' || playerHealthLeft === 0 ?  <button onClick={handleRun}> 😨 Huir</button> : <></>}
+                {fightType === 'normal' || playerHealthLeft === 0 ?  <button onClick={() => handleRun({ player, navigate })}> 😨 Huir</button> : <></>}
             </div>
 
             <div >
@@ -201,8 +192,8 @@ export default function FightScene() {
                 {enemyHealth === 0 && 
                 <div>
                     <p>¡Has derrotado al enemigo!</p>
-                    <button onClick={handleNewEnemy}> ⚔️ Buscar otro enemigo</button>
-                    {fightType === 'normal'?  <button onClick={handleBack}> Volver</button> : <></>}
+                    <button onClick={handleNewEnemyClick}> ⚔️ Buscar otro enemigo</button>
+                    {fightType === 'normal'?  <button onClick={() => handleBack({ player, navigate })}> Volver</button> : <></>}
                     
 
                 </div>

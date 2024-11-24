@@ -1,122 +1,123 @@
 [
     {
-        "name": "Mago",
-        "hitDie": "d4",
-        "armorClass": "10",
-        "baseAttackBonus": "0",
-        "saves": {
-            "fortitude": "0",
-            "reflex": "0",
-            "will": "2"
-        },
-        "classFeatures": ["Hechizos", "Familiar"]
+      "className": "Mago",
+      "hitDie": "d4",
+      "armorClass": "10",
+      "baseAttackBonus": "0",
+      "saves": {
+        "fortitude": "0",
+        "reflex": "0",
+        "will": "2"
+      },
+      "classFeatures": ["Hechizos", "Familiar"]
     },
     {
-        "name": "Guerrero",
-        "hitDie": "d10",
-        "armorClass": "15",
-        "baseAttackBonus": "1",
-        "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "0"
-        },
-        "classFeatures": ["Ataque poderoso", "Resistencia"]
+      "className": "Guerrero",
+      "hitDie": "d10",
+      "armorClass": "15",
+      "baseAttackBonus": "1",
+      "saves": {
+        "fortitude": "2",
+        "reflex": "0",
+        "will": "0"
+      },
+      "classFeatures": ["Ataque poderoso", "Resistencia"]
     },
     {
-        "name": "Pícaro",
-        "hitDie": "d6",
-        "armorClass": "12",
-        "baseAttackBonus": "0",
-        "saves": {
-            "fortitude": "0",
-            "reflex": "2",
-            "will": "0"
-        },
-        "classFeatures": ["Ataque furtivo", "Evasión", "Esquivar"]
+      "className": "Pícaro",
+      "hitDie": "d6",
+      "armorClass": "12",
+      "baseAttackBonus": "0",
+      "saves": {
+        "fortitude": "0",
+        "reflex": "2",
+        "will": "0"
+      },
+      "classFeatures": ["Ataque furtivo", "Evasión", "Esquivar"]
     },
     {
-        "name": "Clérigo",
-        "hitDie": "d8",
-        "armorClass": "14",
-        "baseAttackBonus": "0",
-        "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "2"
-        },
-        "classFeatures": ["Hechizos divinos", "Reprender muertos vivientes", "Curación"]
+      "className": "Clérigo",
+      "hitDie": "d8",
+      "armorClass": "14",
+      "baseAttackBonus": "0",
+      "saves": {
+        "fortitude": "2",
+        "reflex": "0",
+        "will": "2"
+      },
+      "classFeatures": ["Hechizos divinos", "Reprender muertos vivientes", "Curación"]
     },
     {
-        "name": "Bárbaro",
-        "hitDie": "d12",
-        "armorClass": "13",
-        "baseAttackBonus": "1",
-        "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "0"
-        },
-        "classFeatures": ["Furia", "Movimiento rápido", "Esquiva asombrosa"]
+      "className": "Bárbaro",
+      "hitDie": "d12",
+      "armorClass": "13",
+      "baseAttackBonus": "1",
+      "saves": {
+        "fortitude": "2",
+        "reflex": "0",
+        "will": "0"
+      },
+      "classFeatures": ["Furia", "Movimiento rápido", "Esquiva asombrosa"]
     },
     {
-        "name": "Bardo",
-        "hitDie": "d6",
-        "armorClass": "11",
-        "baseAttackBonus": "0",
-        "saves": {
-            "fortitude": "0",
-            "reflex": "2",
-            "will": "2"
-        },
-        "classFeatures": ["Inspiración bardica", "Hechizos arcanos", "Conocimiento de bardo"]
+      "className": "Bardo",
+      "hitDie": "d6",
+      "armorClass": "11",
+      "baseAttackBonus": "0",
+      "saves": {
+        "fortitude": "0",
+        "reflex": "2",
+        "will": "2"
+      },
+      "classFeatures": ["Inspiración bardica", "Hechizos arcanos", "Conocimiento de bardo"]
     },
     {
-        "name": "Druida",
-        "hitDie": "d8",
-        "armorClass": "12",
-        "baseAttackBonus": "0",
-        "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "2"
-        },
-        "classFeatures": ["Forma salvaje", "Hechizos divinos", "Conexión con la naturaleza"]
+      "className": "Druida",
+      "hitDie": "d8",
+      "armorClass": "12",
+      "baseAttackBonus": "0",
+      "saves": {
+        "fortitude": "2",
+        "reflex": "0",
+        "will": "2"
+      },
+      "classFeatures": ["Forma salvaje", "Hechizos divinos", "Conexión con la naturaleza"]
     },
     {
-        "name": "Explorador",
-        "hitDie": "d8",
-        "armorClass": "13",
-        "baseAttackBonus": "1",
-        "saves": {
-            "fortitude": "2",
-            "reflex": "2",
-            "will": "0"
-        },
-        "classFeatures": ["Enemigo predilecto", "Empatía salvaje", "Combate con dos armas"]
+      "className": "Explorador",
+      "hitDie": "d8",
+      "armorClass": "13",
+      "baseAttackBonus": "1",
+      "saves": {
+        "fortitude": "2",
+        "reflex": "2",
+        "will": "0"
+      },
+      "classFeatures": ["Enemigo predilecto", "Empatía salvaje", "Combate con dos armas"]
     },
     {
-        "name": "Paladín",
-        "hitDie": "d10",
-        "armorClass": "14",
-        "baseAttackBonus": "1",
-        "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "2"
-        },
-        "classFeatures": ["Detectar mal", "Imposición de manos", "Aura de coraje"]
+      "className": "Paladín",
+      "hitDie": "d10",
+      "armorClass": "14",
+      "baseAttackBonus": "1",
+      "saves": {
+        "fortitude": "2",
+        "reflex": "0",
+        "will": "2"
+      },
+      "classFeatures": ["Detectar mal", "Imposición de manos", "Aura de coraje"]
     },
     {
-        "name": "Monje",
-        "hitDie": "d8",
-        "armorClass": "10",
-        "baseAttackBonus": "0",
-        "saves": {
-            "fortitude": "2",
-            "reflex": "2",
-            "will": "2"
-        },
-        "classFeatures": ["Golpe sin armas", "Esquiva sobrenatural", "Movimiento rápido"]
+      "className": "Monje",
+      "hitDie": "d8",
+      "armorClass": "10",
+      "baseAttackBonus": "0",
+      "saves": {
+        "fortitude": "2",
+        "reflex": "2",
+        "will": "2"
+      },
+      "classFeatures": ["Golpe sin armas", "Esquiva sobrenatural", "Movimiento rápido"]
     }
-]
+  ]
+  

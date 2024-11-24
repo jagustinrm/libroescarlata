@@ -6,14 +6,15 @@ import { rollDice } from './rollDice.js';
 import { Weapon } from '../components/interfaces/Weapon.js';
 import { CreatureInterface } from '../components/interfaces/CreatureInterface.js';
 
+
 interface CombatHandlersProps {
+    player: { name: string }; 
     playerHealthLeft: number;
     setPlayerHealthLeft: Dispatch<SetStateAction<number>>;
     enemyHealth: number;
     setEnemyHealth: Dispatch<SetStateAction<number>>;
     enemyLevel: number;
     gainXP: (xp: number) => void;
-    username: string;
     charActualWeapon: Weapon | null;
     enemy: CreatureInterface;
     fightType: string;
@@ -75,14 +76,22 @@ export const handleAttack = ({
     }
 };
 
+
 // Función para manejar el botón de "Huir"
-export const handleRun = ({ username, navigate }: CombatHandlersProps) => {
-    alert(`¡${username} ha huido del combate!`);
+export const handleRun = ({ player, navigate }: { player: { name: string }; navigate: NavigateFunction }) => {
+    console.log(player);
+    alert(`¡${player.name} ha huido del combate!`);
     navigate("/home");
 };
 
 // Función para manejar el botón de "Regresar"
-export const handleBack = ({ username, navigate }: CombatHandlersProps) => {
-    alert(`${username} regresa sano y salvo a su pueblo.`);
+export const handleBack = ({ player, navigate }: { player: { name: string }; navigate: NavigateFunction }) => {
+    alert(`${player.name} regresa sano y salvo a su pueblo.`);
     navigate("/home");
+};
+
+
+export const handleNewEnemy = ( player: string) => {
+    alert(`${player} busca un nuevo enemigo...`);
+   
 };

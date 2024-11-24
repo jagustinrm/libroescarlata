@@ -1,3 +1,4 @@
+import {usePlayerStore} from '../stores/playerStore';
 import { useNavigate } from "react-router-dom";
 // @ts-expect-error Para que funcione 
 import { usePlayerStats } from '../customHooks/usePlayerStats.js';
@@ -5,10 +6,11 @@ import { usePlayerStats } from '../customHooks/usePlayerStats.js';
 import { useLoadWeapons } from "../customHooks/useLoadWeapons.js";
 import './Home.css'
 import openMissions from '../utils/openMissionsWindow.ts'
-import usePlayerStore from '../stores/playerStore';
 
-const Home: React.FC = () => {
-    const { player, setPlayerName } = usePlayerStore();
+
+export default function Home ()  {
+    const { player} = usePlayerStore();
+    
     const { classC, pet, setPlayerHealthLeft, playerHealthLeft, 
         playerHealth, playerXp, playerLevel, 
         xpToNextLevel, username, charActualWeapon
@@ -29,8 +31,9 @@ const Home: React.FC = () => {
         <div className="container">
             {/* Estadísticas del personaje a la izquierda */}
             <div className="player">
-                <p>{player.name}</p>
+                
                 <div className="stats" >
+                <p>{player.name}</p>
                 <p>👤 {username}</p>
                 <p>🛡️ {classC}</p>
                 <p>⭐ Nivel: {playerLevel}</p>
@@ -59,6 +62,3 @@ const Home: React.FC = () => {
         </div>
     );
 }
-
-
-export default Home;

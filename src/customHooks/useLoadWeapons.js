@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-
-
 export function useLoadWeapons() {
     const [initialWeapons, setInitialWeapons] = useState([]);
 

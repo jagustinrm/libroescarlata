@@ -1,49 +1,22 @@
 import './CharacterSelector.css'
-import { useEffect, useState } from "react";
+
 // @ts-expect-error Calcular vida inicial 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 // @ts-expect-error Armas por clase
 import {assignIdWeaponByClass} from '../utils/assignWeaponByClass.js'
 // @ts-expect-error Inventario
 import {createInitialInventory} from '../utils/inventoryUtils.js'
+import { useNavigate } from 'react-router-dom';
+import {usePlayerStore} from '../stores/playerStore.js';
+import ClassLoader from '../loaders/ClassLoaders.js';
+import useClassStore from '../stores/classStore';
 
 export default function CharacterSelector() {
-    const [username, setUsername] = useState<string | null>('');
-    const [charClasses, setCharClasses] = useState<Class[]>([]); // Cambiado a arreglo de Class
-     interface Class {
-        name: string;
-        hitDie: string;
-        armorClass: string;
-        baseAttackBonus: string;
-        saves: {
-            fortitude: string;
-            reflex: string;
-            will: string;
-        };
-        classFeatures: string[];
-    }
+      // Accedemos al estado de clases desde el store
+    const { classes, areClassesLoaded } = useClassStore();
+    const navigate = useNavigate();
+    const { player} = usePlayerStore();
     
-    
-    
-
-    useEffect(() => {
-        const loadCharacters = async () => {
-            try {
-                const res = await fetch('/mocks/clases.json');
-                const data = await res.json();
-                setCharClasses(data); 
-            } catch (error) {
-                console.error("Error loading XP table:", error);
-            }
-        };
-        loadCharacters();
-     
-    }, []);
-
-    useEffect(() => {
-        const storedUsername = localStorage.getItem('username');
-        setUsername(storedUsername);
-    }, []);
 
     const handleButtonClick = (
         clase: string,
@@ -90,40 +63,39 @@ export default function CharacterSelector() {
 
 
 
-        window.location.href = "/home"; 
-
+        navigate('/home');
     };
 
     return (
         <div className='containerClases'>
-            <h1>Hola, {username ? username : 'Invitado'}</h1>
+            <h1>Hola, {player.name? player.name : 'invitade'}</h1>
             <p>Elige tu clase:</p>
             <div className='buttonsClasses'>
-               
-                    {charClasses? 
-                    charClasses.map((clase: Class) => (
-                        <button
-                            className='botonesClases'
-                            key={clase.name}
-                            onClick={() =>
-                                handleButtonClick(
-                                    clase.name,
-                                    clase.hitDie,
-                                    clase.armorClass,
-                                    clase.baseAttackBonus,
-                                    clase.saves,
-                                    clase.classFeatures
-                                )
-                            }
-                        >
-                            {clase.name}
-                        </button>
-
-                    ))
-                    :
-                    <p>Error</p>
-                    }
-
+                      {/* Llamamos a ClassLoader para cargar las clases */}
+            <ClassLoader />
+            {!areClassesLoaded ? 
+            <p>Loading classes...</p>
+            : (
+            <>
+              {classes.map((classItem) => (
+                <button 
+                className='botonesClases'
+                key={classItem.className}
+                onClick={() =>
+                    handleButtonClick(
+                        classItem.className,
+                        classItem.hitDie,
+                        classItem.armorClass,
+                        classItem.baseAttackBonus,
+                        classItem.saves,
+                        classItem.classFeatures
+                    )
+                }>
+                {classItem.className}
+                </button>
+              ))}
+            </>
+            )}    
             </div>
         </div>
     );

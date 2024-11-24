@@ -1,47 +1,32 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import './LandingPage.css';
-import usePlayerStore from '../stores/playerStore';
+import { usePlayerStore } from '../stores/playerStore';
 
 const LandingPage: React.FC = () => {
-    // const [name, setName] = useState('');
+    const { setPlayerName } = usePlayerStore(); // Obtén la acción para actualizar el store
+    const [inputName, setInputName] = useState<string>(''); // Estado local para el input
+    const navigate = useNavigate(); // Hook para navegar
 
-    const { player, setPlayerName } = usePlayerStore();
-    const [inputName, setInputName] = useState<string>('');
     const handleSaveName = () => {
-        setPlayerName(inputName); // Actualizar el nombre en el store
-        setInputName(''); // Limpiar el input
-      };
-    
-
-    // const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setName(e.target.value);
-    // };
-
-    // const handleButtonClick = () => {
-    //     localStorage.setItem('username', name);
-    // };
+        setPlayerName(inputName); // Actualiza el nombre en el store
+        setInputName(''); // Limpia el input
+        navigate('/characterSelector'); // Navega a la siguiente página
+    };
 
     return (
-        <>
-        <div className='landingContainer'>
-        
-        <h1>El Libro Escarlata</h1>
+        <div className="landingContainer">
+            <h1>El Libro Escarlata</h1>
             <h3>Bienvenide... {inputName}</h3>
-            <input 
-                type="text" 
-                placeholder="Ingresá tu nombre" 
+            <input
+                type="text"
+                placeholder="Ingresá tu nombre"
                 value={inputName}
-                // onChange={handleNameChange}
                 onChange={(e) => setInputName(e.target.value)}
             />
-            <a href="/characterSelector"><button 
-            // onClick={handleButtonClick}
-            onClick={handleSaveName}
-            >
-                Ingresar</button></a>
+            <button onClick={handleSaveName}>Ingresar</button>
         </div>
-        </>
     );
-}
+};
 
-export default LandingPage
+export default LandingPage;

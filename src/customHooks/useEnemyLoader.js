@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.js';
 import { useSearchParams } from "react-router-dom";
 
-export function useEnemyLoader( level, dungeonLevel) {
+export function useEnemyLoader( level, dungeonLevel, updateEnemy) {
     const [enemy, setEnemy] = useState(null); // Estado inicial de enemigo.
     const [isLoading, setIsLoading] = useState(true); // Indica si está cargando.
     const [error, setError] = useState(null); // Manejo de errores.
@@ -101,7 +101,7 @@ export function useEnemyLoader( level, dungeonLevel) {
         };
 
         loadEnemies();
-    }, []);
+    }, [updateEnemy]);
 
     return { enemy, isLoading, error, typeEnemy }; // Devolver estado.
 }
