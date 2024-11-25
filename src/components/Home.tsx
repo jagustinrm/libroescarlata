@@ -9,36 +9,39 @@ import openMissions from '../utils/openMissionsWindow.ts'
 
 
 export default function Home ()  {
-    const { player} = usePlayerStore();
-    
-    const { classC, pet, setPlayerHealthLeft, playerHealthLeft, 
-        playerHealth, playerXp, playerLevel, 
-        xpToNextLevel, username, charActualWeapon
-    } = usePlayerStats();
-    useLoadWeapons();
-   
+    const { player, setP_LeftHealth} = usePlayerStore();
     const navigate = useNavigate();
     const handleFight = (type: string) => {
         navigate("/fightScene?type="+ type);
     };
-  
     const handleHealthRecover = () => {
-        setPlayerHealthLeft(playerHealth)
-        localStorage.setItem('playerHealthLeft', playerHealth);
+        setP_LeftHealth(player.p_MaxHealth)
     }
+
+    const {pet, charActualWeapon
+    } = usePlayerStats();
+    useLoadWeapons();
+   
 
     return (
         <div className="container">
-            {/* Estadísticas del personaje a la izquierda */}
             <div className="player">
-                
                 <div className="stats" >
-                <p>{player.name}</p>
-                <p>👤 {username}</p>
-                <p>🛡️ {classC}</p>
-                <p>⭐ Nivel: {playerLevel}</p>
-                <p>❤️ Vida: {playerHealthLeft} / {playerHealth}</p>
-                <p>✨ Exp: {playerXp} / {xpToNextLevel}</p>
+                <p>👤 {player.name} </p>
+                <p>🛡️ {player.classes}</p>
+                <p>⭐ Nivel: {player.level}</p>
+
+
+
+
+                                {/* *****ACA******* */}
+                <p>❤️ Vida: {player.p_LeftHealth} / {player.p_MaxHealth}</p>
+ 
+                                    {/* *****ACA******* */}
+
+
+
+                <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
                 <p>Arma actual: {charActualWeapon?.name || "Sin arma equipada"}</p>
                 {pet? <p>🐶 Mascota: {pet} </p> : <></>} 
                 </div>
@@ -47,10 +50,18 @@ export default function Home ()  {
    
             {/* Botones en dos columnas a la derecha */}
             <div className="buttons">
-                 <button onClick={() => handleFight('normal')} disabled={playerHealthLeft === 0}>
+
+
+                  {/* *****ACA******* */}
+
+                 <button onClick={() => handleFight('normal')} disabled={player.p_LeftHealth === 0}>
                 ⚔️ Pelear
                 </button>
-                <button onClick={() => handleFight('dungeon')} disabled={playerHealthLeft === 0} > 🏔️ Dungeon</button>
+                <button onClick={() => handleFight('dungeon')} disabled={player.p_LeftHealth === 0} > 🏔️ Dungeon</button>
+                  {/* *****ACA******* */}
+
+
+                
                 <a href="/townMap"><button>🏠 Hogar</button></a>
                 <a href="#"><button onClick={() => handleHealthRecover()}>🏥 Hospital</button></a>
                 <a href="#"><button>🛒 Tienda</button></a>

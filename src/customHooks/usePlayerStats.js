@@ -1,17 +1,6 @@
-// usePlayerStats.js
 import { useState, useEffect } from "react";
-// import { Weapon } from '../components/interfaces/Weapon.ts' 
-// import { calculateInitialHealth } from "../utils/calculateInitialHealth";
-export function usePlayerStats() {
-    const [username, setUsername] = useState( () => {
-        const storedUsername = localStorage.getItem('username');
-        return  String(storedUsername); 
-    })
 
-    const [classC, setClassC] = useState( () => {
-        const storedclassC = localStorage.getItem('classC');
-        return  String(storedclassC); 
-    })
+export function usePlayerStats() {
 
     const [pet, setPet] = useState( () => {
         const storedPet = localStorage.getItem('pet');
@@ -31,24 +20,7 @@ export function usePlayerStats() {
         const xpToNextLevel = localStorage.getItem('xpToNextLevel');
         return  Number(xpToNextLevel); 
     }); 
-    const [playerHealth, setPlayerHealth] = useState(() => 
-        {
-            const playerHealth = localStorage.getItem('playerHealth') 
-            return  Number(playerHealth);
-        });
-    const [playerHealthLeft, setPlayerHealthLeft] = useState(() =>
-        {
-            const playerHealthLeft = localStorage.getItem('playerHealthLeft') 
-            return  Number(playerHealthLeft);
-        });
-        const [playerLevel, setPlayerLevel] = useState(() => {
-            const storedLevel = localStorage.getItem('level');
-            return storedLevel ? Number(storedLevel) : 1;  // Usar el valor guardado o 0 si no existe
-        });
-        const [playerXp, setPlayerXp] = useState(() => {
-            const storedXp = localStorage.getItem('playerExp');
-            return storedXp ? Number(storedXp) : 0;  // Usar el valor guardado o 0 si no existe
-        });
+
 
 // Estados para additionalData
 const additionalData = localStorage.getItem('additionalData');
@@ -95,36 +67,17 @@ const additionalData = localStorage.getItem('additionalData');
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('playerExp', playerXp.toString());
-        localStorage.setItem('level', playerLevel.toString());
         localStorage.setItem('xpToNextLevel', xpToNextLevel.toString());
         localStorage.setItem('prevLevelXp', prevLevelXp.toString())
-        localStorage.setItem('playerHealth', playerHealth.toString())
-        
-    }, [playerXp, playerLevel, xpToNextLevel]);
 
-    const gainXP = (amount) => {
-        const newXp = playerXp + amount;
-        setPlayerXp(newXp);
-    };
+        
+    }, []);
+
 
 
 
     return {
-        playerHealth,
-        setPlayerHealth,
-        playerXp,
-        gainXP,
-        playerLevel,
-        setPlayerLevel,
-        xpToNextLevel,
-        gainXpToNextLevel,
-        prevLevelXp,
         hitDie,
-        playerHealthLeft, 
-        setPlayerHealthLeft,
-        username,setUsername,
-        classC, setClassC,
         pet, setPet,
         charActualWeapon, setCharActualWeapon
     };

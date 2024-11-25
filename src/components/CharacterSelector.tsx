@@ -14,10 +14,13 @@ import useClassStore from '../stores/classStore';
 export default function CharacterSelector() {
       // Accedemos al estado de clases desde el store
     const { classes, areClassesLoaded } = useClassStore();
+    const { player, addClasses, 
+        setPlayerLevel, setPlayerExp, 
+        setP_MaxHealth, setP_LeftHealth, 
+        setP_ExpPrevLevel, setP_ExpToNextLevel
+    } = usePlayerStore();
     const navigate = useNavigate();
-    const { player} = usePlayerStore();
-    
-
+  
     const handleButtonClick = (
         clase: string,
         hitDie: string,
@@ -26,11 +29,20 @@ export default function CharacterSelector() {
         saves: { fortitude: string; reflex: string; will: string },
         classFeatures: string[]
     ) => {
-        localStorage.setItem('classC', clase);
-        localStorage.setItem('level', '1');
-        localStorage.setItem('playerExp', '0');
+        
+        addClasses(clase);
+        setPlayerLevel(1);
+        setPlayerExp(0);
+
+        //*********ACAAAAAAAAAAAAAAAAAAAAA */
+        setP_ExpPrevLevel(0);
+        setP_ExpToNextLevel(1000);
         localStorage.setItem('xpToNextLevel', '1000');
         localStorage.setItem('prevLevelXp', '0');
+        //*********ACAAAAAAAAAAAAAAAAAAAAA */
+
+
+
         localStorage.setItem('dungeonLevel', '1') // NIVEL INICIAL DEL DUNGEON
         const additionalData = {
             hitDie,
@@ -40,8 +52,10 @@ export default function CharacterSelector() {
             classFeatures
         };
         const InitialHealth = calculateInitialHealth(hitDie).toString()
-        localStorage.setItem('playerHealth', InitialHealth)
-        localStorage.setItem('playerHealthLeft', InitialHealth)
+        setP_MaxHealth(InitialHealth)
+        setP_LeftHealth(InitialHealth)
+
+
         localStorage.setItem('additionalData', JSON.stringify(additionalData));
         createInitialInventory()
         assignIdWeaponByClass(clase)

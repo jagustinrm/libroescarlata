@@ -11,7 +11,7 @@ const usePostCombatActions = (
     enemy: CreatureInterface,
     quests: QuestData 
 ) => {
-    const handlePostCombatActions = (
+    const handlePostCombatActs = (
         fightType: string, 
         enemyHealth: number, 
         typeEnemy: string,
@@ -67,7 +67,7 @@ const usePostCombatActions = (
         }
     };
 
-    return { handlePostCombatActions };
+    return { handlePostCombatActs };
 };
 
 export default usePostCombatActions;

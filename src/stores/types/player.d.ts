@@ -3,6 +3,12 @@ import create from 'zustand';
 // Interfaz para el estado del player
 export interface Player {
   name: string;
+  level: number;
+  playerExp: number;
+  p_ExpToNextLevel: number;
+  p_ExpPrevLevel: number;
+  p_MaxHealth: number;
+  p_LeftHealth: number;
   hitDie: string;
   armorClass: string;
   baseAttackBonus: string;
@@ -19,13 +25,21 @@ export interface Player {
 
 // Interfaz para el store del player
 export interface PlayerStore {
-  player: Player; // Estado del jugador
+  player: Player;
+  setPlayerExp: (playerExp: number) => void;
+  setP_ExpToNextLevel: ( p_ExpToNextLevel: number) => void;
+  setP_ExpPrevLevel:(p_ExpPrevLevel: number) => void;
+
+  setPlayerLevel: (level: number) => void;
+  setP_MaxHealth: (p_MaxHealth: number) => void;
+  setP_LeftHealth: (p_LeftHealth: number) => void;
   addClasses: (classes: string) => void;
-  setPlayerName: (name: string) => void; // Acción para actualizar el nombre
-  setArmorClass: (armorClass: string) => void; // Acción para actualizar la armor class
-  setBaseAttackBonus: (baseAttackBonus: string) => void; // Acción para actualizar el bonus de ataque
-  updateSaves: (saves: Partial<Player['saves']>) => void; // Acción para actualizar saves de forma parcial
-  addClassFeature: (feature: string) => void; // Acción para agregar un feature
+  setPlayerName: (name: string) => void; 
+  setArmorClass: (armorClass: string) => void; 
+  setBaseAttackBonus: (baseAttackBonus: string) => void; 
+  updateSaves: (saves: Partial<Player['saves']>) => void; 
+  addClassFeature: (feature: string) => void; 
+
 }
 
 

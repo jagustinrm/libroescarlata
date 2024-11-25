@@ -5,16 +5,24 @@ import { NavigateFunction } from 'react-router-dom';
 import { rollDice } from './rollDice.js';
 import { Weapon } from '../components/interfaces/Weapon.js';
 import { CreatureInterface } from '../components/interfaces/CreatureInterface.js';
-
+// @ts-expect-error Para que funcione 
+import gainExp from './gainExp.js'
+import  usePostCombatActions  from "../customHooks/usePostCombatActions"; 
 
 interface CombatHandlersProps {
-    player: { name: string }; 
-    playerHealthLeft: number;
-    setPlayerHealthLeft: Dispatch<SetStateAction<number>>;
+    player: { 
+        name: string
+        playerExp: number;
+        level: number;
+        p_LeftHealth: number;
+    }; 
+
+    setPlayerExp: (playerExp: number) => void
+    setP_LeftHealth: (p_LeftHealth: number) => void, 
+    setP_MaxHealth: (p_MaxHealth: number) => void,
     enemyHealth: number;
     setEnemyHealth: Dispatch<SetStateAction<number>>;
     enemyLevel: number;
-    gainXP: (xp: number) => void;
     charActualWeapon: Weapon | null;
     enemy: CreatureInterface;
     fightType: string;
@@ -28,30 +36,19 @@ const updateEnemyHealth = (prevEnemyHealth: number, playerDamage: number): numbe
     return Math.max(prevEnemyHealth - playerDamage, 0);
 };
 
-// Función para manejar la experiencia y el nivel del dungeon
-const handlePostCombatActions = (
-    enemyHealth: number, 
-    enemyLevel: number, 
-    gainXP: (xp: number) => void
-): void => {
-    if (enemyHealth <= 0) {
-        // Ganar experiencia
-        gainXP(enemyLevel * 1000);
-        
-    }
-};
-
 // Función para manejar el ataque del jugador
 export const handleAttack = ({
-    setPlayerHealthLeft,
     enemyHealth,
     setEnemyHealth,
     enemyLevel,
-    gainXP,
+    setPlayerExp,
     setActionMessages,
     charActualWeapon,
     enemy,
+    player,
+    setP_LeftHealth
 }: CombatHandlersProps) => {
+    
     const playerDamage = rollDice(charActualWeapon?.damage);
     const enemyDamage = rollDice(enemy.attacks[0].damage) + parseInt(enemy.attacks[0].bonus);
 
@@ -63,23 +60,39 @@ export const handleAttack = ({
     // Actualizar la vida del enemigo
     setEnemyHealth((prevEnemyHealth) => {
         const newEnemyHealth = updateEnemyHealth(prevEnemyHealth, playerDamage);
-     
+
         // Llamar a handlePostCombatActions para manejar XP y dungeon level si es necesario
-        handlePostCombatActions(newEnemyHealth, enemyLevel, gainXP);
+        //ESTA FUNCIÓN ESTÁ ABAJO
+        handlePostCombatActions(newEnemyHealth, enemyLevel, setPlayerExp, player.playerExp)
 
         return newEnemyHealth;
     });
 
     // Si el enemigo aún está vivo, actualizar la salud del jugador
     if (enemyHealth > 0) {
-        setPlayerHealthLeft((prev) => Math.max(prev - enemyDamage, 0));
+        setP_LeftHealth(Math.max(player.p_LeftHealth - enemyDamage, 0));
     }
+    
 };
 
+// Función para manejar la experiencia y el nivel del dungeon
+const handlePostCombatActions = (
+    enemyHealth: number, 
+    enemyLevel: number, 
+    setPlayerExp: (playerExp: number) => void,
+    playerExp: number,
+): void => {
+    if (enemyHealth <= 0) {
+        // Ganar experiencia llamando a gainExp
+        gainExp(enemyLevel, setPlayerExp, playerExp);
+    }
+
+};
+
+// ***** YA ESTÁ ESTE CODIGO *********************
 
 // Función para manejar el botón de "Huir"
 export const handleRun = ({ player, navigate }: { player: { name: string }; navigate: NavigateFunction }) => {
-    console.log(player);
     alert(`¡${player.name} ha huido del combate!`);
     navigate("/home");
 };

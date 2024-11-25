@@ -9,6 +9,8 @@ import { usePlayerStats } from '../customHooks/usePlayerStats.js';
 // @ts-expect-error Para que funcione 
 import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 // @ts-expect-error Para que funcione 
+import gainExp from '../utils/gainExp.js'
+// @ts-expect-error Para que funcione 
 import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
@@ -17,18 +19,24 @@ import { Weapon } from "./interfaces/Weapon.js";
 import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
+// @ts-expect-error Para que funcione 
+import useExpTable from "../customHooks/useExpTable.js";
+
 export default function FightScene() {
-    
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
     const [triggerPostActions, setTriggerPostActions] = useState(false);
-    const navigate = useNavigate();
-    const {player} = usePlayerStore();
-    const [classC, setClassC] = useState<string | null>('');
+    const {player, setPlayerLevel, 
+        setPlayerExp, setP_LeftHealth, setP_MaxHealth,
+        setP_ExpToNextLevel, setP_ExpPrevLevel,
+    } = usePlayerStore();
+    const {expTable, setExpTable}  = useExpTable()
+
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
-    const {prevLevelXp, playerHealth, setPlayerHealth, playerXp, 
-        gainXP, playerLevel, setPlayerLevel, xpToNextLevel, 
-        gainXpToNextLevel, playerHealthLeft, setPlayerHealthLeft, 
+    
+    
+    const {
         hitDie } = usePlayerStats();
     const {quests} = useLoadQuests();
     const [charActualWeapon, setCharActualWeapon] = useState<Weapon | null>(null);
@@ -45,7 +53,7 @@ export default function FightScene() {
             return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
         } )
         const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
-        const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(playerLevel, dungeonLevel, updateEnemy);
+        const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
         const defaultQuests: QuestData = {
             questTree: {
                 history: [],
@@ -53,7 +61,9 @@ export default function FightScene() {
                 others: []
             }
         };
-        const { handlePostCombatActions } = usePostCombatActions(setDungeonLevel, setEnemiesDeleted, enemiesDeleted, enemy, quests || defaultQuests);
+
+        //REVISAR ESTO, TENGO DOS HANDLEPOSTCOMBATACTIONS
+        const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, setEnemiesDeleted, enemiesDeleted, enemy, quests || defaultQuests);
 
     
         // Inicializamos los estados sin depender directamente de `enemy`
@@ -62,40 +72,33 @@ export default function FightScene() {
     // const [playerMana, setPlayerMana] = useState<number>(100);
     const handleCheckLevelUp = () => {
         checkLevelUp({
-            playerXp,
-            playerLevel,
-            xpToNextLevel,
+            player,
             setPlayerLevel,
-            gainXpToNextLevel,
             setActionMessages,
             hitDie,
-            playerHealth,
-            setPlayerHealth,
             calculateInitialHealth,
-            playerHealthLeft,
-            setPlayerHealthLeft
+            setP_MaxHealth, setP_LeftHealth,
+            setP_ExpToNextLevel, setP_ExpPrevLevel,
+            expTable, setExpTable
         });
     };
 
     useEffect(() => {
-        const storedclassC = localStorage.getItem('classC');
-        setClassC(storedclassC);
         const pet = localStorage.getItem('pet')
         setPet(pet)
         const weapon = localStorage.getItem('charActualWeapon');
         setCharActualWeapon(weapon ? JSON.parse(weapon) : null);
+
         handleCheckLevelUp(); // Verificar subida de nivel
-        localStorage.setItem('playerExp', playerXp.toString());
-        localStorage.setItem('playerHealthLeft', playerHealthLeft.toString())
         
-    }, [playerXp, playerHealthLeft]);
+    }, [player.playerExp]);
     
     useEffect(() => {
         if (triggerPostActions) {
-            handlePostCombatActions(fightType, enemyHealth, typeEnemy);
+            handlePostCombatActs(fightType, enemyHealth, typeEnemy);
             setTriggerPostActions(false); // Resetea el trigger
         }
-    }, [triggerPostActions, enemyHealth, handlePostCombatActions]);
+    }, [triggerPostActions, enemyHealth, handlePostCombatActs]);
 
 
 
@@ -129,56 +132,54 @@ export default function FightScene() {
         handleAttack({
             player,
             navigate,
-            playerHealthLeft,
-            setPlayerHealthLeft,
             enemyHealth,
             setEnemyHealth,
             enemyLevel,
-            gainXP,
             setActionMessages,
             charActualWeapon,
             enemy,
             fightType,
             typeEnemy,
+            setPlayerExp,
+            setP_LeftHealth, setP_MaxHealth,
         });
-        
-        // Activa las acciones posteriores
+
         setTriggerPostActions(true);
     };
 
 
 
 
-    const xpPercentage = ((playerXp - prevLevelXp) / (xpToNextLevel - prevLevelXp)) * 100;
-    const healthPercentage = (playerHealthLeft / playerHealth) * 100;
+    const xpPercentage = ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100;
+    const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
    
     return (
         <div className="fight-scene">
             
             <div className="PlayerChar">
                 <p>{player.name}</p>
-                <p>{classC}</p>
-                <p>Nivel {playerLevel}</p>
+                <p>🛡️ {player.classes}</p>
+                <p>Nivel {player.level}</p>
 
 
             {/* Barra de vida */}
             <div className="health-bar-container">
                 <div className="health-bar" style={{ width: `${healthPercentage}%` }}></div>
-                <span className="health-text">{playerHealthLeft} / {playerHealth}</span>
+                <span className="health-text">{player.p_LeftHealth} / {player.p_MaxHealth}</span>
             </div>
                 
                 {/* <p>Maná: {playerMana}/100</p> */}
                             {/* Barra de experiencia */}
             <div className="experience-bar-container">
                 <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
-                <span className="experience-text">{playerXp} / {xpToNextLevel}</span>
+                <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
             </div>
-                <button  onClick={executeAttack} disabled={enemyHealth === 0 || playerHealthLeft === 0}>
+                <button  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
                     ⚔️ Atacar
                 </button>
                 {pet? <p>Mascota: {pet}</p> : <></>}
 
-                {fightType === 'normal' || playerHealthLeft === 0 ?  <button onClick={() => handleRun({ player, navigate })}> 😨 Huir</button> : <></>}
+                {fightType === 'normal' || player.p_LeftHealth === 0 ?  <button onClick={() => handleRun({ player, navigate })}> 😨 Huir</button> : <></>}
             </div>
 
             <div >
@@ -188,7 +189,7 @@ export default function FightScene() {
                         <li key={index}>{message}</li>  // Cada mensaje es un li
                     ))}
                 </ul>
-                {playerHealthLeft === 0 && <p>¡Has sido derrotado!</p>}
+                {player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}
                 {enemyHealth === 0 && 
                 <div>
                     <p>¡Has derrotado al enemigo!</p>
