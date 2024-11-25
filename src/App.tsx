@@ -22,7 +22,7 @@ function App() {
           <Route path="/fightScene" element={<FightScene />} />
           <Route path="/townMap" element={<TownMap />} />
           <Route path="/petStore" element={<PetStore />} />
-          <Route path="/inventary" element={<Inventory />} />
+          <Route path="/inventory" element={<Inventory />} />
           <Route path="/quests" element={<Quests />} />
         </Routes>
       </HomeProvider>

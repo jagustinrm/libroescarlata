@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { PlayerStore } from './types/player';
+import useInventoryStore from './inventoryStore'
 
 // Crear el store de Zustand
 export const usePlayerStore = create<PlayerStore>((set) => ({
@@ -20,7 +21,10 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       reflex: '',
       will: '',
     },
-    classFeatures: [],
+    classFeatures: [],  
+    selectedPet: null,
+    selectedWeapon: null,
+    inventoryId: 'player1_inventory',
   },
   
   // Función corregida para setear playerExp
@@ -70,12 +74,24 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     },
   })),
 
-  addClasses: (classes) => set((state) => ({
+  addClasses: (newClass) => set((state) => ({
     player: {
       ...state.player,
-      classes: [...state.player.classes, ...classes], // Asegúrate de expandir el array de clases
+      classes: [...state.player.classes, newClass], // Agrega la clase como un string al array
     },
   })),
+  
+  setP_SelectedPet: (selectedPet) => {
+      return set((state) => ({
+        player: { ...state.player, selectedPet },
+      }));
+  },
+  setP_SelectedWeapon: (selectedWeapon) => {
+      return set((state) => ({
+        player: { ...state.player, selectedWeapon },
+      }));
+  },
+  getInventoryFunctions: () => useInventoryStore.getState(),
 }));
 
 export default usePlayerStore;

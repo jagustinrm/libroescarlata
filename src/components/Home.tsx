@@ -1,28 +1,31 @@
 import {usePlayerStore} from '../stores/playerStore';
 import { useNavigate } from "react-router-dom";
-// @ts-expect-error Para que funcione 
-import { usePlayerStats } from '../customHooks/usePlayerStats.js';
-// @ts-expect-error Para que funcione 
-import { useLoadWeapons } from "../customHooks/useLoadWeapons.js";
 import './Home.css'
 import openMissions from '../utils/openMissionsWindow.ts'
+import useInventoryStore from '../stores/inventoryStore.ts';
 
 
 export default function Home ()  {
     const { player, setP_LeftHealth} = usePlayerStore();
+    const {inventories} = useInventoryStore();
+
     const navigate = useNavigate();
+
     const handleFight = (type: string) => {
         navigate("/fightScene?type="+ type);
     };
+    const handlePetButton = () => {
+        navigate("/petStore");
+    }
+    const handleInventoryButton = () => {
+        navigate("/inventory");
+    }
+
     const handleHealthRecover = () => {
         setP_LeftHealth(player.p_MaxHealth)
     }
 
-    const {pet, charActualWeapon
-    } = usePlayerStats();
-    useLoadWeapons();
-   
-
+    console.log(inventories[player.inventoryId])
     return (
         <div className="container">
             <div className="player">
@@ -30,43 +33,25 @@ export default function Home ()  {
                 <p>👤 {player.name} </p>
                 <p>🛡️ {player.classes}</p>
                 <p>⭐ Nivel: {player.level}</p>
-
-
-
-
-                                {/* *****ACA******* */}
                 <p>❤️ Vida: {player.p_LeftHealth} / {player.p_MaxHealth}</p>
- 
-                                    {/* *****ACA******* */}
-
-
-
                 <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
-                <p>Arma actual: {charActualWeapon?.name || "Sin arma equipada"}</p>
-                {pet? <p>🐶 Mascota: {pet} </p> : <></>} 
+                <p>Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
+                {player.selectedPet? <p>🐶 Mascota: {player.selectedPet.name} </p> : <></>} 
                 </div>
-                <a href="/inventary"><button>📜 Inventario</button></a>
+               <button onClick={() => handleInventoryButton()}>📜 Inventario</button>
             </div>
-   
+
             {/* Botones en dos columnas a la derecha */}
             <div className="buttons">
-
-
-                  {/* *****ACA******* */}
-
                  <button onClick={() => handleFight('normal')} disabled={player.p_LeftHealth === 0}>
                 ⚔️ Pelear
                 </button>
-                <button onClick={() => handleFight('dungeon')} disabled={player.p_LeftHealth === 0} > 🏔️ Dungeon</button>
-                  {/* *****ACA******* */}
-
-
-                
+                <button onClick={() => handleFight('dungeon')} disabled={player.p_LeftHealth === 0} > 🏔️ Dungeon</button>   
                 <a href="/townMap"><button>🏠 Hogar</button></a>
                 <a href="#"><button onClick={() => handleHealthRecover()}>🏥 Hospital</button></a>
                 <a href="#"><button>🛒 Tienda</button></a>
                 <a href="#"><button>⚔️ Armería</button></a>
-                <a href="/petStore"><button>🐾 Mascotas</button></a>
+                <button onClick={() => handlePetButton()}>🐾 Mascotas</button>
                 <a href="#"><button>🐉 Bestiario</button></a>
                 <button onClick={openMissions}>🗺️ Misiones</button>
             </div>
