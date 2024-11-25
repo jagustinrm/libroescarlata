@@ -7,7 +7,7 @@ import { Weapon } from '../components/interfaces/Weapon.js';
 import { CreatureInterface } from '../components/interfaces/CreatureInterface.js';
 // @ts-expect-error Para que funcione 
 import gainExp from './gainExp.js'
-import  usePostCombatActions  from "../customHooks/usePostCombatActions"; 
+
 
 interface CombatHandlersProps {
     player: { 

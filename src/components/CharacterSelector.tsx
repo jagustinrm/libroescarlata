@@ -28,8 +28,7 @@ export default function CharacterSelector() {
     const inventoryStore = useInventoryStore.getState()
 
     const handleButtonClick = (classData: Class) => {
-        const { className, hitDie, armorClass, 
-            baseAttackBonus, saves, classFeatures } = classData;
+        const { className, hitDie} = classData;
         
         addClasses(className);
         setPlayerLevel(1);
@@ -39,25 +38,13 @@ export default function CharacterSelector() {
         const InitialHealth = calculateInitialHealth(hitDie).toString();
         setP_MaxHealth(InitialHealth);
         setP_LeftHealth(InitialHealth);
-
-        // createInitialInventory(); 
         inventoryStore.createInventory('player1_inventory');
         assignWeaponByClass(className, classes, 
             weapons, setP_SelectedWeapon, inventoryStore, inventories,
             player,
         );
 
-
         localStorage.setItem('dungeonLevel', '1');
-        const additionalData = {
-            hitDie,
-            armorClass,
-            baseAttackBonus,
-            saves,
-            classFeatures
-        };
-
-        localStorage.setItem('additionalData', JSON.stringify(additionalData));
 
         type enemyCounter = {
             id: number;

@@ -171,6 +171,122 @@
                 "disciplina marcial",
                 "visión en la oscuridad"
             ]
-        }
+        },
+        {
+            "name": "Pixie",
+            "img": "/img/enemies/pixie.png",
+            "type": "hada",
+            "alignment": "neutral bueno",
+            "level": 4,
+            "hitPoints": "3d6+2",
+            "armorClass": 16,
+            "attacks": [
+              {
+                "name": "arco corto mágico",
+                "type": "rango",
+                "bonus": "+5",
+                "damage": "1d4"
+              }
+            ],
+            "specialAbilities": [
+              "invisibilidad a voluntad",
+              "visión verdadera (18 m)",
+              "polvo de confusión"
+            ]
+          },
+          {
+            "name": "Troll",
+            "img": "/img/enemies/troll.png",
+            "type": "gigante",
+            "alignment": "caótico maligno",
+            "level": 5,
+            "hitPoints": "6d10+36",
+            "armorClass": 16,
+            "attacks": [
+              {
+                "name": "garra",
+                "type": "melee",
+                "bonus": "+7",
+                "damage": "1d6+5"
+              },
+              {
+                "name": "mordisco",
+                "type": "melee",
+                "bonus": "+5",
+                "damage": "1d8+5"
+              }
+            ],
+            "specialAbilities": [
+              "regeneración (5 HP por turno)",
+              "visión en la oscuridad",
+              "olfato agudo"
+            ]
+          },
+          {
+            "name": "Dragón Bebé",
+            "img": "/img/enemies/baby_dragon.png",
+            "type": "dragón",
+            "alignment": "neutral",
+            "level": 3,
+            "hitPoints": "3d12+6",
+            "armorClass": 18,
+            "attacks": [
+              {
+                "name": "mordisco",
+                "type": "melee",
+                "bonus": "+4",
+                "damage": "1d6+2"
+              },
+              {
+                "name": "garras",
+                "type": "melee",
+                "bonus": "+4",
+                "damage": "1d4+2"
+              },
+              {
+                "name": "aliento de fuego",
+                "type": "rango",
+                "bonus": "ninguno",
+                "damage": "2d8 (cono de 4,5 m)"
+              }
+            ],
+            "specialAbilities": [
+              "aliento de fuego (recarga 1d4 turnos)",
+              "visión en la oscuridad",
+              "resistencia al fuego (10)"
+            ]
+          },
+          {
+            "name": "Elfo Maligno",
+            "type": "humanoide",
+            "alignment": "caótico maligno",
+            "level": 3,
+            "hitPoints": "3d8+3",
+            "armorClass": 15,
+            "attacks": [
+              {
+                "name": "espada larga",
+                "type": "melee",
+                "bonus": "+5",
+                "damage": "1d8+3"
+              },
+              {
+                "name": "arco largo",
+                "type": "rango",
+                "bonus": "+4",
+                "damage": "1d8+1"
+              }
+            ],
+            "specialAbilities": [
+              "visión en la oscuridad",
+              "resistencia a encantamientos",
+              "sigilo (+6 en tiradas)",
+              "paso sin dejar rastro (puede moverse sin ser detectado en bosques o terrenos naturales)"
+            ],
+            "img": "/img/enemies/evil_elf.png"
+          }
+          
+          
+          
     ]
 }

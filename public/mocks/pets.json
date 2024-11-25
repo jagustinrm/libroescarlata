@@ -51,6 +51,20 @@
       },
       "specialAbilities": ["olfato agudo", "sentidos agudos"],
       "img": "/img/dog.png"
+    },
+    {
+      "name": "Dragón Bebé",
+      "type": "dragón",
+      "alignment": "neutral",
+      "level": 1,
+      "hitPoints": "1d10+2",
+      "armorClass": 15,
+      "attack": {
+        "melee": "mordisco +4 (1d6+1 daño)"
+      },
+      "specialAbilities": ["aliento de fuego (1d6 daño en un cono de 3m, recarga 1d4 turnos)", "visión en la oscuridad", "resistencia al fuego (5)"],
+      "img": "/img/cute_baby_dragon.png"
     }
+    
   ]
 }

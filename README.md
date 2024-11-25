@@ -1,9 +1,7 @@
 El libro escarlata
 
 Cosas para hacer:
-PONER EN EL FIGHTSCENE EL 
-setUpdateEnemy(false) 
-para que vuelva la est
+
 
 Bestiario de criaturas derrotadas y cantidad.
 Imágenes de clases
@@ -11,14 +9,10 @@ Carga y descarga de personaje
 
 Agregarle un chat
 
-Enemigos: hada
-troll
-elfo
-mascota: dragón bebé
-POCIONES
-Huevo de dragón
 
-PARA CENTRALIZAR MANEJO DE LOCALSTORAGE
+POCIONES
+
+Huevo de dragón
 
 
 3. Centralizar el manejo de localStorage:
