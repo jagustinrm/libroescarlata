@@ -16,39 +16,40 @@ export default function CharacterSelector() {
     const navigate = useNavigate();
     const { classes, areClassesLoaded } = useClassStore();
     const {weapons} = useWeaponStore();
-    const { player, playerActions
-    } = usePlayerStore();
+    const { player, playerActions} = usePlayerStore();
     const {inventories} = useInventoryStore()
     const inventoryStore = useInventoryStore.getState()
     const handleButtonClick = (classData: Class) => {
-    const { className, hitDie} = classData;
-    playerActions.addClasses(className);
-    const InitialHealth = calculateInitialHealth(hitDie).toString();
-    playerActions.setP_MaxHealth(InitialHealth);
-    playerActions.setP_LeftHealth(InitialHealth);
-    inventoryStore.createInventory('player1_inventory');
-    assignWeaponByClass(className, classes, 
-            weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
-            player,
-    );
-    localStorage.setItem('dungeonLevel', '1');
+        const { className, hitDie} = classData;
+        playerActions.addClasses(className);
+        const InitialHealth = calculateInitialHealth(hitDie).toString();
+        
+        playerActions.setP_MaxHealth(InitialHealth);
+        playerActions.setP_LeftHealth(InitialHealth);
+        playerActions.setPlayerMaterial(100)
+        inventoryStore.createInventory('player1_inventory');
+        assignWeaponByClass(className, classes, 
+                weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
+                player,
+        );
+        localStorage.setItem('dungeonLevel', '1');
 
-    type enemyCounter = {
-        id: number;
-        name: string;
-        count: number;
-    };
-    const deletedEnemies: enemyCounter[] = [];
-    localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies));
-    type typeCompletedMQuests = {
-        id: number;
-        name: string;
-        progress: number;
-        completed: boolean;
-    };
-    const completedQuests: typeCompletedMQuests[] = [];
-    localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
-    navigate('/home');
+        type enemyCounter = {
+            id: number;
+            name: string;
+            count: number;
+        };
+        const deletedEnemies: enemyCounter[] = [];
+        localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies));
+        type typeCompletedMQuests = {
+            id: number;
+            name: string;
+            progress: number;
+            completed: boolean;
+        };
+        const completedQuests: typeCompletedMQuests[] = [];
+        localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
+        navigate('/home');
     };
 
     return (

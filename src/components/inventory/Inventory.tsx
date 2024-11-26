@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Inventory() {
-    const [actualInventory, setActualInventory] = useState<Array<any> | null>(null); // Cambié Item por "any" si no tienes la interfaz
+    const [actualInventory, setActualInventory] = useState<Array<string> | null>(null); // Cambié Item por "any" si no tienes la interfaz
     const { player } = usePlayerStore(); 
     const { inventories } = useInventoryStore(); 
     const navigate = useNavigate();  

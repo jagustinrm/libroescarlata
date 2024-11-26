@@ -132,3 +132,15 @@ button:disabled {
 .bossSign {
     color: red;
 }
+
+.potionImg {
+    height: 32px;
+    width: 50px;
+
+}
+
+.attackAndPotions {
+    display: flex;
+    align-items: center;
+
+}

@@ -1,8 +1,8 @@
 El libro escarlata
 
 Cosas para hacer:
-
-Modificar WeaponLoader que no debería mandar las cosas por medio de estados sino que debería enviar todo al storage
+ARREGLAR MASCOTAS
+REPARAR ITEMSHOP (hacer un loader ahí mismo)
 Bestiario de criaturas derrotadas y cantidad.
 Imágenes de clases
 Carga y descarga de personaje
@@ -10,7 +10,6 @@ Carga y descarga de personaje
 Agregarle un chat
 
 
-POCIONES
 
 Huevo de dragón
 

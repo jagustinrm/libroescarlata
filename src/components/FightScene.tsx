@@ -20,6 +20,9 @@ import { QuestData }from "./interfaces/QuestsInt.ts";
 // @ts-expect-error Para que funcione 
 import useExpTable from "../customHooks/useExpTable.js";
 import useInventoryStore from "../stores/inventoryStore.ts";
+import usePotionStore from "../stores/potionsStore.ts";
+// @ts-expect-error Para que funcione 
+import {rollDice} from '../utils/rollDice.js'
 
 export default function FightScene() {
     const navigate = useNavigate();
@@ -27,8 +30,9 @@ export default function FightScene() {
     const fightType = searchParams.get("type") || "normal";
     const [triggerPostActions, setTriggerPostActions] = useState(false);
     const {player, playerActions } = usePlayerStore();
-    const {inventories} = useInventoryStore();
-    console.log(inventories[player.inventoryId])
+    const {inventories, removeItem} = useInventoryStore();
+    const {potions} = usePotionStore();
+
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
     const {hitDie } = usePlayerStats();
@@ -115,7 +119,36 @@ export default function FightScene() {
         updateEnemy? setUpdateEnemy(false) : setUpdateEnemy(true) 
     };
 
- 
+    const handleHealing = () => {
+        const potionName = "Poción de Curación Menor";
+        const currentHealth = player.p_LeftHealth;
+        const maxHealth = player.p_MaxHealth;
+    
+        // Función para eliminar la poción
+        const removePotion = () => {
+            const potionIndex = inventories[player.inventoryId].potions.findIndex(p => p === potionName);
+            if (potionIndex !== -1) {
+                removeItem(player.inventoryId, "potions", inventories[player.inventoryId].potions[potionIndex]);
+            } else {
+                console.log("Poción no encontrada.");
+            }
+        };
+    
+        // Verificar si se necesita curación
+        if (currentHealth < maxHealth) {
+            console.log(potions)
+            const amountHealingDice = potions.find(p => p.name === potionName).effect.amount
+            const amountHealing = rollDice(amountHealingDice)
+            const totalLeftHealth = currentHealth + amountHealing
+            // Establecer la nueva salud, sin exceder la salud máxima
+            playerActions.setP_LeftHealth(Math.min(totalLeftHealth, maxHealth));
+            // Eliminar la poción utilizada
+            removePotion();
+        } else {
+            alert('Tenés la vida completa');
+        }
+    };
+    
     
     const executeAttack = () => {
         handleAttack({
@@ -140,7 +173,8 @@ export default function FightScene() {
 
     const xpPercentage = ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100;
     const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
-   
+    const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
+
     return (
         <div className="fight-scene">
             
@@ -162,9 +196,22 @@ export default function FightScene() {
                 <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
                 <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
             </div>
-                <button  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
-                    ⚔️ Atacar
-                </button>
+                <div className="attackAndPotions">
+                    <button  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
+                        ⚔️ Atacar
+                    </button>
+                    {pocion && (
+                         <button onClick={handleHealing} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
+                           {
+                             // Buscar la poción en la lista de potions y mostrar la imagen
+                             (() => {
+                               const foundPotion = potions.find(p => p.name === "Poción de Curación Menor");
+                               return foundPotion ? <img className="potionImg" src={foundPotion.img} alt={foundPotion.name} /> : null;
+                             })()
+                           }
+                         </button>
+                      )}
+                </div>
                 {pet? <p>Mascota: {pet}</p> : <></>}
 
                 {fightType === 'normal' || player.p_LeftHealth === 0 ?  <button onClick={() => handleRun({ player, navigate })}> 😨 Huir</button> : <></>}

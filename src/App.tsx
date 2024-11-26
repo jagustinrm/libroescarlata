@@ -10,10 +10,24 @@ import PetStore from './components/petStore/PetStore';
 import Inventory from './components/inventory/Inventory';
 import Quests from './components/quests/Quests';
 import ItemShop from './components/itemsStore/ItemShop';
+import PlayerStateLoader from './components/PlayerStateLoader';
+import usePlayerStore from './stores/playerStore';
+import useInventoryStore from './stores/inventoryStore';
+import InventoryStateLoader from './components/InventoryStateLoader';
 
 function App() {
+  const {player} = usePlayerStore();
+  const {inventories} = useInventoryStore();
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('playerState', JSON.stringify(player));
+    localStorage.setItem('inventoryState', JSON.stringify(inventories))
+    // localStorage.removeItem('playerState')
+    // localStorage.removeItem('inventoryState')
+});
   return (
     <BrowserRouter>
+      <PlayerStateLoader />
+      <InventoryStateLoader/>
       <HomeProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />

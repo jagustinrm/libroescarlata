@@ -1,3 +1,5 @@
+// OJO QUE AMOUNT ES UN STRING, ES UN DADO
+// HABRÍA QUE AGREGAR VALUE PARA LAS OTRAS POCIONES QUE NO SON DE CURACIÓN
 export interface PotionEffect {
     type: string
     amount?: string;

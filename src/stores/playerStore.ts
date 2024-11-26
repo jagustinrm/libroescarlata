@@ -80,13 +80,21 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           classFeatures: [...state.player.classFeatures, feature],
         },
       })),
-    addClasses: (newClass) =>
-      set((state) => ({
-        player: {
-          ...state.player,
-          classes: [...state.player.classes, newClass],
-        },
-      })),
+      addClasses: (newClass) =>
+        set((state) => {
+          // Verificar si la clase ya existe
+          if (!state.player.classes.includes(newClass)) {
+            console.log(newClass)
+            return {
+              player: {
+                ...state.player,
+                classes: [...state.player.classes, newClass], // Agregar solo si no existe
+              },
+            };
+          }
+          // Si ya existe, no modificar el estado
+          return state;
+        }),
     setP_SelectedPet: (selectedPet) =>
       set((state) => ({
         player: { ...state.player, selectedPet },

@@ -1,5 +1,6 @@
 import { usePlayerStore } from '../stores/playerStore';
 import { useNavigate } from "react-router-dom";
+// import { useEffect } from 'react';
 import './Home.css';
 import openMissions from '../utils/openMissionsWindow.ts';
 
@@ -7,6 +8,8 @@ import openMissions from '../utils/openMissionsWindow.ts';
 export default function Home() {
     const { player, playerActions } = usePlayerStore();
     const navigate = useNavigate();
+
+
     const handleAction = (action: string) => {
         switch (action) {
             case 'fight-normal':
