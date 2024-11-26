@@ -3,10 +3,11 @@ import './PetStore.css';
 import { usePetStore } from '../../stores/petsStore';
 import { usePlayerStore } from '../../stores/playerStore';
 import { useNavigate } from 'react-router-dom';  // Importamos useNavigate
+import { Pet } from '../../stores/types/pets';
 export default function PetStore() {
-  const [selectedPet, setSelectedPet] = useState<any | null>(null); // Guardamos el objeto completo
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null); // Guardamos el objeto completo
   const { pets, setPets } = usePetStore();
-  const { player, setP_SelectedPet } = usePlayerStore();
+  const { playerActions } = usePlayerStore();
   const navigate = useNavigate();  // Declaramos la función navigate
   useEffect(() => {
     fetch('/mocks/pets.json')
@@ -20,17 +21,16 @@ export default function PetStore() {
   }, []);
 
   // Función para manejar la selección de una mascota (sin actualizar el jugador aún)
-  const handleSelectPet = (creature: any) => {
+  const handleSelectPet = (creature: Pet) => {
+    console.log(creature)
     setSelectedPet(creature); // Guarda la mascota seleccionada
   };
 
   // Función para manejar la confirmación de la mascota seleccionada
   const handleSelectedPet = () => {
     if (selectedPet) {
-      setP_SelectedPet(selectedPet); // Guarda el selectedPet en el store de player
+      playerActions.setP_SelectedPet(selectedPet); // Guarda el selectedPet en el store de player
       alert('Seleccionaste: ' + selectedPet.name); // Muestra el nombre de la mascota seleccionada
-      console.log(selectedPet);
-      console.log(player);
     }
   };
   const handleGoBack = () => {
