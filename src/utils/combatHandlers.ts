@@ -7,19 +7,16 @@ import { Weapon } from '../components/interfaces/Weapon.js';
 import { CreatureInterface } from '../components/interfaces/CreatureInterface.js';
 // @ts-expect-error Para que funcione 
 import gainExp from './gainExp.js'
-
-
+import { PlayerActions } from '../stores/types/player.js';
 interface CombatHandlersProps {
     player: { 
         name: string
         playerExp: number;
         level: number;
         p_LeftHealth: number;
+        playerMaterial: number;
     }; 
-
-    setPlayerExp: (playerExp: number) => void
-    setP_LeftHealth: (p_LeftHealth: number) => void, 
-    setP_MaxHealth: (p_MaxHealth: number) => void,
+    playerActions: PlayerActions;
     enemyHealth: number;
     setEnemyHealth: Dispatch<SetStateAction<number>>;
     enemyLevel: number;
@@ -41,12 +38,11 @@ export const handleAttack = ({
     enemyHealth,
     setEnemyHealth,
     enemyLevel,
-    setPlayerExp,
+    playerActions,
     setActionMessages,
     charActualWeapon,
     enemy,
     player,
-    setP_LeftHealth
 }: CombatHandlersProps) => {
     
     const playerDamage = rollDice(charActualWeapon?.damage);
@@ -60,17 +56,18 @@ export const handleAttack = ({
     // Actualizar la vida del enemigo
     setEnemyHealth((prevEnemyHealth) => {
         const newEnemyHealth = updateEnemyHealth(prevEnemyHealth, playerDamage);
-
         // Llamar a handlePostCombatActions para manejar XP y dungeon level si es necesario
         //ESTA FUNCIÓN ESTÁ ABAJO
-        handlePostCombatActions(newEnemyHealth, enemyLevel, setPlayerExp, player.playerExp)
+        handlePostCombatActions( 
+            newEnemyHealth, enemyLevel, player.playerExp,
+            playerActions, player.playerMaterial)
 
         return newEnemyHealth;
     });
 
     // Si el enemigo aún está vivo, actualizar la salud del jugador
     if (enemyHealth > 0) {
-        setP_LeftHealth(Math.max(player.p_LeftHealth - enemyDamage, 0));
+        playerActions.setP_LeftHealth(Math.max(player.p_LeftHealth - enemyDamage, 0));
     }
     
 };
@@ -79,13 +76,18 @@ export const handleAttack = ({
 const handlePostCombatActions = (
     enemyHealth: number, 
     enemyLevel: number, 
-    setPlayerExp: (playerExp: number) => void,
     playerExp: number,
+    playerActions: PlayerActions,
+    playerMaterial: number,
 ): void => {
+
     if (enemyHealth <= 0) {
         // Ganar experiencia llamando a gainExp
-        gainExp(enemyLevel, setPlayerExp, playerExp);
+
+        gainExp(enemyLevel, playerActions.setPlayerExp, playerExp);
+        playerActions.setPlayerMaterial(playerMaterial + enemyLevel * 100)
     }
+
 
 };
 

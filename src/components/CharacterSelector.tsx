@@ -3,76 +3,64 @@ import './CharacterSelector.css'
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 // @ts-expect-error Armas por clase
 import {assignWeaponByClass} from '../utils/assignWeaponByClass.js'
-// @ts-expect-error Inventario
-import {createInitialInventory} from '../utils/inventoryUtils.js'
-
 import { useNavigate } from 'react-router-dom';
 import {usePlayerStore} from '../stores/playerStore.js';
 import ClassLoader from '../loaders/ClassLoaders.js';
-import WeaponLoader from '../loaders/WeaponLoader.js';
+import PotionsLoader from '../loaders/PotionsLoader.js';
+import WeaponLoader from '../loaders/NewWeaponLoader.js';
 import useClassStore from '../stores/classStore';
 import { Class } from '../stores/types/class.js';
 import useInventoryStore from '../stores/inventoryStore';
+import { useWeaponStore } from '../stores/weaponStore.js';
 export default function CharacterSelector() {
-    // Accedemos al estado de clases desde el store
-    const { classes, areClassesLoaded } = useClassStore();
-    const { weapons } = WeaponLoader();
-    const { player, addClasses, 
-        setPlayerLevel, setPlayerExp, 
-        setP_MaxHealth, setP_LeftHealth, 
-        setP_ExpPrevLevel, setP_ExpToNextLevel,
-        setP_SelectedWeapon
-    } = usePlayerStore();
     const navigate = useNavigate();
+    const { classes, areClassesLoaded } = useClassStore();
+    const {weapons} = useWeaponStore();
+    const { player, playerActions
+    } = usePlayerStore();
     const {inventories} = useInventoryStore()
     const inventoryStore = useInventoryStore.getState()
-
     const handleButtonClick = (classData: Class) => {
-        const { className, hitDie} = classData;
-        
-        addClasses(className);
-        setPlayerLevel(1);
-        setPlayerExp(0);
-        setP_ExpPrevLevel(0);
-        setP_ExpToNextLevel(1000);
-        const InitialHealth = calculateInitialHealth(hitDie).toString();
-        setP_MaxHealth(InitialHealth);
-        setP_LeftHealth(InitialHealth);
-        inventoryStore.createInventory('player1_inventory');
-        assignWeaponByClass(className, classes, 
-            weapons, setP_SelectedWeapon, inventoryStore, inventories,
+    const { className, hitDie} = classData;
+    playerActions.addClasses(className);
+    const InitialHealth = calculateInitialHealth(hitDie).toString();
+    playerActions.setP_MaxHealth(InitialHealth);
+    playerActions.setP_LeftHealth(InitialHealth);
+    inventoryStore.createInventory('player1_inventory');
+    assignWeaponByClass(className, classes, 
+            weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
             player,
-        );
+    );
+    localStorage.setItem('dungeonLevel', '1');
 
-        localStorage.setItem('dungeonLevel', '1');
-
-        type enemyCounter = {
-            id: number;
-            name: string;
-            count: number;
-        };
-
-        const deletedEnemies: enemyCounter[] = [];
-        localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies));
-
-        type typeCompletedMQuests = {
-            id: number;
-            name: string;
-            progress: number;
-            completed: boolean;
-        };
-        const completedQuests: typeCompletedMQuests[] = [];
-        localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
-
-        navigate('/home');
+    type enemyCounter = {
+        id: number;
+        name: string;
+        count: number;
+    };
+    const deletedEnemies: enemyCounter[] = [];
+    localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies));
+    type typeCompletedMQuests = {
+        id: number;
+        name: string;
+        progress: number;
+        completed: boolean;
+    };
+    const completedQuests: typeCompletedMQuests[] = [];
+    localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
+    navigate('/home');
     };
 
     return (
         <div className='containerClases'>
+            <WeaponLoader/>
+            <PotionsLoader/>
+            <ClassLoader />
             <h1>Hola, {player.name ? player.name : 'invitade'}</h1>
+
             <p>Elige tu clase:</p>
             <div className='buttonsClasses'>
-                <ClassLoader />
+
                 {!areClassesLoaded ? 
                 <p>Loading classes...</p>
                 : (

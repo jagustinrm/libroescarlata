@@ -1,0 +1,61 @@
+/* ItemShop.css */
+.item-shop-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 20px; 
+    background-color: rgba(128, 88, 50, 0.74);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.catalog-buttons {
+    position: sticky;
+    top: 0;
+    background-color:  rgba(112, 68, 26, 0.644);;
+    z-index: 1; 
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    min-height: 300px; /* Asegura que la grilla tenga un alto mínimo */
+    max-height: 300px; /* Puedes ajustar este valor según tus necesidades */
+    max-width: 600px;
+    min-width: 600px;
+    overflow-y: auto;  /* Habilita el scroll cuando el contenido es demasiado grande */
+    grid-auto-rows: minmax(150px, auto); /* Asegura que las filas tengan un tamaño mínimo */
+}
+
+.item-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    text-align: center;
+    min-height: 140px; /* Ajusta el mínimo tamaño de las tarjetas si es necesario */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: rgba(112, 68, 26, 0.644);
+}
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color:    rgba(112, 68, 26, 0.644);;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}

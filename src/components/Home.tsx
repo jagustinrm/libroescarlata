@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import './Home.css';
 import openMissions from '../utils/openMissionsWindow.ts';
 
+
 export default function Home() {
-    const { player, setP_LeftHealth } = usePlayerStore();
+    const { player, playerActions } = usePlayerStore();
     const navigate = useNavigate();
-    console.log(player)
-    // Handler genérico para manejar acciones
     const handleAction = (action: string) => {
         switch (action) {
             case 'fight-normal':
@@ -19,8 +18,8 @@ export default function Home() {
             case 'townMap':
                 navigate("/townMap");
                 break;
-            case 'store':
-                navigate("/store");
+            case 'itemShop':
+                navigate("/itemShop");
                 break;
             case 'armory':
                 navigate("/armory");
@@ -35,7 +34,7 @@ export default function Home() {
                 navigate("/inventory");
                 break;
             case 'recoverHealth':
-                setP_LeftHealth(player.p_MaxHealth);
+                playerActions.setP_LeftHealth(player.p_MaxHealth);
                 break;
             case 'missions':
                 openMissions();
@@ -47,6 +46,7 @@ export default function Home() {
 
     return (
         <div className="container">
+
             <div className="player">
                 <div className="stats">
                     <p>👤 {player.name}</p>
@@ -54,7 +54,8 @@ export default function Home() {
                     <p>⭐ Nivel: {player.level}</p>
                     <p>❤️ Vida: {player.p_LeftHealth} / {player.p_MaxHealth}</p>
                     <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
-                    <p>Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
+                    <p>🛠️ Materiales: {player.playerMaterial}</p>
+                    <p>🗡️ Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
                     {player.selectedPet && <p>🐶 Mascota: {player.selectedPet.name}</p>}
                 </div>
                 <button onClick={() => handleAction('inventory')}>📜 Inventario</button>
@@ -74,7 +75,7 @@ export default function Home() {
                 </button>
                 <button onClick={() => handleAction('townMap')}>🏠 Hogar</button>
                 <button onClick={() => handleAction('recoverHealth')}>🏥 Hospital</button>
-                <button onClick={() => handleAction('store')}>🛒 Tienda</button>
+                <button onClick={() => handleAction('itemShop')}>🛒 Tienda</button>
                 <button onClick={() => handleAction('armory')}>⚔️ Armería</button>
                 <button onClick={() => handleAction('petStore')}>🐾 Mascotas</button>
                 <button onClick={() => handleAction('bestiary')}>🐉 Bestiario</button>

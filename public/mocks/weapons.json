@@ -7,7 +7,7 @@
             "damage": "1d8",
             "critical": "19-20/x2",
             "weight": "4 lb",
-            "cost": "15 gp",
+            "cost": 15,
             "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros."
         },
         {
@@ -18,7 +18,7 @@
             "critical": "19-20/x2",
             "range": "10 ft",
             "weight": "1 lb",
-            "cost": "2 gp",
+            "cost": 2,
             "description": "Ligera y fácil de ocultar, ideal como arma secundaria."
         },
         {
@@ -28,7 +28,7 @@
             "damage": "1d8",
             "critical": "x3",
             "weight": "6 lb",
-            "cost": "10 gp",
+            "cost": 10,
             "description": "Un arma poderosa capaz de infligir daños devastadores."
         },
         {
@@ -39,7 +39,7 @@
             "critical": "x3",
             "range": "100 ft",
             "weight": "3 lb",
-            "cost": "75 gp",
+            "cost": 75,
             "description": "Un arco de gran alcance, preferido por arqueros experimentados."
         },
         {
@@ -49,7 +49,7 @@
             "damage": "1d6",
             "critical": "x2",
             "weight": "5 lb",
-            "cost": "8 gp",
+            "cost": 8,
             "description": "Perfecta para romper armaduras y golpear con fuerza contundente."
         },
         {
@@ -59,7 +59,7 @@
             "damage": "2d6",
             "critical": "19-20/x2",
             "weight": "8 lb",
-            "cost": "50 gp",
+            "cost": 50,
             "description": "Un arma imponente que requiere ambas manos para su uso."
         },
         {
@@ -70,7 +70,7 @@
             "critical": "x3",
             "range": "20 ft",
             "weight": "6 lb",
-            "cost": "5 gp",
+            "cost": 5,
             "description": "Versátil para el combate cercano o para arrojar a distancia."
         },
         {
@@ -81,7 +81,7 @@
             "critical": "19-20/x2",
             "range": "80 ft",
             "weight": "4 lb",
-            "cost": "35 gp",
+            "cost": 35,
             "description": "Un arma fácil de usar, ideal para ataques a distancia precisos."
         },
         {
@@ -91,7 +91,7 @@
             "damage": "1d8",
             "critical": "x3",
             "weight": "5 lb",
-            "cost": "12 gp",
+            "cost": 12,
             "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados."
         },
         {
@@ -101,7 +101,7 @@
             "damage": "1d6",
             "critical": "x2",
             "weight": "4 lb",
-            "cost": "0 gp",
+            "cost": 0,
             "description": "Un arma simple que puede utilizarse como herramienta o defensa."
         }
     ]

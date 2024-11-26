@@ -19,21 +19,5 @@ export function useLoadWeapons() {
         loadInitWeapons();
     }, []);
 
-    // useEffect(() => {
-    //     // Buscar el arma del personaje una vez que las armas iniciales estén cargadas
-    //     const charWeaponId = localStorage.getItem('charWeaponId');
-        
-    //     if (charWeaponId && weapons.length > 0) {
-    //         const weapon = weapons.find(w => w.id === parseInt(charWeaponId));
-    //         if (weapon) {
-                
-    //             localStorage.setItem("charActualWeapon", JSON.stringify(weapon));
-    //         } else {
-    //             console.warn(`Arma con ID ${charWeaponId} no encontrada`);
-  
-    //         }
-    //     }
-    // }, [weapons]); // Dependemos de que las armas iniciales estén cargadas
-
     return { weapons };
 }

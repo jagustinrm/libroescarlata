@@ -66,7 +66,7 @@ export function useEnemyLoader( level, dungeonLevel, updateEnemy) {
                     }
                 } else {
                     // Lógica estándar para otros tipos de combate
-                    const filteredCreatures = creatures.filter(creature => creature.level === level);
+                    const filteredCreatures = creatures.filter(creature => creature.level <= level);
                     const finalCreatures =
                         filteredCreatures.length > 0
                             ? filteredCreatures

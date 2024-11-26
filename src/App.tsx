@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from './components/LandingPage';
 import CharacterSelector from './components/CharacterSelector';
 import Home from './components/Home';
-
 import FightScene from './components/FightScene';
 import TownMap from './components/TownMap';
 import { HomeProvider } from './context/HomeContext';
 import PetStore from './components/petStore/PetStore';
 import Inventory from './components/inventory/Inventory';
 import Quests from './components/quests/Quests';
+import ItemShop from './components/itemsStore/ItemShop';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route path="/petStore" element={<PetStore />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/quests" element={<Quests />} />
+          <Route path="/itemShop" element={<ItemShop/>} />
         </Routes>
       </HomeProvider>
     </BrowserRouter>

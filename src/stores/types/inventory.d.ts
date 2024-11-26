@@ -1,4 +1,4 @@
-import create from 'zustand';
+
 export interface Inventory {
     weapons: Array<string>;
     armors: Array<string>;

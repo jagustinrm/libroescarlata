@@ -1,0 +1,145 @@
+[
+  {
+    "id": 1,
+    "name": "Poción de Curación Menor",
+    "type": "Curación",
+    "cost": 50,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "heal",
+      "value": "1d8+1"
+    },
+    "description": "Restaura 1d8+1 puntos de vida.",
+    "img": "/img/healing-potion.png"
+  },
+  {
+    "id": 2,
+    "name": "Poción de Curación Moderada",
+    "type": "Curación",
+    "cost": 300,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "heal",
+      "value": "2d8+3"
+    },
+    "description": "Restaura 2d8+3 puntos de vida.",
+    "img": "/img/moderate-healing-potion.png"
+  },
+  {
+    "id": 3,
+    "name": "Poción de Fuerza de Toro",
+    "type": "Buff",
+    "cost": 150,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "strength",
+      "value": 4,
+      "duration": "3 minutos"
+    },
+    "description": "Aumenta la fuerza en +4 durante 3 minutos.",
+    "img": "/img/bull-strength-potion.png"
+  },
+  {
+    "id": 4,
+    "name": "Poción de Invisibilidad",
+    "type": "Buff",
+    "cost": 200,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "invisibility",
+      "duration": "10 minutos"
+    },
+    "description": "Te hace invisible durante 10 minutos.",
+    "img": "/img/invisibility-potion.png"
+  },
+  {
+    "id": 5,
+    "name": "Poción de Velocidad",
+    "type": "Buff",
+    "cost": 300,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "speed",
+      "value": 30,
+      "duration": "1 minuto"
+    },
+    "description": "Aumenta tu velocidad en 30 pies durante 1 minuto.",
+    "img": "/img/speed-potion.png"
+  },
+  {
+    "id": 6,
+    "name": "Poción de Resistencia a Fuego",
+    "type": "Resistencia",
+    "cost": 250,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "resistance",
+      "element": "fire",
+      "value": 10,
+      "duration": "10 minutos"
+    },
+    "description": "Reduce 10 puntos de daño por fuego durante 10 minutos.",
+    "img": "/img/fire-resistance-potion.png"
+  },
+  {
+    "id": 7,
+    "name": "Poción de Clarividencia",
+    "type": "Buff",
+    "cost": 350,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "perception",
+      "value": 5,
+      "duration": "1 hora"
+    },
+    "description": "Aumenta tu percepción en +5 durante 1 hora.",
+    "img": "/img/clairvoyance-potion.png"
+  },
+  {
+    "id": 8,
+    "name": "Poción de Respirar Bajo el Agua",
+    "type": "Habilidad",
+    "cost": 200,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "ability",
+      "stat": "water-breathing",
+      "duration": "1 hora"
+    },
+    "description": "Te permite respirar bajo el agua durante 1 hora.",
+    "img": "/img/water-breathing-potion.png"
+  },
+  {
+    "id": 9,
+    "name": "Poción de Escudo de Fe",
+    "type": "Defensa",
+    "cost": 100,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "armor-class",
+      "value": 2,
+      "duration": "1 minuto"
+    },
+    "description": "Otorga un bono de +2 a la clase de armadura durante 1 minuto.",
+    "img": "/img/shield-of-faith-potion.png"
+  },
+  {
+    "id": 10,
+    "name": "Poción de Volar",
+    "type": "Habilidad",
+    "cost": 500,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "ability",
+      "stat": "fly",
+      "duration": "5 minutos"
+    },
+    "description": "Te permite volar durante 5 minutos.",
+    "img": "/img/fly-potion.png"
+  }
+]

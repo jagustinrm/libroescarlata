@@ -5,7 +5,7 @@ export interface Weapon {
     damage: string;         // Daño del arma (por ejemplo, "1d8")
     critical: string;       // Crítico del arma (por ejemplo, "19-20/x2")
     weight: string;         // Peso del arma (por ejemplo, "4 lb")
-    cost: string;           // Costo del arma (por ejemplo, "15 gp")
+    cost: number;           
     description: string;    // Descripción del arma
     range?: string;         // Alcance del arma (opcional, solo para armas a distancia)
 }

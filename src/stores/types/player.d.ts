@@ -1,8 +1,5 @@
-import create from 'zustand';
-import Pet from '../types/pets'
-import Weapon from '../types/weapons'
-import InventoryStore  from './types/inventory';
-
+import Pet from '../types/pets';
+import Weapon from '../types/weapons';
 
 // Interfaz para el estado del player
 export interface Player {
@@ -26,16 +23,15 @@ export interface Player {
   selectedPet: Pet;
   selectedWeapon: Weapon;
   inventoryId: string; 
+  playerMaterial: number;
 }
 
-
-
-// Interfaz para el store del player
-export interface PlayerStore {
-  player: Player;
+// Interfaz para las acciones relacionadas con el jugador
+export interface PlayerActions {
+  setPlayerMaterial: (playerMaterial: number) => void;
   setPlayerExp: (playerExp: number) => void;
-  setP_ExpToNextLevel: ( p_ExpToNextLevel: number) => void;
-  setP_ExpPrevLevel:(p_ExpPrevLevel: number) => void;
+  setP_ExpToNextLevel: (p_ExpToNextLevel: number) => void;
+  setP_ExpPrevLevel: (p_ExpPrevLevel: number) => void;
   setP_SelectedPet: (selectedPet: Pet) => void;
   setP_SelectedWeapon: (selectedWeapon: Weapon) => void;
   setPlayerLevel: (level: number) => void;
@@ -47,7 +43,11 @@ export interface PlayerStore {
   setBaseAttackBonus: (baseAttackBonus: string) => void; 
   updateSaves: (saves: Partial<Player['saves']>) => void; 
   addClassFeature: (feature: string) => void; 
-  getInventoryFunctions: () => ReturnType<typeof useInventoryStore>; 
 }
 
-
+// Interfaz para el store del player
+export interface PlayerStore {
+  player: Player;
+  playerActions: PlayerActions;
+  getInventoryFunctions: () => ReturnType<typeof useInventoryStore>;
+}

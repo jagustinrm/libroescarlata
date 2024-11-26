@@ -2,7 +2,7 @@ El libro escarlata
 
 Cosas para hacer:
 
-
+Modificar WeaponLoader que no debería mandar las cosas por medio de estados sino que debería enviar todo al storage
 Bestiario de criaturas derrotadas y cantidad.
 Imágenes de clases
 Carga y descarga de personaje

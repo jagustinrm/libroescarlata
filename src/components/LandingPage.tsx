@@ -4,12 +4,12 @@ import './LandingPage.css';
 import { usePlayerStore } from '../stores/playerStore';
 
 const LandingPage: React.FC = () => {
-    const { setPlayerName } = usePlayerStore(); // Obtén la acción para actualizar el store
+    const { playerActions } = usePlayerStore(); // Obtén la acción para actualizar el store
     const [inputName, setInputName] = useState<string>(''); // Estado local para el input
     const navigate = useNavigate(); // Hook para navegar
 
     const handleSaveName = () => {
-        setPlayerName(inputName); // Actualiza el nombre en el store
+        playerActions.setPlayerName(inputName); // Actualiza el nombre en el store
         setInputName(''); // Limpia el input
         navigate('/characterSelector'); // Navega a la siguiente página
     };

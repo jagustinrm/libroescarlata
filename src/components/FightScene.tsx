@@ -9,8 +9,6 @@ import { usePlayerStats } from '../customHooks/usePlayerStats.js';
 // @ts-expect-error Para que funcione 
 import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 // @ts-expect-error Para que funcione 
-import gainExp from '../utils/gainExp.js'
-// @ts-expect-error Para que funcione 
 import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
@@ -21,33 +19,27 @@ import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
 // @ts-expect-error Para que funcione 
 import useExpTable from "../customHooks/useExpTable.js";
+import useInventoryStore from "../stores/inventoryStore.ts";
 
 export default function FightScene() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
     const [triggerPostActions, setTriggerPostActions] = useState(false);
-    const {player, setPlayerLevel, 
-        setPlayerExp, setP_LeftHealth, setP_MaxHealth,
-        setP_ExpToNextLevel, setP_ExpPrevLevel,
-    } = usePlayerStore();
+    const {player, playerActions } = usePlayerStore();
+    const {inventories} = useInventoryStore();
+    console.log(inventories[player.inventoryId])
     const {expTable, setExpTable}  = useExpTable()
-
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
-    
-    
-    const {
-        hitDie } = usePlayerStats();
+    const {hitDie } = usePlayerStats();
     const {quests} = useLoadQuests();
     const [charActualWeapon, setCharActualWeapon] = useState<Weapon | null>(null);
-
     const [pet, setPet] = useState<string | null>('')
         // Estados para el enemigo
         const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
             const storedLevel = localStorage.getItem("dungeonLevel");
             return storedLevel ? parseInt(storedLevel, 10) : 1;
         });
-
         const [enemiesDeleted, setEnemiesDeleted] = useState<Array<EnemyDeleted>>(() => {
             const storageEnemiesDeleted = localStorage.getItem('deletedEnemies');
             return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
@@ -73,12 +65,9 @@ export default function FightScene() {
     const handleCheckLevelUp = () => {
         checkLevelUp({
             player,
-            setPlayerLevel,
             setActionMessages,
             hitDie,
-            calculateInitialHealth,
-            setP_MaxHealth, setP_LeftHealth,
-            setP_ExpToNextLevel, setP_ExpPrevLevel,
+            calculateInitialHealth, playerActions,
             expTable, setExpTable
         });
     };
@@ -140,8 +129,7 @@ export default function FightScene() {
             enemy,
             fightType,
             typeEnemy,
-            setPlayerExp,
-            setP_LeftHealth, setP_MaxHealth,
+            playerActions
         });
 
         setTriggerPostActions(true);
