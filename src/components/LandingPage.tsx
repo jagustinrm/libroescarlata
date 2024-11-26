@@ -17,7 +17,7 @@ const LandingPage: React.FC = () => {
     return (
         <div className="landingContainer">
             <h1>El Libro Escarlata</h1>
-            <h3>Bienvenide... {inputName}</h3>
+            <h3>Tu nombre es: {inputName}</h3>
             <input
                 type="text"
                 placeholder="Ingresá tu nombre"
