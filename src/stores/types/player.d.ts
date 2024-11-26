@@ -38,6 +38,7 @@ export interface PlayerActions {
   setP_MaxHealth: (p_MaxHealth: number) => void;
   setP_LeftHealth: (p_LeftHealth: number) => void;
   addClasses: (classes: string) => void;
+  setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void; 
   setArmorClass: (armorClass: string) => void; 
   setBaseAttackBonus: (baseAttackBonus: string) => void; 

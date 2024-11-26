@@ -95,6 +95,10 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           // Si ya existe, no modificar el estado
           return state;
         }),
+        setPlayerClass: (classes) =>
+          set((state) => ({
+            player: {...state.player, classes: [classes]}
+          })),
     setP_SelectedPet: (selectedPet) =>
       set((state) => ({
         player: { ...state.player, selectedPet },

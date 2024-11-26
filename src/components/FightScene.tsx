@@ -116,7 +116,11 @@ export default function FightScene() {
 
     const handleNewEnemyClick = () => {
         handleNewEnemy(player.name);
-        updateEnemy? setUpdateEnemy(false) : setUpdateEnemy(true) 
+        if (updateEnemy) {
+            setUpdateEnemy(false);
+        } else {
+            setUpdateEnemy(true);
+        }
     };
 
     const handleHealing = () => {
@@ -137,7 +141,9 @@ export default function FightScene() {
         // Verificar si se necesita curación
         if (currentHealth < maxHealth) {
             console.log(potions)
-            const amountHealingDice = potions.find(p => p.name === potionName).effect.amount
+            const foundPotion  = potions.find(p => p.name === potionName)
+            if (!foundPotion) return
+            const amountHealingDice = foundPotion.effect?.amount
             const amountHealing = rollDice(amountHealingDice)
             const totalLeftHealth = currentHealth + amountHealing
             // Establecer la nueva salud, sin exceder la salud máxima

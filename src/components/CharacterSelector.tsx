@@ -21,7 +21,7 @@ export default function CharacterSelector() {
     const inventoryStore = useInventoryStore.getState()
     const handleButtonClick = (classData: Class) => {
         const { className, hitDie} = classData;
-        playerActions.addClasses(className);
+        playerActions.setPlayerClass(className);
         const InitialHealth = calculateInitialHealth(hitDie).toString();
         
         playerActions.setP_MaxHealth(InitialHealth);
