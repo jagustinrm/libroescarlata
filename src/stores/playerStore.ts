@@ -21,7 +21,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       will: '',
     },
     classFeatures: [],
-    selectedPet: null,
+    selectedPet: '',
     selectedWeapon: null,
     inventoryId: 'player1_inventory',
     playerMaterial: 0,
