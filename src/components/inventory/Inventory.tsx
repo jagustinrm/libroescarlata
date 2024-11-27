@@ -3,7 +3,7 @@ import usePlayerStore from '../../stores/playerStore';
 import useInventoryStore from '../../stores/inventoryStore'; // Importamos el store de inventario
 import './Inventory.css';
 import type { Inventory } from '../../stores/types/inventory';
-import BackButton from "../UI/backButton";
+import BackButton from '../UI/BackButton';
 
 export default function Inventory() {
     const [actualInventory, setActualInventory] = useState<Array<string> | null>(null); // Cambié Item por "any" si no tienes la interfaz

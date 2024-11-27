@@ -1,6 +1,6 @@
 // import React from 'react';
 import GridMap from './GridMap';
-import BackButton from '../UI/backButton';
+import BackButton from '../UI/BackButton';
 // import Inventory from './Inventory';
 
 

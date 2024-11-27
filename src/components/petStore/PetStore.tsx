@@ -4,7 +4,7 @@ import '../designRpg.css'
 import { usePetStore } from '../../stores/petsStore';
 import { usePlayerStore } from '../../stores/playerStore';
 import { Pet } from '../../stores/types/pets';
-import BackButton from '../UI/backButton';
+import BackButton from '../UI/BackButton';
 import MessageBox from '../UI/MessageBox';
 
 export default function PetStore() {
