@@ -1,16 +1,12 @@
 El libro escarlata
 
 Cosas para hacer:
-REPARAR ITEMSHOP (hacer un loader ahí mismo)
 
 HACER COMPONENTE DE MENSAJES
-Algo que diga que me tengo que curar cuando salgo
+
 Aliado para pelear en la tienda
 Moneda para comprar mascotas
 Dropeo de enemigos
-Una planta carnívora
-
-
 Bestiario de criaturas derrotadas y cantidad.
 Imágenes de clases
 Carga y descarga de personaje

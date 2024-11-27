@@ -2,10 +2,13 @@ import { usePlayerStore } from '../stores/playerStore';
 import { useNavigate } from "react-router-dom";
 // import { useEffect } from 'react';
 import './Home.css';
+import './Arrow.css'
+import { useState } from 'react';
 import openMissions from '../utils/openMissionsWindow.ts';
-
+import MessageBox from './UI/MessageBox.tsx';
 
 export default function Home() {
+    const [showMessage, setShowMessage] = useState(false);
     const { player, playerActions } = usePlayerStore();
     const navigate = useNavigate();
 
@@ -38,6 +41,7 @@ export default function Home() {
                 break;
             case 'recoverHealth':
                 playerActions.setP_LeftHealth(player.p_MaxHealth);
+                setShowMessage(true)
                 break;
             case 'missions':
                 openMissions();
@@ -46,16 +50,28 @@ export default function Home() {
                 console.warn(`Acción no reconocida: ${action}`);
         }
     };
-
+    const handleClose = () => {
+        setShowMessage(false);
+      };
     return (
         <div className="container">
 
+      {showMessage && (
+        <MessageBox
+          message="¡Te curaste toda la vida!"
+          type="success"
+          onClose={handleClose}
+        />
+      )}
             <div className="player">
                 <div className="stats">
                     <p>👤 {player.name}</p>
                     <p>🛡️ {player.classes}</p>
                     <p>⭐ Nivel: {player.level}</p>
-                    <p>❤️ Vida: {player.p_LeftHealth} / {player.p_MaxHealth}</p>
+                    <div className='p_leaftHealth'>
+                    <div className='heart'>❤️</div>
+                    <p> Vida: {player.p_LeftHealth} / {player.p_MaxHealth}</p>
+                    </div>
                     <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
                     <p>🛠️ Materiales: {player.playerMaterial}</p>
                     <p>🗡️ Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
@@ -77,7 +93,11 @@ export default function Home() {
                     🏔️ Dungeon
                 </button>
                 <button onClick={() => handleAction('townMap')}>🏠 Hogar</button>
+                <div className='hospitalRecover'>
                 <button onClick={() => handleAction('recoverHealth')}>🏥 Hospital</button>
+                {player.p_LeftHealth === 0?<div className='arrows'></div> : <></> } 
+                
+                </div>
                 <button onClick={() => handleAction('itemShop')}>🛒 Tienda</button>
                 <button onClick={() => handleAction('armory')}>⚔️ Armería</button>
                 <button onClick={() => handleAction('petStore')}>🐾 Mascotas</button>

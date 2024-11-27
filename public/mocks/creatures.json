@@ -173,6 +173,34 @@
             ]
         },
         {
+          "name": "Planta Carnívora",
+          "img": "/img/enemies/carnivorous_plant.png",
+          "type": "vegetal",
+          "alignment": "neutral maligno",
+          "level": 3,
+          "hitPoints": "3d10",
+          "armorClass": 13,
+          "attacks": [
+              {
+                  "name": "mordisco",
+                  "type": "melee",
+                  "bonus": "+3",
+                  "damage": "2d6"
+              },
+              {
+                  "name": "tentáculos",
+                  "type": "melee",
+                  "bonus": "+2",
+                  "damage": "1d8"
+              }
+          ],
+          "specialAbilities": [
+              "enredar",
+              "toxicidad",
+              "visión en la oscuridad"
+          ]
+      },      
+        {
             "name": "Pixie",
             "img": "/img/enemies/pixie.png",
             "type": "hada",

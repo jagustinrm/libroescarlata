@@ -1,3 +1,24 @@
+@keyframes beat {
+    0%, 40%, 100% { transform: scale(1.2, 1.2); }
+    30%, 40% { transform: scale(0.92, 0.95); }
+  }
+  
+  
+  /* Corazón */
+  
+  .heart{
+      position: relative;
+      animation: 1.5s ease 0s infinite beat;
+
+  }
+.p_leaftHealth{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -10,6 +31,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     
 }
+.hospitalRecover {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
 
 .player {
     display: flex;
