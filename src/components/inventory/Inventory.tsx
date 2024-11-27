@@ -4,7 +4,7 @@ import useInventoryStore from '../../stores/inventoryStore'; // Importamos el st
 import './Inventory.css';
 import type { Inventory } from '../../stores/types/inventory';
 import { useNavigate } from 'react-router-dom'; 
-
+import BackButton from "../UI/backButton";
 
 export default function Inventory() {
     const [actualInventory, setActualInventory] = useState<Array<string> | null>(null); // Cambié Item por "any" si no tienes la interfaz
@@ -49,7 +49,7 @@ export default function Inventory() {
                         )}
                     </ul>
                 </div>
-                <button onClick={handleGoBack}>Volver</button> 
+                <BackButton/>
             </section>
         </>
     );

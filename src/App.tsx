@@ -4,7 +4,7 @@ import LandingPage from './components/LandingPage';
 import CharacterSelector from './components/CharacterSelector';
 import Home from './components/Home';
 import FightScene from './components/FightScene';
-import TownMap from './components/TownMap';
+import TownMap from './components/townMap/TownMap';
 import { HomeProvider } from './context/HomeContext';
 import PetStore from './components/petStore/PetStore';
 import Inventory from './components/inventory/Inventory';

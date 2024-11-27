@@ -12,10 +12,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ message, type, onClose }) => {
       <div className="message-content">
         <p>{message}</p>
         <button className='rpgui-button' onClick={onClose}>Cerrar</button>
-  
       </div>
-
-
     </div>
     
   );

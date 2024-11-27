@@ -58,18 +58,20 @@ export default function PetStore() {
 
       {selectedPet && (
         <div>
-          <h2>Detalles de {selectedPet.name}</h2>
           <div className='containerPets'>
+            <div className='imgPetandSelect'>
               <img className='imgPet' src={selectedPet.img} alt={selectedPet.name} />
-              <div className='containerPetStats'>
+              <button onClick={handleSelectedPet} className='rpgui-button'>Seleccionar</button> 
+            </div> 
+            <div className='containerPetStats'>
+              <h3>Detalles de {selectedPet.name}</h3>
                 <p className='petText'><strong>Tipo:</strong> {selectedPet.type}</p>
                 <p className='petText'><strong>Alineación:</strong> {selectedPet.alignment}</p>
                 <p className='petText'><strong>Puntos de vida:</strong> {selectedPet.hitPoints}</p>
                 <p className='petText'><strong>Clase de armadura:</strong> {selectedPet.armorClass}</p>
                 <p className='petText'><strong>Ataque:</strong> {selectedPet.attack.melee}</p>
                 <p className='petText'><strong>Habilidades especiales:</strong> {selectedPet.specialAbilities.join(', ')}</p>
-              </div>
-              <button onClick={handleSelectedPet} className='rpgui-button'>Seleccionar</button> {/* Solo guarda la mascota en el player cuando se hace clic aquí */}
+            </div>
           </div>
         </div>
       )}

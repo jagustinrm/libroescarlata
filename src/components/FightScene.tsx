@@ -182,7 +182,11 @@ export default function FightScene() {
     }
 
 
-    const xpPercentage = ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100;
+   const xpPercentage = 
+  player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0 
+    ? ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100 
+    : 0; 
+
     const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
 
