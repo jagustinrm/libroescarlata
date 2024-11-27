@@ -63,7 +63,11 @@ button {
 button:hover {
     background-color: #d62828;
 }
-
+.turn-indicator {
+    position: absolute;
+    top:0;
+    left: 50%;
+}
 button:disabled {
     background-color: #555;
     cursor: not-allowed;

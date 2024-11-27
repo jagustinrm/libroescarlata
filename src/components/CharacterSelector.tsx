@@ -31,9 +31,8 @@ export default function CharacterSelector() {
         playerActions.setP_LeftHealth(InitialHealth);
         playerActions.setPlayerExp(0)
         playerActions.setP_ExpToNextLevel(1000)
+        playerActions.setP_ExpPrevLevel(0)
         playerActions.setPlayerMaterial(100)
-
-        
         inventoryStore.createInventory('player1_inventory');
         createItems(1)
 

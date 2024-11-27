@@ -11,9 +11,7 @@ import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
-import { handleAttack, 
-    // handleRun, 
-    handleBack, handleNewEnemy} from '../utils/combatHandlers';
+import { handleAttack, handleNewEnemy} from '../utils/combatHandlers';
 import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
@@ -25,13 +23,12 @@ import {rollDice} from '../utils/rollDice.ts'
 import MessageBox from './UI/MessageBox.tsx';
 
 export default function FightScene() {
-    const [showMessage, setShowMessage] = useState(false);
-    const [messageContent, setMessageContent] = useState('')
-    const [messageType, setMessageType] = useState('')
-    const handleClose = () => {
-        setShowMessage(false);
-        navigate('/home')   
-      };
+    const [messageState, setMessageState] = useState({
+        show: false,
+        content: '',
+        type: '',
+        redirectHome: false,
+      });
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
@@ -42,7 +39,10 @@ export default function FightScene() {
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
     const {quests} = useLoadQuests();
-
+    const [turn, setTurn] = useState<"player" | "enemy">("player");
+    const switchTurn = () => {
+        setTurn((prevTurn) => (prevTurn === "player" ? "enemy" : "player"));
+    };
     const [pet, setPet] = useState<string | null>('')
         // Estados para el enemigo
         const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
@@ -81,7 +81,21 @@ export default function FightScene() {
             expTable, setExpTable
         });
     };
+// ************************ATAQUE DE ENEMIGO *************************
+    useEffect(() => {
+        if (turn === "enemy" && enemyHealth > 0 && player.p_LeftHealth > 0 ) {
+            const enemyAttackTimeout = setTimeout(() => {
+                const damage = rollDice("1d6"); 
+                playerActions.setP_LeftHealth(Math.max(player.p_LeftHealth - damage, 0));
+                setActionMessages((prev) => [...prev, `El enemigo te ha atacado y causó ${damage} puntos de daño.`]);
+                switchTurn(); 
+            }, 1000); 
+    
+            return () => clearTimeout(enemyAttackTimeout); 
+        } 
+    }, [turn]);
 
+// ************************ATAQUE DE ENEMIGO *************************
     useEffect(() => {
         const pet = localStorage.getItem('pet')
         setPet(pet)
@@ -97,7 +111,11 @@ export default function FightScene() {
 
 
 
-
+    useEffect(() => {
+        if (enemyHealth === 0) {
+            handleMessage("¡Has ganado el combate!", "success", false);
+        }
+    }, [enemyHealth]);
 
     
     // Efecto para actualizar los estados cuando `enemy` esté disponible
@@ -117,10 +135,12 @@ export default function FightScene() {
 
     const handleNewEnemyClick = () => {
         handleNewEnemy(player.name);
+        setTurn("player")
         if (updateEnemy) {
             setUpdateEnemy(false);
         } else {
             setUpdateEnemy(true);
+
         }
     };
 
@@ -161,7 +181,7 @@ export default function FightScene() {
     
     
     const executeAttack = () => {
-
+        if (turn !== "player") return;
         handleAttack({
             enemyHealth,setEnemyHealth,
             player, playerActions,
@@ -173,14 +193,29 @@ export default function FightScene() {
         });
 
         setTriggerPostActions(true);
+        switchTurn(); // Cambia al turno del enemigo
     };
 
-    const handleFlee = () => {
-        setShowMessage(true)
-        setMessageContent("¡Has huido del combate!")
-        setMessageType('warning')
-    }
 
+    const handleMessage = (message: string, type: string, shouldClose: boolean) => {
+        setMessageState({
+          show: true,
+          content: message,
+          type,
+          redirectHome: shouldClose,
+        });
+      };
+    
+      const handleClose = (shouldClose: boolean) => {
+        setMessageState((prevState) => ({
+          ...prevState,
+          show: false,
+        }));
+    
+        if (shouldClose) {
+          navigate('/home');
+        }
+      };
 
    const xpPercentage = 
   player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0 
@@ -188,11 +223,14 @@ export default function FightScene() {
     : 0; 
 
     const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
+
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
 
     return (
         <div className="fight-scene">
-            
+    <div className="turn-indicator">
+    {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
+    </div>
             <div className="PlayerChar">
                 <p>{player.name}</p>
                 <p>🛡️ {player.classes}</p>
@@ -212,7 +250,7 @@ export default function FightScene() {
                 <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
             </div>
                 <div className="attackAndPotions">
-                    <button className="rpgui-button newDesign"  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
+                    <button className="rpgui-button newDesign"  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
                         ⚔️ Atacar
                     </button>
                     {pocion && (
@@ -230,8 +268,11 @@ export default function FightScene() {
                 {pet? <p>Mascota: {pet}</p> : <></>}
 
                 {fightType === 'normal' || player.p_LeftHealth === 0 ?  
-                // <button onClick={() => handleRun({ player, navigate })}> 
-                <button onClick={handleFlee} className="rpgui-button">
+                <button onClick={() => handleMessage(
+                    "¡Has huido del combate!",
+                    "warning",
+                    true
+                    )} className="rpgui-button">
                 😨 Huir</button> : <></>}
             </div>
 
@@ -245,10 +286,13 @@ export default function FightScene() {
                 {player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}
                 {enemyHealth === 0 && 
                 <div>
-                    <p>¡Has derrotado al enemigo!</p>
                     <div  className="container-endBattle">
                     <button onClick={handleNewEnemyClick} className="rpgui-button"> ⚔️ Seguir</button>
-                    {fightType === 'normal'?  <button className="rpgui-button" onClick={() => handleBack({ player, navigate })}> Volver</button> : <></>}
+                    {fightType === 'normal'?  <button className="rpgui-button" onClick={() => handleMessage(
+                    "¡Has vuelto sano y salvo!",
+                    "warning",
+                    true
+                    )}> Volver</button> : <></>}
                     </div>
 
                 </div>
@@ -270,12 +314,11 @@ export default function FightScene() {
                 )}
             </div>
 
-
-            {showMessage && (
+            {messageState.show && (
         <MessageBox
-          message = {messageContent}
-          type= {messageType as "error" | "warning" | "success"}
-          onClose={handleClose}
+          message={messageState.content}
+          type={messageState.type as 'error' | 'warning' | 'success'}
+          onClose={() => handleClose(messageState.redirectHome)}
         />
       )}
         </div>

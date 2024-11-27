@@ -23,12 +23,7 @@ const updateEnemyHealth = (prevEnemyHealth: number, playerDamage: number): numbe
 };
 
 // Función para manejar el ataque del jugador
-export const handleAttack = ({
-    enemyHealth,setEnemyHealth,
-    playerActions, player,
-    setActionMessages,
-    enemy,
-
+export const handleAttack = ({setEnemyHealth, player, setActionMessages, enemy,    
 }: CombatHandlersProps) => {
     const playerDamage = rollDice(player.selectedWeapon?.damage);
     const enemyDamage = rollDice(enemy.attacks[0].damage) + parseInt(enemy.attacks[0].bonus);
@@ -45,26 +40,8 @@ export const handleAttack = ({
         return newEnemyHealth;
     });
 
-    // Si el enemigo aún está vivo, actualizar la salud del jugador
-    if (enemyHealth > 0) {
-        playerActions.setP_LeftHealth(Math.max(player.p_LeftHealth - enemyDamage, 0));
-    }
     
 };
-
-
-// Función para manejar el botón de "Huir"
-export const handleRun = ({ player, navigate }: { player: { name: string }; navigate: NavigateFunction }) => {
-    alert(`¡${player.name} ha huido del combate!`);
-    navigate("/home");
-};
-
-// Función para manejar el botón de "Regresar"
-export const handleBack = ({ player, navigate }: { player: { name: string }; navigate: NavigateFunction }) => {
-    alert(`${player.name} regresa sano y salvo a su pueblo.`);
-    navigate("/home");
-};
-
 
 export const handleNewEnemy = ( player: string) => {
     alert(`${player} busca un nuevo enemigo...`);

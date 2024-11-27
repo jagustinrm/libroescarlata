@@ -12,7 +12,8 @@ const InventoryStateLoader = () => {
   
       // Crea el inventario si no existe
       createInventory('player1_inventory');
-      // Recorre cada categoría del inventario (weapons, potions, etc.)
+      if (!Object.keys(parsedInventoryState['player1_inventory'])) { 
+           // Recorre cada categoría del inventario (weapons, potions, etc.)
       Object.keys(parsedInventoryState['player1_inventory']).forEach((category) => {
         const items = parsedInventoryState['player1_inventory'][category]; // Obtiene el array de items
         if (Array.isArray(items)) {
@@ -22,6 +23,10 @@ const InventoryStateLoader = () => {
           });
         }
       });
+
+      } 
+      
+  
     }
   }, []);
 

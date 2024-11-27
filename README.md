@@ -1,11 +1,11 @@
 El libro escarlata
 
 Cosas para hacer:
-Arreglar problemas con pociones cuando reinicio la página.
+
 Aliado para pelear en la tienda
 Dropeo de enemigos
 Huevo de dragón
-
+Dependiendo la hora del día quiero que cambie de color el fondo.
 Box dialog design rpg
 Mailbox
 Cambiar el diseño de las misiones, que sea parecido a de los mensajes

@@ -13,7 +13,7 @@ export function checkLevelUp({calculateInitialHealth, player,
     };
 
     
-    if (player.playerExp >= player.p_ExpToNextLevel) {
+    if (player.playerExp >= player.p_ExpToNextLevel && player.level < 20) {
         const newLevel = player.level + 1;
         console.log(player.hitDie)
         const newPlayerHealth = parseInt(player.p_MaxHealth) +  Math.floor(Math.random() * calculateInitialHealth(player.hitDie))
