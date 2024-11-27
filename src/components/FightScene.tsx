@@ -5,15 +5,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
 // @ts-expect-error Para que funcione 
-import { usePlayerStats } from '../customHooks/usePlayerStats.js';
-// @ts-expect-error Para que funcione 
 import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 // @ts-expect-error Para que funcione 
 import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 import { handleAttack, handleRun, handleBack, handleNewEnemy} from '../utils/combatHandlers';
-import { Weapon } from "./interfaces/Weapon.js";
 import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
@@ -21,8 +18,7 @@ import { QuestData }from "./interfaces/QuestsInt.ts";
 import useExpTable from "../customHooks/useExpTable.js";
 import useInventoryStore from "../stores/inventoryStore.ts";
 import usePotionStore from "../stores/potionsStore.ts";
-// @ts-expect-error Para que funcione 
-import {rollDice} from '../utils/rollDice.js'
+import {rollDice} from '../utils/rollDice.ts'
 
 export default function FightScene() {
     const navigate = useNavigate();
@@ -32,12 +28,10 @@ export default function FightScene() {
     const {player, playerActions } = usePlayerStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
-
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
-    const {hitDie } = usePlayerStats();
     const {quests} = useLoadQuests();
-    const [charActualWeapon, setCharActualWeapon] = useState<Weapon | null>(null);
+
     const [pet, setPet] = useState<string | null>('')
         // Estados para el enemigo
         const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
@@ -59,18 +53,19 @@ export default function FightScene() {
         };
 
         //REVISAR ESTO, TENGO DOS HANDLEPOSTCOMBATACTIONS
-        const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, setEnemiesDeleted, enemiesDeleted, enemy, quests || defaultQuests);
+        const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, 
+            setEnemiesDeleted, enemiesDeleted, enemy, quests || 
+            defaultQuests, playerActions, player
+        );
 
     
         // Inicializamos los estados sin depender directamente de `enemy`
         const [enemyHealth, setEnemyHealth] = useState<number>(1);
-        const [enemyLevel, setenemyLevel] = useState<number>(1);
     // const [playerMana, setPlayerMana] = useState<number>(100);
     const handleCheckLevelUp = () => {
         checkLevelUp({
             player,
             setActionMessages,
-            hitDie,
             calculateInitialHealth, playerActions,
             expTable, setExpTable
         });
@@ -79,11 +74,7 @@ export default function FightScene() {
     useEffect(() => {
         const pet = localStorage.getItem('pet')
         setPet(pet)
-        const weapon = localStorage.getItem('charActualWeapon');
-        setCharActualWeapon(weapon ? JSON.parse(weapon) : null);
-
         handleCheckLevelUp(); // Verificar subida de nivel
-        
     }, [player.playerExp]);
     
     useEffect(() => {
@@ -91,7 +82,7 @@ export default function FightScene() {
             handlePostCombatActs(fightType, enemyHealth, typeEnemy);
             setTriggerPostActions(false); // Resetea el trigger
         }
-    }, [triggerPostActions, enemyHealth, handlePostCombatActs]);
+    }, [triggerPostActions, enemyHealth]);
 
 
 
@@ -102,7 +93,6 @@ export default function FightScene() {
     useEffect(() => {
         if (enemy) {
             setEnemyHealth(enemy.health);
-            setenemyLevel(enemy.level);
 
         }
     }, [enemy]);
@@ -140,16 +130,19 @@ export default function FightScene() {
     
         // Verificar si se necesita curación
         if (currentHealth < maxHealth) {
-            console.log(potions)
             const foundPotion  = potions.find(p => p.name === potionName)
             if (!foundPotion) return
             const amountHealingDice = foundPotion.effect?.amount
-            const amountHealing = rollDice(amountHealingDice)
-            const totalLeftHealth = currentHealth + amountHealing
-            // Establecer la nueva salud, sin exceder la salud máxima
-            playerActions.setP_LeftHealth(Math.min(totalLeftHealth, maxHealth));
-            // Eliminar la poción utilizada
-            removePotion();
+            if (amountHealingDice) {
+                const amountHealing = rollDice(amountHealingDice)
+                const totalLeftHealth = currentHealth + amountHealing
+                // Establecer la nueva salud, sin exceder la salud máxima
+                playerActions.setP_LeftHealth(Math.min(totalLeftHealth, maxHealth));
+                // Eliminar la poción utilizada
+                removePotion();
+            }
+
+
         } else {
             alert('Tenés la vida completa');
         }
@@ -157,18 +150,15 @@ export default function FightScene() {
     
     
     const executeAttack = () => {
+
         handleAttack({
-            player,
+            enemyHealth,setEnemyHealth,
+            player, playerActions,
             navigate,
-            enemyHealth,
-            setEnemyHealth,
-            enemyLevel,
             setActionMessages,
-            charActualWeapon,
             enemy,
             fightType,
             typeEnemy,
-            playerActions
         });
 
         setTriggerPostActions(true);

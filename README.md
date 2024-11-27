@@ -1,10 +1,9 @@
 El libro escarlata
 
 Cosas para hacer:
-ARREGLAR MASCOTAS
 REPARAR ITEMSHOP (hacer un loader ahí mismo)
-REPARAR LO ROTO
 
+HACER COMPONENTE DE MENSAJES
 Algo que diga que me tengo que curar cuando salgo
 Aliado para pelear en la tienda
 Moneda para comprar mascotas

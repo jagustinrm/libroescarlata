@@ -3,13 +3,18 @@ import { EnemyDeleted } from '../components/interfaces/characterProperties.js';
 import {QuestData} from '../components/interfaces/QuestsInt.js';
 // @ts-expect-error Para que funcione 
 import checkQuests from '../utils/checkQuests.js'
-
+// @ts-expect-error Para que funcione 
+import gainExp from '../utils/gainExp.js'
+import { Player, PlayerActions } from '../stores/types/player.js';
 const usePostCombatActions = (
     setDungeonLevel: React.Dispatch<React.SetStateAction<number>>, 
     setEnemiesDeleted: React.Dispatch<React.SetStateAction<Array<EnemyDeleted>>>,
     enemiesDeleted: Array<EnemyDeleted>,
     enemy: CreatureInterface,
-    quests: QuestData 
+    quests: QuestData, 
+    playerActions: PlayerActions,
+    player: Player
+
 ) => {
     const handlePostCombatActs = (
         fightType: string, 
@@ -27,6 +32,8 @@ const usePostCombatActions = (
                     return newLevel;
                 });
             }
+            gainExp(enemy.level, playerActions.setPlayerExp, player.playerExp);
+            playerActions.setPlayerMaterial(player.playerMaterial + enemy.level * 100)
 
             //****** */ Actualizar lista de enemigos derrotados ********
 

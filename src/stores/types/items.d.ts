@@ -16,6 +16,7 @@ export interface Items {
 
 export interface ItemsStore {
     items: Record<number, Items>; // El ID del inventario ahora es un número
+    isInitialized: boolean, // Nuevo flag
     createItems: (id: number) => void;
     addItem: (id: number, type: keyof Items, item: Item) => void;
     removeItem: (id: number, type: keyof Items, itemId: number) => void;

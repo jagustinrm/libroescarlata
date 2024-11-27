@@ -1,26 +1,15 @@
 // src/utils/combatHandlers.ts
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction } from 'react-router-dom';
-// @ts-expect-error Para que funcione
-import { rollDice } from './rollDice.js';
-import { Weapon } from '../components/interfaces/Weapon.js';
+import { rollDice } from './rollDice.ts';
 import { CreatureInterface } from '../components/interfaces/CreatureInterface.js';
-// @ts-expect-error Para que funcione 
-import gainExp from './gainExp.js'
 import { PlayerActions } from '../stores/types/player.js';
+import { Player } from '../stores/types/player.js';
 interface CombatHandlersProps {
-    player: { 
-        name: string
-        playerExp: number;
-        level: number;
-        p_LeftHealth: number;
-        playerMaterial: number;
-    }; 
+    player: Player; 
     playerActions: PlayerActions;
     enemyHealth: number;
     setEnemyHealth: Dispatch<SetStateAction<number>>;
-    enemyLevel: number;
-    charActualWeapon: Weapon | null;
     enemy: CreatureInterface;
     fightType: string;
     typeEnemy: string;
@@ -35,17 +24,14 @@ const updateEnemyHealth = (prevEnemyHealth: number, playerDamage: number): numbe
 
 // Función para manejar el ataque del jugador
 export const handleAttack = ({
-    enemyHealth,
-    setEnemyHealth,
-    enemyLevel,
-    playerActions,
+    enemyHealth,setEnemyHealth,
+    playerActions, player,
     setActionMessages,
-    charActualWeapon,
     enemy,
-    player,
+
 }: CombatHandlersProps) => {
-    
-    const playerDamage = rollDice(charActualWeapon?.damage);
+    console.log(player.selectedWeapon)
+    const playerDamage = rollDice(player.selectedWeapon?.damage);
     const enemyDamage = rollDice(enemy.attacks[0].damage) + parseInt(enemy.attacks[0].bonus);
 
     const playerMessage = `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`;
@@ -56,11 +42,6 @@ export const handleAttack = ({
     // Actualizar la vida del enemigo
     setEnemyHealth((prevEnemyHealth) => {
         const newEnemyHealth = updateEnemyHealth(prevEnemyHealth, playerDamage);
-        // Llamar a handlePostCombatActions para manejar XP y dungeon level si es necesario
-        //ESTA FUNCIÓN ESTÁ ABAJO
-        handlePostCombatActions( 
-            newEnemyHealth, enemyLevel, player.playerExp,
-            playerActions, player.playerMaterial)
 
         return newEnemyHealth;
     });
@@ -72,26 +53,6 @@ export const handleAttack = ({
     
 };
 
-// Función para manejar la experiencia y el nivel del dungeon
-const handlePostCombatActions = (
-    enemyHealth: number, 
-    enemyLevel: number, 
-    playerExp: number,
-    playerActions: PlayerActions,
-    playerMaterial: number,
-): void => {
-
-    if (enemyHealth <= 0) {
-        // Ganar experiencia llamando a gainExp
-
-        gainExp(enemyLevel, playerActions.setPlayerExp, playerExp);
-        playerActions.setPlayerMaterial(playerMaterial + enemyLevel * 100)
-    }
-
-
-};
-
-// ***** YA ESTÁ ESTE CODIGO *********************
 
 // Función para manejar el botón de "Huir"
 export const handleRun = ({ player, navigate }: { player: { name: string }; navigate: NavigateFunction }) => {

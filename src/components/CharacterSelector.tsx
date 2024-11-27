@@ -12,7 +12,9 @@ import useClassStore from '../stores/classStore';
 import { Class } from '../stores/types/class.js';
 import useInventoryStore from '../stores/inventoryStore';
 import { useWeaponStore } from '../stores/weaponStore.js';
+import useItemsStore from '../stores/itemsStore.js';
 export default function CharacterSelector() {
+    const {createItems} = useItemsStore();
     const navigate = useNavigate();
     const { classes, areClassesLoaded } = useClassStore();
     const {weapons} = useWeaponStore();
@@ -23,11 +25,18 @@ export default function CharacterSelector() {
         const { className, hitDie} = classData;
         playerActions.setPlayerClass(className);
         const InitialHealth = calculateInitialHealth(hitDie).toString();
-        
+        playerActions.setPlayerLevel(1);
         playerActions.setP_MaxHealth(InitialHealth);
         playerActions.setP_LeftHealth(InitialHealth);
+        playerActions.setPlayerExp(0)
+        playerActions.setP_ExpToNextLevel(1000)
         playerActions.setPlayerMaterial(100)
+
+        
         inventoryStore.createInventory('player1_inventory');
+        createItems(1)
+
+
         assignWeaponByClass(className, classes, 
                 weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
                 player,

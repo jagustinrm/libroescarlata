@@ -14,20 +14,33 @@ import PlayerStateLoader from './components/PlayerStateLoader';
 import usePlayerStore from './stores/playerStore';
 import useInventoryStore from './stores/inventoryStore';
 import InventoryStateLoader from './components/InventoryStateLoader';
-
+import WeaponLoader from './loaders/NewWeaponLoader';
+import ItemShopLoader from './components/itemsStore/ItemShopLoader';
+import PotionsLoader from './loaders/PotionsLoader';
+import ClassLoader from './loaders/ClassLoaders';
 function App() {
   const {player} = usePlayerStore();
   const {inventories} = useInventoryStore();
+ 
   window.addEventListener('beforeunload', () => {
+
     localStorage.setItem('playerState', JSON.stringify(player));
     localStorage.setItem('inventoryState', JSON.stringify(inventories))
-    // localStorage.removeItem('playerState')
-    // localStorage.removeItem('inventoryState')
+
 });
+// window.addEventListener('load', () => {
+//     localStorage.removeItem('playerState')
+//     localStorage.removeItem('inventoryState')
+
+// });
   return (
     <BrowserRouter>
       <PlayerStateLoader />
       <InventoryStateLoader/>
+      <WeaponLoader/>
+      <PotionsLoader/>
+      <ClassLoader/>
+      <ItemShopLoader/>
       <HomeProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />

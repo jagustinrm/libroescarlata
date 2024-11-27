@@ -1,23 +1,30 @@
 import { create } from 'zustand';
 import { ItemsStore } from './types/items';
 
-const useItemsStore = create<ItemsStore>((set) => ({
+const useItemsStore = create<ItemsStore>((set, get) => ({
     items: {},
-
+    isInitialized: false, 
     createItems: (id) =>
-        set((state) => ({
+        set((state) => {
+
+          if (get().isInitialized) return state;
+          return {
+            ...state,
             items: {
-                ...state.items,
-                [id]: {
-                    weapons: [],
-                    armors: [],
-                    potions: [],
-                    books: [],
-                    scrolls: [],
-                    others: [],
-                },
+              ...state.items,
+              [id]: {
+                weapons: [],
+                armors: [],
+                potions: [],
+                books: [],
+                scrolls: [],
+                others: [],
+              },
             },
-        })),
+            isInitialized: true, // Marcamos como inicializado
+          };
+        }),
+    
 
     addItem: (id, type, item) =>
         set((state) => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { rollDice } from '../utils/rollDice.js';
+import { rollDice } from '../utils/rollDice.ts';
 import { useSearchParams } from "react-router-dom";
 
 export function useEnemyLoader( level, dungeonLevel, updateEnemy) {

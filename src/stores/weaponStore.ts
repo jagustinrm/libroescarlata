@@ -5,7 +5,6 @@ export const useWeaponStore = create<WeaponStore>((set) => ({
     areWeaponsLoaded: false, 
     setWeapons: (weapons) =>
         set((state) => {
-            console.log(weapons)
             if (state.weapons.length === 0 && weapons.length > 0) {
                 return {
                     weapons,

@@ -1,8 +1,11 @@
-export function rollDice(dice) {
+export function rollDice(dice: string): number {
     const regex = /(\d+)d(\d+)(?:\s*\+\s*(\d+))?/;
     const match = dice.match(regex);
 
- 
+    if (!match) {
+        throw new Error("Invalid dice format");
+    }
+
     const numDice = parseInt(match[1], 10); // Número de dados
     const dieSides = parseInt(match[2], 10); // Lados del dado
     const bonus = match[3] ? parseInt(match[3], 10) : 0; // Bonus adicional, si existe
