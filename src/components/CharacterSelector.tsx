@@ -1,4 +1,5 @@
 import './CharacterSelector.css'
+import './designRpg.css'
 // @ts-expect-error Calcular vida inicial 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 // @ts-expect-error Armas por clase
@@ -77,7 +78,7 @@ export default function CharacterSelector() {
                 <>
                     {classes.map((classItem) => (
                         <button 
-                            className='botonesClases'
+                            className='rpgui-button'
                             key={classItem.className}
                             onClick={() => handleButtonClick(classItem)}
                         >

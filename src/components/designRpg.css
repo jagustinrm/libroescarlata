@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+
+.rpgui-button {
+    /* hide button default stuff */
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    overflow: hidden;
+    outline: none;
+    /* background */
+    background: url("designImg/button.png") no-repeat no-repeat;
+    background-clip: padding-box;
+    background-origin: padding-box;
+    background-position: center;
+    /* background-size: 80% 70%; */
+    background-size: contain;
+    /* font size */
+    font-size: 1.0em;
+    /* default size and display */
+    max-width: 90%;
+    min-width: 140px;
+    height: 60px;
+    display: inline-block;
+    /* padding */
+    padding-left: 35px;
+    padding-right: 35px; }
+  
+  /* button hover */
+  .rpgui-button.hover,
+  .rpgui-button:hover {
+    background-image: url("designImg/button-hover.png"); 
+    background-color: Transparent;
+  }
+  
+  /* button clicked */
+  .rpgui-button.down,
+  .rpgui-button:active {
+    background-image: url("designImg/button-down.png"); 
+    background-color: Transparent;
+  }
+  
+  /* golden button stuff */
+  /* .rpgui-button.golden p {
+    display: inline-block; } */
+  
+  /* golden button style */
+  /* .rpgui-button.golden {
+
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    overflow: hidden;
+    outline: none;
+
+    background: url("designImg/button-golden.png") no-repeat no-repeat;
+    background-clip: padding-box;
+    background-origin: padding-box;
+    background-position: center;
+    background-size: 90% 70%;
+
+    max-width: 100%;
+    min-width: 140px;
+    height: 60px;
+    display: inline-block;
+
+    padding-top: 5px;
+    padding-left: 35px;
+    padding-right: 35px;
+    overflow: visible; } */
+  
+  /* button hover
+  .rpgui-button.golden.hover,
+  .rpgui-button.golden:hover {
+    background-image: url("designImg/button-golden-hover.png"); } */
+  
+  /* button clicked */
+  /* .rpgui-button.golden.down,
+  .rpgui-button.golden:active {
+    background-image: url("designImg/button-golden-down.png"); } */
+/*   
+  .rpgui-button.golden:before {
+    white-space: nowrap;
+    display: inline-block;
+    content: "";
+    width: 34px;
+    display: block;
+    height: 110%;
+    background: transparent url("designImg/button-golden-left.png") no-repeat right center;
+    background-size: 100% 100%;
+    margin: 0 0 0 0;
+    left: 0px;
+    float: left;
+    margin-left: -46px;
+    margin-top: -5%; }
+  
+  .rpgui-button.golden:after {
+    white-space: nowrap;
+    display: block;
+    content: "";
+    width: 34px;
+    height: 110%;
+    background: transparent url("designImg/button-golden-right.png") no-repeat left center;
+    background-size: 100% 100%;
+    margin: 0 0 0 0;
+    right: 0px;
+    float: right;
+    margin-right: -46px;
+    margin-top: -5%; } */
+
+/* ****************CURSORES*************************** */
+
+
+/* default cursor important */
+/* this rule is for when you specifically request this cursor class */
+.rpgui-cursor-default {
+  cursor: url("designImg/cursor/default.png"), auto !important; }
+
+/* default cursor, not important, for all elements without any other rule. */
+.rpgui-content,
+label {
+  cursor: url("designImg/cursor/default.png"), auto; }
+
+/* pointer / hand cursor important */
+/* this rule is for when you specifically request this cursor class */
+.rpgui-cursor-point,
+.rpgui-cursor-point * {
+  cursor: url("designImg/cursor/point.png") 10 0, auto !important; }
+
+/* pointer / hand cursor, not important, for all elements that have pointer by-default */
+.rpgui-content a,
+.rpgui-content button,
+.rpgui-button,
+.rpgui-slider-container,
+.rpgui-content input[type=radio].rpgui-radio + label,
+.rpgui-list-imp,
+.rpgui-dropdown-imp,
+.rpgui-content input[type=checkbox].rpgui-checkbox + label {
+  cursor: url("designImg/cursor/point.png") 10 0, auto; }
+
+/* for input / text selection important */
+/* this rule is for when you specifically request this cursor class */
+.rpgui-cursor-select,
+.rpgui-cursor-select * {
+  cursor: url("designImg/cursor/select.png") 10 0, auto !important; }
+
+/* for input / text selection, not important, for all elements that have pointer by-default */
+.rpgui-cursor-select,
+.rpgui-content input,
+.rpgui-content textarea {
+  cursor: url("designImg/cursor/select.png") 10 0, auto; }
+
+/* for grabbing stuff */
+/* this rule is for when you specifically request this cursor class */
+.rpgui-cursor-grab-open,
+.rpgui-cursor-grab-open * {
+  cursor: url("designImg/cursor/grab-open.png") 10 0, auto !important; }
+
+/* for grabbing stuff */
+/* this rule is for when you specifically request this cursor class */
+.rpgui-cursor-grab-close,
+.rpgui-cursor-grab-close * {
+  cursor: url("designImg/cursor/grab-close.png") 10 0, auto !important; }

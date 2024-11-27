@@ -1,5 +1,5 @@
 import './MessageBox.css'
-
+import '../designRpg.css'
 interface MessageBoxProps {
   message: string;
   type: 'success' | 'error' | 'warning'; 
@@ -11,9 +11,13 @@ const MessageBox: React.FC<MessageBoxProps> = ({ message, type, onClose }) => {
     <div className={`message-box ${type}`}>
       <div className="message-content">
         <p>{message}</p>
-        <button onClick={onClose}>Cerrar</button>
+        <button className='rpgui-button' onClick={onClose}>Cerrar</button>
+  
       </div>
+
+
     </div>
+    
   );
 };
 

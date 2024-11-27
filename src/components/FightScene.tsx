@@ -4,6 +4,7 @@ import {usePlayerStore} from '../stores/playerStore.js';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
+import './designRpg.css'
 // @ts-expect-error Para que funcione 
 import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 // @ts-expect-error Para que funcione 
@@ -19,8 +20,16 @@ import useExpTable from "../customHooks/useExpTable.js";
 import useInventoryStore from "../stores/inventoryStore.ts";
 import usePotionStore from "../stores/potionsStore.ts";
 import {rollDice} from '../utils/rollDice.ts'
+import MessageBox from './UI/MessageBox.tsx';
 
 export default function FightScene() {
+    const [showMessage, setShowMessage] = useState(false);
+    const [messageContent, setMessageContent] = useState('')
+    const [messageType, setMessageType] = useState('')
+    const handleClose = () => {
+        setShowMessage(false);
+        navigate('/home')
+      };
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
@@ -164,7 +173,11 @@ export default function FightScene() {
         setTriggerPostActions(true);
     };
 
-
+    const handleFlee = () => {
+        setShowMessage(true)
+        setMessageContent("¡Has huido del combate!")
+        setMessageType('warning')
+    }
 
 
     const xpPercentage = ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100;
@@ -193,7 +206,7 @@ export default function FightScene() {
                 <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
             </div>
                 <div className="attackAndPotions">
-                    <button  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
+                    <button className="rpgui-button newDesign"  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
                         ⚔️ Atacar
                     </button>
                     {pocion && (
@@ -210,7 +223,10 @@ export default function FightScene() {
                 </div>
                 {pet? <p>Mascota: {pet}</p> : <></>}
 
-                {fightType === 'normal' || player.p_LeftHealth === 0 ?  <button onClick={() => handleRun({ player, navigate })}> 😨 Huir</button> : <></>}
+                {fightType === 'normal' || player.p_LeftHealth === 0 ?  
+                // <button onClick={() => handleRun({ player, navigate })}> 
+                <button onClick={handleFlee} className="rpgui-button">
+                😨 Huir</button> : <></>}
             </div>
 
             <div >
@@ -224,9 +240,10 @@ export default function FightScene() {
                 {enemyHealth === 0 && 
                 <div>
                     <p>¡Has derrotado al enemigo!</p>
-                    <button onClick={handleNewEnemyClick}> ⚔️ Buscar otro enemigo</button>
-                    {fightType === 'normal'?  <button onClick={() => handleBack({ player, navigate })}> Volver</button> : <></>}
-                    
+                    <div  className="container-endBattle">
+                    <button onClick={handleNewEnemyClick} className="rpgui-button"> ⚔️ Seguir</button>
+                    {fightType === 'normal'?  <button className="rpgui-button" onClick={() => handleBack({ player, navigate })}> Volver</button> : <></>}
+                    </div>
 
                 </div>
                 }
@@ -246,6 +263,15 @@ export default function FightScene() {
                     <p>No hay enemigo seleccionado.</p>
                 )}
             </div>
+
+
+            {showMessage && (
+        <MessageBox
+          message = {messageContent}
+          type= {messageType}
+          onClose={handleClose}
+        />
+      )}
         </div>
     );
 }

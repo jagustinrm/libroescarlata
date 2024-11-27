@@ -20,11 +20,12 @@
 
 
 .container {
+    width: 800px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 20px;
-    max-width: 1000px;
+    padding: 10px;
+    max-width: 100%;
     margin: auto;
     background-color: rgba(128, 88, 50, 0.74);
     border-radius: 8px;
@@ -61,15 +62,19 @@
 }
 
 .buttons {
-    margin-top: 10px;
+
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    width: 300px; /* Para asegurar que el contenedor ocupe todo el espacio */
+    grid-template-columns: 1fr 1fr 1fr;
+    align-self: center;
+    /* gap: 10px; */
+    /* width: 300px;  */
 }
 
 .buttons button {
-    width: 120px;
-    height: 40px;
+    background-size: 75% 75%;
+    font-size: 1em;
+    padding-left: 35px;
+    max-width: none;
+    width: 170px;
 }
 

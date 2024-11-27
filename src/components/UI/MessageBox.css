@@ -1,50 +1,70 @@
 /* src/components/MessageBox/MessageBox.css */
 .message-box {
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0; /* Inicialmente invisible */
+  animation: slide-up 0.3s forwards, fade-in 0.3s ease-in-out forwards; /* 'forwards' mantiene los estilos finales */
+}
+
+/* Animación de deslizamiento hacia arriba */
+@keyframes slide-up {
+  0% {
+      transform: translateX(-50%) translateY(20px); /* Comienza desde abajo */
   }
-  
-  .message-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  100% {
+      transform: translateX(-50%) translateY(0); /* Finaliza en su posición normal */
   }
-  
-  .message-box.success {
-    background-color: #8b4513;
-    border: 1px solid #c3e6cb;
-    color: white
+}
+
+/* Animación de desvanecimiento */
+@keyframes fade-in {
+  0% {
+      opacity: 0; /* Comienza invisible */
   }
-  
-  .message-box.error {
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    color: #721c24;
+  100% {
+      opacity: 1; /* Se vuelve visible */
   }
-  
-  .message-box.warning {
-    background-color: #fff3cd;
-    border: 1px solid #ffeeba;
-    color: #856404;
-  }
-  
-  .message-box button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #be5e1a;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .message-box button:hover {
-    background-color: #be5e1a;
-  }
-  
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.message-box.success {
+  background-color: #5c3f1b; 
+  border: 1px solid #c3e6cb;
+  color: white;
+}
+
+.message-box.error {
+  background-color: #f1b0b7; /* Fondo más oscuro */
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.message-box.warning {
+  background-color: #6d6d6d; /* Fondo más oscuro */
+  border: 1px solid #000000;
+  color: #ffffff;
+}
+
+.message-box button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  /* background-color: #be5e1a; */
+  /* color: white; */
+  border: none;
+  border-radius: 4px;
+}
+
+.message-box button:hover {
+  /* background-color: #9e4d18; */
+}

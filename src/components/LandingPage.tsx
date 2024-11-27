@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import './LandingPage.css';
 import { usePlayerStore } from '../stores/playerStore';
-
+import './designRpg.css'
 const LandingPage: React.FC = () => {
     const { playerActions } = usePlayerStore(); // Obtén la acción para actualizar el store
     const [inputName, setInputName] = useState<string>(''); // Estado local para el input
@@ -24,7 +24,8 @@ const LandingPage: React.FC = () => {
                 value={inputName}
                 onChange={(e) => setInputName(e.target.value)}
             />
-            <button onClick={handleSaveName}>Ingresar</button>
+            <button className='rpgui-button' onClick={handleSaveName}>Ingresar</button>
+            {/* <button className='rpgui-button'>Prueba</button> */}
         </div>
     );
 };

@@ -67,6 +67,12 @@ button:hover {
 button:disabled {
     background-color: #555;
     cursor: not-allowed;
+    background-image: none;
+}
+button:disabled:hover {
+    background-color: #555;
+    cursor: not-allowed;
+    background-image: none;
 }
 
 /* Styling for the action log div */
@@ -142,5 +148,18 @@ button:disabled {
 .attackAndPotions {
     display: flex;
     align-items: center;
+
+}
+
+.rpgui-button.newDesign {
+    background-size: contain;
+    font-size: 1em;
+    padding-left: 35px;
+    max-width: none;
+}
+
+.container-endBattle {
+    display: flex;
+    flex-direction: row;
 
 }

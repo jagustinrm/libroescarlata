@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './PetStore.css';
+import '../designRpg.css'
 import { usePetStore } from '../../stores/petsStore';
 import { usePlayerStore } from '../../stores/playerStore';
 import { useNavigate } from 'react-router-dom';  // Importamos useNavigate
@@ -43,7 +44,7 @@ export default function PetStore() {
         {pets ? (
           pets.map((creature) => (
             <button
-              className='buttonPet'
+              className='buttonPet rpgui-button'
               key={creature.name}
               onClick={() => handleSelectPet(creature)} // Pasa el objeto completo
             >
@@ -59,22 +60,20 @@ export default function PetStore() {
         <div>
           <h2>Detalles de {selectedPet.name}</h2>
           <div className='containerPets'>
-            <div>
               <img className='imgPet' src={selectedPet.img} alt={selectedPet.name} />
               <div className='containerPetStats'>
-                <p><strong>Tipo:</strong> {selectedPet.type}</p>
-                <p><strong>Alineación:</strong> {selectedPet.alignment}</p>
-                <p><strong>Puntos de vida:</strong> {selectedPet.hitPoints}</p>
-                <p><strong>Clase de armadura:</strong> {selectedPet.armorClass}</p>
-                <p><strong>Ataque:</strong> {selectedPet.attack.melee}</p>
-                <p><strong>Habilidades especiales:</strong> {selectedPet.specialAbilities.join(', ')}</p>
+                <p className='petText'><strong>Tipo:</strong> {selectedPet.type}</p>
+                <p className='petText'><strong>Alineación:</strong> {selectedPet.alignment}</p>
+                <p className='petText'><strong>Puntos de vida:</strong> {selectedPet.hitPoints}</p>
+                <p className='petText'><strong>Clase de armadura:</strong> {selectedPet.armorClass}</p>
+                <p className='petText'><strong>Ataque:</strong> {selectedPet.attack.melee}</p>
+                <p className='petText'><strong>Habilidades especiales:</strong> {selectedPet.specialAbilities.join(', ')}</p>
               </div>
-              <button onClick={handleSelectedPet}>Seleccionar</button> {/* Solo guarda la mascota en el player cuando se hace clic aquí */}
-            </div>
+              <button onClick={handleSelectedPet} className='rpgui-button'>Seleccionar</button> {/* Solo guarda la mascota en el player cuando se hace clic aquí */}
           </div>
         </div>
       )}
-     <button onClick={handleGoBack}>Volver</button> 
+     <button onClick={handleGoBack} className='rpgui-button'>Volver</button> 
     </section>
   );
 }

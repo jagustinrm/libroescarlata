@@ -2,7 +2,8 @@ import { usePlayerStore } from '../stores/playerStore';
 import { useNavigate } from "react-router-dom";
 // import { useEffect } from 'react';
 import './Home.css';
-import './Arrow.css'
+import './Arrow.css';
+import './designRpg.css'
 import { useState } from 'react';
 import openMissions from '../utils/openMissionsWindow.ts';
 import MessageBox from './UI/MessageBox.tsx';
@@ -55,14 +56,6 @@ export default function Home() {
       };
     return (
         <div className="container">
-
-      {showMessage && (
-        <MessageBox
-          message="¡Te curaste toda la vida!"
-          type="success"
-          onClose={handleClose}
-        />
-      )}
             <div className="player">
                 <div className="stats">
                     <p>👤 {player.name}</p>
@@ -77,33 +70,43 @@ export default function Home() {
                     <p>🗡️ Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
                     {player.selectedPet && <p>🐶 Mascota: {player.selectedPet.name}</p>}
                 </div>
-                <button onClick={() => handleAction('inventory')}>📜 Inventario</button>
+                <button onClick={() => handleAction('inventory')} className='rpgui-button'>📜 Inventario</button>
             </div>
 
             {/* Botones en dos columnas a la derecha */}
             <div className="buttons">
                 <button 
                     onClick={() => handleAction('fight-normal')} 
-                    disabled={player.p_LeftHealth === 0}>
+                    disabled={player.p_LeftHealth === 0}
+                    className='rpgui-button'>
                     ⚔️ Pelear
                 </button>
                 <button 
                     onClick={() => handleAction('fight-dungeon')} 
-                    disabled={player.p_LeftHealth === 0}>
+                    disabled={player.p_LeftHealth === 0}
+                    className='rpgui-button'>
                     🏔️ Dungeon
                 </button>
-                <button onClick={() => handleAction('townMap')}>🏠 Hogar</button>
+                <button onClick={() => handleAction('townMap')} className='rpgui-button'>🏠 Hogar</button>
                 <div className='hospitalRecover'>
-                <button onClick={() => handleAction('recoverHealth')}>🏥 Hospital</button>
+                <button onClick={() => handleAction('recoverHealth')} className='rpgui-button'>🏥 Hospital</button>
                 {player.p_LeftHealth === 0?<div className='arrows'></div> : <></> } 
                 
                 </div>
-                <button onClick={() => handleAction('itemShop')}>🛒 Tienda</button>
-                <button onClick={() => handleAction('armory')}>⚔️ Armería</button>
-                <button onClick={() => handleAction('petStore')}>🐾 Mascotas</button>
-                <button onClick={() => handleAction('bestiary')}>🐉 Bestiario</button>
-                <button onClick={() => handleAction('missions')}>🗺️ Misiones</button>
+                <button onClick={() => handleAction('itemShop')} className='rpgui-button'>🛒 Tienda</button>
+                <button onClick={() => handleAction('armory')} className='rpgui-button'>⚔️ Armería</button>
+                <button onClick={() => handleAction('petStore')} className='rpgui-button'>🐾 Mascotas</button>
+                <button onClick={() => handleAction('bestiary')} className='rpgui-button'>🐉 Bestiario</button>
+                <button onClick={() => handleAction('missions')} className='rpgui-button'>🗺️ Misiones</button>
             </div>
+
+            {showMessage && (
+        <MessageBox
+          message="¡Te curaste toda la vida!"
+          type="success"
+          onClose={handleClose}
+        />
+      )}
         </div>
     );
 }
