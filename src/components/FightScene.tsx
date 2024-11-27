@@ -11,7 +11,9 @@ import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
-import { handleAttack, handleRun, handleBack, handleNewEnemy} from '../utils/combatHandlers';
+import { handleAttack, 
+    // handleRun, 
+    handleBack, handleNewEnemy} from '../utils/combatHandlers';
 import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
@@ -28,7 +30,7 @@ export default function FightScene() {
     const [messageType, setMessageType] = useState('')
     const handleClose = () => {
         setShowMessage(false);
-        navigate('/home')
+        navigate('/home')   
       };
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -268,7 +270,7 @@ export default function FightScene() {
             {showMessage && (
         <MessageBox
           message = {messageContent}
-          type= {messageType}
+          type= {messageType as "error" | "warning" | "success"}
           onClose={handleClose}
         />
       )}
