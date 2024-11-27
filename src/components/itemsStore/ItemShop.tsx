@@ -15,14 +15,14 @@ const ItemShop: React.FC = () => {
     const navigate = useNavigate();
 
     const itemTypes = items[shopId] ? Object.keys(items[shopId]) : [];
-    const handleBuy = (playerInventoryId: string, itemName: string, itemType: keyof typeof items[1], itemCost: number) => {
+    const handleBuy = (playerInventoryId: string, itemName: string, 
+        itemType: keyof typeof items[1], itemCost: number) => {
         if (player.playerMaterial >= itemCost) {
             addItemToInventory(playerInventoryId, itemType, itemName);
             playerActions.setPlayerMaterial(player.playerMaterial - itemCost)
         } else {
             alert("Te falta cash, amigo")
         }
-
     };
     
     return (

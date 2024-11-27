@@ -11,6 +11,7 @@ export interface Pet {
     };
     specialAbilities: string[]; // Lista de habilidades especiales
     img: string; // URL o ruta de la imagen
+    cost?: number;
 }
 
 interface PetStore {

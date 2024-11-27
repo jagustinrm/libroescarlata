@@ -64,6 +64,40 @@
       },
       "specialAbilities": ["aliento de fuego (1d6 daño en un cono de 3m, recarga 1d4 turnos)", "visión en la oscuridad", "resistencia al fuego (5)"],
       "img": "/img/cute_baby_dragon.png"
+    },
+    {
+      "name": "Elemental de Fuego Menor",
+      "type": "elemental",
+      "alignment": "neutral",
+      "level": 1,
+      "hitPoints": "1d8",
+      "armorClass": 14,
+      "attack": {
+        "melee": "golpe ígneo +3 (1d4+1 daño)"
+      },
+      "specialAbilities": [
+        "inmunidad al fuego",
+        "toque ardiente (inflige 1 de daño por turno, duración 2 turnos)"
+      ],
+      "img": "/img/minor_fire_elemental.png",
+      "cost": 300
+    },
+    {
+      "name": "Elemental de Hielo Menor",
+      "type": "elemental",
+      "alignment": "neutral",
+      "level": 1,
+      "hitPoints": "1d8",
+      "armorClass": 14,
+      "attack": {
+        "melee": "golpe gélido +3 (1d4+1 daño)"
+      },
+      "specialAbilities": [
+        "inmunidad al hielo",
+        "toque congelante (ralentiza al objetivo por 1 turno)"
+      ],
+      "img": "/img/minor_ice_elemental.png",
+      "cost": 300
     }
     
   ]

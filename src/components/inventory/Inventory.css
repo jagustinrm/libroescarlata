@@ -36,7 +36,6 @@
     margin-bottom: 5px;
     border-radius: 5px; /* Rounded corners for list items */
     transition: background-color 0.3s ease; /* Smooth hover effect */
-    cursor: pointer;
     font-size: 14px;
 }
 
@@ -53,7 +52,6 @@ button {
     color: #fff;
     font-size: 14px;
     border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 

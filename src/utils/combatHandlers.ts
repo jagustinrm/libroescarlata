@@ -30,7 +30,6 @@ export const handleAttack = ({
     enemy,
 
 }: CombatHandlersProps) => {
-    console.log(player.selectedWeapon)
     const playerDamage = rollDice(player.selectedWeapon?.damage);
     const enemyDamage = rollDice(enemy.attacks[0].damage) + parseInt(enemy.attacks[0].bonus);
 

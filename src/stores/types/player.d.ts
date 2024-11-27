@@ -23,6 +23,7 @@ export interface Player {
   selectedPet: Pet;
   selectedWeapon: Weapon;
   inventoryId: string; 
+  petsName: string[];
   playerMaterial: number;
 }
 
@@ -44,6 +45,7 @@ export interface PlayerActions {
   setBaseAttackBonus: (baseAttackBonus: string) => void; 
   updateSaves: (saves: Partial<Player['saves']>) => void; 
   addClassFeature: (feature: string) => void; 
+  addPetsName:(petsName: string) => void;
 }
 
 // Interfaz para el store del player

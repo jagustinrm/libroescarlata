@@ -94,9 +94,9 @@ export default function Home() {
                 
                 </div>
                 <button onClick={() => handleAction('itemShop')} className='rpgui-button'>🛒 Tienda</button>
-                <button onClick={() => handleAction('armory')} className='rpgui-button'>⚔️ Armería</button>
+                {/* <button onClick={() => handleAction('armory')} className='rpgui-button'>⚔️ Armería</button> */}
                 <button onClick={() => handleAction('petStore')} className='rpgui-button'>🐾 Mascotas</button>
-                <button onClick={() => handleAction('bestiary')} className='rpgui-button'>🐉 Bestiario</button>
+                {/* <button onClick={() => handleAction('bestiary')} className='rpgui-button'>🐉 Bestiario</button> */}
                 <button onClick={() => handleAction('missions')} className='rpgui-button'>🗺️ Misiones</button>
             </div>
 

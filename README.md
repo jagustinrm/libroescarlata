@@ -1,21 +1,19 @@
 El libro escarlata
 
 Cosas para hacer:
-
-HACER COMPONENTE DE MENSAJES
-
+Arreglar problemas con pociones cuando reinicio la página.
 Aliado para pelear en la tienda
-Moneda para comprar mascotas
 Dropeo de enemigos
+Huevo de dragón
+
+Box dialog design rpg
+Mailbox
+Cambiar el diseño de las misiones, que sea parecido a de los mensajes
 Bestiario de criaturas derrotadas y cantidad.
 Imágenes de clases
 Carga y descarga de personaje
-
 Agregarle un chat
 
-
-
-Huevo de dragón
 
 
 3. Centralizar el manejo de localStorage:

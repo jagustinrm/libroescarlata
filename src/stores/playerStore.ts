@@ -25,6 +25,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     selectedWeapon: null,
     inventoryId: 'player1_inventory',
     playerMaterial: 0,
+    petsName: [],
   },
 
   // Agrupamos las acciones relacionadas con el jugador
@@ -95,6 +96,19 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           // Si ya existe, no modificar el estado
           return state;
         }),
+        addPetsName: (newPet) =>
+          set((state) => {
+            if (!state.player.petsName.includes(newPet)) {
+              console.log(newPet)
+              return {
+                player: {
+                  ...state.player,
+                  petsName: [...state.player.petsName, newPet], 
+                },
+              };
+            }
+            return state;
+          }),  
         setPlayerClass: (classes) =>
           set((state) => ({
             player: {...state.player, classes: [classes]}
@@ -107,6 +121,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, selectedWeapon },
       })),
+
   },
 
   // Mantén la función de inventario separada
