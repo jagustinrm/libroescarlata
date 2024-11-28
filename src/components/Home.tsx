@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import { useEffect } from 'react';
 import './Home.css';
 import './Arrow.css';
-import './designRpg.css'
+import './UI/designRpg.css'
 import { useState } from 'react';
 import openMissions from '../utils/openMissionsWindow.ts';
 import MessageBox from './UI/MessageBox.tsx';
@@ -54,11 +54,14 @@ export default function Home() {
     const handleClose = () => {
         setShowMessage(false);
       };
+      const handleStats = () => {
+        navigate('/playerStats')
+      }
     return (
         <div className="container">
             <div className="player">
                 <div className="stats">
-                    <p>👤 {player.name}</p>
+                    <p onClick={() => handleStats()}>👤 {player.name}</p>
                     <p>🛡️ {player.classes}</p>
                     <p>⭐ Nivel: {player.level}</p>
                     <div className='p_leaftHealth'>
@@ -87,12 +90,13 @@ export default function Home() {
                     className='rpgui-button'>
                     🏔️ Dungeon
                 </button>
-                <button onClick={() => handleAction('townMap')} className='rpgui-button'>🏠 Hogar</button>
                 <div className='hospitalRecover'>
                 <button onClick={() => handleAction('recoverHealth')} className='rpgui-button'>🏥 Hospital</button>
                 {player.p_LeftHealth === 0?<div className='arrows'></div> : <></> } 
                 
                 </div>
+                <button onClick={() => handleAction('townMap')} className='rpgui-button'>🏠 Hogar</button>
+
                 <button onClick={() => handleAction('itemShop')} className='rpgui-button'>🛒 Tienda</button>
                 {/* <button onClick={() => handleAction('armory')} className='rpgui-button'>⚔️ Armería</button> */}
                 <button onClick={() => handleAction('petStore')} className='rpgui-button'>🐾 Mascotas</button>

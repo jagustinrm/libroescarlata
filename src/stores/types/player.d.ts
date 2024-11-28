@@ -1,6 +1,6 @@
 import Pet from '../types/pets';
 import Weapon from '../types/weapons';
-
+import { Stats } from './stats';
 // Interfaz para el estado del player
 export interface Player {
   name: string;
@@ -25,6 +25,8 @@ export interface Player {
   inventoryId: string; 
   petsName: string[];
   playerMaterial: number;
+  stats: Stats,
+  leftPoints: number;
 }
 
 // Interfaz para las acciones relacionadas con el jugador
@@ -45,7 +47,16 @@ export interface PlayerActions {
   setBaseAttackBonus: (baseAttackBonus: string) => void; 
   updateSaves: (saves: Partial<Player['saves']>) => void; 
   addClassFeature: (feature: string) => void; 
+  setClassFeature: (classFeatures: Player['classFeatures']) => void; 
   addPetsName:(petsName: string) => void;
+  setStats: (stats: Player['stats']) => void;
+  updateStats: (stats: Partial<Player['stats']>) => void;
+  setHitDie: (hitDie: string) => void;
+  updateHitDie: (hitDie: string) => void; 
+  setSaves: (saves: Player['saves']) => void;
+  updateSaves: (saves: Partial<Player['saves']>) => void;
+  addStatsPoints: (points: number, type: keyof Player['stats']) => void;
+  addStatsLeftPoints: (leftPoints: number) => void;
 }
 
 // Interfaz para el store del player

@@ -20,6 +20,15 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       reflex: '',
       will: '',
     },
+    stats: {
+      str: 0,
+      dex: 0,
+      con: 0,
+      int: 0,
+      wis: 0,
+      cha: 0,
+    },
+    leftPoints: 0,
     classFeatures: [],
     selectedPet: '',
     selectedWeapon: null,
@@ -30,6 +39,53 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
 
   // Agrupamos las acciones relacionadas con el jugador
   playerActions: {
+      setSaves: (saves) =>
+        set((state) => ({
+          player: {
+            ...state.player,
+            saves,
+          },
+        })),
+
+      addStatsPoints: (points, type) =>
+        set((state) => ({
+          player: {
+            ...state.player,
+            stats: {
+              ...state.player.stats,
+              [type]: state.player.stats[type] + points,
+            },
+          },
+        })),
+        addStatsLeftPoints: (leftPoints) =>
+          set((state) => ({
+            player: {
+              ...state.player,
+              leftPoints: state.player.leftPoints + leftPoints,
+            },
+          })),
+      updateSaves: (saves) =>
+        set((state) => ({
+          player: {
+            ...state.player,
+            saves: {
+              ...state.player.saves,
+              ...saves,
+            },
+          },
+        })),
+    setStats: (newStats) =>
+      set((state) => ({
+        player: { ...state.player, stats: { ...newStats } },
+      })),
+
+    updateStats: (updatedStats) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          stats: { ...state.player.stats, ...updatedStats },
+        },
+      })),
     setPlayerMaterial: (playerMaterial) =>
       set((state) => ({
         player: { ...state.player, playerMaterial },
@@ -70,30 +126,32 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, baseAttackBonus },
       })),
-    updateSaves: (saves) =>
-      set((state) => ({
-        player: { ...state.player, saves: { ...state.player.saves, ...saves } },
-      })),
-    addClassFeature: (feature) =>
+    addClassFeature: (feature) => 
       set((state) => ({
         player: {
           ...state.player,
           classFeatures: [...state.player.classFeatures, feature],
         },
       })),
+      setClassFeature: (features) => {
+        console.log("features", features);
+        set((state) => ({
+          player: {
+            ...state.player,
+            classFeatures: [...features], // Reinicia el array con los nuevos valores
+          },
+        }));
+      },
       addClasses: (newClass) =>
         set((state) => {
-          // Verificar si la clase ya existe
           if (!state.player.classes.includes(newClass)) {
-            console.log(newClass)
             return {
               player: {
                 ...state.player,
-                classes: [...state.player.classes, newClass], // Agregar solo si no existe
+                classes: [...state.player.classes, newClass], 
               },
             };
           }
-          // Si ya existe, no modificar el estado
           return state;
         }),
         addPetsName: (newPet) =>
@@ -121,6 +179,20 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, selectedWeapon },
       })),
+      setHitDie: (hitDie) =>
+        set((state) => ({
+          player: {
+            ...state.player,
+            hitDie: hitDie, // Establece un nuevo valor para hitDie
+          },
+        })),
+        updateHitDie: (hitDie) =>
+          set((state) => ({
+            player: {
+              ...state.player,
+              hitDie: `${state.player.hitDie}, ${hitDie}`, // Agrega el nuevo valor al hitDie
+            },
+        })),
 
   },
 

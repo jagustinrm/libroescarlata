@@ -22,12 +22,14 @@ const PlayerStateLoader = () => {
       playerActions.setArmorClass(parsedPlayerState.armorClass);
       playerActions.setBaseAttackBonus(parsedPlayerState.baseAttackBonus);
       playerActions.updateSaves(parsedPlayerState.saves);
-      playerActions.addClassFeature(parsedPlayerState.classFeatures);
+      playerActions.setClassFeature(parsedPlayerState.classFeatures);
       parsedPlayerState.classes.forEach((newClass: string) => {
           playerActions.addClasses(newClass);
       });
       playerActions.setP_SelectedPet(parsedPlayerState.selectedPet);
       playerActions.setP_SelectedWeapon(parsedPlayerState.selectedWeapon); 
+      playerActions.setStats(parsedPlayerState.stats)
+      playerActions.addStatsLeftPoints(parsedPlayerState.leftPoints)
     }
   }, []); 
 

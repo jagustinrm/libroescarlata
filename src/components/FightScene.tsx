@@ -4,7 +4,7 @@ import {usePlayerStore} from '../stores/playerStore.js';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
-import './designRpg.css'
+import './UI/designRpg.css'
 // @ts-expect-error Para que funcione 
 import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 // @ts-expect-error Para que funcione 
@@ -44,7 +44,6 @@ export default function FightScene() {
         setTurn((prevTurn) => (prevTurn === "player" ? "enemy" : "player"));
     };
     const [pet, setPet] = useState<string | null>('')
-        // Estados para el enemigo
         const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
             const storedLevel = localStorage.getItem("dungeonLevel");
             return storedLevel ? parseInt(storedLevel, 10) : 1;
@@ -85,9 +84,10 @@ export default function FightScene() {
     useEffect(() => {
         if (turn === "enemy" && enemyHealth > 0 && player.p_LeftHealth > 0 ) {
             const enemyAttackTimeout = setTimeout(() => {
-                const damage = rollDice("1d6"); 
+                const damageDice = enemy["attacks"][0].damage
+                const damage = rollDice(damageDice); 
                 playerActions.setP_LeftHealth(Math.max(player.p_LeftHealth - damage, 0));
-                setActionMessages((prev) => [...prev, `El enemigo te ha atacado y causó ${damage} puntos de daño.`]);
+                setActionMessages((prev) => [...prev, `El enemigo te ha atacado con ${enemy["attacks"][0].name} y causó ${damage} puntos de daño.`]);
                 switchTurn(); 
             }, 1000); 
     
@@ -193,7 +193,7 @@ export default function FightScene() {
         });
 
         setTriggerPostActions(true);
-        switchTurn(); // Cambia al turno del enemigo
+        switchTurn(); 
     };
 
 

@@ -1,5 +1,5 @@
 import './CharacterSelector.css'
-import './designRpg.css'
+import './UI/designRpg.css'
 // @ts-expect-error Calcular vida inicial 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 // @ts-expect-error Armas por clase
@@ -23,7 +23,7 @@ export default function CharacterSelector() {
     const {inventories} = useInventoryStore()
     const inventoryStore = useInventoryStore.getState()
     const handleButtonClick = (classData: Class) => {
-        const { className, hitDie} = classData;
+        const { className, hitDie, classFeatures, armorClass, baseAttackBonus, saves} = classData;
         playerActions.setPlayerClass(className);
         const InitialHealth = calculateInitialHealth(hitDie).toString();
         playerActions.setPlayerLevel(1);
@@ -34,9 +34,21 @@ export default function CharacterSelector() {
         playerActions.setP_ExpPrevLevel(0)
         playerActions.setPlayerMaterial(100)
         inventoryStore.createInventory('player1_inventory');
+        playerActions.setClassFeature(classFeatures)
+        playerActions.setArmorClass(armorClass)
+        playerActions.setBaseAttackBonus(baseAttackBonus)
+        playerActions.setHitDie(hitDie)
+        playerActions.setSaves(saves)
         createItems(1)
-
-
+        playerActions.setStats({
+                str: 10,
+                dex: 10,
+                con: 10,
+                int: 10,
+                wis: 10,
+                cha: 10,
+        })
+        playerActions.addStatsLeftPoints(25)
         assignWeaponByClass(className, classes, 
                 weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
                 player,

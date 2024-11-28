@@ -1,0 +1,29 @@
+.containerPlayer {
+    justify-content: center;
+}
+
+.statsPoints {
+    width: 150px;
+
+}
+.statsAndAdd {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+ul {
+    list-style: none;
+}
+
+.buttonAdd {
+    width: 1px; /* Tamaño fijo */
+    height: 3px; /* Tamaño fijo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden; /* Oculta texto que no quepa */
+    padding: none;
+  }
+  

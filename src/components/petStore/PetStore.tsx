@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './PetStore.css';
-import '../designRpg.css'
+import '../UI/designRpg.css'
 import { usePetStore } from '../../stores/petsStore';
 import { usePlayerStore } from '../../stores/playerStore';
 import { Pet } from '../../stores/types/pets';
@@ -100,13 +100,25 @@ export default function PetStore() {
                 }
             </div> 
             <div className='containerPetStats'>
-              <h3>Detalles de {selectedPet.name}</h3>
+              <div className='detailsContainer'>
+                <h3 className='detailTitle'>Detalles de </h3>
+                <h3 className='detailTitle'>{selectedPet.name}</h3>
+              </div>
                 <p className='petText'><strong>Tipo:</strong> {selectedPet.type}</p>
                 <p className='petText'><strong>Alineación:</strong> {selectedPet.alignment}</p>
                 <p className='petText'><strong>Puntos de vida:</strong> {selectedPet.hitPoints}</p>
                 <p className='petText'><strong>Clase de armadura:</strong> {selectedPet.armorClass}</p>
                 <p className='petText'><strong>Ataque:</strong> {selectedPet.attack.melee}</p>
-                <p className='petText'><strong>Habilidades especiales:</strong> {selectedPet.specialAbilities.join(', ')}</p>
+                <p className='petText'>
+                  <strong>Habilidades especiales:</strong>
+                </p>
+              <select className='specialAbilities'>
+                {selectedPet.specialAbilities.map((ability, index) => (
+                  <option key={index} value={ability}>
+                    {ability}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
   

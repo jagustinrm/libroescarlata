@@ -10,7 +10,7 @@
     overflow: hidden;
     outline: none;
     /* background */
-    background: url("designImg/button.png") no-repeat no-repeat;
+    background: url("../designImg/button.png") no-repeat no-repeat;
     background-clip: padding-box;
     background-origin: padding-box;
     background-position: center;
@@ -30,14 +30,14 @@
   /* button hover */
   .rpgui-button.hover,
   .rpgui-button:hover {
-    background-image: url("designImg/button-hover.png"); 
+    background-image: url("../designImg/button-hover.png"); 
     background-color: Transparent;
   }
   
   /* button clicked */
   .rpgui-button.down,
   .rpgui-button:active {
-    background-image: url("designImg/button-down.png"); 
+    background-image: url("../designImg/button-down.png"); 
     background-color: Transparent;
   }
   
@@ -115,18 +115,18 @@
 /* default cursor important */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-default {
-  cursor: url("designImg/cursor/default.png"), auto !important; }
+  cursor: url("../designImg/cursor/default.png"), auto !important; }
 
 /* default cursor, not important, for all elements without any other rule. */
 .rpgui-content,
 label {
-  cursor: url("designImg/cursor/default.png"), auto; }
+  cursor: url("../designImg/cursor/default.png"), auto; }
 
 /* pointer / hand cursor important */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-point,
 .rpgui-cursor-point * {
-  cursor: url("designImg/cursor/point.png") 10 0, auto !important; }
+  cursor: url("../designImg/cursor/point.png") 10 0, auto !important; }
 
 /* pointer / hand cursor, not important, for all elements that have pointer by-default */
 .rpgui-content a,
@@ -137,31 +137,31 @@ label {
 .rpgui-list-imp,
 .rpgui-dropdown-imp,
 .rpgui-content input[type=checkbox].rpgui-checkbox + label {
-  cursor: url("designImg/cursor/point.png") 10 0, auto; }
+  cursor: url("../designImg/cursor/point.png") 10 0, auto; }
 
 /* for input / text selection important */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-select,
 .rpgui-cursor-select * {
-  cursor: url("designImg/cursor/select.png") 10 0, auto !important; }
+  cursor: url("../designImg/cursor/select.png") 10 0, auto !important; }
 
 /* for input / text selection, not important, for all elements that have pointer by-default */
 .rpgui-cursor-select,
 .rpgui-content input,
 .rpgui-content textarea {
-  cursor: url("designImg/cursor/select.png") 10 0, auto; }
+  cursor: url("../designImg/cursor/select.png") 10 0, auto; }
 
 /* for grabbing stuff */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-grab-open,
 .rpgui-cursor-grab-open * {
-  cursor: url("designImg/cursor/grab-open.png") 10 0, auto !important; }
+  cursor: url("../designImg/cursor/grab-open.png") 10 0, auto !important; }
 
 /* for grabbing stuff */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-grab-close,
 .rpgui-cursor-grab-close * {
-  cursor: url("designImg/cursor/grab-close.png") 10 0, auto !important; }
+  cursor: url("../designImg/cursor/grab-close.png") 10 0, auto !important; }
 
 
     /************************** LISTAS  ********************* */
@@ -180,12 +180,12 @@ label {
     /* border */
     border-style: solid;
     border-width: 7px 7px 7px 7px;
-    -moz-border-image: url("designImg/select/select-border-image.png") 10% repeat repeat;
-    -webkit-border-image: url("designImg/select/select-border-image.png") 10% repeat repeat;
-    -o-border-image: url("designImg/select/select-border-image.png") 10% repeat repeat;
-    border-image: url("designImg/select/select-border-image.png") 10% repeat repeat;
+    -moz-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
+    -webkit-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
+    -o-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
+    border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
     /* background */
-    background: url("designImg/select/select-background-image.png") repeat repeat;
+    background: url("../designImg/select/select-background-image.png") repeat repeat;
     background-clip: padding-box;
     background-origin: padding-box;
     background-position: center; }
@@ -209,7 +209,7 @@ label {
     padding-bottom: 6px;
     padding-left: 6px;
     /* background */
-    background: url("designImg/select/select-background-image.png") repeat repeat;
+    background: url("../designImg/select/select-background-image.png") repeat repeat;
     background-clip: padding-box;
     background-origin: padding-box;
     background-position: center; }
@@ -243,21 +243,21 @@ label {
 /* Track */
 .rpgui-content ::-webkit-scrollbar-track,
 .rpgui-content::-webkit-scrollbar-track {
-  background-image: url("../components/designImg/scollbar/scrollbar-track.png");
+  background-image: url("../designImg/scollbar/scrollbar-track.png");
   background-size: 18px 60px;
   background-repeat: repeat-y; }
 
 /* Handle */
 .rpgui-content ::-webkit-scrollbar-thumb,
 .rpgui-content::-webkit-scrollbar-thumb {
-  background-image: url("../components/designImg/scollbar/scrollbar-thumb.png");
+  background-image: url("../designImg/scollbar/scrollbar-thumb.png");
   background-size: 100% 100%;
   background-repeat: no-repeat; }
 
 /* buttons */
 .rpgui-content ::-webkit-scrollbar-button,
 .rpgui-content::-webkit-scrollbar-button {
-  background-image: url("../components/designImg/scollbar/scrollbar-button.png");
+  background-image: url("../designImg/scollbar/scrollbar-button.png");
   background-size: 100% 100%;
   background-repeat: no-repeat; }
 

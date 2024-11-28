@@ -1,15 +1,19 @@
 .containerInventory {
-    background-color: #d2691e; /* Chocolate */
-    width: 200px;
+    /* background-color: #d2691e;  */
+    width: 300px;
     height: 400px;
     max-height: 400px;
-    border: 2px solid #8b4513; /* Darker chocolate for contrast */
+    /* border: 2px solid #8b4513;  */
     border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    padding: 10px; /* Space inside */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    padding: 10px; 
     overflow-y: auto; /* Scroll if content exceeds height */
-    font-family: Arial, sans-serif; /* Cleaner font */
-    color: #fff; /* White text for readability */
+    /* font-family: Arial, sans-serif;  */
+    color: #fff; 
+}
+.rpgui-list-imp  {
+    min-height: 220px;
+    min-width: 200px;
 }
 
 .buttonsInventory {
@@ -36,7 +40,8 @@
     margin-bottom: 5px;
     border-radius: 5px; /* Rounded corners for list items */
     transition: background-color 0.3s ease; /* Smooth hover effect */
-    font-size: 14px;
+    font-size: 20px;
+    padding-top: 10px;
 }
 
 .containerInventory li:hover {

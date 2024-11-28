@@ -17,29 +17,19 @@ interface CombatHandlersProps {
     navigate: NavigateFunction;
 }
 
-// Función para actualizar la salud del enemigo
-const updateEnemyHealth = (prevEnemyHealth: number, playerDamage: number): number => {
-    return Math.max(prevEnemyHealth - playerDamage, 0);
-};
-
-// Función para manejar el ataque del jugador
-export const handleAttack = ({setEnemyHealth, player, setActionMessages, enemy,    
-}: CombatHandlersProps) => {
+export const handleAttack = ({setEnemyHealth, player, setActionMessages   }: CombatHandlersProps) => {
     const playerDamage = rollDice(player.selectedWeapon?.damage);
-    const enemyDamage = rollDice(enemy.attacks[0].damage) + parseInt(enemy.attacks[0].bonus);
-
     const playerMessage = `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`;
-    const enemyMessage = `Te han atacado con ${enemy.attacks[0].name} y causado ${enemyDamage} puntos de daño.`;
+    setActionMessages((prevMessages) => [...prevMessages, playerMessage]);
 
-    setActionMessages((prevMessages) => [...prevMessages, playerMessage, enemyMessage]);
-
-    // Actualizar la vida del enemigo
     setEnemyHealth((prevEnemyHealth) => {
         const newEnemyHealth = updateEnemyHealth(prevEnemyHealth, playerDamage);
-
         return newEnemyHealth;
     });
 
+    const updateEnemyHealth = (prevEnemyHealth: number, playerDamage: number): number => {
+        return Math.max(prevEnemyHealth - playerDamage, 0);
+    };
     
 };
 

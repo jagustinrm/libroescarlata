@@ -1,8 +1,11 @@
 El libro escarlata
 
 Cosas para hacer:
+Estadísticas
+Verificar doble cartel de peleas
+Tener sidebar con el nombre y eso. Que haya una opción desplegable cuando paso por arriba del arma actual.
 Traducir tienda
-Mejorar tema de misiones
+Mejorar tema de misiones (que no sea ventana emergente, que no sean botones)
 Cuando mato al boss del dungeon me debería preguntar si quiero seguir en el 2 o salir.
 Que las misiones den recompenza.
 Cambiar todos los carteles.

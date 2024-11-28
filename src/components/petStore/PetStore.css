@@ -3,7 +3,10 @@
     height: 120px;
     align-self: center;
 }
-
+.specialAbilities {
+    max-width: 200px;
+    text-shadow: none;
+}
 .listPets{
     display: flex;
     flex-direction: row;
@@ -38,7 +41,7 @@
     flex-direction: column;
 }
 .containerPetStats {
-    width: 300px; /* Tamaño inicial */
+    width: 300px; 
     word-wrap: break-word;
     word-break: break-all; 
     line-height: 1.5; 
@@ -81,6 +84,8 @@ section {
     margin: 0px;
     margin-right: 10px;
     word-break: break-word;
+    font-size: 0.9em;
+
 }
 
 .costSect {
@@ -88,4 +93,11 @@ section {
     flex-direction: column;
     justify-items: center;
     gap:0px;
+}
+
+.detailTitle {
+    font-size: 20px; 
+    line-height: none;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }

@@ -13,20 +13,20 @@ import ItemShop from './components/itemsStore/ItemShop';
 import PlayerStateLoader from './components/PlayerStateLoader';
 import usePlayerStore from './stores/playerStore';
 import useInventoryStore from './stores/inventoryStore';
-// import InventoryStateLoader from './components/InventoryStateLoader';
+import InventoryStateLoader from './components/InventoryStateLoader';
 import WeaponLoader from './loaders/NewWeaponLoader';
 import ItemShopLoader from './components/itemsStore/ItemShopLoader';
 import PotionsLoader from './loaders/PotionsLoader';
 import ClassLoader from './loaders/ClassLoaders';
+import PlayerStats from './components/playerStats/PlayerStats';
+
 function App() {
   const {player} = usePlayerStore();
   const {inventories} = useInventoryStore();
- 
+  
   window.addEventListener('beforeunload', () => {
-
     localStorage.setItem('playerState', JSON.stringify(player));
     localStorage.setItem('inventoryState', JSON.stringify(inventories))
-
 });
 // window.addEventListener('load', () => {
 //     localStorage.removeItem('playerState')
@@ -37,11 +37,11 @@ function App() {
     
     <BrowserRouter>
       <PlayerStateLoader />
-      {/* <InventoryStateLoader/> */}
       <WeaponLoader/>
       <PotionsLoader/>
       <ClassLoader/>
       <ItemShopLoader/>
+      <InventoryStateLoader/>
       <HomeProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -53,6 +53,7 @@ function App() {
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/quests" element={<Quests />} />
           <Route path="/itemShop" element={<ItemShop/>} />
+          <Route path="/playerStats" element={<PlayerStats/>} />
         </Routes>
       </HomeProvider>
     </BrowserRouter>

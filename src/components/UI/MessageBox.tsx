@@ -1,5 +1,5 @@
 import './MessageBox.css'
-import '../designRpg.css'
+import '../UI/designRpg.css'
 interface MessageBoxProps {
   message: string;
   type: 'success' | 'error' | 'warning'; 

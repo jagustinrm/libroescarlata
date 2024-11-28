@@ -11,6 +11,7 @@ export interface Class {
         will: string;
     };
     classFeatures: string[];
+    
 }
 
 interface ClassStore {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import './LandingPage.css';
 import { usePlayerStore } from '../stores/playerStore';
-import './designRpg.css'
+import './UI/designRpg.css'
 const LandingPage: React.FC = () => {
     const { playerActions } = usePlayerStore(); // Obtén la acción para actualizar el store
     const [inputName, setInputName] = useState<string>(''); // Estado local para el input

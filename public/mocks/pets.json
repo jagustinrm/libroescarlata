@@ -23,7 +23,7 @@
       "attack": {
         "melee": "mordisco +1 (1d3 daño)"
       },
-      "specialAbilities": ["cambio de color (invisibilidad parcial)", "visibilidad en la oscuridad"],
+      "specialAbilities": ["cambio de color", "visibilidad en la oscuridad"],
       "img": "/img/chameleon.png"
     },
     {
@@ -62,7 +62,7 @@
       "attack": {
         "melee": "mordisco +4 (1d6+1 daño)"
       },
-      "specialAbilities": ["aliento de fuego (1d6 daño en un cono de 3m, recarga 1d4 turnos)", "visión en la oscuridad", "resistencia al fuego (5)"],
+      "specialAbilities": ["aliento de fuego", "visión en la oscuridad", "resistencia al fuego (5)"],
       "img": "/img/cute_baby_dragon.png"
     },
     {
@@ -77,7 +77,7 @@
       },
       "specialAbilities": [
         "inmunidad al fuego",
-        "toque ardiente (inflige 1 de daño por turno, duración 2 turnos)"
+        "toque ardiente"
       ],
       "img": "/img/minor_fire_elemental.png",
       "cost": 300
@@ -94,7 +94,7 @@
       },
       "specialAbilities": [
         "inmunidad al hielo",
-        "toque congelante (ralentiza al objetivo por 1 turno)"
+        "toque congelante"
       ],
       "img": "/img/minor_ice_elemental.png",
       "cost": 300
