@@ -9,10 +9,13 @@
     background-color: rgba(128, 88, 50, 0.74);
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
+ 
 }
 
-
+.nameInput {
+    text-shadow: none;
+}
   button {
     display: block;
     margin: 10px auto;

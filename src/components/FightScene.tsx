@@ -272,7 +272,7 @@ export default function FightScene() {
                     "¡Has huido del combate!",
                     "warning",
                     true
-                    )} className="rpgui-button">
+                    )} className="rpgui-button newDesign">
                 😨 Huir</button> : <></>}
             </div>
 

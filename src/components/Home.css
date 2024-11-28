@@ -30,7 +30,9 @@
     background-color: rgba(128, 88, 50, 0.74);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
+    font-size: 1em;
+    text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
+
 }
 .hospitalRecover {
     display: flex;
@@ -48,6 +50,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-weight: bold;
+
 }
 
 .stats {
@@ -68,13 +71,16 @@
     align-self: center;
     /* gap: 10px; */
     /* width: 300px;  */
+
 }
 
 .buttons button {
-    background-size: 75% 75%;
-    font-size: 1em;
-    padding-left: 35px;
+    background-size: 100% 90%;
+    font-size: 1.05em;
+    padding-left: 30px;
     max-width: none;
     width: 170px;
+
+
 }
 

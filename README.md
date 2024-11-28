@@ -1,9 +1,14 @@
 El libro escarlata
 
 Cosas para hacer:
-
+Traducir tienda
+Mejorar tema de misiones
+Cuando mato al boss del dungeon me debería preguntar si quiero seguir en el 2 o salir.
+Que las misiones den recompenza.
+Cambiar todos los carteles.
 Aliado para pelear en la tienda
-Dropeo de enemigos
+Dropeo de enemigos.
+Animación cunado ataca.
 Huevo de dragón
 Dependiendo la hora del día quiero que cambie de color el fondo.
 Box dialog design rpg

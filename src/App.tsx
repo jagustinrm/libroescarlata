@@ -13,7 +13,7 @@ import ItemShop from './components/itemsStore/ItemShop';
 import PlayerStateLoader from './components/PlayerStateLoader';
 import usePlayerStore from './stores/playerStore';
 import useInventoryStore from './stores/inventoryStore';
-import InventoryStateLoader from './components/InventoryStateLoader';
+// import InventoryStateLoader from './components/InventoryStateLoader';
 import WeaponLoader from './loaders/NewWeaponLoader';
 import ItemShopLoader from './components/itemsStore/ItemShopLoader';
 import PotionsLoader from './loaders/PotionsLoader';
@@ -37,7 +37,7 @@ function App() {
     
     <BrowserRouter>
       <PlayerStateLoader />
-      <InventoryStateLoader/>
+      {/* <InventoryStateLoader/> */}
       <WeaponLoader/>
       <PotionsLoader/>
       <ClassLoader/>

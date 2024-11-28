@@ -8,6 +8,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+
 }
 
 /* Container to hold both characters */
@@ -45,19 +46,21 @@ body {
 .PlayerChar p, .EnemyChar p {
     margin: 5px 0;
     font-size: 1.1rem;
+    
 }
 
 /* Styling for buttons */
 button {
     margin-top: 10px;
     padding: 10px 20px;
-    font-size: 1rem;
+
     color: #ffffff;
     background-color: #666666d2;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    
 }
 
 button:hover {
@@ -112,6 +115,7 @@ button:disabled:hover {
     margin-top: 10px;
     overflow: hidden;
     position: relative;
+   
 }
 
 .experience-bar, .health-bar {
@@ -136,6 +140,8 @@ button:disabled:hover {
     top: 0;
     left: 0;
     z-index: 1;
+    text-shadow: none;
+    text-justify: center;
 }
 
 
@@ -157,9 +163,10 @@ button:disabled:hover {
 
 .rpgui-button.newDesign {
     background-size: contain;
-    font-size: 1em;
+    font-size: 1rem;
     padding-left: 35px;
     max-width: none;
+    
 }
 
 .container-endBattle {
