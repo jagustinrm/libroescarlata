@@ -28,6 +28,14 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       wis: 0,
       cha: 0,
     },
+    statsIncrease: {
+      str: 0,
+      dex: 0,
+      con: 0,
+      int: 0,
+      wis: 0,
+      cha: 0,
+    },
     leftPoints: 0,
     classFeatures: [],
     selectedPet: '',
@@ -57,6 +65,20 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
             },
           },
         })),
+        setStatsIncrease: (newstatsIncrease) =>
+          set((state) => ({
+            player: { ...state.player, statsIncrease: { ...newstatsIncrease } },
+          })),
+        addStatsIncrease: (points, type) =>
+          set((state) => ({
+            player: {
+              ...state.player,
+              stats: {
+                ...state.player.statsIncrease,
+                [type]: state.player.statsIncrease[type] + points,
+              },
+            },
+          })),
         addStatsLeftPoints: (leftPoints) =>
           set((state) => ({
             player: {
@@ -64,6 +86,13 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
               leftPoints: state.player.leftPoints + leftPoints,
             },
           })),
+          setStatsLeftPoints: (leftPoints) =>
+            set((state) => ({
+              player: {
+                ...state.player,
+                leftPoints: leftPoints,
+              },
+            })),
       updateSaves: (saves) =>
         set((state) => ({
           player: {

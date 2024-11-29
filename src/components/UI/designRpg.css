@@ -263,3 +263,146 @@ label {
 
 
   
+
+
+
+  /**
+* input styling
+*/
+/* input/textarea input */
+.rpgui-content input,
+.rpgui-content textarea {
+  /* set size and colors */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: white;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-size: 0.9em;
+  line-height: 32px;
+  background: #4e4a4e;
+  max-width: 100%;
+
+  padding-left: 10px;
+  /* for ie */
+  min-height: 30px;
+  /* enable text selecting */
+  -webkit-touch-callout: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-tap-highlight-color: rgba(126, 124, 124, 0.5); }
+  
+/* textarea extra rules */
+.rpgui-content textarea {
+  line-height: 22px;
+  padding-top: 7px;
+  height: 80px;
+  resize: none; }
+
+/* selection highlight */
+.rpgui-content input::selection,
+.rpgui-content textarea::selection {
+  background: rgba(0, 0, 0, 0.5); }
+
+.rpgui-content input::-moz-selection,
+.rpgui-content textarea::-moz-selection {
+  background: rgba(0, 0, 0, 0.5); }
+
+  .rpgui-content input::placeholder {
+    color: rgb(216, 216, 216)
+  }
+
+
+
+
+  /**
+* customized divs (containers) and framed objects (background and frame image).
+*/
+/* game div without background image*/
+.rpgui-container {
+  /* position style and default z */
+  /* position: fixed; */
+  z-index: 10;
+  overflow: show; }
+
+/* game div with golden2 background image*/
+.rpgui-container.framed-golden-2 {
+  /* border */
+  border-style: solid;
+  border-image-source: url("../designImg/border/border-image-golden2.png");
+  border-image-repeat: repeat;
+  border-image-slice: 8 8 8 8;
+  border-image-width: 18px;
+  border-width: 15px;
+  padding: 12px;
+  /* internal border */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  /* background */
+  /* background: url("../designImg/background/background-image-golden2.png") repeat repeat; */
+  background-color: rgba(182, 111, 44, 0.938);
+  border-radius: 10px;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center; 
+
+}
+
+
+/* 
+.rpgui-container.framed {
+  border-style: solid;
+  border-image-source: url("img/border-image.png");
+  border-image-repeat: repeat;
+  border-image-slice: 6 6 6 6;
+  border-image-width: 18px;
+  border-width: 15px;
+  padding: 12px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background: url("img/background-image.png") repeat repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center;
+}
+
+.rpgui-container.framed-golden {
+  border-style: solid;
+  border-image-source: url("img/border-image-golden.png");
+  border-image-repeat: repeat;
+  border-image-slice: 4 4 4 4;
+  border-image-width: 18px;
+  border-width: 15px;
+  padding: 12px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background: url("img/background-image-golden.png") repeat repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center;
+}
+
+.rpgui-container.framed-grey {
+  position: relative;
+  border-style: solid;
+  border-image-source: url("img/border-image-grey.png");
+  border-image-repeat: repeat;
+  border-image-slice: 3 3 3 3;
+  border-image-width: 7px;
+  border-width: 7px;
+  padding: 12px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background: url("img/background-image-grey.png") repeat repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center;
+}
+*/

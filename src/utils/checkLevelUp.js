@@ -10,12 +10,12 @@ export function checkLevelUp({calculateInitialHealth, player,
         const prevLevelXp = level > 1 && expTable[level.toString()] || expTable[20]; 
         playerActions.setP_ExpToNextLevel(nextLevelXp);
         playerActions.setP_ExpPrevLevel(prevLevelXp)
+        playerActions.addStatsLeftPoints(5)
     };
 
     
     if (player.playerExp >= player.p_ExpToNextLevel && player.level < 20) {
         const newLevel = player.level + 1;
-        console.log(player.hitDie)
         const newPlayerHealth = parseInt(player.p_MaxHealth) +  Math.floor(Math.random() * calculateInitialHealth(player.hitDie))
         playerActions.setP_LeftHealth(newPlayerHealth)
         playerActions.setP_MaxHealth(newPlayerHealth)

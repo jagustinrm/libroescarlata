@@ -227,7 +227,7 @@ export default function FightScene() {
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
 
     return (
-        <div className="fight-scene">
+    <div className="fight-scene ">
     <div className="turn-indicator">
     {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
     </div>

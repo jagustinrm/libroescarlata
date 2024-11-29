@@ -26,6 +26,7 @@ export interface Player {
   petsName: string[];
   playerMaterial: number;
   stats: Stats,
+  statsIncrease: Stats;
   leftPoints: number;
 }
 
@@ -50,6 +51,8 @@ export interface PlayerActions {
   setClassFeature: (classFeatures: Player['classFeatures']) => void; 
   addPetsName:(petsName: string) => void;
   setStats: (stats: Player['stats']) => void;
+  setStatsIncrease: (stats: Player['stats']) => void;
+  addStatsIncrease: (points: number, type: keyof Player['stats']) => void;
   updateStats: (stats: Partial<Player['stats']>) => void;
   setHitDie: (hitDie: string) => void;
   updateHitDie: (hitDie: string) => void; 
@@ -57,6 +60,7 @@ export interface PlayerActions {
   updateSaves: (saves: Partial<Player['saves']>) => void;
   addStatsPoints: (points: number, type: keyof Player['stats']) => void;
   addStatsLeftPoints: (leftPoints: number) => void;
+  setStatsLeftPoints: (leftPoints: number) => void;
 }
 
 // Interfaz para el store del player

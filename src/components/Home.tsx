@@ -58,7 +58,7 @@ export default function Home() {
         navigate('/playerStats')
       }
     return (
-        <div className="container">
+        <div className="container rpgui-container framed-golden-2">
             <div className="player">
                 <div className="stats">
                     <p onClick={() => handleStats()}>👤 {player.name}</p>

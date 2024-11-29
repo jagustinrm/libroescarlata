@@ -2,18 +2,13 @@ import './PlayerStats.css'
 import usePlayerStore from '../../stores/playerStore'
 import { useNavigate } from 'react-router-dom';
 import { Stats } from '../../stores/types/stats';
+import useStatManagement from '../../customHooks/useStatManagement';
 
 export default function PlayerStats() {
-    const { player, playerActions } = usePlayerStore();
+    const { player } = usePlayerStore();
     const navigate = useNavigate();
+    const {handleIncreaseStat} = useStatManagement()
 
-    const handleIncreaseStat = ( key: keyof Stats, one: number) => {
-        if (player.leftPoints > 0) {
-            playerActions.addStatsPoints(one, key)
-            playerActions.addStatsLeftPoints(-1)
-        }
-
-    }
     return (
         <>
             <div className='container containerPlayer'>
@@ -35,6 +30,7 @@ export default function PlayerStats() {
                     </div>
                 </div>
                 <div>
+                    <div className='statsAndAdd'>
                     <ul className="statsPoints">
                         {player.stats &&
                             Object.entries(player.stats).map(([key, value]) => (
@@ -48,10 +44,23 @@ export default function PlayerStats() {
                                 onClick={() => handleIncreaseStat(key as keyof Stats, 1)}>
                                    +
                                 </button>: <></>}
+                                    
                                 </div>
-
+                                
                             ))}
+                                                            
                     </ul>
+                    <ul className="statsPoints">
+                        <li>
+                        {player.statsIncrease && 
+                                    Object.entries(player.statsIncrease).map(([key, value]) => (
+                                        <div className='statsAndAdd'>
+                                        <> + {value}</>
+                                        </div>
+                            ))}
+                        </li>
+                    </ul>
+                    </div>
                     <p> Puntos restantes: {player.leftPoints}</p>
                 </div>
 

@@ -25,7 +25,7 @@ export default function CharacterSelector() {
     const handleButtonClick = (classData: Class) => {
         const { className, hitDie, classFeatures, armorClass, baseAttackBonus, saves} = classData;
         playerActions.setPlayerClass(className);
-        const InitialHealth = calculateInitialHealth(hitDie).toString();
+        const InitialHealth = calculateInitialHealth(hitDie)
         playerActions.setPlayerLevel(1);
         playerActions.setP_MaxHealth(InitialHealth);
         playerActions.setP_LeftHealth(InitialHealth);
@@ -48,7 +48,15 @@ export default function CharacterSelector() {
                 wis: 10,
                 cha: 10,
         })
-        playerActions.addStatsLeftPoints(25)
+        playerActions.setStatsIncrease({
+            str: 1,
+            dex: 1,
+            con: 1,
+            int: 1,
+            wis: 1,
+            cha: 1,
+        })
+        playerActions.setStatsLeftPoints(25)
         assignWeaponByClass(className, classes, 
                 weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
                 player,
@@ -74,7 +82,7 @@ export default function CharacterSelector() {
     };
 
     return (
-        <div className='containerClases'>
+        <div className='containerClases  rpgui-container framed-golden-2'>
             <WeaponLoader/>
             <PotionsLoader/>
             <ClassLoader />

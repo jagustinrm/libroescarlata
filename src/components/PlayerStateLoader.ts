@@ -11,8 +11,8 @@ const PlayerStateLoader = () => {
     if (storedPlayerState) {
       const parsedPlayerState = JSON.parse(storedPlayerState);
 
-      playerActions.setP_LeftHealth(parsedPlayerState.p_LeftHealth);
-      playerActions.setP_MaxHealth(parsedPlayerState.p_MaxHealth);
+      playerActions.setP_LeftHealth(parseInt(parsedPlayerState.p_LeftHealth));
+      playerActions.setP_MaxHealth(parseInt(parsedPlayerState.p_MaxHealth));
       playerActions.setPlayerName(parsedPlayerState.name);
       playerActions.setPlayerLevel(parsedPlayerState.level);
       playerActions.setPlayerMaterial(parsedPlayerState.playerMaterial);
