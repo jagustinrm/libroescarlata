@@ -73,7 +73,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           set((state) => ({
             player: {
               ...state.player,
-              stats: {
+              statsIncrease: {
                 ...state.player.statsIncrease,
                 [type]: state.player.statsIncrease[type] + points,
               },
@@ -108,13 +108,13 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
         player: { ...state.player, stats: { ...newStats } },
       })),
 
-    updateStats: (updatedStats) =>
-      set((state) => ({
-        player: {
-          ...state.player,
-          stats: { ...state.player.stats, ...updatedStats },
-        },
-      })),
+    // updateStats: (updatedStats) =>
+    //   set((state) => ({
+    //     player: {
+    //       ...state.player,
+    //       stats: { ...state.player.stats, ...updatedStats },
+    //     },
+    //   })),
     setPlayerMaterial: (playerMaterial) =>
       set((state) => ({
         player: { ...state.player, playerMaterial },

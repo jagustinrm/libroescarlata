@@ -11,16 +11,28 @@ const useStatManagement = () => {
       playerActions.addStatsPoints(pointsToAdd, key);
       playerActions.addStatsLeftPoints(-1);
     }
-  
-    const additionalHealth = player.p_MaxHealth + Math.floor((player.stats[key] / 10))
+    
+    const prevPoints = player.statsIncrease[key]
+    const additionalPlus = [...player.statsIncrease, Math.floor((player.stats[key] / 5))] // Si aumenta en 1 cuando llega  5 puntos
+    playerActions.setStats(additionalPlus) // acá tengo que modificar con setStats
+    
+    if (player.statsIncrease[key] > prevPoints ) {
+      const increasePoints = () => {
+        const additionalHealth = player.level
+        playerActions.setP_MaxHealth(player.p_MaxHealth + additionalHealth)
+      }
 
-    switch (key) {
-      case 'con':
-        playerActions.setP_MaxHealth(additionalHealth)
-        break
-      default:
-        break
+      switch (key) {
+        case 'con':
+          increasePoints()
+          break
+        default:
+          break
+      }
     }
+    
+
+
 
 
 

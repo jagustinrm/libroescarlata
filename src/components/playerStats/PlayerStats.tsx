@@ -32,11 +32,12 @@ export default function PlayerStats() {
                 <div>
                     <div className='statsAndAdd'>
                     <ul className="statsPoints">
+{/* **************************************** ESTADÍSTICAS ************************************ */}
                         {player.stats &&
                             Object.entries(player.stats).map(([key, value]) => (
                                 <div className='statsAndAdd'>
                                 <li key={key}>
-                                    {key}: {value}
+                                    {key}: {value} + { player.statsIncrease[key as keyof Stats]}
                                 </li>
                                 {player.leftPoints? 
                                 <button 
@@ -44,25 +45,19 @@ export default function PlayerStats() {
                                 onClick={() => handleIncreaseStat(key as keyof Stats, 1)}>
                                    +
                                 </button>: <></>}
-                                    
                                 </div>
                                 
                             ))}
                                                             
                     </ul>
+
                     <ul className="statsPoints">
-                        <li>
-                        {player.statsIncrease && 
-                                    Object.entries(player.statsIncrease).map(([key, value]) => (
-                                        <div className='statsAndAdd'>
-                                        <> + {value}</>
-                                        </div>
-                            ))}
-                        </li>
+
                     </ul>
                     </div>
                     <p> Puntos restantes: {player.leftPoints}</p>
                 </div>
+  {/* **************************************** ESTADÍSTICAS ************************************ */}
 
                 {/* Nuevo div con más información */}
                 <div className="additional-stats">
