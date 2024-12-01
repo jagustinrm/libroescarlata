@@ -11,7 +11,7 @@ import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
 import {checkLevelUp} from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
-import { handleAttack, handleNewEnemy} from '../utils/combatHandlers';
+import { handleAttack} from '../utils/combatHandlers';
 import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
@@ -134,14 +134,18 @@ export default function FightScene() {
     }
 
     const handleNewEnemyClick = () => {
-        handleNewEnemy(player.name);
-        setTurn("player")
-        if (updateEnemy) {
-            setUpdateEnemy(false);
-        } else {
-            setUpdateEnemy(true);
 
-        }
+        handleMessage(`${player.name} busca un nuevo enemigo...`, "success", false);
+        setTimeout(() => {
+            setTurn("player")
+            if (updateEnemy) {
+                setUpdateEnemy(false);
+            } else {
+                setUpdateEnemy(true);
+    
+            }
+        }, 1000);
+
     };
 
     const handleHealing = () => {
@@ -175,7 +179,7 @@ export default function FightScene() {
 
 
         } else {
-            alert('Tenés la vida completa');
+            handleMessage("Tu vida está completa", "success", false);
         }
     };
     

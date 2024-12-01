@@ -46,8 +46,11 @@ export default function PetStore() {
   const handleSelectedPet = () => {
     if (selectedPet) {
       playerActions.setP_SelectedPet(selectedPet); // Guarda el selectedPet en el store de player
-      alert('Seleccionaste: ' + selectedPet.name); // Muestra el nombre de la mascota seleccionada
-    }
+       // Muestra el nombre de la mascota seleccionada
+       setShowMessage(true)
+       setMessageContent("¡Seleccionaste a " + selectedPet.name + '!')
+       setMessageType('success')
+      }
   };
 
   const handleBuy = (petName: string, petCost: number) => {
@@ -57,8 +60,11 @@ export default function PetStore() {
         setShowMessage(true)
         setMessageContent("¡Adoptaste a " + petName + '!')
         setMessageType('success')
+        setIsBuyable(false)
     } else {
-        alert("Te falta cash, amigo")
+      setShowMessage(true)
+      setMessageContent('Te falta materiales')
+      setMessageType('warning')
     }
 };
 

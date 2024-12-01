@@ -23,7 +23,7 @@
       "amount": "2d8+3"
     },
     "description": "Restaura 2d8+3 puntos de vida.",
-    "img": "/img/moderate-healing-potion.png"
+    "img": "/img/potions/moderate-healing-potion.png"
   },
   {
     "id": 3,
@@ -38,7 +38,7 @@
       "duration": "3 minutos"
     },
     "description": "Aumenta la fuerza en +4 durante 3 minutos.",
-    "img": "/img/bull-strength-potion.png"
+    "img": "/img/potions/bull-strength-potion.png"
   },
   {
     "id": 4,
@@ -52,7 +52,7 @@
       "duration": "10 minutos"
     },
     "description": "Te hace invisible durante 10 minutos.",
-    "img": "/img/invisibility-potion.png"
+    "img": "/img/potions/invisibility-potion.png"
   },
   {
     "id": 5,
@@ -67,7 +67,7 @@
       "duration": "1 minuto"
     },
     "description": "Aumenta tu velocidad en 30 pies durante 1 minuto.",
-    "img": "/img/speed-potion.png"
+    "img": "/img/potions/speed-potion.png"
   },
   {
     "id": 6,
@@ -82,7 +82,7 @@
       "duration": "10 minutos"
     },
     "description": "Reduce 10 puntos de daño por fuego durante 10 minutos.",
-    "img": "/img/fire-resistance-potion.png"
+    "img": "/img/potions/fire-resistance-potion.png"
   },
   {
     "id": 7,
@@ -97,7 +97,7 @@
       "duration": "1 hora"
     },
     "description": "Aumenta tu percepción en +5 durante 1 hora.",
-    "img": "/img/clairvoyance-potion.png"
+    "img": "/img/potions/clairvoyance-potion.png"
   },
   {
     "id": 8,
@@ -111,7 +111,7 @@
       "duration": "1 hora"
     },
     "description": "Te permite respirar bajo el agua durante 1 hora.",
-    "img": "/img/water-breathing-potion.png"
+    "img": "/img/potions/water-breathing-potion.png"
   },
   {
     "id": 9,
@@ -126,7 +126,7 @@
       "duration": "1 minuto"
     },
     "description": "Otorga un bono de +2 a la clase de armadura durante 1 minuto.",
-    "img": "/img/shield-of-faith-potion.png"
+    "img": "/img/potions/shield-of-faith-potion.png"
   },
   {
     "id": 10,
@@ -140,6 +140,6 @@
       "duration": "5 minutos"
     },
     "description": "Te permite volar durante 5 minutos.",
-    "img": "/img/fly-potion.png"
+    "img": "/img/potions/fly-potion.png"
   }
 ]

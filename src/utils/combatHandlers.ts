@@ -18,7 +18,8 @@ interface CombatHandlersProps {
 }
 
 export const handleAttack = ({setEnemyHealth, player, setActionMessages   }: CombatHandlersProps) => {
-    const playerDamage = rollDice(player.selectedWeapon?.damage);
+    const playerDamage = rollDice(player.selectedWeapon?.damage) + player.statsIncrease['str'];
+    console.log(player.statsIncrease['str'])
     const playerMessage = `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`;
     setActionMessages((prevMessages) => [...prevMessages, playerMessage]);
 
@@ -31,9 +32,4 @@ export const handleAttack = ({setEnemyHealth, player, setActionMessages   }: Com
         return Math.max(prevEnemyHealth - playerDamage, 0);
     };
     
-};
-
-export const handleNewEnemy = ( player: string) => {
-    alert(`${player} busca un nuevo enemigo...`);
-   
 };

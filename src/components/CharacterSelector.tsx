@@ -41,20 +41,20 @@ export default function CharacterSelector() {
         playerActions.setSaves(saves)
         createItems(1)
         playerActions.setStats({
-                str: 10,
-                dex: 10,
-                con: 10,
-                int: 10,
-                wis: 10,
-                cha: 10,
+                str: 0,
+                dex: 0,
+                con: 0,
+                int: 0,
+                wis: 0,
+                cha: 0,
         })
         playerActions.setStatsIncrease({
-            str: 1,
-            dex: 1,
-            con: 1,
-            int: 1,
-            wis: 1,
-            cha: 1,
+            str: 0,
+            dex: 0,
+            con: 0,
+            int: 0,
+            wis: 0,
+            cha: 0,
         })
         playerActions.setStatsLeftPoints(25)
         assignWeaponByClass(className, classes, 

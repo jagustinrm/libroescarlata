@@ -1,6 +1,8 @@
 El libro escarlata
 
 Cosas para hacer:
+Buscar bases de datos online
+Salesforce?
 Estadísticas
 Verificar doble cartel de peleas
 Tener sidebar con el nombre y eso. Que haya una opción desplegable cuando paso por arriba del arma actual.

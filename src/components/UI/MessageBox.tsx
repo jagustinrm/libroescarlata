@@ -3,7 +3,7 @@ import '../UI/designRpg.css'
 interface MessageBoxProps {
   message: string;
   type: 'success' | 'error' | 'warning'; 
-    onClose: () => void;
+  onClose: () => void;
 }
 
 const MessageBox: React.FC<MessageBoxProps> = ({ message, type, onClose }) => {

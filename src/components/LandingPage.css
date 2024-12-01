@@ -12,6 +12,18 @@
     /* font-family: 'Arial', sans-serif; */
  
 }
+.landingTitleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 30px;
+}
+.landingImg {
+    width: 100px;
+    height: 100px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
 
 .nameInput {
     text-shadow: none;

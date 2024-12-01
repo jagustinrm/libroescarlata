@@ -16,14 +16,15 @@ export function checkLevelUp({calculateInitialHealth, player,
     
     if (player.playerExp >= player.p_ExpToNextLevel && player.level < 20) {
         const newLevel = player.level + 1;
-        const newPlayerHealth = parseInt(player.p_MaxHealth) +  Math.floor(Math.random() * calculateInitialHealth(player.hitDie))
+
+        const newPlayerHealth = parseInt(player.p_MaxHealth) +  Math.floor(Math.random() * calculateInitialHealth(player.hitDie) + player.statsIncrease['con'])
         playerActions.setP_LeftHealth(newPlayerHealth)
         playerActions.setP_MaxHealth(newPlayerHealth)
         playerActions.setPlayerLevel(newLevel);  // Subir el nivel
         gainXpToNextLevel(newLevel);  // Actualizar la experiencia necesaria para el próximo nivel
         setActionMessages((prevMessages) => [
             ...prevMessages,
-            `¡Has subido al nivel ${newLevel}`
+            `¡Has subido al nivel ${newLevel}, ¡Tu nivel de vida aumentó a ${newPlayerHealth}`
         ]);
     }
 

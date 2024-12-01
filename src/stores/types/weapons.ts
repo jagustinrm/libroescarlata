@@ -7,7 +7,8 @@ export interface Weapon {
     weight: string;         // Peso del arma (por ejemplo, "4 lb")
     cost: number;           
     description: string;    // Descripción del arma
-    range?: string;         // Alcance del arma (opcional, solo para armas a distancia)
+    range?: string;         
+    img?: string;
 }
 
 export interface WeaponStore {

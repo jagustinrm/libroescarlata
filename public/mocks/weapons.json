@@ -8,7 +8,8 @@
             "critical": "19-20/x2",
             "weight": "4 lb",
             "cost": 15,
-            "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros."
+            "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros.",
+            "img": "/img/weapons/espada-larga.png"
         },
         {
             "id": 2,
@@ -19,7 +20,8 @@
             "range": "10 ft",
             "weight": "1 lb",
             "cost": 2,
-            "description": "Ligera y fácil de ocultar, ideal como arma secundaria."
+            "description": "Ligera y fácil de ocultar, ideal como arma secundaria.",
+            "img": "/img/weapons/daga.png"
         },
         {
             "id": 3,
@@ -29,7 +31,8 @@
             "critical": "x3",
             "weight": "6 lb",
             "cost": 10,
-            "description": "Un arma poderosa capaz de infligir daños devastadores."
+            "description": "Un arma poderosa capaz de infligir daños devastadores.",
+            "img": "/img/weapons/hacha-de-batalla.png"
         },
         {
             "id": 4,
@@ -40,7 +43,8 @@
             "range": "100 ft",
             "weight": "3 lb",
             "cost": 75,
-            "description": "Un arco de gran alcance, preferido por arqueros experimentados."
+            "description": "Un arco de gran alcance, preferido por arqueros experimentados.",
+            "img": "/img/weapons/arco-largo.png"
         },
         {
             "id": 5,
@@ -50,7 +54,8 @@
             "critical": "x2",
             "weight": "5 lb",
             "cost": 8,
-            "description": "Perfecta para romper armaduras y golpear con fuerza contundente."
+            "description": "Perfecta para romper armaduras y golpear con fuerza contundente.",
+            "img": "/img/weapons/maza.png"
         },
         {
             "id": 6,
@@ -60,7 +65,8 @@
             "critical": "19-20/x2",
             "weight": "8 lb",
             "cost": 50,
-            "description": "Un arma imponente que requiere ambas manos para su uso."
+            "description": "Un arma imponente que requiere ambas manos para su uso.",
+            "img": "/img/weapons/espadon.png"
         },
         {
             "id": 7,
@@ -71,7 +77,8 @@
             "range": "20 ft",
             "weight": "6 lb",
             "cost": 5,
-            "description": "Versátil para el combate cercano o para arrojar a distancia."
+            "description": "Versátil para el combate cercano o para arrojar a distancia.",
+            "img": "/img/weapons/lanza.png"
         },
         {
             "id": 8,
@@ -82,7 +89,8 @@
             "range": "80 ft",
             "weight": "4 lb",
             "cost": 35,
-            "description": "Un arma fácil de usar, ideal para ataques a distancia precisos."
+            "description": "Un arma fácil de usar, ideal para ataques a distancia precisos.",
+            "img": "/img/weapons/ballesta-ligera.png"
         },
         {
             "id": 9,
@@ -92,7 +100,8 @@
             "critical": "x3",
             "weight": "5 lb",
             "cost": 12,
-            "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados."
+            "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados.",
+            "img": "/img/weapons/martillo-de-guerra.png"
         },
         {
             "id": 10,
@@ -102,7 +111,8 @@
             "critical": "x2",
             "weight": "4 lb",
             "cost": 0,
-            "description": "Un arma simple que puede utilizarse como herramienta o defensa."
+            "description": "Un arma simple que puede utilizarse como herramienta o defensa.",
+            "img": "/img/weapons/baston.png"
         }
     ]
 }
