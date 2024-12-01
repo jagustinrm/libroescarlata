@@ -1,86 +1,96 @@
-@keyframes beat {
-    0%, 40%, 100% { transform: scale(1.2, 1.2); }
-    30%, 40% { transform: scale(0.92, 0.95); }
-  }
-  
-  
-  /* Corazón */
-  
-  .heart{
-      position: relative;
-      animation: 1.5s ease 0s infinite beat;
+.home-container {
+    position: fixed; /* Fija el contenedor en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho */
+    height: 80vh; /* Ocupa toda la altura de la ventana */
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido */
+    align-content: flex-start; /* Alinea el contenido al principio */
+    z-index: 50; /* Asegura que esté por encima de otros elementos */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
 
-  }
-.p_leaftHealth{
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    width: 250px; /* Mantén el ancho fijo para la sidebar */
+    font-size: 16px;
+}
+
+.sidebar.open {
     display:flex;
-    flex-direction: row;
+    width: 250px;
+    transform: translateX(0);
+}
+
+.sidebar.closed {
+    display: flex;
     align-items: center;
-    justify-content: center;
+    width: 110px;
+    transform: translateX(-30px);
 }
 
-
-.container {
-    width: 800px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 10px;
-    max-width: 100%;
-    margin: auto;
-    background-color: rgba(128, 88, 50, 0.74);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 1em;
-    text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
-
-}
-.hospitalRecover {
-    display: flex;
-    flex-direction: row;
-    position: relative;
+.toggle-sidebar {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    /* margin-left: 15%; */
 }
 
+.stats {
+
+    text-align: center;
+}
+
+.stats p {
+    margin: 5px;
+}
 
 .player {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0px;
-    background-color: rgba(112, 68, 26, 0.644);;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-weight: bold;
-
-}
-
-.stats {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.stats p {
-    margin: 5px;
-    margin-top: 10px;
+    justify-content: flex-start; /* Centra los contenidos verticalmente */
+    flex-grow: 1; /* Permite ocupar espacio disponible */
 }
 
 .buttons {
-
+    margin-left: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-self: center;
-    /* gap: 10px; */
-    /* width: 300px;  */
-
+    grid-template-columns: repeat(3, 1fr);
+    width: calc(100% - 350px);
+    /* margin-left: 30%; */
+    margin-left: 250px; 
 }
 
 .buttons button {
-    background-size: 100% 90%;
-    font-size: 1.05em;
-    padding-left: 30px;
-    max-width: none;
-    width: 170px;
 
+    padding: 10px;
+    background-size: 100% 90%;
+}
+
+
+
+.p_leaftHealth{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
 }
 
+.hospitalRecover {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}

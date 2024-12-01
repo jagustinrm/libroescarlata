@@ -1,5 +1,11 @@
+.sectionPlayer {
+    height: 800px;
+    font-size: 1.03em
+}
 .containerPlayer {
+    display: flex;
     justify-content: center;
+
 }
 
 .statsPoints {
@@ -27,3 +33,7 @@ ul {
     padding: none;
   }
   
+  .playerbackbutton {
+    height: 100px;
+    width: 100px;
+  }

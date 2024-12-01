@@ -10,8 +10,8 @@ export default function PlayerStats() {
     const {handleIncreaseStat} = useStatManagement()
 
     return (
-        <>
-            <div className='container containerPlayer'>
+        <section className='sectionPlayer rpgui-container framed-golden-2'>
+            <div className='container containerPlayer '>
                 <div className="player">
                     <div className="stats">
                         <p>👤 {player.name}</p>
@@ -29,7 +29,7 @@ export default function PlayerStats() {
                         <p>⚔️ Ataque Base: {player.baseAttackBonus}</p>
                     </div>
                 </div>
-                <div>
+                <div className='mediumColumnStats'>
                     <div className='statsAndAdd'>
                     <ul className="statsPoints">
 {/* **************************************** ESTADÍSTICAS ************************************ */}
@@ -87,9 +87,9 @@ export default function PlayerStats() {
 
             </div>
 
-            <button className="back-button" onClick={() => navigate('/home')}>
+            <button className="rpgui-button playerbackbutton" onClick={() => navigate('/home')}>
                 Volver
             </button>
-        </>
+        </section>
     );
 }

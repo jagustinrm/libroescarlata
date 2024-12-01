@@ -1,14 +1,12 @@
 /* General styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #282c34;
+
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
-
 }
 
 /* Container to hold both characters */
@@ -35,7 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40%;
+    width: 20%;
     padding: 20px;
     background-color: #3c3f47;
     border-radius: 10px;
@@ -49,19 +47,7 @@ body {
     
 }
 
-/* Styling for buttons */
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
 
-    color: #ffffff;
-    background-color: #666666d2;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-}
 
 button:hover {
     background-color: #d62828;
@@ -150,27 +136,35 @@ button:disabled:hover {
 }
 
 .potionImg {
-    height: 32px;
-    width: 50px;
+    height: 30px;
+    width: 40px;
+    aspect-ratio: 1 / 1;
 
+    /* padding-bottom: 10px */
 }
-
 .attackAndPotions {
     display: flex;
     align-items: center;
-
+  
 }
 
 .rpgui-button.newDesign {
-    background-size: contain;
-    font-size: 1rem;
-    padding-left: 35px;
-    max-width: none;
-    
+    /* background-size: contain; */
+    /* font-size: 1rem; */
+    /* padding-left: 35px; */
+    /* max-width: none; */
+ 
 }
 
 .container-endBattle {
     display: flex;
     flex-direction: row;
 
+}
+
+
+#newDesign {
+    height: 45px;
+    width: 40px;
+    min-width: 100px
 }

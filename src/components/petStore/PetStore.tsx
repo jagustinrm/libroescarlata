@@ -92,21 +92,21 @@ export default function PetStore() {
          </ul>
       </div>
       </div>
-      <div className='containerPets'>
+      <div className=''>
       {selectedPet && (
           <div className='containerPets'>
             <div className='imgPetandSelect'>
               <img className='imgPet' src={selectedPet.img} alt={selectedPet.name} />
               {isBuyable? 
                   <div className='costSect'>
-                    <button onClick={() => handleBuy(selectedPet.name, selectedPet.cost ?? 0)} className='rpgui-button'>Adoptar</button>
-                    <p className='petText'><strong>Costo:</strong> {selectedPet.cost} materiales </p> 
+                    <button onClick={() => handleBuy(selectedPet.name, selectedPet.cost ?? 0)} className='rpgui-button adoptButton'>Adoptar</button>
+                    <p className='petCostText'>{selectedPet.cost} materiales </p> 
                   </div>
                 : <button onClick={handleSelectedPet} className='rpgui-button'>Seleccionar</button> 
                 }
             </div> 
             <div className='containerPetStats'>
-              <div className='detailsContainer'>
+              <div className=''>
                 <h3 className='detailTitle'>Detalles de </h3>
                 <h3 className='detailTitle'>{selectedPet.name}</h3>
               </div>

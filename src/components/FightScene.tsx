@@ -254,11 +254,11 @@ export default function FightScene() {
                 <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
             </div>
                 <div className="attackAndPotions">
-                    <button className="rpgui-button newDesign"  onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
-                        ⚔️ Atacar
+                    <button className="rpgui-button newDesign" id="newDesign" onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
+                        ⚔️
                     </button>
                     {pocion && (
-                         <button onClick={handleHealing} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
+                         <button className="rpgui-button newDesign" id="newDesign" onClick={handleHealing} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
                            {
                              // Buscar la poción en la lista de potions y mostrar la imagen
                              (() => {

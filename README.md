@@ -1,6 +1,7 @@
 El libro escarlata
 
 Cosas para hacer:
+Musica en el juego
 Buscar bases de datos online
 Salesforce?
 Estadísticas

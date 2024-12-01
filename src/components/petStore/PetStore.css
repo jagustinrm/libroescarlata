@@ -18,7 +18,7 @@
     margin: 0; /* Remove default margin */
 }
 .listPets li {
-    background-color: #8b4513; /* Slightly darker than the background */
+ 
     padding: 8px;
     margin-bottom: 5px;
     border-radius: 5px; /* Rounded corners for list items */
@@ -27,9 +27,6 @@
     font-size: 14px;
 }
 
-.listPets li:hover {
-    background-color: #a0522d; /* Slightly lighter shade for hover effect */
-}
 .sectionPet {
     display: flex;
     flex-direction: row;
@@ -60,9 +57,10 @@
     margin-right: 10px;
     margin-left: 10px;
     min-width: 470px;
-    min-height: 300px;
+    min-height: 350px;
     max-width: 470px;
-    max-height: 300px;
+    max-height: 350px;
+    padding-top: 10px;
 }
 .imgPetandSelect {
     display: flex;
@@ -82,12 +80,25 @@ section {
 
 .petText {
     margin: 0px;
-    margin-right: 10px;
     word-break: break-word;
     font-size: 0.9em;
 
 }
+.adoptButton{
+    padding-bottom: 0px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
 
+}
+.petCostText {
+    font-size: 0.8em;
+    padding-left: 5%;
+    /* padding-right: 25%; */
+    margin-top: 1px;
+    margin-bottom: 1px;
+    display: flex;
+
+}
 .costSect {
     display: flex;
     flex-direction: column;
