@@ -30,12 +30,13 @@
 .sectionPet {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
 }
 .selectPet {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 .containerPetStats {
     width: 300px; 
@@ -57,16 +58,26 @@
     margin-right: 10px;
     margin-left: 10px;
     min-width: 470px;
-    min-height: 350px;
-    max-width: 470px;
-    max-height: 350px;
-    padding-top: 10px;
+    overflow: hidden; /* Oculta contenido que exceda el contenedor */
+    transition: max-height 0.5s ease, opacity 0.5s ease; /* Transición suave */
+    opacity: 0; /* Inicialmente invisible */
+    max-height: 0; /* Inicialmente colapsado */
+}
+
+.containerPets.open {
+    opacity: 1; /* Visible al abrir */
+    max-height: 300px; /* Ajusta a un valor mayor que el contenido real */
+    min-height: 300px;
+    max-width: 500px;
+    min-width: 500px;
 }
 .imgPetandSelect {
     display: flex;
     flex-direction: column;
+    min-width: 180px
+    
 }
-section {
+.petSection {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,7 +86,7 @@ section {
     min-height: 500px;
     min-width: 700px;
     justify-content: center;
-    border-radius: 10%;
+    border-radius: 1%;
 }
 
 .petText {
@@ -86,13 +97,13 @@ section {
 }
 .adoptButton{
     padding-bottom: 0px;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     padding-bottom: 5px;
 
 }
 .petCostText {
     font-size: 0.8em;
-    padding-left: 5%;
+    padding-left: 15%;
     /* padding-right: 25%; */
     margin-top: 1px;
     margin-bottom: 1px;
@@ -103,6 +114,7 @@ section {
     display: flex;
     flex-direction: column;
     justify-items: center;
+
     gap:0px;
 }
 

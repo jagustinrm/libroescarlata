@@ -100,7 +100,7 @@ export default function Inventory() {
     };
 
     return (
-        <section className="secctionInventory">
+        <section className="secctionInventory rpgui-container framed-golden-2">
             <h1>Inventario</h1>
             <div className="buttonsInventory">
                 <button className="rpgui-button editedButtond" onClick={() => handleLoadActualInventory('weapons')}>Armas</button>
