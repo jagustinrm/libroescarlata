@@ -21,6 +21,7 @@ import MessageBox from './UI/MessageBox.tsx';
 import { useEnemyTurn } from "../customHooks/useEnemyTurn.ts";
 import { handleNewEnemyClick } from "../utils/handleNewEnemyClick.ts";
 import { handleHealing } from "../utils/handleHealing.ts";
+import SoundPlayer from "./UI/soundPlayer/SoundPlayer.tsx";
 export default function FightScene() {
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function FightScene() {
     const {player, playerActions } = usePlayerStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
+    const [soundType, setSoundType] = useState<string>('');
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
     const {quests} = useLoadQuests();
@@ -106,6 +108,7 @@ export default function FightScene() {
     });
     const executeAttack = () => {
         if (turn !== "player") return;
+        setSoundType("attack")
         handleAttack({
             enemyHealth,setEnemyHealth,
             player, playerActions,
@@ -114,6 +117,11 @@ export default function FightScene() {
         });
         setTriggerPostActions(true);
         switchTurn(); 
+    
+        setTimeout(() => {
+            setSoundType("")
+          }, 1000);
+     
     };
 
 // ************************COMBATE *************************
@@ -244,7 +252,10 @@ export default function FightScene() {
                     <p>No hay enemigo seleccionado.</p>
                 )}
             </div>
-
+            {soundType &&
+            <SoundPlayer soundType={soundType} />
+            }
+            
             {messageState.show && (
         <MessageBox
           message={messageState.content}
