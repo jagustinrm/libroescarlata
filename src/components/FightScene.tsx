@@ -257,12 +257,12 @@ export default function FightScene() {
             }
             
             {messageState.show && (
-        <MessageBox
-          message={messageState.content}
-          type={messageState.type as 'error' | 'warning' | 'success'}
-          onClose={() => handleClose(messageState.redirectHome)}
-        />
-      )}
+                <MessageBox
+                    message={messageState.content}
+                    type={messageState.type as 'error' | 'warning' | 'success'}
+                    onClose={() => handleClose(messageState.redirectHome)}
+                />
+            )}
         </div>
     );
 }
