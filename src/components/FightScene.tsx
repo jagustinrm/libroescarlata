@@ -1,34 +1,29 @@
 import { useSearchParams } from "react-router-dom";
-import  usePostCombatActions  from "../customHooks/usePostCombatActions"; // Asegúrate de importar el hook
-import {usePlayerStore} from '../stores/playerStore.js';
+import  usePostCombatActions  from "../customHooks/usePostCombatActions"; 
+import { usePlayerStore } from '../stores/playerStore.js';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
 import './UI/designRpg.css'
+import { useEnemyLoader } from "../customHooks/useEnemyLoader.ts";
 // @ts-expect-error Para que funcione 
-import { useEnemyLoader } from "../customHooks/useEnemyLoader.js";
-// @ts-expect-error Para que funcione 
-import {checkLevelUp} from '../utils/checkLevelUp.js'
+import { checkLevelUp } from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 import { handleAttack} from '../utils/combatHandlers';
-import { EnemyDeleted } from "./interfaces/characterProperties";
+// import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
 // @ts-expect-error Para que funcione 
 import useExpTable from "../customHooks/useExpTable.js";
 import useInventoryStore from "../stores/inventoryStore.ts";
 import usePotionStore from "../stores/potionsStore.ts";
-import {rollDice} from '../utils/rollDice.ts'
 import MessageBox from './UI/MessageBox.tsx';
-
+import { useEnemyTurn } from "../customHooks/useEnemyTurn.ts";
+import { handleNewEnemyClick } from "../utils/handleNewEnemyClick.ts";
+import { handleHealing } from "../utils/handleHealing.ts";
 export default function FightScene() {
-    const [messageState, setMessageState] = useState({
-        show: false,
-        content: '',
-        type: '',
-        redirectHome: false,
-      });
+    const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
@@ -40,38 +35,29 @@ export default function FightScene() {
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
     const {quests} = useLoadQuests();
     const [turn, setTurn] = useState<"player" | "enemy">("player");
-    const switchTurn = () => {
-        setTurn((prevTurn) => (prevTurn === "player" ? "enemy" : "player"));
-    };
+    const switchTurn = () => {setTurn((prevTurn) => (prevTurn === "player" ? "enemy" : "player"))};
     const [pet, setPet] = useState<string | null>('')
-        const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
-            const storedLevel = localStorage.getItem("dungeonLevel");
-            return storedLevel ? parseInt(storedLevel, 10) : 1;
-        });
-        const [enemiesDeleted, setEnemiesDeleted] = useState<Array<EnemyDeleted>>(() => {
-            const storageEnemiesDeleted = localStorage.getItem('deletedEnemies');
-            return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
-        } )
-        const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
-        const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
-        const defaultQuests: QuestData = {
-            questTree: {
-                history: [],
-                secondary: [],
-                others: []
-            }
-        };
-
-        //REVISAR ESTO, TENGO DOS HANDLEPOSTCOMBATACTIONS
-        const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, 
-            setEnemiesDeleted, enemiesDeleted, enemy, quests || 
-            defaultQuests, playerActions, player
-        );
-
-    
-        // Inicializamos los estados sin depender directamente de `enemy`
-        const [enemyHealth, setEnemyHealth] = useState<number>(1);
-    // const [playerMana, setPlayerMana] = useState<number>(100);
+    const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
+        const storedLevel = localStorage.getItem("dungeonLevel");
+        return storedLevel ? parseInt(storedLevel, 10) : 1;
+    });
+    // const [enemiesDeleted, setEnemiesDeleted] = useState<Array<EnemyDeleted>>(() => {
+    //     const storageEnemiesDeleted = localStorage.getItem('deletedEnemies');
+    //     return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
+    // } )
+    const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
+    const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
+    const defaultQuests: QuestData = {
+        questTree: {
+            history: [],
+            secondary: [],
+            others: []
+        }
+    };
+    const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, enemy, quests || 
+        defaultQuests, playerActions, player
+    );
+    const [enemyHealth, setEnemyHealth] = useState<number>(1);
     const handleCheckLevelUp = () => {
         checkLevelUp({
             player,
@@ -80,36 +66,35 @@ export default function FightScene() {
             expTable, setExpTable
         });
     };
-// ************************ATAQUE DE ENEMIGO *************************
-    useEffect(() => {
-        if (turn === "enemy" && enemyHealth > 0 && player.p_LeftHealth > 0 ) {
-            const enemyAttackTimeout = setTimeout(() => {
-                const damageDice = enemy["attacks"][0].damage
-                const damage = rollDice(damageDice); 
-                playerActions.setP_LeftHealth(Math.max(player.p_LeftHealth - damage, 0));
-                setActionMessages((prev) => [...prev, `El enemigo te ha atacado con ${enemy["attacks"][0].name} y causó ${damage} puntos de daño.`]);
-                switchTurn(); 
-            }, 1000); 
-    
-            return () => clearTimeout(enemyAttackTimeout); 
-        } 
-    }, [turn]);
 
 // ************************ATAQUE DE ENEMIGO *************************
+    useEnemyTurn({
+        enemy,
+        turn,
+        enemyHealth,
+        player,
+        playerActions,
+        setActionMessages,
+        switchTurn,
+    });
+
+// ************************ATAQUE DE ENEMIGO *************************
+// ************************USEEFFECTS ******************************
+    useEffect(() => {
+        handleCheckLevelUp(); // Verificar subida de nivel
+    }, [player.playerExp]);
+
     useEffect(() => {
         const pet = localStorage.getItem('pet')
         setPet(pet)
-        handleCheckLevelUp(); // Verificar subida de nivel
-    }, [player.playerExp]);
-    
+    }, [])
+
     useEffect(() => {
         if (triggerPostActions) {
             handlePostCombatActs(fightType, enemyHealth, typeEnemy);
             setTriggerPostActions(false); // Resetea el trigger
         }
-    }, [triggerPostActions, enemyHealth]);
-
-
+    }, [triggerPostActions]);
 
     useEffect(() => {
         if (enemyHealth === 0) {
@@ -117,85 +102,22 @@ export default function FightScene() {
         }
     }, [enemyHealth]);
 
-    
     // Efecto para actualizar los estados cuando `enemy` esté disponible
     useEffect(() => {
         if (enemy) {
             setEnemyHealth(enemy.health);
-
         }
     }, [enemy]);
+// ************************USEEFFECTS ******************************
 
-    if (isLoading) {
-        return <p>Cargando enemigo...</p>;
-    }
-    if (error) {
-        return <p>Error: {error}</p>;
-    }
-
-    const handleNewEnemyClick = () => {
-
-        handleMessage(`${player.name} busca un nuevo enemigo...`, "success", false);
-        setTimeout(() => {
-            setTurn("player")
-            if (updateEnemy) {
-                setUpdateEnemy(false);
-            } else {
-                setUpdateEnemy(true);
-    
-            }
-        }, 1000);
-
-    };
-
-    const handleHealing = () => {
-        const potionName = "Poción de Curación Menor";
-        const currentHealth = player.p_LeftHealth;
-        const maxHealth = player.p_MaxHealth;
-    
-        // Función para eliminar la poción
-        const removePotion = () => {
-            const potionIndex = inventories[player.inventoryId].potions.findIndex(p => p === potionName);
-            if (potionIndex !== -1) {
-                removeItem(player.inventoryId, "potions", inventories[player.inventoryId].potions[potionIndex]);
-            } else {
-                console.log("Poción no encontrada.");
-            }
-        };
-    
-        // Verificar si se necesita curación
-        if (currentHealth < maxHealth) {
-            const foundPotion  = potions.find(p => p.name === potionName)
-            if (!foundPotion) return
-            const amountHealingDice = foundPotion.effect?.amount
-            if (amountHealingDice) {
-                const amountHealing = rollDice(amountHealingDice)
-                const totalLeftHealth = currentHealth + amountHealing
-                // Establecer la nueva salud, sin exceder la salud máxima
-                playerActions.setP_LeftHealth(Math.min(totalLeftHealth, maxHealth));
-                // Eliminar la poción utilizada
-                removePotion();
-            }
-
-
-        } else {
-            handleMessage("Tu vida está completa", "success", false);
-        }
-    };
-    
-    
     const executeAttack = () => {
         if (turn !== "player") return;
         handleAttack({
             enemyHealth,setEnemyHealth,
             player, playerActions,
-            navigate,
             setActionMessages,
-            enemy,
             fightType,
-            typeEnemy,
         });
-
         setTriggerPostActions(true);
         switchTurn(); 
     };
@@ -215,21 +137,27 @@ export default function FightScene() {
           ...prevState,
           show: false,
         }));
-    
         if (shouldClose) {
           navigate('/home');
         }
       };
 
-   const xpPercentage = 
-  player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0 
+    const xpPercentage = 
+    player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0 
     ? ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100 
     : 0; 
 
     const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
 
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
-
+    
+    
+    if (isLoading) {
+        return <p>Cargando enemigo...</p>;
+    }
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
     return (
     <div className="fight-scene ">
     <div className="turn-indicator">
@@ -258,7 +186,13 @@ export default function FightScene() {
                         ⚔️
                     </button>
                     {pocion && (
-                         <button className="rpgui-button newDesign" id="newDesign" onClick={handleHealing} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
+                         <button className="rpgui-button newDesign" id="newDesign" onClick={() => handleHealing({        player,
+                            inventories,
+                            potions,
+                            removeItem,
+                            playerActions,
+                            handleMessage,
+                            })} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
                            {
                              // Buscar la poción en la lista de potions y mostrar la imagen
                              (() => {
@@ -291,7 +225,13 @@ export default function FightScene() {
                 {enemyHealth === 0 && 
                 <div>
                     <div  className="container-endBattle">
-                    <button onClick={handleNewEnemyClick} className="rpgui-button"> ⚔️ Seguir</button>
+                    <button onClick={() => handleNewEnemyClick({
+                    player,
+                    handleMessage,
+                    setTurn,
+                    updateEnemy,
+                    setUpdateEnemy,
+                })} className="rpgui-button"> ⚔️ Seguir</button>
                     {fightType === 'normal'?  <button className="rpgui-button" onClick={() => handleMessage(
                     "¡Has vuelto sano y salvo!",
                     "warning",
@@ -328,4 +268,3 @@ export default function FightScene() {
         </div>
     );
 }
-

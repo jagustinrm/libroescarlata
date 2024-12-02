@@ -16,6 +16,7 @@ interface Attack {
     hitPoints: string;                 // Puntos de vida (e.g., "1d8")
     armorClass: number;                // Clase de armadura
     attacks: Attack[];                 // Lista de ataques (usando la subinterfaz `Attack`)
-    specialAbilities: string[];        // Lista de habilidades especiales
+    specialAbilities: string[];        
+    health: number;
   }
   

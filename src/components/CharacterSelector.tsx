@@ -63,13 +63,13 @@ export default function CharacterSelector() {
         );
         localStorage.setItem('dungeonLevel', '1');
 
-        type enemyCounter = {
-            id: number;
-            name: string;
-            count: number;
-        };
-        const deletedEnemies: enemyCounter[] = [];
-        localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies));
+        // type enemyCounter = {
+        //     id: number;
+        //     name: string;
+        //     count: number;
+        // };
+        // const deletedEnemies: enemyCounter[] = [];
+        // localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies));
         type typeCompletedMQuests = {
             id: number;
             name: string;

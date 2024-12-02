@@ -28,6 +28,7 @@ export interface Player {
   stats: Stats,
   statsIncrease: Stats;
   leftPoints: number;
+  enemiesDeleted: { name: string; count: number }[];
 }
 
 // Interfaz para las acciones relacionadas con el jugador
@@ -54,7 +55,7 @@ export interface PlayerActions {
   updateHitDie: (hitDie: string) => void; 
   setSaves: (saves: Player['saves']) => void;
   updateSaves: (saves: Partial<Player['saves']>) => void;
-
+  setEnemiesDeleted: (enemiesDeleted: Player['enemiesDeleted']) => void;
   setStats: (stats: Player['stats']) => void;
   // updateStats: (stats: Partial<Player['stats']>) => void; 
   addStatsPoints: (points: number, type: keyof Player['stats']) => void; // REVISAR

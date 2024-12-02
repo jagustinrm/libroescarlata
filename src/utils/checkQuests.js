@@ -1,15 +1,14 @@
-export default function checkQuests(quests) {
+
+
+export default function checkQuests(quests, deletedEnemies) {
     const completedQuests = JSON.parse(localStorage.getItem('completedQuests') || '[]');
-    const deletedEnemies = JSON.parse(localStorage.getItem('deletedEnemies') || '[]');
+    // const deletedEnemies = JSON.parse(localStorage.getItem('deletedEnemies') || '[]');
 
     const isQuestCompleted = (quest) => {
         const alreadyCompleted = completedQuests.some(completed => completed.name === quest.name && completed.completed);
         if (alreadyCompleted) return true;
-
-        
         const matchingEnemy = deletedEnemies.find(enemy => enemy.name === quest.objective);
 
-        
         if (matchingEnemy && matchingEnemy.count >= quest.counter) {
             
             completedQuests.push({ id: Date.now(), name: quest.name, completed: true, progress: matchingEnemy.count });

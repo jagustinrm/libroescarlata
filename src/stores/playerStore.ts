@@ -43,78 +43,70 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     inventoryId: 'player1_inventory',
     playerMaterial: 0,
     petsName: [],
+    enemiesDeleted: [],
   },
 
   // Agrupamos las acciones relacionadas con el jugador
   playerActions: {
-      setSaves: (saves) =>
+    setSaves: (saves) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          saves,
+        },
+      })),
+    addStatsPoints: (points, type) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          stats: {
+            ...state.player.stats,
+            [type]: state.player.stats[type] + points,
+          },
+        },
+      })),
+    setStatsIncrease: (newstatsIncrease) =>
+      set((state) => ({
+        player: { ...state.player, statsIncrease: { ...newstatsIncrease } },
+      })),
+    addStatsIncrease: (points, type) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          statsIncrease: {
+            ...state.player.statsIncrease,
+            [type]: state.player.statsIncrease[type] + points,
+          },
+        },
+      })),
+    addStatsLeftPoints: (leftPoints) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          leftPoints: state.player.leftPoints + leftPoints,
+        },
+      })),
+      setStatsLeftPoints: (leftPoints) =>
         set((state) => ({
           player: {
             ...state.player,
-            saves,
+            leftPoints: leftPoints,
           },
         })),
-
-      addStatsPoints: (points, type) =>
-        set((state) => ({
-          player: {
-            ...state.player,
-            stats: {
-              ...state.player.stats,
-              [type]: state.player.stats[type] + points,
-            },
+    updateSaves: (saves) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          saves: {
+            ...state.player.saves,
+            ...saves,
           },
-        })),
-        setStatsIncrease: (newstatsIncrease) =>
-          set((state) => ({
-            player: { ...state.player, statsIncrease: { ...newstatsIncrease } },
-          })),
-        addStatsIncrease: (points, type) =>
-          set((state) => ({
-            player: {
-              ...state.player,
-              statsIncrease: {
-                ...state.player.statsIncrease,
-                [type]: state.player.statsIncrease[type] + points,
-              },
-            },
-          })),
-        addStatsLeftPoints: (leftPoints) =>
-          set((state) => ({
-            player: {
-              ...state.player,
-              leftPoints: state.player.leftPoints + leftPoints,
-            },
-          })),
-          setStatsLeftPoints: (leftPoints) =>
-            set((state) => ({
-              player: {
-                ...state.player,
-                leftPoints: leftPoints,
-              },
-            })),
-      updateSaves: (saves) =>
-        set((state) => ({
-          player: {
-            ...state.player,
-            saves: {
-              ...state.player.saves,
-              ...saves,
-            },
-          },
-        })),
+        },
+      })),
     setStats: (newStats) =>
       set((state) => ({
         player: { ...state.player, stats: { ...newStats } },
       })),
-
-    // updateStats: (updatedStats) =>
-    //   set((state) => ({
-    //     player: {
-    //       ...state.player,
-    //       stats: { ...state.player.stats, ...updatedStats },
-    //     },
-    //   })),
     setPlayerMaterial: (playerMaterial) =>
       set((state) => ({
         player: { ...state.player, playerMaterial },
@@ -163,7 +155,6 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
         },
       })),
       setClassFeature: (features) => {
-        console.log("features", features);
         set((state) => ({
           player: {
             ...state.player,
@@ -186,7 +177,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
         addPetsName: (newPet) =>
           set((state) => {
             if (!state.player.petsName.includes(newPet)) {
-              console.log(newPet)
+             
               return {
                 player: {
                   ...state.player,
@@ -196,10 +187,10 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
             }
             return state;
           }),  
-        setPlayerClass: (classes) =>
-          set((state) => ({
-            player: {...state.player, classes: [classes]}
-          })),
+    setPlayerClass: (classes) =>
+      set((state) => ({
+        player: {...state.player, classes: [classes]}
+      })),
     setP_SelectedPet: (selectedPet) =>
       set((state) => ({
         player: { ...state.player, selectedPet },
@@ -208,21 +199,24 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, selectedWeapon },
       })),
-      setHitDie: (hitDie) =>
-        set((state) => ({
+    setHitDie: (hitDie) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          hitDie: hitDie, // Establece un nuevo valor para hitDie
+        },
+      })),
+    updateHitDie: (hitDie) =>
+      set((state) => ({
           player: {
             ...state.player,
-            hitDie: hitDie, // Establece un nuevo valor para hitDie
+            hitDie: `${state.player.hitDie}, ${hitDie}`, // Agrega el nuevo valor al hitDie
           },
+      })),
+      setEnemiesDeleted: (enemiesDeleted) =>
+        set((state) => ({
+          player: {...state.player, enemiesDeleted: enemiesDeleted}
         })),
-        updateHitDie: (hitDie) =>
-          set((state) => ({
-            player: {
-              ...state.player,
-              hitDie: `${state.player.hitDie}, ${hitDie}`, // Agrega el nuevo valor al hitDie
-            },
-        })),
-
   },
 
   // Mantén la función de inventario separada

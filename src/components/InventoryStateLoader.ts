@@ -11,7 +11,7 @@ const InventoryStateLoader = () => {
     if (storedInventoryState) {
       const parsedInventoryState = JSON.parse(storedInventoryState);
       
-      console.log(parsedInventoryState['player1_inventory'])
+     
       // Crea el inventario si no existe
       createInventory('player1_inventory');
 

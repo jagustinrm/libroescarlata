@@ -1,8 +1,6 @@
 // src/utils/combatHandlers.ts
 import { Dispatch, SetStateAction } from 'react';
-import { NavigateFunction } from 'react-router-dom';
 import { rollDice } from './rollDice.ts';
-import { CreatureInterface } from '../components/interfaces/CreatureInterface.js';
 import { PlayerActions } from '../stores/types/player.js';
 import { Player } from '../stores/types/player.js';
 interface CombatHandlersProps {
@@ -10,16 +8,13 @@ interface CombatHandlersProps {
     playerActions: PlayerActions;
     enemyHealth: number;
     setEnemyHealth: Dispatch<SetStateAction<number>>;
-    enemy: CreatureInterface;
     fightType: string;
-    typeEnemy: string;
     setActionMessages: Dispatch<SetStateAction<string[]>>;
-    navigate: NavigateFunction;
+  
 }
 
 export const handleAttack = ({setEnemyHealth, player, setActionMessages   }: CombatHandlersProps) => {
     const playerDamage = rollDice(player.selectedWeapon?.damage) + player.statsIncrease['str'];
-    console.log(player.statsIncrease['str'])
     const playerMessage = `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`;
     setActionMessages((prevMessages) => [...prevMessages, playerMessage]);
 
