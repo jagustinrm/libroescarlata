@@ -6,13 +6,13 @@ import MessageBox from './UI/MessageBox.tsx';
 import './Home.css';
 import './Arrow.css';
 import './UI/designRpg.css';
-
+import Quests from './quests/Quests.tsx';
 export default function Home() {
     const [showMessage, setShowMessage] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const { player, playerActions } = usePlayerStore();
     const navigate = useNavigate();
-
+    const [showMissions, setShowMissions] = useState(false);
     const handleAction = (action: string) => {
         switch (action) {
             case 'fight-normal':
@@ -111,7 +111,7 @@ export default function Home() {
                 <button onClick={() => handleAction('townMap')} className="rpgui-button">🏠 Hogar</button>
                 <button onClick={() => handleAction('itemShop')} className="rpgui-button">🛒 Tienda</button>
                 <button onClick={() => handleAction('petStore')} className="rpgui-button">🐾 Mascotas</button>
-                <button onClick={() => handleAction('missions')} className="rpgui-button">🗺️ Misiones</button>
+                <button onClick={() => setShowMissions(true)} className="rpgui-button">🗺️ Misiones</button>
             </div>
 
             {showMessage && (
@@ -120,6 +120,10 @@ export default function Home() {
                     type="success"
                     onClose={handleClose}
                 />
+            )}
+
+            {showMissions && (
+              <Quests onClose={() => setShowMissions(false)} />
             )}
         </div>
     );

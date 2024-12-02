@@ -1,7 +1,7 @@
 .questContainer {
     background-color: #d2691e; /* Chocolate */
-    width: 300px;
-    height: 250px;
+    width: 350px;
+    height: 400px;
 
     border: 2px solid #8b4513; /* Darker chocolate for contrast */
     border-radius: 10px; /* Rounded corners */
@@ -28,10 +28,45 @@
     margin-bottom: 5px;
     border-radius: 5px; /* Rounded corners for list items */
     transition: background-color 0.3s ease; /* Smooth hover effect */
-    cursor: pointer;
+   
     font-size: 14px;
 }
 
 .questContainer li:hover {
     background-color: #a0522d; /* Slightly lighter shade for hover effect */
 }
+
+.quests-window {
+    position: absolute;
+    width:auto;
+    background-color: #f9f5d7;
+    border: 2px solid #d48537;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  
+  }
+  
+  .quests-header {
+    background-color: #d4af37;
+    padding-left: 10px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    cursor: move;
+  }
+  
+  .questContainer {
+    padding: 15px;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 18px;
+    
+  }
+  

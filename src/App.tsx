@@ -8,7 +8,7 @@ import TownMap from './components/townMap/TownMap';
 import { HomeProvider } from './context/HomeContext';
 import PetStore from './components/petStore/PetStore';
 import Inventory from './components/inventory/Inventory';
-import Quests from './components/quests/Quests';
+// import Quests from './components/quests/Quests';
 import ItemShop from './components/itemsStore/ItemShop';
 import PlayerStateLoader from './components/PlayerStateLoader';
 import usePlayerStore from './stores/playerStore';
@@ -51,7 +51,7 @@ function App() {
           <Route path="/townMap" element={<TownMap />} />
           <Route path="/petStore" element={<PetStore />} />
           <Route path="/inventory" element={<Inventory />} />
-          <Route path="/quests" element={<Quests />} />
+          {/* <Route path="/quests" element={<Quests />} /> */}
           <Route path="/itemShop" element={<ItemShop/>} />
           <Route path="/playerStats" element={<PlayerStats/>} />
         </Routes>
