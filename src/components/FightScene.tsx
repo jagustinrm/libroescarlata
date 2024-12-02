@@ -11,7 +11,6 @@ import { checkLevelUp } from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 import { handleAttack} from '../utils/combatHandlers';
-// import { EnemyDeleted } from "./interfaces/characterProperties";
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
 // @ts-expect-error Para que funcione 
@@ -41,10 +40,7 @@ export default function FightScene() {
         const storedLevel = localStorage.getItem("dungeonLevel");
         return storedLevel ? parseInt(storedLevel, 10) : 1;
     });
-    // const [enemiesDeleted, setEnemiesDeleted] = useState<Array<EnemyDeleted>>(() => {
-    //     const storageEnemiesDeleted = localStorage.getItem('deletedEnemies');
-    //     return storageEnemiesDeleted? JSON.parse(storageEnemiesDeleted) as Array<EnemyDeleted> : []
-    // } )
+
     const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
     const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
     const defaultQuests: QuestData = {
@@ -67,18 +63,7 @@ export default function FightScene() {
         });
     };
 
-// ************************ATAQUE DE ENEMIGO *************************
-    useEnemyTurn({
-        enemy,
-        turn,
-        enemyHealth,
-        player,
-        playerActions,
-        setActionMessages,
-        switchTurn,
-    });
 
-// ************************ATAQUE DE ENEMIGO *************************
 // ************************USEEFFECTS ******************************
     useEffect(() => {
         handleCheckLevelUp(); // Verificar subida de nivel
@@ -109,7 +94,16 @@ export default function FightScene() {
         }
     }, [enemy]);
 // ************************USEEFFECTS ******************************
-
+// ************************COMBATE *************************
+    useEnemyTurn({
+        enemy,
+        turn,
+        enemyHealth,
+        player,
+        playerActions,
+        setActionMessages,
+        switchTurn,
+    });
     const executeAttack = () => {
         if (turn !== "player") return;
         handleAttack({
@@ -121,6 +115,8 @@ export default function FightScene() {
         setTriggerPostActions(true);
         switchTurn(); 
     };
+
+// ************************COMBATE *************************
 
 
     const handleMessage = (message: string, type: string, shouldClose: boolean) => {
@@ -146,18 +142,11 @@ export default function FightScene() {
     player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0 
     ? ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100 
     : 0; 
-
     const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
-
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
     
-    
-    if (isLoading) {
-        return <p>Cargando enemigo...</p>;
-    }
-    if (error) {
-        return <p>Error: {error}</p>;
-    }
+    if (isLoading) return <p>Cargando enemigo...</p>;
+    if (error)  return <p>Error: {error}</p>;
     return (
     <div className="fight-scene ">
     <div className="turn-indicator">
@@ -175,7 +164,6 @@ export default function FightScene() {
                 <span className="health-text">{player.p_LeftHealth} / {player.p_MaxHealth}</span>
             </div>
                 
-                {/* <p>Maná: {playerMana}/100</p> */}
                             {/* Barra de experiencia */}
             <div className="experience-bar-container">
                 <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
@@ -218,7 +206,7 @@ export default function FightScene() {
             {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
                 <ul className="action-log">
                     {actionMessages.map((message, index) => (
-                        <li key={index}>{message}</li>  // Cada mensaje es un li
+                        <li key={index}>{message}</li>  
                     ))}
                 </ul>
                 {player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}
@@ -251,7 +239,6 @@ export default function FightScene() {
                         <p>Nivel: {enemy.level}</p>
                         <p>Vida: {enemyHealth}</p>
                             
-                        {/* <p>Maná: {currentEnemy.mana}</p> */}
                     </div>
                 ) : (
                     <p>No hay enemigo seleccionado.</p>
