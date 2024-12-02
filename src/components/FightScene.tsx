@@ -253,7 +253,7 @@ export default function FightScene() {
                 )}
             </div>
             {soundType &&
-            <SoundPlayer soundType={soundType} />
+            <SoundPlayer soundType={soundType} volume={0.2} />
             }
             
             {messageState.show && (

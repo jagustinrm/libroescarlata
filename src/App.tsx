@@ -55,7 +55,7 @@ function App() {
       <HomeProvider>
         <div className="music-controls">
           <button onClick={() => setIsMusicPlaying(!isMusicPlaying)}>
-            {isMusicPlaying ? 'Pause Music' : 'Play Music'}
+            {isMusicPlaying ? '🔊' : '🔈'}
           </button>
         </div>
         <audio id="background-music" loop>
