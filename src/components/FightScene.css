@@ -87,8 +87,8 @@ button:disabled:hover {
 /* Styling for the action log div */
 .action-log {
     position:absolute;
-    top:30px;
-    left: 650px;
+    top: 70%;
+    left: 0;
     width: 400px;
     padding: 10px 20px;
     margin-top: 20px;
@@ -176,6 +176,10 @@ button:disabled:hover {
 }
 
 .container-endBattle {
+    position: absolute;
+    left:0;
+    z-index: 2;
+    top: 40%;
     display: flex;
     flex-direction: row;
 
@@ -186,4 +190,14 @@ button:disabled:hover {
     height: 45px;
     width: 40px;
     min-width: 100px
+}
+
+
+.defetedMessage {
+    position: absolute;
+    /* width: 200px;
+    height: 80px;
+    background-color: #495057; */
+    left: 45%;
+    z-index: 2;
 }

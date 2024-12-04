@@ -1,0 +1,47 @@
+[
+    {
+      "name": "Fireball",
+      "level": "Sorcerer/Wizard 3",
+      "range": "Long (400 ft. + 40 ft./level)",
+      "components": ["V", "S", "M"],
+      "casting_time": "1 standard action",
+      "duration": "Instantaneous",
+      "description": "A burst of fire explodes in a 20-ft.-radius spread, dealing 1d6 fire damage per caster level (max 10d6). Reflex save for half.",
+      "area_of_effect": "20-ft. radius spread",
+      "damage_type": "Fire"
+    },
+    {
+      "name": "Magic Missile",
+      "level": "Sorcerer/Wizard 1",
+      "range": "Medium (100 ft. + 10 ft./level)",
+      "components": ["V", "S"],
+      "casting_time": "1 standard action",
+      "duration": "Instantaneous",
+      "description": "Unerring missiles of magical force strike targets, dealing 1d4+1 damage each. Caster can fire 1 missile per 2 levels (max 5).",
+      "targets": "1 or more creatures",
+      "damage_type": "Force"
+    },
+    {
+      "name": "Lightning Bolt",
+      "level": "Sorcerer/Wizard 3",
+      "range": "120 ft.",
+      "components": ["V", "S", "M"],
+      "casting_time": "1 standard action",
+      "duration": "Instantaneous",
+      "description": "A bolt of electricity strikes in a 120-ft. line, dealing 1d6 electricity damage per caster level (max 10d6). Reflex save for half.",
+      "area_of_effect": "120-ft. line",
+      "damage_type": "Electricity"
+    },
+    {
+      "name": "Acid Arrow (Melf's Acid Arrow)",
+      "level": "Sorcerer/Wizard 2",
+      "range": "Long (400 ft. + 40 ft./level)",
+      "components": ["V", "S", "M"],
+      "casting_time": "1 standard action",
+      "duration": "1 round + 1 round/three levels",
+      "description": "A glowing arrow of acid strikes a target, dealing 2d4 acid damage per round for the duration. No saving throw, but requires a ranged touch attack.",
+      "targets": "One creature",
+      "damage_type": "Acid"
+    }
+  ]
+  

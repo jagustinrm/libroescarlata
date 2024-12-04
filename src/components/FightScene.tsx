@@ -114,11 +114,10 @@ export default function FightScene() {
             enemyHealth,setEnemyHealth,
             player, playerActions,
             setActionMessages,
-            fightType,
+            fightType, enemy
         });
         setTriggerPostActions(true);
         switchTurn(); 
-    
         setTimeout(() => {
             setSoundType("")
           }, 1000);
@@ -218,8 +217,10 @@ export default function FightScene() {
                         <li key={index}>{message}</li>  
                     ))}
                 </ul>
-                <div className="gameBoard"><GameBoard canAttack={canAttack} setCanAttack={setCanAttack}  /></div>
-                {player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}
+                <div className="gameBoard"><GameBoard setCanAttack={setCanAttack} enemy= {enemy}  />
+                </div>
+                <div className="defetedMessage">{player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}</div>
+
                 {enemyHealth === 0 && 
                 <div>
                     <div  className="container-endBattle">

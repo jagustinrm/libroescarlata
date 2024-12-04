@@ -3,7 +3,7 @@
 interface Attack {
     name: string;           // Nombre del ataque (e.g., "daga")
     type: string;           // Tipo de ataque (e.g., "melee", "rango")
-    bonus: string;          // Modificador del ataque (e.g., "+1")
+    bonus: number;          // Modificador del ataque (e.g., "+1")
     damage: string;         // Daño que inflige (e.g., "1d4")
   }
   

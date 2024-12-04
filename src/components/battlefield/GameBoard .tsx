@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./GameBoard.css";
+import { CreatureInterface } from "../interfaces/CreatureInterface";
 
 // Definir tipos para las posiciones y botones
 interface Position {
@@ -13,11 +14,11 @@ interface Button {
 }
 
 interface GameBoardProps {
-  canAttack: boolean;
   setCanAttack: React.Dispatch<React.SetStateAction<boolean>>;
+  enemy: CreatureInterface | null
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy }) => {
   const totalButtons = 100; // Número total de botones
   const step = 5; // Tamaño del paso en vw
   const initialX = 0;
@@ -100,7 +101,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack }) => {
   }, [loboPosition, enemyPosition, setCanAttack]);
 
   return (
-    <div className="container">
+    <div className="containerGameBoard">
       {buttons.map((button, index) => (
         <div
           key={index}
@@ -120,7 +121,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack }) => {
         }}
       />
       <img
-        src="/experimentarImg/goblin2.png"
+        src={enemy?.img}
         alt="Enemigo"
         className="enemy"
         style={{

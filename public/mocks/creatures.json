@@ -12,13 +12,13 @@
                 {
                     "name": "daga",
                     "type": "melee",
-                    "bonus": "+1",
+                    "bonus": 1,
                     "damage": "1d4"
                 },
                 {
                     "name": "arco corto",
                     "type": "rango",
-                    "bonus": "+2",
+                    "bonus": 2,
                     "damage": "1d6"
                 }
             ],
@@ -45,7 +45,7 @@
                 {
                     "name": "honda",
                     "type": "rango",
-                    "bonus": "+1",
+                    "bonus": 1,
                     "damage": "1d4"
                 }
             ],
@@ -66,7 +66,7 @@
                 {
                     "name": "mordisco",
                     "type": "melee",
-                    "bonus": "+2",
+                    "bonus": 2,
                     "damage": "1d3"
                 }
             ],
@@ -87,7 +87,7 @@
                 {
                     "name": "espada corta",
                     "type": "melee",
-                    "bonus": "+0",
+                    "bonus": 0,
                     "damage": "1d6"
                 }
             ],
@@ -108,7 +108,7 @@
                 {
                     "name": "mordisco",
                     "type": "melee",
-                    "bonus": "+4",
+                    "bonus": 4,
                     "damage": "1d2",
                     "additionalEffect": "veneno (1d6 CON)"
                 }
@@ -130,13 +130,13 @@
                 {
                     "name": "hacha de batalla",
                     "type": "melee",
-                    "bonus": "+4",
+                    "bonus": 3,
                     "damage": "1d8"
                 },
                 {
                     "name": "arco largo",
                     "type": "rango",
-                    "bonus": "+3",
+                    "bonus": 3,
                     "damage": "1d8"
                 }
             ],
@@ -157,13 +157,13 @@
                 {
                     "name": "espada larga",
                     "type": "melee",
-                    "bonus": "+3",
+                    "bonus": 3,
                     "damage": "1d8"
                 },
                 {
                     "name": "ballesta ligera",
                     "type": "rango",
-                    "bonus": "+2",
+                    "bonus": 2,
                     "damage": "1d8"
                 }
             ],
@@ -184,13 +184,13 @@
               {
                   "name": "mordisco",
                   "type": "melee",
-                  "bonus": "+3",
+                  "bonus": 3,
                   "damage": "2d6"
               },
               {
                   "name": "tentáculos",
                   "type": "melee",
-                  "bonus": "+2",
+                  "bonus": 2,
                   "damage": "1d8"
               }
           ],
@@ -212,7 +212,7 @@
               {
                 "name": "arco corto mágico",
                 "type": "rango",
-                "bonus": "+5",
+                "bonus": 5,
                 "damage": "1d4"
               }
             ],
@@ -234,13 +234,13 @@
               {
                 "name": "garra",
                 "type": "melee",
-                "bonus": "+7",
+                "bonus": 7,
                 "damage": "1d6+5"
               },
               {
                 "name": "mordisco",
                 "type": "melee",
-                "bonus": "+5",
+                "bonus": 5,
                 "damage": "1d8+5"
               }
             ],
@@ -262,13 +262,13 @@
               {
                 "name": "mordisco",
                 "type": "melee",
-                "bonus": "+4",
+                "bonus": 4,
                 "damage": "1d6+2"
               },
               {
                 "name": "garras",
                 "type": "melee",
-                "bonus": "+4",
+                "bonus": 4,
                 "damage": "1d4+2"
               },
               {
@@ -295,13 +295,13 @@
               {
                 "name": "espada larga",
                 "type": "melee",
-                "bonus": "+5",
+                "bonus": 5,
                 "damage": "1d8+3"
               },
               {
                 "name": "arco largo",
                 "type": "rango",
-                "bonus": "+4",
+                "bonus": 4,
                 "damage": "1d8+1"
               }
             ],
