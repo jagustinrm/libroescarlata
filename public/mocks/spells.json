@@ -1,47 +1,54 @@
 [
-    {
-      "name": "Fireball",
-      "level": "Sorcerer/Wizard 3",
-      "range": "Long (400 ft. + 40 ft./level)",
+  {
+      "name": "Bola de fuego",
+      "level": "Hechicero/Mago 3",
+      "damage": "1d6",
+      "range": 4,
+      "rangePlus": "12 m/nivel",
       "components": ["V", "S", "M"],
-      "casting_time": "1 standard action",
-      "duration": "Instantaneous",
-      "description": "A burst of fire explodes in a 20-ft.-radius spread, dealing 1d6 fire damage per caster level (max 10d6). Reflex save for half.",
-      "area_of_effect": "20-ft. radius spread",
-      "damage_type": "Fire"
-    },
-    {
-      "name": "Magic Missile",
-      "level": "Sorcerer/Wizard 1",
-      "range": "Medium (100 ft. + 10 ft./level)",
+      "castingTime": "1 acción estándar",
+      "duration": "Instantánea",
+      "description": "Una explosión de fuego impacta en un radio de 6 m, causando 1d6 de daño por fuego por nivel de lanzador (máx. 10d6). Salvación de Reflejos para reducir a la mitad.",
+      "areaOfEffect": "Radio de 6 m",
+      "damageType": "Fuego"
+  },
+  {
+      "name": "Proyectil mágico",
+      "level": "Hechicero/Mago 1",
+      "damage": "1d4+1",
+      "range": 3,
+      "rangePlus": "3 m/nivel",
       "components": ["V", "S"],
-      "casting_time": "1 standard action",
-      "duration": "Instantaneous",
-      "description": "Unerring missiles of magical force strike targets, dealing 1d4+1 damage each. Caster can fire 1 missile per 2 levels (max 5).",
-      "targets": "1 or more creatures",
-      "damage_type": "Force"
-    },
-    {
-      "name": "Lightning Bolt",
-      "level": "Sorcerer/Wizard 3",
-      "range": "120 ft.",
+      "castingTime": "1 acción estándar",
+      "duration": "Instantánea",
+      "description": "Misiles mágicos infalibles golpean a los objetivos, causando 1d4+1 de daño cada uno. El lanzador puede disparar 1 misil por cada 2 niveles (máx. 5).",
+      "targets": "1 o más criaturas",
+      "damageType": "Fuerza"
+  },
+  {
+      "name": "Rayo relampagueante",
+      "level": "Hechicero/Mago 3",
+      "damage": "1d6",
+      "range": 4,
+      "rangePlus": "no aplica",
       "components": ["V", "S", "M"],
-      "casting_time": "1 standard action",
-      "duration": "Instantaneous",
-      "description": "A bolt of electricity strikes in a 120-ft. line, dealing 1d6 electricity damage per caster level (max 10d6). Reflex save for half.",
-      "area_of_effect": "120-ft. line",
-      "damage_type": "Electricity"
-    },
-    {
-      "name": "Acid Arrow (Melf's Acid Arrow)",
-      "level": "Sorcerer/Wizard 2",
-      "range": "Long (400 ft. + 40 ft./level)",
+      "castingTime": "1 acción estándar",
+      "duration": "Instantánea",
+      "description": "Un rayo de electricidad golpea en una línea de 36 m, causando 1d6 de daño eléctrico por nivel de lanzador (máx. 10d6). Salvación de Reflejos para reducir a la mitad.",
+      "areaOfEffect": "Línea de 36 m",
+      "damageType": "Electricidad"
+  },
+  {
+      "name": "Flecha ácida de Melf",
+      "level": "Hechicero/Mago 2",
+      "damage": "2d4",
+      "range": 4,
+      "rangePlus": "12 m/nivel",
       "components": ["V", "S", "M"],
-      "casting_time": "1 standard action",
-      "duration": "1 round + 1 round/three levels",
-      "description": "A glowing arrow of acid strikes a target, dealing 2d4 acid damage per round for the duration. No saving throw, but requires a ranged touch attack.",
-      "targets": "One creature",
-      "damage_type": "Acid"
-    }
-  ]
-  
+      "castingTime": "1 acción estándar",
+      "duration": "1 asalto + 1 asalto cada tres niveles",
+      "description": "Una flecha brillante de ácido impacta al objetivo, causando 2d4 de daño por ácido por asalto durante la duración. No permite salvación, pero requiere un ataque de toque a distancia.",
+      "targets": "Una criatura",
+      "damageType": "Ácido"
+  }
+]

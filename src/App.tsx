@@ -21,8 +21,7 @@ import ClassLoader from './loaders/ClassLoaders';
 import PlayerStats from './components/playerStats/PlayerStats';
 import DelayedDisplay from './utils/DelayedDisplayProps';
 import { useState, useEffect } from 'react';
-import GameBoard from './components/battlefield/GameBoard ';
-
+import SpellLoader from './loaders/SpellsLoader';
 function App() {
   const { player } = usePlayerStore();
   const { inventories } = useInventoryStore();
@@ -51,6 +50,7 @@ function App() {
       <WeaponLoader />
       <PotionsLoader />
       <ClassLoader />
+      <SpellLoader/>
       <ItemShopLoader />
       <InventoryStateLoader />
       <HomeProvider>
@@ -76,7 +76,6 @@ function App() {
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/itemShop" element={<ItemShop />} />
             <Route path="/playerStats" element={<PlayerStats />} />
-            <Route path="/gameboard" element= {<GameBoard/>} />
           </Routes>
         </DelayedDisplay>
       </HomeProvider>
