@@ -61,6 +61,7 @@ export default function CharacterSelector() {
                 weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
                 player,
         );
+        playerActions.setSpell(["Bola de fuego"])
         localStorage.setItem('dungeonLevel', '1');
 
         // type enemyCounter = {

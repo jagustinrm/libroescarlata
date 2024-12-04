@@ -10,7 +10,7 @@ import { useEnemyLoader } from "../customHooks/useEnemyLoader.ts";
 import { checkLevelUp } from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
-import { handleAttack} from '../utils/combatHandlers';
+import { handleAttack, handleSpell} from '../utils/combatHandlers';
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
 // @ts-expect-error Para que funcione 
@@ -23,6 +23,8 @@ import { handleNewEnemyClick } from "../utils/handleNewEnemyClick.ts";
 import { handleHealing } from "../utils/handleHealing.ts";
 import SoundPlayer from "./UI/soundPlayer/SoundPlayer.tsx";
 import GameBoard from "./battlefield/GameBoard .tsx";
+import useSpellStore from "../stores/spellsStore.ts";
+// import { Spell } from "../stores/types/spells";
 export default function FightScene() {
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
     const navigate = useNavigate();
@@ -30,8 +32,10 @@ export default function FightScene() {
     const fightType = searchParams.get("type") || "normal";
     const [triggerPostActions, setTriggerPostActions] = useState(false);
     const {player, playerActions } = usePlayerStore();
+    const {spells} = useSpellStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
+    const [charPositions, setCharPositions] = useState(null)
     const [soundType, setSoundType] = useState<string>('');
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
@@ -124,6 +128,15 @@ export default function FightScene() {
      
     };
 
+    const executeSpell = (spell: string) => {
+        handleSpell({
+            enemyHealth,setEnemyHealth,
+            player, playerActions,
+            setActionMessages,
+            fightType, enemy, spell, spells, charPositions
+        });
+    }
+
 // ************************COMBATE *************************
 
 
@@ -199,6 +212,22 @@ export default function FightScene() {
                          </button>
                       )}
                 </div>
+                <div>
+                    <select         
+                    name="spells" 
+                    defaultValue=""
+                    id="spells" 
+                    onChange={(e) => executeSpell(e.target.value)}>
+                        <option value="" disabled>
+                            Elegí un hechizo
+                        </option>
+                        {player.spells.map((spell) => (
+                            <option key={spell} value={spell}>
+                                {spell}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 {pet? <p>Mascota: {pet}</p> : <></>}
 
                 {fightType === 'normal' || player.p_LeftHealth === 0 ?  
@@ -217,7 +246,11 @@ export default function FightScene() {
                         <li key={index}>{message}</li>  
                     ))}
                 </ul>
-                <div className="gameBoard"><GameBoard setCanAttack={setCanAttack} enemy= {enemy}  />
+                <div className="gameBoard"><GameBoard 
+                setCanAttack={setCanAttack} 
+                setCharPositions = {setCharPositions}  
+                enemy= {enemy}  
+                />
                 </div>
                 <div className="defetedMessage">{player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}</div>
 

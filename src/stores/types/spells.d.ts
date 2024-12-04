@@ -2,7 +2,7 @@ export interface Spell {
     name: string;
     level: string;
     damage: string | null; // Algunas pueden no causar daño
-    range: string; // Ej: "12 m/nivel"
+    range: number; // Ej: "12 m/nivel"
     components: string[]; // Ej: ["V", "S", "M"]
     castingTime: string; // Ej: "1 acción estándar"
     duration: string; // Ej: "Instantánea"

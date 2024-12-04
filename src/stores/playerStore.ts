@@ -178,7 +178,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
         addSpell: (spell) => 
           set((state) => {
             // Verificar si el hechizo ya existe en el array
-            if (!state.player.spells.some((s) => s.name === spell.name)) {
+            if (!state.player.spells.some((s) => s === spell)) {
               return {
                 ...state,
                 player: {

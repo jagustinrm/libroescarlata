@@ -1,6 +1,6 @@
 import Pet from '../types/pets';
 import Weapon from '../types/weapons';
-import { Spell } from './spells';
+// import { Spell } from './spells';
 import { Stats } from './stats';
 // Interfaz para el estado del player
 export interface Player {
@@ -30,7 +30,7 @@ export interface Player {
   statsIncrease: Stats;
   leftPoints: number;
   enemiesDeleted: { name: string; count: number }[];
-  spells: Spell[]
+  spells: string[]
 }
 
 // Interfaz para las acciones relacionadas con el jugador
@@ -65,8 +65,8 @@ export interface PlayerActions {
   setStatsLeftPoints: (leftPoints: number) => void;
   setStatsIncrease: (stats: Player['stats']) => void;
   addStatsIncrease: (points: number, type: keyof Player['stats']) => void;
-  setSpell: (spells: Spell[]) => void
-  addSpell: (spell: Spell) => void;
+  setSpell: (spells: string[]) => void
+  addSpell: (spell: string) => void;
 }
 
 // Interfaz para el store del player

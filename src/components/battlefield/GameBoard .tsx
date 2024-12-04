@@ -16,9 +16,10 @@ interface Button {
 interface GameBoardProps {
   setCanAttack: React.Dispatch<React.SetStateAction<boolean>>;
   enemy: CreatureInterface | null
+  setCharPositions: React.Dispatch<React.SetStateAction<Position[]>>;
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,  setCharPositions }) => {
   const totalButtons = 100; // Número total de botones
   const step = 5; // Tamaño del paso en vw
   const initialX = 0;
@@ -47,7 +48,12 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy }) => {
     }
     setButtons(generatedButtons);
   }, []);
-
+  useEffect(() => {
+    // Al actualizarse la posición, actualizamos las posiciones del jugador y el enemigo
+    if (enemy) {
+      setCharPositions([loboPosition, enemyPosition]);
+    }
+  }, [loboPosition, enemyPosition]);
   // Función para mover el enemigo hacia el lobo
   const moveEnemy = () => {
     const deltaX = loboPosition.x - enemyPosition.x;

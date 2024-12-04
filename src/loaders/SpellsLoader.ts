@@ -9,7 +9,7 @@ const SpellLoader = () => {
         if (!areSpellsLoaded) {
             const loadSpells = async () => {
                 try {
-                    const res = await fetch('/mocks/hechizos.json'); // Ruta del archivo JSON
+                    const res = await fetch('/mocks/spells.json'); // Ruta del archivo JSON
                     const data = await res.json();
                     setSpells(data); // Actualiza el estado global solo si no se ha cargado antes
                 } catch (error) {
