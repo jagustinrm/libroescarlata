@@ -19,8 +19,9 @@ import ItemShopLoader from './components/itemsStore/ItemShopLoader';
 import PotionsLoader from './loaders/PotionsLoader';
 import ClassLoader from './loaders/ClassLoaders';
 import PlayerStats from './components/playerStats/PlayerStats';
-
+import DelayedDisplay from './utils/DelayedDisplayProps';
 import { useState, useEffect } from 'react';
+import GameBoard from './components/battlefield/GameBoard ';
 
 function App() {
   const { player } = usePlayerStore();
@@ -28,7 +29,7 @@ function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   useEffect(() => {
-    const audio = document.getElementById('background-music') as HTMLAudioElement;  // Casting explícito
+    const audio = document.getElementById('background-music') as HTMLAudioElement; // Casting explícito
     if (isMusicPlaying) {
       audio.play();
     } else {
@@ -63,20 +64,25 @@ function App() {
           Your browser does not support the audio element.
         </audio>
 
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/characterSelector" element={<CharacterSelector />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/fightScene" element={<FightScene />} />
-          <Route path="/townMap" element={<TownMap />} />
-          <Route path="/petStore" element={<PetStore />} />
-          <Route path="/inventory" element={<Inventory />} />
-          <Route path="/itemShop" element={<ItemShop />} />
-          <Route path="/playerStats" element={<PlayerStats />} />
-        </Routes>
+        {/* Aplicamos DelayedDisplay a todas las rutas */}
+        <DelayedDisplay delay={300} duration={200}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/characterSelector" element={<CharacterSelector />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/fightScene" element={<FightScene />} />
+            <Route path="/townMap" element={<TownMap />} />
+            <Route path="/petStore" element={<PetStore />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/itemShop" element={<ItemShop />} />
+            <Route path="/playerStats" element={<PlayerStats />} />
+            <Route path="/gameboard" element= {<GameBoard/>} />
+          </Routes>
+        </DelayedDisplay>
       </HomeProvider>
     </BrowserRouter>
   );
 }
 
 export default App;
+

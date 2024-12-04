@@ -11,6 +11,7 @@ body {
 
 /* Container to hold both characters */
 .fight-scene {
+
     display: flex;
     justify-content: space-between;
     width: 800px;
@@ -19,7 +20,12 @@ body {
     background: linear-gradient(145deg, #333a42, #202428);
     border-radius: 15px;
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
+
     
+}
+.gameBoard {
+    position: absolute;
+    top:10%;
 }
 .imgEnemy {
         max-width: 150px;
@@ -38,6 +44,7 @@ body {
     background-color: #3c3f47;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    height: 300px;
 }
 
 /* Character information */
@@ -47,7 +54,16 @@ body {
     
 }
 
-
+.PlayerChar {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.EnemyChar {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
 button:hover {
     background-color: #d62828;
@@ -70,6 +86,9 @@ button:disabled:hover {
 
 /* Styling for the action log div */
 .action-log {
+    position:absolute;
+    top:30px;
+    left: 650px;
     width: 400px;
     padding: 10px 20px;
     margin-top: 20px;

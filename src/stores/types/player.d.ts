@@ -11,8 +11,8 @@ export interface Player {
   p_MaxHealth: number;
   p_LeftHealth: number;
   hitDie: string;
-  armorClass: string;
-  baseAttackBonus: string;
+  armorClass: number;
+  baseAttackBonus: number;
   saves: {
     fortitude: string;
     reflex: string;
@@ -45,8 +45,8 @@ export interface PlayerActions {
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void; 
-  setArmorClass: (armorClass: string) => void; 
-  setBaseAttackBonus: (baseAttackBonus: string) => void; 
+  setArmorClass: (armorClass: number) => void; 
+  setBaseAttackBonus: (baseAttackBonus: number) => void; 
   updateSaves: (saves: Partial<Player['saves']>) => void; 
   addClassFeature: (feature: string) => void; 
   setClassFeature: (classFeatures: Player['classFeatures']) => void; 

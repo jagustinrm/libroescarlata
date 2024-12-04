@@ -22,6 +22,7 @@ import { useEnemyTurn } from "../customHooks/useEnemyTurn.ts";
 import { handleNewEnemyClick } from "../utils/handleNewEnemyClick.ts";
 import { handleHealing } from "../utils/handleHealing.ts";
 import SoundPlayer from "./UI/soundPlayer/SoundPlayer.tsx";
+import GameBoard from "./battlefield/GameBoard .tsx";
 export default function FightScene() {
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
     const navigate = useNavigate();
@@ -64,7 +65,7 @@ export default function FightScene() {
             expTable, setExpTable
         });
     };
-
+    const [canAttack, setCanAttack] = useState(false)
 
 // ************************USEEFFECTS ******************************
     useEffect(() => {
@@ -156,10 +157,10 @@ export default function FightScene() {
     if (isLoading) return <p>Cargando enemigo...</p>;
     if (error)  return <p>Error: {error}</p>;
     return (
-    <div className="fight-scene ">
-    <div className="turn-indicator">
-    {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
-    </div>
+    <div className="fight-scene">
+        <div className="turn-indicator">
+        {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
+        </div>
             <div className="PlayerChar">
                 <p>{player.name}</p>
                 <p>🛡️ {player.classes}</p>
@@ -178,7 +179,7 @@ export default function FightScene() {
                 <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
             </div>
                 <div className="attackAndPotions">
-                    <button className="rpgui-button newDesign" id="newDesign" onClick={executeAttack} disabled={enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
+                    <button className="rpgui-button newDesign" id="newDesign" onClick={executeAttack} disabled={!canAttack || enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
                         ⚔️
                     </button>
                     {pocion && (
@@ -217,6 +218,7 @@ export default function FightScene() {
                         <li key={index}>{message}</li>  
                     ))}
                 </ul>
+                <div className="gameBoard"><GameBoard canAttack={canAttack} setCanAttack={setCanAttack}  /></div>
                 {player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}
                 {enemyHealth === 0 && 
                 <div>
@@ -243,7 +245,7 @@ export default function FightScene() {
                 {enemy ? (
                     <div>
                         <h3>{enemy.name}</h3>
-                        <img className="imgEnemy" src={enemy.img} alt={enemy.name} />
+                        {/* <img className="imgEnemy" src={enemy.img} alt={enemy.name} /> */}
                         <p>Nivel: {enemy.level}</p>
                         <p>Vida: {enemyHealth}</p>
                             

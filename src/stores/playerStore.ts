@@ -13,8 +13,8 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     p_LeftHealth: 1,
     classes: [],
     hitDie: '',
-    armorClass: '',
-    baseAttackBonus: '',
+    armorClass: 0,
+    baseAttackBonus: 0,
     saves: {
       fortitude: '',
       reflex: '',

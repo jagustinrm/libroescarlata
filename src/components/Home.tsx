@@ -1,6 +1,6 @@
 import { usePlayerStore } from '../stores/playerStore';
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import openMissions from '../utils/openMissionsWindow.ts';
 import MessageBox from './UI/MessageBox.tsx';
 import './Home.css';
@@ -13,13 +13,7 @@ export default function Home() {
     const { player, playerActions } = usePlayerStore();
     const navigate = useNavigate();
     const [showMissions, setShowMissions] = useState(false);
-    const [isVisible, setIsVisible] = useState(false);
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          setIsVisible(true);
-        }, 100); 
-        return () => clearTimeout(timer); 
-      }, []);
+
 
     const handleAction = (action: string) => {
         switch (action) {
@@ -68,7 +62,7 @@ export default function Home() {
     };
 
     return (
-        <div className={`home-container rpgui-container framed-golden-2 ${isVisible ? "visible" : "hidden"}`}>
+        <div className={`home-container rpgui-container framed-golden-2`}>
             <div className={`sidebar ${isSidebarOpen ? "open" : "closed"} rpgui-container framed-golden-2`}>
                 <button 
                     className="toggle-sidebar" 

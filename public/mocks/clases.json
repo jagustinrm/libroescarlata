@@ -2,12 +2,12 @@
     {
         "className": "Mago",
         "hitDie": "d4",
-        "armorClass": "10",
-        "baseAttackBonus": "0",
+        "armorClass": 10,
+        "baseAttackBonus": 0,
         "saves": {
-            "fortitude": "0",
-            "reflex": "0",
-            "will": "2"
+            "fortitude": 0,
+            "reflex": 0,
+            "will": 2
         },
         "classFeatures": ["Hechizos", "Familiar"],
         "initialWeapon": [10],
@@ -23,12 +23,12 @@
     {
         "className": "Guerrero",
         "hitDie": "d10",
-        "armorClass": "15",
-        "baseAttackBonus": "1",
+        "armorClass": 15,
+        "baseAttackBonus": 1,
         "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "0"
+            "fortitude": 2,
+            "reflex": 0,
+            "will": 0
         },
         "classFeatures": ["Ataque poderoso", "Resistencia"],
         "initialWeapon": [1, 3, 6],
@@ -44,12 +44,12 @@
     {
         "className": "Pícaro",
         "hitDie": "d6",
-        "armorClass": "12",
-        "baseAttackBonus": "0",
+        "armorClass": 12,
+        "baseAttackBonus": 0,
         "saves": {
-            "fortitude": "0",
-            "reflex": "2",
-            "will": "0"
+            "fortitude": 0,
+            "reflex": 2,
+            "will": 0
         },
         "classFeatures": ["Ataque furtivo", "Evasión", "Esquivar"],
         "initialWeapon": [2, 7],
@@ -65,12 +65,12 @@
     {
         "className": "Clérigo",
         "hitDie": "d8",
-        "armorClass": "14",
-        "baseAttackBonus": "0",
+        "armorClass": 14,
+        "baseAttackBonus": 0,
         "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "2"
+            "fortitude": 2,
+            "reflex": 0,
+            "will": 2
         },
         "classFeatures": ["Hechizos divinos", "Reprender muertos vivientes", "Curación"],
         "initialWeapon": [9, 10],
@@ -86,12 +86,12 @@
     {
         "className": "Bárbaro",
         "hitDie": "d12",
-        "armorClass": "13",
-        "baseAttackBonus": "1",
+        "armorClass": 13,
+        "baseAttackBonus": 1,
         "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "0"
+            "fortitude": 2,
+            "reflex": 0,
+            "will": 0
         },
         "classFeatures": ["Furia", "Movimiento rápido", "Esquiva asombrosa"],
         "initialWeapon": [3, 7],
@@ -107,12 +107,12 @@
     {
         "className": "Bardo",
         "hitDie": "d6",
-        "armorClass": "11",
-        "baseAttackBonus": "0",
+        "armorClass": 11,
+        "baseAttackBonus": 0,
         "saves": {
-            "fortitude": "0",
-            "reflex": "2",
-            "will": "2"
+            "fortitude": 0,
+            "reflex": 2,
+            "will": 2
         },
         "classFeatures": ["Inspiración bardica", "Hechizos arcanos", "Conocimiento de bardo"],
         "initialWeapon": [2, 10],
@@ -128,12 +128,12 @@
     {
         "className": "Druida",
         "hitDie": "d8",
-        "armorClass": "12",
-        "baseAttackBonus": "0",
+        "armorClass": 12,
+        "baseAttackBonus": 0,
         "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "2"
+            "fortitude": 2,
+            "reflex": 0,
+            "will": 2
         },
         "classFeatures": ["Forma salvaje", "Hechizos divinos", "Conexión con la naturaleza"],
         "initialWeapon": [7, 10],
@@ -149,12 +149,12 @@
     {
         "className": "Explorador",
         "hitDie": "d8",
-        "armorClass": "13",
-        "baseAttackBonus": "1",
+        "armorClass": 13,
+        "baseAttackBonus": 1,
         "saves": {
-            "fortitude": "2",
-            "reflex": "2",
-            "will": "0"
+            "fortitude": 2,
+            "reflex": 2,
+            "will": 0
         },
         "classFeatures": ["Enemigo predilecto", "Empatía salvaje", "Combate con dos armas"],
         "initialWeapon": [4, 7],
@@ -170,12 +170,12 @@
     {
         "className": "Paladín",
         "hitDie": "d10",
-        "armorClass": "14",
-        "baseAttackBonus": "1",
+        "armorClass": 14,
+        "baseAttackBonus": 1,
         "saves": {
-            "fortitude": "2",
-            "reflex": "0",
-            "will": "2"
+            "fortitude": 2,
+            "reflex": 0,
+            "will": 2
         },
         "classFeatures": ["Detectar mal", "Imposición de manos", "Aura de coraje"],
         "initialWeapon": [1, 9],
@@ -191,12 +191,12 @@
     {
         "className": "Monje",
         "hitDie": "d8",
-        "armorClass": "10",
-        "baseAttackBonus": "0",
+        "armorClass": 10,
+        "baseAttackBonus": 0,
         "saves": {
-            "fortitude": "2",
-            "reflex": "2",
-            "will": "2"
+            "fortitude": 2,
+            "reflex": 2,
+            "will": 2
         },
         "classFeatures": ["Golpe sin armas", "Esquiva sobrenatural", "Movimiento rápido"],
         "initialWeapon": [10],
@@ -209,5 +209,4 @@
             "charisma": 10
         }
     }
-  ]
-  
+]

@@ -3,8 +3,8 @@
 export interface Class {
     className: string;
     hitDie: string;
-    armorClass: string;
-    baseAttackBonus: string;
+    armorClass: number;
+    baseAttackBonus: number;
     saves: {
         fortitude: string;
         reflex: string;

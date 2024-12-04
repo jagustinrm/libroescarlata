@@ -1,0 +1,112 @@
+:root {
+    --purple-0: #FACCFF;
+    --purple-1: #DCB0FF;
+    --purple-2: #BE93FD;
+    --purple-3: #A178DF;
+    --purple-4: #845EC2;
+  }
+  
+  body {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .container {
+    transform: rotateX(60deg)
+               rotateZ(45deg);
+    width: 50vw;
+    height: 50vw;
+    background: var(--purple-0);
+  }
+
+  .imagenes {
+    
+  }
+
+  .bottom {
+    width: 5vw;
+    height: 5vw;
+    background-color: rgb(158, 158, 255);
+    position: absolute;
+    transform: translateY(40vw); /* Base de posición */
+    border: 2px solid black; 
+  }
+  
+  .attack-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .attack-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+
+
+
+   .selected {
+    background-color: red; /* Cambia el color al estar seleccionado */
+  }
+  .enemy {
+
+  }
+
+  .container {
+    position: relative;
+    width: 50vw;
+    height: 50vw;
+    background: var(--purple-0, lightgray);
+    transform: rotateX(60deg) rotateZ(45deg);
+  }
+  
+  img {
+    position: absolute;
+    width: 10vw;
+    height: 20vw;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.3s ease;
+    z-index: 20;
+  }
+  
+  .red {
+    /* Posición inicial del cuadrado rojo */
+    transform: translate(0vw, 45vw);
+    z-index: 1;
+  }
+  
+  .enemy {
+    /* Posición inicial del cuadrado verde */
+    transform: translate(45vw, 0vw);
+    z-index: 1;
+  }
+  
+  
+  .cuadradoNormal {
+    width: 5vw;
+    height: 5vw;
+    background-color: red;
+    position: fixed; /* Posicionarlo relativo a la ventana */
+    top: 25%; /* Ajustar para colocarlo en la esquina superior izquierda del contenedor */
+    left: 25%; /* Ajustar para alinearlo con el contenedor */
+    transform: translate(0, 0); /* Transformación inicial */
+    transition: transform 0.3s ease; /* Animación suave */
+}
+
+.green-bottom {
+  background-color: green;
+}
+
+.highlighted {
+  background-color: rgba(255, 0, 0, 0.2); /* Rojo suave */
+}

@@ -27,10 +27,20 @@ const useStatManagement = () => {
         if (additionalIncrease > prevPoints) {
           switch (key) {
             case 'con': 
-              const additionalHealth = player.level; 
+              { const additionalHealth = player.level; 
               playerActions.setP_MaxHealth(player.p_MaxHealth + additionalHealth);
-              break;
+              }
+              break; 
             case 'str':
+              { const additionalBaseAttack = 1; 
+                playerActions.setBaseAttackBonus(player.baseAttackBonus + additionalBaseAttack);
+              }
+              break; 
+            case 'dex':
+              {
+                const addionalArmor = 1;
+                playerActions.setArmorClass(player.armorClass + addionalArmor)
+              }
               break;
             default:
               break;
