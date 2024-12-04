@@ -44,6 +44,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     playerMaterial: 0,
     petsName: [],
     enemiesDeleted: [],
+    spells:[],
   },
 
   // Agrupamos las acciones relacionadas con el jugador
@@ -174,6 +175,30 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           }
           return state;
         }),
+        addSpell: (spell) => 
+          set((state) => {
+            // Verificar si el hechizo ya existe en el array
+            if (!state.player.spells.some((s) => s.name === spell.name)) {
+              return {
+                ...state,
+                player: {
+                  ...state.player,
+                  spells: [...state.player.spells, spell], // Inmutabilidad al añadir
+                },
+              };
+            }
+            return state; // Si ya existe, devolver el estado sin cambios
+          }),
+          setSpell: (spells) =>
+            set((state) => ({
+              ...state,
+              player: {
+                ...state.player,
+                spells, // Reemplazar directamente el array de hechizos
+              },
+            })),
+          
+        
         addPetsName: (newPet) =>
           set((state) => {
             if (!state.player.petsName.includes(newPet)) {
