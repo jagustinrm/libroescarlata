@@ -16,6 +16,7 @@ interface CombatHandlersProps {
     spell?: string;
     spells?: Spell[]
     charPositions?: { x: number; y: number }[]; 
+    selectedSpell?: string;
 }
 
 export const handleAttack = ({setEnemyHealth, player, setActionMessages, enemy  }: CombatHandlersProps) => {
@@ -39,8 +40,8 @@ export const handleAttack = ({setEnemyHealth, player, setActionMessages, enemy  
     }
 };
 
-export const handleSpell = ({setEnemyHealth, player, setActionMessages, enemy, spell, spells, charPositions   }: CombatHandlersProps) => {
-    const spellFullDetails = spells?.find(s => s.name === spell)
+export const handleSpell = ({setEnemyHealth, setActionMessages, spells, charPositions, selectedSpell   }: CombatHandlersProps) => {
+    const spellFullDetails = spells?.find(s => s.name === selectedSpell)
     
     const distanceX = Math.abs(charPositions[0].x - charPositions[1].x);
     const distanceY = Math.abs(charPositions[0].y - charPositions[1].y);

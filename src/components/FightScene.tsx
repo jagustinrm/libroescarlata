@@ -24,6 +24,7 @@ import { handleHealing } from "../utils/handleHealing.ts";
 import SoundPlayer from "./UI/soundPlayer/SoundPlayer.tsx";
 import GameBoard from "./battlefield/GameBoard .tsx";
 import useSpellStore from "../stores/spellsStore.ts";
+import Dropdown from "../utils/DropDown.tsx";
 // import { Spell } from "../stores/types/spells";
 export default function FightScene() {
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
@@ -35,7 +36,7 @@ export default function FightScene() {
     const {spells} = useSpellStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
-    const [charPositions, setCharPositions] = useState(null)
+    const [charPositions, setCharPositions] = useState([{ x: 1, y: 1 },{ x: 1, y: 1 }])
     const [soundType, setSoundType] = useState<string>('');
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
@@ -70,7 +71,7 @@ export default function FightScene() {
         });
     };
     const [canAttack, setCanAttack] = useState(false)
-
+    const [selectedSpell, setSelectedSpell] = useState<string>(''); 
 // ************************USEEFFECTS ******************************
     useEffect(() => {
         handleCheckLevelUp(); // Verificar subida de nivel
@@ -128,14 +129,17 @@ export default function FightScene() {
      
     };
 
-    const executeSpell = (spell: string) => {
+    const executeSpell = () => {
+        if (turn !== "player" || !selectedSpell) return;  
         handleSpell({
-            enemyHealth,setEnemyHealth,
+            enemyHealth, setEnemyHealth,
             player, playerActions,
             setActionMessages,
-            fightType, enemy, spell, spells, charPositions
+            fightType, enemy, selectedSpell, spells, charPositions
         });
-    }
+        setTriggerPostActions(true);
+        switchTurn();
+    };
 
 // ************************COMBATE *************************
 
@@ -212,24 +216,25 @@ export default function FightScene() {
                          </button>
                       )}
                 </div>
-                <div>
-                    <select         
-                    name="spells" 
-                    defaultValue=""
-                    id="spells" 
-                    onChange={(e) => executeSpell(e.target.value)}>
-                        <option value="" disabled>
-                            Elegí un hechizo
-                        </option>
-                        {player.spells.map((spell) => (
-                            <option key={spell} value={spell}>
-                                {spell}
-                            </option>
-                        ))}
-                    </select>
+                <div className="rpgui-container framed rpgui-draggable">
+                <Dropdown
+  id="spell-dropdown"
+  options={player.spells || []}
+  value={selectedSpell}
+  onChange={(value) => setSelectedSpell(value)}
+  disabled={turn !== "player" || enemyHealth === 0}
+/>
+
+
+                    <button
+                        onClick={executeSpell}
+                        disabled={turn !== "player" || !selectedSpell || enemyHealth === 0}
+                    >
+                        Lanzar hechizo
+                    </button>
                 </div>
                 {pet? <p>Mascota: {pet}</p> : <></>}
-
+                
                 {fightType === 'normal' || player.p_LeftHealth === 0 ?  
                 <button onClick={() => handleMessage(
                     "¡Has huido del combate!",
@@ -279,7 +284,6 @@ export default function FightScene() {
                 {enemy ? (
                     <div>
                         <h3>{enemy.name}</h3>
-                        {/* <img className="imgEnemy" src={enemy.img} alt={enemy.name} /> */}
                         <p>Nivel: {enemy.level}</p>
                         <p>Vida: {enemyHealth}</p>
                             
