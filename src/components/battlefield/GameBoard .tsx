@@ -37,7 +37,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,  setCharPosi
     y: 0 - offsetY,
   });
   const [buttons, setButtons] = useState<Button[]>([]);
-
+ 
   // Generar botones al montar el componente
   useEffect(() => {
     const generatedButtons: Button[] = [];
@@ -106,6 +106,11 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,  setCharPosi
     setCanAttack(near());
   }, [loboPosition, enemyPosition, setCanAttack]);
 
+
+
+
+
+  
   return (
     <div className="containerGameBoard">
       {buttons.map((button, index) => (

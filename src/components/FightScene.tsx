@@ -27,6 +27,7 @@ import useSpellStore from "../stores/spellsStore.ts";
 import Dropdown from "../utils/DropDown.tsx";
 // import { Spell } from "../stores/types/spells";
 export default function FightScene() {
+    const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -101,6 +102,30 @@ export default function FightScene() {
             setEnemyHealth(enemy.health);
         }
     }, [enemy]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            setBoardPosition((prevPosition) => {
+                switch (event.key) {
+                    case "ArrowUp":
+                        return { ...prevPosition, top: Math.max(prevPosition.top - 1, 0) }; // Evitar valores negativos
+                    case "ArrowDown":
+                        return { ...prevPosition, top: Math.min(prevPosition.top + 1, 90) }; // Ajustar el límite inferior
+                    case "ArrowLeft":
+                        return { ...prevPosition, left: Math.max(prevPosition.left - 1, 0) }; // Evitar valores negativos
+                    case "ArrowRight":
+                        return { ...prevPosition, left: Math.min(prevPosition.left + 1, 90) }; // Ajustar el límite derecho
+                    default:
+                        return prevPosition;
+                }
+            });
+        };
+    
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
     useEnemyTurn({
@@ -111,6 +136,7 @@ export default function FightScene() {
         playerActions,
         setActionMessages,
         switchTurn,
+        charPositions
     });
     const executeAttack = () => {
         if (turn !== "player") return;
@@ -178,23 +204,30 @@ export default function FightScene() {
         {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
         </div>
             <div className="PlayerChar">
+                <div>
                 <p>{player.name}</p>
                 <p>🛡️ {player.classes}</p>
                 <p>Nivel {player.level}</p>
-
-
+                </div>
             {/* Barra de vida */}
-            <div className="health-bar-container">
-                <div className="health-bar" style={{ width: `${healthPercentage}%` }}></div>
-                <span className="health-text">{player.p_LeftHealth} / {player.p_MaxHealth}</span>
+            <div className="bars">
+                <div className="health-bar-container">
+                    <div className="health-bar" style={{ width: `${healthPercentage}%` }}></div>
+                    <span className="health-text">{player.p_LeftHealth} / {player.p_MaxHealth}</span>
+                </div>
+                    
+                            {/* Barra de experiencia */}
+                <div className="experience-bar-container">
+                    <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
+                    <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
+                </div>
             </div>
                 
-                            {/* Barra de experiencia */}
-            <div className="experience-bar-container">
-                <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
-                <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
+                {pet? <p>Mascota: {pet}</p> : <></>}
+                
+
             </div>
-                <div className="attackAndPotions">
+            <div className="attacks">
                     <button className="rpgui-button newDesign" id="newDesign" onClick={executeAttack} disabled={!canAttack || enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
                         ⚔️
                     </button>
@@ -215,43 +248,45 @@ export default function FightScene() {
                            }
                          </button>
                       )}
-                </div>
-                <div className="rpgui-container framed rpgui-draggable">
-                <Dropdown
-  id="spell-dropdown"
-  options={player.spells || []}
-  value={selectedSpell}
-  onChange={(value) => setSelectedSpell(value)}
-  disabled={turn !== "player" || enemyHealth === 0}
-/>
-
-
-                    <button
-                        onClick={executeSpell}
-                        disabled={turn !== "player" || !selectedSpell || enemyHealth === 0}
-                    >
-                        Lanzar hechizo
-                    </button>
-                </div>
-                {pet? <p>Mascota: {pet}</p> : <></>}
                 
-                {fightType === 'normal' || player.p_LeftHealth === 0 ?  
-                <button onClick={() => handleMessage(
-                    "¡Has huido del combate!",
-                    "warning",
-                    true
-                    )} className="rpgui-button newDesign">
-                😨 Huir</button> : <></>}
-            </div>
-
-            <div >
+                    <div className="rpgui-container framed rpgui-draggable">
+                    <Dropdown
+                        id="spell-dropdown"
+                        options={player.spells || []}
+                        value={selectedSpell}
+                        onChange={(value) => setSelectedSpell(value)}
+                        disabled={turn !== "player" || enemyHealth === 0}
+                    />
+                        <button
+                            onClick={executeSpell}
+                            disabled={turn !== "player" || !selectedSpell || enemyHealth === 0}
+                        >
+                            Lanzar hechizo
+                        </button>
+                    </div>
+                    {fightType === 'normal' || player.p_LeftHealth === 0 ?  
+                    <button onClick={() => handleMessage(
+                        "¡Has huido del combate!",
+                        "warning",
+                        true
+                        )} className="rpgui-button newDesign">
+                    😨 Huir</button> : <></>}  
+            </div>      
+            <div>
             {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
                 <ul className="action-log">
                     {actionMessages.map((message, index) => (
                         <li key={index}>{message}</li>  
                     ))}
                 </ul>
-                <div className="gameBoard"><GameBoard 
+                <div
+                    className="gameBoard"
+                    style={{
+                        position: "absolute",
+                        top: `${boardPosition.top}%`,
+                        left: `${boardPosition.left}%`,
+                    }}
+                ><GameBoard 
                 setCanAttack={setCanAttack} 
                 setCharPositions = {setCharPositions}  
                 enemy= {enemy}  
@@ -262,20 +297,24 @@ export default function FightScene() {
                 {enemyHealth === 0 && 
                 <div>
                     <div  className="container-endBattle">
+
                     <button onClick={() => handleNewEnemyClick({
-                    player,
-                    handleMessage,
-                    setTurn,
-                    updateEnemy,
-                    setUpdateEnemy,
-                })} className="rpgui-button"> ⚔️ Seguir</button>
-                    {fightType === 'normal'?  <button className="rpgui-button" onClick={() => handleMessage(
+                        player,
+                        handleMessage,
+                        setTurn,
+                        updateEnemy,
+                        setUpdateEnemy,
+                    })} 
+                        className="rpgui-button endBattleButton"> 
+                        ⚔️ Seguir
+                    </button>
+                    {fightType === 'normal'?  <button className="rpgui-button endBattleButton" onClick={() => handleMessage(
                     "¡Has vuelto sano y salvo!",
                     "warning",
                     true
                     )}> Volver</button> : <></>}
                     </div>
-
+                    <div className="blackScreen"></div>
                 </div>
                 }
             </div>

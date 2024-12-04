@@ -42,25 +42,25 @@ export const handleAttack = ({setEnemyHealth, player, setActionMessages, enemy  
 
 export const handleSpell = ({setEnemyHealth, setActionMessages, spells, charPositions, selectedSpell   }: CombatHandlersProps) => {
     const spellFullDetails = spells?.find(s => s.name === selectedSpell)
-    
-    const distanceX = Math.abs(charPositions[0].x - charPositions[1].x);
-    const distanceY = Math.abs(charPositions[0].y - charPositions[1].y);
+    if (charPositions) {
+        const distanceX = Math.abs(charPositions[0].x - charPositions[1].x);
+        const distanceY = Math.abs(charPositions[0].y - charPositions[1].y);
 
 
-    if (spellFullDetails && distanceX < spellFullDetails.range && distanceY < spellFullDetails.range && spellFullDetails.damage ) {
-        const playerDamage = rollDice(spellFullDetails.damage)
-        const playerMessage = `Has lanzado ${spellFullDetails.name} al enemigo y causado ${playerDamage} puntos de daño.`;
-        setActionMessages((prevMessages) => [...prevMessages, playerMessage]);
-        setEnemyHealth((prevEnemyHealth) => {
-            const newEnemyHealth = updateEnemyHealth(prevEnemyHealth, playerDamage);
-            return newEnemyHealth;
-        });
-    
-        const updateEnemyHealth = (prevEnemyHealth: number, playerDamage: number): number => {
-            return Math.max(prevEnemyHealth - playerDamage, 0);
-        };
+        if (spellFullDetails && distanceX < spellFullDetails.range && distanceY < spellFullDetails.range && spellFullDetails.damage ) {
+            const playerDamage = rollDice(spellFullDetails.damage)
+            const playerMessage = `Has lanzado ${spellFullDetails.name} al enemigo y causado ${playerDamage} puntos de daño.`;
+            setActionMessages((prevMessages) => [...prevMessages, playerMessage]);
+            setEnemyHealth((prevEnemyHealth) => {
+                const newEnemyHealth = updateEnemyHealth(prevEnemyHealth, playerDamage);
+                return newEnemyHealth;
+            });
+        
+            const updateEnemyHealth = (prevEnemyHealth: number, playerDamage: number): number => {
+                return Math.max(prevEnemyHealth - playerDamage, 0);
+            };
+        }
+
     }
-
-    
 
 };

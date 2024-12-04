@@ -9,9 +9,9 @@
   .containerGameBoard {
     transform: rotateX(60deg)
                rotateZ(45deg);
-    width: 50vw;
+    width: 60vw;
     height: 50vw;
-    background: var(--purple-0);
+    /* background: var(--purple-0); */
     position: relative;
 
   }
