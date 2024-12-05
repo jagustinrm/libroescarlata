@@ -78,7 +78,7 @@ export default function FightScene() {
             others: []
         }
     };
-    const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, creature, quests || 
+    const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, quests || 
         defaultQuests, playerActions, player
     );
    

@@ -36,7 +36,9 @@ export const handleAttack = ({ setActionMessages, player, creature, handleMessag
 
         // Actualizamos la salud de la criatura en Zustand
         useCreatureStore.getState().setCreatureHealth(Math.max(creature.health - playerDamage, 0))
-        if (creature.health - playerDamage < 0) {
+   
+        if (creature.health - playerDamage <= 0) {
+
             handleMessage("¡Has ganado el combate!", "success", false)
             handlePostCombatActs(fightType, creature);
     }     
@@ -65,7 +67,7 @@ export const handleSpell = ({
             setActionMessages((prevMessages) => [...prevMessages, playerMessage]);
             useCreatureStore.getState().setCreatureHealth(Math.max(creature.health - playerDamage, 0))
 
-            if (creature.health - playerDamage < 0) {
+            if (creature.health - playerDamage <= 0) {
                 handleMessage("¡Has ganado el combate!", "success", false)
                 handlePostCombatActs(fightType, creature);
             }

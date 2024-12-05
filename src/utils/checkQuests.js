@@ -5,6 +5,8 @@ export default function checkQuests(quests, deletedEnemies) {
     // const deletedEnemies = JSON.parse(localStorage.getItem('deletedEnemies') || '[]');
 
     const isQuestCompleted = (quest) => {
+        console.log(quest)
+        console.log(deletedEnemies)
         const alreadyCompleted = completedQuests.some(completed => completed.name === quest.name && completed.completed);
         if (alreadyCompleted) return true;
         const matchingEnemy = deletedEnemies.find(enemy => enemy.name === quest.objective);

@@ -11,20 +11,17 @@ import { Creature } from '../stores/types/creatures.js';
 const usePostCombatActions = (
     setDungeonLevel: React.Dispatch<React.SetStateAction<number>>, 
     // creature: CreatureInterface | null,
-    creature: Creature | null,
+    // creature: Creature | null,
     quests: QuestData, 
     playerActions: PlayerActions,
     player: Player
-
 ) => {
     const handlePostCombatActs = ( 
         fightType: string,  
         creature: Creature, 
     ) => {
         // Si el enemigo es derrotado
-        console.log(creature.health)
         if ( creature) {
-            console.log("hola")
             //***** */ Incrementar el nivel de mazmorra si es un jefe*******
             if (fightType === "dungeon" && creature.role === "boss") {
                 setDungeonLevel((prevLevel) => {
@@ -38,24 +35,21 @@ const usePostCombatActions = (
             playerActions.setPlayerMaterial(player.playerMaterial + creature.level * 100)
 
             //****** */ Actualizar lista de enemigos derrotados ********
-
+            
             const existingEnemyIndex = player.enemiesDeleted.findIndex((e) => e.name === creature.name);
-
+            
             if (existingEnemyIndex !== -1) {
-
                 const updatedEnemies = [...player.enemiesDeleted];
                 updatedEnemies[existingEnemyIndex].count += 1;
-                playerActions.setEnemiesDeleted(updatedEnemies);
-                
+                playerActions.setEnemiesDeleted(updatedEnemies);  
+                checkQuests(quests, updatedEnemies)
                 // *******Corroborar si terminó la misión****
-                
             } else {
                 // Si el enemigo no existe, agregarlo a la lista
-                playerActions.setEnemiesDeleted([...player.enemiesDeleted, { name: creature.name, count: 1 }]);    
-                // checkQuests(quests)
+                const updatedEnemies = [...player.enemiesDeleted, { name: creature.name, count: 1 }]
+                playerActions.setEnemiesDeleted(updatedEnemies);    
+                checkQuests(quests, updatedEnemies)
             }
-            checkQuests(quests, player.enemiesDeleted)
-
         }
     };
     return { handlePostCombatActs };
