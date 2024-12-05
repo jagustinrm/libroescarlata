@@ -27,15 +27,15 @@ import Dropdown from "../utils/DropDown.tsx";
 // import { Spell } from "../stores/types/spells";
 import KeyboardController from "../utils/KeyboardController.ts";
 import PlayerCharacter from "./battlefield/PlayerCharacter.tsx";
-
+import useCreatureStore from "../stores/creatures.ts";
 export default function FightScene() {
     const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
-    const [triggerPostActions, setTriggerPostActions] = useState(false);
     const {player, playerActions } = usePlayerStore();
+    const {creature} = useCreatureStore();
     const {spells} = useSpellStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
@@ -62,14 +62,15 @@ export default function FightScene() {
     const {quests} = useLoadQuests();
     const [turn, setTurn] = useState<"player" | "enemy">("player");
     const switchTurn = () => {setTurn((prevTurn) => (prevTurn === "player" ? "enemy" : "player"))};
-    const [pet, setPet] = useState<string | null>('')
     const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
         const storedLevel = localStorage.getItem("dungeonLevel");
         return storedLevel ? parseInt(storedLevel, 10) : 1;
     });
 
     const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
-    const { enemy, isLoading, error, typeEnemy,  handleNewEnemyClick } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
+    const { 
+        // enemy, 
+        isLoading, error,  handleNewEnemyClick } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
     const defaultQuests: QuestData = {
         questTree: {
             history: [],
@@ -77,10 +78,10 @@ export default function FightScene() {
             others: []
         }
     };
-    const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, enemy, quests || 
+    const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, creature, quests || 
         defaultQuests, playerActions, player
     );
-    const [enemyHealth, setEnemyHealth] = useState<number>(1); // LO NECESITO PORQUE SE VA MODIFICANDO CONSTANTEMENTE
+   
     const handleCheckLevelUp = () => {
         checkLevelUp({
             player,
@@ -94,30 +95,15 @@ export default function FightScene() {
 // ************************USEEFFECTS ******************************
     useEffect(() => {
         handleCheckLevelUp(); // Verificar subida de nivel
-
     }, [player.playerExp]);
-
-    useEffect(() => {
-        const pet = localStorage.getItem('pet')
-        setPet(pet)
-    }, [])
-    useEffect(() => {
-        if (triggerPostActions) {
-            handlePostCombatActs(fightType, enemyHealth, typeEnemy);
-            setTriggerPostActions(false); // Resetea el trigger
-        }
-    }, [triggerPostActions]);
-
-    useEffect(() => {if (enemyHealth === 0) {handleMessage("¡Has ganado el combate!", "success", false)}
-    }, [enemyHealth]);
-
-    useEffect(() => {if (enemy) setEnemyHealth(enemy.health);}, [enemy]);
-
 
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
    
-    useEnemyTurn({enemy,turn, enemyHealth,player,playerActions,setActionMessages,switchTurn,
+    useEnemyTurn({
+        // enemy
+        creature,
+        turn ,player,playerActions,setActionMessages,switchTurn,
         playerPosition,enemyPosition,setEnemyPosition,
 
     });
@@ -126,12 +112,11 @@ export default function FightScene() {
         if (turn !== "player") return;
         setSoundType("attack")
         handleAttack({
-            enemyHealth,setEnemyHealth,
             player, playerActions,
             setActionMessages,
-            fightType, enemy
+            creature, handleMessage, handlePostCombatActs, fightType
         });
-        setTriggerPostActions(true);
+        // setTriggerPostActions(true);
         switchTurn(); 
         setTimeout(() => {
             setSoundType("")
@@ -142,10 +127,10 @@ export default function FightScene() {
     const executeSpell = () => {
         if (turn !== "player" || !selectedSpell) return;  
         handleSpell({
-            enemyHealth, setEnemyHealth,player, playerActions,setActionMessages,
-            fightType, enemy, selectedSpell, spells, playerPosition, enemyPosition
+            player, playerActions,setActionMessages,
+            creature, selectedSpell, spells, 
+            playerPosition, enemyPosition, handleMessage, handlePostCombatActs, fightType
         });
-        setTriggerPostActions(true);
         switchTurn();
     };
 
@@ -189,10 +174,12 @@ export default function FightScene() {
                 player={player} 
                 healthPercentage={healthPercentage} 
                 xpPercentage={xpPercentage} 
-                pet={pet} 
+                pet={player.selectedPet} 
         />
+            
             <div className="attacks">
-                    <button className="rpgui-button newDesign" id="newDesign" onClick={executeAttack} disabled={!canAttack || enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
+                    <div className="blackScreenAttacks"></div>
+                    <button className="rpgui-button newDesign espada" id="newDesign" onClick={executeAttack} disabled={!canAttack || creature.health === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
                         ⚔️
                     </button>
                     {pocion && (
@@ -202,7 +189,7 @@ export default function FightScene() {
                             removeItem,
                             playerActions,
                             handleMessage,
-                            })} disabled={enemyHealth === 0 || player.p_LeftHealth === 0}>
+                            })} disabled={creature.health === 0 || player.p_LeftHealth === 0}>
                            {
                              // Buscar la poción en la lista de potions y mostrar la imagen
                              (() => {
@@ -219,11 +206,11 @@ export default function FightScene() {
                         options={player.spells || []}
                         value={selectedSpell}
                         onChange={(value) => setSelectedSpell(value)}
-                        disabled={turn !== "player" || enemyHealth === 0}
+                        disabled={turn !== "player" || creature.health === 0}
                     />
                         <button
                             onClick={executeSpell}
-                            disabled={turn !== "player" || !selectedSpell || enemyHealth === 0}
+                            disabled={turn !== "player" || !selectedSpell || creature.health === 0}
                         >
                             Lanzar hechizo
                         </button>
@@ -233,9 +220,11 @@ export default function FightScene() {
                         "¡Has huido del combate!",
                         "warning",
                         true
-                        )} className="rpgui-button newDesign">
+                        )} className="rpgui-button newDesign huir">
                     😨 Huir</button> : <></>}  
-            </div>      
+                   
+            </div>   
+
             <div>
             {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
                 <ul className="action-log">
@@ -252,10 +241,9 @@ export default function FightScene() {
                     }}
                 ><GameBoard 
                 setCanAttack={setCanAttack} 
-                enemy= {enemy}  
+                creature= {creature}  
                 setTurn = {setTurn}
                 turn = {turn}
-                //************************************************ */
                 playerPosition = {playerPosition}
                 setPlayerPosition = {setPlayerPosition}
                 enemyPosition = {enemyPosition}
@@ -264,10 +252,9 @@ export default function FightScene() {
                 </div>
                 <div className="defetedMessage">{player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}</div>
 
-                {enemyHealth === 0 && 
+                {creature.health === 0 && 
                 <div>
                     <div  className="container-endBattle">
-
                     <button onClick={() => handleNewEnemyClick({
                         player,
                         handleMessage,
@@ -291,12 +278,12 @@ export default function FightScene() {
                 }
             </div>
             <div className="EnemyChar">
-                {typeEnemy === 'boss'? <h1 className="bossSign">BOSS</h1> : <></>}
-                {enemy ? (
+                {creature.role === 'boss'? <h1 className="bossSign">BOSS</h1> : <></>}
+                {creature? (
                     <div>
-                        <h3>{enemy.name}</h3>
-                        <p>Nivel: {enemy.level}</p>
-                        <p>Vida: {enemyHealth}</p>
+                        <h3>{creature.name}</h3>
+                        <p>Nivel: {creature.level}</p>
+                        <p>Vida: {creature.health }</p>
                             
                     </div>
                 ) : (

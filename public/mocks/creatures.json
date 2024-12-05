@@ -1,5 +1,4 @@
-{
-    "creatures": [
+  [
         {
             "name": "Goblin",
             "img": "/img/enemies/goblin.png",
@@ -313,8 +312,5 @@
             ],
             "img": "/img/enemies/evil_elf.png"
           }
-          
-          
-          
+        
     ]
-}

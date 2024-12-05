@@ -22,6 +22,7 @@ import PlayerStats from './components/playerStats/PlayerStats';
 import DelayedDisplay from './utils/DelayedDisplayProps';
 import { useState, useEffect } from 'react';
 import SpellLoader from './loaders/SpellsLoader';
+import CreatureLoader from './loaders/CreaturesLoaders';
 function App() {
   const { player } = usePlayerStore();
   const { inventories } = useInventoryStore();
@@ -51,6 +52,7 @@ function App() {
       <PotionsLoader />
       <ClassLoader />
       <SpellLoader/>
+      <CreatureLoader/>
       <ItemShopLoader />
       <InventoryStateLoader />
       <HomeProvider>

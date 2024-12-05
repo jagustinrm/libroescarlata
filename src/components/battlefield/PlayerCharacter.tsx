@@ -10,7 +10,8 @@ interface PlayerProps {
 
 const PlayerCharacter: React.FC<PlayerProps> = ({ player, healthPercentage, xpPercentage, pet }) => {
     return (
-        <div className="PlayerChar">
+        <div>
+            <div className="PlayerChar">
             <div>
                 <p>{player.name}</p>
                 <p>🛡️ {player.classes}</p>
@@ -29,6 +30,10 @@ const PlayerCharacter: React.FC<PlayerProps> = ({ player, healthPercentage, xpPe
                 </div>
             </div>
             {pet ? <p>Mascota: {pet}</p> : null}
+            </div>
+            <div className="blackBar">
+                
+            </div>
         </div>
     );
 };

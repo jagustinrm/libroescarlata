@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./GameBoard.css";
-import { CreatureInterface } from "../interfaces/CreatureInterface";
+import { Creature } from "../../stores/types/creatures";
 
 // Definir tipos para las posiciones y botones
 interface Position {
@@ -15,36 +15,32 @@ interface Button {
 
 interface GameBoardProps {
   setCanAttack: React.Dispatch<React.SetStateAction<boolean>>;
-  enemy: CreatureInterface | null
+  creature: Creature | null;
   setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy">>;
-  turn: "player" | "enemy"
-  // **************************************************
+  turn: "player" | "enemy";
   playerPosition: Position;
   enemyPosition: Position;
   setPlayerPosition: React.Dispatch<React.SetStateAction<Position>>;
   setEnemyPosition: React.Dispatch<React.SetStateAction<Position>>;
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy, 
-   setTurn, 
-   playerPosition, 
-   setPlayerPosition, 
-   enemyPosition,
-   turn
-
-  }) => {
+const GameBoard: React.FC<GameBoardProps> = ({
+  setCanAttack,
+  creature,
+  setTurn,
+  playerPosition,
+  setPlayerPosition,
+  enemyPosition,
+  turn,
+}) => {
   const totalButtons = 100; // Número total de botones
   const step = 5; // Tamaño del paso en vw
-  // const initialX = 0;
-  // const initialY = 45;
-  // Compensar el ancho y alto de la imagen
   const offsetX = 10 / 1.2;
   const offsetY = 20 / 1.5;
-  // Estados para posiciones y botones
-  const [loboPosition, setLoboPosition] = useState<Position>(playerPosition);
-  // const [enemyPosition] = useState<Position>(charPositions[1] );
+
+  // Estados para los botones
   const [buttons, setButtons] = useState<Button[]>([]);
- 
+
   // Generar botones al montar el componente
   useEffect(() => {
     const generatedButtons: Button[] = [];
@@ -56,46 +52,33 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,
     setButtons(generatedButtons);
   }, []);
 
-  
-  useEffect(() => {
-    // Al actualizarse la posición, actualizamos las posiciones del jugador y el enemigo
-    if (enemy) {
-      // setCharPositions([loboPosition, enemyPosition]);
-      setPlayerPosition({x: loboPosition.x, y: loboPosition.y})
-    }
-  }, [loboPosition]);
-  // Función para mover el enemigo hacia el lobo
-
-
-  // Manejador para mover el lobo
+  // Manejador para mover al jugador
   const handleButtonClick = (button: Button) => {
     const isWithinRange =
-      Math.abs(button.x - loboPosition.x - offsetX) <= 3 * step &&
-      Math.abs(button.y - loboPosition.y - offsetY) <= 3 * step;
+      Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
+      Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step;
 
     if (isWithinRange) {
       if (turn === "player") {
-        setLoboPosition({ x: button.x - offsetX, y: button.y - offsetY });
+        setPlayerPosition({ x: button.x - offsetX, y: button.y - offsetY });
       }
-      
-      setTurn("enemy")
 
+      setTurn("enemy");
     }
- 
   };
 
   // Calcular si un botón está en el rango permitido
   const isButtonHighlighted = (button: Button): boolean => {
     return (
-      Math.abs(button.x - loboPosition.x - offsetX) <= 3 * step &&
-      Math.abs(button.y - loboPosition.y - offsetY) <= 3 * step
+      Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
+      Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step
     );
   };
 
   // Verificar si el enemigo está cerca
   const near = (): boolean => {
-    const distanceX = Math.abs(loboPosition.x - enemyPosition.x);
-    const distanceY = Math.abs(loboPosition.y - enemyPosition.y);
+    const distanceX = Math.abs(playerPosition.x - enemyPosition.x);
+    const distanceY = Math.abs(playerPosition.y - enemyPosition.y);
     return distanceX <= 5 && distanceY <= 5;
   };
 
@@ -121,11 +104,11 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,
         alt="Lobo"
         className="lobo"
         style={{
-          transform: `translate(${loboPosition.x}vw, ${loboPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
+          transform: `translate(${playerPosition.x}vw, ${playerPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
         }}
       />
       <img
-        src={enemy?.img}
+        src={creature?.img}
         alt="Enemigo"
         className="enemy"
         style={{

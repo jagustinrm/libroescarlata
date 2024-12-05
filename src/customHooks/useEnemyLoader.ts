@@ -1,74 +1,55 @@
 import { useState, useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
 import { useSearchParams } from "react-router-dom";
-import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
+// import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
+import { Creature } from '../stores/types/creatures.ts';
+import useCreatureStore from '../stores/creatures';
 
 const BOSS_PROBABILITY = 0.05; // 5% de probabilidad para bosses
 
 export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy: boolean) {
-    const [enemy, setEnemy] = useState<CreatureInterface | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [searchParams] = useSearchParams();
-    const [typeEnemy, setTypeEnemy] = useState<'normal' | 'boss'>('normal');
+
     const type = searchParams.get("type") || "normal";
 
-    const filterByLevel = (entities: CreatureInterface[], targetLevel: number, isBoss: boolean) => {
+    const { creatures, bosses, setCreature } = useCreatureStore();
+
+    const filterByLevel = (entities: Creature[], targetLevel: number, isBoss: boolean) => {
         const filtered = isBoss
             ? entities.filter(entity => entity.level === targetLevel)
             : entities.filter(entity => entity.level <= targetLevel);
 
         if (filtered.length > 0) return filtered;
-
+        console.log(filtered)
         throw new Error(
             `No se encontraron ${isBoss ? 'bosses' : 'criaturas normales'} para el nivel ${isBoss ? dungeonLevel : level}.`
         );
     };
 
-    const loadEnemies = async () => {
+    const selectEnemy = () => {
         try {
-            const [creaturesRes, bossesRes] = await Promise.all([
-                fetch('/mocks/creatures.json'),
-                fetch('/mocks/bosses.json'),
-            ]);
-            const creaturesData: { creatures: CreatureInterface[] } = await creaturesRes.json();
-            const bossesData: CreatureInterface[] = await bossesRes.json();
+            if (type === 'dungeon') {
+                const isBoss = Math.random() < BOSS_PROBABILITY;
 
-            return { creatures: creaturesData.creatures, bosses: bossesData };
-        } catch (error) {
-            throw new Error('Error al cargar los datos de enemigos.');
-        }
-    };
+                if (isBoss && bosses.length > 0) {
 
-    const selectEnemy = (creatures: CreatureInterface[], bosses: CreatureInterface[]) => {
-        if (type === 'dungeon') {
-            const isBoss = Math.random() < BOSS_PROBABILITY;
+                    const finalBosses = filterByLevel(bosses, dungeonLevel, true);
+                    const randomBoss = finalBosses[Math.floor(Math.random() * finalBosses.length)];
+                    const initialHealth = rollDice(randomBoss.hitPoints);
 
-            if (isBoss && bosses.length > 0) {
-                const finalBosses = filterByLevel(bosses, dungeonLevel, true);
-                const randomBoss = finalBosses[Math.floor(Math.random() * finalBosses.length)];
-                setTypeEnemy('boss');
-                return randomBoss;
+                    setCreature({ ...randomBoss, health: initialHealth });
+                    return;
+                }
             }
-        }
 
-        const finalCreatures = filterByLevel(creatures, level, false);
-        const randomCreature = finalCreatures[Math.floor(Math.random() * finalCreatures.length)];
-        setTypeEnemy('normal');
-        return randomCreature;
-    };
-
-    const fetchEnemy = async () => {
-        setIsLoading(true);
-        setError(null);
-
-        try {
-            const { creatures, bosses } = await loadEnemies();
-            const selectedEnemy = selectEnemy(creatures, bosses);
-            const initialHealth = rollDice(selectedEnemy.hitPoints);
-            setEnemy({ ...selectedEnemy, health: initialHealth });
+            const finalCreatures = filterByLevel(creatures, level, false);
+            const randomCreature = finalCreatures[Math.floor(Math.random() * finalCreatures.length)];
+            const initialHealth = rollDice(randomCreature.hitPoints);
+            setCreature({ ...randomCreature, health: initialHealth });
         } catch (err: any) {
-            setError(err.message || 'Error desconocido al cargar enemigos.');
+            setError(err.message || 'Error desconocido al seleccionar enemigo.');
         } finally {
             setIsLoading(false);
         }
@@ -92,15 +73,18 @@ export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy:
             const initialY = 45;
             const offsetX = 10 / 1.2;
             const offsetY = 20 / 1.5;
+           
             setPlayerPosition({ x: initialX - offsetX, y: initialY - offsetY });
             setEnemyPosition({ x: 45 - offsetX, y: 0 - offsetY });
         }, 1000);
     };
 
     useEffect(() => {
-        fetchEnemy();
-        
+        setIsLoading(true);
+        setError(null);
+        selectEnemy();
     }, [updateEnemy]);
 
-    return { enemy, isLoading, error, typeEnemy, handleNewEnemyClick };
+    return { isLoading, error, handleNewEnemyClick };
 }
+

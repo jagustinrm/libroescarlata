@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
-import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
+// import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
+import { Creature } from '../stores/types/creatures.ts';
 
 interface Position {
     x: number;
@@ -8,9 +9,10 @@ interface Position {
 }
 
 interface EnemyTurnProps {
-    enemy: CreatureInterface | null;
+    // creature: CreatureInterface | null;
+    creature: Creature | null;
     turn: string;
-    enemyHealth: number;
+
     player: { p_LeftHealth: number, armorClass: number };
     playerActions: { setP_LeftHealth: (health: number) => void };
     setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
@@ -21,9 +23,8 @@ interface EnemyTurnProps {
 }
 
 export const useEnemyTurn = ({
-    enemy,
+    creature,
     turn,
-    enemyHealth,
     player,
     playerActions,
     setActionMessages,
@@ -35,7 +36,7 @@ export const useEnemyTurn = ({
 }: EnemyTurnProps) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
-            if (turn === "enemy" && enemy && enemyHealth > 0 && player.p_LeftHealth > 0) {
+            if (turn === "enemy" && creature && creature.health && creature.health > 0 && player.p_LeftHealth > 0) {
                 const deltaX = playerPosition.x - enemyPosition.x;
                 const deltaY = playerPosition.y - enemyPosition.y;
 
@@ -56,9 +57,10 @@ export const useEnemyTurn = ({
             if (
                 playerPosition &&
                 
-                enemy &&
+                creature &&
                 turn === "enemy" &&
-                enemyHealth > 0 &&
+                creature.health &&
+                creature.health > 0 &&
                 player.p_LeftHealth > 0
             ) {
                 const distanceX = Math.abs(playerPosition.x - enemyPosition.x);
@@ -66,16 +68,16 @@ export const useEnemyTurn = ({
 
                 if (distanceX < 10 && distanceY < 10) {
                     const enemyAttackTimeout = setTimeout(() => {
-                        const totalAttack = rollDice('1d20') + enemy["attacks"][0].bonus;
+                        const totalAttack = rollDice('1d20') + creature["attacks"][0].bonus;
                         if (totalAttack > player.armorClass) {
-                            const damageDice = enemy["attacks"][0].damage;
+                            const damageDice = creature["attacks"][0].damage;
                             const damage = rollDice(damageDice);
 
                             playerActions.setP_LeftHealth(Math.max(player.p_LeftHealth - damage, 0));
 
                             setActionMessages((prev) => [
                                 ...prev,
-                                `El enemigo te ha atacado con ${enemy["attacks"][0].name} y causó ${damage} puntos de daño.`,
+                                `El enemigo te ha atacado con ${creature["attacks"][0].name} y causó ${damage} puntos de daño.`,
                             ]);
                         } else {
                             setActionMessages((prev) => [...prev, `¡El enemigo falló!`]);
@@ -88,7 +90,7 @@ export const useEnemyTurn = ({
                 } else {
                     switchTurn();
                 }
-            } else if (enemy && turn === "enemy" && enemyHealth > 0 && player.p_LeftHealth > 0) {
+            } else if (creature && turn === "enemy" && creature.health && creature.health > 0 && player.p_LeftHealth > 0) {
                 switchTurn();
             }
         }, 500);

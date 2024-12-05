@@ -45,6 +45,7 @@ export default function PetStore() {
   const handleSelectedPet = () => {
     if (selectedPet) {
       playerActions.setP_SelectedPet(selectedPet);
+      
       setShowMessage(true);
       setMessageContent('¡Seleccionaste a ' + selectedPet.name + '!');
       setMessageType('success');

@@ -3,6 +3,7 @@ export function checkLevelUp({calculateInitialHealth, player,
      expTable,
     }) {
     // Verificar si la experiencia actual es suficiente para subir de nivel
+
     const gainXpToNextLevel = (level) => {
         const levelSum = level + 1
         const nextLevelXp = expTable[levelSum.toString()] || expTable[20]; // Evitar que supere el nivel 20

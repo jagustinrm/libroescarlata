@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import './LandingPage.css';
 import { usePlayerStore } from '../stores/playerStore';
 import './UI/designRpg.css'
+
 const LandingPage: React.FC = () => {
     const { playerActions } = usePlayerStore(); // Obtén la acción para actualizar el store
     const [inputName, setInputName] = useState<string>(''); // Estado local para el input
@@ -13,7 +14,7 @@ const LandingPage: React.FC = () => {
         setInputName(''); // Limpia el input
         navigate('/characterSelector'); // Navega a la siguiente página
     };
-
+    
     return (
         <div className="landingContainer rpgui-container framed-golden-2">
             <div className='landingTitleContainer'>
@@ -31,6 +32,7 @@ const LandingPage: React.FC = () => {
                 onChange={(e) => setInputName(e.target.value)}
             />
             <button className='rpgui-button' onClick={handleSaveName}>Ingresar</button>
+
         </div>
     );
 };
