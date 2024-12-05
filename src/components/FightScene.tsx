@@ -70,7 +70,7 @@ export default function FightScene() {
     const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
     const { 
         // enemy, 
-        isLoading, error,  handleNewEnemyClick } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
+        isLoading,  handleNewEnemyClick } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
     const defaultQuests: QuestData = {
         questTree: {
             history: [],
@@ -164,7 +164,7 @@ export default function FightScene() {
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
     
     if (isLoading) return <p>Cargando enemigo...</p>;
-    if (error)  return <p>Error: {error}</p>;
+    // if (error)  return <p>Error: {error}</p>;
     return (
     <div className="fight-scene">
         <div className="turn-indicator">

@@ -4,12 +4,26 @@ import { useSearchParams } from "react-router-dom";
 // import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
 import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures';
-
+import { Dispatch, SetStateAction } from 'react';
+import { Player } from '../stores/types/player';
 const BOSS_PROBABILITY = 0.05; // 5% de probabilidad para bosses
+interface Position {
+    x: number;
+    y: number;
+}
+interface HandleNewEnemyClickParams {
+    player: Player;
+    handleMessage: (message: string, type: string, shouldClose: boolean) => void;
+    setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy">>;
+    updateEnemy: boolean;
+    setUpdateEnemy: Dispatch<SetStateAction<boolean>>;
+    setPlayerPosition: Dispatch<SetStateAction<Position>>;
+    setEnemyPosition: Dispatch<SetStateAction<Position>>;
+}
 
 export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy: boolean) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+
     const [searchParams] = useSearchParams();
 
     const type = searchParams.get("type") || "normal";
@@ -48,9 +62,7 @@ export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy:
             const randomCreature = finalCreatures[Math.floor(Math.random() * finalCreatures.length)];
             const initialHealth = rollDice(randomCreature.hitPoints);
             setCreature({ ...randomCreature, health: initialHealth });
-        } catch (err: any) {
-            setError(err.message || 'Error desconocido al seleccionar enemigo.');
-        } finally {
+        }  finally {
             setIsLoading(false);
         }
     };
@@ -63,7 +75,7 @@ export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy:
         setUpdateEnemy,
         setPlayerPosition,
         setEnemyPosition,
-    }: any) => {
+    }: HandleNewEnemyClickParams) => {
         handleMessage(`${player.name} busca un nuevo enemigo...`, "success", false);
         setTimeout(() => {
             setTurn("player");
@@ -81,10 +93,10 @@ export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy:
 
     useEffect(() => {
         setIsLoading(true);
-        setError(null);
+
         selectEnemy();
     }, [updateEnemy]);
 
-    return { isLoading, error, handleNewEnemyClick };
+    return { isLoading, handleNewEnemyClick };
 }
 

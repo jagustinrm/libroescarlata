@@ -172,8 +172,8 @@ button:disabled:hover {
     flex-direction: column;
     z-index: 40;
     position: absolute;
-    top: 5%;
-    left: 2%;
+    top: 4%;
+    left: 1%;
     padding: 1%;
 }
 .blackScreenAttacks{
