@@ -1,6 +1,8 @@
 El libro escarlata
 
 Cosas para hacer:
+STORAGE ENEMIGOS
+
 PROBAR BASE DE DATOS 
 Musica en el juego
 

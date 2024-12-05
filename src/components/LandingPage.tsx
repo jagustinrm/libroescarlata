@@ -31,7 +31,6 @@ const LandingPage: React.FC = () => {
                 onChange={(e) => setInputName(e.target.value)}
             />
             <button className='rpgui-button' onClick={handleSaveName}>Ingresar</button>
-            {/* <button className='rpgui-button'>Prueba</button> */}
         </div>
     );
 };

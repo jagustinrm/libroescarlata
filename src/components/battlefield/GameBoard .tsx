@@ -17,7 +17,7 @@ interface GameBoardProps {
   setCanAttack: React.Dispatch<React.SetStateAction<boolean>>;
   enemy: CreatureInterface | null
   setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy">>;
-
+  turn: "player" | "enemy"
   // **************************************************
   playerPosition: Position;
   enemyPosition: Position;
@@ -30,6 +30,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,
    playerPosition, 
    setPlayerPosition, 
    enemyPosition,
+   turn
 
   }) => {
   const totalButtons = 100; // Número total de botones
@@ -73,7 +74,10 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,
       Math.abs(button.y - loboPosition.y - offsetY) <= 3 * step;
 
     if (isWithinRange) {
-      setLoboPosition({ x: button.x - offsetX, y: button.y - offsetY });
+      if (turn === "player") {
+        setLoboPosition({ x: button.x - offsetX, y: button.y - offsetY });
+      }
+      
       setTurn("enemy")
 
     }

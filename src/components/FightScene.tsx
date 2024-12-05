@@ -19,14 +19,14 @@ import useInventoryStore from "../stores/inventoryStore.ts";
 import usePotionStore from "../stores/potionsStore.ts";
 import MessageBox from './UI/MessageBox.tsx';
 import { useEnemyTurn } from "../customHooks/useEnemyTurn.ts";
-import { handleNewEnemyClick } from "../utils/handleNewEnemyClick.ts";
 import { handleHealing } from "../utils/handleHealing.ts";
 import SoundPlayer from "./UI/soundPlayer/SoundPlayer.tsx";
 import GameBoard from "./battlefield/GameBoard .tsx";
 import useSpellStore from "../stores/spellsStore.ts";
 import Dropdown from "../utils/DropDown.tsx";
 // import { Spell } from "../stores/types/spells";
-
+import KeyboardController from "../utils/KeyboardController.ts";
+import PlayerCharacter from "./battlefield/PlayerCharacter.tsx";
 
 export default function FightScene() {
     const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
@@ -39,7 +39,6 @@ export default function FightScene() {
     const {spells} = useSpellStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
-
     const initialX = 0;
     const initialY = 45;
     // Compensar el ancho y alto de la imagen
@@ -70,7 +69,7 @@ export default function FightScene() {
     });
 
     const [updateEnemy, setUpdateEnemy] = useState<boolean>(false)
-    const { enemy, isLoading, error, typeEnemy } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
+    const { enemy, isLoading, error, typeEnemy,  handleNewEnemyClick } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
     const defaultQuests: QuestData = {
         questTree: {
             history: [],
@@ -81,7 +80,7 @@ export default function FightScene() {
     const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, enemy, quests || 
         defaultQuests, playerActions, player
     );
-    const [enemyHealth, setEnemyHealth] = useState<number>(1);
+    const [enemyHealth, setEnemyHealth] = useState<number>(1); // LO NECESITO PORQUE SE VA MODIFICANDO CONSTANTEMENTE
     const handleCheckLevelUp = () => {
         checkLevelUp({
             player,
@@ -101,71 +100,25 @@ export default function FightScene() {
     useEffect(() => {
         const pet = localStorage.getItem('pet')
         setPet(pet)
-
     }, [])
-
     useEffect(() => {
         if (triggerPostActions) {
             handlePostCombatActs(fightType, enemyHealth, typeEnemy);
             setTriggerPostActions(false); // Resetea el trigger
         }
-
     }, [triggerPostActions]);
 
-    useEffect(() => {
-        
-        if (enemyHealth === 0) {
-            handleMessage("¡Has ganado el combate!", "success", false);
-        }
-
+    useEffect(() => {if (enemyHealth === 0) {handleMessage("¡Has ganado el combate!", "success", false)}
     }, [enemyHealth]);
 
-    // Efecto para actualizar los estados cuando `enemy` esté disponible
-    useEffect(() => {
+    useEffect(() => {if (enemy) setEnemyHealth(enemy.health);}, [enemy]);
 
-        if (enemy) {
-            setEnemyHealth(enemy.health);
-        }
 
-    }, [enemy]);
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            setBoardPosition((prevPosition) => {
-                switch (event.key) {
-                    case "ArrowUp":
-                        return { ...prevPosition, top: Math.max(prevPosition.top - 1, 0) }; // Evitar valores negativos
-                    case "ArrowDown":
-                        return { ...prevPosition, top: Math.min(prevPosition.top + 1, 90) }; // Ajustar el límite inferior
-                    case "ArrowLeft":
-                        return { ...prevPosition, left: Math.max(prevPosition.left - 1, 0) }; // Evitar valores negativos
-                    case "ArrowRight":
-                        return { ...prevPosition, left: Math.min(prevPosition.left + 1, 90) }; // Ajustar el límite derecho
-                    default:
-                        return prevPosition;
-                }
-            });
-        };
-    
-        window.addEventListener("keydown", handleKeyDown);
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    }, []);
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
    
-    useEnemyTurn({
-        enemy,
-        turn,
-        enemyHealth,
-        player,
-        playerActions,
-        setActionMessages,
-        switchTurn,
-        playerPosition,
-        enemyPosition,
-        setEnemyPosition,
+    useEnemyTurn({enemy,turn, enemyHealth,player,playerActions,setActionMessages,switchTurn,
+        playerPosition,enemyPosition,setEnemyPosition,
 
     });
 
@@ -189,9 +142,7 @@ export default function FightScene() {
     const executeSpell = () => {
         if (turn !== "player" || !selectedSpell) return;  
         handleSpell({
-            enemyHealth, setEnemyHealth,
-            player, playerActions,
-            setActionMessages,
+            enemyHealth, setEnemyHealth,player, playerActions,setActionMessages,
             fightType, enemy, selectedSpell, spells, playerPosition, enemyPosition
         });
         setTriggerPostActions(true);
@@ -234,30 +185,12 @@ export default function FightScene() {
         <div className="turn-indicator">
         {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
         </div>
-            <div className="PlayerChar">
-                <div>
-                <p>{player.name}</p>
-                <p>🛡️ {player.classes}</p>
-                <p>Nivel {player.level}</p>
-                </div>
-            {/* Barra de vida */}
-            <div className="bars">
-                <div className="health-bar-container">
-                    <div className="health-bar" style={{ width: `${healthPercentage}%` }}></div>
-                    <span className="health-text">{player.p_LeftHealth} / {player.p_MaxHealth}</span>
-                </div>
-                    
-                            {/* Barra de experiencia */}
-                <div className="experience-bar-container">
-                    <div className="experience-bar" style={{ width: `${xpPercentage}%` }}></div>
-                    <span className="experience-text">{player.playerExp} / {player.p_ExpToNextLevel}</span>
-                </div>
-            </div>
-                
-                {pet? <p>Mascota: {pet}</p> : <></>}
-                
-
-            </div>
+        <PlayerCharacter 
+                player={player} 
+                healthPercentage={healthPercentage} 
+                xpPercentage={xpPercentage} 
+                pet={pet} 
+        />
             <div className="attacks">
                     <button className="rpgui-button newDesign" id="newDesign" onClick={executeAttack} disabled={!canAttack || enemyHealth === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
                         ⚔️
@@ -321,7 +254,7 @@ export default function FightScene() {
                 setCanAttack={setCanAttack} 
                 enemy= {enemy}  
                 setTurn = {setTurn}
-
+                turn = {turn}
                 //************************************************ */
                 playerPosition = {playerPosition}
                 setPlayerPosition = {setPlayerPosition}
@@ -381,6 +314,7 @@ export default function FightScene() {
                     onClose={() => handleClose(messageState.redirectHome)}
                 />
             )}
+            <KeyboardController setBoardPosition={setBoardPosition} />
         </div>
     );
 }

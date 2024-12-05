@@ -10,25 +10,21 @@ export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy:
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [searchParams] = useSearchParams();
-    const [typeEnemy, setTypeEnemy] = useState<'normal' | 'boss' >('normal');
+    const [typeEnemy, setTypeEnemy] = useState<'normal' | 'boss'>('normal');
     const type = searchParams.get("type") || "normal";
 
-    // Función auxiliar para filtrar enemigos por nivel
     const filterByLevel = (entities: CreatureInterface[], targetLevel: number, isBoss: boolean) => {
         const filtered = isBoss
-            ? entities.filter(entity => entity.level === targetLevel) // Bosses: solo nivel exacto
-            : entities.filter(entity => entity.level <= targetLevel); // Normales: mismo nivel o menor
+            ? entities.filter(entity => entity.level === targetLevel)
+            : entities.filter(entity => entity.level <= targetLevel);
 
         if (filtered.length > 0) return filtered;
 
         throw new Error(
-            `No se encontraron ${isBoss ? 'bosses' : 'criaturas normales'} para el nivel ${
-                isBoss ? dungeonLevel : level
-            }.`
+            `No se encontraron ${isBoss ? 'bosses' : 'criaturas normales'} para el nivel ${isBoss ? dungeonLevel : level}.`
         );
     };
 
-    // Función para cargar enemigos desde los archivos JSON
     const loadEnemies = async () => {
         try {
             const [creaturesRes, bossesRes] = await Promise.all([
@@ -44,7 +40,6 @@ export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy:
         }
     };
 
-    // Función principal para seleccionar un enemigo
     const selectEnemy = (creatures: CreatureInterface[], bosses: CreatureInterface[]) => {
         if (type === 'dungeon') {
             const isBoss = Math.random() < BOSS_PROBABILITY;
@@ -63,29 +58,49 @@ export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy:
         return randomCreature;
     };
 
+    const fetchEnemy = async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const { creatures, bosses } = await loadEnemies();
+            const selectedEnemy = selectEnemy(creatures, bosses);
+            const initialHealth = rollDice(selectedEnemy.hitPoints);
+            setEnemy({ ...selectedEnemy, health: initialHealth });
+        } catch (err: any) {
+            setError(err.message || 'Error desconocido al cargar enemigos.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleNewEnemyClick = ({
+        player,
+        handleMessage,
+        setTurn,
+        updateEnemy,
+        setUpdateEnemy,
+        setPlayerPosition,
+        setEnemyPosition,
+    }: any) => {
+        handleMessage(`${player.name} busca un nuevo enemigo...`, "success", false);
+        setTimeout(() => {
+            setTurn("player");
+            setUpdateEnemy(!updateEnemy);
+
+            const initialX = 0;
+            const initialY = 45;
+            const offsetX = 10 / 1.2;
+            const offsetY = 20 / 1.5;
+            setPlayerPosition({ x: initialX - offsetX, y: initialY - offsetY });
+            setEnemyPosition({ x: 45 - offsetX, y: 0 - offsetY });
+        }, 1000);
+    };
+
     useEffect(() => {
-        const fetchEnemy = async () => {
-            setIsLoading(true);
-            setError(null);
-
-            try {
-                const { creatures, bosses } = await loadEnemies();
-                const selectedEnemy = selectEnemy(creatures, bosses);
-
-                // Calcular puntos de vida iniciales
-                const initialHealth = rollDice(selectedEnemy.hitPoints);
-
-                // Configurar enemigo con salud inicial
-                setEnemy({ ...selectedEnemy, health: initialHealth });
-            } catch (err: any) {
-                setError(err.message || 'Error desconocido al cargar enemigos.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
         fetchEnemy();
+        
     }, [updateEnemy]);
 
-    return { enemy, isLoading, error, typeEnemy };
+    return { enemy, isLoading, error, typeEnemy, handleNewEnemyClick };
 }

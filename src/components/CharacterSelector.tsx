@@ -6,9 +6,9 @@ import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
 import {assignWeaponByClass} from '../utils/assignWeaponByClass.js'
 import { useNavigate } from 'react-router-dom';
 import {usePlayerStore} from '../stores/playerStore.js';
-import ClassLoader from '../loaders/ClassLoaders.js';
-import PotionsLoader from '../loaders/PotionsLoader.js';
-import WeaponLoader from '../loaders/NewWeaponLoader.js';
+// import ClassLoader from '../loaders/ClassLoaders.js';
+// import PotionsLoader from '../loaders/PotionsLoader.js';
+// import WeaponLoader from '../loaders/NewWeaponLoader.js';
 import useClassStore from '../stores/classStore';
 import { Class } from '../stores/types/class.js';
 import useInventoryStore from '../stores/inventoryStore';
@@ -64,13 +64,6 @@ export default function CharacterSelector() {
         playerActions.setSpell(["Bola de fuego"])
         localStorage.setItem('dungeonLevel', '1');
 
-        // type enemyCounter = {
-        //     id: number;
-        //     name: string;
-        //     count: number;
-        // };
-        // const deletedEnemies: enemyCounter[] = [];
-        // localStorage.setItem('deletedEnemies', JSON.stringify(deletedEnemies));
         type typeCompletedMQuests = {
             id: number;
             name: string;
@@ -84,9 +77,9 @@ export default function CharacterSelector() {
 
     return (
         <div className='containerClases  rpgui-container framed-golden-2'>
-            <WeaponLoader/>
+            {/* <WeaponLoader/>
             <PotionsLoader/>
-            <ClassLoader />
+            <ClassLoader /> */}
             <h1>Hola, {player.name ? player.name : 'invitade'}</h1>
 
             <p>Elige tu clase:</p>
