@@ -17,7 +17,13 @@ interface CombatHandlersProps {
     spells?: Spell[]
     charPositions?: { x: number; y: number }[]; 
     selectedSpell?: string;
+    playerPosition?: Position;
+    enemyPosition?: Position;
 }
+interface Position {
+    x: number;
+    y: number;
+  }
 
 export const handleAttack = ({setEnemyHealth, player, setActionMessages, enemy  }: CombatHandlersProps) => {
     const playerAttack = rollDice('1d20') + player.baseAttackBonus
@@ -40,11 +46,11 @@ export const handleAttack = ({setEnemyHealth, player, setActionMessages, enemy  
     }
 };
 
-export const handleSpell = ({setEnemyHealth, setActionMessages, spells, charPositions, selectedSpell   }: CombatHandlersProps) => {
+export const handleSpell = ({setEnemyHealth, setActionMessages, spells, enemyPosition, playerPosition, selectedSpell   }: CombatHandlersProps) => {
     const spellFullDetails = spells?.find(s => s.name === selectedSpell)
-    if (charPositions) {
-        const distanceX = Math.abs(charPositions[0].x - charPositions[1].x);
-        const distanceY = Math.abs(charPositions[0].y - charPositions[1].y);
+    if (playerPosition && enemyPosition) {
+        const distanceX = Math.abs(playerPosition.x - enemyPosition.x);
+        const distanceY = Math.abs(playerPosition.y - enemyPosition.y);
 
 
         if (spellFullDetails && distanceX < spellFullDetails.range && distanceY < spellFullDetails.range && spellFullDetails.damage ) {

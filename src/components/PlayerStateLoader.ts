@@ -29,7 +29,9 @@ const PlayerStateLoader = () => {
       playerActions.setP_SelectedPet(parsedPlayerState.selectedPet);
       playerActions.setP_SelectedWeapon(parsedPlayerState.selectedWeapon); 
       playerActions.setStats(parsedPlayerState.stats)
-      playerActions.addStatsLeftPoints(parsedPlayerState.leftPoints)
+      playerActions.setStatsLeftPoints(parsedPlayerState.leftPoints)
+      playerActions.setSpell(parsedPlayerState.spells)
+
     }
   }, []); 
 

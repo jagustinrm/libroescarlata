@@ -26,6 +26,8 @@ import GameBoard from "./battlefield/GameBoard .tsx";
 import useSpellStore from "../stores/spellsStore.ts";
 import Dropdown from "../utils/DropDown.tsx";
 // import { Spell } from "../stores/types/spells";
+
+
 export default function FightScene() {
     const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
@@ -37,7 +39,24 @@ export default function FightScene() {
     const {spells} = useSpellStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
-    const [charPositions, setCharPositions] = useState([{ x: 1, y: 1 },{ x: 1, y: 1 }])
+
+    const initialX = 0;
+    const initialY = 45;
+    // Compensar el ancho y alto de la imagen
+    const offsetX = 10 / 1.2;
+    const offsetY = 20 / 1.5;
+    const [playerPosition, setPlayerPosition] = useState(
+        { // PLAYER
+            x: initialX - offsetX,
+            y: initialY - offsetY,
+        },
+    )
+    const [enemyPosition, setEnemyPosition] = useState(
+        { // ENEMY
+            x: 45 - offsetX,
+            y: 0 - offsetY,
+        }
+    )
     const [soundType, setSoundType] = useState<string>('');
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
@@ -76,11 +95,13 @@ export default function FightScene() {
 // ************************USEEFFECTS ******************************
     useEffect(() => {
         handleCheckLevelUp(); // Verificar subida de nivel
+
     }, [player.playerExp]);
 
     useEffect(() => {
         const pet = localStorage.getItem('pet')
         setPet(pet)
+
     }, [])
 
     useEffect(() => {
@@ -88,19 +109,24 @@ export default function FightScene() {
             handlePostCombatActs(fightType, enemyHealth, typeEnemy);
             setTriggerPostActions(false); // Resetea el trigger
         }
+
     }, [triggerPostActions]);
 
     useEffect(() => {
+        
         if (enemyHealth === 0) {
             handleMessage("¡Has ganado el combate!", "success", false);
         }
+
     }, [enemyHealth]);
 
     // Efecto para actualizar los estados cuando `enemy` esté disponible
     useEffect(() => {
+
         if (enemy) {
             setEnemyHealth(enemy.health);
         }
+
     }, [enemy]);
 
     useEffect(() => {
@@ -128,6 +154,7 @@ export default function FightScene() {
     }, []);
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
+   
     useEnemyTurn({
         enemy,
         turn,
@@ -136,8 +163,12 @@ export default function FightScene() {
         playerActions,
         setActionMessages,
         switchTurn,
-        charPositions
+        playerPosition,
+        enemyPosition,
+        setEnemyPosition,
+
     });
+
     const executeAttack = () => {
         if (turn !== "player") return;
         setSoundType("attack")
@@ -161,7 +192,7 @@ export default function FightScene() {
             enemyHealth, setEnemyHealth,
             player, playerActions,
             setActionMessages,
-            fightType, enemy, selectedSpell, spells, charPositions
+            fightType, enemy, selectedSpell, spells, playerPosition, enemyPosition
         });
         setTriggerPostActions(true);
         switchTurn();
@@ -288,8 +319,14 @@ export default function FightScene() {
                     }}
                 ><GameBoard 
                 setCanAttack={setCanAttack} 
-                setCharPositions = {setCharPositions}  
                 enemy= {enemy}  
+                setTurn = {setTurn}
+
+                //************************************************ */
+                playerPosition = {playerPosition}
+                setPlayerPosition = {setPlayerPosition}
+                enemyPosition = {enemyPosition}
+                setEnemyPosition = {setEnemyPosition}
                 />
                 </div>
                 <div className="defetedMessage">{player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}</div>
@@ -304,6 +341,8 @@ export default function FightScene() {
                         setTurn,
                         updateEnemy,
                         setUpdateEnemy,
+                        setPlayerPosition,
+                        setEnemyPosition,
                     })} 
                         className="rpgui-button endBattleButton"> 
                         ⚔️ Seguir

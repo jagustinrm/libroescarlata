@@ -16,26 +16,32 @@ interface Button {
 interface GameBoardProps {
   setCanAttack: React.Dispatch<React.SetStateAction<boolean>>;
   enemy: CreatureInterface | null
-  setCharPositions: React.Dispatch<React.SetStateAction<Position[]>>;
+  setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy">>;
+
+  // **************************************************
+  playerPosition: Position;
+  enemyPosition: Position;
+  setPlayerPosition: React.Dispatch<React.SetStateAction<Position>>;
+  setEnemyPosition: React.Dispatch<React.SetStateAction<Position>>;
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,  setCharPositions }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy, 
+   setTurn, 
+   playerPosition, 
+   setPlayerPosition, 
+   enemyPosition,
+
+  }) => {
   const totalButtons = 100; // Número total de botones
   const step = 5; // Tamaño del paso en vw
-  const initialX = 0;
-  const initialY = 45;
+  // const initialX = 0;
+  // const initialY = 45;
   // Compensar el ancho y alto de la imagen
   const offsetX = 10 / 1.2;
   const offsetY = 20 / 1.5;
   // Estados para posiciones y botones
-  const [loboPosition, setLoboPosition] = useState<Position>({
-    x: initialX - offsetX,
-    y: initialY - offsetY,
-  });
-  const [enemyPosition, setEnemyPosition] = useState<Position>({
-    x: 45 - offsetX,
-    y: 0 - offsetY,
-  });
+  const [loboPosition, setLoboPosition] = useState<Position>(playerPosition);
+  // const [enemyPosition] = useState<Position>(charPositions[1] );
   const [buttons, setButtons] = useState<Button[]>([]);
  
   // Generar botones al montar el componente
@@ -48,31 +54,17 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,  setCharPosi
     }
     setButtons(generatedButtons);
   }, []);
+
+  
   useEffect(() => {
     // Al actualizarse la posición, actualizamos las posiciones del jugador y el enemigo
     if (enemy) {
-      setCharPositions([loboPosition, enemyPosition]);
+      // setCharPositions([loboPosition, enemyPosition]);
+      setPlayerPosition({x: loboPosition.x, y: loboPosition.y})
     }
-  }, [loboPosition, enemyPosition]);
+  }, [loboPosition]);
   // Función para mover el enemigo hacia el lobo
-  const moveEnemy = () => {
-    const deltaX = loboPosition.x - enemyPosition.x;
-    const deltaY = loboPosition.y - enemyPosition.y;
 
-    const stepSize = step;
-
-    const newX =
-      Math.abs(deltaX) > stepSize
-        ? enemyPosition.x + (deltaX > 0 ? stepSize : -stepSize)
-        : enemyPosition.x;
-
-    const newY =
-      Math.abs(deltaY) > stepSize
-        ? enemyPosition.y + (deltaY > 0 ? stepSize : -stepSize)
-        : enemyPosition.y;
-
-    setEnemyPosition({ x: newX, y: newY });
-  };
 
   // Manejador para mover el lobo
   const handleButtonClick = (button: Button) => {
@@ -82,8 +74,10 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,  setCharPosi
 
     if (isWithinRange) {
       setLoboPosition({ x: button.x - offsetX, y: button.y - offsetY });
-      moveEnemy();
+      setTurn("enemy")
+
     }
+ 
   };
 
   // Calcular si un botón está en el rango permitido
@@ -98,19 +92,14 @@ const GameBoard: React.FC<GameBoardProps> = ({ setCanAttack, enemy,  setCharPosi
   const near = (): boolean => {
     const distanceX = Math.abs(loboPosition.x - enemyPosition.x);
     const distanceY = Math.abs(loboPosition.y - enemyPosition.y);
-    return distanceX <= step && distanceY <= step;
+    return distanceX <= 5 && distanceY <= 5;
   };
 
   // Efecto para actualizar el estado de `canAttack`
   useEffect(() => {
     setCanAttack(near());
-  }, [loboPosition, enemyPosition, setCanAttack]);
+  }, [playerPosition, setCanAttack]);
 
-
-
-
-
-  
   return (
     <div className="containerGameBoard">
       {buttons.map((button, index) => (
