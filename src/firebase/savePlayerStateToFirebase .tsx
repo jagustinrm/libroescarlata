@@ -7,6 +7,8 @@ import { Player } from '../stores/types/player';
 // Función para comparar propiedades específicas de dos objetos
 const comparePlayerState = (player1: Player, player2:Player) => {
   // Compara solo las propiedades 'name' y 'level'
+  console.log(player1)
+  console.log(player2)
   if (!player1) return false
   return player1.name === player2.name &&
          player1.level === player2.level &&
