@@ -8,13 +8,31 @@ const LandingPage: React.FC = () => {
     const { playerActions } = usePlayerStore(); // Obtén la acción para actualizar el store
     const [inputName, setInputName] = useState<string>(''); // Estado local para el input
     const navigate = useNavigate(); // Hook para navegar
-
+    const [playerName, setPlayerName] = useState('');
     const handleSaveName = () => {
         playerActions.setPlayerName(inputName); // Actualiza el nombre en el store
         setInputName(''); // Limpia el input
         navigate('/characterSelector'); // Navega a la siguiente página
     };
     
+
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPlayerName(event.target.value);
+      };
+    
+      // Función para manejar el submit del formulario
+      const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        if (playerName) {
+          // Navega a la ruta para cargar los datos del jugador
+          navigate(`/loadPlayer/${playerName}`);
+        } else {
+          alert('Por favor, ingresa un nombre de jugador.');
+        }
+      };
+
+
     return (
         <div className="landingContainer rpgui-container framed-golden-2">
             <div className='landingTitleContainer'>
@@ -32,7 +50,16 @@ const LandingPage: React.FC = () => {
                 onChange={(e) => setInputName(e.target.value)}
             />
             <button className='rpgui-button' onClick={handleSaveName}>Ingresar</button>
-
+            <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                id="playerName"
+                value={playerName}
+                onChange={handleInputChange}
+                placeholder="Ingresa el nombre del jugador"
+            />
+            <button type="submit">Cargar Jugador</button>
+            </form>
         </div>
     );
 };

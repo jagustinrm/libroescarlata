@@ -28,6 +28,8 @@ import Dropdown from "../utils/DropDown.tsx";
 import KeyboardController from "../utils/KeyboardController.ts";
 import PlayerCharacter from "./battlefield/PlayerCharacter.tsx";
 import useCreatureStore from "../stores/creatures.ts";
+import EndBattleActions from "./battlefield/EndBattleActions.tsx";
+import EnemyChar from "./battlefield/EnemyChar.tsx";
 export default function FightScene() {
     const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
@@ -97,6 +99,11 @@ export default function FightScene() {
         handleCheckLevelUp(); // Verificar subida de nivel
     }, [player.playerExp]);
 
+    useEffect(() => {
+        if (player.p_LeftHealth === 0) {
+            handleMessage("¡Has sido derrotado!", "warning",true)
+        }}, [player.p_LeftHealth]);
+
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
    
@@ -121,7 +128,6 @@ export default function FightScene() {
         setTimeout(() => {
             setSoundType("")
           }, 1000);
-     
     };
 
     const executeSpell = () => {
@@ -176,124 +182,92 @@ export default function FightScene() {
                 xpPercentage={xpPercentage} 
                 pet={player.selectedPet} 
         />
-            
-            <div className="attacks">
-                    <div className="blackScreenAttacks"></div>
-                    <button className="rpgui-button newDesign espada" id="newDesign" onClick={executeAttack} disabled={!canAttack || creature.health === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
-                        ⚔️
-                    </button>
-                    {pocion && (
-                         <button className="rpgui-button newDesign" id="newDesign" onClick={() => handleHealing({        player,
-                            inventories,
-                            potions,
-                            removeItem,
-                            playerActions,
-                            handleMessage,
-                            })} disabled={creature.health === 0 || player.p_LeftHealth === 0}>
-                           {
-                             // Buscar la poción en la lista de potions y mostrar la imagen
-                             (() => {
-                               const foundPotion = potions.find(p => p.name === "Poción de Curación Menor");
-                               return foundPotion ? <img className="potionImg" src={foundPotion.img} alt={foundPotion.name} /> : null;
-                             })()
-                           }
-                         </button>
-                      )}
-                
-                    <div className="rpgui-container framed rpgui-draggable">
-                    <Dropdown
-                        id="spell-dropdown"
-                        options={player.spells || []}
-                        value={selectedSpell}
-                        onChange={(value) => setSelectedSpell(value)}
-                        disabled={turn !== "player" || creature.health === 0}
-                    />
-                        <button
-                            onClick={executeSpell}
-                            disabled={turn !== "player" || !selectedSpell || creature.health === 0}
-                        >
-                            Lanzar hechizo
-                        </button>
-                    </div>
-                    {fightType === 'normal' || player.p_LeftHealth === 0 ?  
-                    <button onClick={() => handleMessage(
-                        "¡Has huido del combate!",
-                        "warning",
-                        true
-                        )} className="rpgui-button newDesign huir">
-                    😨 Huir</button> : <></>}  
-                   
-            </div>   
-
-            <div>
-            {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
-                <ul className="action-log">
-                    {actionMessages.map((message, index) => (
-                        <li key={index}>{message}</li>  
-                    ))}
-                </ul>
-                <div
-                    className="gameBoard"
-                    style={{
-                        position: "absolute",
-                        top: `${boardPosition.top}%`,
-                        left: `${boardPosition.left}%`,
-                    }}
-                ><GameBoard 
-                setCanAttack={setCanAttack} 
-                creature= {creature}  
-                setTurn = {setTurn}
-                turn = {turn}
-                playerPosition = {playerPosition}
-                setPlayerPosition = {setPlayerPosition}
-                enemyPosition = {enemyPosition}
-                setEnemyPosition = {setEnemyPosition}
-                />
-                </div>
-                <div className="defetedMessage">{player.p_LeftHealth === 0 && <p>¡Has sido derrotado!</p>}</div>
-
-                {creature.health === 0 && 
-                <div>
-                    <div  className="container-endBattle">
-                    <button onClick={() => handleNewEnemyClick({
-                        player,
-                        handleMessage,
-                        setTurn,
-                        updateEnemy,
-                        setUpdateEnemy,
-                        setPlayerPosition,
-                        setEnemyPosition,
-                    })} 
-                        className="rpgui-button endBattleButton"> 
-                        ⚔️ Seguir
-                    </button>
-                    {fightType === 'normal'?  <button className="rpgui-button endBattleButton" onClick={() => handleMessage(
-                    "¡Has vuelto sano y salvo!",
-                    "warning",
-                    true
-                    )}> Volver</button> : <></>}
-                    </div>
-                    <div className="blackScreen"></div>
-                </div>
-                }
-            </div>
-            <div className="EnemyChar">
-                {creature.role === 'boss'? <h1 className="bossSign">BOSS</h1> : <></>}
-                {creature? (
-                    <div>
-                        <h3>{creature.name}</h3>
-                        <p>Nivel: {creature.level}</p>
-                        <p>Vida: {creature.health }</p>
-                            
-                    </div>
-                ) : (
-                    <p>No hay enemigo seleccionado.</p>
+        <div className="attacks">
+            <div className="blackScreenAttacks"></div>
+                <button className="rpgui-button newDesign espada" id="newDesign" onClick={executeAttack} disabled={!canAttack || creature.health === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
+                    ⚔️
+                </button>
+                {pocion && (
+                <button className="rpgui-button newDesign" id="newDesign" onClick={() => handleHealing({        player,
+                    inventories,
+                    potions,
+                    removeItem,
+                    playerActions,
+                    handleMessage,
+                    })} disabled={creature.health === 0 || player.p_LeftHealth === 0}>
+                   {
+                     // Buscar la poción en la lista de potions y mostrar la imagen
+                     (() => {
+                       const foundPotion = potions.find(p => p.name === "Poción de Curación Menor");
+                       return foundPotion ? <img className="potionImg" src={foundPotion.img} alt={foundPotion.name} /> : null;
+                     })()
+                   }
+                </button>
                 )}
+        
+            <div className="rpgui-container framed rpgui-draggable">
+                <Dropdown
+                    id="spell-dropdown"
+                    options={player.spells || []}
+                    value={selectedSpell}
+                    onChange={(value) => setSelectedSpell(value)}
+                    disabled={turn !== "player" || creature.health === 0}
+                />
+                <button
+                    onClick={executeSpell}
+                    disabled={turn !== "player" || !selectedSpell || creature.health === 0}
+                >
+                    Lanzar hechizo
+                </button>
             </div>
-            {soundType &&
-            <SoundPlayer soundType={soundType} volume={0.2} />
-            }
-            
+            {fightType === 'normal' || player.p_LeftHealth === 0 ?  
+            <button onClick={() => handleMessage(
+                "¡Has huido del combate!",
+                "warning",
+                true
+                )} className="rpgui-button newDesign huir">
+            😨 Huir</button> : <></>}        
+        </div>   
+        <div>
+        {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
+            <ul className="action-log">
+                {actionMessages.map((message, index) => (
+                    <li key={index}>{message}</li>  
+                ))}
+            </ul>
+            <div
+                className="gameBoard"
+                style={{
+                    position: "absolute",
+                    top: `${boardPosition.top}%`,
+                    left: `${boardPosition.left}%`,
+                }}
+            ><GameBoard 
+            setCanAttack={setCanAttack} 
+            creature= {creature}  
+            setTurn = {setTurn}
+            turn = {turn}
+            playerPosition = {playerPosition}
+            setPlayerPosition = {setPlayerPosition}
+            enemyPosition = {enemyPosition}
+            setEnemyPosition = {setEnemyPosition}
+            />
+            </div>
+            <EndBattleActions
+                creatureHealth={creature.health}
+                handleNewEnemyClick={handleNewEnemyClick}
+                fightType={fightType}
+                player={player}
+                handleMessage={handleMessage}
+                setTurn={setTurn}
+                updateEnemy={updateEnemy}
+                setUpdateEnemy={setUpdateEnemy}
+                setPlayerPosition={setPlayerPosition}
+                setEnemyPosition={setEnemyPosition}
+            />
+        </div>
+        <EnemyChar creature={creature} />
+            {soundType &&<SoundPlayer soundType={soundType} volume={0.2} />}
             {messageState.show && (
                 <MessageBox
                     message={messageState.content}

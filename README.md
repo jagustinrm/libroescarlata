@@ -1,14 +1,13 @@
 El libro escarlata
 
 Cosas para hacer:
-STORAGE ENEMIGOS
 
 PROBAR BASE DE DATOS 
 Musica en el juego
 
 
 Estadísticas
-Verificar doble cartel de peleas
+
 Que haya una opción desplegable cuando paso por arriba del arma actual.
 Traducir tienda
 Mejorar tema de misiones ( que no sean botones)

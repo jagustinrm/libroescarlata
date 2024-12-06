@@ -29,7 +29,7 @@ export interface Player {
   stats: Stats,
   statsIncrease: Stats;
   leftPoints: number;
-  enemiesDeleted: { name: string; count: number }[];
+  enemiesDeleted: { count: number, name: string}[];
   spells: string[]
 }
 

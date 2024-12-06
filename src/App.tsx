@@ -23,6 +23,10 @@ import DelayedDisplay from './utils/DelayedDisplayProps';
 import { useState, useEffect } from 'react';
 import SpellLoader from './loaders/SpellsLoader';
 import CreatureLoader from './loaders/CreaturesLoaders';
+import MyComponent from './firebase/componenteFireBase.js'
+import TestFirebaseRead from './firebase/TestFirebaseRead.js';
+import PlayerStateSaver from './firebase/savePlayerStateToFirebase .js';
+import LoadPlayerFromFirebase from './firebase/loadPlayerState.js';
 function App() {
   const { player } = usePlayerStore();
   const { inventories } = useInventoryStore();
@@ -55,7 +59,9 @@ function App() {
       <CreatureLoader/>
       <ItemShopLoader />
       <InventoryStateLoader />
+      <PlayerStateSaver />
       <HomeProvider>
+     
         <div className="music-controls">
           <button onClick={() => setIsMusicPlaying(!isMusicPlaying)}>
             {isMusicPlaying ? '🔊' : '🔈'}
@@ -68,6 +74,7 @@ function App() {
 
         {/* Aplicamos DelayedDisplay a todas las rutas */}
         <DelayedDisplay delay={300} duration={200}>
+
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/characterSelector" element={<CharacterSelector />} />
@@ -77,7 +84,11 @@ function App() {
             <Route path="/petStore" element={<PetStore />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/itemShop" element={<ItemShop />} />
-            <Route path="/playerStats" element={<PlayerStats />} />
+            <Route path="/playerstats" element={<PlayerStats />} />
+            <Route path="/firebase" element={< MyComponent />} />
+            <Route path="/testread" element={< TestFirebaseRead />} />
+            <Route path="/loadPlayer/:playerName" element={<LoadPlayerFromFirebase />} />
+            
           </Routes>
         </DelayedDisplay>
       </HomeProvider>
