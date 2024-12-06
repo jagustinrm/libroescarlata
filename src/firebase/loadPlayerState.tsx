@@ -33,11 +33,7 @@ const LoadPlayerFromFirebase = () => {
           playerActions.setClassFeature(playerData.classFeatures);
           playerActions.setP_LeftHealth(playerData.p_LeftHealth)
           playerActions.setP_MaxHealth(playerData.p_MaxHealth)
-
-          playerData.classes.forEach((newClass: string) => {
-            playerActions.addClasses(newClass);
-          });
-
+          playerActions.setPlayerClass(playerData.classes)
           playerActions.setP_SelectedPet(playerData.selectedPet);
           playerActions.setP_SelectedWeapon(playerData.selectedWeapon);
           playerActions.setStats(playerData.stats);

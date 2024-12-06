@@ -3,14 +3,15 @@ import { getDatabase } from "firebase/database";
 
 // Configuración de Firebase (copiada desde la consola)
 const firebaseConfig = {
-  apiKey: "AIzaSyDzZ3hoJs2D5-WOv5OyCHuy2qE4r4HEMfw",
-  authDomain: "el-libro-escarlata.firebaseapp.com",
-  projectId: "el-libro-escarlata",
-  storageBucket: "el-libro-escarlata.firebasestorage.app",
-  messagingSenderId: "399923124576",
-  appId: "1:399923124576:web:d6c27db4c79916e8a32605",
-  measurementId: "G-7W7NMHHWM2"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
+
 
 // Inicializa Firebase
 export const app = initializeApp(firebaseConfig);

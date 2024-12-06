@@ -27,6 +27,7 @@
 
 .nameInput {
     text-shadow: none;
+    width:250px ;
 }
   button {
     display: block;
@@ -46,4 +47,17 @@ button:hover {
 }
 button:active {
     transform: scale(0.95);
+}
+
+.playerLoaderButton {
+    display: flex;
+    flex-direction: row;
+    max-height: 60px;
+    align-items: center;
+
+}
+
+.playerLoadButton {
+    width: 10px;
+
 }

@@ -1,7 +1,7 @@
 [
     {
         "name": "Rey Esqueleto",
-        "img": "/img/bosses/rey_esqueleto.png",
+        "img": "/img/bosses/skeleton_king.png",
         "type": "no-muerto",
         "alignment": "caótico maligno",
         "level": 5,
@@ -11,13 +11,13 @@
             {
                 "name": "Espada Maldita",
                 "type": "melee",
-                "bonus": "+4",
+                "bonus": 4,
                 "damage": "2d8"
             },
             {
                 "name": "Rayo de Oscuridad",
                 "type": "rango",
-                "bonus": "+3",
+                "bonus": 3,
                 "damage": "3d6"
             }
         ],
@@ -29,7 +29,7 @@
     },
     {
         "name": "Dragón de Fuego",
-        "img": "/img/bosses/dragon_fuego.png",
+        "img": "/img/bosses/fire_dragon.png",
         "type": "dragón",
         "alignment": "neutral maligno",
         "level": 10,
@@ -39,13 +39,13 @@
             {
                 "name": "Mordida",
                 "type": "melee",
-                "bonus": "+6",
+                "bonus": 6,
                 "damage": "3d10"
             },
             {
                 "name": "Aliento de Fuego",
                 "type": "rango",
-                "bonus": "+5",
+                "bonus": 5,
                 "damage": "8d6"
             }
         ],
@@ -57,7 +57,7 @@
     },
     {
         "name": "Demonio de la Desesperación",
-        "img": "/img/bosses/demonio_desesperacion.png",
+        "img": "/img/bosses/desesperate_demon.png",
         "type": "demonio",
         "alignment": "caótico maligno",
         "level": 7,
@@ -67,13 +67,13 @@
             {
                 "name": "Garras",
                 "type": "melee",
-                "bonus": "+5",
+                "bonus": 5,
                 "damage": "2d6"
             },
             {
                 "name": "Llama Infernal",
                 "type": "rango",
-                "bonus": "+4",
+                "bonus": 4,
                 "damage": "4d8"
             }
         ],
@@ -85,7 +85,7 @@
     },
     {
         "name": "Titan de Piedra",
-        "img": "/img/bosses/titan_piedra.png",
+        "img": "/img/bosses/stone_titan.png",
         "type": "constructo",
         "alignment": "neutral",
         "level": 8,
@@ -95,13 +95,13 @@
             {
                 "name": "Martillo Gigante",
                 "type": "melee",
-                "bonus": "+5",
+                "bonus": 5,
                 "damage": "4d10"
             },
             {
                 "name": "Lanzamiento de Rocas",
                 "type": "rango",
-                "bonus": "+3",
+                "bonus": 3,
                 "damage": "3d8"
             }
         ],
@@ -123,13 +123,13 @@
             {
                 "name": "Rayo de Escarcha",
                 "type": "rango",
-                "bonus": "+4",
+                "bonus": 4,
                 "damage": "3d6"
             },
             {
                 "name": "Explosión de Hielo",
                 "type": "área",
-                "bonus": "+3",
+                "bonus": 3,
                 "damage": "4d8"
             }
         ],
@@ -151,13 +151,13 @@
             {
                 "name": "Espada corta",
                 "type": "melee",
-                "bonus": "+2",
+                "bonus": 2,
                 "damage": "1d6"
             },
             {
                 "name": "Arco corto",
                 "type": "rango",
-                "bonus": "+2",
+                "bonus": 2,
                 "damage": "1d6"
             }
         ],
@@ -178,7 +178,7 @@
             {
                 "name": "Mordida",
                 "type": "melee",
-                "bonus": "+1",
+                "bonus": 1,
                 "damage": "1d8"
             }
         ],
@@ -199,7 +199,7 @@
             {
                 "name": "Mordida",
                 "type": "melee",
-                "bonus": "+3",
+                "bonus": 3,
                 "damage": "1d10 + veneno"
             }
         ],
@@ -221,7 +221,7 @@
             {
                 "name": "Golpe",
                 "type": "melee",
-                "bonus": "+1",
+                "bonus": 1,
                 "damage": "1d6"
             }
         ],
@@ -242,7 +242,7 @@
             {
                 "name": "Dardo mágico",
                 "type": "rango",
-                "bonus": "+3",
+                "bonus": 3,
                 "damage": "1d6"
             }
         ],
@@ -263,13 +263,13 @@
             {
                 "name": "Bombas caseras",
                 "type": "rango",
-                "bonus": "+2",
+                "bonus": 2,
                 "damage": "1d8"
             },
             {
                 "name": "Daga oxidada",
                 "type": "melee",
-                "bonus": "+1",
+                "bonus": 1,
                 "damage": "1d4"
             }
         ],

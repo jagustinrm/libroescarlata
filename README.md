@@ -2,14 +2,20 @@ El libro escarlata
 
 Cosas para hacer:
 El boss missea todo
-CAMBIAR BASE DE DATOS CARGA DE INVENTARIO PARA QUE CARGUE APARTE LOS INVENTARIOS
+
+INVENTORY:
+    -CAMBIAR BASE DE DATOS CARGA DE INVENTARIO PARA QUE CARGUE APARTE LOS INVENTARIOS
+    -Ver addItem de InventoryStore, porque carga de a uno y a veces puedo hacerlo en lotes, como cuando hago un load.
+
+Musica en el juego:
+    -Pasos
+    -Ataque enemigo
+    -Magias
+    -Música de cada sección
 
 
-PROBAR BASE DE DATOS 
-Musica en el juego
-
-Ver addItem de InventoryStore, porque carga de a uno y a veces puedo hacerlo en lotes, como cuando hago un load.
-Estadísticas
+Estadísticas:
+    -Que suban los stats necesarios
 
 Que haya una opción desplegable cuando paso por arriba del arma actual.
 Traducir tienda

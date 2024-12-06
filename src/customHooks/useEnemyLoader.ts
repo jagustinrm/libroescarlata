@@ -6,7 +6,7 @@ import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures';
 import { Dispatch, SetStateAction } from 'react';
 import { Player } from '../stores/types/player';
-const BOSS_PROBABILITY = 0.05; // 5% de probabilidad para bosses
+const BOSS_PROBABILITY = 0.5; // 5% de probabilidad para bosses
 interface Position {
     x: number;
     y: number;
@@ -23,22 +23,25 @@ interface HandleNewEnemyClickParams {
 
 export function useEnemyLoader(level: number, dungeonLevel: number, updateEnemy: boolean) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
-
     const [searchParams] = useSearchParams();
-
     const type = searchParams.get("type") || "normal";
-
     const { creatures, bosses, setCreature } = useCreatureStore();
 
     const filterByLevel = (entities: Creature[], targetLevel: number, isBoss: boolean) => {
         const filtered = isBoss
             ? entities.filter(entity => entity.level === targetLevel)
             : entities.filter(entity => entity.level <= targetLevel);
-
+    
+        // Si `isBoss` es verdadero pero no se encuentran bosses exactos, buscar bosses de nivel menor o igual
+        if (isBoss && filtered.length === 0) {
+            const fallbackFiltered = entities.filter(entity => entity.level <= targetLevel);
+            if (fallbackFiltered.length > 0) return fallbackFiltered;
+        }
+    
         if (filtered.length > 0) return filtered;
-        console.log(filtered)
+    
         throw new Error(
-            `No se encontraron ${isBoss ? 'bosses' : 'criaturas normales'} para el nivel ${isBoss ? dungeonLevel : level}.`
+            `No se encontraron ${isBoss ? 'bosses' : 'criaturas normales'} para el nivel ${targetLevel}.`
         );
     };
 

@@ -39,7 +39,7 @@ const LandingPage: React.FC = () => {
 
       localStorage.removeItem('playerState');
       localStorage.removeItem('inventoryState');
-      
+
 
     return (
         <div className="landingContainer rpgui-container framed-golden-2">
@@ -50,24 +50,31 @@ const LandingPage: React.FC = () => {
             <p>Una persona se acerca hacia donde estás. Pasa entre las cenizas que flotan sobre los cadáveres de tu pueblo, mezclando su sobretodo negro con el humo que se esparce alrededor. Su máscara con forma de pájaro y el graznido de un cuervo que lo sobrevuela te erizan al piel. </p>
             <p> Se acerca, medio rengueando, y una vez que se encuentra delante tuyo mira tus ojos llorozos y te pregunta el nombre... </p>
             <h3>Tu nombre es: {inputName}</h3>
-            <input
-                className='nameInput'
-                type="text"
-                placeholder="Ingresá tu nombre"
-                value={inputName}
-                onChange={(e) => setInputName(e.target.value)}
-            />
-            <button className='rpgui-button' onClick={handleSaveName}>Ingresar</button>
-            <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                id="playerName"
-                value={playerName}
-                onChange={handleInputChange}
-                placeholder="Ingresa el nombre del jugador"
-            />
-            <button type="submit">Cargar Jugador</button>
-            </form>
+            <div>
+              <div>
+                <input
+                    className='nameInput'
+                    type="text"
+                    placeholder="Ingresá tu nombre"
+                    value={inputName}
+                    onChange={(e) => setInputName(e.target.value)}
+                />
+                  <button className='rpgui-button' onClick={handleSaveName}>Ingresar</button>
+              </div>
+              <div>
+                <form onSubmit={handleSubmit}  className='playerLoaderButton'>
+                  <input
+                      type="text"
+                      id="playerName"
+                      className='nameInput'
+                      value={playerName}
+                      onChange={handleInputChange}
+                      placeholder="Cargar personaje"
+                  />
+                  <button className='rpgui-button playerLoadButton' type="submit">Cargar</button>
+                </form>
+              </div>
+            </div>
         </div>
     );
 };
