@@ -20,7 +20,6 @@ export default function CharacterSelector() {
     const { classes, areClassesLoaded } = useClassStore();
     const {weapons} = useWeaponStore();
     const { player, playerActions} = usePlayerStore();
-    const {inventories} = useInventoryStore()
     const inventoryStore = useInventoryStore.getState()
     const handleButtonClick = (classData: Class) => {
         const { className, hitDie, classFeatures, armorClass, baseAttackBonus, saves} = classData;
@@ -33,7 +32,10 @@ export default function CharacterSelector() {
         playerActions.setP_ExpToNextLevel(1000)
         playerActions.setP_ExpPrevLevel(0)
         playerActions.setPlayerMaterial(100)
-        inventoryStore.createInventory('player1_inventory');
+        //****************** INVENTNARIO */
+        playerActions.setInventory(`${player.name}_inventory`)
+        inventoryStore.createInventory(`${player.name}_inventory`);
+        //****************** INVENTNARIO */
         playerActions.setClassFeature(classFeatures)
         playerActions.setArmorClass(armorClass)
         playerActions.setBaseAttackBonus(baseAttackBonus)
@@ -57,10 +59,10 @@ export default function CharacterSelector() {
             cha: 0,
         })
         playerActions.setStatsLeftPoints(25)
-        assignWeaponByClass(className, classes, 
-                weapons, playerActions.setP_SelectedWeapon, inventoryStore, inventories,
+        assignWeaponByClass({className, classes, 
+                weapons, playerActions, inventoryStore,
                 player,
-        );
+        });
         playerActions.setSpell(["Bola de fuego"])
         localStorage.setItem('dungeonLevel', '1');
 

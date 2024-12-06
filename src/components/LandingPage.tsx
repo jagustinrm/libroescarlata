@@ -10,7 +10,9 @@ const LandingPage: React.FC = () => {
     const navigate = useNavigate(); // Hook para navegar
     const [playerName, setPlayerName] = useState('');
     const handleSaveName = () => {
+        
         playerActions.setPlayerName(inputName); // Actualiza el nombre en el store
+        if (inputName === '') playerActions.setPlayerName('guest-player') // Si el usuario no ingresa nada, le ponemos nombre
         setInputName(''); // Limpia el input
         navigate('/characterSelector'); // Navega a la siguiente página
     };
@@ -25,13 +27,19 @@ const LandingPage: React.FC = () => {
       const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         if (playerName) {
-          // Navega a la ruta para cargar los datos del jugador
+          if (playerName === '') {
+            const guestPlayer =  "guest-player"
+            navigate(`/loadPlayer/${guestPlayer}`);
+          }
           navigate(`/loadPlayer/${playerName}`);
         } else {
           alert('Por favor, ingresa un nombre de jugador.');
         }
       };
 
+      localStorage.removeItem('playerState');
+      localStorage.removeItem('inventoryState');
+      
 
     return (
         <div className="landingContainer rpgui-container framed-golden-2">

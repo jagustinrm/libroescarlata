@@ -1,11 +1,14 @@
 El libro escarlata
 
 Cosas para hacer:
+El boss missea todo
+CAMBIAR BASE DE DATOS CARGA DE INVENTARIO PARA QUE CARGUE APARTE LOS INVENTARIOS
+
 
 PROBAR BASE DE DATOS 
 Musica en el juego
 
-
+Ver addItem de InventoryStore, porque carga de a uno y a veces puedo hacerlo en lotes, como cuando hago un load.
 Estadísticas
 
 Que haya una opción desplegable cuando paso por arriba del arma actual.

@@ -67,6 +67,7 @@ export interface PlayerActions {
   addStatsIncrease: (points: number, type: keyof Player['stats']) => void;
   setSpell: (spells: string[]) => void
   addSpell: (spell: string) => void;
+  setInventory: (inventory: string) => void;
 }
 
 // Interfaz para el store del player

@@ -31,6 +31,7 @@ const PlayerStateLoader = () => {
       playerActions.setStats(parsedPlayerState.stats)
       playerActions.setStatsLeftPoints(parsedPlayerState.leftPoints)
       playerActions.setSpell(parsedPlayerState.spells)
+      playerActions.setInventory(parsedPlayerState.inventoryId)
 
     }
   }, []); 

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Inventory } from '../stores/types/inventory';
 import useInventoryStore from '../stores/inventoryStore';
-
+import usePlayerStore from '../stores/playerStore';
 const InventoryStateLoader = () => {
   const { createInventory, addItem } = useInventoryStore()
-
+  const {player} = usePlayerStore();
   useEffect(() => {
     const storedInventoryState = localStorage.getItem('inventoryState');
     
@@ -13,18 +13,25 @@ const InventoryStateLoader = () => {
       
      
       // Crea el inventario si no existe
-      createInventory('player1_inventory');
-
-      if (typeof parsedInventoryState['player1_inventory'] === 'object' &&
-          parsedInventoryState['player1_inventory'] !== null) { 
-
+      createInventory(`${player.name}_inventory`);
+      console.log(parsedInventoryState)
+      console.log(player)
+      console.log(parsedInventoryState[player.inventoryId]
+      )
+      if (typeof parsedInventoryState[`${player.name}_inventory`] === 'object' &&
+          parsedInventoryState[`${player.name}_inventory`] !== null) { 
+     
            // Recorre cada categoría del inventario (weapons, potions, etc.)
-      Object.keys(parsedInventoryState['player1_inventory']).forEach((category) => {
-        const items = parsedInventoryState['player1_inventory'][category]; // Obtiene el array de items
+      Object.keys(parsedInventoryState[`${player.name}_inventory`]).forEach((category) => {
+        const items = parsedInventoryState[`${player.name}_inventory`][category]; // Obtiene el array de items
+        // console.log(items)
+
+
+
         if (Array.isArray(items)) {
           items.forEach((item) => {
 
-            addItem('player1_inventory',  category as keyof Inventory, item); // Agrega cada ítem
+            addItem(`${player.name}_inventory`,  category as keyof Inventory, item); // Agrega cada ítem
           });
         }
       });
@@ -33,7 +40,7 @@ const InventoryStateLoader = () => {
       
   
     }
-  }, []);
+  }, [player]);
 
   return null; 
 };

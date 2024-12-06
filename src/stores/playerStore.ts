@@ -40,15 +40,19 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     classFeatures: [],
     selectedPet: '',
     selectedWeapon: null,
-    inventoryId: 'player1_inventory',
     playerMaterial: 0,
     petsName: [],
     enemiesDeleted: [],
     spells:[],
+    inventoryId: '',
   },
 
   // Agrupamos las acciones relacionadas con el jugador
   playerActions: {
+    setInventory: (inventory) =>
+      set((state) => ({
+        player: { ...state.player, inventoryId: inventory  },
+      })),
     setSaves: (saves) =>
       set((state) => ({
         player: {
@@ -108,6 +112,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, stats: { ...newStats } },
       })),
+
     setPlayerMaterial: (playerMaterial) =>
       set((state) => ({
         player: { ...state.player, playerMaterial },
