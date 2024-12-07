@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 
+
 interface KeyboardControllerProps {
     setBoardPosition: React.Dispatch<React.SetStateAction<{ top: number; left: number }>>;
 }
@@ -26,6 +27,7 @@ const KeyboardController: React.FC<KeyboardControllerProps> = ({ setBoardPositio
         window.addEventListener("keydown", handleKeyDown);
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
+            
         };
     }, [setBoardPosition]);
 
@@ -33,3 +35,6 @@ const KeyboardController: React.FC<KeyboardControllerProps> = ({ setBoardPositio
 };
 
 export default KeyboardController;
+
+
+

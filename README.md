@@ -1,14 +1,13 @@
 El libro escarlata
 
 Cosas para hacer:
-El boss missea todo
+
 
 INVENTORY:
     -CAMBIAR BASE DE DATOS CARGA DE INVENTARIO PARA QUE CARGUE APARTE LOS INVENTARIOS
-    -Ver addItem de InventoryStore, porque carga de a uno y a veces puedo hacerlo en lotes, como cuando hago un load.
 
 Musica en el juego:
-    -Pasos
+    -Pasos (Arreglar sonido al caminar)
     -Ataque enemigo
     -Magias
     -Música de cada sección
@@ -20,7 +19,7 @@ Estadísticas:
 Que haya una opción desplegable cuando paso por arriba del arma actual.
 Traducir tienda
 Mejorar tema de misiones ( que no sean botones)
-Cuando mato al boss del dungeon me debería preguntar si quiero seguir o salir.
+
 Que las misiones den recompenza.
 Aliado para pelear en la tienda
 Dropeo de enemigos.

@@ -123,11 +123,10 @@ export default function FightScene() {
             setActionMessages,
             creature, handleMessage, handlePostCombatActs, fightType
         });
-        // setTriggerPostActions(true);
         switchTurn(); 
         setTimeout(() => {
             setSoundType("")
-          }, 1000);
+          }, 300);
     };
 
     const executeSpell = () => {
@@ -251,9 +250,11 @@ export default function FightScene() {
             setPlayerPosition = {setPlayerPosition}
             enemyPosition = {enemyPosition}
             setEnemyPosition = {setEnemyPosition}
+            SoundPlayer = {SoundPlayer}
             />
             </div>
             <EndBattleActions
+                creature = {creature}
                 creatureHealth={creature.health}
                 handleNewEnemyClick={handleNewEnemyClick}
                 fightType={fightType}

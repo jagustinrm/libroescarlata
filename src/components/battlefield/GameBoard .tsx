@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./GameBoard.css";
 import { Creature } from "../../stores/types/creatures";
-
+import { SoundPlayerProps } from "../UI/soundPlayer/SoundPlayer";
 // Definir tipos para las posiciones y botones
 interface Position {
   x: number;
@@ -13,6 +13,8 @@ interface Button {
   y: number;
 }
 
+
+
 interface GameBoardProps {
   setCanAttack: React.Dispatch<React.SetStateAction<boolean>>;
   creature: Creature | null;
@@ -22,6 +24,7 @@ interface GameBoardProps {
   enemyPosition: Position;
   setPlayerPosition: React.Dispatch<React.SetStateAction<Position>>;
   setEnemyPosition: React.Dispatch<React.SetStateAction<Position>>;
+  SoundPlayer: React.FC<SoundPlayerProps>;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -32,6 +35,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   setPlayerPosition,
   enemyPosition,
   turn,
+  SoundPlayer,
 }) => {
   const totalButtons = 100; // Número total de botones
   const step = 5; // Tamaño del paso en vw
@@ -40,6 +44,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
 
   // Estados para los botones
   const [buttons, setButtons] = useState<Button[]>([]);
+  const [playSound, setPlaySound] = useState(false);
 
   // Generar botones al montar el componente
   useEffect(() => {
@@ -61,8 +66,11 @@ const GameBoard: React.FC<GameBoardProps> = ({
     if (isWithinRange) {
       if (turn === "player") {
         setPlayerPosition({ x: button.x - offsetX, y: button.y - offsetY });
+        setPlaySound(true); // Activar sonido
       }
-
+      setTimeout(() => {
+        setPlaySound(false)
+      }, 300);
       setTurn("enemy");
     }
   };
@@ -115,6 +123,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
           transform: `translate(${enemyPosition.x}vw, ${enemyPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
         }}
       />
+      {playSound && <SoundPlayer soundType="charStep" volume={0.5} />}
     </div>
   );
 };

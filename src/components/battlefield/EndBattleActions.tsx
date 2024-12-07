@@ -1,5 +1,6 @@
 import React from 'react';
 import { Player } from '../../stores/types/player';
+import { Creature } from '../../stores/types/creatures';
 interface NewEnemyClickParams {
     player: Player
     handleMessage: (message: string, type: string, shouldClose: boolean) => void;
@@ -21,6 +22,7 @@ interface EndBattleActionsProps {
     setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
     setPlayerPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>;
     setEnemyPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>;
+    creature: Creature;
 }
 
 const EndBattleActions: React.FC<EndBattleActionsProps> = ({
@@ -34,6 +36,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
     setUpdateEnemy,
     setPlayerPosition,
     setEnemyPosition,
+    creature
 }) => {
     if (creatureHealth !== 0) return null;
 
@@ -56,7 +59,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
                 >
                     ⚔️ Seguir
                 </button>
-                {fightType === 'normal' && (
+                {fightType === 'normal' || creature.role === 'boss' && (
                     <button
                         className="rpgui-button endBattleButton"
                         onClick={() =>

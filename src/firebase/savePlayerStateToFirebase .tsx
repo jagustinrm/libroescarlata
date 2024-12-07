@@ -46,7 +46,7 @@ const PlayerStateSaver = () => {
     console.log(inventory)
     const intervalId = setInterval(() => {
       savePlayerStateToFirebase(playerId, player, inventory);
-    }, 10000); // 30 segundos
+    }, 1000000000); // 30 segundos
 
     // Limpiar el intervalo cuando el componente se desmonte
     return () => clearInterval(intervalId);
