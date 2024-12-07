@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 export interface SoundPlayerProps {
   soundType: string;
-  volume?: number; // Propiedad opcional para el volumen
+  volume?: number; 
 }
 
 const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 1 }) => {
@@ -19,6 +19,25 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 1 }) => {
     return () => document.removeEventListener("click", enableAudio);
   }, []);
 
+  // Este useEffect se encarga de activar el audio al hacer hover en los botones con la clase 'rpgui-button'
+  useEffect(() => {
+    const handleHover = () => {
+      setCanPlayAudio(true);
+    };
+
+    const buttons = document.querySelectorAll(".rpgui-button");
+    buttons.forEach(button => {
+      button.addEventListener("mouseover", handleHover);
+      
+    });
+
+    // Limpiar los event listeners cuando el componente se desmonte
+    return () => {
+      buttons.forEach(button => {
+        button.removeEventListener("mouseleave", handleHover);
+      });
+    };
+  }, []); // Este efecto solo se ejecuta una vez cuando el componente se monta
   
   useEffect(() => {
     if (canPlayAudio && audioRef.current) {
