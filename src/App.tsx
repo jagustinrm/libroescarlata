@@ -27,22 +27,12 @@ import MyComponent from './firebase/componenteFireBase.js'
 import TestFirebaseRead from './firebase/TestFirebaseRead.js';
 import PlayerStateSaver from './firebase/savePlayerStateToFirebase .js';
 import LoadPlayerFromFirebase from './firebase/loadPlayerState.js';
+import SoundPlayer from './components/UI/soundPlayer/SoundPlayer.js';
 function App() {
   const { player } = usePlayerStore();
   const { inventories } = useInventoryStore();
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
-  useEffect(() => {
-    const audio = document.getElementById('background-music') as HTMLAudioElement; // Casting explícito
-    if (isMusicPlaying) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-    return () => {
-      audio.pause();
-    };
-  }, [isMusicPlaying]);
 
   window.addEventListener('beforeunload', () => {
     localStorage.setItem('playerState', JSON.stringify(player));
@@ -61,16 +51,12 @@ function App() {
       <InventoryStateLoader />
       <PlayerStateSaver />
       <HomeProvider>
-     
+      {isMusicPlaying && <SoundPlayer soundType={"medievalAmbient"} volume={1} />}
         <div className="music-controls">
           <button onClick={() => setIsMusicPlaying(!isMusicPlaying)}>
             {isMusicPlaying ? '🔊' : '🔈'}
           </button>
         </div>
-        <audio id="background-music" loop>
-          <source src="/music/medieval-ambient.mp3" type="audio/mp3" />
-          Your browser does not support the audio element.
-        </audio>
 
         {/* Aplicamos DelayedDisplay a todas las rutas */}
         <DelayedDisplay delay={300} duration={200}>

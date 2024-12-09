@@ -30,7 +30,7 @@ const PlayerStateLoader = () => {
       playerActions.setStatsLeftPoints(parsedPlayerState.leftPoints)
       playerActions.setSpell(parsedPlayerState.spells)
       playerActions.setInventory(parsedPlayerState.inventoryId)
-
+      playerActions.setClassImg(parsedPlayerState.classImg)
     }
   }, []); 
 

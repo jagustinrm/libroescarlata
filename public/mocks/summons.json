@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Mochi",
+        "img": "/img/summons/mochi.png",
+        "type": "slime/animal",
+        "alignment": "neutral",
+        "level": 1,
+        "hitPoints": "1d4",
+        "armorClass": 10,
+        "attacks": [
+            {
+                "name": "mordisco",
+                "type": "melee",
+                "bonus": 1,
+                "damage": "1d3"
+            }
+        ],
+        "specialAbilities": [
+            "forma gelatinosa",
+            "elasticidad",
+            "salto rápido"
+        ]
+    }
+    
+]

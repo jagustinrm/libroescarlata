@@ -7,58 +7,72 @@ export interface SoundPlayerProps {
 
 const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 1 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [canPlayAudio, setCanPlayAudio] = useState(false); // Estado para habilitar la reproducción
+  // const [canPlayAudio, setCanPlayAudio] = useState(false);
 
-  // Este useEffect es para habilitar la reproducción de audio con clic
-  useEffect(() => {
-    const enableAudio = () => {
-      setCanPlayAudio(true);
-      document.removeEventListener("click", enableAudio); // Remover evento de clic después de la primera interacción
-    };
-    document.addEventListener("click", enableAudio);
-    return () => document.removeEventListener("click", enableAudio);
-  }, []);
+  // console.log("Estado inicial canPlayAudio:", canPlayAudio);
 
-  // Este useEffect se encarga de activar el audio al hacer hover en los botones con la clase 'rpgui-button'
-  useEffect(() => {
-    const handleHover = () => {
-      setCanPlayAudio(true);
-    };
+  // // Habilitar la reproducción de audio con clic inicial
+  // useEffect(() => {
+  //   const enableAudio = () => {
 
-    const buttons = document.querySelectorAll(".rpgui-button");
-    buttons.forEach(button => {
-      button.addEventListener("mouseover", handleHover);
-      
-    });
-
-    // Limpiar los event listeners cuando el componente se desmonte
-    return () => {
-      buttons.forEach(button => {
-        button.removeEventListener("mouseleave", handleHover);
-      });
-    };
-  }, []); // Este efecto solo se ejecuta una vez cuando el componente se monta
+  //     setCanPlayAudio(true);
+  //     document.removeEventListener("click", enableAudio);
+  //   };
+    
+  //   // Habilita audio al hacer clic en cualquier parte del documento
+  //   document.addEventListener("click", enableAudio);
   
-  useEffect(() => {
-    if (canPlayAudio && audioRef.current) {
-      audioRef.current.pause(); // Pausa cualquier audio previamente en reproducción
-      audioRef.current.currentTime = 0; // Reinicia el tiempo
-      audioRef.current.volume = volume; // Ajusta el volumen
-      audioRef.current.play().catch((err) => {
-        console.error("Error al reproducir el audio:", err);
-      });
-    }
-  }, [soundType, volume, canPlayAudio]);
+  //   return () => document.removeEventListener("click", enableAudio);
+  // }, []);
 
-  // Función para determinar qué archivo de sonido usar según el `soundType`
+  // // Manejar hover en los botones
+  // useEffect(() => {
+  //   const handleHover = () => {
+  //     console.log("Entré al handleHover, habilitando reproducción");
+  //     setCanPlayAudio(true);
+  //   };
+
+  //   const buttons = document.querySelectorAll(".rpgui-button");
+  //   buttons.forEach((button) => button.addEventListener("mouseover", handleHover));
+
+  //   // Cleanup: Remover listeners correctamente
+  //   return () => {
+  //     buttons.forEach((button) => button.removeEventListener("mouseover", handleHover));
+  //   };
+  // }, []); // Ejecutar solo una vez al montar
+
+  // Reproducir sonido cuando cambie `canPlayAudio`
+  useEffect(() => {
+   
+    console.log("Referencia audioRef:", audioRef.current);
+    if (
+      // canPlayAudio &&
+        audioRef.current) {
+      try {
+        // audioRef.current.pause();-
+        audioRef.current.currentTime = 0;
+        audioRef.current.volume = volume;
+        audioRef.current.play();
+      } catch (err) {
+        console.error("Error al reproducir el audio:", err);
+      }
+    }
+  }, [
+    // canPlayAudio, 
+    soundType, volume]);
+
+  // Obtener archivo de sonido
   const getSoundFile = () => {
+
     switch (soundType) {
       case "attack":
         return "/music/sword-sound.mp3";
       case "charStep":
         return "/music/grass_step.mp3";
-      case "button3":
-        return "/path/to/sound3.mp3";
+      case "medievalAmbient":
+        return "/music/medieval-ambient.mp3";
+      case "buttonSound":
+        return "/music/buttonSound.mp3"
       default:
         return "/path/to/default-sound.mp3";
     }

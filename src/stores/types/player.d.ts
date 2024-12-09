@@ -31,6 +31,7 @@ export interface Player {
   leftPoints: number;
   enemiesDeleted: { count: number, name: string}[];
   spells: string[]
+  classImg: string;
 }
 
 // Interfaz para las acciones relacionadas con el jugador
@@ -68,6 +69,7 @@ export interface PlayerActions {
   setSpell: (spells: string[]) => void
   addSpell: (spell: string) => void;
   setInventory: (inventory: string) => void;
+  setClassImg: (classImg: string) => void;
 }
 
 // Interfaz para el store del player

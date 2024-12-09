@@ -45,6 +45,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     enemiesDeleted: [],
     spells:[],
     inventoryId: '',
+    classImg: '',
   },
 
   // Agrupamos las acciones relacionadas con el jugador
@@ -149,6 +150,10 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, armorClass },
       })),
+      setClassImg: (classImg) =>
+        set((state) => ({
+          player: { ...state.player, classImg },
+        })),
     setBaseAttackBonus: (baseAttackBonus) =>
       set((state) => ({
         player: { ...state.player, baseAttackBonus },

@@ -86,9 +86,9 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, id, disab
 
       <ul
         id={id ? `${id}-rpgui-dropdown` : undefined}
-        className="rpgui-dropdown-imp"
+        className="rpgui-dropdown-imp listSize"
         ref={listRef}
-        style={{ display: isOpen ? "block" : "none", position: "absolute" }}
+        style={{ display: isOpen ? "block" : "none"}}
       >
         {options.map((option, index) => (
           <li

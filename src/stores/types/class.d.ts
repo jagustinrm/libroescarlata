@@ -11,7 +11,8 @@ export interface Class {
         will: string;
     };
     classFeatures: string[];
-    
+    img: string;
+    initialSpells: string[];
 }
 
 interface ClassStore {

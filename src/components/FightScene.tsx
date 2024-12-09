@@ -10,7 +10,8 @@ import { useEnemyLoader } from "../customHooks/useEnemyLoader.ts";
 import { checkLevelUp } from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
-import { handleAttack, handleSpell} from '../utils/combatHandlers';
+// import { handleAttack, handleSpell} from '../utils/combatHandlers';
+import { handleCombatAction } from '../utils/combatHandlers';
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
 // @ts-expect-error Para que funcione 
@@ -30,6 +31,7 @@ import PlayerCharacter from "./battlefield/PlayerCharacter.tsx";
 import useCreatureStore from "../stores/creatures.ts";
 import EndBattleActions from "./battlefield/EndBattleActions.tsx";
 import EnemyChar from "./battlefield/EnemyChar.tsx";
+import { Creature } from "../stores/types/creatures.ts";
 export default function FightScene() {
     const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
@@ -58,12 +60,34 @@ export default function FightScene() {
             y: 0 - offsetY,
         }
     )
+    const [summon, setSummon] = useState<Creature | null>(null);
+    const [summonPosition, setSummonPosition] = useState(
+        { // ENEMY
+            x: playerPosition.x + 6,
+            y: playerPosition.y + 4,
+        }
+    )
     const [soundType, setSoundType] = useState<string>('');
     const {expTable, setExpTable}  = useExpTable()
     const [actionMessages, setActionMessages] = useState<string[]>([]);  // Estado para el mensaje de acción
     const {quests} = useLoadQuests();
-    const [turn, setTurn] = useState<"player" | "enemy">("player");
-    const switchTurn = () => {setTurn((prevTurn) => (prevTurn === "player" ? "enemy" : "player"))};
+    const [turn, setTurn] = useState<"player" | "enemy" | "summon">("player");
+    const switchTurn = () => {
+        setTurn((prevTurn) => {
+          if (prevTurn === "player") {
+            // Si es el turno del jugador y existe un summon
+            return summon ? "summon" : "enemy";
+          } else if (prevTurn === "summon") {
+            // Si es el turno del summon, pasa al enemigo
+            return "enemy";
+          } else if (prevTurn === "enemy") {
+            // Si es el turno del enemigo, pasa al jugador
+            return "player";
+          }
+          return prevTurn; // Fallback en caso de un estado no esperado
+        });
+      };
+    console.log(turn)
     const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
         const storedLevel = localStorage.getItem("dungeonLevel");
         return storedLevel ? parseInt(storedLevel, 10) : 1;
@@ -94,6 +118,7 @@ export default function FightScene() {
     };
     const [canAttack, setCanAttack] = useState(false)
     const [selectedSpell, setSelectedSpell] = useState<string>(''); 
+
 // ************************USEEFFECTS ******************************
     useEffect(() => {
         handleCheckLevelUp(); // Verificar subida de nivel
@@ -103,10 +128,35 @@ export default function FightScene() {
         if (player.p_LeftHealth === 0) {
             handleMessage("¡Has sido derrotado!", "warning",true)
         }}, [player.p_LeftHealth]);
+    useEffect(() => {
+        setSummonPosition({
+            x: playerPosition.x + 6,
+            y: playerPosition.y + 4, 
+        })
+    }, [summon])
 
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
    
+  const handleAction = (actionType: "attack" | "spell" | "move", additionalData?: any) => {
+
+    handleCombatAction(actionType, {
+      player,
+      creature,
+      spells,
+      setActionMessages,
+      playerPosition,
+      enemyPosition,
+      setPlayerPosition,
+      setTurn,
+      turn,
+      selectedSpell,
+      setSummon, switchTurn,
+      handlePostCombatActs, fightType,
+      handleMessage
+    }, additionalData);
+  };
+
     useEnemyTurn({
         // enemy
         creature,
@@ -118,26 +168,17 @@ export default function FightScene() {
     const executeAttack = () => {
         if (turn !== "player") return;
         setSoundType("attack")
-        handleAttack({
-            player, playerActions,
-            setActionMessages,
-            creature, handleMessage, handlePostCombatActs, fightType
-        });
-        switchTurn(); 
+        handleAction("attack")
         setTimeout(() => {
             setSoundType("")
           }, 300);
     };
-
+    
     const executeSpell = () => {
         if (turn !== "player" || !selectedSpell) return;  
-        handleSpell({
-            player, playerActions,setActionMessages,
-            creature, selectedSpell, spells, 
-            playerPosition, enemyPosition, handleMessage, handlePostCombatActs, fightType
-        });
-        switchTurn();
+        handleAction("spell")
     };
+
 
 // ************************COMBATE *************************
 
@@ -183,11 +224,12 @@ export default function FightScene() {
         />
         <div className="attacks">
             <div className="blackScreenAttacks"></div>
+            <div className="attackAndPotions">
                 <button className="rpgui-button newDesign espada" id="newDesign" onClick={executeAttack} disabled={!canAttack || creature.health === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
                     ⚔️
                 </button>
                 {pocion && (
-                <button className="rpgui-button newDesign" id="newDesign" onClick={() => handleHealing({        player,
+                <button className="rpgui-button newDesign potionsButton" id="newDesign" onClick={() => handleHealing({        player,
                     inventories,
                     potions,
                     removeItem,
@@ -203,8 +245,9 @@ export default function FightScene() {
                    }
                 </button>
                 )}
-        
+            </div>
             <div className="rpgui-container framed rpgui-draggable">
+                <div>
                 <Dropdown
                     id="spell-dropdown"
                     options={player.spells || []}
@@ -212,6 +255,7 @@ export default function FightScene() {
                     onChange={(value) => setSelectedSpell(value)}
                     disabled={turn !== "player" || creature.health === 0}
                 />
+                </div>
                 <button
                     onClick={executeSpell}
                     disabled={turn !== "player" || !selectedSpell || creature.health === 0}
@@ -251,6 +295,12 @@ export default function FightScene() {
             enemyPosition = {enemyPosition}
             setEnemyPosition = {setEnemyPosition}
             SoundPlayer = {SoundPlayer}
+            playerImg = {player.classImg}
+            summon = {summon}
+            setSummon = {setSummon}
+            summonPosition =  {summonPosition}
+            switchTurn = {switchTurn}
+            // setSummonPosition = {setSummonPosition}
             />
             </div>
             <EndBattleActions

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./GameBoard.css";
 import { Creature } from "../../stores/types/creatures";
 import { SoundPlayerProps } from "../UI/soundPlayer/SoundPlayer";
+// import { handleButtonClick } from "../../utils/combatHandlers";
+import { handleCombatAction } from "../../utils/combatHandlers";
 // Definir tipos para las posiciones y botones
 interface Position {
   x: number;
@@ -13,18 +15,22 @@ interface Button {
   y: number;
 }
 
-
-
 interface GameBoardProps {
   setCanAttack: React.Dispatch<React.SetStateAction<boolean>>;
   creature: Creature | null;
-  setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy">>;
-  turn: "player" | "enemy";
+  setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy" | "summon">>;
+  turn: "player" | "enemy" | "summon";
   playerPosition: Position;
   enemyPosition: Position;
   setPlayerPosition: React.Dispatch<React.SetStateAction<Position>>;
   setEnemyPosition: React.Dispatch<React.SetStateAction<Position>>;
   SoundPlayer: React.FC<SoundPlayerProps>;
+  playerImg: string;
+  summon?: Creature | null
+  setSummon: React.Dispatch<React.SetStateAction<Creature | null>>;
+  summonPosition: Position;
+  switchTurn: () => void
+  // setSummonPosition: React.Dispatch<React.SetStateAction<Position>>;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -36,6 +42,11 @@ const GameBoard: React.FC<GameBoardProps> = ({
   enemyPosition,
   turn,
   SoundPlayer,
+  playerImg,
+  summon,
+  summonPosition,
+  switchTurn
+  // setSummon,
 }) => {
   const totalButtons = 100; // Número total de botones
   const step = 5; // Tamaño del paso en vw
@@ -58,22 +69,35 @@ const GameBoard: React.FC<GameBoardProps> = ({
   }, []);
 
   // Manejador para mover al jugador
-  const handleButtonClick = (button: Button) => {
-    const isWithinRange =
-      Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
-      Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step;
+  // const handleButtonClick = (button: Button) => {
+  //   const isWithinRange =
+  //     Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
+  //     Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step;
 
-    if (isWithinRange) {
-      if (turn === "player") {
-        setPlayerPosition({ x: button.x - offsetX, y: button.y - offsetY });
-        setPlaySound(true); // Activar sonido
-      }
-      setTimeout(() => {
-        setPlaySound(false)
-      }, 300);
-      setTurn("enemy");
-    }
+  //   if (isWithinRange) {
+  //     if (turn === "player") {
+  //       setPlayerPosition({ x: button.x - offsetX, y: button.y - offsetY });
+  //       setPlaySound(true); // Activar sonido
+  //     }
+  //     setTimeout(() => {
+  //       setPlaySound(false);
+  //     }, 300);
+  //     setTurn("enemy");
+  //   }
+  // };
+  const handleAction = (actionType: "attack" | "spell" | "move", additionalData?: any) => {
+    handleCombatAction(actionType, {
+      // creature,
+      playerPosition,
+      // enemyPosition,
+      setPlayerPosition,
+      setTurn,
+      turn, switchTurn
+    }, additionalData);
+  
   };
+
+
 
   // Calcular si un botón está en el rango permitido
   const isButtonHighlighted = (button: Button): boolean => {
@@ -87,7 +111,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const near = (): boolean => {
     const distanceX = Math.abs(playerPosition.x - enemyPosition.x);
     const distanceY = Math.abs(playerPosition.y - enemyPosition.y);
-    return distanceX <= 5 && distanceY <= 5;
+    return distanceX <= 10 && distanceY <= 10;
   };
 
   // Efecto para actualizar el estado de `canAttack`
@@ -104,13 +128,23 @@ const GameBoard: React.FC<GameBoardProps> = ({
           style={{
             transform: `translate(${button.x}vw, ${button.y}vw)`,
           }}
-          onClick={() => handleButtonClick(button)}
+          // onClick=
+          // {() => 
+          //   handleButtonClick({
+          //   playerPosition, 
+          //   setPlayerPosition, 
+          //   setTurn, 
+          //   turn
+          // }, button)}
+          onClick={() => 
+            handleAction("move", button)
+          }
         />
       ))}
       <img
-        src="/experimentarImg/wolfAlfa.png"
-        alt="Lobo"
-        className="lobo"
+        src={playerImg}
+        alt="player"
+        className="playerChar"
         style={{
           transform: `translate(${playerPosition.x}vw, ${playerPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
         }}
@@ -123,7 +157,18 @@ const GameBoard: React.FC<GameBoardProps> = ({
           transform: `translate(${enemyPosition.x}vw, ${enemyPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
         }}
       />
-      {playSound && <SoundPlayer soundType="charStep" volume={0.5} />}
+      {/* Mostrar la imagen del summon si existe */}
+      {summon && (
+        <img
+          src={summon.img}  // Asumiendo que summon tiene una propiedad 'img' que contiene la URL
+          alt="Summon"
+          className="summon"
+          style={{
+            transform: `translate(${summonPosition.x}vw, ${summonPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`, // Ajusta la posición al lado del jugador
+          }}
+        />
+      )}
+      {playSound && <SoundPlayer soundType="charStep" volume={1} />}
     </div>
   );
 };

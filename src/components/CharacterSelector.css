@@ -70,3 +70,25 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.containerClassSelector{
+    display: flex;
+    flex-direction: row;
+}
+
+.classDetailsContainer {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    background-color: #2e2e2e;
+    color: white;
+    text-align: center;
+    width: 600px
+    
+}
+
+.classDetailsContainer img {
+    width: 250px;
+    height: auto;
+    margin: 10px 0;
+}

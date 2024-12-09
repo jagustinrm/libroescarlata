@@ -4,7 +4,7 @@ import { Creature } from '../../stores/types/creatures';
 interface NewEnemyClickParams {
     player: Player
     handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-    setTurn:  React.Dispatch<React.SetStateAction<"player" | "enemy">>;
+    setTurn:  React.Dispatch<React.SetStateAction<"player" | "enemy" | "summon">>;
     updateEnemy: boolean;
     setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
     setPlayerPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>;
@@ -17,7 +17,7 @@ interface EndBattleActionsProps {
     fightType: string;
     player: Player 
     handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-    setTurn:  React.Dispatch<React.SetStateAction<"player" | "enemy">>;
+    setTurn:  React.Dispatch<React.SetStateAction<"player" | "enemy" | "summon" >>;
     updateEnemy: boolean;
     setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
     setPlayerPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>;
@@ -39,7 +39,8 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
     creature
 }) => {
     if (creatureHealth !== 0) return null;
-
+    console.log(fightType)
+    console.log(creature.role)
     return (
         <div>
             <div className="container-endBattle">
@@ -59,7 +60,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
                 >
                     ⚔️ Seguir
                 </button>
-                {fightType === 'normal' || creature.role === 'boss' && (
+                {(fightType === 'normal' || creature.role === 'boss') && (
                     <button
                         className="rpgui-button endBattleButton"
                         onClick={() =>

@@ -167,6 +167,13 @@ button:disabled:hover {
     aspect-ratio: 1 / 1;
 
 }
+.potionsButton{
+    z-index: 40;
+}
+.attackAndPotions{
+    display: flex;
+    flex-direction: row;
+}
 .attacks {
     display: flex;
     flex-direction: column;
@@ -175,6 +182,10 @@ button:disabled:hover {
     top: 4%;
     left: 1%;
     padding: 1%;
+    max-width: 250px;
+    max-height: 400px;
+    min-width: 250px;
+
 }
 .blackScreenAttacks{
     display: flex;
@@ -219,3 +230,27 @@ button:disabled:hover {
     width: 40px;
     min-width: 100px
 }
+
+.listSize {
+    max-width: 200px;
+    white-space: nowrap; /* Evita que el texto haga saltos de línea */
+    overflow: hidden; /* Oculta el texto que se pasa del ancho */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos para texto truncado */
+    
+}
+
+.dropdown-container {
+    position: relative; /* Establece el contexto de posición */
+  }
+  
+  .rpgui-dropdown-imp.listSize {
+    position: absolute; /* La lista se posiciona de manera absoluta */
+    top: 100%; /* Coloca la lista justo debajo del header */
+    left: 0;
+    z-index: 50; /* Asegura que la lista esté sobre otros elementos */
+    min-width: 250px;
+    max-height: 200px; /* Altura máxima para la lista */
+    overflow-y: auto; /* Scroll si hay muchas opciones */
+   
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opcional: Sombra */
+  }

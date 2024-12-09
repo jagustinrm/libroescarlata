@@ -14,7 +14,7 @@ interface Position {
 interface HandleNewEnemyClickParams {
     player: Player;
     handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-    setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy">>;
+    setTurn: React.Dispatch<React.SetStateAction<"player" | "enemy" | "summon">>;
     updateEnemy: boolean;
     setUpdateEnemy: Dispatch<SetStateAction<boolean>>;
     setPlayerPosition: Dispatch<SetStateAction<Position>>;

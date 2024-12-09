@@ -39,7 +39,7 @@ const LoadPlayerFromFirebase = () => {
           playerActions.setStats(playerData.stats);
           playerActions.setStatsLeftPoints(playerData.leftPoints);
           playerActions.setSpell(playerData.spells);
-
+          playerActions.setClassImg(playerData.classImg)
           playerActions.setInventory(playerData.inventoryId)
 
           const inventoryRef = ref(database, `players/${playerName}/${playerData.inventoryId}`);

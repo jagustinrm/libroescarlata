@@ -18,7 +18,9 @@
             "intelligence": 16,
             "wisdom": 14,
             "charisma": 10
-        }
+        },
+        "img": "/img/classes/class_mage.png",
+        "initialSpells": ["Bola de fuego", "Flecha ácida de Melf", "Rayo relampagueante", "Proyectil mágico"]
     },
     {
         "className": "Guerrero",
@@ -39,7 +41,9 @@
             "intelligence": 10,
             "wisdom": 10,
             "charisma": 10
-        }
+        },
+        "img": "/img/classes/class_warrior.png",
+        "initialSpells": []
     },
     {
         "className": "Pícaro",
@@ -60,7 +64,9 @@
             "intelligence": 14,
             "wisdom": 10,
             "charisma": 12
-        }
+        },
+        "img": "/img/classes/class_rogue.png",
+        "initialSpells": []
     },
     {
         "className": "Clérigo",
@@ -81,7 +87,9 @@
             "intelligence": 10,
             "wisdom": 16,
             "charisma": 12
-        }
+        },
+        "img": "/img/classes/class_priest.png",
+        "initialSpells": ["Curación menor"]
     },
     {
         "className": "Bárbaro",
@@ -102,7 +110,9 @@
             "intelligence": 8,
             "wisdom": 10,
             "charisma": 10
-        }
+        },
+        "img": "/img/classes/class_barbarian.png",
+        "initialSpells": []
     },
     {
         "className": "Bardo",
@@ -123,7 +133,9 @@
             "intelligence": 12,
             "wisdom": 10,
             "charisma": 16
-        }
+        },
+        "img": "/img/classes/class_bard.png",
+        "initialSpells": ["Proyectil mágico"]
     },
     {
         "className": "Druida",
@@ -144,7 +156,9 @@
             "intelligence": 10,
             "wisdom": 16,
             "charisma": 12
-        }
+        },
+        "img": "/img/classes/class_druid.png",
+        "initialSpells": ["Convocar animales menores"]
     },
     {
         "className": "Explorador",
@@ -165,7 +179,9 @@
             "intelligence": 10,
             "wisdom": 12,
             "charisma": 10
-        }
+        },
+        "img": "/img/classes/class_ranger.png",
+        "initialSpells": []
     },
     {
         "className": "Paladín",
@@ -186,7 +202,9 @@
             "intelligence": 10,
             "wisdom": 14,
             "charisma": 12
-        }
+        },
+        "img": "/img/classes/class_paladin.png",
+        "initialSpells": ["Curación menor"]
     },
     {
         "className": "Monje",
@@ -207,6 +225,8 @@
             "intelligence": 10,
             "wisdom": 14,
             "charisma": 10
-        }
+        },
+        "img": "/img/classes/class_monk.png",
+        "initialSpells": []
     }
 ]
