@@ -173,7 +173,7 @@ export default function FightScene() {
         player,
         setActionMessages,
         switchTurn,
-        enemyPosition,
+        enemyPosition, 
         summonPosition,
         setSummonPosition,
         summon,
