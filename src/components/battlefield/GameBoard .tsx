@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./GameBoard.css";
 import { Creature } from "../../stores/types/creatures";
 import { SoundPlayerProps } from "../UI/soundPlayer/SoundPlayer";
-// import { handleButtonClick } from "../../utils/combatHandlers";
 import { handleCombatAction } from "../../utils/combatHandlers";
 // Definir tipos para las posiciones y botones
 interface Position {

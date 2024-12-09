@@ -39,7 +39,10 @@ interface Button {
 export const handleCombatAction = (
   actionType: "attack" | "spell" | "move",
   props: CombatHandlersProps,
-  additionalData?: { button: Button }
+  additionalData?: {
+      y: number;
+      x: number; button: Button 
+}
 ) => {
   const {
     player,
@@ -108,7 +111,6 @@ export const handleCombatAction = (
         }
       }
     } else if (spellDetails.type === "Curación" && player && spellDetails.healingAmount) {
-      console.log(spellDetails)
       const healing = rollDice(spellDetails.healingAmount);
       addActionMessage(`Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`);
       const totalHealth = Math.min(player.p_LeftHealth + healing, player.p_MaxHealth);

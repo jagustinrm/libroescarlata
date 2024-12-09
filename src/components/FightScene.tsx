@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
 import './UI/designRpg.css'
 import { useEnemyLoader } from "../customHooks/useEnemyLoader.ts";
+
 // @ts-expect-error Para que funcione 
 import { checkLevelUp } from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
@@ -20,6 +21,7 @@ import useInventoryStore from "../stores/inventoryStore.ts";
 import usePotionStore from "../stores/potionsStore.ts";
 import MessageBox from './UI/MessageBox.tsx';
 import { useEnemyTurn } from "../customHooks/useEnemyTurn.ts";
+import { useSummonTurn } from "../customHooks/useSummonTurn.ts";
 import { handleHealing } from "../utils/handleHealing.ts";
 import SoundPlayer from "./UI/soundPlayer/SoundPlayer.tsx";
 import GameBoard from "./battlefield/GameBoard .tsx";
@@ -39,7 +41,7 @@ export default function FightScene() {
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
     const {player, playerActions } = usePlayerStore();
-    const {creature} = useCreatureStore();
+    const {creature, setCreatureHealth} = useCreatureStore();
     const {spells} = useSpellStore();
     const {inventories, removeItem} = useInventoryStore();
     const {potions} = usePotionStore();
@@ -164,6 +166,19 @@ export default function FightScene() {
         playerPosition,enemyPosition,setEnemyPosition,
 
     });
+
+    useSummonTurn({
+        creature,
+        turn,
+        player,
+        setActionMessages,
+        switchTurn,
+        enemyPosition,
+        summonPosition,
+        setSummonPosition,
+        summon,
+        setCreatureHealth,
+    })
 
     const executeAttack = () => {
         if (turn !== "player") return;
