@@ -11,7 +11,10 @@ export interface Player {
   p_ExpPrevLevel: number;
   p_MaxHealth: number;
   p_LeftHealth: number;
+  p_MaxMana: number;
+  p_LeftMana: number;
   hitDie: string;
+  manaDie: string;
   armorClass: number;
   baseAttackBonus: number;
   saves: {
@@ -32,6 +35,7 @@ export interface Player {
   enemiesDeleted: { count: number, name: string}[];
   spells: string[]
   classImg: string;
+  avatarImg: string;
 }
 
 // Interfaz para las acciones relacionadas con el jugador
@@ -45,6 +49,11 @@ export interface PlayerActions {
   setPlayerLevel: (level: number) => void;
   setP_MaxHealth: (p_MaxHealth: number) => void;
   setP_LeftHealth: (p_LeftHealth: number) => void;
+  setP_MaxMana: (p_MaxMana: number) => void;
+  setP_LeftMana: (p_LeftMana: number) => void;
+  setHitDie: (hitDie: string) => void;
+  setManaDie: (manaDie: string) => void;
+
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void; 
@@ -54,7 +63,8 @@ export interface PlayerActions {
   addClassFeature: (feature: string) => void; 
   setClassFeature: (classFeatures: Player['classFeatures']) => void; 
   addPetsName:(petsName: string) => void;
-  setHitDie: (hitDie: string) => void;
+
+
   updateHitDie: (hitDie: string) => void; 
   setSaves: (saves: Player['saves']) => void;
   updateSaves: (saves: Partial<Player['saves']>) => void;
@@ -70,6 +80,8 @@ export interface PlayerActions {
   addSpell: (spell: string) => void;
   setInventory: (inventory: string) => void;
   setClassImg: (classImg: string) => void;
+  setAvatarImg: (avatarImg: string) => void;
+
 }
 
 // Interfaz para el store del player

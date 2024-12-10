@@ -1,12 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 import  usePostCombatActions  from "../customHooks/usePostCombatActions"; 
 import { usePlayerStore } from '../stores/playerStore.js';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FightScene.css";
 import './UI/designRpg.css'
 import { useEnemyLoader } from "../customHooks/useEnemyLoader.ts";
-
 // @ts-expect-error Para que funcione 
 import { checkLevelUp } from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
@@ -34,12 +33,13 @@ import useCreatureStore from "../stores/creatures.ts";
 import EndBattleActions from "./battlefield/EndBattleActions.tsx";
 import EnemyChar from "./battlefield/EnemyChar.tsx";
 import { Creature } from "../stores/types/creatures.ts";
-export default function FightScene() {
+export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicPlaying, isMusicPlaying}) {
     const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
     const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
+    const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
     const {player, playerActions } = usePlayerStore();
     const {creature, setCreatureHealth} = useCreatureStore();
     const {spells} = useSpellStore();
@@ -89,7 +89,7 @@ export default function FightScene() {
           return prevTurn; // Fallback en caso de un estado no esperado
         });
       };
-    console.log(turn)
+
     const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
         const storedLevel = localStorage.getItem("dungeonLevel");
         return storedLevel ? parseInt(storedLevel, 10) : 1;
@@ -125,7 +125,12 @@ export default function FightScene() {
     useEffect(() => {
         handleCheckLevelUp(); // Verificar subida de nivel
     }, [player.playerExp]);
-
+    useEffect(() => {
+      setIsMusicPlaying(!isMusicPlaying)
+      setIsMusicPlaying(!isMusicPlaying)
+      setAmbientMusic("battleSong")
+      setMusicVolume(0.1)
+    }, []);
     useEffect(() => {
         if (player.p_LeftHealth === 0) {
             handleMessage("¡Has sido derrotado!", "warning",true)
@@ -136,6 +141,14 @@ export default function FightScene() {
             y: playerPosition.y + 4, 
         })
     }, [summon])
+
+    useEffect(() => {
+        if (logRef.current) {
+          // Desplaza hacia abajo
+          logRef.current.scrollTop = logRef.current.scrollHeight;
+        }
+      }, [actionMessages]); // Ejecuta cada vez que la lista de mensajes cambia
+    
 
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
@@ -222,6 +235,7 @@ export default function FightScene() {
     ? ((player.playerExp - player.p_ExpPrevLevel) / (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100 
     : 0; 
     const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
+    const manaPercentage = (player.p_LeftMana / player.p_MaxMana) * 100;
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
     
     if (isLoading) return <p>Cargando enemigo...</p>;
@@ -236,9 +250,10 @@ export default function FightScene() {
                 healthPercentage={healthPercentage} 
                 xpPercentage={xpPercentage} 
                 pet={player.selectedPet} 
+                manaPercentage = {manaPercentage}
         />
-        <div className="attacks">
-            <div className="blackScreenAttacks"></div>
+        <div className="rpgui-container framed attacks ">
+            {/* <div className="blackScreenAttacks "></div> */}
             <div className="attackAndPotions">
                 <button className="rpgui-button newDesign espada" id="newDesign" onClick={executeAttack} disabled={!canAttack || creature.health === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
                     ⚔️
@@ -261,7 +276,7 @@ export default function FightScene() {
                 </button>
                 )}
             </div>
-            <div className="rpgui-container framed rpgui-draggable">
+            <div className="rpgui-container rpgui-draggable">
                 <div>
                 <Dropdown
                     id="spell-dropdown"
@@ -288,7 +303,7 @@ export default function FightScene() {
         </div>   
         <div>
         {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
-            <ul className="action-log">
+            <ul className="action-log" ref={logRef}>
                 {actionMessages.map((message, index) => (
                     <li key={index}>{message}</li>  
                 ))}
@@ -333,7 +348,7 @@ export default function FightScene() {
             />
         </div>
         <EnemyChar creature={creature} />
-            {soundType &&<SoundPlayer soundType={soundType} volume={0.2} />}
+            {soundType &&<SoundPlayer soundType={soundType} category="action" volume={0.2} />}
             {messageState.show && (
                 <MessageBox
                     message={messageState.content}
@@ -342,6 +357,7 @@ export default function FightScene() {
                 />
             )}
             <KeyboardController setBoardPosition={setBoardPosition} />
+            
         </div>
     );
 }

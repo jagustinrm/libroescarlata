@@ -351,8 +351,44 @@ label {
   background-position: center; 
 
 }
+.rpgui-container.framed {
+  /* border */
+  border-style: solid;
+  border-image-source: url("../designImg/border/border-image.png");
+  border-image-repeat: repeat;
+  border-image-slice: 6 6 6 6;
+  border-image-width: 18px;
+  border-width: 15px;
+  padding: 12px;
+  /* internal border */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  /* background */
+  background: url("../designImg/background/background-image.png") repeat repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center; }
 
-
+  .rpgui-container.framed-grey {
+    position: relative;
+    /* border */
+    border-style: solid;
+    border-image-source: url("../designImg/border/border-image-grey.png");
+    border-image-repeat: repeat;
+    border-image-slice: 3 3 3 3;
+    border-image-width: 7px;
+    border-width: 7px;
+    padding: 12px;
+    /* internal border */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    /* background */
+    background: url("../designImg/background/background-image-grey.png") repeat repeat;
+    background-clip: padding-box;
+    background-origin: padding-box;
+    background-position: center; }
 /* 
 .rpgui-container.framed {
   border-style: solid;

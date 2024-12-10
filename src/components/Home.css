@@ -101,7 +101,9 @@
     flex-direction: row;
     position: relative;
 }
-
+.playerAvatar {
+    width: 200px;
+}
 .home-container.hidden {
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease;

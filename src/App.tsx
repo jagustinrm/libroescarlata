@@ -20,7 +20,7 @@ import PotionsLoader from './loaders/PotionsLoader';
 import ClassLoader from './loaders/ClassLoaders';
 import PlayerStats from './components/playerStats/PlayerStats';
 import DelayedDisplay from './utils/DelayedDisplayProps';
-import { useState, useEffect } from 'react';
+import { useEffect, useState} from 'react';
 import SpellLoader from './loaders/SpellsLoader';
 import CreatureLoader from './loaders/CreaturesLoaders';
 import MyComponent from './firebase/componenteFireBase.js'
@@ -32,8 +32,12 @@ function App() {
   const { player } = usePlayerStore();
   const { inventories } = useInventoryStore();
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-
-
+  const [ambientMusic, setAmbientMusic] = useState('')
+  const [musicVolume, setMusicVolume] = useState(1)
+  useEffect(() => {
+    setAmbientMusic('medievalAmbient')
+    setMusicVolume(0.2)
+  }, [])
   window.addEventListener('beforeunload', () => {
     localStorage.setItem('playerState', JSON.stringify(player));
     localStorage.setItem('inventoryState', JSON.stringify(inventories));
@@ -51,9 +55,11 @@ function App() {
       <InventoryStateLoader />
       <PlayerStateSaver />
       <HomeProvider>
-      {isMusicPlaying && <SoundPlayer soundType={"medievalAmbient"} volume={1} />}
+      {isMusicPlaying && <SoundPlayer soundType={ambientMusic} category="ambient" volume={musicVolume} />}
         <div className="music-controls">
-          <button onClick={() => setIsMusicPlaying(!isMusicPlaying)}>
+          <button onClick={() => {
+            setIsMusicPlaying(!isMusicPlaying)
+          }}>
             {isMusicPlaying ? '🔊' : '🔈'}
           </button>
         </div>
@@ -65,7 +71,17 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/characterSelector" element={<CharacterSelector />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/fightScene" element={<FightScene />} />
+            <Route 
+                  path="/fightScene" 
+                  element={
+                  <FightScene 
+                  setAmbientMusic={setAmbientMusic} 
+                  setMusicVolume = {setMusicVolume}
+                  setIsMusicPlaying = {setIsMusicPlaying}
+                  isMusicPlaying = {isMusicPlaying}
+                  />
+                  } 
+             />
             <Route path="/townMap" element={<TownMap />} />
             <Route path="/petStore" element={<PetStore />} />
             <Route path="/inventory" element={<Inventory />} />

@@ -2,6 +2,7 @@ import { usePlayerStore } from '../stores/playerStore';
 import { useNavigate } from "react-router-dom";
 import {  useState } from 'react';
 import openMissions from '../utils/openMissionsWindow.ts';
+
 import MessageBox from './UI/MessageBox.tsx';
 import './Home.css';
 import './Arrow.css';
@@ -18,6 +19,7 @@ export default function Home() {
     const handleAction = (action: string) => {
         switch (action) {
             case 'fight-normal':
+
                 navigate("/fightScene?type=normal");
                 break;
             case 'fight-dungeon':
@@ -43,6 +45,7 @@ export default function Home() {
                 break;
             case 'recoverHealth':
                 playerActions.setP_LeftHealth(player.p_MaxHealth);
+                playerActions.setP_LeftMana(player.p_MaxMana)
                 setShowMessage(true);
                 break;
             case 'missions':
@@ -72,6 +75,7 @@ export default function Home() {
                 {isSidebarOpen && (
                     <div className="player">
                         <div className="stats">
+                            <img className='playerAvatar' src={player.avatarImg} alt="avatar img" />
                             <p onClick={handleStats}>👤 {player.name}</p>
                             <p>🛡️ {player.classes}</p>
                             <p>⭐ Nivel: {player.level}</p>
@@ -91,7 +95,9 @@ export default function Home() {
 
             <div className="buttons ">
                 <button 
-                    onClick={() => handleAction('fight-normal')} 
+                    onClick={() => 
+                        handleAction('fight-normal')
+                    } 
                     disabled={player.p_LeftHealth === 0}
                     className="rpgui-button">
                     ⚔️ Pelear
@@ -127,6 +133,7 @@ export default function Home() {
             {showMissions && (
               <Quests onClose={() => setShowMissions(false)} />
             )}
+            
         </div>
     );
 }

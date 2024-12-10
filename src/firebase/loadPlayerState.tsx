@@ -41,7 +41,11 @@ const LoadPlayerFromFirebase = () => {
           playerActions.setSpell(playerData.spells);
           playerActions.setClassImg(playerData.classImg)
           playerActions.setInventory(playerData.inventoryId)
-
+          playerActions.setAvatarImg(playerData.avatarImg)
+          playerActions.setHitDie(playerData.hitDie)
+          playerActions.setManaDie(playerData.manaDie)
+          playerActions.setP_LeftMana(playerData.p_LeftMana)
+          playerActions.setP_MaxMana(playerData.p_MaxMana)  
           const inventoryRef = ref(database, `players/${playerName}/${playerData.inventoryId}`);
           const inventorySnapshot = await get(inventoryRef);
           const inventoryData = inventorySnapshot.val();
@@ -57,9 +61,6 @@ const LoadPlayerFromFirebase = () => {
 
           // Agregar ítems al inventario
           Object.entries(inventoryDefault).forEach(([category, items]) => {
-            console.log(items)
-            console.log(inventoryDefault)
-            console.log(inventoryData, "data de inventario")
             if (Array.isArray(items)) {
               items.forEach((item) => {
                 

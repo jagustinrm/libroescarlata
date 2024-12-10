@@ -13,6 +13,8 @@ const PlayerStateLoader = () => {
 
       playerActions.setP_LeftHealth(parseInt(parsedPlayerState.p_LeftHealth));
       playerActions.setP_MaxHealth(parseInt(parsedPlayerState.p_MaxHealth));
+      playerActions.setP_MaxMana(parseInt(parsedPlayerState.p_MaxMana));
+      playerActions.setP_LeftMana(parseInt(parsedPlayerState.p_LeftMana));
       playerActions.setPlayerName(parsedPlayerState.name);
       playerActions.setPlayerLevel(parsedPlayerState.level);
       playerActions.setPlayerMaterial(parsedPlayerState.playerMaterial);
@@ -31,6 +33,7 @@ const PlayerStateLoader = () => {
       playerActions.setSpell(parsedPlayerState.spells)
       playerActions.setInventory(parsedPlayerState.inventoryId)
       playerActions.setClassImg(parsedPlayerState.classImg)
+      playerActions.setAvatarImg(parsedPlayerState.avatarImg)
     }
   }, []); 
 

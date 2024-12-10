@@ -18,6 +18,11 @@ export function checkLevelUp({calculateInitialHealth, player,
         const newPlayerHealth = parseInt(player.p_MaxHealth) +  Math.floor(Math.random() * calculateInitialHealth(player.hitDie) + player.statsIncrease['con'])
         playerActions.setP_LeftHealth(newPlayerHealth)
         playerActions.setP_MaxHealth(newPlayerHealth)
+
+        const newPlayerMana = parseInt(player.p_MaxMana) +  Math.floor(Math.random() * calculateInitialHealth(player.manaDie) + player.statsIncrease['int'])
+        playerActions.setP_LeftMana(newPlayerMana)
+        playerActions.setP_MaxMana(newPlayerMana)
+
         playerActions.setPlayerLevel(newLevel);  
         gainXpToNextLevel(newLevel);  // Actualizar la experiencia necesaria para el próximo nivel
         setActionMessages((prevMessages) => [

@@ -3,6 +3,7 @@
 export interface Class {
     className: string;
     hitDie: string;
+    manaDie: string;
     armorClass: number;
     baseAttackBonus: number;
     saves: {
@@ -12,7 +13,9 @@ export interface Class {
     };
     classFeatures: string[];
     img: string;
+    faceImg: string;
     initialSpells: string[];
+    description: string;
 }
 
 interface ClassStore {

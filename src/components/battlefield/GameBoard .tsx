@@ -3,7 +3,7 @@ import "./GameBoard.css";
 import { Creature } from "../../stores/types/creatures";
 import { SoundPlayerProps } from "../UI/soundPlayer/SoundPlayer";
 import { handleCombatAction } from "../../utils/combatHandlers";
-// Definir tipos para las posiciones y botones
+
 interface Position {
   x: number;
   y: number;
@@ -67,23 +67,6 @@ const GameBoard: React.FC<GameBoardProps> = ({
     setButtons(generatedButtons);
   }, []);
 
-  // Manejador para mover al jugador
-  // const handleButtonClick = (button: Button) => {
-  //   const isWithinRange =
-  //     Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
-  //     Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step;
-
-  //   if (isWithinRange) {
-  //     if (turn === "player") {
-  //       setPlayerPosition({ x: button.x - offsetX, y: button.y - offsetY });
-  //       setPlaySound(true); // Activar sonido
-  //     }
-  //     setTimeout(() => {
-  //       setPlaySound(false);
-  //     }, 300);
-  //     setTurn("enemy");
-  //   }
-  // };
   const handleAction = (actionType: "attack" | "spell" | "move", additionalData?: any) => {
     handleCombatAction(actionType, {
       // creature,
@@ -93,7 +76,11 @@ const GameBoard: React.FC<GameBoardProps> = ({
       setTurn,
       turn, switchTurn
     }, additionalData);
-  
+    
+    setPlaySound(true);
+          setTimeout(() => {
+        setPlaySound(false);
+      }, 300);
   };
 
 
@@ -127,14 +114,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
           style={{
             transform: `translate(${button.x}vw, ${button.y}vw)`,
           }}
-          // onClick=
-          // {() => 
-          //   handleButtonClick({
-          //   playerPosition, 
-          //   setPlayerPosition, 
-          //   setTurn, 
-          //   turn
-          // }, button)}
+
           onClick={() => 
             handleAction("move", button)
           }

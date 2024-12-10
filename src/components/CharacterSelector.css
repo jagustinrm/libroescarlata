@@ -13,6 +13,7 @@
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
     font-family: 'Arial', sans-serif;
+    height: 750px;
 }
 
 
@@ -36,6 +37,7 @@
     justify-items: center; /* Centra los botones horizontalmente */
     align-items: center; /* Centra los botones verticalmente */
     width: 100%; /* Asegura que ocupe el ancho del contenedor */
+    
 }
 
 /* Buttons */
@@ -73,22 +75,40 @@ a:hover {
 .containerClassSelector{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .classDetailsContainer {
-    margin-top: 20px;
-    padding: 10px;
-    border: 2px solid gold;
+   
     border-radius: 10px;
     background-color: #2e2e2e;
     color: white;
     text-align: center;
-    width: 600px
-    
+    width: 600px;
+    height: 750px
 }
 
 .classDetailsContainer img {
     width: 250px;
     height: auto;
     margin: 10px 0;
+}
+
+.characterCaracteristics{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.redFont{
+    color: red
+}
+.blueFont{
+    color: rgb(0, 191, 255)
+}
+.className{
+    font-size: 35px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }

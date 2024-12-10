@@ -2,6 +2,7 @@
     {
         "className": "Mago",
         "hitDie": "d4",
+        "manaDie": "d12",
         "armorClass": 10,
         "baseAttackBonus": 0,
         "saves": {
@@ -20,11 +21,14 @@
             "charisma": 10
         },
         "img": "/img/classes/class_mage.png",
-        "initialSpells": ["Bola de fuego", "Flecha ácida de Melf", "Rayo relampagueante", "Proyectil mágico"]
+        "faceImg": "/img/classes/faces/charFaceMage.png",
+        "initialSpells": ["Bola de fuego", "Flecha ácida de Melf", "Rayo relampagueante", "Proyectil mágico"],
+        "description": "Un maestro de las artes arcanas, capaz de lanzar poderosos hechizos pero físicamente frágil."
     },
     {
         "className": "Guerrero",
         "hitDie": "d10",
+        "manaDie": "d4",
         "armorClass": 15,
         "baseAttackBonus": 1,
         "saves": {
@@ -43,11 +47,14 @@
             "charisma": 10
         },
         "img": "/img/classes/class_warrior.png",
-        "initialSpells": []
+        "faceImg": "/img/classes/faces/charFaceWarrior.png",
+        "initialSpells": [],
+        "description": "Un combatiente fuerte y resistente, experto en el uso de armas y armaduras."
     },
     {
         "className": "Pícaro",
         "hitDie": "d6",
+        "manaDie": "d6",
         "armorClass": 12,
         "baseAttackBonus": 0,
         "saves": {
@@ -66,11 +73,14 @@
             "charisma": 12
         },
         "img": "/img/classes/class_rogue.png",
-        "initialSpells": []
+        "faceImg": "/img/classes/faces/charFaceRogue.png",
+        "initialSpells": [],
+        "description": "Un experto en sigilo, trucos y ataques sorpresa, con gran destreza y astucia."
     },
     {
         "className": "Clérigo",
         "hitDie": "d8",
+        "manaDie": "d10",
         "armorClass": 14,
         "baseAttackBonus": 0,
         "saves": {
@@ -89,11 +99,14 @@
             "charisma": 12
         },
         "img": "/img/classes/class_priest.png",
-        "initialSpells": ["Curación menor"]
+        "faceImg": "/img/classes/faces/charFacePriest.png",
+        "initialSpells": ["Curación menor"],
+        "description": "Un servidor divino con habilidades para sanar y luchar contra las fuerzas del mal."
     },
     {
         "className": "Bárbaro",
         "hitDie": "d12",
+        "manaDie": "d4",
         "armorClass": 13,
         "baseAttackBonus": 1,
         "saves": {
@@ -112,11 +125,14 @@
             "charisma": 10
         },
         "img": "/img/classes/class_barbarian.png",
-        "initialSpells": []
+        "faceImg": "/img/classes/faces/charFaceBarbarian.png",
+        "initialSpells": [],
+        "description": "Un guerrero salvaje que canaliza su furia para infligir daño devastador."
     },
     {
         "className": "Bardo",
         "hitDie": "d6",
+        "manaDie": "d8",
         "armorClass": 11,
         "baseAttackBonus": 0,
         "saves": {
@@ -135,11 +151,14 @@
             "charisma": 16
         },
         "img": "/img/classes/class_bard.png",
-        "initialSpells": ["Proyectil mágico"]
+        "faceImg": "/img/classes/faces/charFaceBard.png",
+        "initialSpells": ["Proyectil mágico"],
+        "description": "Un artista y aventurero versátil que inspira a sus aliados con música y magia."
     },
     {
         "className": "Druida",
         "hitDie": "d8",
+        "manaDie": "d10",
         "armorClass": 12,
         "baseAttackBonus": 0,
         "saves": {
@@ -158,11 +177,14 @@
             "charisma": 12
         },
         "img": "/img/classes/class_druid.png",
-        "initialSpells": ["Convocar animales menores"]
+        "faceImg": "/img/classes/faces/charFaceDruid.png",
+        "initialSpells": ["Convocar animales menores"],
+        "description": "Un protector de la naturaleza con habilidades mágicas y transformaciones animales."
     },
     {
         "className": "Explorador",
         "hitDie": "d8",
+        "manaDie": "d6",
         "armorClass": 13,
         "baseAttackBonus": 1,
         "saves": {
@@ -181,11 +203,14 @@
             "charisma": 10
         },
         "img": "/img/classes/class_ranger.png",
-        "initialSpells": []
+        "faceImg": "/img/classes/faces/charFaceRanger.png",
+        "initialSpells": [],
+        "description": "Un experto en la supervivencia y el combate en la naturaleza."
     },
     {
         "className": "Paladín",
         "hitDie": "d10",
+        "manaDie": "d8",
         "armorClass": 14,
         "baseAttackBonus": 1,
         "saves": {
@@ -204,29 +229,8 @@
             "charisma": 12
         },
         "img": "/img/classes/class_paladin.png",
-        "initialSpells": ["Curación menor"]
-    },
-    {
-        "className": "Monje",
-        "hitDie": "d8",
-        "armorClass": 10,
-        "baseAttackBonus": 0,
-        "saves": {
-            "fortitude": 2,
-            "reflex": 2,
-            "will": 2
-        },
-        "classFeatures": ["Golpe sin armas", "Esquiva sobrenatural", "Movimiento rápido"],
-        "initialWeapon": [10],
-        "stats": {
-            "strength": 12,
-            "dexterity": 14,
-            "constitution": 12,
-            "intelligence": 10,
-            "wisdom": 14,
-            "charisma": 10
-        },
-        "img": "/img/classes/class_monk.png",
-        "initialSpells": []
+        "faceImg": "/img/classes/faces/charFacePaladian.png",
+        "initialSpells": ["Curación menor"],
+        "description": "Un campeón sagrado dedicado a la justicia y la protección de los inocentes."
     }
 ]

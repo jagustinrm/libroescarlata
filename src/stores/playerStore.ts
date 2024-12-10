@@ -11,8 +11,11 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     p_ExpPrevLevel: 0,
     p_MaxHealth: 1,
     p_LeftHealth: 1,
+    p_MaxMana: 1,
+    p_LeftMana: 1,
     classes: [],
     hitDie: '',
+    manaDie: '',
     armorClass: 0,
     baseAttackBonus: 0,
     saves: {
@@ -46,6 +49,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     spells:[],
     inventoryId: '',
     classImg: '',
+    avatarImg: '',
   },
 
   // Agrupamos las acciones relacionadas con el jugador
@@ -146,6 +150,14 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, p_LeftHealth },
       })),
+      setP_MaxMana: (p_MaxMana) =>
+        set((state) => ({
+          player: { ...state.player, p_MaxMana },
+        })),
+      setP_LeftMana: (p_LeftMana) =>
+        set((state) => ({
+          player: { ...state.player, p_LeftMana },
+        })),
     setArmorClass: (armorClass) =>
       set((state) => ({
         player: { ...state.player, armorClass },
@@ -153,6 +165,10 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       setClassImg: (classImg) =>
         set((state) => ({
           player: { ...state.player, classImg },
+        })),
+      setAvatarImg: (avatarImg) =>
+        set((state) => ({
+          player: { ...state.player, avatarImg },
         })),
     setBaseAttackBonus: (baseAttackBonus) =>
       set((state) => ({
@@ -241,6 +257,13 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           hitDie: hitDie, // Establece un nuevo valor para hitDie
         },
       })),
+      setManaDie: (manaDie) =>
+        set((state) => ({
+          player: {
+            ...state.player,
+            hitDie: manaDie, // Establece un nuevo valor para hitDie
+          },
+        })),
     updateHitDie: (hitDie) =>
       set((state) => ({
           player: {

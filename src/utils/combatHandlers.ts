@@ -71,7 +71,6 @@ export const handleCombatAction = (
 
   const finalizeTurn = () => {
     switchTurn?.();
-    console.log(switchTurn)
   };
 
   const handleAttack = () => {
@@ -95,30 +94,32 @@ export const handleCombatAction = (
   const handleSpell = () => {
     const spellDetails = spells?.find((s) => s.name === selectedSpell);
     if (!spellDetails) return;
-
+    if (spellDetails.manaCost && typeof player?.p_LeftMana === 'number'  && spellDetails.manaCost > player?.p_LeftMana) return;
+    
     if (spellDetails.type === "Ofensivo" && creature?.health && playerPosition && enemyPosition) {
 
       const distanceX = Math.abs(playerPosition.x - enemyPosition.x);
       const distanceY = Math.abs(playerPosition.y - enemyPosition.y);
-      if (distanceX < spellDetails.range && distanceY < spellDetails.range && spellDetails.damage) {
+      if (distanceX < spellDetails.range && distanceY < spellDetails.range && spellDetails.damage && spellDetails.manaCost && typeof player?.p_LeftMana === "number") {
         const damage = rollDice(spellDetails.damage);
         addActionMessage(`Has lanzado ${spellDetails.name} y causado ${damage} puntos de daño.`);
         useCreatureStore.getState().setCreatureHealth(Math.max(creature.health - damage, 0));
-
+        usePlayerStore.getState().playerActions.setP_LeftMana(Math.max(player?.p_LeftMana - spellDetails.manaCost, 0))
         if (creature.health - damage <= 0 && fightType) {
           handleMessage?.("¡Has ganado el combate!", "success", false);
           handlePostCombatActs?.(fightType, creature);
         }
       }
-    } else if (spellDetails.type === "Curación" && player && spellDetails.healingAmount) {
+    } else if (spellDetails.type === "Curación" && player && spellDetails.healingAmount && spellDetails.manaCost && typeof player?.p_LeftMana === "number") {
       const healing = rollDice(spellDetails.healingAmount);
       addActionMessage(`Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`);
       const totalHealth = Math.min(player.p_LeftHealth + healing, player.p_MaxHealth);
       usePlayerStore.getState().playerActions.setP_LeftHealth(totalHealth);
+      usePlayerStore.getState().playerActions.setP_LeftMana(Math.max(player?.p_LeftMana - spellDetails.manaCost, 0))
       // ************************SUMMON ****************************** */
-    } else if (spellDetails.type === "Utilidad" && setSummon) {
+    } else if (spellDetails.type === "Utilidad" && setSummon && spellDetails.manaCost && typeof player?.p_LeftMana === "number") {
       addActionMessage(`Has invocado con ${spellDetails.name}.`);
-
+      usePlayerStore.getState().playerActions.setP_LeftMana(Math.max(player?.p_LeftMana - spellDetails.manaCost, 0))
       setSummon({
         name: "Mochi",
         img: "/img/summons/mochi.png",
