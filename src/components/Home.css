@@ -55,7 +55,8 @@
 
 .stats {
 
-    text-align: center;
+    justify-content: center;
+    text-align: left;
 }
 
 .stats p {
@@ -92,10 +93,16 @@
 .p_leaftHealth{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
 
 }
-
+.centerStats{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 6%;
+}
 .hospitalRecover {
     display: flex;
     flex-direction: row;
@@ -113,3 +120,21 @@
     opacity: 1;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
+.heart {
+
+	color: #e00;
+	animation: beat .25s infinite alternate;
+	transform-origin: center;
+}
+
+/* Heart beat animation */
+@keyframes beat{
+	to { transform: scale(1.05); }
+}
+
+
+
+
+
+

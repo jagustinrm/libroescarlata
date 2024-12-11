@@ -1,8 +1,10 @@
 .music-controls{
-  position: absolute;
+  position: fixed;
   top:0;
   right:10px;
   z-index: 100000;
+  margin: 10px auto;
+
 }
 /* App.css */
 .app-container {
@@ -12,6 +14,7 @@
 
 .app-container.visible {
   opacity: 1;
+  z-index: 2;
 }
 
 .app-container.hidden {
@@ -19,11 +22,13 @@
 }
 
 .loading-container {
+
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   font-size: 1.5rem;
+  z-index: 10;
 }
 
 .loading-container p {
@@ -47,10 +52,28 @@
 }
 
   
-body {
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  overflow: hidden;
+/************* PARTICULAS************/
+
+.particle-container{
+  z-index: -1;
 }
 
+html, body {
+  overflow: hidden; /* Elimina el scroll */
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  background-color: rgba(182, 111, 44, 0.938);
+  color: #fff;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #cf6433; /* Match hover effect of list items */
+}
+button:active {
+  transform: scale(0.95);
+}

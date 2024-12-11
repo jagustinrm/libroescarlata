@@ -261,7 +261,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
         set((state) => ({
           player: {
             ...state.player,
-            hitDie: manaDie, // Establece un nuevo valor para hitDie
+            manaDie: manaDie, // Establece un nuevo valor para hitDie
           },
         })),
     updateHitDie: (hitDie) =>

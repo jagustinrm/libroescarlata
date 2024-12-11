@@ -1,43 +1,46 @@
 import React, { useEffect, useRef } from "react";
 import { useSoundStore } from "../../../stores/soundsStore"; // Estado global para manejar el sonido
-import { SongDetails } from "../../../stores/types/sounds";
+// import { SongDetails } from "../../../stores/types/sounds";
 
 export interface SoundPlayerProps {
   soundType: string;
-  category: keyof SongDetails; // Especificar la categoría (ambiente, acción, etc.)
+  // category: keyof SongDetails; // Especificar la categoría (ambiente, acción, etc.)
   volume?: number;
 }
 
-const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, category, volume = 0.7 }) => {
+const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const { audioElement, currentSong, setCurrentSong, stopCurrentSong, setAudioElement } = useSoundStore();
+  const { stopCurrentSong } = useSoundStore();
 
   useEffect(() => {
     const playSound = async () => {
       if (audioRef.current) {
-        try {
-          // Si hay un sonido activo en la misma categoría, lo detenemos antes
-          if (audioElement && currentSong && currentSong[category] && currentSong[category] !== soundType) {
-            // stopCurrentSong();
-            audioElement.src = ""
+        const soundFile = getSoundFile();
+        console.log("Reproduciendo:", soundFile);
+        audioRef.current.src = soundFile;
+    
+        // Asegurarse de que el archivo esté cargado antes de intentar reproducirlo
+        audioRef.current.oncanplaythrough = async () => {
+          try {
+            // Establece el volumen antes de reproducir
+            if (audioRef.current) {
+              audioRef.current.volume = volume;
+              await audioRef.current.play();
+              console.log("Reproducción iniciada con volumen:", volume);
+            }
+          } catch (error) {
+            console.error("Error al intentar reproducir el sonido:", error);
           }
-
-          // Actualizar solo la categoría específica
-          setCurrentSong({ ...currentSong, [category]: soundType });
-
-          // Guardar la referencia del audio en el estado global
-          setAudioElement(audioRef.current);
-
-          // Configurar y reproducir el nuevo sonido
-          audioRef.current.currentTime = 0;
-          audioRef.current.volume = volume;
-
+        };
+    
+        // Si ya está listo para reproducir, intenta hacerlo
+        if (audioRef.current.readyState >= 3) {
+          audioRef.current.volume = volume; // Asegurarse de establecer el volumen
           await audioRef.current.play();
-        } catch (error) {
-          console.error("Error al reproducir el audio:", error);
         }
       }
     };
+    
 
     playSound();
   }, [soundType, stopCurrentSong]);

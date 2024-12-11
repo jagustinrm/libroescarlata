@@ -10,32 +10,31 @@ import { useEnemyLoader } from "../customHooks/useEnemyLoader.ts";
 import { checkLevelUp } from '../utils/checkLevelUp.js'
 // @ts-expect-error Para que funcione 
 import {calculateInitialHealth} from '../utils/calculateInitialHealth.js'
-// import { handleAttack, handleSpell} from '../utils/combatHandlers';
 import { handleCombatAction } from '../utils/combatHandlers';
 import { useLoadQuests } from "../customHooks/useLoadQuests.js";
 import { QuestData }from "./interfaces/QuestsInt.ts";
 // @ts-expect-error Para que funcione 
 import useExpTable from "../customHooks/useExpTable.js";
 import useInventoryStore from "../stores/inventoryStore.ts";
-import usePotionStore from "../stores/potionsStore.ts";
 import MessageBox from './UI/MessageBox.tsx';
 import { useEnemyTurn } from "../customHooks/useEnemyTurn.ts";
 import { useSummonTurn } from "../customHooks/useSummonTurn.ts";
-import { handleHealing } from "../utils/handleHealing.ts";
 import SoundPlayer from "./UI/soundPlayer/SoundPlayer.tsx";
 import GameBoard from "./battlefield/GameBoard .tsx";
 import useSpellStore from "../stores/spellsStore.ts";
 import Dropdown from "../utils/DropDown.tsx";
-// import { Spell } from "../stores/types/spells";
 import KeyboardController from "../utils/KeyboardController.ts";
 import PlayerCharacter from "./battlefield/PlayerCharacter.tsx";
 import useCreatureStore from "../stores/creatures.ts";
 import EndBattleActions from "./battlefield/EndBattleActions.tsx";
 import EnemyChar from "./battlefield/EnemyChar.tsx";
 import { Creature } from "../stores/types/creatures.ts";
-export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicPlaying, isMusicPlaying}) {
-    const [boardPosition, setBoardPosition] = useState({ top: 10, left: 23 });
-    const [messageState, setMessageState] = useState({show: false,content: '',type: '',redirectHome: false});
+import { useWeaponStore } from "../stores/weaponStore.ts";
+import useAppStore from "../stores/appStore.ts";
+import AttackAndPotions from "./battlefield/combatMenu/AttackAndPotions.tsx";
+
+export default function FightScene() {
+    const [messageState, setMessageState] = useState({show: false, content: '', type: '', redirectHome: false});
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const fightType = searchParams.get("type") || "normal";
@@ -44,7 +43,7 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
     const {creature, setCreatureHealth} = useCreatureStore();
     const {spells} = useSpellStore();
     const {inventories, removeItem} = useInventoryStore();
-    const {potions} = usePotionStore();
+    const {weapons} = useWeaponStore();
     const initialX = 0;
     const initialY = 45;
     // Compensar el ancho y alto de la imagen
@@ -75,18 +74,15 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
     const {quests} = useLoadQuests();
     const [turn, setTurn] = useState<"player" | "enemy" | "summon">("player");
     const switchTurn = () => {
-        setTurn((prevTurn) => {
+        setTurn((prevTurn) => { // TURNOS
           if (prevTurn === "player") {
-            // Si es el turno del jugador y existe un summon
             return summon ? "summon" : "enemy";
           } else if (prevTurn === "summon") {
-            // Si es el turno del summon, pasa al enemigo
             return "enemy";
           } else if (prevTurn === "enemy") {
-            // Si es el turno del enemigo, pasa al jugador
             return "player";
           }
-          return prevTurn; // Fallback en caso de un estado no esperado
+          return prevTurn; 
         });
       };
 
@@ -109,7 +105,6 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
     const { handlePostCombatActs } = usePostCombatActions(setDungeonLevel, quests || 
         defaultQuests, playerActions, player
     );
-   
     const handleCheckLevelUp = () => {
         checkLevelUp({
             player,
@@ -118,19 +113,21 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
             expTable, setExpTable
         });
     };
-    const [canAttack, setCanAttack] = useState(false)
-    const [selectedSpell, setSelectedSpell] = useState<string>(''); 
+    const [selectedSpell, setSelectedSpell] = useState<string>('');
+    const [selectedWeapon, setSelectedWeapon] = useState<string>('');
+    const {  setAmbientMusic, setMusicVolume} = useAppStore();
 
+    
 // ************************USEEFFECTS ******************************
     useEffect(() => {
         handleCheckLevelUp(); // Verificar subida de nivel
     }, [player.playerExp]);
     useEffect(() => {
-      setIsMusicPlaying(!isMusicPlaying)
-      setIsMusicPlaying(!isMusicPlaying)
-      setAmbientMusic("battleSong")
-      setMusicVolume(0.1)
-    }, []);
+        
+        setAmbientMusic("battleSong")
+        setMusicVolume(0.1)
+       
+      }, []);
     useEffect(() => {
         if (player.p_LeftHealth === 0) {
             handleMessage("¡Has sido derrotado!", "warning",true)
@@ -149,6 +146,11 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
         }
       }, [actionMessages]); // Ejecuta cada vez que la lista de mensajes cambia
     
+      useEffect(() => {
+        const weaponFiltered = weapons.find((w) => w.name === selectedWeapon)
+        playerActions.setP_SelectedWeapon(weaponFiltered)
+      }, [selectedWeapon, setSelectedWeapon]); // Ejecuta cada vez que la lista de mensajes cambia
+    
 
 // ************************USEEFFECTS ******************************
 // ************************COMBATE *************************
@@ -158,14 +160,15 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
     handleCombatAction(actionType, {
       player,
       creature,
+      weapons,
       spells,
       setActionMessages,
       playerPosition,
       enemyPosition,
       setPlayerPosition,
-      setTurn,
       turn,
       selectedSpell,
+      selectedWeapon,
       setSummon, switchTurn,
       handlePostCombatActs, fightType,
       handleMessage
@@ -210,7 +213,6 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
 
 // ************************COMBATE *************************
 
-
     const handleMessage = (message: string, type: string, shouldClose: boolean) => {
         setMessageState({
           show: true,
@@ -240,99 +242,74 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
     
     if (isLoading) return <p>Cargando enemigo...</p>;
     // if (error)  return <p>Error: {error}</p>;
+    
     return (
-    <div className="fight-scene">
-        <div className="turn-indicator">
-        {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
-        </div>
-        <PlayerCharacter 
-                player={player} 
-                healthPercentage={healthPercentage} 
-                xpPercentage={xpPercentage} 
-                pet={player.selectedPet} 
-                manaPercentage = {manaPercentage}
-        />
-        <div className="rpgui-container framed attacks ">
-            {/* <div className="blackScreenAttacks "></div> */}
-            <div className="attackAndPotions">
-                <button className="rpgui-button newDesign espada" id="newDesign" onClick={executeAttack} disabled={!canAttack || creature.health === 0 || player.p_LeftHealth === 0 || turn === "enemy"}>
-                    ⚔️
-                </button>
-                {pocion && (
-                <button className="rpgui-button newDesign potionsButton" id="newDesign" onClick={() => handleHealing({        player,
-                    inventories,
-                    potions,
-                    removeItem,
-                    playerActions,
-                    handleMessage,
-                    })} disabled={creature.health === 0 || player.p_LeftHealth === 0}>
-                   {
-                     // Buscar la poción en la lista de potions y mostrar la imagen
-                     (() => {
-                       const foundPotion = potions.find(p => p.name === "Poción de Curación Menor");
-                       return foundPotion ? <img className="potionImg" src={foundPotion.img} alt={foundPotion.name} /> : null;
-                     })()
-                   }
-                </button>
-                )}
+        <div className="fight-scene">
+            <div className="turn-indicator fixedUI ">
+                {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
+                {turn === "player" ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
             </div>
-            <div className="rpgui-container rpgui-draggable">
+            <div className="rpgui-container framed attacks fixedUI">
+                    {/* <div className="blackScreenAttacks "></div> */}
                 <div>
                 <Dropdown
                     id="spell-dropdown"
-                    options={player.spells || []}
-                    value={selectedSpell}
-                    onChange={(value) => setSelectedSpell(value)}
+                    options={inventories[player.inventoryId].weapons || []}
+                    value={selectedWeapon}
+                    onChange={(value) => setSelectedWeapon(value)}
                     disabled={turn !== "player" || creature.health === 0}
                 />
                 </div>
-                <button
-                    onClick={executeSpell}
-                    disabled={turn !== "player" || !selectedSpell || creature.health === 0}
-                >
-                    Lanzar hechizo
-                </button>
-            </div>
-            {fightType === 'normal' || player.p_LeftHealth === 0 ?  
-            <button onClick={() => handleMessage(
-                "¡Has huido del combate!",
-                "warning",
-                true
-                )} className="rpgui-button newDesign huir">
-            😨 Huir</button> : <></>}        
-        </div>   
-        <div>
-        {fightType=== 'dungeon'? <h1>Dungeon {dungeonLevel}</h1> : <></> }
-            <ul className="action-log" ref={logRef}>
+                <AttackAndPotions 
+                    executeAttack={executeAttack}
+                    selectedWeapon={selectedWeapon}
+                    handleMessage={handleMessage}
+                    pocion={pocion}
+                />
+                <div className="rpgui-container rpgui-draggable ">
+                    <div>
+                    <Dropdown
+                        id="spell-dropdown"
+                        options={player.spells || []}
+                        value={selectedSpell}
+                        onChange={(value) => setSelectedSpell(value)}
+                        disabled={turn !== "player" || creature.health === 0}
+                    />
+                    </div>
+                    <button
+                        onClick={executeSpell}
+                        disabled={turn !== "player" || !selectedSpell || creature.health === 0 || player.p_LeftHealth <= 0 }
+                    >
+                        Lanzar hechizo
+                    </button>
+                </div>
+                {fightType === 'normal' || player.p_LeftHealth === 0 ?  
+                <button onClick={() => handleMessage(
+                    "¡Has huido del combate!",
+                    "warning",
+                    true
+                    )} className="rpgui-button newDesign huir">
+                    😨 Huir</button> : <></>}        
+            </div>   
+            <div>
+            <ul className="action-log fixedUI " ref={logRef}>
                 {actionMessages.map((message, index) => (
                     <li key={index}>{message}</li>  
                 ))}
             </ul>
-            <div
-                className="gameBoard"
-                style={{
-                    position: "absolute",
-                    top: `${boardPosition.top}%`,
-                    left: `${boardPosition.left}%`,
-                }}
-            ><GameBoard 
-            setCanAttack={setCanAttack} 
-            creature= {creature}  
-            setTurn = {setTurn}
-            turn = {turn}
-            playerPosition = {playerPosition}
-            setPlayerPosition = {setPlayerPosition}
-            enemyPosition = {enemyPosition}
-            setEnemyPosition = {setEnemyPosition}
-            SoundPlayer = {SoundPlayer}
-            playerImg = {player.classImg}
-            summon = {summon}
-            setSummon = {setSummon}
-            summonPosition =  {summonPosition}
-            switchTurn = {switchTurn}
-            // setSummonPosition = {setSummonPosition}
+            <GameBoard 
+                // setCanAttack={setCanAttack}  
+                turn = {turn}
+                playerPosition = {playerPosition}
+                setPlayerPosition = {setPlayerPosition}
+                enemyPosition = {enemyPosition}
+                setEnemyPosition = {setEnemyPosition}
+                SoundPlayer = {SoundPlayer}
+                summon = {summon}
+                setSummon = {setSummon}
+                summonPosition =  {summonPosition}
+                switchTurn = {switchTurn}
             />
-            </div>
             <EndBattleActions
                 creature = {creature}
                 creatureHealth={creature.health}
@@ -346,9 +323,16 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
                 setPlayerPosition={setPlayerPosition}
                 setEnemyPosition={setEnemyPosition}
             />
-        </div>
-        <EnemyChar creature={creature} />
-            {soundType &&<SoundPlayer soundType={soundType} category="action" volume={0.2} />}
+            </div>
+            <PlayerCharacter 
+                player={player} 
+                healthPercentage={healthPercentage} 
+                xpPercentage={xpPercentage} 
+                pet={player.selectedPet} 
+                manaPercentage = {manaPercentage}
+            />
+            <EnemyChar creature={creature} />
+            {soundType &&<SoundPlayer soundType={soundType} volume={0.2} />}
             {messageState.show && (
                 <MessageBox
                     message={messageState.content}
@@ -356,8 +340,7 @@ export default function FightScene({setAmbientMusic, setMusicVolume, setIsMusicP
                     onClose={() => handleClose(messageState.redirectHome)}
                 />
             )}
-            <KeyboardController setBoardPosition={setBoardPosition} />
-            
+            <KeyboardController /> 
         </div>
     );
 }

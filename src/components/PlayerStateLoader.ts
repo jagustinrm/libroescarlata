@@ -34,6 +34,9 @@ const PlayerStateLoader = () => {
       playerActions.setInventory(parsedPlayerState.inventoryId)
       playerActions.setClassImg(parsedPlayerState.classImg)
       playerActions.setAvatarImg(parsedPlayerState.avatarImg)
+      playerActions.setHitDie(parsedPlayerState.hitDie)
+      playerActions.setManaDie(parsedPlayerState.manaDie)
+
     }
   }, []); 
 

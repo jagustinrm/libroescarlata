@@ -7,7 +7,7 @@ interface EnemyCharProps {
 
 const EnemyChar: React.FC<EnemyCharProps> = ({ creature }) => {
     return (
-        <div className="rpgui-container framed EnemyChar">
+        <div className="rpgui-container framed EnemyChar fixedUI ">
             {creature?.role === 'boss' && <h1 className="bossSign">BOSS</h1>}
             {creature ? (
                 <div>

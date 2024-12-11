@@ -5,9 +5,10 @@ import openMissions from '../utils/openMissionsWindow.ts';
 
 import MessageBox from './UI/MessageBox.tsx';
 import './Home.css';
-import './Arrow.css';
+import './UI/details/Arrow.css';
 import './UI/designRpg.css';
 import Quests from './quests/Quests.tsx';
+
 export default function Home() {
     const [showMessage, setShowMessage] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -19,7 +20,6 @@ export default function Home() {
     const handleAction = (action: string) => {
         switch (action) {
             case 'fight-normal':
-
                 navigate("/fightScene?type=normal");
                 break;
             case 'fight-dungeon':
@@ -75,18 +75,21 @@ export default function Home() {
                 {isSidebarOpen && (
                     <div className="player">
                         <div className="stats">
-                            <img className='playerAvatar' src={player.avatarImg} alt="avatar img" />
-                            <p onClick={handleStats}>👤 {player.name}</p>
+                            <img onClick={handleStats} className='playerAvatar rpgui-cursor-point' src={player.avatarImg} alt="avatar img" />
+                            <div className='centerStats'>
+                            <p >👤 {player.name}</p>
                             <p>🛡️ {player.classes}</p>
                             <p>⭐ Nivel: {player.level}</p>
                             <div className="p_leaftHealth">
                                 <div className="heart">❤️</div>
                                 <p> Vida: {player.p_LeftHealth} / {player.p_MaxHealth}</p>
                             </div>
+                            <p>🌀 Espíritu:  {player.p_LeftMana} / {player.p_MaxMana}</p> 
                             <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
                             <p>🛠️ Materiales: {player.playerMaterial}</p>
                             <p>🗡️ Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
                             {player.selectedPet && <p>🐶 Mascota: {player.selectedPet.name}</p>}
+                            </div>
                         </div>
                         <button onClick={() => handleAction('inventory')} className="rpgui-button">📜 Inventario</button>
                     </div>

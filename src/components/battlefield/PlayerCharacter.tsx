@@ -12,7 +12,7 @@ interface PlayerProps {
 const PlayerCharacter: React.FC<PlayerProps> = ({ player, healthPercentage, xpPercentage, pet, manaPercentage }) => {
     return (
         <div>
-            <div className=" rpgui-container framed PlayerChar">
+            <div className=" rpgui-container framed PlayerChar fixedUI ">
                 <img className='playerAvatar' src={player.avatarImg} alt="avatar img" />
                 <div className="charFightSceneDescription">
                     <p>{player.name}</p>
@@ -50,7 +50,7 @@ const PlayerCharacter: React.FC<PlayerProps> = ({ player, healthPercentage, xpPe
                 </div>
                 {pet ? <p>Mascota: {pet}</p> : null}
             </div>
-            <div className="blackBar"></div>
+            {/* <div className="blackBar"></div> */}
         </div>
     );
 };

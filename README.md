@@ -11,7 +11,9 @@ Musica en el juego:
     -Ataque enemigo
     -Magias
     -Música de cada sección
-
+Arreglar: 
+    DelayedDisplay (App, línea 70)
+    Música: no arranca cuando entro a la pelea (probar si puedo desde fightscene directamente modificar el soundStore y listo.)
 
 Estadísticas:
     -Que suban los stats necesarios

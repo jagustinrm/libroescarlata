@@ -41,6 +41,7 @@ const LandingPage: React.FC = () => {
   localStorage.removeItem("inventoryState");
 
   return (
+    <>    
     <div className="landingContainer rpgui-container framed-golden-2">
       <div className="landingTitleContainer">
         <img className="landingImg" src="/scarlet.ico" alt="El libro escarlata" />
@@ -56,7 +57,7 @@ const LandingPage: React.FC = () => {
         Se acerca, medio rengueando, y una vez que se encuentra delante tuyo mira
         tus ojos llorozos y te pregunta el nombre...
       </p>
-      <h3>Tu nombre es: {inputName}</h3>
+      <h3 className="yourName">Tu nombre es: {inputName}</h3>
       <div>
         <div className="playerLoaderButton">
           <input
@@ -66,7 +67,7 @@ const LandingPage: React.FC = () => {
             value={inputName}
             onChange={(e) => setInputName(e.target.value)}
           />
-          <ButtonEdited label="Ingresar" soundType="buttonSound" onClick={handleSaveName}/>
+          <ButtonEdited label="Ingresar"  onClick={handleSaveName}/>
         </div>
         <div>
           <form className="playerLoaderButton">
@@ -78,12 +79,14 @@ const LandingPage: React.FC = () => {
               onChange={handleInputChange}
               placeholder="Cargar personaje"
             />
-            <ButtonEdited label="Cargar" soundType="buttonSound" onClick={handleSubmit}/>
+            <ButtonEdited label="Cargar" onClick={handleSubmit}/>
           </form>
         </div>
       </div>
 
     </div>
+
+    </>
   );
 };
 

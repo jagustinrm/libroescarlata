@@ -39,11 +39,10 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
     creature
 }) => {
     if (creatureHealth !== 0) return null;
-    console.log(fightType)
-    console.log(creature.role)
+
     return (
         <div>
-            <div className="container-endBattle">
+            <div className="container-endBattle fixedUI ">
                 <button
                     onClick={() =>
                         handleNewEnemyClick({

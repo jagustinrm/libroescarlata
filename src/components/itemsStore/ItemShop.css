@@ -3,12 +3,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    position: relative;
     margin: 0 auto;
     text-align: center;
     max-width: 900px;
 
-
+    z-index: 1;
     padding-bottom: 20px; 
     background-color: rgba(128, 88, 50, 0.74);
     border-radius: 8px;

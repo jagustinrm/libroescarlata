@@ -27,6 +27,7 @@ export default function CharacterSelector() {
     const handleButtonClick = (classData: Class) => {
         const { className, hitDie, classFeatures, armorClass, baseAttackBonus, saves, img, manaDie, faceImg} = classData;
         playerActions.setPlayerClass(className);
+        console.log(manaDie)
         const InitialHealth = calculateInitialHealth(hitDie);
         const InitialMana = calculateInitialHealth(manaDie)
         playerActions.setPlayerLevel(1);

@@ -1,40 +1,58 @@
 import React, { useEffect } from "react";
 
-
-interface KeyboardControllerProps {
-    setBoardPosition: React.Dispatch<React.SetStateAction<{ top: number; left: number }>>;
-}
-
-const KeyboardController: React.FC<KeyboardControllerProps> = ({ setBoardPosition }) => {
+const KeyboardController: React.FC = () => {
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            setBoardPosition((prevPosition) => {
-                switch (event.key) {
-                    case "ArrowUp":
-                        return { ...prevPosition, top: Math.max(prevPosition.top - 2, -90) };
-                    case "ArrowDown":
-                        return { ...prevPosition, top: Math.min(prevPosition.top + 2, 90) };
-                    case "ArrowLeft":
-                        return { ...prevPosition, left: Math.max(prevPosition.left - 2, 0) };
-                    case "ArrowRight":
-                        return { ...prevPosition, left: Math.min(prevPosition.left + 2, 90) };
-                    default:
-                        return prevPosition;
-                }
-            });
+            const scrollStep = 150; // Cantidad de píxeles por movimiento
+            const maxScrollX = document.documentElement.scrollWidth - window.innerWidth;
+            const maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
+
+            const newScrollPosition = {
+                left: Math.max(0, Math.min(window.scrollX, maxScrollX)),
+                top: Math.max(0, Math.min(window.scrollY, maxScrollY)),
+            };
+
+            switch (event.key) {
+                case "ArrowUp":
+                    window.scrollTo({
+                        top: Math.max(newScrollPosition.top - scrollStep, 0),
+                        left: newScrollPosition.left,
+                        behavior: "smooth", // Desplazamiento suave
+                    });
+                    break;
+                case "ArrowDown":
+                    window.scrollTo({
+                        top: Math.min(newScrollPosition.top + scrollStep, maxScrollY),
+                        left: newScrollPosition.left,
+                        behavior: "smooth",
+                    });
+                    break;
+                case "ArrowLeft":
+                    window.scrollTo({
+                        top: newScrollPosition.top,
+                        left: Math.max(newScrollPosition.left - scrollStep, 0),
+                        behavior: "smooth",
+                    });
+                    break;
+                case "ArrowRight":
+                    window.scrollTo({
+                        top: newScrollPosition.top,
+                        left: Math.min(newScrollPosition.left + scrollStep, maxScrollX),
+                        behavior: "smooth",
+                    });
+                    break;
+                default:
+                    break;
+            }
         };
 
         window.addEventListener("keydown", handleKeyDown);
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
-            
         };
-    }, [setBoardPosition]);
+    }, []);
 
     return null; // No renderiza nada
 };
 
 export default KeyboardController;
-
-
-

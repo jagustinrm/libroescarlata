@@ -14,6 +14,7 @@ export default function PlayerStats() {
             <div className='container containerPlayer '>
                 <div className="player">
                     <div className="stats">
+                        <img className='playerAvatar' src={player.avatarImg} alt="avatar img" />
                         <p>👤 {player.name}</p>
                         <p>🛡️ {player.classes}</p>
                         <p>⭐ Nivel: {player.level}</p>
@@ -21,6 +22,7 @@ export default function PlayerStats() {
                             <div className='heart'>❤️</div>
                             <p> Vida: {player.p_LeftHealth} / {player.p_MaxHealth}</p>
                         </div>
+                        <p>🌀 Espíritu: {player.p_LeftMana} / {player.p_MaxMana}</p>
                         <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
                         <p>🛠️ Materiales: {player.playerMaterial}</p>
                         <p>🗡️ Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>

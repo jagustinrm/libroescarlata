@@ -42,6 +42,12 @@ const useStatManagement = () => {
                 playerActions.setArmorClass(player.armorClass + addionalArmor)
               }
               break;
+              case 'int':
+                {
+                  const additionalMana = player.level; 
+                  playerActions.setP_MaxMana(player.p_MaxMana + additionalMana)
+                }
+                break;
             default:
               break;
           }

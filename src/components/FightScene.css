@@ -10,6 +10,8 @@ body {
 
 .gameBoard {
     position: absolute;
+    top: 10%;
+    left: 25%;
     transition: top 0.2s ease, left 0.2s ease;
 }
 .imgEnemy {
@@ -283,3 +285,11 @@ button:disabled:hover {
 
 
 }
+
+
+
+.fixedUI {
+    position: fixed; /* Permanece en el mismo lugar al mover la pantalla */
+
+
+  }

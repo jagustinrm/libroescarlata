@@ -47,7 +47,7 @@ const ItemShop: React.FC = () => {
   };
 
   return (
-    <div className="item-shop-container">
+    <div className="item-shop-container rpgui-container framed-golden-2">
       <h1>Mercado</h1>
 
       {/* Botones dinámicos para seleccionar tipo de ítems */}
@@ -109,7 +109,11 @@ const ItemShop: React.FC = () => {
             zIndex: 1000,
           }}
         >
-          {hoverInfo.description}
+          {
+          <> 
+            <>{hoverInfo.description}</>
+          </>
+          }
         </div>
       )}
 

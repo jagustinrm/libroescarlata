@@ -7,7 +7,7 @@ export interface Weapon {
     weight: string;         // Peso del arma (por ejemplo, "4 lb")
     cost: number;           
     description: string;    // Descripción del arma
-    range?: string;         
+    range?: number;         
     img?: string;
 }
 
