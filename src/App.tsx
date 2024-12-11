@@ -62,7 +62,7 @@ function App() {
       <InventoryStateLoader />
       <PlayerStateSaver />
       <HomeProvider>
-        {isMusicPlaying && <SoundPlayer soundType={ambientMusic} category="ambient" volume={musicVolume} />}
+        {isMusicPlaying && <SoundPlayer soundType={ambientMusic} volume={musicVolume} />}
         <div className="music-controls">
           <button onClick={toggleMusic}>
             {isMusicPlaying ? '🔊' : '🔈'}

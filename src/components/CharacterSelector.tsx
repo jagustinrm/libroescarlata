@@ -108,7 +108,6 @@ export default function CharacterSelector() {
                             {classes.map((classItem) => (
                                 <ButtonEdited
                                 label= {classItem.className}
-                                soundType="buttonSound"
                                 width='200px'
                                 onMouseEnter={() => setHoveredClass(classItem)}
                                 onMouseLeave={() => setHoveredClass(null)}

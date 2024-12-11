@@ -8,7 +8,7 @@ import useCreatureStore from "../../../stores/creatures";
 interface AttackAndPotionsProps {
   selectedWeapon: string | null;
   executeAttack: () => void;
-  pocion: string
+  pocion: string | undefined; // Cambiar el tipo a string | undefined
   handleMessage: (message: string, type: string, persist: boolean) => void;
 }
 
@@ -26,7 +26,6 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
   const {inventories, removeItem} = useInventoryStore();
   const {potions} = usePotionStore();
   const {creature} = useCreatureStore();
-  console.log(selectedWeapon)
   return (
     <div className="attackAndPotions">
       <button

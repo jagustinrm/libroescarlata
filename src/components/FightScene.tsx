@@ -42,7 +42,7 @@ export default function FightScene() {
     const {player, playerActions } = usePlayerStore();
     const {creature, setCreatureHealth} = useCreatureStore();
     const {spells} = useSpellStore();
-    const {inventories, removeItem} = useInventoryStore();
+    const {inventories} = useInventoryStore();
     const {weapons} = useWeaponStore();
     const initialX = 0;
     const initialY = 45;
