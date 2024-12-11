@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './CharacterSelector.css';
 import './UI/designRpg.css';
 // @ts-expect-error Calcular vida inicial 
