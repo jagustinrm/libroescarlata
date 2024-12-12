@@ -97,15 +97,14 @@ export default function Home() {
             </div>
 
             <div className="buttons ">
-                <button 
-                    onClick={() => 
-                        handleAction('fight-normal')
-                    } 
+                {/* <button 
+                    onClick={() => handleAction('fight-normal')} 
                     disabled={player.p_LeftHealth === 0}
                     className="rpgui-button">
                     ⚔️ Pelear
-                </button>
-                <button 
+                </button> */}
+                
+                {/* <button 
                     onClick={() => handleAction('fight-dungeon')} 
                     disabled={player.p_LeftHealth === 0}
                     className="rpgui-button">
@@ -122,7 +121,24 @@ export default function Home() {
                 <button onClick={() => handleAction('townMap')} className="rpgui-button">🏠 Hogar</button>
                 <button onClick={() => handleAction('itemShop')} className="rpgui-button">🛒 Tienda</button>
                 <button onClick={() => handleAction('petStore')} className="rpgui-button">🐾 Mascotas</button>
-                <button onClick={() => setShowMissions(true)} className="rpgui-button">🗺️ Misiones</button>
+                <button onClick={() => setShowMissions(true)} className="rpgui-button">🗺️ Misiones</button> */}
+                {player.p_LeftHealth > 0 && 
+                <img onClick={() => handleAction('fight-normal')}  className="buttonPrueba" src="/img/UI/training.png" alt="" />
+                } 
+                {player.p_LeftHealth > 0 && 
+                <img onClick={() => handleAction('fight-dungeon')} className="buttonPrueba" src="/img/UI/dungeonButton.png" alt="" />
+                } 
+                <div className="hospitalRecover">
+                <img onClick={() => handleAction('recoverHealth')}   className="buttonPrueba" src="/img/UI/innButton.png" alt="" />
+                {player.p_LeftHealth === 0 && <div className="arrows"></div>}
+                </div>
+                <img onClick={() => handleAction('petStore')}  className="buttonPrueba" src="/img/UI/petsButton.png" alt="" />
+                <img onClick={() => setShowMissions(true)}  className="buttonPrueba" src="/img/UI/questsButton.png" alt="" />
+                <img onClick={() => handleAction('itemShop')} className="buttonPrueba" src="/img/UI/shopButton.png" alt="" />
+
+
+            
+            
             </div>
 
             {showMessage && (

@@ -109,7 +109,9 @@
     position: relative;
 }
 .playerAvatar {
+    
     width: 200px;
+
 }
 .home-container.hidden {
     opacity: 0;
@@ -138,3 +140,7 @@
 
 
 
+.buttonPrueba{
+    width: 200px;
+    cursor: url("./designImg/cursor/point.png") 10 0, auto;
+}

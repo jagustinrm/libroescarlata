@@ -48,7 +48,9 @@ const PlayerCharacter: React.FC<PlayerProps> = ({ player, healthPercentage, xpPe
                     </div>
                     </div>
                 </div>
-                {pet ? <p>Mascota: {pet}</p> : null}
+                <img className="imgPet" src={pet.img} alt="" />
+                {pet ? <p>Mascota: {pet.name}</p> : null}
+
             </div>
             {/* <div className="blackBar"></div> */}
         </div>

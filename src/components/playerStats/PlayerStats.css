@@ -1,6 +1,6 @@
 .sectionPlayer {
-
-    font-size: 1.03em
+  max-height: 800px;
+  font-size: 1.03em
 }
 .containerPlayer {
     display: flex;
@@ -17,21 +17,53 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
+    gap:2px
 }
 ul {
     list-style: none;
 }
 
-.buttonAdd {
-    width: 1px; /* Tamaño fijo */
-    height: 3px; /* Tamaño fijo */
+.PetDescription{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    font-size: 14px;
-    text-align: center;
-    overflow: hidden; /* Oculta texto que no quepa */
-    padding: none;
+    align-items: center;
+    width: 300px;
+    height: 400px;
+}
+.PetStats{
+  justify-content: flex-start;
+}
+.petPara{
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+
+  .medieval-button {
+    padding: 5px 10px;
+    background-color: #85501f; /* A dark wood-like brown */
+    color: #f4e5c3; /* A parchment-like off-white */
+    border: 1px solid #c0a080; /* A lighter brown border */
+    font-family: 'Goudy Bookletter 1911', serif; /* A font with an old-style feel */
+    font-size: 18px;
+    text-shadow: 1px 1px 0px #a67c52; /* Gives a bit of depth to the text */
+    box-shadow: 2px 2px 0px #a67c52; /* Simulates an inset look */
+    border-radius: 1px; /* Slightly rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 5px;
+    margin-bottom: 3px;
+  }
+  
+  .medieval-button:hover {
+    background-color: #8a6e2f; /* A lighter, worn wood color for hover */
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3); /* A more pronounced shadow for hover */
+  }
+  
+  .medieval-button:active {
+    box-shadow: inset 1px 1px 2px 0px rgba(0, 0, 0, 0.5); /* An inset shadow for a pressed effect */
+    transform: translateY(2px); /* Moves the button down to simulate a press */
   }
   
   .playerbackbutton {

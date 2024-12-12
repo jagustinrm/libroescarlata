@@ -73,9 +73,50 @@
 
 
 .highlighted {
-  background-color: rgba(255, 0, 0, 0.89); /* Rojo suave */
+  background-color: rgba(255, 0, 0, 0.89);
   z-index: 5;
   background-image: linear-gradient(rgba(148, 111, 111, 0.5), rgba(149, 71, 71, 0.5)), 
   url('/img/assets/grass/grass1.png');
   
 }   
+
+.player-position {
+
+  background-image: linear-gradient(rgba(206, 128, 128, 0.5), rgba(240, 116, 116, 0.5)), 
+  url('/img/assets/grass/grass1.png');
+  border-color: #ff4f4f;
+  border-width: 5px;
+  z-index: 6;
+}
+
+.enemy-position {
+  
+  background-image: linear-gradient(rgba(246, 255, 0, 0.5), rgba(149, 71, 71, 0.5)), 
+  url('/img/assets/grass/grass1.png');
+  border-color: #fff04f;
+  border-width: 5px;
+  z-index: 6;
+}
+
+
+.attack-range {
+    /* background-image: linear-gradient(rgba(246, 255, 0, 0.5), rgba(149, 71, 71, 0.5)), 
+  url('/img/assets/grass/grass1.png'); */
+  /* border-color: #ff4f4f; */
+
+  z-index: 6;
+
+  animation: borderGlow 0.5s infinite alternate;
+}
+
+/* Definir la animación para el borde brillante y crecimiento */
+@keyframes borderGlow {
+  0% {
+
+    box-shadow: 0 0 2px 3px #38a03a;
+  }
+  100% {
+
+    box-shadow: 0 0 5px 5px #38a03a;
+  }
+}

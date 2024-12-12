@@ -309,6 +309,7 @@ export default function FightScene() {
                 setSummon = {setSummon}
                 summonPosition =  {summonPosition}
                 switchTurn = {switchTurn}
+                selectedWeapon = {selectedWeapon}
             />
             <EndBattleActions
                 creature = {creature}

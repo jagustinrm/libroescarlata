@@ -47,10 +47,9 @@ button:disabled:hover {
     position:absolute;
     top: 80.5%;
     left: 5%;
-    width: 22%;
+    width: 17%;
     height: 13%;
     padding: 2px 20px;
-
     margin-top: 20px;
     background-color: #343a40;
     color: #ffffff;

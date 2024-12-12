@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Stats } from '../../stores/types/stats';
 import useStatManagement from '../../customHooks/useStatManagement';
 
+
 export default function PlayerStats() {
     const { player } = usePlayerStore();
     const navigate = useNavigate();
     const {handleIncreaseStat} = useStatManagement()
-
+   
+  
     return (
         <section className='sectionPlayer rpgui-container framed-golden-2'>
             <div className='container containerPlayer '>
@@ -26,10 +28,12 @@ export default function PlayerStats() {
                         <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
                         <p>🛠️ Materiales: {player.playerMaterial}</p>
                         <p>🗡️ Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
-                        {player.selectedPet && <p>🐶 Mascota: {player.selectedPet.name}</p>}
                         <p>🛡️ Clase de armadura: {player.armorClass}</p>
                         <p>⚔️ Ataque Base: {player.baseAttackBonus}</p>
                     </div>
+                    <button className="rpgui-button playerbackbutton" onClick={() => navigate('/home')}>
+                Volver
+            </button>
                 </div>
                 <div className='mediumColumnStats'>
                     <div className='statsAndAdd'>
@@ -43,7 +47,7 @@ export default function PlayerStats() {
                                 </li>
                                 {player.leftPoints? 
                                 <button 
-                                className='buttonAdd'
+                                className='medieval-button'
                                 onClick={() => handleIncreaseStat(key as keyof Stats, 1)}>
                                    +
                                 </button>: <></>}
@@ -52,15 +56,27 @@ export default function PlayerStats() {
                             ))}
                                                             
                     </ul>
-
-                    <ul className="statsPoints">
-
-                    </ul>
+                    <ul className="statsPoints"></ul>
                     </div>
                     <p> Puntos restantes: {player.leftPoints}</p>
+              
+                    {player.selectedPet && 
+                    <div className='PetDescription rpgui-container framed-grey bars'>
+                        <p>Mascota: {player.selectedPet.name}</p>
+                        <img className='imgPet' src={player.selectedPet.img} alt={player.selectedPet.name} />
+                        <div className='PetStats'>
+                            <p className='petPara'>Tipo: {player.selectedPet.type}</p>
+                            <p className='petPara'>Dados de golpe: {player.selectedPet.hitPoints} </p>
+                            <p className='petPara' >Clase de armadura: {player.selectedPet.armorClass} </p>
+                            <p className='petPara'>Ataque:</p>
+                            <p className='petPara'> {player.selectedPet.attack.melee}</p>
+                        </div>
+                    </div>
+                    }
+                
                 </div>
   {/* **************************************** ESTADÍSTICAS ************************************ */}
-
+                
                 {/* Nuevo div con más información */}
                 <div className="additional-stats">
                     <p>🎲 Dados de golpe: {player.hitDie}</p>
@@ -78,6 +94,7 @@ export default function PlayerStats() {
                             ))}
                         </ul>
                     </p>
+                 
                     <p>🐾 Mascotas:
                         <ul>
                             {player.petsName?.map((petName, index) => (
@@ -89,9 +106,7 @@ export default function PlayerStats() {
 
             </div>
 
-            <button className="rpgui-button playerbackbutton" onClick={() => navigate('/home')}>
-                Volver
-            </button>
+
         </section>
     );
 }
