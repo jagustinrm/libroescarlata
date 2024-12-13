@@ -16,11 +16,11 @@ import usePlayerStore from './stores/playerStore';
 import useInventoryStore from './stores/inventoryStore';
 import InventoryStateLoader from './components/InventoryStateLoader';
 import WeaponLoader from './loaders/NewWeaponLoader';
-import ItemShopLoader from './components/itemsStore/ItemShopLoader';
+// import ItemShopLoader from './components/itemsStore/ItemShopLoader';
 import PotionsLoader from './loaders/PotionsLoader';
 import ClassLoader from './loaders/ClassLoaders';
 import PlayerStats from './components/playerStats/PlayerStats';
-import DelayedDisplay from './utils/DelayedDisplayProps';
+// import DelayedDisplay from './utils/DelayedDisplayProps';
 import { useEffect } from 'react';
 import SpellLoader from './loaders/SpellsLoader';
 import CreatureLoader from './loaders/CreaturesLoaders';
@@ -29,10 +29,13 @@ import TestFirebaseRead from './firebase/TestFirebaseRead.js';
 import PlayerStateSaver from './firebase/savePlayerStateToFirebase .js';
 import LoadPlayerFromFirebase from './firebase/loadPlayerState.js';
 import SoundPlayer from './components/UI/soundPlayer/SoundPlayer.js';
-
+// import CreateCustomArmor from './components/experimental/createCustomArmor.js';
 // Importa el store global
 import useAppStore from './stores/appStore.js';
 import ArmorsLoader from './loaders/ArmorsLoader.js';
+import Particles from './components/UI/details/particles.js';
+import ItemShopLoader from './components/itemsStore/ItemShopLoader.js';
+
 
 function App() {
   // Usa los estados y funciones del store
@@ -46,13 +49,13 @@ function App() {
   }, [setAmbientMusic, setMusicVolume]);
 
   window.addEventListener('beforeunload', () => {
-
     localStorage.setItem('playerState', JSON.stringify(player));
     localStorage.setItem('inventoryState', JSON.stringify(inventories));
   });
 
   return (
     <BrowserRouter>
+      <Particles/>
       <PlayerStateLoader />
       <WeaponLoader />
       <ArmorsLoader/>
@@ -78,7 +81,7 @@ function App() {
         </div>
 
         {/* Aplicamos DelayedDisplay a todas las rutas */}
-        <DelayedDisplay delay={300} duration={200}>
+        {/* <DelayedDisplay delay={300} duration={200}> */}
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/characterSelector" element={<CharacterSelector />} />
@@ -91,9 +94,11 @@ function App() {
             <Route path="/playerstats" element={<PlayerStats />} />
             <Route path="/firebase" element={<MyComponent />} />
             <Route path="/testread" element={<TestFirebaseRead />} />
+            {/* <Route path="/createcustomarmor" element= {<CreateCustomArmor/>}/> */}
             <Route path="/loadPlayer/:playerName" element={<LoadPlayerFromFirebase />} />
+            
           </Routes>
-        </DelayedDisplay>
+        {/* </DelayedDisplay> */}
       </HomeProvider>
     </BrowserRouter>
   );

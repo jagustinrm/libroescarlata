@@ -1,5 +1,5 @@
 export interface Item {
-    id: number | string;
+    id: string;
     name: string;
     description?: string;
     img?: string;
@@ -20,6 +20,6 @@ export interface ItemsStore {
     isInitialized: boolean, // Nuevo flag
     createItems: (id: number) => void;
     addItem: (id: number, type: keyof Items, item: Item) => void;
-    removeItem: (id: number, type: keyof Items, itemId: number) => void;
+    removeItem: (id: number, type: keyof Items, itemId: string) => void;
     clearItems: (id: number) => void;
 }

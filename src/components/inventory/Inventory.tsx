@@ -27,27 +27,29 @@ export default function Inventory() {
             setActualInventory(null); 
             return;
         }
-        const selectedCategory = inventories[player.inventoryId][category];
+        const detailedItems = inventories[player.inventoryId][category];
+         // PUEDO HACER LA BÚSQUEDA DE LOS OBJETOS ACÁ
+        const selectedCategory = detailedItems
+       
         setActualInventory(selectedCategory || []);
     };
 
     const handleSelectItem = (itemName: string) => {
         // Buscar en armas
   
-        const weapon = weapons.find((weapon: Weapon) => weapon.name === itemName);
+        const weapon = weapons.find((weapon: Weapon) => weapon.id === itemName);
         if (weapon) {
             setSelectedItem(weapon);
             return;
         }
 
         // Buscar en pociones
-        const potion = potions.find((potion: Potion) => potion.name === itemName);
+        const potion = potions.find((potion: Potion) => potion.id === itemName);
         if (potion) {
             setSelectedItem(potion);
             return;
         }
-        console.log(inventories)
-        console.log(armors)
+
         const armor = armors.find((armor: Armor) => armor.id === itemName);
         if (armor) {
 
@@ -74,7 +76,11 @@ export default function Inventory() {
                     <ul className="rpgui-list-imp">
                         {actualInventory && actualInventory.length > 0 ? (
                             actualInventory.map((item, index) => (
+                                <>
+                                {/* ACA TENGO QUE LLAMAR A UNA FUNCIÓN QUE BUSQUE EL ITEM ENTERO POR MEDIO DE LA CATEGORÍA Y AGARRE EL NOMBRE  */}
+
                                 <li key={index} onClick={() => handleSelectItem(item)}>{item}</li> 
+                                </>
                             ))
                         ) : (
                             <p>No se encontraron</p>

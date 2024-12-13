@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 import './ItemShop.css';
 import useItemsStore from '../../stores/itemsStore';
 import { Item } from '../../stores/types/items';
@@ -15,18 +15,17 @@ const ItemShop: React.FC = () => {
   const shopId = 1; // ID único para el inventario del shop (ahora es un número)
   const [hoverInfo, setHoverInfo] = useState<{ description: string; x: number; y: number } | null>(null);
   const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
-
   const itemTypes = items[shopId] ? Object.keys(items[shopId]) : [];
 
   const handleBuy = (
     playerInventoryId: string,
-    itemName: string,
+    itemId: string,
     itemType: keyof typeof items[1],
     itemCost: number
   ) => {
 
     if (player.playerMaterial >= itemCost) {
-      addItemToInventory(playerInventoryId, itemType, itemName);
+      addItemToInventory(playerInventoryId, itemType, itemId);
       playerActions.setPlayerMaterial(player.playerMaterial - itemCost);
       setFloatingMessage('¡Comprado!');
     } else {
@@ -81,7 +80,7 @@ const ItemShop: React.FC = () => {
               )}
               <button
                 className="rpgui-button buyButton"
-                onClick={() => handleBuy(player.inventoryId, item.name, selectedType, item.cost)}
+                onClick={() => handleBuy(player.inventoryId, item.id, selectedType, item.cost)}
                 value={item.id}
               >
                 {item.cost} 🛠️
@@ -124,6 +123,7 @@ const ItemShop: React.FC = () => {
           onComplete={() => setFloatingMessage(null)}
         />
       )}
+
     </div>
   );
 };

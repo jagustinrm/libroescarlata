@@ -40,7 +40,7 @@ export default function CharacterSelector() {
         playerActions.setPlayerExp(0);
         playerActions.setP_ExpToNextLevel(1000);
         playerActions.setP_ExpPrevLevel(0);
-        playerActions.setPlayerMaterial(100);
+        playerActions.setPlayerMaterial(10000000000);
         //****************** INVENTNARIO */
         playerActions.setInventory(`${player.name}_inventory`);
         inventoryStore.createInventory(`${player.name}_inventory`);

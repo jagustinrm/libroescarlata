@@ -1,7 +1,8 @@
 El libro escarlata
 
 Cosas para hacer:
-
+BASE DE DATOS:
+    Ojo que solo actualizo el personaje si tiene cambiada un par de cosas en savePlayerStateToFireBase.
 prettier: para aplicar formato a código
 eslint: para realizar linting de código
 BOTONES:
