@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
-// import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
+
 import { Creature } from '../stores/types/creatures.ts';
+import { Player } from '../stores/types/player';
 
 interface Position {
     x: number;
@@ -9,11 +10,9 @@ interface Position {
 }
 
 interface EnemyTurnProps {
-    // creature: CreatureInterface | null;
     creature: Creature | null;
     turn: string;
-
-    player: { p_LeftHealth: number, armorClass: number };
+    player: Player
     playerActions: { setP_LeftHealth: (health: number) => void };
     setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
     switchTurn: () => void;
@@ -40,7 +39,7 @@ export const useEnemyTurn = ({
                 const deltaX = playerPosition.x - enemyPosition.x;
                 const deltaY = playerPosition.y - enemyPosition.y;
 
-                const stepSize = 5;
+                const stepSize = 10;
 
                 const newX =
                     Math.abs(deltaX) > stepSize
@@ -69,7 +68,7 @@ export const useEnemyTurn = ({
                 if (distanceX < 10 && distanceY < 10) {
                     const enemyAttackTimeout = setTimeout(() => {
                         const totalAttack = rollDice('1d20') + creature["attacks"][0].bonus;
-                        if (totalAttack > player.armorClass) {
+                        if (totalAttack > player.totalArmorClass()) {
                             const damageDice = creature["attacks"][0].damage;
                             const damage = rollDice(damageDice);
 

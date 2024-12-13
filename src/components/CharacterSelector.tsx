@@ -5,6 +5,7 @@ import './UI/designRpg.css';
 import { calculateInitialHealth } from '../utils/calculateInitialHealth.js';
 // @ts-expect-error Armas por clase
 import { assignWeaponByClass } from '../utils/assignWeaponByClass.js';
+import { assignArmorByClass } from '../utils/assignArmorByClass.js';
 import { useNavigate } from 'react-router-dom';
 import { usePlayerStore } from '../stores/playerStore.js';
 import useClassStore from '../stores/classStore';
@@ -13,21 +14,22 @@ import useInventoryStore from '../stores/inventoryStore';
 import { useWeaponStore } from '../stores/weaponStore.js';
 import useItemsStore from '../stores/itemsStore.js';
 import ButtonEdited from './UI/ButtonEdited.js';
+import useArmorStore from '../stores/armorStore.js';
 export default function CharacterSelector() {
     const { createItems } = useItemsStore();
     const navigate = useNavigate();
     const { classes, areClassesLoaded } = useClassStore();
     const { weapons } = useWeaponStore();
+    const { armors } = useArmorStore();
     const { player, playerActions } = usePlayerStore();
     const inventoryStore = useInventoryStore.getState();
-
+    
     // Estado para la clase en hover
     const [hoveredClass, setHoveredClass] = useState<Class | null>(null);
 
     const handleButtonClick = (classData: Class) => {
         const { className, hitDie, classFeatures, armorClass, baseAttackBonus, saves, img, manaDie, faceImg} = classData;
         playerActions.setPlayerClass(className);
-        console.log(manaDie)
         const InitialHealth = calculateInitialHealth(hitDie);
         const InitialMana = calculateInitialHealth(manaDie)
         playerActions.setPlayerLevel(1);
@@ -46,11 +48,10 @@ export default function CharacterSelector() {
         playerActions.setClassFeature(classFeatures);
         playerActions.setClassImg(img)
         playerActions.setAvatarImg(faceImg)
-        playerActions.setArmorClass(armorClass);
+        playerActions.setArmorClass(10);
         playerActions.setBaseAttackBonus(baseAttackBonus);
         playerActions.setHitDie(hitDie);
         playerActions.setManaDie(manaDie);
-
         playerActions.setSaves(saves);
         createItems(1);
         playerActions.setStats({
@@ -78,7 +79,14 @@ export default function CharacterSelector() {
             inventoryStore,
             player,
         });
-
+        assignArmorByClass({
+            className,
+            classes,
+            armors,
+            playerActions,
+            inventoryStore,
+            player,
+        });
             playerActions.setSpell(classData.initialSpells);
 
 

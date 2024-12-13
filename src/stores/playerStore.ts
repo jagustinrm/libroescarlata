@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { PlayerStore } from './types/player';
 import useInventoryStore from './inventoryStore';
 
-export const usePlayerStore = create<PlayerStore>((set) => ({
+export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: {
     name: '',
     level: 1,
@@ -43,6 +43,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     classFeatures: [],
     selectedPet: '',
     selectedWeapon: null,
+    selectedArmor: null,
     playerMaterial: 0,
     petsName: [],
     enemiesDeleted: [],
@@ -50,6 +51,12 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
     inventoryId: '',
     classImg: '',
     avatarImg: '',
+    totalArmorClass: () => {
+      const state = get().player; // Obtén el estado actual
+      const armorValue = state.selectedArmor?.armorValue || 0; // Usa 0 si selectedArmor es null
+      console.log(state.selectedArmor)
+      return state.armorClass + armorValue;
+    },
   },
 
   // Agrupamos las acciones relacionadas con el jugador
@@ -250,6 +257,14 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, selectedWeapon },
       })),
+      setP_SelectedArmor: (selectedArmor) =>(
+
+        set((state) => ({
+          player: { ...state.player, selectedArmor },
+        }))  
+      ),
+        
+
     setHitDie: (hitDie) =>
       set((state) => ({
         player: {

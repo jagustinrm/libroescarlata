@@ -6,6 +6,10 @@ import usePotionStore from "../../stores/potionsStore"; // Importamos el store d
 import './Inventory.css';
 import type { Inventory } from '../../stores/types/inventory';
 import BackButton from '../UI/BackButton';
+import { Armor } from "../../stores/types/armor";
+import { Potion } from "../../stores/types/potions";
+import { Weapon } from "../../stores/types/weapons";
+import useArmorStore from "../../stores/armorStore";
 
 export default function Inventory() {
     const [actualInventory, setActualInventory] = useState<Array<string> | null>(null);
@@ -14,7 +18,7 @@ export default function Inventory() {
     const { inventories } = useInventoryStore(); 
     const { weapons } = useWeaponStore(); // Obtenemos las armas
     const { potions } = usePotionStore(); // Obtenemos las pociones
-    
+    const {armors} = useArmorStore();
 
 
     const handleLoadActualInventory = (category: keyof Inventory) => {
@@ -29,19 +33,27 @@ export default function Inventory() {
 
     const handleSelectItem = (itemName: string) => {
         // Buscar en armas
-        const weapon = weapons.find((weapon: any) => weapon.name === itemName);
+  
+        const weapon = weapons.find((weapon: Weapon) => weapon.name === itemName);
         if (weapon) {
             setSelectedItem(weapon);
             return;
         }
 
         // Buscar en pociones
-        const potion = potions.find((potion: any) => potion.name === itemName);
+        const potion = potions.find((potion: Potion) => potion.name === itemName);
         if (potion) {
             setSelectedItem(potion);
             return;
         }
+        console.log(inventories)
+        console.log(armors)
+        const armor = armors.find((armor: Armor) => armor.id === itemName);
+        if (armor) {
 
+            setSelectedItem(armor);
+            return;
+        }
         // Si no se encuentra en ninguno, limpiar la selección
         setSelectedItem(null);
     };

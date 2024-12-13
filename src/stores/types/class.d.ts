@@ -16,6 +16,8 @@ export interface Class {
     faceImg: string;
     initialSpells: string[];
     description: string;
+    initialArmor: string[]
+    intiialWeapon: number[]
 }
 
 interface ClassStore {

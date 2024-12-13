@@ -32,6 +32,7 @@ import SoundPlayer from './components/UI/soundPlayer/SoundPlayer.js';
 
 // Importa el store global
 import useAppStore from './stores/appStore.js';
+import ArmorsLoader from './loaders/ArmorsLoader.js';
 
 function App() {
   // Usa los estados y funciones del store
@@ -54,6 +55,7 @@ function App() {
     <BrowserRouter>
       <PlayerStateLoader />
       <WeaponLoader />
+      <ArmorsLoader/>
       <PotionsLoader />
       <ClassLoader />
       <SpellLoader />
@@ -64,9 +66,15 @@ function App() {
       <HomeProvider>
         {isMusicPlaying && <SoundPlayer soundType={ambientMusic} volume={musicVolume} />}
         <div className="music-controls">
-          <button onClick={toggleMusic}>
-            {isMusicPlaying ? '🔊' : '🔈'}
+          <button className='buttonSoundToggle' onClick={toggleMusic}>
+            
+            {isMusicPlaying ? 
+            <img className='soundPlayerSimbol' src="/img/UI/musicOnSimbol.png" alt="" /> 
+             :
+            <img className='soundPlayerSimbol' src="/img/UI/musicOffSimbol.png" alt="" />
+             }
           </button>
+
         </div>
 
         {/* Aplicamos DelayedDisplay a todas las rutas */}

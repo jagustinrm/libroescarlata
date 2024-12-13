@@ -1,5 +1,6 @@
-import Pet from '../types/pets';
-import Weapon from '../types/weapons';
+import Pet from './pets';
+import Weapon from './weapons';
+import { Armor } from './armor';
 // import { Spell } from './spells';
 import { Stats } from './stats';
 // Interfaz para el estado del player
@@ -25,7 +26,8 @@ export interface Player {
   classFeatures: string[];
   classes: string[];
   selectedPet: Pet;
-  selectedWeapon: Weapon;
+  selectedWeapon: Weapon | null;
+  selectedArmor: Armor | null;
   inventoryId: string; 
   petsName: string[];
   playerMaterial: number;
@@ -36,6 +38,7 @@ export interface Player {
   spells: string[]
   classImg: string;
   avatarImg: string;
+  readonly totalArmorClass: () => number;
 }
 
 // Interfaz para las acciones relacionadas con el jugador
@@ -46,6 +49,7 @@ export interface PlayerActions {
   setP_ExpPrevLevel: (p_ExpPrevLevel: number) => void;
   setP_SelectedPet: (selectedPet: Pet) => void;
   setP_SelectedWeapon: (selectedWeapon: Weapon) => void;
+  setP_SelectedArmor: (selectedArmor: Armor) => void;
   setPlayerLevel: (level: number) => void;
   setP_MaxHealth: (p_MaxHealth: number) => void;
   setP_LeftHealth: (p_LeftHealth: number) => void;
@@ -53,7 +57,6 @@ export interface PlayerActions {
   setP_LeftMana: (p_LeftMana: number) => void;
   setHitDie: (hitDie: string) => void;
   setManaDie: (manaDie: string) => void;
-
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void; 
@@ -63,8 +66,6 @@ export interface PlayerActions {
   addClassFeature: (feature: string) => void; 
   setClassFeature: (classFeatures: Player['classFeatures']) => void; 
   addPetsName:(petsName: string) => void;
-
-
   updateHitDie: (hitDie: string) => void; 
   setSaves: (saves: Player['saves']) => void;
   updateSaves: (saves: Partial<Player['saves']>) => void;

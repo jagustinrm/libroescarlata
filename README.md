@@ -2,6 +2,10 @@ El libro escarlata
 
 Cosas para hacer:
 
+prettier: para aplicar formato a código
+eslint: para realizar linting de código
+BOTONES:
+    Rediseñar el botón de ButtonEdited para usarlo en todos lados, con cualquier imagen y que tenga sonido (cosa que ya tiene).
 
 INVENTORY:
     -CAMBIAR BASE DE DATOS CARGA DE INVENTARIO PARA QUE CARGUE APARTE LOS INVENTARIOS
@@ -13,7 +17,6 @@ Musica en el juego:
     -Música de cada sección
 Arreglar: 
     DelayedDisplay (App, línea 70)
-    Música: no arranca cuando entro a la pelea (probar si puedo desde fightscene directamente modificar el soundStore y listo.)
 
 Estadísticas:
     -Que suban los stats necesarios
@@ -21,7 +24,6 @@ Estadísticas:
 Que haya una opción desplegable cuando paso por arriba del arma actual.
 Traducir tienda
 Mejorar tema de misiones ( que no sean botones)
-
 Que las misiones den recompenza.
 Aliado para pelear en la tienda
 Dropeo de enemigos.

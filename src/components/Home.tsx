@@ -96,7 +96,7 @@ export default function Home() {
                 )}
             </div>
 
-            <div className="buttons ">
+            <div className="buttonsHome ">
                 {/* <button 
                     onClick={() => handleAction('fight-normal')} 
                     disabled={player.p_LeftHealth === 0}

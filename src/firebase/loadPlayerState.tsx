@@ -20,6 +20,7 @@ const LoadPlayerFromFirebase = () => {
 
         if (snapshot.exists()) {
           const playerData = snapshot.val();
+
           // Carga los datos en el store utilizando las acciones de playerActions
           playerActions.setPlayerName(playerData.name);
           playerActions.setPlayerLevel(playerData.level);
@@ -36,6 +37,7 @@ const LoadPlayerFromFirebase = () => {
           playerActions.setPlayerClass(playerData.classes)
           playerActions.setP_SelectedPet(playerData.selectedPet);
           playerActions.setP_SelectedWeapon(playerData.selectedWeapon);
+          playerActions.setP_SelectedArmor(playerData.selectedArmor)
           playerActions.setStats(playerData.stats);
           playerActions.setStatsLeftPoints(playerData.leftPoints);
           playerActions.setSpell(playerData.spells);

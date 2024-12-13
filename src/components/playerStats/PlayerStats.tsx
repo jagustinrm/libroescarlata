@@ -10,7 +10,7 @@ export default function PlayerStats() {
     const navigate = useNavigate();
     const {handleIncreaseStat} = useStatManagement()
    
-  
+    console.log(player)
     return (
         <section className='sectionPlayer rpgui-container framed-golden-2'>
             <div className='container containerPlayer '>
@@ -28,7 +28,8 @@ export default function PlayerStats() {
                         <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
                         <p>🛠️ Materiales: {player.playerMaterial}</p>
                         <p>🗡️ Arma actual: {player.selectedWeapon?.name || "Sin arma equipada"}</p>
-                        <p>🛡️ Clase de armadura: {player.armorClass}</p>
+                        <p> 🛡️ Armadura actual: {player.selectedArmor?.name + " " + player.selectedArmor?.material || "Sin arma equipada"}</p>
+                        <p> 🛡️ Clase de armadura: {player.totalArmorClass()}</p>
                         <p>⚔️ Ataque Base: {player.baseAttackBonus}</p>
                     </div>
                     <button className="rpgui-button playerbackbutton" onClick={() => navigate('/home')}>

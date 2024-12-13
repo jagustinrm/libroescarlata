@@ -68,11 +68,11 @@ export const useSummonTurn = ({
                 if (distanceX < 10 && distanceY < 10) {
                     const summonAttackTimeout = setTimeout(() => {
                         const totalAttack = rollDice('1d20') + summon["attacks"][0].bonus;
-                        if (totalAttack > creature.armorClass) {
+                        if (totalAttack > creature.armorClass && creature.health) {
                             const damageDice = summon["attacks"][0].damage;
                             const damage = rollDice(damageDice);
-
-                            setCreatureHealth(Math.max(player.p_LeftHealth - damage, 0));
+                            console.log(damage)
+                            setCreatureHealth(Math.max(creature.health - damage, 0));
 
                             setActionMessages((prev) => [
                                 ...prev,

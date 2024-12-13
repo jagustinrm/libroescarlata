@@ -20,7 +20,7 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
 }) => {
   const buttonSound = {
     name: "buttonSound",
-    source: "/music/click/buttonSound.mp3",
+    source: "/music/click/buttonSound.wav",
     volume: 0.2,
     loop: false,
   };
