@@ -1,5 +1,5 @@
 export interface Weapon {
-    id: number;             // Identificador único del arma
+    id: string;             // Identificador único del arma
     name: string;           // Nombre del arma
     type: string;           // Tipo de arma (Cuerpo a cuerpo, Distancia)
     damage: string;         // Daño del arma (por ejemplo, "1d8")

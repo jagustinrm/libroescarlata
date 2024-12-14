@@ -11,7 +11,7 @@
             "will": 2
         },
         "classFeatures": ["Hechizos", "Familiar"],
-        "initialWeapon": [10],
+        "initialWeapon": ["weapon-baston-010"],
         "initialArmor": ["armor-cloth-001"],
         "stats": {
             "strength": 8,
@@ -38,7 +38,7 @@
             "will": 0
         },
         "classFeatures": ["Ataque poderoso", "Resistencia"],
-        "initialWeapon": [1, 3, 6],
+        "initialWeapon": ["weapon-espada-larga-001", "weapon-hacha-de-batalla-003"],
         "initialArmor": ["armor-steel-001"],
         "stats": {
             "strength": 16,
@@ -65,7 +65,7 @@
             "will": 0
         },
         "classFeatures": ["Ataque furtivo", "Evasión", "Esquivar"],
-        "initialWeapon": [2, 7],
+        "initialWeapon": ["weapon-daga-002", "weapon-lanza-007"],
         "initialArmor": ["armor-leather-001"],
         "stats": {
             "strength": 10,
@@ -92,7 +92,7 @@
             "will": 2
         },
         "classFeatures": ["Hechizos divinos", "Reprender muertos vivientes", "Curación"],
-        "initialWeapon": [9, 10],
+        "initialWeapon": ["weapon-martillo-de-guerra-009","weapon-baston-010" ],
         "initialArmor": ["armor-cloth-001"],
         "stats": {
             "strength": 12,
@@ -119,7 +119,7 @@
             "will": 0
         },
         "classFeatures": ["Furia", "Movimiento rápido", "Esquiva asombrosa"],
-        "initialWeapon": [3, 7],
+        "initialWeapon": ["weapon-hacha-de-batalla-003", "weapon-lanza-007"],
         "initialArmor": ["armor-leather-001"],
         "stats": {
             "strength": 16,
@@ -146,7 +146,7 @@
             "will": 2
         },
         "classFeatures": ["Inspiración bardica", "Hechizos arcanos", "Conocimiento de bardo"],
-        "initialWeapon": [2, 10],
+        "initialWeapon": ["weapon-daga-002", "weapon-baston-010"],
         "initialArmor": ["armor-leather-001"],
         "stats": {
             "strength": 10,
@@ -173,7 +173,7 @@
             "will": 2
         },
         "classFeatures": ["Forma salvaje", "Hechizos divinos", "Conexión con la naturaleza"],
-        "initialWeapon": [7, 10],
+        "initialWeapon": ["weapon-lanza-007", "weapon-baston-010"],
         "initialArmor": ["armor-cloth-001"],
         "stats": {
             "strength": 10,
@@ -200,7 +200,7 @@
             "will": 0
         },
         "classFeatures": ["Enemigo predilecto", "Empatía salvaje", "Combate con dos armas"],
-        "initialWeapon": [4, 7],
+        "initialWeapon": ["weapon-arco-largo-004",  "weapon-lanza-007"],
         "initialArmor": ["armor-leather-001"],
         "stats": {
             "strength": 14,
@@ -227,7 +227,7 @@
             "will": 2
         },
         "classFeatures": ["Detectar mal", "Imposición de manos", "Aura de coraje"],
-        "initialWeapon": [1, 9],
+        "initialWeapon": ["weapon-espada-larga-001", "weapon-martillo-de-guerra-009"],
         "initialArmor": ["armor-steel-001"],
         "stats": {
             "strength": 14,

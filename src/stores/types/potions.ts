@@ -9,7 +9,7 @@ export interface PotionEffect {
 }
 
 export interface Potion {
-    id: number;
+    id: string;
     name: string;
     effect?:  PotionEffect; 
     cost: number;

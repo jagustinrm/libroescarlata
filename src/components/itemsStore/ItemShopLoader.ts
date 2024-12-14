@@ -49,6 +49,8 @@ const ItemShopLoader = () => {
             if (!inventories[player.inventoryId]) {
                 deleteArmorFromFirebase(prevArmorId)
             } else if (!inventories[player.inventoryId].armors.some(a => a === prevArmorId)){
+                console.log(inventories[player.inventoryId].armors)
+                console.log(prevArmorId)
                 deleteArmorFromFirebase(prevArmorId)
             }
             removeItem(shopId, 'armors', prevArmorId)

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-
+// import { Weapon } from "../stores/types/weapons";
 type DropdownProps = {
-  options: string[];
+  options: (string | undefined)[]
   value: string;
   onChange: (value: string) => void;
   id?: string;
@@ -90,7 +90,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, id, disab
         ref={listRef}
         style={{ display: isOpen ? "block" : "none"}}
       >
-        {options.map((option, index) => (
+        {options.map((option, index) =>  option && (
           <li
             key={index}
             onClick={() => handleOptionClick(option, index)}

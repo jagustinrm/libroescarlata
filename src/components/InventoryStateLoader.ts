@@ -19,9 +19,7 @@ const InventoryStateLoader = () => {
      
            // Recorre cada categoría del inventario (weapons, potions, etc.)
       Object.keys(parsedInventoryState[`${player.name}_inventory`]).forEach((category) => {
-        const items = parsedInventoryState[`${player.name}_inventory`][category]; // Obtiene el array de items
-        // console.log(items)
-
+        const items = parsedInventoryState[`${player.name}_inventory`][category];
 
 
         if (Array.isArray(items)) {

@@ -1,5 +1,9 @@
 El libro escarlata
 
+
+PONER TODOS LOS OBJETOS DEL IVNENTARIO CON ID STRING
+PONER TODOS LOS OBJETOS DEL IVNENTARIO CON ID ALEATORIOS
+
 Cosas para hacer:
 BASE DE DATOS:
     Ojo que solo actualizo el personaje si tiene cambiada un par de cosas en savePlayerStateToFireBase.

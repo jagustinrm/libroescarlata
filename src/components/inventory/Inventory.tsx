@@ -10,9 +10,12 @@ import { Armor } from "../../stores/types/armor";
 import { Potion } from "../../stores/types/potions";
 import { Weapon } from "../../stores/types/weapons";
 import useArmorStore from "../../stores/armorStore";
+import { get, ref } from "firebase/database";
+import { database } from "../../firebase/firebaseConfig";
 
 export default function Inventory() {
-    const [actualInventory, setActualInventory] = useState<Array<string> | null>(null);
+    const [actualInventory, setActualInventory] = useState<Array<Weapon | Armor | Potion> | null>(null);
+
     const [selectedItem, setSelectedItem] = useState<any>(null); // Estado para el objeto seleccionado
     const { player } = usePlayerStore(); 
     const { inventories } = useInventoryStore(); 
@@ -22,35 +25,87 @@ export default function Inventory() {
 
 
     const handleLoadActualInventory = (category: keyof Inventory) => {
-
         if (!player.inventoryId || !inventories[player.inventoryId]) {
             setActualInventory(null); 
             return;
         }
-        const detailedItems = inventories[player.inventoryId][category];
-         // PUEDO HACER LA BÚSQUEDA DE LOS OBJETOS ACÁ
-        const selectedCategory = detailedItems
+     
+        const itemNames = inventories[player.inventoryId][category]; // Nombres de los objetos
+        if (!itemNames || itemNames.length === 0) {
+            setActualInventory([]);
+            return;
+        }
        
-        setActualInventory(selectedCategory || []);
+        let selectedCategory: Array<Weapon | Armor | Potion> = [];
+    
+        // Filtrar según la categoría
+        switch (category) {
+            case 'weapons':
+                {
+
+                const weaponsJson: Weapon[] = weapons.filter((weapon: Weapon) =>
+                    itemNames.includes(weapon.id));
+                selectedCategory = weaponsJson;
+                break;
+                 }
+                 case 'armors': {
+                    // Filtrar las armaduras locales
+                    const localArmors = armors.filter((armor: Armor) => itemNames.includes(armor.id));
+                    
+                    // Obtener las armaduras de la base de datos de Firebase
+                    const armorsRef = ref(database, `armors`);
+
+                    get(armorsRef).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            // MODIFICAR ACÁ. FALTARÍA FILTRAR LAS QUE TIENE EL USUARIO. HAY QUE ARREGLAR DE NUEVO EL DELETE DE FIREBASE PORQUE NO ME MANTIENE LA ARMADURA.
+                            
+                            const firebaseArmors: Armor[] = Object.values(snapshot.val()).map(armor => armor)
+                            console.log(firebaseArmors)
+                            // Combinar las armaduras locales y las de Firebase
+                            setActualInventory([...localArmors, ...firebaseArmors]);
+
+                        } else {
+                            // Si no hay armaduras en Firebase, solo se usan las locales
+                            setActualInventory(localArmors);
+                        }
+                    }).catch((error) => {
+                        console.error("Error fetching armors from Firebase:", error);
+                        setActualInventory(localArmors); // Si hay un error, solo mostrar las locales
+                    });
+                
+                    break;
+                }
+                
+            case 'potions':
+                selectedCategory = potions.filter((potion: Potion) => itemNames.includes(potion.id));
+                break;
+            // Agrega más categorías según sea necesario
+            default:
+                selectedCategory = []; // Si la categoría no tiene un store definido
+                break;
+        }
+            setActualInventory(selectedCategory);
+
+
     };
 
     const handleSelectItem = (itemName: string) => {
-        // Buscar en armas
-  
-        const weapon = weapons.find((weapon: Weapon) => weapon.id === itemName);
+        // MODIFICAR, NECESITO QUE TODO UTILICE ID
+        const itemId = isNaN(Number(itemName)) ? itemName : Number(itemName);
+        const weapon = weapons.find((weapon: Weapon) => weapon.id === itemId);
         if (weapon) {
             setSelectedItem(weapon);
             return;
         }
 
         // Buscar en pociones
-        const potion = potions.find((potion: Potion) => potion.id === itemName);
+        const potion = potions.find((potion: Potion) => potion.id === itemId);
         if (potion) {
             setSelectedItem(potion);
             return;
         }
 
-        const armor = armors.find((armor: Armor) => armor.id === itemName);
+        const armor = armors.find((armor: Armor) => armor.id === itemId);
         if (armor) {
 
             setSelectedItem(armor);
@@ -77,9 +132,9 @@ export default function Inventory() {
                         {actualInventory && actualInventory.length > 0 ? (
                             actualInventory.map((item, index) => (
                                 <>
-                                {/* ACA TENGO QUE LLAMAR A UNA FUNCIÓN QUE BUSQUE EL ITEM ENTERO POR MEDIO DE LA CATEGORÍA Y AGARRE EL NOMBRE  */}
-
-                                <li key={index} onClick={() => handleSelectItem(item)}>{item}</li> 
+                                <li key={index} onClick={() => handleSelectItem(item.id)}>
+                                    {item.name} {/* Aquí item es un objeto, no una propiedad del objeto */}
+                                </li>
                                 </>
                             ))
                         ) : (
@@ -94,7 +149,7 @@ export default function Inventory() {
                             <img className="itemIventoryImg" src={selectedItem.img} alt={selectedItem.name} />
                             <p><strong>Descripción:</strong> {selectedItem.description}</p>
                             <p><strong>Costo:</strong> {selectedItem.cost} <strong>materiales</strong></p>
-                            {/* Agrega más propiedades según sea necesario */}
+                     
                         </>
                     ) : (
                         <p>Selecciona un objeto para ver los detalles</p>

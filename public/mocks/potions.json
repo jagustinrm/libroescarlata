@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "healing-potion-001",
     "name": "Poción de Curación Menor",
     "type": "Curación",
     "cost": 50,
@@ -13,7 +13,7 @@
     "img": "/img/potions/low-healing-potion.png"
   },
   {
-    "id": 2,
+    "id": "mediumHealing-potion-002",
     "name": "Poción de Curación Moderada",
     "type": "Curación",
     "cost": 300,
@@ -26,7 +26,7 @@
     "img": "/img/potions/moderate-healing-potion.png"
   },
   {
-    "id": 3,
+    "id": "bullStrenght-potion-003",
     "name": "Poción de Fuerza de Toro",
     "type": "Buff",
     "cost": 150,
@@ -41,7 +41,7 @@
     "img": "/img/potions/bull-strength-potion.png"
   },
   {
-    "id": 4,
+    "id": "invisibility-potion-004",
     "name": "Poción de Invisibilidad",
     "type": "Buff",
     "cost": 200,
@@ -55,7 +55,7 @@
     "img": "/img/potions/invisibility-potion.png"
   },
   {
-    "id": 5,
+    "id": "speed-potion-005",
     "name": "Poción de Velocidad",
     "type": "Buff",
     "cost": 300,
@@ -70,7 +70,7 @@
     "img": "/img/potions/speed-potion.png"
   },
   {
-    "id": 6,
+    "id": "fireResistance-potion-006",
     "name": "Poción de Resistencia a Fuego",
     "type": "Resistencia",
     "cost": 250,
@@ -85,7 +85,7 @@
     "img": "/img/potions/fire-resistance-potion.png"
   },
   {
-    "id": 7,
+    "id": "clarity-potion-007",
     "name": "Poción de Clarividencia",
     "type": "Buff",
     "cost": 350,
@@ -100,7 +100,7 @@
     "img": "/img/potions/clairvoyance-potion.png"
   },
   {
-    "id": 8,
+    "id": "underWater-potion-002",
     "name": "Poción de Respirar Bajo el Agua",
     "type": "Habilidad",
     "cost": 200,
@@ -114,7 +114,7 @@
     "img": "/img/potions/water-breathing-potion.png"
   },
   {
-    "id": 9,
+    "id": "faithShield-potion-002",
     "name": "Poción de Escudo de Fe",
     "type": "Defensa",
     "cost": 100,
@@ -129,7 +129,7 @@
     "img": "/img/potions/shield-of-faith-potion.png"
   },
   {
-    "id": 10,
+    "id": "flying-potion-002",
     "name": "Poción de Volar",
     "type": "Habilidad",
     "cost": 500,

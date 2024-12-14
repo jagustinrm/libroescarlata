@@ -1,7 +1,7 @@
 {
     "weapons": [
         {
-            "id": 1,
+            "id": "weapon-espada-larga-001",
             "name": "Espada Larga",
             "type": "Cuerpo a cuerpo",
             "damage": "1d8",
@@ -12,7 +12,7 @@
             "img": "/img/weapons/espada-larga.png"
         },
         {
-            "id": 2,
+            "id": "weapon-daga-002",
             "name": "Daga",
             "type": "Cuerpo a cuerpo o distancia",
             "damage": "1d4",
@@ -24,7 +24,7 @@
             "img": "/img/weapons/daga.png"
         },
         {
-            "id": 3,
+            "id": "weapon-hacha-de-batalla-003",
             "name": "Hacha de Batalla",
             "type": "Cuerpo a cuerpo",
             "range": 10,
@@ -36,7 +36,7 @@
             "img": "/img/weapons/hacha-de-batalla.png"
         },
         {
-            "id": 4,
+            "id": "weapon-arco-largo-004",
             "name": "Arco Largo",
             "type": "Distancia",
             "damage": "1d8",
@@ -48,7 +48,7 @@
             "img": "/img/weapons/arco-largo.png"
         },
         {
-            "id": 5,
+            "id": "weapon-maza-005",
             "name": "Maza",
             "type": "Cuerpo a cuerpo",
             "damage": "1d6",
@@ -59,7 +59,7 @@
             "img": "/img/weapons/maza.png"
         },
         {
-            "id": 6,
+            "id": "weapon-espadon-006",
             "name": "Espadón",
             "type": "Cuerpo a cuerpo",
             "damage": "2d6",
@@ -70,7 +70,7 @@
             "img": "/img/weapons/espadon.png"
         },
         {
-            "id": 7,
+            "id": "weapon-lanza-007",
             "name": "Lanza",
             "type": "Cuerpo a cuerpo o distancia",
             "damage": "1d8",
@@ -82,7 +82,7 @@
             "img": "/img/weapons/lanza.png"
         },
         {
-            "id": 8,
+            "id": "weapon-ballesta-ligera-008",
             "name": "Ballesta Ligera",
             "type": "Distancia",
             "damage": "1d8",
@@ -94,7 +94,7 @@
             "img": "/img/weapons/ballesta-ligera.png"
         },
         {
-            "id": 9,
+            "id": "weapon-martillo-de-guerra-009",
             "name": "Martillo de Guerra",
             "type": "Cuerpo a cuerpo",
             "damage": "1d8",
@@ -105,7 +105,7 @@
             "img": "/img/weapons/martillo-de-guerra.png"
         },
         {
-            "id": 10,
+            "id": "weapon-baston-010",
             "name": "Bastón",
             "type": "Cuerpo a cuerpo",
             "damage": "1d6",

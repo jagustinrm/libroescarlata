@@ -147,8 +147,11 @@ export default function FightScene() {
       }, [actionMessages]); // Ejecuta cada vez que la lista de mensajes cambia
     
       useEffect(() => {
-        const weaponFiltered = weapons.find((w) => w.name === selectedWeapon)
-        playerActions.setP_SelectedWeapon(weaponFiltered)
+        if (selectedWeapon) {
+            const weaponFiltered = weapons.find((w) => w.name === selectedWeapon)
+            playerActions.setP_SelectedWeapon(weaponFiltered)
+        }
+
       }, [selectedWeapon, setSelectedWeapon]); // Ejecuta cada vez que la lista de mensajes cambia
     
 
@@ -239,7 +242,10 @@ export default function FightScene() {
     const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
     const manaPercentage = (player.p_LeftMana / player.p_MaxMana) * 100;
     const pocion = inventories[player.inventoryId].potions.find(p => p === "Poción de Curación Menor");
-    
+    const opcionesArmas = inventories[player.inventoryId].weapons
+    .map(w => weapons.find(ws => ws.id === w)?.name) // Accede directamente a .name
+    .filter(Boolean); // Filtra nombres undefined o null
+
     if (isLoading) return <p>Cargando enemigo...</p>;
     // if (error)  return <p>Error: {error}</p>;
     
@@ -254,7 +260,7 @@ export default function FightScene() {
                 <div>
                 <Dropdown
                     id="spell-dropdown"
-                    options={inventories[player.inventoryId].weapons || []}
+                    options={opcionesArmas || []}
                     value={selectedWeapon}
                     onChange={(value) => setSelectedWeapon(value)}
                     disabled={turn !== "player" || creature.health === 0}
