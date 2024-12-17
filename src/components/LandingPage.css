@@ -48,3 +48,42 @@
 .yourName {
   font-size: 25px;
 }
+
+
+
+@media (max-width: 480px) {
+  .landingContainer {
+    padding: 0px;
+    max-width: 95%;
+    
+  }
+
+  .landingTitleContainer {
+    flex-direction: column; /* Apilar título e imagen */
+    font-size: 20px;
+    text-align: center; /* Centrar el texto */
+    
+  }
+
+  .landingImg {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 10px; /* Separación con el texto */
+  }
+
+  .nameInput {
+    width: 90%; /* Ajustar al ancho del contenedor */
+    font-size: 16px;
+  }
+
+  .playerLoaderButton {
+    flex-direction: column; /* Apilar botones */
+    align-items: center;
+  }
+
+
+  .yourName {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+}

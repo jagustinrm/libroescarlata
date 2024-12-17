@@ -51,7 +51,7 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
       >
         <img
           className="common-button rpgui-cursor-point"
-          src="/img/UI/button-common.png"
+          src="/img/UI/button-common2.png"
           alt=""
         />
         <p>{label}</p>

@@ -111,3 +111,67 @@ a:hover {
   margin-bottom: 0px;
   margin-top: 0px;
 }
+
+
+@media (max-width: 480px) {
+  .containerClases {
+    padding: 5px; /* Reducir el padding para pantallas pequeñas */
+    width: 100%; /* Ajustar al ancho del dispositivo */
+    height: 50%;
+    overflow-y: visible; /* Eliminar scroll innecesario */
+    position: absolute;
+    top: 0;
+    left: 0;
+  
+  }
+
+  .containerClases h1 {
+    font-size: 1.5rem; /* Reducir tamaño del título */
+    margin-bottom: 5px;
+  }
+
+  .containerClases p {
+    font-size: 1rem; /* Reducir tamaño del texto */
+    margin-bottom: 10px;
+  }
+
+  .buttonsClasses {
+    grid-template-columns: 1fr; /* Botones en una sola columna */
+    gap: 20px; /* Reducir el espacio entre botones */
+    margin-top: 20px;
+    
+  }
+
+  .botonesClases {
+    padding: 8px 16px; /* Ajustar padding */
+    font-size: 0.9rem; /* Reducir tamaño de texto */
+
+  }
+
+  .classDetailsContainer {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    height: 50%;
+    padding: 10px; /* Añadir espacio interno */
+
+  }
+
+  .classDetailsContainer img {
+    width: 100%; /* Imagen ocupa todo el ancho */
+    max-width: 300px; /* Limitar tamaño máximo */
+    height: auto; /* Mantener proporción */
+  }
+
+  .characterCaracteristics {
+    flex-direction: column; /* Mostrar características en columna */
+    gap: 10px; /* Reducir espacio entre elementos */
+  }
+
+  .className {
+    font-size: 1.2rem; /* Reducir tamaño del nombre */
+    margin: 5px 0;
+  }
+
+  .redFont, .blueFont {
+    font-size: 0.9rem; /* Reducir tamaño de fuente */
+  }
+}

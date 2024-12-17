@@ -115,7 +115,7 @@ export default function Home() {
               <ButtonEdited
                 label="Inventario"
                 width="200px"
-                height="45px"
+                height="33px"
                 onClick={() => handleAction('inventory')}
               />
             </div>

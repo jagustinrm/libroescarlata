@@ -89,7 +89,7 @@ const LandingPage: React.FC = () => {
             <ButtonEdited
               label="Ingresar"
               width="200px"
-              height="20px"
+              height="10px"
               onClick={handleSaveName}
             />
           </div>
@@ -106,6 +106,7 @@ const LandingPage: React.FC = () => {
               <ButtonEdited
                 label="Cargar"
                 width="200px"
+                height='10px'
                 onClick={handleSubmit}
               />
             </form>

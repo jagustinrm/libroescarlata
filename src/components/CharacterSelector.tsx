@@ -126,6 +126,7 @@ export default function CharacterSelector() {
                 <ButtonEdited
                   label={classItem.className}
                   width="200px"
+                  height='32px'
                   onMouseEnter={() => setHoveredClass(classItem)}
                   onMouseLeave={() => setHoveredClass(null)}
                   onClick={() => handleButtonClick(classItem)}

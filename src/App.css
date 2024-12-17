@@ -129,3 +129,51 @@ button:active {
 .button-edited-container:hover {
   -webkit-filter: brightness(120%);
 }
+
+
+
+@media (max-width: 480px) {
+  .music-controls {
+    top: 10px;
+    right: 5px;
+  }
+
+  .loading-container {
+    font-size: 1.2rem;
+    padding: 0 10px;
+  }
+
+  button {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+  }
+
+  .soundPlayerSimbol {
+    width: 40px;
+    height: 40px;
+  }
+
+  .buttonSoundToggle {
+    height: 35px;
+    width: 35px;
+  }
+
+  .back-button-design {
+    width: 120px;
+  }
+
+  .common-button {
+    width: 150px;
+  }
+
+  .button-edited-container p {
+    font-size: 23px;
+  }
+
+  .common-button {
+    top: -300%;
+    /* left: 5%; */
+    width: 200px;
+  }
+}
