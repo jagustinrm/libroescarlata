@@ -1,17 +1,17 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 const Particles = () => {
   const particleNum = 50; // Número de partículas
   const particleWidth = 10; // Ancho máximo de partículas en px
-  const particleColor = "hsl(180, 100%, 80%)"; // Color de las partículas
+  const particleColor = 'hsl(180, 100%, 80%)'; // Color de las partículas
 
   // Generar un número aleatorio
   const random = (max: number) => Math.floor(Math.random() * max);
 
   // Crear y aplicar estilos dinámicamente
   const createParticleStyles = () => {
-    const styleSheet = document.createElement("style");
-    styleSheet.type = "text/css";
+    const styleSheet = document.createElement('style');
+    styleSheet.type = 'text/css';
 
     let styles = `
       .circle-container {
@@ -84,13 +84,13 @@ const Particles = () => {
 
   // Crear partículas
   const createParticles = () => {
-    const container = document.getElementById("particle-container");
+    const container = document.getElementById('particle-container');
     for (let i = 0; i < particleNum; i++) {
-      const circleContainer = document.createElement("div");
-      circleContainer.className = "circle-container";
+      const circleContainer = document.createElement('div');
+      circleContainer.className = 'circle-container';
 
-      const circle = document.createElement("div");
-      circle.className = "circle";
+      const circle = document.createElement('div');
+      circle.className = 'circle';
 
       circleContainer.appendChild(circle);
       container?.appendChild(circleContainer);
@@ -103,7 +103,19 @@ const Particles = () => {
     createParticles();
   }, []);
 
-  return <div id="particle-container" style={{  width: "100vw", height: "100vh", overflow: "hidden", position: "absolute", top: 0, left: 0 }} />;
+  return (
+    <div
+      id="particle-container"
+      style={{
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+      }}
+    />
+  );
 };
 
 export default Particles;

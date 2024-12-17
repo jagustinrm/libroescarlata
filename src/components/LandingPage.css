@@ -1,56 +1,50 @@
 .landingContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 800px;
-    background-color: rgba(128, 88, 50, 0.938);
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
-    /* font-family: 'Arial', sans-serif; */
-    z-index: 4;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: rgba(128, 88, 50, 0.938);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
+  /* font-family: 'Arial', sans-serif; */
+  z-index: 4;
 }
-
 
 .landingTitleContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-size: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 30px;
 }
 .landingImg {
-    width: 100px;
-    height: 100px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+  width: 100px;
+  height: 100px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 .nameInput {
-    text-shadow: none;
-    width:250px ;
-
+  text-shadow: none;
+  width: 250px;
 }
 
-
 .playerLoaderButton {
-    display: flex;
-    flex-direction: row;
-    max-height: 40px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  max-height: 40px;
+  margin-bottom: 10px;
 
-
-    /* align-items: center; */
-
+  /* align-items: center; */
 }
 
 .playerLoadButton {
-    width: 10px;
-
+  width: 10px;
 }
 
-.yourName{
-    font-size: 25px;
+.yourName {
+  font-size: 25px;
 }

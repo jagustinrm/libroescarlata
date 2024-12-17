@@ -1,126 +1,123 @@
 .imgPet {
-    width: 120px;
-    height: 120px;
-    align-self: center;
+  width: 120px;
+  height: 120px;
+  align-self: center;
 }
 .specialAbilities {
-    max-width: 200px;
-    text-shadow: none;
+  max-width: 200px;
+  text-shadow: none;
 }
-.listPets{
-    display: flex;
-    flex-direction: row;
-    margin-left: 10px;
+.listPets {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
 }
 .listPets ul {
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
 }
 .listPets li {
- 
-    padding: 8px;
-    margin-bottom: 5px;
-    border-radius: 5px; /* Rounded corners for list items */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 5px; /* Rounded corners for list items */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
 
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .sectionPet {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
 }
 .selectPet {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .containerPetStats {
-    width: 300px; 
-    word-wrap: break-word;
-    word-break: break-all; 
-    line-height: 1.5; 
-    overflow-wrap: break-word;
-    margin-bottom: 10px;
+  width: 300px;
+  word-wrap: break-word;
+  word-break: break-all;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  margin-bottom: 10px;
 }
 
 .containerPets {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-color: rgb(57, 57, 57);
-    border-radius: 5%;
-    padding-left: 10px;
-    align-items: center;
-    margin-right: 10px;
-    margin-left: 10px;
-    min-width: 470px;
-    overflow: hidden; /* Oculta contenido que exceda el contenedor */
-    transition: max-height 0.5s ease, opacity 0.5s ease; /* Transición suave */
-    opacity: 0; /* Inicialmente invisible */
-    max-height: 0; /* Inicialmente colapsado */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: rgb(57, 57, 57);
+  border-radius: 5%;
+  padding-left: 10px;
+  align-items: center;
+  margin-right: 10px;
+  margin-left: 10px;
+  min-width: 470px;
+  overflow: hidden; /* Oculta contenido que exceda el contenedor */
+  transition:
+    max-height 0.5s ease,
+    opacity 0.5s ease; /* Transición suave */
+  opacity: 0; /* Inicialmente invisible */
+  max-height: 0; /* Inicialmente colapsado */
 }
 
 .containerPets.open {
-    opacity: 1; /* Visible al abrir */
-    max-height: 300px; /* Ajusta a un valor mayor que el contenido real */
-    min-height: 300px;
-    max-width: 500px;
-    min-width: 500px;
+  opacity: 1; /* Visible al abrir */
+  max-height: 300px; /* Ajusta a un valor mayor que el contenido real */
+  min-height: 300px;
+  max-width: 500px;
+  min-width: 500px;
 }
 .imgPetandSelect {
-    display: flex;
-    flex-direction: column;
-    min-width: 180px
-    
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
 }
 .petSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #805832bd;
-    max-height: 500px;
-    min-height: 500px;
-    min-width: 700px;
-    justify-content: center;
-    border-radius: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #805832bd;
+  max-height: 500px;
+  min-height: 500px;
+  min-width: 700px;
+  justify-content: center;
+  border-radius: 1%;
 }
 
 .petText {
-    margin: 0px;
-    word-break: break-word;
-    font-size: 0.9em;
-
+  margin: 0px;
+  word-break: break-word;
+  font-size: 0.9em;
 }
-.adoptButton{
-    padding-bottom: 0px;
-    margin-bottom: 3px;
-    padding-bottom: 5px;
-
+.adoptButton {
+  padding-bottom: 0px;
+  margin-bottom: 3px;
+  padding-bottom: 5px;
 }
 .petCostText {
-    font-size: 0.8em;
-    padding-left: 15%;
-    /* padding-right: 25%; */
-    margin-top: 1px;
-    margin-bottom: 1px;
-    display: flex;
-
+  font-size: 0.8em;
+  padding-left: 15%;
+  /* padding-right: 25%; */
+  margin-top: 1px;
+  margin-bottom: 1px;
+  display: flex;
 }
 .costSect {
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
 
-    gap:0px;
+  gap: 0px;
 }
 
 .detailTitle {
-    font-size: 20px; 
-    line-height: none;
-    margin-top: 0px;
-    margin-bottom: 0px;
+  font-size: 20px;
+  line-height: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }

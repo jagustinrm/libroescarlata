@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 
 // Configuración de Firebase (copiada desde la consola)
 const firebaseConfig = {
@@ -11,7 +11,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID,
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
-
 
 // Inicializa Firebase
 export const app = initializeApp(firebaseConfig);

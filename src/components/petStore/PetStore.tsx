@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import './PetStore.css';
-import '../UI/designRpg.css'
+import '../UI/designRpg.css';
 import { usePetStore } from '../../stores/petsStore';
 import { usePlayerStore } from '../../stores/playerStore';
 import { Pet } from '../../stores/types/pets';
 import BackButton from '../UI/BackButton';
 import MessageBox from '../UI/MessageBox';
-
 
 // Resto del código
 
@@ -45,7 +44,7 @@ export default function PetStore() {
   const handleSelectedPet = () => {
     if (selectedPet) {
       playerActions.setP_SelectedPet(selectedPet);
-      
+
       setShowMessage(true);
       setMessageContent('¡Seleccionaste a ' + selectedPet.name + '!');
       setMessageType('success');
@@ -68,7 +67,7 @@ export default function PetStore() {
   };
 
   return (
-    <section className='petSection rpgui-container framed-golden-2'>
+    <section className="petSection rpgui-container framed-golden-2">
       <div className="sectionPet">
         <div className="selectPet">
           <h3>Elegí una mascota</h3>
@@ -95,25 +94,38 @@ export default function PetStore() {
             {selectedPet && (
               <>
                 <div className="imgPetandSelect">
-                  <img className="imgPet" src={selectedPet.img} alt={selectedPet.name} />
+                  <img
+                    className="imgPet"
+                    src={selectedPet.img}
+                    alt={selectedPet.name}
+                  />
                   {isBuyable ? (
                     <div className="costSect">
                       <button
-                        onClick={() => handleBuy(selectedPet.name, selectedPet.cost ?? 0)}
+                        onClick={() =>
+                          handleBuy(selectedPet.name, selectedPet.cost ?? 0)
+                        }
                         className="rpgui-button adoptButton"
                       >
                         Adoptar
                       </button>
-                      <p className="petCostText">{selectedPet.cost} materiales </p>
+                      <p className="petCostText">
+                        {selectedPet.cost} materiales{' '}
+                      </p>
                     </div>
                   ) : (
-                    <button onClick={handleSelectedPet} className="rpgui-button">
+                    <button
+                      onClick={handleSelectedPet}
+                      className="rpgui-button"
+                    >
                       Seleccionar
                     </button>
                   )}
                 </div>
                 <div className="containerPetStats">
-                  <h3 className="detailTitle">Detalles de {selectedPet.name}</h3>
+                  <h3 className="detailTitle">
+                    Detalles de {selectedPet.name}
+                  </h3>
                   <p className="petText">
                     <strong>Tipo:</strong> {selectedPet.type}
                   </p>

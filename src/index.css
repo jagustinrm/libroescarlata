@@ -1,20 +1,20 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@300;400;500;600;700&display=swap');
 
 body {
   background-image: url('/img/wallpaperHome.png');
-  background-size: cover;        
-  background-position: center;  
-  background-repeat: no-repeat;   
-  background-attachment: fixed;  
-
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .rpgui-content * {
-
-  font-family: "Cormorant Unicase", serif;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: 'Cormorant Unicase', serif;
+  text-shadow:
+    -2px 0 black,
+    0 2px black,
+    2px 0 black,
+    0 -2px black;
   font-weight: 700;
   font-style: normal;
   font-size: 1.05em;
 }
-

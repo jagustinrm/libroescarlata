@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import "./GameBoard.css";
-import { Creature } from "../../stores/types/creatures";
-import { SoundPlayerProps } from "../UI/soundPlayer/SoundPlayer";
-import { handleCombatAction } from "../../utils/combatHandlers";
-import usePlayerStore from "../../stores/playerStore";
-import useCreatureStore from "../../stores/creatures";
-import { useWeaponStore } from "../../stores/weaponStore";
-import useSpellStore from "../../stores/spellsStore";
+import React, { useEffect, useState } from 'react';
+import './GameBoard.css';
+import { Creature } from '../../stores/types/creatures';
+import { SoundPlayerProps } from '../UI/soundPlayer/SoundPlayer';
+import { handleCombatAction } from '../../utils/combatHandlers';
+import usePlayerStore from '../../stores/playerStore';
+import useCreatureStore from '../../stores/creatures';
+import { useWeaponStore } from '../../stores/weaponStore';
+import useSpellStore from '../../stores/spellsStore';
 
 interface Position {
   x: number;
@@ -16,11 +16,11 @@ interface Position {
 interface Button {
   x: number;
   y: number;
-  type: "main" | "border";
+  type: 'main' | 'border';
 }
 
 interface GameBoardProps {
-  turn: "player" | "enemy" | "summon";
+  turn: 'player' | 'enemy' | 'summon';
   playerPosition: Position;
   enemyPosition: Position;
   setPlayerPosition: React.Dispatch<React.SetStateAction<Position>>;
@@ -44,7 +44,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   summonPosition,
   switchTurn,
   selectedWeapon,
-  selectedSpell
+  selectedSpell,
 }) => {
   const gridSize = 10; // Tamaño de la cuadrícula principal (10x10)
   const step = 5; // Tamaño del paso en vw
@@ -56,9 +56,9 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { player } = usePlayerStore();
   const { creature } = useCreatureStore();
   const { weapons } = useWeaponStore();
-  const {spells} = useSpellStore();
+  const { spells } = useSpellStore();
   const weaponFiltered = weapons?.find((w) => w.name === selectedWeapon);
-  const spellFiltered = spells?.find((s) => s.name === selectedSpell)
+  const spellFiltered = spells?.find((s) => s.name === selectedSpell);
   const spellRange = spellFiltered?.range || 5;
   const weaponRange = weaponFiltered?.range || 5; // Rango del arma seleccionada
   // Generar botones al montar el componente
@@ -67,7 +67,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
     for (let x = -borderWidth; x < gridSize + borderWidth; x++) {
       for (let y = -borderWidth; y < gridSize + borderWidth; y++) {
         const type =
-          x >= 0 && x < gridSize && y >= 0 && y < gridSize ? "main" : "border";
+          x >= 0 && x < gridSize && y >= 0 && y < gridSize ? 'main' : 'border';
         generatedButtons.push({ x: x * step, y: y * step, type });
       }
     }
@@ -75,8 +75,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   }, []);
 
   const handleAction = (
-    actionType: "attack" | "spell" | "move",
-    additionalData?: any
+    actionType: 'attack' | 'spell' | 'move',
+    additionalData?: any,
   ) => {
     handleCombatAction(
       actionType,
@@ -86,7 +86,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
         turn,
         switchTurn,
       },
-      additionalData
+      additionalData,
     );
 
     setPlaySound(true);
@@ -96,9 +96,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   };
 
   const isButtonHighlighted = (button: Button): boolean => {
-  
     return (
-      button.type === "main" &&
+      button.type === 'main' &&
       Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
       Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step
     );
@@ -107,17 +106,17 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const isButtonPlayerPosition = (button: Button): boolean => {
     const tolerance = 2; // Ajusta según el nivel de precisión necesario
     return (
-      button.type === "main" &&
+      button.type === 'main' &&
       Math.abs(button.x - playerPosition.x - offsetX) <= tolerance &&
       Math.abs(button.y - playerPosition.y - offsetY) <= tolerance
     );
   };
-  
+
   const isButtonEnemyPosition = (button: Button): boolean => {
     const tolerance = 2; // Ajusta según el nivel de precisión necesario
     return (
-      button.type === "main" &&
-      Math.abs(button.x - enemyPosition.x- offsetX) <= tolerance &&
+      button.type === 'main' &&
+      Math.abs(button.x - enemyPosition.x - offsetX) <= tolerance &&
       Math.abs(button.y - enemyPosition.y - offsetY) <= tolerance
     );
   };
@@ -129,30 +128,29 @@ const GameBoard: React.FC<GameBoardProps> = ({
 
     // Ignorar el casillero central del jugador
     if (dx === 0 && dy === 0) return false;
-    
+
     // Factor de penalización para diagonales
     const diagonalPenalty = 1; // Ajusta según la reducción deseada
     const adjustedDistance = dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
 
-    return button.type === "main" && adjustedDistance <= weaponRange;
-};
+    return button.type === 'main' && adjustedDistance <= weaponRange;
+  };
 
-const isButtonInMagicRange = (button: Button): boolean => {
-  if (!spellFiltered) return false; // Sin spell, no hay rango
+  const isButtonInMagicRange = (button: Button): boolean => {
+    if (!spellFiltered) return false; // Sin spell, no hay rango
 
-  const dx = Math.floor(Math.abs(button.x - playerPosition.x - offsetX));
-  const dy = Math.floor(Math.abs(button.y - playerPosition.y - offsetY));
+    const dx = Math.floor(Math.abs(button.x - playerPosition.x - offsetX));
+    const dy = Math.floor(Math.abs(button.y - playerPosition.y - offsetY));
 
-  // Ignorar el casillero central del jugador
-  if (dx === 0 && dy === 0) return false;
-  
-  // Factor de penalización para diagonales
-  const diagonalPenalty = 1; // Ajusta según la reducción deseada
-  const adjustedDistance = dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
+    // Ignorar el casillero central del jugador
+    if (dx === 0 && dy === 0) return false;
 
-  return button.type === "main" && adjustedDistance <= spellRange;
-};
+    // Factor de penalización para diagonales
+    const diagonalPenalty = 1; // Ajusta según la reducción deseada
+    const adjustedDistance = dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
 
+    return button.type === 'main' && adjustedDistance <= spellRange;
+  };
 
   return (
     <div className="gameBoard">
@@ -161,24 +159,24 @@ const isButtonInMagicRange = (button: Button): boolean => {
           <div
             key={index}
             className={`bottomGB ${
-              button.type === "border" ? "border" : "main"
+              button.type === 'border' ? 'border' : 'main'
             } 
-            ${isButtonPlayerPosition(button) ? "player-position" : ""} 
-            ${isButtonEnemyPosition(button) ? "enemy-position" : ""} 
-            ${isButtonHighlighted(button) ? "highlighted rpgui-cursor-point" : ""}
-            ${isButtonInAttackRange(button) ? "attack-range" : ""}
-            ${isButtonInMagicRange(button) ? "magic-range" : ""}
+            ${isButtonPlayerPosition(button) ? 'player-position' : ''} 
+            ${isButtonEnemyPosition(button) ? 'enemy-position' : ''} 
+            ${isButtonHighlighted(button) ? 'highlighted rpgui-cursor-point' : ''}
+            ${isButtonInAttackRange(button) ? 'attack-range' : ''}
+            ${isButtonInMagicRange(button) ? 'magic-range' : ''}
             `}
             style={{
               transform: `translate(${button.x}vw, ${button.y}vw)`,
             }}
             onClick={() => {
               if (
-                button.type === "main" &&
+                button.type === 'main' &&
                 isButtonHighlighted(button) &&
-                turn === "player"
+                turn === 'player'
               ) {
-                handleAction("move", button);
+                handleAction('move', button);
               }
             }}
           />
@@ -189,7 +187,7 @@ const isButtonInMagicRange = (button: Button): boolean => {
           className="playerChar"
           style={{
             transform: `translate(${playerPosition.x}vw, ${playerPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
-            pointerEvents: "none",
+            pointerEvents: 'none',
           }}
         />
         <img
@@ -198,7 +196,7 @@ const isButtonInMagicRange = (button: Button): boolean => {
           className="enemy"
           style={{
             transform: `translate(${enemyPosition.x}vw, ${enemyPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
-            pointerEvents: "none",
+            pointerEvents: 'none',
           }}
         />
         {summon && (
@@ -208,7 +206,7 @@ const isButtonInMagicRange = (button: Button): boolean => {
             className="summon"
             style={{
               transform: `translate(${summonPosition.x}vw, ${summonPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
-              pointerEvents: "none",
+              pointerEvents: 'none',
             }}
           />
         )}

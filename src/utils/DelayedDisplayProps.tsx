@@ -7,7 +7,11 @@ interface DelayedDisplayProps {
   duration: number; // Duración de la transición
 }
 
-const DelayedDisplay: React.FC<DelayedDisplayProps> = ({ children, delay, duration }) => {
+const DelayedDisplay: React.FC<DelayedDisplayProps> = ({
+  children,
+  delay,
+  duration,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false); // Para controlar si estamos en transición
   const [shouldRender, setShouldRender] = useState(false); // Controla si debe renderizarse el componente

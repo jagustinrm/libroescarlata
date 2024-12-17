@@ -1,9 +1,9 @@
-import React from "react";
-import { handleHealing } from "../../../utils/handleHealing";
-import usePlayerStore from "../../../stores/playerStore";
-import useInventoryStore from "../../../stores/inventoryStore";
-import usePotionStore from "../../../stores/potionsStore";
-import useCreatureStore from "../../../stores/creatures";
+import React from 'react';
+import { handleHealing } from '../../../utils/handleHealing';
+import usePlayerStore from '../../../stores/playerStore';
+import useInventoryStore from '../../../stores/inventoryStore';
+import usePotionStore from '../../../stores/potionsStore';
+import useCreatureStore from '../../../stores/creatures';
 
 interface AttackAndPotionsProps {
   selectedWeapon: string | null;
@@ -20,12 +20,12 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
 }) => {
   // Lógica para encontrar la poción específica
   const findPotion = (name: string) => {
-    return potions.find(potion => potion.name === name);
+    return potions.find((potion) => potion.name === name);
   };
-  const {player, playerActions} = usePlayerStore();
-  const {inventories, removeItem} = useInventoryStore();
-  const {potions} = usePotionStore();
-  const {creature} = useCreatureStore();
+  const { player, playerActions } = usePlayerStore();
+  const { inventories, removeItem } = useInventoryStore();
+  const { potions } = usePotionStore();
+  const { creature } = useCreatureStore();
   return (
     <div className="attackAndPotions">
       <button
@@ -57,10 +57,10 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         >
           {
             // Buscar la poción en la lista de potions y mostrar la imagen
-            findPotion("Poción de Curación Menor") ? (
+            findPotion('Poción de Curación Menor') ? (
               <img
                 className="potionImg"
-                src={findPotion("Poción de Curación Menor")?.img}
+                src={findPotion('Poción de Curación Menor')?.img}
                 alt="Poción de Curación Menor"
               />
             ) : null

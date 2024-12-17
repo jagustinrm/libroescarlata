@@ -1,5 +1,5 @@
-import React from "react";
-import { soundService } from "../../utils/soundService";
+import React from 'react';
+import { soundService } from '../../utils/soundService';
 
 interface HoverSoundButtonProps {
   label: string;
@@ -15,12 +15,12 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
-  width = "",
-  height = "",
+  width = '',
+  height = '',
 }) => {
   const buttonSound = {
-    name: "buttonSound",
-    source: "/music/click/buttonSound.wav",
+    name: 'buttonSound',
+    source: '/music/click/buttonSound.wav',
     volume: 0.2,
     loop: false,
   };
@@ -43,13 +43,18 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
 
   return (
     <div className="button-edited-container rpgui-cursor-point">
-      <div 
-       style={{ width, height }}  
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave} 
-      onClick={handleClick}>
-      <img  className="common-button rpgui-cursor-point" src="/img/UI/button-common.png" alt="" />
-      <p>{label}</p>
+      <div
+        style={{ width, height }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+      >
+        <img
+          className="common-button rpgui-cursor-point"
+          src="/img/UI/button-common.png"
+          alt=""
+        />
+        <p>{label}</p>
       </div>
       {/* <button
         className="rpgui-button"

@@ -1,6 +1,6 @@
-import { database } from "../../firebase/firebaseConfig"; // Importa la configuración de Firebase
+import { database } from '../../firebase/firebaseConfig'; // Importa la configuración de Firebase
 import { ref, set, get } from 'firebase/database'; // Importa las funciones necesarias de Firebase
-import { Armor } from "../../stores/types/armor";
+import { Armor } from '../../stores/types/armor';
 
 // Función para guardar una armadura en Firebase con control de ID único
 export const saveArmorToFirebase = async (armorId: string, armor: Armor) => {
@@ -11,7 +11,9 @@ export const saveArmorToFirebase = async (armorId: string, armor: Armor) => {
     // Verifica si el ID ya existe
     const snapshot = await get(armorRef);
     if (snapshot.exists()) {
-      console.warn(`El ID ${armorId} ya existe en Firebase. Genera un nuevo ID.`);
+      console.warn(
+        `El ID ${armorId} ya existe en Firebase. Genera un nuevo ID.`,
+      );
       return; // Evita guardar la armadura si el ID ya existe
     }
 

@@ -1,15 +1,19 @@
-import React, { useEffect, useRef } from "react";
-import { useSoundStore } from "../../../stores/soundsStore"; // Estado global para manejar el sonido
+import React, { useEffect, useRef } from 'react';
+import { useSoundStore } from '../../../stores/soundsStore'; // Estado global para manejar el sonido
 // import { SongDetails } from "../../../stores/types/sounds";
 
 export interface SoundPlayerProps {
   soundType: string;
   // category: keyof SongDetails; // Especificar la categoría (ambiente, acción, etc.)
   volume?: number;
-  url?: string
+  url?: string;
 }
 
-const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7, url }) => {
+const SoundPlayer: React.FC<SoundPlayerProps> = ({
+  soundType,
+  volume = 0.7,
+  url,
+}) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { stopCurrentSong } = useSoundStore();
 
@@ -17,9 +21,9 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7, url 
     const playSound = async () => {
       if (audioRef.current) {
         const soundFile = getSoundFile();
-        console.log("Reproduciendo:", soundFile);
+        console.log('Reproduciendo:', soundFile);
         audioRef.current.src = soundFile;
-    
+
         // Asegurarse de que el archivo esté cargado antes de intentar reproducirlo
         audioRef.current.oncanplaythrough = async () => {
           try {
@@ -27,13 +31,13 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7, url 
             if (audioRef.current) {
               audioRef.current.volume = volume;
               await audioRef.current.play();
-              console.log("Reproducción iniciada con volumen:", volume);
+              console.log('Reproducción iniciada con volumen:', volume);
             }
           } catch (error) {
-            console.error("Error al intentar reproducir el sonido:", error);
+            console.error('Error al intentar reproducir el sonido:', error);
           }
         };
-    
+
         // Si ya está listo para reproducir, intenta hacerlo
         if (audioRef.current.readyState >= 3) {
           audioRef.current.volume = volume; // Asegurarse de establecer el volumen
@@ -41,28 +45,27 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7, url 
         }
       }
     };
-    
 
     playSound();
   }, [soundType, stopCurrentSong]);
 
   const getSoundFile = () => {
-    if (url) return url
+    if (url) return url;
     switch (soundType) {
-      case "attack":
-        return "/music/sword-sound.mp3";
-      case "charStep":
-        return "/music/grass_step.mp3";
-      case "medievalAmbient":
-        return "/music/ambient/introAmbientMusic.mp3";
-      case "buttonSound":
-        return "/music/buttonSound.mp3";
-      case "battleSong":
-        return "/music/ambient/fighting-tribal-song.mp3";
-      case "fireBall":
-        return "/music/attacks/fireBall.wav";  
+      case 'attack':
+        return '/music/sword-sound.mp3';
+      case 'charStep':
+        return '/music/grass_step.mp3';
+      case 'medievalAmbient':
+        return '/music/ambient/introAmbientMusic.mp3';
+      case 'buttonSound':
+        return '/music/buttonSound.mp3';
+      case 'battleSong':
+        return '/music/ambient/fighting-tribal-song.mp3';
+      case 'fireBall':
+        return '/music/attacks/fireBall.wav';
       default:
-        return "/path/to/default-sound.mp3";
+        return '/path/to/default-sound.mp3';
     }
   };
 

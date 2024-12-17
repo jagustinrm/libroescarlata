@@ -41,7 +41,6 @@
 //       }, 300);
 //   };
 
-
 //   const executeSpell = () => {
 //     // Lógica para ejecutar hechizo
 //   };

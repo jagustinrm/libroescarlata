@@ -9,26 +9,28 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   opacity: 0; /* Inicialmente invisible */
-  animation: slide-up 0.3s forwards, fade-in 0.3s ease-in-out forwards; /* 'forwards' mantiene los estilos finales */
+  animation:
+    slide-up 0.3s forwards,
+    fade-in 0.3s ease-in-out forwards; /* 'forwards' mantiene los estilos finales */
 }
 
 /* Animación de deslizamiento hacia arriba */
 @keyframes slide-up {
   0% {
-      transform: translateX(-50%) translateY(20px); /* Comienza desde abajo */
+    transform: translateX(-50%) translateY(20px); /* Comienza desde abajo */
   }
   100% {
-      transform: translateX(-50%) translateY(0); /* Finaliza en su posición normal */
+    transform: translateX(-50%) translateY(0); /* Finaliza en su posición normal */
   }
 }
 
 /* Animación de desvanecimiento */
 @keyframes fade-in {
   0% {
-      opacity: 0; /* Comienza invisible */
+    opacity: 0; /* Comienza invisible */
   }
   100% {
-      opacity: 1; /* Se vuelve visible */
+    opacity: 1; /* Se vuelve visible */
   }
 }
 
@@ -39,7 +41,7 @@
 }
 
 .message-box.success {
-  background-color: #5c3f1b; 
+  background-color: #5c3f1b;
   border: 1px solid #c3e6cb;
   color: white;
 }

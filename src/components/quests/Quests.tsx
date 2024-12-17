@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import "./Quests.css";
-import { useLoadQuests } from "../../customHooks/useLoadQuests";
+import React, { useState, useEffect } from 'react';
+import './Quests.css';
+import { useLoadQuests } from '../../customHooks/useLoadQuests';
 
 interface QuestsProps {
   onClose: () => void;
@@ -14,7 +14,7 @@ export default function Quests({ onClose }: QuestsProps) {
 
   // Load position from localStorage on mount
   useEffect(() => {
-    const savedPosition = localStorage.getItem("questsPosition");
+    const savedPosition = localStorage.getItem('questsPosition');
     if (savedPosition) {
       const parsedPosition = JSON.parse(savedPosition);
       setPosition(parsedPosition);
@@ -24,7 +24,7 @@ export default function Quests({ onClose }: QuestsProps) {
   // Save position to localStorage on drag end
   const handleMouseUp = () => {
     setDragging(false);
-    localStorage.setItem("questsPosition", JSON.stringify(position));
+    localStorage.setItem('questsPosition', JSON.stringify(position));
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -59,7 +59,7 @@ export default function Quests({ onClose }: QuestsProps) {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        <h1 >Misiones</h1>
+        <h1>Misiones</h1>
         <button onClick={onClose} className="close-button">
           ❌
         </button>
@@ -85,8 +85,9 @@ export default function Quests({ onClose }: QuestsProps) {
                   checked={quest.finished}
                   readOnly
                 />
-                {quest.finished && <button className="rpgui-button">Obtener recompensa</button>}
-                
+                {quest.finished && (
+                  <button className="rpgui-button">Obtener recompensa</button>
+                )}
               </li>
             ))}
           </ul>
@@ -113,8 +114,9 @@ export default function Quests({ onClose }: QuestsProps) {
                     checked={quest.finished}
                     readOnly
                   />
-                  {quest.finished && <button className="rpgui-button">Obtener recompensa</button>}
-
+                  {quest.finished && (
+                    <button className="rpgui-button">Obtener recompensa</button>
+                  )}
                 </div>
               </li>
             ))}
@@ -141,8 +143,9 @@ export default function Quests({ onClose }: QuestsProps) {
                     checked={quest.finished}
                     readOnly
                   />
-                  {quest.finished && <button className="rpgui-button">Obtener recompensa</button>}
-                
+                  {quest.finished && (
+                    <button className="rpgui-button">Obtener recompensa</button>
+                  )}
                 </li>
               ))
             ) : (

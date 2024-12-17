@@ -1,79 +1,76 @@
 .questContainer {
-    background-color: #d2691e; /* Chocolate */
-    width: 400px;
-    height: 400px;
+  background-color: #d2691e; /* Chocolate */
+  width: 400px;
+  height: 400px;
 
-    border: 2px solid #8b4513; /* Darker chocolate for contrast */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    padding: 10px; /* Space inside */
-    overflow-y: auto; /* Scroll if content exceeds height */
-    font-family: Arial, sans-serif; /* Cleaner font */
-    color: #fff; /* White text for readability */
+  border: 2px solid #8b4513; /* Darker chocolate for contrast */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  padding: 10px; /* Space inside */
+  overflow-y: auto; /* Scroll if content exceeds height */
+  font-family: Arial, sans-serif; /* Cleaner font */
+  color: #fff; /* White text for readability */
 }
 
 .questContainer ul {
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
 }
 
 .closeWindow {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .questContainer li {
-    background-color: #8b4513; /* Slightly darker than the background */
-    padding: 8px;
-    margin-bottom: 5px;
-    border-radius: 5px; /* Rounded corners for list items */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-   
-    font-size: 14px;
+  background-color: #8b4513; /* Slightly darker than the background */
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 5px; /* Rounded corners for list items */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+
+  font-size: 14px;
 }
 
 /* .questContainer li:hover {
     background-color: #a0522d; 
 } */
-.completedQuest{
+.completedQuest {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 .quests-window {
-    position: absolute;
-    width:auto;
-    background-color: #f9f5d7;
-    border: 2px solid #d48537;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-  
-  }
-  
-  .quests-header {
-    background-color: #f99e1e;
-    padding-left: 10px;
-    border-radius: 8px 8px 0 0;
-    display: flex;
-    justify-content: space-between;
-    cursor: move;
-  }
-  .questName{
-    font-size: 20px;
-  }
-  
-  .questContainer {
-    padding: 15px;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: none;
-    border: none;
-    font-size: 18px;
-    
-  }
-  
+  position: absolute;
+  width: auto;
+  background-color: #f9f5d7;
+  border: 2px solid #d48537;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.quests-header {
+  background-color: #f99e1e;
+  padding-left: 10px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+}
+.questName {
+  font-size: 20px;
+}
+
+.questContainer {
+  padding: 15px;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 18px;
+}

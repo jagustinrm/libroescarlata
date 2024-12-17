@@ -1,88 +1,91 @@
 /* ItemShop.css */
 .item-shop-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    margin: 0 auto;
-    text-align: center;
-    max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 900px;
 
-    z-index: 1;
-    padding-bottom: 20px; 
-    background-color: rgba(128, 88, 50, 0.74);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding-bottom: 20px;
+  background-color: rgba(128, 88, 50, 0.74);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .catalog-buttons {
-    position: sticky;
-    top: 0;
- 
-    z-index: 1; 
-    display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .item-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-content: space-between;
-    gap: 16px;
-    min-height: 300px; /* Asegura que la grilla tenga un alto mínimo */
-    max-height: 300px; /* Puedes ajustar este valor según tus necesidades */
-    max-width: 700px;
-    min-width: 700px;
-    overflow-y: auto;  /* Habilita el scroll cuando el contenido es demasiado grande */
-    grid-auto-rows: minmax(150px, auto); /* Asegura que las filas tengan un tamaño mínimo */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: space-between;
+  gap: 16px;
+  min-height: 300px; /* Asegura que la grilla tenga un alto mínimo */
+  max-height: 300px; /* Puedes ajustar este valor según tus necesidades */
+  max-width: 700px;
+  min-width: 700px;
+  overflow-y: auto; /* Habilita el scroll cuando el contenido es demasiado grande */
+  grid-auto-rows: minmax(
+    150px,
+    auto
+  ); /* Asegura que las filas tengan un tamaño mínimo */
 }
 
 .item-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    text-align: center;
-    min-height: 160px; 
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 5px;
-    margin-right: 5px;
-    align-items: center;
-    background-color: rgba(112, 68, 26, 0.644);
-    max-height: 100px;
-    font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  text-align: center;
+  min-height: 160px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 5px;
+  margin-right: 5px;
+  align-items: center;
+  background-color: rgba(112, 68, 26, 0.644);
+  max-height: 100px;
+  font-size: 15px;
 }
 .itemImg {
-    width: 60px;
-    height: 50px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover; /* Ajusta la imagen para cubrir el área sin deformarla */
-  }
+  width: 60px;
+  height: 50px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover; /* Ajusta la imagen para cubrir el área sin deformarla */
+}
 .back-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color:    rgba(112, 68, 26, 0.644);;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgba(112, 68, 26, 0.644);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .back-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .buyButton {
-    width: 10%;
-    height: 25%;
+  width: 10%;
+  height: 25%;
 }
 .itemName {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
-.catalog-button{
-    height: 30%;
+.catalog-button {
+  height: 30%;
 }

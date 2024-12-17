@@ -1,115 +1,113 @@
 /* General container styling */
 .containerClases {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    padding: 10px; /* Reducido de 20px a 10px */
-    max-width: 800px;
-    /* max-height: 550px;  */
-    overflow-y: auto; /* Permite el scroll si el contenido es más grande */
-    background-color: rgba(128, 88, 50, 0.74);
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
-    font-family: 'Arial', sans-serif;
-    height: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px; /* Reducido de 20px a 10px */
+  max-width: 800px;
+  /* max-height: 550px;  */
+  overflow-y: auto; /* Permite el scroll si el contenido es más grande */
+  background-color: rgba(128, 88, 50, 0.74);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
+  font-family: 'Arial', sans-serif;
+  height: 750px;
 }
 
-
 .containerClases h1 {
-    font-size: 2rem;
-    color: #ffffff;
-    margin-bottom: 10px;
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 10px;
 }
 
 .containerClases p {
-    font-size: 1.2rem;
-    color: #fff;
-    margin-bottom: 20px;
-    
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 20px;
 }
 
 /* Buttons container */
 .buttonsClasses {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center; 
-    align-items: center; 
-    width: 100%; 
-    gap: 60px;
-    margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  gap: 60px;
+  margin-top: 50px;
 }
 
 /* Buttons */
 .botonesClases {
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: #804c32;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, background-color 0.2s;
-    
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #804c32;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
 }
 
 .botonesClases:hover {
-    background-color: #96644b;
-    transform: scale(1.05); /* Efecto de agrandado */
+  background-color: #96644b;
+  transform: scale(1.05); /* Efecto de agrandado */
 }
 
 .botonesClases:active {
-    transform: scale(0.95); /* Efecto al hacer clic */
+  transform: scale(0.95); /* Efecto al hacer clic */
 }
 
 /* Link styles */
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
-.containerClassSelector{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.containerClassSelector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .classDetailsContainer {
-   
-    border-radius: 10px;
-    background-color: #2e2e2e;
-    color: white;
-    text-align: center;
-    width: 600px;
-    height: 750px
+  border-radius: 10px;
+  background-color: #2e2e2e;
+  color: white;
+  text-align: center;
+  width: 600px;
+  height: 750px;
 }
 
 .classDetailsContainer img {
-    width: 250px;
-    height: auto;
-    margin: 10px 0;
+  width: 250px;
+  height: auto;
+  margin: 10px 0;
 }
 
-.characterCaracteristics{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
+.characterCaracteristics {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
 }
 
-.redFont{
-    color: red
+.redFont {
+  color: red;
 }
-.blueFont{
-    color: rgb(0, 191, 255)
+.blueFont {
+  color: rgb(0, 191, 255);
 }
-.className{
-    font-size: 35px;
-    margin-bottom: 0px;
-    margin-top: 0px;
+.className {
+  font-size: 35px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }

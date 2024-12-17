@@ -20,12 +20,12 @@ const useAppStore = create<AppState>((set) => ({
   musicVolume: 0.2,
 
   // Funciones para actualizar estados
-  toggleMusic: () => set((state) => {
-    
-    return { 
-      isMusicPlaying: !state.isMusicPlaying 
-    };
-  }),
+  toggleMusic: () =>
+    set((state) => {
+      return {
+        isMusicPlaying: !state.isMusicPlaying,
+      };
+    }),
   setAmbientMusic: (music) => set({ ambientMusic: music }),
   setMusicVolume: (volume) => set({ musicVolume: volume }),
 }));

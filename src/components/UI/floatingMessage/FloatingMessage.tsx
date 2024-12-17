@@ -6,7 +6,10 @@ interface FloatingMessageProps {
   onComplete: () => void;
 }
 
-const FloatingMessage: React.FC<FloatingMessageProps> = ({ message, onComplete }) => {
+const FloatingMessage: React.FC<FloatingMessageProps> = ({
+  message,
+  onComplete,
+}) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

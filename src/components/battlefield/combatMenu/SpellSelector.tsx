@@ -1,7 +1,6 @@
 // import Dropdown from "../../../utils/DropDown";
 // import { Spell } from "../../../stores/types/spells";
 
-
 // interface SpellSelectorProps {
 //     spells: Spell[];
 //     selectedSpell: string;
@@ -10,7 +9,7 @@
 //     creatureHealth: number;
 //     executeSpell: () => void;
 //   }
-  
+
 //   const SpellSelector: React.FC<SpellSelectorProps> = ({
 
 //     spells,
@@ -40,6 +39,5 @@
 //       </div>
 //     );
 //   };
-  
+
 //   export default SpellSelector;
-  

@@ -47,14 +47,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     playerMaterial: 0,
     petsName: [],
     enemiesDeleted: [],
-    spells:[],
+    spells: [],
     inventoryId: '',
     classImg: '',
     avatarImg: '',
     totalArmorClass: () => {
       const state = get().player; // Obtén el estado actual
       const armorValue = state.selectedArmor?.armorValue || 0; // Usa 0 si selectedArmor es null
-      console.log(state.selectedArmor)
+      console.log(state.selectedArmor);
       return state.armorClass + armorValue;
     },
   },
@@ -63,7 +63,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   playerActions: {
     setInventory: (inventory) =>
       set((state) => ({
-        player: { ...state.player, inventoryId: inventory  },
+        player: { ...state.player, inventoryId: inventory },
       })),
     setSaves: (saves) =>
       set((state) => ({
@@ -103,13 +103,13 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
           leftPoints: state.player.leftPoints + leftPoints,
         },
       })),
-      setStatsLeftPoints: (leftPoints) =>
-        set((state) => ({
-          player: {
-            ...state.player,
-            leftPoints: leftPoints,
-          },
-        })),
+    setStatsLeftPoints: (leftPoints) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          leftPoints: leftPoints,
+        },
+      })),
     updateSaves: (saves) =>
       set((state) => ({
         player: {
@@ -157,97 +157,95 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, p_LeftHealth },
       })),
-      setP_MaxMana: (p_MaxMana) =>
-        set((state) => ({
-          player: { ...state.player, p_MaxMana },
-        })),
-      setP_LeftMana: (p_LeftMana) =>
-        set((state) => ({
-          player: { ...state.player, p_LeftMana },
-        })),
+    setP_MaxMana: (p_MaxMana) =>
+      set((state) => ({
+        player: { ...state.player, p_MaxMana },
+      })),
+    setP_LeftMana: (p_LeftMana) =>
+      set((state) => ({
+        player: { ...state.player, p_LeftMana },
+      })),
     setArmorClass: (armorClass) =>
       set((state) => ({
         player: { ...state.player, armorClass },
       })),
-      setClassImg: (classImg) =>
-        set((state) => ({
-          player: { ...state.player, classImg },
-        })),
-      setAvatarImg: (avatarImg) =>
-        set((state) => ({
-          player: { ...state.player, avatarImg },
-        })),
+    setClassImg: (classImg) =>
+      set((state) => ({
+        player: { ...state.player, classImg },
+      })),
+    setAvatarImg: (avatarImg) =>
+      set((state) => ({
+        player: { ...state.player, avatarImg },
+      })),
     setBaseAttackBonus: (baseAttackBonus) =>
       set((state) => ({
         player: { ...state.player, baseAttackBonus },
       })),
-    addClassFeature: (feature) => 
+    addClassFeature: (feature) =>
       set((state) => ({
         player: {
           ...state.player,
           classFeatures: [...state.player.classFeatures, feature],
         },
       })),
-      setClassFeature: (features) => {
-        set((state) => ({
-          player: {
-            ...state.player,
-            classFeatures: [...features], // Reinicia el array con los nuevos valores
-          },
-        }));
-      },
-      addClasses: (newClass) =>
-        set((state) => {
-          if (!state.player.classes.includes(newClass)) {
-            return {
-              player: {
-                ...state.player,
-                classes: [...state.player.classes, newClass], 
-              },
-            };
-          }
-          return state;
-        }),
-        addSpell: (spell) => 
-          set((state) => {
-            // Verificar si el hechizo ya existe en el array
-            if (!state.player.spells.some((s) => s === spell)) {
-              return {
-                ...state,
-                player: {
-                  ...state.player,
-                  spells: [...state.player.spells, spell], // Inmutabilidad al añadir
-                },
-              };
-            }
-            return state; // Si ya existe, devolver el estado sin cambios
-          }),
-          setSpell: (spells) =>
-            set((state) => ({
-              ...state,
-              player: {
-                ...state.player,
-                spells, // Reemplazar directamente el array de hechizos
-              },
-            })),
-          
-        
-        addPetsName: (newPet) =>
-          set((state) => {
-            if (!state.player.petsName.includes(newPet)) {
-             
-              return {
-                player: {
-                  ...state.player,
-                  petsName: [...state.player.petsName, newPet], 
-                },
-              };
-            }
-            return state;
-          }),  
+    setClassFeature: (features) => {
+      set((state) => ({
+        player: {
+          ...state.player,
+          classFeatures: [...features], // Reinicia el array con los nuevos valores
+        },
+      }));
+    },
+    addClasses: (newClass) =>
+      set((state) => {
+        if (!state.player.classes.includes(newClass)) {
+          return {
+            player: {
+              ...state.player,
+              classes: [...state.player.classes, newClass],
+            },
+          };
+        }
+        return state;
+      }),
+    addSpell: (spell) =>
+      set((state) => {
+        // Verificar si el hechizo ya existe en el array
+        if (!state.player.spells.some((s) => s === spell)) {
+          return {
+            ...state,
+            player: {
+              ...state.player,
+              spells: [...state.player.spells, spell], // Inmutabilidad al añadir
+            },
+          };
+        }
+        return state; // Si ya existe, devolver el estado sin cambios
+      }),
+    setSpell: (spells) =>
+      set((state) => ({
+        ...state,
+        player: {
+          ...state.player,
+          spells, // Reemplazar directamente el array de hechizos
+        },
+      })),
+
+    addPetsName: (newPet) =>
+      set((state) => {
+        if (!state.player.petsName.includes(newPet)) {
+          return {
+            player: {
+              ...state.player,
+              petsName: [...state.player.petsName, newPet],
+            },
+          };
+        }
+        return state;
+      }),
     setPlayerClass: (classes) =>
       set((state) => ({
-        player: {...state.player, classes: [classes]}
+        player: { ...state.player, classes: [classes] },
       })),
     setP_SelectedPet: (selectedPet) =>
       set((state) => ({
@@ -257,13 +255,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, selectedWeapon },
       })),
-      setP_SelectedArmor: (selectedArmor) =>(
-
-        set((state) => ({
-          player: { ...state.player, selectedArmor },
-        }))  
-      ),
-        
+    setP_SelectedArmor: (selectedArmor) =>
+      set((state) => ({
+        player: { ...state.player, selectedArmor },
+      })),
 
     setHitDie: (hitDie) =>
       set((state) => ({
@@ -272,24 +267,24 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
           hitDie: hitDie, // Establece un nuevo valor para hitDie
         },
       })),
-      setManaDie: (manaDie) =>
-        set((state) => ({
-          player: {
-            ...state.player,
-            manaDie: manaDie, // Establece un nuevo valor para hitDie
-          },
-        })),
+    setManaDie: (manaDie) =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          manaDie: manaDie, // Establece un nuevo valor para hitDie
+        },
+      })),
     updateHitDie: (hitDie) =>
       set((state) => ({
-          player: {
-            ...state.player,
-            hitDie: `${state.player.hitDie}, ${hitDie}`, // Agrega el nuevo valor al hitDie
-          },
+        player: {
+          ...state.player,
+          hitDie: `${state.player.hitDie}, ${hitDie}`, // Agrega el nuevo valor al hitDie
+        },
       })),
-      setEnemiesDeleted: (enemiesDeleted) =>
-        set((state) => ({
-          player: {...state.player, enemiesDeleted: enemiesDeleted}
-        })),
+    setEnemiesDeleted: (enemiesDeleted) =>
+      set((state) => ({
+        player: { ...state.player, enemiesDeleted: enemiesDeleted },
+      })),
   },
 
   // Mantén la función de inventario separada

@@ -18,7 +18,7 @@
 //   offsetY,
 //   step,
 // }) => {
-  
+
 //   // Manejador para mover el lobo
 //   const handleFloorClick = (button: Button) => {
 //     const isWithinRange =

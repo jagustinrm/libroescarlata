@@ -1,9 +1,8 @@
 {
-    "semi": false,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "scripts": {
-  "format": "prettier --write \"src/**/*.{js,jsx,html,css,ts}\""
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "arrowParens": "always"
 }
-  }

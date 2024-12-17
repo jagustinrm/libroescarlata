@@ -1,5 +1,5 @@
-import {create} from "zustand";
-import { Armor, ArmorStore } from "./types/armor";
+import { create } from 'zustand';
+import { Armor, ArmorStore } from './types/armor';
 
 const useArmorStore = create<ArmorStore>((set) => ({
   armors: [],
@@ -16,7 +16,7 @@ const useArmorStore = create<ArmorStore>((set) => ({
   updatesetArmors: (updatedArmor: Armor) => {
     set((state) => ({
       armors: state.armors.map((armor) =>
-        armor.id === updatedArmor.id ? updatedArmor : armor
+        armor.id === updatedArmor.id ? updatedArmor : armor,
       ),
     }));
   },

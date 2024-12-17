@@ -8,7 +8,10 @@ const useStatManagement = () => {
     (key: keyof Stats, pointsToAdd: number) => {
       if (player.leftPoints > 0) {
         // Incrementa puntos en la estadística
-        const updatedStats = { ...player.stats, [key]: player.stats[key] + pointsToAdd };
+        const updatedStats = {
+          ...player.stats,
+          [key]: player.stats[key] + pointsToAdd,
+        };
         playerActions.addStatsPoints(pointsToAdd, key);
 
         // Reduce el número de puntos disponibles
@@ -26,35 +29,41 @@ const useStatManagement = () => {
 
         if (additionalIncrease > prevPoints) {
           switch (key) {
-            case 'con': 
-              { const additionalHealth = player.level; 
-              playerActions.setP_MaxHealth(player.p_MaxHealth + additionalHealth);
+            case 'con':
+              {
+                const additionalHealth = player.level;
+                playerActions.setP_MaxHealth(
+                  player.p_MaxHealth + additionalHealth,
+                );
               }
-              break; 
+              break;
             case 'str':
-              { const additionalBaseAttack = 1; 
-                playerActions.setBaseAttackBonus(player.baseAttackBonus + additionalBaseAttack);
+              {
+                const additionalBaseAttack = 1;
+                playerActions.setBaseAttackBonus(
+                  player.baseAttackBonus + additionalBaseAttack,
+                );
               }
-              break; 
+              break;
             case 'dex':
               {
                 const addionalArmor = 1;
-                playerActions.setArmorClass(player.armorClass + addionalArmor)
+                playerActions.setArmorClass(player.armorClass + addionalArmor);
               }
               break;
-              case 'int':
-                {
-                  const additionalMana = player.level; 
-                  playerActions.setP_MaxMana(player.p_MaxMana + additionalMana)
-                }
-                break;
+            case 'int':
+              {
+                const additionalMana = player.level;
+                playerActions.setP_MaxMana(player.p_MaxMana + additionalMana);
+              }
+              break;
             default:
               break;
           }
         }
       }
     },
-    [player, playerActions]
+    [player, playerActions],
   );
 
   return { handleIncreaseStat };

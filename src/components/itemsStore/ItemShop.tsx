@@ -12,8 +12,10 @@ const ItemShop: React.FC = () => {
   const { player, playerActions } = usePlayerStore();
   const { addItem: addItemToInventory } = useInventoryStore();
   const { items } = useItemsStore();
-  const {inventories} = useInventoryStore()
-  const [selectedType, setSelectedType] = useState<keyof typeof items[1] | null>(null);
+  const { inventories } = useInventoryStore();
+  const [selectedType, setSelectedType] = useState<
+    keyof (typeof items)[1] | null
+  >(null);
   const shopId = 1;
   const [hoverInfo, setHoverInfo] = useState<{
     description: string;
@@ -29,20 +31,19 @@ const ItemShop: React.FC = () => {
   const handleBuy = (
     playerInventoryId: string,
     itemId: string,
-    itemType: keyof typeof items[1],
-    itemCost: number
+    itemType: keyof (typeof items)[1],
+    itemCost: number,
   ) => {
     if (player.playerMaterial >= itemCost) {
       const handleUpdateDeletable = async () => {
-      await updateArmorDeletable(itemId, false);
-      } 
-      handleUpdateDeletable()
-      
+        await updateArmorDeletable(itemId, false);
+      };
+      handleUpdateDeletable();
+
       addItemToInventory(playerInventoryId, itemType, itemId);
-      console.log(inventories)
+      console.log(inventories);
       playerActions.setPlayerMaterial(player.playerMaterial - itemCost);
       setFloatingMessage('¡Comprado!');
-
     } else {
       setFloatingMessage('Te faltan materiales');
     }
@@ -53,7 +54,7 @@ const ItemShop: React.FC = () => {
     description: string,
     armorValue?: number,
     damage?: string,
-    levelRequirement?: number
+    levelRequirement?: number,
   ) => {
     setHoverInfo({
       description,
@@ -79,7 +80,7 @@ const ItemShop: React.FC = () => {
           <button
             className="rpgui-button catalog-button"
             key={type}
-            onClick={() => setSelectedType(type as keyof typeof items[1])}
+            onClick={() => setSelectedType(type as keyof (typeof items)[1])}
           >
             {type}
           </button>
@@ -97,9 +98,9 @@ const ItemShop: React.FC = () => {
                 handleMouseMove(
                   e,
                   item.description || 'Sin descripción',
-                  item.armorValue && item.armorValue ,
+                  item.armorValue && item.armorValue,
                   item.damage && item.damage,
-                  item.levelRequirement
+                  item.levelRequirement,
                 )
               }
               onMouseLeave={handleMouseLeave}
@@ -112,7 +113,14 @@ const ItemShop: React.FC = () => {
               )}
               <button
                 className="rpgui-button buyButton"
-                onClick={() => handleBuy(player.inventoryId, item.id, selectedType, item.cost)}
+                onClick={() =>
+                  handleBuy(
+                    player.inventoryId,
+                    item.id,
+                    selectedType,
+                    item.cost,
+                  )
+                }
                 value={item.id}
               >
                 {item.cost} 🛠️
@@ -141,15 +149,22 @@ const ItemShop: React.FC = () => {
           }}
         >
           <p>{hoverInfo.description}</p>
-          { typeof hoverInfo.armorValue === "number"  &&  <p>Armadura: {hoverInfo.armorValue}</p>}
+          {typeof hoverInfo.armorValue === 'number' && (
+            <p>Armadura: {hoverInfo.armorValue}</p>
+          )}
           {hoverInfo.damage && <p>Daño: {hoverInfo.damage}</p>}
-          {hoverInfo.levelRequirement && <p>Requiere Nivel: {hoverInfo.levelRequirement}</p>}
+          {hoverInfo.levelRequirement && (
+            <p>Requiere Nivel: {hoverInfo.levelRequirement}</p>
+          )}
         </div>
       )}
 
       {/* Mensaje de compra */}
       {floatingMessage && (
-        <FloatingMessage message={floatingMessage} onComplete={() => setFloatingMessage(null)} />
+        <FloatingMessage
+          message={floatingMessage}
+          onComplete={() => setFloatingMessage(null)}
+        />
       )}
     </div>
   );

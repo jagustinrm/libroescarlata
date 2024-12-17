@@ -6,7 +6,7 @@ const TestFirebase: React.FC = () => {
   const handleWriteData = () => {
     const testRef = ref(database, 'test'); // Crea una referencia en la base de datos
     set(testRef, {
-      message: "Conexión exitosa con Firebase!",
+      message: 'Conexión exitosa con Firebase!',
       timestamp: Date.now(),
     })
       .then(() => {

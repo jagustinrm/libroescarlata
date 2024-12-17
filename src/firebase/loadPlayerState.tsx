@@ -7,7 +7,7 @@ import useInventoryStore from '../stores/inventoryStore';
 import { Inventory } from '../stores/types/inventory';
 const LoadPlayerFromFirebase = () => {
   const { playerActions } = usePlayerStore(); // Accedemos a playerActions
-  const {createInventory, addItem} = useInventoryStore();
+  const { createInventory, addItem } = useInventoryStore();
   const navigate = useNavigate();
   const { playerName } = useParams();
 
@@ -15,7 +15,7 @@ const LoadPlayerFromFirebase = () => {
     const fetchPlayerData = async () => {
       try {
         const playerRef = ref(database, `players/${playerName}`);
-        
+
         const snapshot = await get(playerRef);
 
         if (snapshot.exists()) {
@@ -32,23 +32,26 @@ const LoadPlayerFromFirebase = () => {
           playerActions.setBaseAttackBonus(playerData.baseAttackBonus);
           playerActions.updateSaves(playerData.saves);
           playerActions.setClassFeature(playerData.classFeatures);
-          playerActions.setP_LeftHealth(playerData.p_LeftHealth)
-          playerActions.setP_MaxHealth(playerData.p_MaxHealth)
-          playerActions.setPlayerClass(playerData.classes)
+          playerActions.setP_LeftHealth(playerData.p_LeftHealth);
+          playerActions.setP_MaxHealth(playerData.p_MaxHealth);
+          playerActions.setPlayerClass(playerData.classes);
           playerActions.setP_SelectedPet(playerData.selectedPet);
           playerActions.setP_SelectedWeapon(playerData.selectedWeapon);
-          playerActions.setP_SelectedArmor(playerData.selectedArmor)
+          playerActions.setP_SelectedArmor(playerData.selectedArmor);
           playerActions.setStats(playerData.stats);
           playerActions.setStatsLeftPoints(playerData.leftPoints);
           playerActions.setSpell(playerData.spells);
-          playerActions.setClassImg(playerData.classImg)
-          playerActions.setInventory(playerData.inventoryId)
-          playerActions.setAvatarImg(playerData.avatarImg)
-          playerActions.setHitDie(playerData.hitDie)
-          playerActions.setManaDie(playerData.manaDie)
-          playerActions.setP_LeftMana(playerData.p_LeftMana)
-          playerActions.setP_MaxMana(playerData.p_MaxMana)  
-          const inventoryRef = ref(database, `players/${playerName}/${playerData.inventoryId}`);
+          playerActions.setClassImg(playerData.classImg);
+          playerActions.setInventory(playerData.inventoryId);
+          playerActions.setAvatarImg(playerData.avatarImg);
+          playerActions.setHitDie(playerData.hitDie);
+          playerActions.setManaDie(playerData.manaDie);
+          playerActions.setP_LeftMana(playerData.p_LeftMana);
+          playerActions.setP_MaxMana(playerData.p_MaxMana);
+          const inventoryRef = ref(
+            database,
+            `players/${playerName}/${playerData.inventoryId}`,
+          );
           const inventorySnapshot = await get(inventoryRef);
           const inventoryData = inventorySnapshot.val();
           const inventoryDefault: Inventory = {
@@ -65,22 +68,29 @@ const LoadPlayerFromFirebase = () => {
           Object.entries(inventoryDefault).forEach(([category, items]) => {
             if (Array.isArray(items)) {
               items.forEach((item) => {
-                
-                addItem(`${playerData.name}_inventory`, category as keyof Inventory, item);
+                addItem(
+                  `${playerData.name}_inventory`,
+                  category as keyof Inventory,
+                  item,
+                );
               });
             }
           });
-          
-          
+
           console.log('Datos del jugador cargados desde Firebase:', playerData);
           navigate('/home'); // Redirige a /home después de cargar los datos
         } else {
-          console.error(`No se encontraron datos para el jugador: ${playerName}`);
+          console.error(
+            `No se encontraron datos para el jugador: ${playerName}`,
+          );
           alert(`No se encontraron datos para el jugador: ${playerName}`);
-          navigate('/')
+          navigate('/');
         }
       } catch (error) {
-        console.error('Error al obtener los datos del jugador desde Firebase:', error);
+        console.error(
+          'Error al obtener los datos del jugador desde Firebase:',
+          error,
+        );
       }
     };
 

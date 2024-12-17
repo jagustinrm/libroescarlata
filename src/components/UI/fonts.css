@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
 .rpgui-content * {
   /* remove outline effect for input elements etc */
@@ -24,15 +24,22 @@
   image-rendering: pixelated;
   /* default font */
   font-family: 'Press Start 2P', normal;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow:
+    -1px 0 black,
+    0 1px black,
+    1px 0 black,
+    0 -1px black;
   color: white;
   font-size: 0.96em;
 }
 
-
 @import url('https://fonts.cdnfonts.com/css/pixelony');
 body {
   font-family: 'Pixelony', sans-serif !important;
-text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-font-size: 1.0em;
+  text-shadow:
+    -2px 0 black,
+    0 2px black,
+    2px 0 black,
+    0 -2px black;
+  font-size: 1em;
 }

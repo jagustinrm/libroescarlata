@@ -1,20 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 // import { Weapon } from "../stores/types/weapons";
 type DropdownProps = {
-  options: (string | undefined)[]
+  options: (string | undefined)[];
   value: string;
   onChange: (value: string) => void;
   id?: string;
   disabled?: boolean;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, id, disabled = false }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  value,
+  onChange,
+  id,
+  disabled = false,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLSelectElement>(null);
   const headerRef = useRef<HTMLParagraphElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
-  const arrowDownPrefix = "<label>&#9660;</label> ";
+  const arrowDownPrefix = '<label>&#9660;</label> ';
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -28,8 +34,8 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, id, disab
       }
     };
 
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
   const toggleDropdown = () => {
@@ -48,8 +54,10 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, id, disab
 
   const updateHeader = () => {
     if (selectRef.current && headerRef.current) {
-      const selectedOption = selectRef.current.options[selectRef.current.selectedIndex];
-      headerRef.current.innerHTML = arrowDownPrefix + (selectedOption?.text || "Seleccionar");
+      const selectedOption =
+        selectRef.current.options[selectRef.current.selectedIndex];
+      headerRef.current.innerHTML =
+        arrowDownPrefix + (selectedOption?.text || 'Seleccionar');
     }
   };
 
@@ -66,7 +74,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, id, disab
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
       >
         <option value="">Seleccionar</option>
         {options.map((option, index) => (
@@ -81,22 +89,25 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange, id, disab
         className="rpgui-dropdown-imp rpgui-dropdown-imp-header"
         ref={headerRef}
         onClick={toggleDropdown}
-        dangerouslySetInnerHTML={{ __html: arrowDownPrefix + "Seleccionar" }}
+        dangerouslySetInnerHTML={{ __html: arrowDownPrefix + 'Seleccionar' }}
       />
 
       <ul
         id={id ? `${id}-rpgui-dropdown` : undefined}
         className="rpgui-dropdown-imp listSize"
         ref={listRef}
-        style={{ display: isOpen ? "block" : "none"}}
+        style={{ display: isOpen ? 'block' : 'none' }}
       >
-        {options.map((option, index) =>  option && (
-          <li
-            key={index}
-            onClick={() => handleOptionClick(option, index)}
-            dangerouslySetInnerHTML={{ __html: option }}
-          />
-        ))}
+        {options.map(
+          (option, index) =>
+            option && (
+              <li
+                key={index}
+                onClick={() => handleOptionClick(option, index)}
+                dangerouslySetInnerHTML={{ __html: option }}
+              />
+            ),
+        )}
       </ul>
     </div>
   );

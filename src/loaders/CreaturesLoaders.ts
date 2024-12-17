@@ -3,46 +3,45 @@ import { useEffect } from 'react';
 import { Creature } from '../stores/types/creatures';
 
 const CreatureLoader = () => {
-    const { areCreaturesLoaded, setCreatures } = useCreatureStore();
+  const { areCreaturesLoaded, setCreatures } = useCreatureStore();
 
-    useEffect(() => {
-        // Solo cargar las criaturas si no han sido cargadas previamente
-        if (!areCreaturesLoaded) {
-            const loadCreaturesAndBosses = async () => {
-                try {
-                    // Cargar las criaturas normales
-                    const resCreatures = await fetch('/mocks/creatures.json'); // Ruta del archivo JSON de criaturas normales
-                    const creaturesData = await resCreatures.json();
-                    
-                    // Asignarles el rol "creature"
-                    const creaturesWithRole = creaturesData.map((creature: Creature) => ({
-                        ...creature,
-                        role: 'creature', // Asignar rol normal
-                    }));
+  useEffect(() => {
+    // Solo cargar las criaturas si no han sido cargadas previamente
+    if (!areCreaturesLoaded) {
+      const loadCreaturesAndBosses = async () => {
+        try {
+          // Cargar las criaturas normales
+          const resCreatures = await fetch('/mocks/creatures.json'); // Ruta del archivo JSON de criaturas normales
+          const creaturesData = await resCreatures.json();
 
-                    // Cargar los jefes
-                    const resBosses = await fetch('/mocks/bosses.json'); // Ruta del archivo JSON de jefes
-                    const bossesData = await resBosses.json();
-                    // Asignarles el rol "boss"
-                    const bossesWithRole = bossesData.map((boss: Creature) => ({
-                        ...boss,
-                        role: 'boss', // Asignar rol jefe
-                    }));
+          // Asignarles el rol "creature"
+          const creaturesWithRole = creaturesData.map((creature: Creature) => ({
+            ...creature,
+            role: 'creature', // Asignar rol normal
+          }));
 
-                    // Unir ambas listas y actualizar el estado global
-                    const allCreatures = [...creaturesWithRole, ...bossesWithRole];
-                    setCreatures(allCreatures);
+          // Cargar los jefes
+          const resBosses = await fetch('/mocks/bosses.json'); // Ruta del archivo JSON de jefes
+          const bossesData = await resBosses.json();
+          // Asignarles el rol "boss"
+          const bossesWithRole = bossesData.map((boss: Creature) => ({
+            ...boss,
+            role: 'boss', // Asignar rol jefe
+          }));
 
-                } catch (error) {
-                    console.error('Error loading creatures and bosses:', error);
-                }
-            };
-
-            loadCreaturesAndBosses();
+          // Unir ambas listas y actualizar el estado global
+          const allCreatures = [...creaturesWithRole, ...bossesWithRole];
+          setCreatures(allCreatures);
+        } catch (error) {
+          console.error('Error loading creatures and bosses:', error);
         }
-    }, [areCreaturesLoaded, setCreatures]); 
+      };
 
-    return null; 
+      loadCreaturesAndBosses();
+    }
+  }, [areCreaturesLoaded, setCreatures]);
+
+  return null;
 };
 
 export default CreatureLoader;

@@ -1,52 +1,51 @@
 @import url('https://fonts.cdnfonts.com/css/rpg');
 
-
-
 .rpgui-button {
-    /* hide button default stuff */
-    background-color: Transparent;
-    background-repeat: no-repeat;
-    border: none;
-    overflow: hidden;
-    outline: none;
-    /* background */
-    background: url("../designImg/button.png") no-repeat no-repeat;
-    background-clip: padding-box;
-    background-origin: padding-box;
-    background-position: center;
-    /* background-size: 80% 70%; */
-    background-size: contain;
-    /* font size */
-    font-size: 1.0em;
-    /* default size and display */
-    max-width: 90%;
-    min-width: 140px;
-    height: 4em;
-    display: inline-block;
-    /* padding */
-    padding-left: 30px;
-    padding-right: 30px; }
-  
-  /* button hover */
-  .rpgui-button.hover,
-  .rpgui-button:hover {
-    background-image: url("../designImg/button-hover.png"); 
-    background-color: Transparent;
-  }
-  
-  /* button clicked */
-  .rpgui-button.down,
-  .rpgui-button:active {
-    background-image: url("../designImg/button-down.png"); 
-    background-color: Transparent;
-  }
-  
-  /* golden button stuff */
-  /* .rpgui-button.golden p {
+  /* hide button default stuff */
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  overflow: hidden;
+  outline: none;
+  /* background */
+  background: url('../designImg/button.png') no-repeat no-repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center;
+  /* background-size: 80% 70%; */
+  background-size: contain;
+  /* font size */
+  font-size: 1em;
+  /* default size and display */
+  max-width: 90%;
+  min-width: 140px;
+  height: 4em;
+  display: inline-block;
+  /* padding */
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* button hover */
+.rpgui-button.hover,
+.rpgui-button:hover {
+  background-image: url('../designImg/button-hover.png');
+  background-color: Transparent;
+}
+
+/* button clicked */
+.rpgui-button.down,
+.rpgui-button:active {
+  background-image: url('../designImg/button-down.png');
+  background-color: Transparent;
+}
+
+/* golden button stuff */
+/* .rpgui-button.golden p {
     display: inline-block; } */
-  
-  /* golden button style */
-  /* .rpgui-button.golden {
+
+/* golden button style */
+/* .rpgui-button.golden {
 
     background-color: Transparent;
     background-repeat: no-repeat;
@@ -69,14 +68,14 @@
     padding-left: 35px;
     padding-right: 35px;
     overflow: visible; } */
-  
-  /* button hover
+
+/* button hover
   .rpgui-button.golden.hover,
   .rpgui-button.golden:hover {
     background-image: url("designImg/button-golden-hover.png"); } */
-  
-  /* button clicked */
-  /* .rpgui-button.golden.down,
+
+/* button clicked */
+/* .rpgui-button.golden.down,
   .rpgui-button.golden:active {
     background-image: url("designImg/button-golden-down.png"); } */
 /*   
@@ -111,162 +110,198 @@
 
 /* ****************CURSORES*************************** */
 
-
 /* default cursor important */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-default {
-  cursor: url("../designImg/cursor/default.png"), auto !important; }
+  cursor: url('../designImg/cursor/default.png'), auto !important;
+}
 
 /* default cursor, not important, for all elements without any other rule. */
 .rpgui-content,
 label {
-  cursor: url("../designImg/cursor/default.png"), auto; }
+  cursor: url('../designImg/cursor/default.png'), auto;
+}
 
 /* pointer / hand cursor important */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-point,
 .rpgui-cursor-point * {
-  cursor: url("../designImg/cursor/point.png") 10 0, auto !important; }
+  cursor:
+    url('../designImg/cursor/point.png') 10 0,
+    auto !important;
+}
 
 /* pointer / hand cursor, not important, for all elements that have pointer by-default */
 .rpgui-content a,
 .rpgui-content button,
 .rpgui-button,
 .rpgui-slider-container,
-.rpgui-content input[type=radio].rpgui-radio + label,
+.rpgui-content input[type='radio'].rpgui-radio + label,
 .rpgui-list-imp,
 .rpgui-dropdown-imp,
-.rpgui-content input[type=checkbox].rpgui-checkbox + label {
-  cursor: url("../designImg/cursor/point.png") 10 0, auto; }
+.rpgui-content input[type='checkbox'].rpgui-checkbox + label {
+  cursor:
+    url('../designImg/cursor/point.png') 10 0,
+    auto;
+}
 
 /* for input / text selection important */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-select,
 .rpgui-cursor-select * {
-  cursor: url("../designImg/cursor/select.png") 10 0, auto !important; }
+  cursor:
+    url('../designImg/cursor/select.png') 10 0,
+    auto !important;
+}
 
 /* for input / text selection, not important, for all elements that have pointer by-default */
 .rpgui-cursor-select,
 .rpgui-content input,
 .rpgui-content textarea {
-  cursor: url("../designImg/cursor/select.png") 10 0, auto; }
+  cursor:
+    url('../designImg/cursor/select.png') 10 0,
+    auto;
+}
 
 /* for grabbing stuff */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-grab-open,
 .rpgui-cursor-grab-open * {
-  cursor: url("../designImg/cursor/grab-open.png") 10 0, auto !important; }
+  cursor:
+    url('../designImg/cursor/grab-open.png') 10 0,
+    auto !important;
+}
 
 /* for grabbing stuff */
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-grab-close,
 .rpgui-cursor-grab-close * {
-  cursor: url("../designImg/cursor/grab-close.png") 10 0, auto !important; }
+  cursor:
+    url('../designImg/cursor/grab-close.png') 10 0,
+    auto !important;
+}
 
+/************************** LISTAS  ********************* */
 
-    /************************** LISTAS  ********************* */
+.rpgui-list-imp {
+  /* font */
+  text-shadow:
+    -2px 0 black,
+    0 2px black,
+    2px 0 black,
+    0 -2px black;
+  color: white;
+  /* default size */
+  min-height: 40px;
+  margin-top: 0px;
+  /* scrollers */
+  overflow-x: hidden;
+  overflow-y: scroll;
+  /* border */
+  border-style: solid;
+  border-width: 7px 7px 7px 7px;
+  -moz-border-image: url('../designImg/select/select-border-image.png') 10%
+    repeat repeat;
+  -webkit-border-image: url('../designImg/select/select-border-image.png') 10%
+    repeat repeat;
+  -o-border-image: url('../designImg/select/select-border-image.png') 10% repeat
+    repeat;
+  border-image: url('../designImg/select/select-border-image.png') 10% repeat
+    repeat;
+  /* background */
+  background: url('../designImg/select/select-background-image.png') repeat
+    repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center;
+}
 
+/* dropdown options list */
+ul.rpgui-list-imp {
+  padding: 0 0 0 0 !important;
+  z-index: 100;
+}
 
-  .rpgui-list-imp {
-    /* font */
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-    color: white;
-    /* default size */
-    min-height: 40px;
-    margin-top: 0px;
-    /* scrollers */
-    overflow-x: hidden;
-    overflow-y: scroll;
-    /* border */
-    border-style: solid;
-    border-width: 7px 7px 7px 7px;
-    -moz-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
-    -webkit-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
-    -o-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
-    border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
-    /* background */
-    background: url("../designImg/select/select-background-image.png") repeat repeat;
-    background-clip: padding-box;
-    background-origin: padding-box;
-    background-position: center; }
-  
-  /* dropdown options list */
-  ul.rpgui-list-imp {
-    padding: 0 0 0 0 !important;
-    z-index: 100; }
-  
-  /* dropdown options */
-  .rpgui-list-imp li {
-    /* font */
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-    color: white;
-    height: 16px;
-    margin-left: 5px !important;
-    /* remove the dot */
-    list-style-type: none;
-    /* padding */
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 6px;
-    /* background */
-    background: url("../designImg/select/select-background-image.png") repeat repeat;
-    background-clip: padding-box;
-    background-origin: padding-box;
-    background-position: center; }
-  
-  /* list options hover */
-  .rpgui-list-imp li:hover {
-    color: yellow; }
-  
-  /* list hover */
-  .rpgui-list-imp:hover {
-    color: yellow; }
-  
-  .rpgui-list-imp .rpgui-selected {
-    background: rgba(0, 0, 0, 0.3); }
-  
+/* dropdown options */
+.rpgui-list-imp li {
+  /* font */
+  text-shadow:
+    -2px 0 black,
+    0 2px black,
+    2px 0 black,
+    0 -2px black;
+  color: white;
+  height: 16px;
+  margin-left: 5px !important;
+  /* remove the dot */
+  list-style-type: none;
+  /* padding */
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 6px;
+  /* background */
+  background: url('../designImg/select/select-background-image.png') repeat
+    repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center;
+}
 
-  /********************** SCROLLBAR*******************/
+/* list options hover */
+.rpgui-list-imp li:hover {
+  color: yellow;
+}
 
-  /* to get pixelated images (nearest-neighbor filter) on all  browsers */
+/* list hover */
+.rpgui-list-imp:hover {
+  color: yellow;
+}
+
+.rpgui-list-imp .rpgui-selected {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/********************** SCROLLBAR*******************/
+
+/* to get pixelated images (nearest-neighbor filter) on all  browsers */
 .rpgui-pixelated {
   -ms-interpolation-mode: nearest-neighbor;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: -webkit-crisp-edges;
   image-rendering: -moz-crisp-edges;
   image-rendering: -o-crisp-edges;
-  image-rendering: pixelated; }
-  .rpgui-content ::-webkit-scrollbar,
+  image-rendering: pixelated;
+}
+.rpgui-content ::-webkit-scrollbar,
 .rpgui-content::-webkit-scrollbar {
-  width: 18px; }
+  width: 18px;
+}
 
 /* Track */
 .rpgui-content ::-webkit-scrollbar-track,
 .rpgui-content::-webkit-scrollbar-track {
-  background-image: url("../designImg/scollbar/scrollbar-track.png");
+  background-image: url('../designImg/scollbar/scrollbar-track.png');
   background-size: 18px 60px;
-  background-repeat: repeat-y; }
+  background-repeat: repeat-y;
+}
 
 /* Handle */
 .rpgui-content ::-webkit-scrollbar-thumb,
 .rpgui-content::-webkit-scrollbar-thumb {
-  background-image: url("../designImg/scollbar/scrollbar-thumb.png");
+  background-image: url('../designImg/scollbar/scrollbar-thumb.png');
   background-size: 100% 100%;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+}
 
 /* buttons */
 .rpgui-content ::-webkit-scrollbar-button,
 .rpgui-content::-webkit-scrollbar-button {
-  background-image: url("../designImg/scollbar/scrollbar-button.png");
+  background-image: url('../designImg/scollbar/scrollbar-button.png');
   background-size: 100% 100%;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+}
 
-
-  
-
-
-
-  /**
+/**
 * input styling
 */
 /* input/textarea input */
@@ -277,7 +312,11 @@ label {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  text-shadow:
+    -2px 0 black,
+    0 2px black,
+    2px 0 black,
+    0 -2px black;
   font-size: 0.9em;
   line-height: 32px;
   background: #4e4a4e;
@@ -293,32 +332,33 @@ label {
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
-  -webkit-tap-highlight-color: rgba(126, 124, 124, 0.5); }
-  
+  -webkit-tap-highlight-color: rgba(126, 124, 124, 0.5);
+}
+
 /* textarea extra rules */
 .rpgui-content textarea {
   line-height: 22px;
   padding-top: 7px;
   height: 80px;
-  resize: none; }
+  resize: none;
+}
 
 /* selection highlight */
 .rpgui-content input::selection,
 .rpgui-content textarea::selection {
-  background: rgba(0, 0, 0, 0.5); }
+  background: rgba(0, 0, 0, 0.5);
+}
 
 .rpgui-content input::-moz-selection,
 .rpgui-content textarea::-moz-selection {
-  background: rgba(0, 0, 0, 0.5); }
+  background: rgba(0, 0, 0, 0.5);
+}
 
-  .rpgui-content input::placeholder {
-    color: rgb(216, 216, 216)
-  }
+.rpgui-content input::placeholder {
+  color: rgb(216, 216, 216);
+}
 
-
-
-
-  /**
+/**
 * customized divs (containers) and framed objects (background and frame image).
 */
 /* game div without background image*/
@@ -327,13 +367,14 @@ label {
   /* position: fixed; */
   position: relative;
   z-index: 10;
-  overflow: show; }
+  overflow: show;
+}
 
 /* game div with golden2 background image*/
 .rpgui-container.framed-golden-2 {
   /* border */
   border-style: solid;
-  border-image-source: url("../designImg/border/border-image-golden2.png");
+  border-image-source: url('../designImg/border/border-image-golden2.png');
   border-image-repeat: repeat;
   border-image-slice: 8 8 8 8;
   border-image-width: 18px;
@@ -349,13 +390,12 @@ label {
   border-radius: 10px;
   background-clip: padding-box;
   background-origin: padding-box;
-  background-position: center; 
-
+  background-position: center;
 }
 .rpgui-container.framed {
   /* border */
   border-style: solid;
-  border-image-source: url("../designImg/border/border-image.png");
+  border-image-source: url('../designImg/border/border-image.png');
   border-image-repeat: repeat;
   border-image-slice: 6 6 6 6;
   border-image-width: 18px;
@@ -366,30 +406,33 @@ label {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   /* background */
-  background: url("../designImg/background/background-image.png") repeat repeat;
+  background: url('../designImg/background/background-image.png') repeat repeat;
   background-clip: padding-box;
   background-origin: padding-box;
-  background-position: center; }
+  background-position: center;
+}
 
-  .rpgui-container.framed-grey {
-    position: relative;
-    /* border */
-    border-style: solid;
-    border-image-source: url("../designImg/border/border-image-grey.png");
-    border-image-repeat: repeat;
-    border-image-slice: 3 3 3 3;
-    border-image-width: 7px;
-    border-width: 7px;
-    padding: 12px;
-    /* internal border */
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    /* background */
-    background: url("../designImg/background/background-image-grey.png") repeat repeat;
-    background-clip: padding-box;
-    background-origin: padding-box;
-    background-position: center; }
+.rpgui-container.framed-grey {
+  position: relative;
+  /* border */
+  border-style: solid;
+  border-image-source: url('../designImg/border/border-image-grey.png');
+  border-image-repeat: repeat;
+  border-image-slice: 3 3 3 3;
+  border-image-width: 7px;
+  border-width: 7px;
+  padding: 12px;
+  /* internal border */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  /* background */
+  background: url('../designImg/background/background-image-grey.png') repeat
+    repeat;
+  background-clip: padding-box;
+  background-origin: padding-box;
+  background-position: center;
+}
 /* 
 .rpgui-container.framed {
   border-style: solid;
@@ -447,7 +490,11 @@ label {
 .rpgui-dropdown-imp,
 .rpgui-dropdown {
   /* font */
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  text-shadow:
+    -2px 0 black,
+    0 2px black,
+    2px 0 black,
+    0 -2px black;
   color: rgb(255, 255, 255);
   /* default size */
   min-height: 40px;
@@ -455,20 +502,27 @@ label {
   /* border */
   border-style: solid;
   border-width: 7px 7px 7px 7px;
-  -moz-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
-  -webkit-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
-  -o-border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
-  border-image: url("../designImg/select/select-border-image.png") 10% repeat repeat;
+  -moz-border-image: url('../designImg/select/select-border-image.png') 10%
+    repeat repeat;
+  -webkit-border-image: url('../designImg/select/select-border-image.png') 10%
+    repeat repeat;
+  -o-border-image: url('../designImg/select/select-border-image.png') 10% repeat
+    repeat;
+  border-image: url('../designImg/select/select-border-image.png') 10% repeat
+    repeat;
   /* background */
-  background: url("../designImg/select/select-background-image.png") repeat repeat;
+  background: url('../designImg/select/select-background-image.png') repeat
+    repeat;
   background-clip: padding-box;
   background-origin: padding-box;
-  background-position: center; }
+  background-position: center;
+}
 
 /* dropdown options list */
 ul.rpgui-dropdown-imp {
   padding: 0 0 0 0 !important;
-  z-index: 100; }
+  z-index: 100;
+}
 
 /* note! this affect only the dropdown header */
 /* shows the currently selected value from select element */
@@ -477,12 +531,17 @@ ul.rpgui-dropdown-imp {
   min-height: 22px !important;
   padding: 5px 10px 0 10px !important;
   margin: 0 0 0 0 !important;
-  position: relative !important; }
+  position: relative !important;
+}
 
 /* dropdown options */
 .rpgui-dropdown-imp li {
   /* font */
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  text-shadow:
+    -2px 0 black,
+    0 2px black,
+    2px 0 black,
+    0 -2px black;
   color: white;
   height: 16px;
   /* remove the dot */
@@ -492,15 +551,19 @@ ul.rpgui-dropdown-imp {
   padding-bottom: 6px;
   padding-left: 6px;
   /* background */
-  background: url("../designImg/select/select-background-image.png") repeat repeat;
+  background: url('../designImg/select/select-background-image.png') repeat
+    repeat;
   background-clip: padding-box;
   background-origin: padding-box;
-  background-position: center; }
+  background-position: center;
+}
 
 /* dropdown options hover */
 .rpgui-dropdown-imp li:hover {
-  color: yellow; }
+  color: yellow;
+}
 
 /* dropdown hover */
 .rpgui-dropdown-imp:hover {
-  color: yellow; }
+  color: yellow;
+}

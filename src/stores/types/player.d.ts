@@ -28,14 +28,14 @@ export interface Player {
   selectedPet: Pet;
   selectedWeapon: Weapon | null;
   selectedArmor: Armor | null;
-  inventoryId: string; 
+  inventoryId: string;
   petsName: string[];
   playerMaterial: number;
-  stats: Stats,
+  stats: Stats;
   statsIncrease: Stats;
   leftPoints: number;
-  enemiesDeleted: { count: number, name: string}[];
-  spells: string[]
+  enemiesDeleted: { count: number; name: string }[];
+  spells: string[];
   classImg: string;
   avatarImg: string;
   readonly totalArmorClass: () => number;
@@ -59,30 +59,29 @@ export interface PlayerActions {
   setManaDie: (manaDie: string) => void;
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
-  setPlayerName: (name: string) => void; 
-  setArmorClass: (armorClass: number) => void; 
-  setBaseAttackBonus: (baseAttackBonus: number) => void; 
-  updateSaves: (saves: Partial<Player['saves']>) => void; 
-  addClassFeature: (feature: string) => void; 
-  setClassFeature: (classFeatures: Player['classFeatures']) => void; 
-  addPetsName:(petsName: string) => void;
-  updateHitDie: (hitDie: string) => void; 
+  setPlayerName: (name: string) => void;
+  setArmorClass: (armorClass: number) => void;
+  setBaseAttackBonus: (baseAttackBonus: number) => void;
+  updateSaves: (saves: Partial<Player['saves']>) => void;
+  addClassFeature: (feature: string) => void;
+  setClassFeature: (classFeatures: Player['classFeatures']) => void;
+  addPetsName: (petsName: string) => void;
+  updateHitDie: (hitDie: string) => void;
   setSaves: (saves: Player['saves']) => void;
   updateSaves: (saves: Partial<Player['saves']>) => void;
   setEnemiesDeleted: (enemiesDeleted: Player['enemiesDeleted']) => void;
   setStats: (stats: Player['stats']) => void;
-  // updateStats: (stats: Partial<Player['stats']>) => void; 
+  // updateStats: (stats: Partial<Player['stats']>) => void;
   addStatsPoints: (points: number, type: keyof Player['stats']) => void; // REVISAR
   addStatsLeftPoints: (leftPoints: number) => void;
   setStatsLeftPoints: (leftPoints: number) => void;
   setStatsIncrease: (stats: Player['stats']) => void;
   addStatsIncrease: (points: number, type: keyof Player['stats']) => void;
-  setSpell: (spells: string[]) => void
+  setSpell: (spells: string[]) => void;
   addSpell: (spell: string) => void;
   setInventory: (inventory: string) => void;
   setClassImg: (classImg: string) => void;
   setAvatarImg: (avatarImg: string) => void;
-
 }
 
 // Interfaz para el store del player
