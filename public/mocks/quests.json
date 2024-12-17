@@ -1,26 +1,7 @@
 {
     "questTree": {
         "history": [
-            {
-                "name": "Derrotar al Esqueleto Humanoide",
-                "description": "Derrota al temible Esqueleto Humanoide en las ruinas antiguas.",
-                "counter": 1,
-                "objective": "Esqueleto Humanoide",
-                "reward": 20,
-                "type": "kill",
-                "finished": false,
-                "progress": 0
-            },
-            {
-                "name": "Derrotar al Hobgoblin",
-                "description": "El líder Hobgoblin amenaza la aldea. Acaba con él.",
-                "counter": 1,
-                "objective": "Hobgoblin",
-                "reward": 25,
-                "type": "kill",
-                "finished": false,
-                "progress": 0
-            }
+
         ],
         "secondary": [
             {
@@ -28,7 +9,7 @@
                 "description": "Caza 5 Goblins que están atacando los caminos.",
                 "counter": 5,
                 "objective": "Goblin",
-                "reward": 10,
+                "reward": 500,
                 "type": "kill",
                 "finished": false,
                 "progress": 0
@@ -38,7 +19,7 @@
                 "description": "Elimina a 3 Kobolds que rondan las minas abandonadas.",
                 "counter": 3,
                 "objective": "Kobold",
-                "reward": 15,
+                "reward":500,
                 "type": "kill",
                 "finished": false,
                 "progress": 0
@@ -48,7 +29,27 @@
                 "description": "Caza 7 Ratas Gigantes que infestan las bodegas.",
                 "counter": 7,
                 "objective": "Rata Gigante",
-                "reward": 12,
+                "reward": 500,
+                "type": "kill",
+                "finished": false,
+                "progress": 0
+            },
+            {
+                "name": "Derrotar al Esqueleto Humanoide",
+                "description": "Derrota al temible Esqueleto Humanoide en las ruinas antiguas.",
+                "counter": 1,
+                "objective": "Esqueleto Humanoide",
+                "reward": 100,
+                "type": "kill",
+                "finished": false,
+                "progress": 0
+            },
+            {
+                "name": "Derrotar al Hobgoblin",
+                "description": "El líder Hobgoblin amenaza la aldea. Acaba con él.",
+                "counter": 1,
+                "objective": "Hobgoblin",
+                "reward": 100,
                 "type": "kill",
                 "finished": false,
                 "progress": 0

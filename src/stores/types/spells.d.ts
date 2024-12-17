@@ -27,7 +27,7 @@ export interface Spell {
     maxLevelEffect?: number; // Opcional: Nivel máximo que afecta
     condition?: string; // Opcional: Condición adicional (Ej: "Prendido en llamas")
     conditionDuration?: string; // Opcional: Duración de la condición
-    soundEffect?: string; // Opcional: Efecto de sonido (Ej: "Un rugido atronador")
+    soundEffect?: string; // Opcional: URL
     flavorText?: string; // Opcional: Texto narrativo adicional
     interactionWithOtherSpells?: string; // Opcional: Interacciones con otros hechizos
     spellResistance?: boolean; // Si es resistible por resistencia mágica

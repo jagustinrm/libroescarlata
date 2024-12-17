@@ -6,6 +6,7 @@ import { handleCombatAction } from "../../utils/combatHandlers";
 import usePlayerStore from "../../stores/playerStore";
 import useCreatureStore from "../../stores/creatures";
 import { useWeaponStore } from "../../stores/weaponStore";
+import useSpellStore from "../../stores/spellsStore";
 
 interface Position {
   x: number;
@@ -30,6 +31,7 @@ interface GameBoardProps {
   summonPosition: Position;
   switchTurn: () => void;
   selectedWeapon: string;
+  selectedSpell: string;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -41,7 +43,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   summon,
   summonPosition,
   switchTurn,
-  selectedWeapon
+  selectedWeapon,
+  selectedSpell
 }) => {
   const gridSize = 10; // Tamaño de la cuadrícula principal (10x10)
   const step = 5; // Tamaño del paso en vw
@@ -53,7 +56,10 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { player } = usePlayerStore();
   const { creature } = useCreatureStore();
   const { weapons } = useWeaponStore();
+  const {spells} = useSpellStore();
   const weaponFiltered = weapons?.find((w) => w.name === selectedWeapon);
+  const spellFiltered = spells?.find((s) => s.name === selectedSpell)
+  const spellRange = spellFiltered?.range || 5;
   const weaponRange = weaponFiltered?.range || 5; // Rango del arma seleccionada
   // Generar botones al montar el componente
   useEffect(() => {
@@ -131,6 +137,22 @@ const GameBoard: React.FC<GameBoardProps> = ({
     return button.type === "main" && adjustedDistance <= weaponRange;
 };
 
+const isButtonInMagicRange = (button: Button): boolean => {
+  if (!spellFiltered) return false; // Sin spell, no hay rango
+
+  const dx = Math.floor(Math.abs(button.x - playerPosition.x - offsetX));
+  const dy = Math.floor(Math.abs(button.y - playerPosition.y - offsetY));
+
+  // Ignorar el casillero central del jugador
+  if (dx === 0 && dy === 0) return false;
+  
+  // Factor de penalización para diagonales
+  const diagonalPenalty = 1; // Ajusta según la reducción deseada
+  const adjustedDistance = dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
+
+  return button.type === "main" && adjustedDistance <= spellRange;
+};
+
 
   return (
     <div className="gameBoard">
@@ -145,6 +167,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
             ${isButtonEnemyPosition(button) ? "enemy-position" : ""} 
             ${isButtonHighlighted(button) ? "highlighted rpgui-cursor-point" : ""}
             ${isButtonInAttackRange(button) ? "attack-range" : ""}
+            ${isButtonInMagicRange(button) ? "magic-range" : ""}
             `}
             style={{
               transform: `translate(${button.x}vw, ${button.y}vw)`,

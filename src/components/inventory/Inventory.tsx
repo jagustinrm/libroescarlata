@@ -1,8 +1,8 @@
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import usePlayerStore from '../../stores/playerStore';
 import useInventoryStore from '../../stores/inventoryStore';
-import { useWeaponStore } from "../../stores/weaponStore"; // Importamos el store de armas
-import usePotionStore from "../../stores/potionsStore"; // Importamos el store de pociones
+import { useWeaponStore } from "../../stores/weaponStore"; 
+import usePotionStore from "../../stores/potionsStore"; 
 import './Inventory.css';
 import type { Inventory } from '../../stores/types/inventory';
 import BackButton from '../UI/BackButton';
@@ -10,19 +10,32 @@ import { Armor } from "../../stores/types/armor";
 import { Potion } from "../../stores/types/potions";
 import { Weapon } from "../../stores/types/weapons";
 import useArmorStore from "../../stores/armorStore";
-import { get, ref } from "firebase/database";
-import { database } from "../../firebase/firebaseConfig";
+import { getArmorsFromFirebase } from "../../firebase/saveArmorToFirebase";
+import ButtonEdited from "../UI/ButtonEdited";
+import FloatingMessage from "../UI/floatingMessage/FloatingMessage";
 
 export default function Inventory() {
     const [actualInventory, setActualInventory] = useState<Array<Weapon | Armor | Potion> | null>(null);
-
-    const [selectedItem, setSelectedItem] = useState<any>(null); // Estado para el objeto seleccionado
-    const { player } = usePlayerStore(); 
+    const [selectedItem, setSelectedItem] = useState<any>(null);
+    const { player, playerActions } = usePlayerStore(); 
     const { inventories } = useInventoryStore(); 
-    const { weapons } = useWeaponStore(); // Obtenemos las armas
-    const { potions } = usePotionStore(); // Obtenemos las pociones
-    const {armors} = useArmorStore();
-
+    const { weapons } = useWeaponStore(); 
+    const { potions } = usePotionStore(); 
+    const { armors } = useArmorStore();
+    const [firebaseArmors, setFirebaseArmors] = useState(null)
+    const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
+    
+    useEffect(() => { // Carga las armaduras el firebase 
+        const fetchArmors = async () => {
+          try {
+            const data = await getArmorsFromFirebase(); 
+            setFirebaseArmors(data); 
+          } catch (error) {
+            console.error('Error al obtener armaduras:', error);
+          }
+        };
+        fetchArmors();
+      }, []);
 
     const handleLoadActualInventory = (category: keyof Inventory) => {
         if (!player.inventoryId || !inventories[player.inventoryId]) {
@@ -40,42 +53,29 @@ export default function Inventory() {
     
         // Filtrar según la categoría
         switch (category) {
-            case 'weapons':
-                {
-
+            case 'weapons': {
                 const weaponsJson: Weapon[] = weapons.filter((weapon: Weapon) =>
                     itemNames.includes(weapon.id));
                 selectedCategory = weaponsJson;
                 break;
-                 }
-                 case 'armors': {
-                    // Filtrar las armaduras locales
-                    const localArmors = armors.filter((armor: Armor) => itemNames.includes(armor.id));
-                    
-                    // Obtener las armaduras de la base de datos de Firebase
-                    const armorsRef = ref(database, `armors`);
-
-                    get(armorsRef).then((snapshot) => {
-                        if (snapshot.exists()) {
-                            // MODIFICAR ACÁ. FALTARÍA FILTRAR LAS QUE TIENE EL USUARIO. HAY QUE ARREGLAR DE NUEVO EL DELETE DE FIREBASE PORQUE NO ME MANTIENE LA ARMADURA.
-                            
-                            const firebaseArmors: Armor[] = Object.values(snapshot.val()).map(armor => armor)
-                            console.log(firebaseArmors)
-                            // Combinar las armaduras locales y las de Firebase
-                            setActualInventory([...localArmors, ...firebaseArmors]);
-
-                        } else {
-                            // Si no hay armaduras en Firebase, solo se usan las locales
-                            setActualInventory(localArmors);
-                        }
-                    }).catch((error) => {
-                        console.error("Error fetching armors from Firebase:", error);
-                        setActualInventory(localArmors); // Si hay un error, solo mostrar las locales
-                    });
-                
+                }
+            case 'armors': {
+                // Verifica que firebaseArmors esté cargado antes de proceder
+                if (!firebaseArmors) {
+                    setActualInventory(armors.filter((armor: Armor) => itemNames.includes(armor.id)));
                     break;
                 }
+            
+                // Filtrar las armaduras locales
+                const localArmors = armors.filter((armor: Armor) => itemNames.includes(armor.id));
+                // Filtrar las armaduras de Firebase
+                const fbArmors = firebaseArmors.filter((armor: Armor) => itemNames.includes(armor.id));
+               
+                // Combinar las armaduras locales y las de Firebase
+                selectedCategory =  [...localArmors, ...fbArmors];
                 
+                break;
+            } 
             case 'potions':
                 selectedCategory = potions.filter((potion: Potion) => itemNames.includes(potion.id));
                 break;
@@ -85,7 +85,7 @@ export default function Inventory() {
                 break;
         }
             setActualInventory(selectedCategory);
-
+            
 
     };
 
@@ -107,14 +107,37 @@ export default function Inventory() {
 
         const armor = armors.find((armor: Armor) => armor.id === itemId);
         if (armor) {
-
             setSelectedItem(armor);
+
             return;
         }
-        // Si no se encuentra en ninguno, limpiar la selección
+        
+        const firebaseArmor = firebaseArmors.find((armor: Armor) => armor.id === itemId);
+        if (firebaseArmor) {
+            setSelectedItem(firebaseArmor);
+            return
+        }
         setSelectedItem(null);
     };
-
+    
+    const handleEquip = (selectedItem: Weapon | Armor | Potion | null) => {
+        if (!selectedItem) {
+            console.error("No hay un objeto seleccionado para equipar.");
+            return;
+        }
+    
+        // Equipar según el tipo del objeto
+        if ("armorValue" in selectedItem) {
+            playerActions.setP_SelectedArmor(selectedItem as Armor);
+            setFloatingMessage('¡Equipado!');
+        } else if ("damage" in selectedItem) {
+            playerActions.setP_SelectedWeapon(selectedItem as Weapon);
+            setFloatingMessage('¡Equipado!');
+        } else {
+            console.log("Este objeto no puede ser equipado.");
+        }
+    };
+    
     return (
         <section className="secctionInventory rpgui-container framed-golden-2">
             <h1>Inventario</h1>
@@ -148,15 +171,28 @@ export default function Inventory() {
                             <h2>{selectedItem.name}</h2>
                             <img className="itemIventoryImg" src={selectedItem.img} alt={selectedItem.name} />
                             <p><strong>Descripción:</strong> {selectedItem.description}</p>
-                            <p><strong>Costo:</strong> {selectedItem.cost} <strong>materiales</strong></p>
-                     
+                            {selectedItem.armorValue && <p><strong>Armadura:</strong> {selectedItem.armorValue}</p>}
+                            {/* <p><strong>Costo:</strong> {selectedItem.cost} <strong>materiales</strong></p> */}
+                            {selectedItem.damage && <p><strong>Daño:</strong> {selectedItem.damage}</p>}
                         </>
+                        
                     ) : (
                         <p>Selecciona un objeto para ver los detalles</p>
                     )}
+                        {selectedItem && <div style={{ marginTop: '30px' }}>
+                            <ButtonEdited 
+                            label="Equipar" 
+                            width='200px' 
+                            height="40px" 
+                            onClick={() => handleEquip(selectedItem)} 
+                            />
+                        </div>}
                 </div>
             </div>
             <BackButton />
+            {floatingMessage && (
+        <FloatingMessage message={floatingMessage} onComplete={() => setFloatingMessage(null)} />
+      )}
         </section>
     );
 }

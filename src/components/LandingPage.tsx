@@ -4,6 +4,8 @@ import "./LandingPage.css";
 import { usePlayerStore } from "../stores/playerStore";
 import "./UI/designRpg.css";
 import ButtonEdited from "./UI/ButtonEdited";
+import { ref, get } from "firebase/database"; // Importa desde Firebase
+import { database } from "../firebase/firebaseConfig"; // Asegúrate de importar tu configuración de Firebase
 
 
 const LandingPage: React.FC = () => {
@@ -13,11 +15,26 @@ const LandingPage: React.FC = () => {
   const [playerName, setPlayerName] = useState("");
 
 
-  const handleSaveName = () => {
-    playerActions.setPlayerName(inputName);
-    if (inputName === "") playerActions.setPlayerName("guest-player");
-    setInputName("");
-    navigate("/characterSelector");
+  const handleSaveName = async () => {
+    const playerId = inputName || "guest-player"; // Usa "guest-player" si el input está vacío
+    const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
+  
+    try {
+      // Verifica si el jugador existe en Firebase
+      const snapshot = await get(playerRef);
+      if (snapshot.exists()) {
+        alert("El nombre de usuario ya existe. Por favor, elige otro.");
+        return; // Detén la ejecución si el jugador existe
+      }
+  
+      // Si no existe, guarda el nombre y continúa
+      playerActions.setPlayerName(playerId);
+      setInputName(""); // Limpia el campo de entrada
+      navigate("/characterSelector"); // Redirige a la siguiente página
+    } catch (error) {
+      console.error("Error al verificar el jugador en Firebase:", error);
+      alert("Hubo un error al verificar el nombre. Inténtalo de nuevo.");
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +72,7 @@ const LandingPage: React.FC = () => {
       </p>
       <p>
         Se acerca, medio rengueando, y una vez que se encuentra delante tuyo mira
-        tus ojos llorozos y te pregunta el nombre...
+        tus ojos llorosos y te pregunta el nombre...
       </p>
       <h3 className="yourName">Tu nombre es: {inputName}</h3>
       <div>
@@ -67,7 +84,7 @@ const LandingPage: React.FC = () => {
             value={inputName}
             onChange={(e) => setInputName(e.target.value)}
           />
-          <ButtonEdited label="Ingresar"  onClick={handleSaveName}/>
+          <ButtonEdited label="Ingresar" width='200px' height="20px" onClick={handleSaveName}/>
         </div>
         <div>
           <form className="playerLoaderButton">
@@ -79,7 +96,7 @@ const LandingPage: React.FC = () => {
               onChange={handleInputChange}
               placeholder="Cargar personaje"
             />
-            <ButtonEdited label="Cargar" onClick={handleSubmit}/>
+            <ButtonEdited label="Cargar" width='200px' onClick={handleSubmit}/>
           </form>
         </div>
       </div>

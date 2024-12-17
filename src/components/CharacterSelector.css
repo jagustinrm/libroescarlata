@@ -33,11 +33,12 @@
 /* Buttons container */
 .buttonsClasses {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas dinámicas */
-    justify-items: center; /* Centra los botones horizontalmente */
-    align-items: center; /* Centra los botones verticalmente */
-    width: 100%; /* Asegura que ocupe el ancho del contenedor */
-    
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center; 
+    align-items: center; 
+    width: 100%; 
+    gap: 60px;
+    margin-top: 50px;
 }
 
 /* Buttons */

@@ -1,10 +1,17 @@
 El libro escarlata
 
 
-PONER TODOS LOS OBJETOS DEL IVNENTARIO CON ID STRING
-PONER TODOS LOS OBJETOS DEL IVNENTARIO CON ID ALEATORIOS
+items de firebase:
+    que no se actualicen al actualizar la página
+    por ahi puedo eliminar todos los deletables
+    Si yo actualizo primero yt no elimino las amraduras antes, se quedan guardadas las amraduras anteriores.
 
-Cosas para hacer:
+
+Sistema de tatuaje, que pueda ir armandose una imagen y que cada cosa tenga su caracteristica.
+PONER TODOS LOS OBJETOS DEL IVNENTARIO CON ID ALEATORIOS
+Inventory.tsx s epuede sacar el useEffect para reutilizar
+
+
 BASE DE DATOS:
     Ojo que solo actualizo el personaje si tiene cambiada un par de cosas en savePlayerStateToFireBase.
 prettier: para aplicar formato a código
@@ -16,7 +23,6 @@ INVENTORY:
     -CAMBIAR BASE DE DATOS CARGA DE INVENTARIO PARA QUE CARGUE APARTE LOS INVENTARIOS
 
 Musica en el juego:
-    -Pasos (Arreglar sonido al caminar)
     -Ataque enemigo
     -Magias
     -Música de cada sección

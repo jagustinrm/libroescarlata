@@ -2,8 +2,11 @@ export interface Item {
     id: string;
     name: string;
     description?: string;
+    armorValue?: number;
+    damage?: string;
     img?: string;
     cost: number;
+    levelRequirement?: number
 }
 
 export interface Items {

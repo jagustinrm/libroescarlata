@@ -78,6 +78,25 @@ export const handleCombatAction = (
       switchTurn?.();
     }
   };
+
+
+
+
+  const calculateDistance = (
+    position1: Position,
+    position2: Position,
+    diagonalPenalty = 1
+  ) => {
+    const dx = Math.abs(position1.x - position2.x);
+    const dy = Math.abs(position1.y - position2.y);
+  
+    // Ignorar el casillero central del jugador
+    if (dx === 0 && dy === 0) return -1;
+  
+    // Ajustar por penalización de diagonal
+    return dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
+  };
+  
   // *********************************                  ********************************
 // ************************************CUERPO A CUERPO *****************************
 // ************************************                  *****************************
@@ -85,25 +104,18 @@ const handleAttack = () => {
   if (!player || !creature) return;
 
   const weaponFiltered = weapons?.find((w) => w.name === selectedWeapon);
-  const weaponRange = weaponFiltered?.range ?? 10; // Si el rango no está definido, por defecto es 10.
+  const weaponRange = weaponFiltered?.range ?? 10; // Por defecto, rango es 10.
   const playerAttack = rollDice("1d20") + player.baseAttackBonus;
 
   if (playerPosition && enemyPosition) {
-    const dx = Math.abs(playerPosition.x - enemyPosition.x);
-    const dy = Math.abs(playerPosition.y - enemyPosition.y);
+    const adjustedDistance = calculateDistance(playerPosition, enemyPosition);
 
-    // Ignorar el casillero central del jugador
-    if (dx === 0 && dy === 0) return;
+    if (adjustedDistance === -1) return; // Ignorar posición central del jugador.
 
-    // Factor de penalización para las diagonales
-    const diagonalPenalty = 1; // Ajusta según la reducción deseada
-    const adjustedDistance = dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
-
-    // Verificar si está dentro del rango de ataque
     if (adjustedDistance > weaponRange) {
       addActionMessage("¡Estás fuera de rango para atacar!");
       handleMessage?.("¡Estás fuera de rango!", "warning", false);
-      shouldFinalizeTurn = false; // Evita que finalice el turno.
+      shouldFinalizeTurn = false;
       return;
     }
 
@@ -135,79 +147,135 @@ const handleAttack = () => {
   // ****************************************    ********************************
 // ****************************************SPELLS********************************
 // ****************************************       ********************************
-  const handleSpell = () => {
+const handleSpell = () => {
+  const spellDetails = spells?.find((s) => s.name === selectedSpell);
+  if (!spellDetails) {
+    shouldFinalizeTurn = false; // No se encontró el hechizo, no se finaliza el turno.
+    return;
+  }
 
-  
-    const spellDetails = spells?.find((s) => s.name === selectedSpell);
-    if (!spellDetails) {
-      shouldFinalizeTurn = false; // No se encontró el hechizo, no se finaliza el turno.
-      return;
-    }
-  
-    if (spellDetails.manaCost && typeof player?.p_LeftMana === "number" && spellDetails.manaCost > player?.p_LeftMana) {
-      addActionMessage(`No tienes suficiente maná para lanzar ${spellDetails.name}.`);
-      shouldFinalizeTurn = false; // No hay suficiente maná, no se finaliza el turno.
-      return;
-    }
-  
-    if (spellDetails.type === "Ofensivo" && creature?.health && playerPosition && enemyPosition) {
-      const distanceX = Math.abs(playerPosition.x - enemyPosition.x);
-      const distanceY = Math.abs(playerPosition.y - enemyPosition.y);
-  
-      if (distanceX < spellDetails.range && distanceY < spellDetails.range && spellDetails.damage && spellDetails.manaCost && typeof player?.p_LeftMana === "number") {
-        const damage = rollDice(spellDetails.damage);
-        addActionMessage(`Has lanzado ${spellDetails.name} y causado ${damage} puntos de daño.`);
-        useCreatureStore.getState().setCreatureHealth(Math.max(creature.health - damage, 0));
-        usePlayerStore.getState().playerActions.setP_LeftMana(Math.max(player?.p_LeftMana - spellDetails.manaCost, 0));
-        
-        if (creature.health - damage <= 0 && fightType) {
-          handleMessage?.("¡Has ganado el combate!", "success", false);
-          handlePostCombatActs?.(fightType, creature);
-        }
-        shouldFinalizeTurn = true; 
-      } else {
-        addActionMessage(`El enemigo está fuera de rango para ${spellDetails.name}.`);
-        handleMessage?.("¡Estás fuera de rango!", "warning", false);
-        shouldFinalizeTurn = false; // Fuera de rango, no se finaliza el turno.
-      }
-   // *************** ******************************************* 
-   // *************** HECHIZO DE CURACIÓN ******************************************* 
-   // *************** ******************************************* 
-    } else if (spellDetails.type === "Curación" && player && spellDetails.healingAmount && spellDetails.manaCost && typeof player?.p_LeftMana === "number") {
-      const healing = rollDice(spellDetails.healingAmount);
-      addActionMessage(`Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`);
-      const totalHealth = Math.min(player.p_LeftHealth + healing, player.p_MaxHealth);
-      usePlayerStore.getState().playerActions.setP_LeftHealth(totalHealth);
-      usePlayerStore.getState().playerActions.setP_LeftMana(Math.max(player?.p_LeftMana - spellDetails.manaCost, 0));
-   // *************** ******************************************* 
-   // *************** INVOCACIÓN******************************************* 
-   // *************** ******************************************* 
-    } else if (spellDetails.type === "Utilidad" && setSummon && spellDetails.manaCost && typeof player?.p_LeftMana === "number") {
-      addActionMessage(`Has invocado con ${spellDetails.name}.`);
-      usePlayerStore.getState().playerActions.setP_LeftMana(Math.max(player?.p_LeftMana - spellDetails.manaCost, 0));
-      setSummon({
-        name: "Mochi",
-        img: "/img/summons/mochi.png",
-        type: "slime/animal",
-        alignment: "neutral",
-        level: 1,
-        hitPoints: "1d4",
-        armorClass: 10,
-        attacks: [{ name: "mordisco", type: "melee", bonus: 1, damage: "1d3" }],
-        specialAbilities: ["forma gelatinosa", "elasticidad", "salto rápido"],
-      });
+  if (
+    spellDetails.manaCost &&
+    typeof player?.p_LeftMana === "number" &&
+    spellDetails.manaCost > player?.p_LeftMana
+  ) {
+    addActionMessage(
+      `No tienes suficiente maná para lanzar ${spellDetails.name}.`
+    );
+    shouldFinalizeTurn = false; // No hay suficiente maná, no se finaliza el turno.
+    return;
+  }
 
-      shouldFinalizeTurn = true; 
-    } else {
+  // Hechizos ofensivos
+  if (
+    spellDetails.type === "Ofensivo" &&
+    creature?.health &&
+    playerPosition &&
+    enemyPosition
+  ) {
+    const dx = Math.abs(playerPosition.x - enemyPosition.x);
+    const dy = Math.abs(playerPosition.y - enemyPosition.y);
+
+    // Ignorar el casillero central del jugador
+    if (dx === 0 && dy === 0) {
+      addActionMessage(`El enemigo está demasiado cerca para atacar con ${spellDetails.name}.`);
       shouldFinalizeTurn = false; 
+      return;
     }
-  
-    // Finaliza el turno solo si `shouldFinalizeTurn` es true.
-    if (shouldFinalizeTurn) {
-      finalizeTurn();
+
+    // Factor de penalización para diagonales
+    const diagonalPenalty = 1; // Ajusta según la reducción deseada
+    const adjustedDistance = dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
+
+    if (adjustedDistance <= spellDetails.range && spellDetails.damage) {
+      const damage = rollDice(spellDetails.damage);
+      addActionMessage(
+        `Has lanzado ${spellDetails.name} y causado ${damage} puntos de daño.`
+      );
+      useCreatureStore
+        .getState()
+        .setCreatureHealth(Math.max(creature.health - damage, 0));
+        typeof player?.p_LeftMana === "number" && typeof spellDetails.manaCost === "number"  && usePlayerStore
+        .getState()
+        .playerActions.setP_LeftMana(
+          Math.max( player?.p_LeftMana - spellDetails.manaCost, 0)
+        );
+
+      if (creature.health - damage <= 0 && fightType) {
+        handleMessage?.("¡Has ganado el combate!", "success", false);
+        handlePostCombatActs?.(fightType, creature);
+      }
+      console.log(shouldFinalizeTurn)
+      switchTurn?.();
+      console.log(shouldFinalizeTurn)
+    } else {
+      addActionMessage(
+        `El enemigo está fuera de rango para ${spellDetails.name}.`
+      );
+      handleMessage?.("¡Estás fuera de rango!", "warning", false);
+      shouldFinalizeTurn = false; // Fuera de rango, no se finaliza el turno.
     }
-  };
-  
+
+  // Hechizos de curación
+  } else if (
+    spellDetails.type === "Curación" &&
+    player &&
+    spellDetails.healingAmount &&
+    spellDetails.manaCost &&
+    typeof player?.p_LeftMana === "number"
+  ) {
+    const healing = rollDice(spellDetails.healingAmount);
+    addActionMessage(
+      `Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`
+    );
+    const totalHealth = Math.min(
+      player.p_LeftHealth + healing,
+      player.p_MaxHealth
+    );
+    usePlayerStore
+      .getState()
+      .playerActions.setP_LeftHealth(totalHealth);
+    usePlayerStore
+      .getState()
+      .playerActions.setP_LeftMana(
+        Math.max(player?.p_LeftMana - spellDetails.manaCost, 0)
+      );
+
+  // Hechizos de invocación
+  } else if (
+    spellDetails.type === "Utilidad" &&
+    setSummon &&
+    spellDetails.manaCost &&
+    typeof player?.p_LeftMana === "number"
+  ) {
+    addActionMessage(`Has invocado con ${spellDetails.name}.`);
+    usePlayerStore
+      .getState()
+      .playerActions.setP_LeftMana(
+        Math.max(player?.p_LeftMana - spellDetails.manaCost, 0)
+      );
+    setSummon({
+      name: "Mochi",
+      img: "/img/summons/mochi.png",
+      type: "slime/animal",
+      alignment: "neutral",
+      level: 1,
+      hitPoints: "1d4",
+      armorClass: 10,
+      attacks: [{ name: "mordisco", type: "melee", bonus: 1, damage: "1d3" }],
+      specialAbilities: ["forma gelatinosa", "elasticidad", "salto rápido"],
+    });
+    switchTurn?.();
+  } else {
+    shouldFinalizeTurn = false;
+  }
+
+  // Finaliza el turno solo si `shouldFinalizeTurn` es true.
+  if (shouldFinalizeTurn) {
+    finalizeTurn();
+  }
+};
+
 // ************************MOVIMIENTO ***********************************
   const handleMove = () => {
  

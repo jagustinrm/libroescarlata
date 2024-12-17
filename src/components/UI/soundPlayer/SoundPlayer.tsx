@@ -57,6 +57,8 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7 }) =>
         return "/music/buttonSound.mp3";
       case "battleSong":
         return "/music/ambient/fighting-tribal-song.mp3";
+      case "fireBall":
+        return "/music/attacks/fireBall.wav";  
       default:
         return "/path/to/default-sound.mp3";
     }

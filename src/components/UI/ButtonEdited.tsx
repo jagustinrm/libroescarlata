@@ -31,7 +31,7 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   };
 
   const handleMouseLeave = () => {
-    soundService.stop(buttonSound.name);
+    // soundService.stop(buttonSound.name);
     if (onMouseLeave) onMouseLeave();
   };
 
@@ -42,8 +42,16 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   };
 
   return (
-    <div>
-      <button
+    <div className="button-edited-container rpgui-cursor-point">
+      <div 
+       style={{ width, height }}  
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} 
+      onClick={handleClick}>
+      <img  className="common-button rpgui-cursor-point" src="/img/UI/button-common.png" alt="" />
+      <p>{label}</p>
+      </div>
+      {/* <button
         className="rpgui-button"
         style={{ width, height }}
         onMouseEnter={handleMouseEnter}
@@ -51,7 +59,7 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
         onClick={handleClick}
       >
         {label}
-      </button>
+      </button> */}
     </div>
   );
 };

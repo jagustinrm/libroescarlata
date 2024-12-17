@@ -50,6 +50,7 @@ export interface Armor {
       newFeatures?: string[]; // Nuevas características al subir nivel
     };
     questReward?: boolean; // Indica si proviene de una misión
+    deletable?: boolean;
   }
 
 

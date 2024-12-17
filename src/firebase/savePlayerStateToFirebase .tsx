@@ -5,6 +5,7 @@ import usePlayerStore from '../stores/playerStore';
 import { Player } from '../stores/types/player';
 import useInventoryStore from '../stores/inventoryStore';
 import { Inventory } from '../stores/types/inventory';
+
 // Función para comparar propiedades específicas de dos objetos
 const comparePlayerState = (player1: Player, player2:Player) => {
   // Compara solo las propiedades 'name' y 'level'
@@ -43,7 +44,6 @@ const PlayerStateSaver = () => {
     const playerId = player.name || 'guest-player'; // Usa un ID único del jugador o 'guest-player'
     const inventory = inventories[`${player.name}_inventory`]
     // Configurar el intervalo de guardado (por ejemplo, cada 30 segundos)
-    console.log(inventory)
     const intervalId = setInterval(() => {
       savePlayerStateToFirebase(playerId, player, inventory);
     }, 1000000000); // 30 segundos

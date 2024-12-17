@@ -1,6 +1,6 @@
 .questContainer {
     background-color: #d2691e; /* Chocolate */
-    width: 350px;
+    width: 400px;
     height: 400px;
 
     border: 2px solid #8b4513; /* Darker chocolate for contrast */
@@ -32,10 +32,14 @@
     font-size: 14px;
 }
 
-.questContainer li:hover {
-    background-color: #a0522d; /* Slightly lighter shade for hover effect */
+/* .questContainer li:hover {
+    background-color: #a0522d; 
+} */
+.completedQuest{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-
 .quests-window {
     position: absolute;
     width:auto;
@@ -48,12 +52,15 @@
   }
   
   .quests-header {
-    background-color: #d4af37;
+    background-color: #f99e1e;
     padding-left: 10px;
     border-radius: 8px 8px 0 0;
     display: flex;
     justify-content: space-between;
     cursor: move;
+  }
+  .questName{
+    font-size: 20px;
   }
   
   .questContainer {

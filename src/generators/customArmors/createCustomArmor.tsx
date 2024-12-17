@@ -34,16 +34,17 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const randomBodyPart = bodyParts[Math.floor(Math.random() * bodyParts.length)];
   type BodyPart = typeof bodyParts[number];
   const bodyPartNames: Record<BodyPart, string[]> = {
-    cabeza: ["yelmo", "capucha", "sombrero", "gorra", "cascos"],
-    cara: ["máscara", "antifaz", "barba postiza", "pintura facial", "gafas"],
-    hombros: ["hombreras", "chal", "capa", "paño", "coraza"],
-    pecho: ["coraza", "chaleco", "camisa", "blusa", "chaqueta"],
-    manos: ["guantes", "puños", "manoplas", "muñequeras", "anillos"],
-    espalda: ["capa", "arnés"],
+    cabeza: ["yelmo", "capucha", "sombrero", "casco"],
+    cara: ["máscara", "antifaz", "barba postiza", "gafas"],
+    hombros: ["hombreras", "chal", "paño"],
+    pecho: ["coraza", "chaleco", "camisa", "arnés"],
+    manos: ["guantes", "puños", "manoplas", "muñequeras"],
+    espalda: ["capa"],
     cintura: ["cinturón", "faja", "cangurera", "hebilla", "riñonera"],
-    piernas: ["pantalones", "mallas", "polainas", "rodilleras", "botas"],
+    piernas: ["pantalones", "mallas", "polainas", "rodilleras"],
+    pies: ["botas"]
   };
-
+  
   const randomInitialName = () => {
     const namesForBodyPart = bodyPartNames[randomBodyPart];
     return namesForBodyPart[Math.floor(Math.random() * namesForBodyPart.length)];
@@ -67,11 +68,38 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const cost = calculateCost(equipLevel, randomRarity);
   const armorValue = calculateArmorValue(randomMaterial, equipLevel, randomRarity);
   const levelRequirement = Math.max(1, equipLevel - 2);
+  const randomName = randomInitialName();
+  // IMPORTAR  IMAGENES CON VITE
+  const images = import.meta.glob("/img/armors/**/*.jpg");
 
-  return {
+  const getImageUrl = async ({ randomPrefix, randomName, randomMaterial, randomSuffix }) => {
+    const paths = [
+      `/img/armors/${randomBodyPart}/${randomPrefix}-${randomName}-${randomMaterial}-${randomSuffix}.jpg`,
+      `/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}-${randomSuffix}.jpg`,
+      `/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}.jpg`,
+      `/img/armors/${randomBodyPart}/${randomName}.jpg`,
+    ].map(path => path.toLowerCase()); ;
+
+ for (const path of paths) {
+    console.log(`Buscando: ${path}`);
+    if (images[path]) {
+      try {
+        const module = await images[path]();
+        return module.default; // Retorna la URL del archivo encontrado
+      } catch (error) {
+        console.error(`Error cargando la imagen: ${path}`, error);
+      }
+    }
+  }
+    return "https://via.placeholder.com/150"; // Si la imagen no existe
+  }
+  const imgUrl = await getImageUrl({ randomPrefix, randomBodyPart, randomName, randomMaterial, randomSuffix });
+
+  
+  ;return {
     id: uniqueId,
-    name: `${randomPrefix} ${randomInitialName()} de ${randomMaterial} de ${randomSuffix}`,
-    img: "https://via.placeholder.com/150",
+    name: `${randomPrefix} ${randomName} de ${randomMaterial} de ${randomSuffix}`,
+    img: imgUrl,
     weight: Math.floor(Math.random() * 10) + 1,
     cost,
     description: "Una armadura poderosa con efectos mágicos.",
@@ -101,6 +129,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
       newFeatures: ["Mejora de armadura"],
     },
     questReward: false,
+    deletable: true,
   };
 };
 

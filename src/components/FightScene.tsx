@@ -209,8 +209,12 @@ export default function FightScene() {
     };
     
     const executeSpell = () => {
-        if (turn !== "player" || !selectedSpell) return;  
+        if (turn !== "player" || !selectedSpell) return;
+        setSoundType("fireBall")  
         handleAction("spell")
+        setTimeout(() => {
+            setSoundType("")
+          }, 1000);
     };
 
 
@@ -316,6 +320,7 @@ export default function FightScene() {
                 summonPosition =  {summonPosition}
                 switchTurn = {switchTurn}
                 selectedWeapon = {selectedWeapon}
+                selectedSpell = {selectedSpell}
             />
             <EndBattleActions
                 creature = {creature}

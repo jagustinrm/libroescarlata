@@ -44,6 +44,7 @@ export function assignArmorByClass({
     // Agrega todas las armaduras iniciales al inventario del jugador
     classArmor.initialArmor.forEach(armorId => {
         const armor = armors.find(a => a.id === armorId);
+        console.log(armor)
         if (armor) {
             inventoryStore.addItem(`${player.name}_inventory`, 'armors', armor.id);
         } else {

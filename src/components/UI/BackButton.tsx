@@ -7,7 +7,7 @@ export default function BackButton () {
     }
     return (
         <div>
-            <button className="rpgui-button" onClick={() => handleBack()}>Volver</button>
+            <img className="back-button-design rpgui-cursor-point" onClick={() => handleBack()} src="/img/UI/back-button.png" alt="" />
         </div>
     )
 }

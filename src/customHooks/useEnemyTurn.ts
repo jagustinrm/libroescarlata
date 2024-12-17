@@ -39,7 +39,7 @@ export const useEnemyTurn = ({
                 const deltaX = playerPosition.x - enemyPosition.x;
                 const deltaY = playerPosition.y - enemyPosition.y;
 
-                const stepSize = 10;
+                const stepSize = 5;
 
                 const newX =
                     Math.abs(deltaX) > stepSize

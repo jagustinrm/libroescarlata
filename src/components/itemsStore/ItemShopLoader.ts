@@ -6,8 +6,7 @@ import { Item } from '../../stores/types/items';
 import useArmorStore from "../../stores/armorStore";
 import CreateCustomArmor from "../../generators/customArmors/createCustomArmor";
 import { deleteArmorFromFirebase } from "../../firebase/saveArmorToFirebase";
-import usePlayerStore from "../../stores/playerStore";
-import useInventoryStore from "../../stores/inventoryStore";
+
 const ItemShopLoader = () => {
     const {generatedArmor, createArmor} = CreateCustomArmor()
     const [prevArmorId, setPrevArmorId] = useState('')
@@ -16,8 +15,7 @@ const ItemShopLoader = () => {
     const { potions } = usePotionStore();
     const { items, createItems, addItem, removeItem } = useItemsStore();
     const shopId = 1; // ID único para el inventario del shop (ahora es un número)
-    const {player} = usePlayerStore();
-    const {inventories} = useInventoryStore()
+
     useEffect(() => {
         if (!items[shopId]) {
             createItems(shopId); // Crear el inventario si no existe
@@ -46,13 +44,10 @@ const ItemShopLoader = () => {
     
     useEffect(() => {
         if (generatedArmor) {
-            if (!inventories[player.inventoryId]) {
-                deleteArmorFromFirebase(prevArmorId)
-            } else if (!inventories[player.inventoryId].armors.some(a => a === prevArmorId)){
-                console.log(inventories[player.inventoryId].armors)
-                console.log(prevArmorId)
-                deleteArmorFromFirebase(prevArmorId)
+            const handleDeleteFromFB = async () => {
+                await deleteArmorFromFirebase(prevArmorId)
             }
+            handleDeleteFromFB()
             removeItem(shopId, 'armors', prevArmorId)
             addItem(shopId, 'armors', generatedArmor);
             setPrevArmorId(generatedArmor.id)

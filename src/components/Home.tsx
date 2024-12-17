@@ -8,6 +8,7 @@ import './Home.css';
 import './UI/details/Arrow.css';
 import './UI/designRpg.css';
 import Quests from './quests/Quests.tsx';
+import ButtonEdited from './UI/ButtonEdited.tsx';
 
 export default function Home() {
     const [showMessage, setShowMessage] = useState(false);
@@ -91,8 +92,17 @@ export default function Home() {
                             {player.selectedPet && <p>🐶 Mascota: {player.selectedPet.name}</p>}
                             </div>
                         </div>
-                        <button onClick={() => handleAction('inventory')} className="rpgui-button">📜 Inventario</button>
+                        <div style={{ marginTop: '40px' }}>
+                            <ButtonEdited 
+                            label="Inventario" 
+                            width='200px' 
+                            height="45px" 
+                            onClick={() => handleAction('inventory')} 
+                            />
+                        </div>
+                        {/* <button onClick={() => handleAction('inventory')} className="rpgui-button">📜 Inventario</button> */}
                     </div>
+                    
                 )}
             </div>
 
