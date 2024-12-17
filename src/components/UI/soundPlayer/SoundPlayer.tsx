@@ -6,9 +6,10 @@ export interface SoundPlayerProps {
   soundType: string;
   // category: keyof SongDetails; // Especificar la categoría (ambiente, acción, etc.)
   volume?: number;
+  url?: string
 }
 
-const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7 }) => {
+const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7, url }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { stopCurrentSong } = useSoundStore();
 
@@ -46,6 +47,7 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({ soundType, volume = 0.7 }) =>
   }, [soundType, stopCurrentSong]);
 
   const getSoundFile = () => {
+    if (url) return url
     switch (soundType) {
       case "attack":
         return "/music/sword-sound.mp3";

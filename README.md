@@ -1,5 +1,6 @@
 El libro escarlata
 
+Modificar sistema de sonidos Fightscene 214
 
 items de firebase:
     que no se actualicen al actualizar la página

@@ -210,6 +210,8 @@ export default function FightScene() {
     
     const executeSpell = () => {
         if (turn !== "player" || !selectedSpell) return;
+        const spell = spells.find(s => selectedSpell === s.name)
+        const url = spell?.soundEffect  // ESTO PERMITE UTILIZAR LA URL DEL SONIDO DEL FUEGO
         setSoundType("fireBall")  
         handleAction("spell")
         setTimeout(() => {
