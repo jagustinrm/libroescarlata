@@ -89,36 +89,53 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const levelRequirement = Math.max(1, equipLevel - 2);
   const randomName = randomInitialName();
   // IMPORTAR  IMAGENES CON VITE
-  const images = import.meta.glob('/src/assets/img/armors/**/*.png');
-
-  const getImageUrl = async ({
-    randomPrefix,
-    randomBodyPart,
-    randomName,
-    randomMaterial,
-    randomSuffix,
-  }) => {
+  const images = import.meta.glob('/src/assets/img/armors/**/*.png') as Record<
+  string,
+  () => Promise<{ default: string }>
+>;
+  
+  type GetImageUrlParams = {
+    randomPrefix?: string;
+    randomBodyPart: string;
+    randomName: string;
+    randomMaterial?: string;
+    randomSuffix?: string;
+  };
+  
+  // type ImagesMap = {
+  //   [key: string]: () => Promise<{ default: string }>;
+  // };
+  
+  const getImageUrl = async (
+    {
+      randomPrefix,
+      randomBodyPart,
+      randomName,
+      randomMaterial,
+      randomSuffix,
+    }: GetImageUrlParams
+  ): Promise<string> => {
     const paths = [
       `/src/assets/img/armors/${randomBodyPart}/${randomPrefix}-${randomName}-${randomMaterial}-${randomSuffix}.png`,
       `/src/assets/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}-${randomSuffix}.png`,
       `/src/assets/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}.png`,
       `/src/assets/img/armors/${randomBodyPart}/${randomName}.png`,
     ].map((path) => path.toLowerCase());
-
+  
     for (const path of paths) {
-      // console.log(`Buscando: ${path}`);
       if (images[path]) {
         try {
-     
           const module = await images[path]();
-          return module.default; // Retorna la URL del archivo encontrado
+          return module && module.default; // Retorna la URL del archivo encontrado
         } catch (error) {
           console.error(`Error cargando la imagen: ${path}`, error);
         }
       }
     }
+  
     return 'https://via.placeholder.com/150'; // Si la imagen no existe
   };
+  
   const imgUrl = await getImageUrl({
     randomPrefix,
     randomBodyPart,
