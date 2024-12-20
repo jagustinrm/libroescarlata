@@ -254,7 +254,7 @@ const CreateCustomArmor = () => {
     setArmor(newArmor);
     try {
       await saveArmorToFirebase(newArmor.id, newArmor);
-      console.log('Armadura guardada correctamente en Firebase.');
+      // console.log('Armadura guardada correctamente en Firebase.');
     } catch (error) {
       console.error('Error al guardar la armadura en Firebase:', error);
     }

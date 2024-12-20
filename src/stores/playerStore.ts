@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { PlayerStore } from './types/player';
 import useInventoryStore from './inventoryStore';
+import { StoryProgress } from './types/story';
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: {
@@ -54,9 +55,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     totalArmorClass: () => {
       const state = get().player; // Obtén el estado actual
       const armorValue = state.selectedArmor?.armorValue || 0; // Usa 0 si selectedArmor es null
-      console.log(state.selectedArmor);
       return state.armorClass + armorValue;
     },
+    storyProgress: [], // Lista de progresos del jugador en las historias
+    currentStoryId: null, // ID de la historia en la que está actualmente
   },
 
   // Agrupamos las acciones relacionadas con el jugador
@@ -285,6 +287,21 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, enemiesDeleted: enemiesDeleted },
       })),
+      setStoryProgress: (progress: StoryProgress[]) =>
+        set((state) => ({
+          player: { ...state.player, storyProgress: progress },
+        })),
+      updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) =>
+        set((state) => {
+          const updatedProgress = state.player.storyProgress.map((story) =>
+            story.id === storyId ? { ...story, ...progress } : story
+          );
+          return { player: { ...state.player, storyProgress: updatedProgress } };
+        }),
+      setCurrentStoryId: (storyId: string | null) =>
+        set((state) => ({
+          player: { ...state.player, currentStoryId: storyId },
+        })),
   },
 
   // Mantén la función de inventario separada

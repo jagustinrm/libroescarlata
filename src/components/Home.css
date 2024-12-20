@@ -140,3 +140,26 @@
 .buttonPrueba:hover {
   -webkit-filter: brightness(120%);
 }
+
+.principalSign {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  width: 18%;
+  z-index: 51;
+  transition: top 0.3s ease-in-out; /* Agrega esta propiedad para hacer la transición suave */
+}
+
+.principalSign:hover {
+  -webkit-filter: brightness(120%);
+  top: 0px; /* El signo bajará a 0px cuando se haga hover */
+}
+
+
+.HomeOptionsSign {
+  position: absolute;
+  bottom:-140px;
+  left: 10%;
+  width: 100%;
+  z-index: 49;
+}

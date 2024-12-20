@@ -2,7 +2,7 @@
     {
       "name": "Pechera",
       "id": "armor-leather-001",
-      "img": "img/armors/leatherArmor.png",
+      "img": "/src/assets/img/armors/leatherArmor.png",
       "weight": 5,
       "cost": 50,
       "description": "Una armadura ligera de cuero, ideal para aventureros ágiles.",
@@ -21,7 +21,7 @@
     {
       "name": "Túnica",  
       "id": "armor-cloth-001",
-      "img": "img/armors/clothArmor.png",
+      "img": "/src/assets/img/armors/clothArmor.png",
       "weight": 2,
       "cost": 30,
       "description": "Una túnica de tela resistente, común entre los magos y estudiosos.",
@@ -40,7 +40,7 @@
     {
       "name": "Pechera",   
       "id": "armor-steel-001",
-      "img": "img/armors/steelArmor.png",
+      "img": "/src/assets/img/armors/steelArmor.png",
       "weight": 15,
       "cost": 100,
       "description": "Una armadura robusta de acero, perfecta para guerreros fuertes.",

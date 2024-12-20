@@ -25,6 +25,7 @@ export function useEnemyLoader(
   level: number,
   dungeonLevel: number,
   updateEnemy: boolean,
+  enemy: string,
 ) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchParams] = useSearchParams();
@@ -56,7 +57,19 @@ export function useEnemyLoader(
   };
 
   const selectEnemy = () => {
+
     try {
+      if (enemy) {
+        const storyCreature = creatures.find(c => c.name === enemy)
+        if (storyCreature) {
+          const initialHealth = rollDice(storyCreature.hitPoints);
+          setCreature({ ...storyCreature, health: initialHealth });
+          setIsLoading(false);
+          return
+        }
+        
+
+      }
       if (type === 'dungeon') {
         const isBoss = Math.random() < BOSS_PROBABILITY;
 

@@ -1,0 +1,34 @@
+[ {
+    "id": "dialog-1",
+    "lines": [
+      {
+        "speaker": "Narrador",
+        "text": "Al escuchar tu nombre el cuervo sobre el hombro de aquel encapuchado se pone a graznar."
+      },
+      {
+        "speaker": "NPC",
+        "text": "Ahí está quien te atacó."
+      },
+      {
+        "speaker": "Player",
+        "options": [
+          {
+            "id": "choice-1",
+            "text": "Luchar",
+            "outcome": "fight",
+            "enemies": ["goblin"]
+          },
+          {
+            "id": "choice-2",
+            "text": "Huir",
+            "outcome": "escape"
+          }
+        ]
+      },
+      {
+        "speaker": "NPC",
+        "text": "Tu elección dice mucho. Acá te dejo material para que hagas lo que necesites."
+      }
+    ]
+  }
+]

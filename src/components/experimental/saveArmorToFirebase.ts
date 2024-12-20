@@ -19,7 +19,7 @@ export const saveArmorToFirebase = async (armorId: string, armor: Armor) => {
 
     // Guarda el objeto 'armor' en la ruta de Firebase correspondiente
     await set(armorRef, armor);
-    console.log('Armadura guardada correctamente en Firebase.');
+    // console.log('Armadura guardada correctamente en Firebase.');
   } catch (error) {
     console.error('Error al guardar la armadura en Firebase:', error);
   }

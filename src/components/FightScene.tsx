@@ -1,20 +1,17 @@
+import './FightScene.css';
+import './UI/designRpg.css';
 import { useSearchParams } from 'react-router-dom';
 import usePostCombatActions from '../customHooks/usePostCombatActions';
 import { usePlayerStore } from '../stores/playerStore.js';
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './FightScene.css';
-import './UI/designRpg.css';
 import { useEnemyLoader } from '../customHooks/useEnemyLoader.ts';
-// @ts-expect-error Para que funcione
-import { checkLevelUp } from '../utils/checkLevelUp.js';
-// @ts-expect-error Para que funcione
-import { calculateInitialHealth } from '../utils/calculateInitialHealth.js';
+import { checkLevelUp } from '../utils/checkLevelUp.ts';
+import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
 import { handleCombatAction } from '../utils/combatHandlers';
 import { useLoadQuests } from '../customHooks/useLoadQuests.js';
 import { QuestData } from './interfaces/QuestsInt.ts';
-// @ts-expect-error Para que funcione
-import useExpTable from '../customHooks/useExpTable.js';
+import useExpTable from '../customHooks/useExpTable.ts';
 import useInventoryStore from '../stores/inventoryStore.ts';
 import MessageBox from './UI/MessageBox.tsx';
 import { useEnemyTurn } from '../customHooks/useEnemyTurn.ts';
@@ -43,6 +40,7 @@ export default function FightScene() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const fightType = searchParams.get('type') || 'normal';
+  const enemy = searchParams.get('enemy');
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const { player, playerActions } = usePlayerStore();
   const { creature, setCreatureHealth } = useCreatureStore();
@@ -71,6 +69,7 @@ export default function FightScene() {
     y: playerPosition.y + 4,
   });
   const [soundType, setSoundType] = useState<string>('');
+  const [soundUrl, setSoundUrl] = useState<string>('');
   const { expTable, setExpTable } = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
   const { quests } = useLoadQuests();
@@ -95,11 +94,12 @@ export default function FightScene() {
   });
 
   const [updateEnemy, setUpdateEnemy] = useState<boolean>(false);
+
   const {
-    // enemy,
+    // cargar enemy
     isLoading,
     handleNewEnemyClick,
-  } = useEnemyLoader(player.level, dungeonLevel, updateEnemy);
+  } = useEnemyLoader(player.level, dungeonLevel, updateEnemy, enemy);
   const defaultQuests: QuestData = {
     questTree: {
       history: [],
@@ -126,8 +126,22 @@ export default function FightScene() {
   const [selectedSpell, setSelectedSpell] = useState<string>('');
   const [selectedWeapon, setSelectedWeapon] = useState<string>('');
   const { setAmbientMusic, setMusicVolume } = useAppStore();
-
+  const [pocion, setpocion] = useState();
+  const [opcionesArmas, setOpcionesArmas] = useState();
   // ************************USEEFFECTS ******************************
+  useEffect(() => {
+    const pot = inventories[player.inventoryId].potions.find(
+      (p) => p === 'Poción de Curación Menor',
+    );
+    setpocion(pot)
+    const opctArm = inventories[player.inventoryId].weapons
+    .map((w) => weapons.find((ws) => ws.id === w)?.name) // Accede directamente a .name
+    .filter(Boolean); // Filtra nombres undefined o null
+    setOpcionesArmas(opctArm)
+  }, [inventories])
+
+
+
   useEffect(() => {
     handleCheckLevelUp(); // Verificar subida de nivel
   }, [player.playerExp]);
@@ -231,10 +245,10 @@ export default function FightScene() {
     if (turn !== 'player' || !selectedSpell) return;
     const spell = spells.find((s) => selectedSpell === s.name);
     const url = spell?.soundEffect; // ESTO PERMITE UTILIZAR LA URL DEL SONIDO DEL FUEGO
-    setSoundType('fireBall');
+    setSoundUrl(url);
     handleAction('spell');
     setTimeout(() => {
-      setSoundType('');
+      setSoundUrl('');
     }, 1000);
   };
 
@@ -271,12 +285,7 @@ export default function FightScene() {
       : 0;
   const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
   const manaPercentage = (player.p_LeftMana / player.p_MaxMana) * 100;
-  const pocion = inventories[player.inventoryId].potions.find(
-    (p) => p === 'Poción de Curación Menor',
-  );
-  const opcionesArmas = inventories[player.inventoryId].weapons
-    .map((w) => weapons.find((ws) => ws.id === w)?.name) // Accede directamente a .name
-    .filter(Boolean); // Filtra nombres undefined o null
+
 
   if (isLoading) return <p>Cargando enemigo...</p>;
   // if (error)  return <p>Error: {error}</p>;
@@ -382,7 +391,7 @@ export default function FightScene() {
         manaPercentage={manaPercentage}
       />
       <EnemyChar creature={creature} />
-      {soundType && <SoundPlayer soundType={soundType} volume={0.2} />}
+      {soundType || soundUrl && <SoundPlayer soundType={soundType} volume={0.3} soundUrl={soundUrl} />}
       {messageState.show && (
         <MessageBox
           message={messageState.content}

@@ -1,18 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { useSoundStore } from '../../../stores/soundsStore'; // Estado global para manejar el sonido
-// import { SongDetails } from "../../../stores/types/sounds";
 
 export interface SoundPlayerProps {
-  soundType: string;
-  // category: keyof SongDetails; // Especificar la categoría (ambiente, acción, etc.)
+  soundType?: string;
   volume?: number;
-  url?: string;
+  soundUrl?: string;
 }
 
 const SoundPlayer: React.FC<SoundPlayerProps> = ({
   soundType,
   volume = 0.7,
-  url,
+  soundUrl, 
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { stopCurrentSong } = useSoundStore();
@@ -27,7 +25,6 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({
         // Asegurarse de que el archivo esté cargado antes de intentar reproducirlo
         audioRef.current.oncanplaythrough = async () => {
           try {
-            // Establece el volumen antes de reproducir
             if (audioRef.current) {
               audioRef.current.volume = volume;
               await audioRef.current.play();
@@ -40,7 +37,7 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({
 
         // Si ya está listo para reproducir, intenta hacerlo
         if (audioRef.current.readyState >= 3) {
-          audioRef.current.volume = volume; // Asegurarse de establecer el volumen
+          audioRef.current.volume = volume;
           await audioRef.current.play();
         }
       }
@@ -49,8 +46,12 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({
     playSound();
   }, [soundType, stopCurrentSong]);
 
-  const getSoundFile = () => {
-    if (url) return url;
+  const getSoundFile = (): string => {
+    // Si `url` está definida, tiene prioridad sobre `soundType`
+    if (soundUrl) {
+      return soundUrl;
+    }
+
     switch (soundType) {
       case 'attack':
         return '/music/sword-sound.mp3';

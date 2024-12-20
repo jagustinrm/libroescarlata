@@ -1,6 +1,6 @@
 El libro escarlata
 
-Modificar sistema de sonidos Fightscene 214
+Crear mis propias respuesta a errores para que no se quede todo en blanco
 
 items de firebase:
     que no se actualicen al actualizar la página
@@ -45,62 +45,4 @@ Dependiendo la hora del día quiero que cambie de color el fondo.
 Box dialog design rpg
 Mailbox
 Bestiario de criaturas derrotadas y cantidad.
-Imágenes de clases
-Carga y descarga de personaje
 Agregarle un chat
-
-
-
-Configurar Firebase:
-
-Ve a Firebase Console y crea un nuevo proyecto.
-Activa Firestore Database.
-Obtén las credenciales de configuración para tu aplicación.
-Instalar Firebase en tu proyecto: Si estás usando Node.js o React:
-
-bash
-Copiar código
-npm install firebase
-Configurar Firebase en tu código:
-
-javascript
-Copiar código
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
-
-const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_DOMINIO.firebaseapp.com",
-    projectId: "TU_PROJECT_ID",
-    storageBucket: "TU_BUCKET.appspot.com",
-    messagingSenderId: "TU_ID",
-    appId: "TU_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-Guardar información:
-
-javascript
-Copiar código
-const guardarDatos = async () => {
-    try {
-        await addDoc(collection(db, "miColeccion"), {
-            nombre: "Ejemplo",
-            edad: 25,
-        });
-        console.log("¡Documento añadido!");
-    } catch (e) {
-        console.error("Error al añadir el documento: ", e);
-    }
-};
-Recuperar información:
-
-javascript
-Copiar código
-const obtenerDatos = async () => {
-    const querySnapshot = await getDocs(collection(db, "miColeccion"));
-    querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-    });
-};

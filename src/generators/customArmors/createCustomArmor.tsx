@@ -45,12 +45,12 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const bodyPartNames: Record<BodyPart, string[]> = {
     cabeza: ['yelmo', 'capucha', 'sombrero', 'casco'],
     cara: ['máscara', 'antifaz', 'barba postiza', 'gafas'],
-    hombros: ['hombreras', 'chal', 'paño'],
+    hombros: ['hombreras', 'chal'],
     pecho: ['coraza', 'chaleco', 'camisa', 'arnés'],
-    manos: ['guantes', 'puños', 'manoplas', 'muñequeras'],
+    manos: ['guantes', 'muñequera'],
     espalda: ['capa'],
-    cintura: ['cinturón', 'faja', 'cangurera', 'hebilla', 'riñonera'],
-    piernas: ['pantalones', 'mallas', 'polainas', 'rodilleras'],
+    cintura: ['cinturón', 'faja', 'hebilla', 'riñonera'],
+    piernas: ['pantalones', 'mallas'],
     pies: ['botas'],
   };
 
@@ -89,25 +89,27 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const levelRequirement = Math.max(1, equipLevel - 2);
   const randomName = randomInitialName();
   // IMPORTAR  IMAGENES CON VITE
-  const images = import.meta.glob('/img/armors/**/*.jpg');
+  const images = import.meta.glob('/src/assets/img/armors/**/*.png');
 
   const getImageUrl = async ({
     randomPrefix,
+    randomBodyPart,
     randomName,
     randomMaterial,
     randomSuffix,
   }) => {
     const paths = [
-      `/img/armors/${randomBodyPart}/${randomPrefix}-${randomName}-${randomMaterial}-${randomSuffix}.jpg`,
-      `/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}-${randomSuffix}.jpg`,
-      `/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}.jpg`,
-      `/img/armors/${randomBodyPart}/${randomName}.jpg`,
+      `/src/assets/img/armors/${randomBodyPart}/${randomPrefix}-${randomName}-${randomMaterial}-${randomSuffix}.png`,
+      `/src/assets/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}-${randomSuffix}.png`,
+      `/src/assets/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}.png`,
+      `/src/assets/img/armors/${randomBodyPart}/${randomName}.png`,
     ].map((path) => path.toLowerCase());
 
     for (const path of paths) {
-      console.log(`Buscando: ${path}`);
+      // console.log(`Buscando: ${path}`);
       if (images[path]) {
         try {
+     
           const module = await images[path]();
           return module.default; // Retorna la URL del archivo encontrado
         } catch (error) {

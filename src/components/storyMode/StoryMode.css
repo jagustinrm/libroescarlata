@@ -1,0 +1,70 @@
+.story-mode-container {
+    padding: 30px;
+    height: 80%;
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .story-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .chapter-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .chapter-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+
+    transition: transform 0.3s;
+  }
+  
+  .chapter-card:hover {
+    transform: scale(1.05);
+  }
+  
+ /*                         CHAPTER.TSX  */
+  .chapterImg{
+    width: 200px;
+  }
+  .chapter-container {
+    height: 700px;
+    width: 900px;
+    background-image: url("/img/story/chapter-001.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .dialogsLogs{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left:0;
+  }
+  .npc-dialog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+   
+  }
+  .dialog-bar{
+    width: 100%;
+  }

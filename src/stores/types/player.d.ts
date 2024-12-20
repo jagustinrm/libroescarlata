@@ -39,6 +39,9 @@ export interface Player {
   classImg: string;
   avatarImg: string;
   readonly totalArmorClass: () => number;
+  storyProgress: StoryProgress[]; // Lista de progresos del jugador en las historias
+  currentStoryId: string | null; // ID de la historia en la que está actualmente
+  
 }
 
 // Interfaz para las acciones relacionadas con el jugador
@@ -82,6 +85,10 @@ export interface PlayerActions {
   setInventory: (inventory: string) => void;
   setClassImg: (classImg: string) => void;
   setAvatarImg: (avatarImg: string) => void;
+
+  setStoryProgress: (progress: StoryProgress[]) => void; // Actualiza el progreso de las historias
+  updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) => void; // Actualiza parte del progreso en una historia específica
+  setCurrentStoryId: (storyId: string | null) => void; // Cambia la historia activa
 }
 
 // Interfaz para el store del player

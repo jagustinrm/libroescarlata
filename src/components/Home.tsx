@@ -9,6 +9,8 @@ import './UI/details/Arrow.css';
 import './UI/designRpg.css';
 import Quests from './quests/Quests.tsx';
 import ButtonEdited from './UI/ButtonEdited.tsx';
+import PrincipalSign from './UI/PrincipalSign.tsx';
+import HomeOptionsSign from './UI/HomeOptionsSign.tsx';
 
 export default function Home() {
   const [showMessage, setShowMessage] = useState(false);
@@ -65,7 +67,13 @@ export default function Home() {
   };
 
   return (
+    <div>
+    <PrincipalSign/>   
+    {/* <HomeOptionsSign/> */}
     <div className={`home-container rpgui-container framed-golden-2`}>
+ 
+
+  
       <div
         className={`sidebar ${isSidebarOpen ? 'open' : 'closed'} rpgui-container framed-golden-2`}
       >
@@ -111,6 +119,7 @@ export default function Home() {
                 )}
               </div>
             </div>
+            
             <div style={{ marginTop: '40px' }}>
               <ButtonEdited
                 label="Inventario"
@@ -123,33 +132,14 @@ export default function Home() {
           </div>
         )}
       </div>
-
+ 
       <div className="buttonsHome ">
-        {/* <button 
-                    onClick={() => handleAction('fight-normal')} 
-                    disabled={player.p_LeftHealth === 0}
-                    className="rpgui-button">
-                    ⚔️ Pelear
-                </button> */}
+        {/* 
 
-        {/* <button 
-                    onClick={() => handleAction('fight-dungeon')} 
-                    disabled={player.p_LeftHealth === 0}
-                    className="rpgui-button">
-                    🏔️ Dungeon
-                </button>
-                <div className="hospitalRecover">
-                    <button 
-                        onClick={() => handleAction('recoverHealth')} 
-                        className="rpgui-button">
-                        🏥 Hospital
-                    </button>
-                    {player.p_LeftHealth === 0 && <div className="arrows"></div>}
-                </div>
                 <button onClick={() => handleAction('townMap')} className="rpgui-button">🏠 Hogar</button>
-                <button onClick={() => handleAction('itemShop')} className="rpgui-button">🛒 Tienda</button>
-                <button onClick={() => handleAction('petStore')} className="rpgui-button">🐾 Mascotas</button>
-                <button onClick={() => setShowMissions(true)} className="rpgui-button">🗺️ Misiones</button> */}
+              */}
+
+          
         {player.p_LeftHealth > 0 && (
           <img
             onClick={() => handleAction('fight-normal')}
@@ -204,6 +194,7 @@ export default function Home() {
       )}
 
       {showMissions && <Quests onClose={() => setShowMissions(false)} />}
+    </div>
     </div>
   );
 }

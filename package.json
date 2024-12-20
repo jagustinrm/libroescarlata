@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,html,css,ts,tsx}\""
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "firebase": "^11.0.2",
     "howler": "^2.2.4",
     "react": "^18.3.1",

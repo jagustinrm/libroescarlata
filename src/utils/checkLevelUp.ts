@@ -1,17 +1,30 @@
+import { Player } from "../stores/types/player";
+import { PlayerActions } from "../stores/types/player";
+
+interface ExpTable {
+  [key: string]: number;
+}
+
+interface CheckLevelUpParams {
+  calculateInitialHealth: (die: string) => number;
+  player: Player;
+  setActionMessages: (callback: (messages: string[]) => string[]) => void;
+  playerActions: PlayerActions;
+  expTable: ExpTable;
+}
+
 export function checkLevelUp({
   calculateInitialHealth,
   player,
   setActionMessages,
   playerActions,
   expTable,
-}) {
+}: CheckLevelUpParams): number {
   // Verificar si la experiencia actual es suficiente para subir de nivel
-
-  const gainXpToNextLevel = (level) => {
+  const gainXpToNextLevel = (level: number) => {
     const levelSum = level + 1;
-    const nextLevelXp = expTable[levelSum.toString()] || expTable[20]; // Evitar que supere el nivel 20
-    const prevLevelXp =
-      (level > 1 && expTable[level.toString()]) || expTable[20];
+    const nextLevelXp = expTable[levelSum.toString()] || expTable["20"]; // Evitar que supere el nivel 20
+    const prevLevelXp = (level > 1 && expTable[level.toString()]) || expTable["20"];
     playerActions.setP_ExpToNextLevel(nextLevelXp);
     playerActions.setP_ExpPrevLevel(prevLevelXp);
     playerActions.addStatsLeftPoints(5);
@@ -22,21 +35,17 @@ export function checkLevelUp({
 
     // Aumentar salud con un mínimo de 1
     const healthIncrease = Math.floor(
-      Math.random() * calculateInitialHealth(player.hitDie) +
-        player.statsIncrease['con'],
+      Math.random() * calculateInitialHealth(player.hitDie) + player.statsIncrease["con"]
     );
-    const newPlayerHealth =
-      parseInt(player.p_MaxHealth) + Math.max(1, healthIncrease);
+    const newPlayerHealth = parseInt(player.p_MaxHealth.toString(), 10) + Math.max(1, healthIncrease);
     playerActions.setP_LeftHealth(newPlayerHealth);
     playerActions.setP_MaxHealth(newPlayerHealth);
 
     // Aumentar mana con un mínimo de 1
     const manaIncrease = Math.floor(
-      Math.random() * calculateInitialHealth(player.manaDie) +
-        player.statsIncrease['int'],
+      Math.random() * calculateInitialHealth(player.manaDie) + player.statsIncrease["int"]
     );
-    const newPlayerMana =
-      parseInt(player.p_MaxMana) + Math.max(1, manaIncrease);
+    const newPlayerMana = parseInt(player.p_MaxMana.toString(), 10) + Math.max(1, manaIncrease);
     playerActions.setP_LeftMana(newPlayerMana);
     playerActions.setP_MaxMana(newPlayerMana);
 

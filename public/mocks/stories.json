@@ -1,0 +1,359 @@
+{
+  "id": "story-001",
+  "title": "La leyenda de Taní",
+  "chapters": [
+    {
+      "id": 1,
+      "title": "El Cuervo",
+      "events": [
+        {
+          "id": "event-1-1",
+          "description": "Devastado luego de ver arder tu aldea, un hombre misterioso se te presenta",
+          "status": "in-progress",
+          "reward": [
+            { "items": [{ "name": "Poción de Curación Menor", "type": "potions", "cant": 1 }] },
+            { "materials": 200 }
+          ],
+          "fight": {
+            "canFight": true,
+            "enemies": ["goblin"]
+          },
+          "dialogSequence": "dialog-1",
+          "worldState": { "villageBurned": "true" },
+          "conditions": {
+            "requiresItem": "",
+            "requiresLevel": 1,
+            "requiresState": ""
+          }
+        },
+        {
+          "id": "event-1-2",
+          "description": "Encuentras a un anciano que te da un mapa antiguo.",
+          "completed": false,
+          "choices": {
+            "accept": "Aceptar el mapa",
+            "decline": "Rechazar el mapa"
+          },
+          "selectedChoice": "accept",
+          "reward": [
+            { "items": [{ "name": "Mapa antiguo", "type": "map", "cant": 1 }] }
+          ],
+          "worldState": { "mapReceived": "true" },
+          "conditions": {
+            "requiresItem": "Poción de Curación Menor",
+            "requiresLevel": 2,
+            "requiresState": ""
+          }
+        },
+        {
+          "id": "event-1-3",
+          "description": "El héroe se despide de su familia.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Carta de despedida", "type": "letters", "cant": 1 }] }
+          ],
+          "worldState": { "familyFarewell": "true" },
+          "conditions": {
+            "requiresItem": "Mapa antiguo",
+            "requiresLevel": 3,
+            "requiresState": "villageBurned"
+          }
+        },
+        {
+          "id": "event-1-4",
+          "description": "El viaje comienza, pero una tormenta se desata en el camino.",
+          "completed": false,
+          "fight": {
+            "canFight": true,
+            "enemies": ["storm-spirit"]
+          },
+          "reward": [
+            { "items": [{ "name": "Amuleto contra tormentas", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "stormRisen": "true" },
+          "conditions": {
+            "requiresItem": "Carta de despedida",
+            "requiresLevel": 3,
+            "requiresState": "mapReceived"
+          }
+        },
+        {
+          "id": "event-1-5",
+          "description": "El héroe llega a un cruce de caminos, eligiendo qué dirección tomar.",
+          "completed": false,
+          "choices": {
+            "north": "Tomar el camino hacia el norte",
+            "south": "Tomar el camino hacia el sur"
+          },
+          "selectedChoice": "north",
+          "reward": [
+            { "items": [{ "name": "Piedra de orientación", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "pathChosen": "north" },
+          "conditions": {
+            "requiresItem": "Amuleto contra tormentas",
+            "requiresLevel": 4,
+            "requiresState": "familyFarewell"
+          }
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": 2,
+      "title": "La Cueva Misteriosa",
+      "events": [
+        {
+          "id": "event-2-1",
+          "description": "El héroe encuentra una entrada secreta en una cueva en el bosque.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Linterna mágica", "type": "tools", "cant": 1 }] }
+          ],
+          "worldState": { "caveEntrance": "found" },
+          "conditions": {
+            "requiresItem": "Piedra de orientación",
+            "requiresLevel": 5,
+            "requiresState": "pathChosen"
+          }
+        },
+        {
+          "id": "event-2-2",
+          "description": "Dentro de la cueva, se enfrenta a un monstruo guardián.",
+          "completed": false,
+          "fight": {
+            "canFight": true,
+            "enemies": ["guardian-monster"]
+          },
+          "reward": [
+            { "items": [{ "name": "Espada de luz", "type": "weapons", "cant": 1 }] }
+          ],
+          "worldState": { "monsterDefeated": "true" },
+          "conditions": {
+            "requiresItem": "Linterna mágica",
+            "requiresLevel": 6,
+            "requiresState": "caveEntrance"
+          }
+        },
+        {
+          "id": "event-2-3",
+          "description": "Encuentra un cofrecillo que contiene un objeto mágico.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Amuleto de poder", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "magicItemFound": "true" },
+          "conditions": {
+            "requiresItem": "Espada de luz",
+            "requiresLevel": 7,
+            "requiresState": "monsterDefeated"
+          }
+        },
+        {
+          "id": "event-2-4",
+          "description": "El héroe se enfrenta a una decisión sobre qué hacer con el objeto mágico.",
+          "completed": false,
+          "choices": {
+            "use": "Usar el objeto",
+            "keep": "Guardarlo para más tarde"
+          },
+          "selectedChoice": "use",
+          "reward": [
+            { "items": [{ "name": "Esencia de poder", "type": "materials", "cant": 500 }] }
+          ],
+          "worldState": { "magicItemUsed": "true" },
+          "conditions": {
+            "requiresItem": "Amuleto de poder",
+            "requiresLevel": 8,
+            "requiresState": "magicItemFound"
+          }
+        },
+        {
+          "id": "event-2-5",
+          "description": "Al salir de la cueva, el héroe encuentra un extraño mapa.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Mapa misterioso", "type": "map", "cant": 1 }] }
+          ],
+          "worldState": { "strangeMapFound": "true" },
+          "conditions": {
+            "requiresItem": "Esencia de poder",
+            "requiresLevel": 9,
+            "requiresState": "magicItemUsed"
+          }
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": 3,
+      "title": "La Batalla de las Montañas",
+      "events": [
+        {
+          "id": "event-3-1",
+          "description": "El héroe llega a las montañas y descubre una fortaleza enemiga.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Llave de la fortaleza", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "fortressFound": "true" },
+          "conditions": {
+            "requiresItem": "Mapa misterioso",
+            "requiresLevel": 10,
+            "requiresState": "strangeMapFound"
+          }
+        },
+        {
+          "id": "event-3-2",
+          "description": "Un grupo de soldados aparece y te desafía a un combate.",
+          "completed": false,
+          "fight": {
+            "canFight": true,
+            "enemies": ["enemy-soldiers"]
+          },
+          "reward": [
+            { "items": [{ "name": "Escudo de hierro", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "soldiersDefeated": "true" },
+          "conditions": {
+            "requiresItem": "Llave de la fortaleza",
+            "requiresLevel": 11,
+            "requiresState": "fortressFound"
+          }
+        },
+        {
+          "id": "event-3-3",
+          "description": "El héroe decide luchar contra los soldados.",
+          "completed": false,
+          "choices": {
+            "fight": "Luchar contra los soldados",
+            "retreat": "Retirarse sin pelear"
+          },
+          "selectedChoice": "fight",
+          "reward": [
+            { "items": [{ "name": "Espada de acero", "type": "weapons", "cant": 1 }] }
+          ],
+          "worldState": { "battleWon": "true" },
+          "conditions": {
+            "requiresItem": "Escudo de hierro",
+            "requiresLevel": 12,
+            "requiresState": "soldiersDefeated"
+          }
+        },
+        {
+          "id": "event-3-4",
+          "description": "Tras la victoria, el héroe obtiene una llave que abre una puerta secreta.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Llave secreta", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "secretDoorKeyObtained": "true" },
+          "conditions": {
+            "requiresItem": "Espada de acero",
+            "requiresLevel": 13,
+            "requiresState": "battleWon"
+          }
+        },
+        {
+          "id": "event-3-5",
+          "description": "El héroe decide explorar la fortaleza para encontrar más secretos.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Mapa detallado", "type": "map", "cant": 1 }] }
+          ],
+          "worldState": { "fortressExplored": "true" },
+          "conditions": {
+            "requiresItem": "Llave secreta",
+            "requiresLevel": 14,
+            "requiresState": "secretDoorKeyObtained"
+          }
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": 4,
+      "title": "El Reino Perdido",
+      "events": [
+        {
+          "id": "event-4-1",
+          "description": "El héroe finalmente llega al Reino Perdido, pero descubre que está desolado.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Antiguo libro", "type": "books", "cant": 1 }] }
+          ],
+          "worldState": { "lostKingdomDiscovered": "true" },
+          "conditions": {
+            "requiresItem": "Mapa detallado",
+            "requiresLevel": 15,
+            "requiresState": "fortressExplored"
+          }
+        },
+        {
+          "id": "event-4-2",
+          "description": "Encuentra una antigua biblioteca que contiene secretos del reino.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Papiro antiguo", "type": "books", "cant": 1 }] }
+          ],
+          "worldState": { "ancientLibraryFound": "true" },
+          "conditions": {
+            "requiresItem": "Antiguo libro",
+            "requiresLevel": 16,
+            "requiresState": "lostKingdomDiscovered"
+          }
+        },
+        {
+          "id": "event-4-3",
+          "description": "El héroe descubre un antiguo artefacto que podría restaurar el reino.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Artefacto de restauración", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "restorationArtifactFound": "true" },
+          "conditions": {
+            "requiresItem": "Papiro antiguo",
+            "requiresLevel": 17,
+            "requiresState": "ancientLibraryFound"
+          }
+        },
+        {
+          "id": "event-4-4",
+          "description": "El héroe se enfrenta a un dilema moral: usar el artefacto o destruirlo.",
+          "completed": false,
+          "choices": {
+            "use": "Usar el artefacto",
+            "destroy": "Destruir el artefacto"
+          },
+          "selectedChoice": "use",
+          "reward": [
+            { "items": [{ "name": "Esencia restauradora", "type": "materials", "cant": 1000 }] }
+          ],
+          "worldState": { "artifactUsed": "true" },
+          "conditions": {
+            "requiresItem": "Artefacto de restauración",
+            "requiresLevel": 18,
+            "requiresState": "restorationArtifactFound"
+          }
+        },
+        {
+          "id": "event-4-5",
+          "description": "El Reino Perdido comienza a resurgir gracias al poder del artefacto.",
+          "completed": false,
+          "reward": [
+            { "items": [{ "name": "Corona del rey restaurado", "type": "accessories", "cant": 1 }] }
+          ],
+          "worldState": { "kingdomRestored": "true" },
+          "conditions": {
+            "requiresItem": "Esencia restauradora",
+            "requiresLevel": 19,
+            "requiresState": "artifactUsed"
+          }
+        }
+      ],
+      "completed": false
+    }
+  ]
+}
+
+    
