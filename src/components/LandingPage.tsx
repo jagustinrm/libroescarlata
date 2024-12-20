@@ -12,7 +12,7 @@ const LandingPage: React.FC = () => {
   const [inputName, setInputName] = useState<string>('');
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
-
+  const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
   const handleSaveName = async () => {
     const playerId = inputName || 'guest-player'; // Usa "guest-player" si el input está vacío
     const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
@@ -51,6 +51,9 @@ const LandingPage: React.FC = () => {
       alert('Por favor, ingresa un nombre de jugador.');
     }
   };
+  const toggleView = () => {
+    setIsCreatingAccount(!isCreatingAccount); // Alternar entre crear cuenta y cargar personaje
+  };
 
   localStorage.removeItem('playerState');
   localStorage.removeItem('inventoryState');
@@ -76,25 +79,36 @@ const LandingPage: React.FC = () => {
           Se acerca, medio rengueando, y una vez que se encuentra delante tuyo
           mira tus ojos llorosos y te pregunta el nombre...
         </p>
-        <h3 className="yourName">Tu nombre es: {inputName}</h3>
-        <div>
-          <div className="playerLoaderButton">
-            <input
-              className="nameInput"
-              type="text"
-              placeholder="Ingresá tu nombre"
-              value={inputName}
-              onChange={(e) => setInputName(e.target.value)}
-            />
-            <ButtonEdited
-              label="Ingresar"
-              width="200px"
-              height="10px"
-              onClick={handleSaveName}
-            />
-          </div>
-          <div>
-            <form className="playerLoaderButton">
+        {isCreatingAccount ? (
+          <>
+            <h2>Tu nombre es: {inputName} </h2>
+            <div className="playerLoaderButton">
+              <input
+                className="nameInput"
+                type="text"
+                placeholder="Ingresá tu nombre"
+                value={inputName}
+                onChange={(e) => setInputName(e.target.value)}
+              />
+              <ButtonEdited
+                label="Ingresar"
+                width="130px"
+                height="0px"
+                onClick={handleSaveName}
+              />
+
+            </div>
+            <div className='createAccount'>
+            <p>¿No tenés cuenta?{' '}  </p>
+              <p className="linkButton rpgui-cursor-point" onClick={toggleView}>
+                Cargar personaje
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <h3>Cargar Personaje</h3>
+            <div className="playerLoaderButton">
               <input
                 type="text"
                 id="playerName"
@@ -105,13 +119,20 @@ const LandingPage: React.FC = () => {
               />
               <ButtonEdited
                 label="Cargar"
-                width="200px"
-                height='10px'
+                width="130px"
+                height="0px"
                 onClick={handleSubmit}
               />
-            </form>
-          </div>
-        </div>
+            </div>
+            <div className='createAccount'>
+            <p>¿No tienes una cuenta?{' '}</p>
+              <p className="linkButton rpgui-cursor-point " onClick={toggleView}>
+                Crear cuenta
+              </p>
+            </div>
+
+          </>
+        )}
       </div>
     </>
   );

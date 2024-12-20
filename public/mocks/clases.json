@@ -23,6 +23,7 @@
         },
         "img": "/img/classes/class_mage.png",
         "faceImg": "/img/classes/faces/charFaceMage.png",
+        "iconImg": "img/icons/mage-icon.png",
         "initialSpells": ["Bola de fuego", "Flecha ácida de Melf", "Rayo relampagueante", "Proyectil mágico"],
         "description": "Un maestro de las artes arcanas, capaz de lanzar poderosos hechizos pero físicamente frágil."
     },
@@ -50,6 +51,7 @@
         },
         "img": "/img/classes/class_warrior.png",
         "faceImg": "/img/classes/faces/charFaceWarrior.png",
+        "iconImg": "img/icons/warrior-icon.png",
         "initialSpells": [],
         "description": "Un combatiente fuerte y resistente, experto en el uso de armas y armaduras."
     },
@@ -77,6 +79,7 @@
         },
         "img": "/img/classes/class_rogue.png",
         "faceImg": "/img/classes/faces/charFaceRogue.png",
+        "iconImg": "img/icons/rogue-icon.png",
         "initialSpells": [],
         "description": "Un experto en sigilo, trucos y ataques sorpresa, con gran destreza y astucia."
     },
@@ -104,6 +107,7 @@
         },
         "img": "/img/classes/class_priest.png",
         "faceImg": "/img/classes/faces/charFacePriest.png",
+        "iconImg": "img/icons/priest-icon.png",
         "initialSpells": ["Curación menor"],
         "description": "Un servidor divino con habilidades para sanar y luchar contra las fuerzas del mal."
     },
@@ -131,6 +135,7 @@
         },
         "img": "/img/classes/class_barbarian.png",
         "faceImg": "/img/classes/faces/charFaceBarbarian.png",
+        "iconImg": "img/icons/barbarian-icon.png",
         "initialSpells": [],
         "description": "Un guerrero salvaje que canaliza su furia para infligir daño devastador."
     },
@@ -158,6 +163,7 @@
         },
         "img": "/img/classes/class_bard.png",
         "faceImg": "/img/classes/faces/charFaceBard.png",
+        "iconImg": "img/icons/bard-icon.png",
         "initialSpells": ["Proyectil mágico"],
         "description": "Un artista y aventurero versátil que inspira a sus aliados con música y magia."
     },
@@ -185,6 +191,7 @@
         },
         "img": "/img/classes/class_druid.png",
         "faceImg": "/img/classes/faces/charFaceDruid.png",
+        "iconImg": "img/icons/druid-icon.png",
         "initialSpells": ["Convocar animales menores"],
         "description": "Un protector de la naturaleza con habilidades mágicas y transformaciones animales."
     },
@@ -212,6 +219,7 @@
         },
         "img": "/img/classes/class_ranger.png",
         "faceImg": "/img/classes/faces/charFaceRanger.png",
+        "iconImg": "img/icons/ranger-icon.png",
         "initialSpells": [],
         "description": "Un experto en la supervivencia y el combate en la naturaleza."
     },
@@ -239,6 +247,7 @@
         },
         "img": "/img/classes/class_paladin.png",
         "faceImg": "/img/classes/faces/charFacePaladian.png",
+        "iconImg": "img/icons/paladian-icon.png",
         "initialSpells": ["Curación menor"],
         "description": "Un campeón sagrado dedicado a la justicia y la protección de los inocentes."
     }

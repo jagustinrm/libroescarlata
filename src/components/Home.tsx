@@ -1,21 +1,20 @@
-import { usePlayerStore } from '../stores/playerStore';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import openMissions from '../utils/openMissionsWindow.ts';
-
-import MessageBox from './UI/MessageBox.tsx';
 import './Home.css';
 import './UI/details/Arrow.css';
 import './UI/designRpg.css';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import openMissions from '../utils/openMissionsWindow.ts';
+import MessageBox from './UI/MessageBox.tsx';
 import Quests from './quests/Quests.tsx';
 import ButtonEdited from './UI/ButtonEdited.tsx';
 import PrincipalSign from './UI/PrincipalSign.tsx';
-import HomeOptionsSign from './UI/HomeOptionsSign.tsx';
+import useGlobalState from '../customHooks/useGlobalState.ts';
+// import HomeOptionsSign from './UI/HomeOptionsSign.tsx';
 
 export default function Home() {
   const [showMessage, setShowMessage] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { player, playerActions } = usePlayerStore();
+  const {player, playerActions } = useGlobalState();
   const navigate = useNavigate();
   const [showMissions, setShowMissions] = useState(false);
 
@@ -71,9 +70,6 @@ export default function Home() {
     <PrincipalSign/>   
     {/* <HomeOptionsSign/> */}
     <div className={`home-container rpgui-container framed-golden-2`}>
- 
-
-  
       <div
         className={`sidebar ${isSidebarOpen ? 'open' : 'closed'} rpgui-container framed-golden-2`}
       >
@@ -120,10 +116,10 @@ export default function Home() {
               </div>
             </div>
             
-            <div style={{ marginTop: '40px' }}>
+            <div style={{ marginTop: '5px' }}>
               <ButtonEdited
                 label="Inventario"
-                width="200px"
+                width="130px"
                 height="33px"
                 onClick={() => handleAction('inventory')}
               />

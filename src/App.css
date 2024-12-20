@@ -1,14 +1,9 @@
-.music-controls {
-  position: fixed;
-  top: 0;
-  right: 10px;
-  z-index: 100000;
-  margin: 10px auto;
-}
+
 /* App.css */
 .app-container {
   opacity: 0;
   transition: opacity 0.5s ease-in-out; /* Aplica la transición de opacidad */
+  margin-top: 30px;
 }
 
 .app-container.visible {
@@ -73,29 +68,13 @@ button {
   transition: background-color 0.3s ease;
 }
 button:hover {
-  background-color: #cf6433; /* Match hover effect of list items */
+  background-color: #cf6433;
 }
 button:active {
   transform: scale(0.95);
 }
 
-.soundPlayerSimbol {
-  width: 50px;
-  background-color: #ffffff;
-  border: 1px solid #000000;
 
-  border-radius: 50%;
-}
-
-.buttonSoundToggle {
-  height: 40px;
-  border-radius: 50%;
-  padding: 0px 0px;
-}
-
-.soundPlayerSimbol:hover {
-  -webkit-filter: brightness(120%);
-}
 
 .back-button-design {
   width: 150px;
@@ -114,17 +93,18 @@ button:active {
 .button-edited-container p {
   text-align: center;
   position: relative;
-  top: 0;
+  top: 7px;
   margin-top: 0px;
   height: 100%;
   z-index: 2;
+  font-size: 1.1rem;
 }
 .common-button {
   position: absolute;
   z-index: 1;
-  top: -100%;
+  top: -30%;
   /* left: 5%; */
-  width: 200px;
+  width: 130px;
 }
 .button-edited-container:hover {
   -webkit-filter: brightness(120%);
@@ -149,15 +129,7 @@ button:active {
     border-radius: 4px;
   }
 
-  .soundPlayerSimbol {
-    width: 40px;
-    height: 40px;
-  }
 
-  .buttonSoundToggle {
-    height: 35px;
-    width: 35px;
-  }
 
   .back-button-design {
     width: 120px;

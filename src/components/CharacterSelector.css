@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   margin: 0 auto;
-  padding: 10px; /* Reducido de 20px a 10px */
+  margin-top: 30px;
   max-width: 800px;
   /* max-height: 550px;  */
   overflow-y: auto; /* Permite el scroll si el contenido es más grande */
@@ -14,6 +14,8 @@
   box-shadow: 0px 4px 10px rgba(102, 102, 102, 0.1);
   font-family: 'Arial', sans-serif;
   height: 750px;
+  width: 600px;
+  padding: 1px;
 }
 
 .containerClases h1 {
@@ -25,18 +27,26 @@
 .containerClases p {
   font-size: 1.2rem;
   color: #fff;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 /* Buttons container */
 .buttonsClasses {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
-  width: 100%;
-  gap: 60px;
-  margin-top: 50px;
+  width: 80%;
+  margin-top: 20px;
+  /* gap: 60px; */
+  
+}
+.nameHeader{
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Buttons */
@@ -111,7 +121,11 @@ a:hover {
   margin-bottom: 0px;
   margin-top: 0px;
 }
-
+.classIcons{
+  width: 90px;
+}
+.classIcons:hover {
+  -webkit-filter: brightness(120%);}
 
 @media (max-width: 480px) {
   .containerClases {
@@ -122,7 +136,7 @@ a:hover {
     position: absolute;
     top: 0;
     left: 0;
-  
+    
   }
 
   .containerClases h1 {
@@ -174,4 +188,35 @@ a:hover {
   .redFont, .blueFont {
     font-size: 0.9rem; /* Reducir tamaño de fuente */
   }
+}
+
+@media (max-width: 1360px) and (max-height: 768px) {
+  .containerClases {
+    max-width: 700px; /* Ajusta el ancho según lo necesario */
+    height: 500px; /* Ajusta la altura según lo necesario */
+    margin-top: 0px;
+    font-size: 14px; /* Por ejemplo, para un texto más pequeño */
+    overflow-y: scroll; /* Asegura que el scroll funcione en pantallas más pequeñas */
+  }
+  .classDetailsContainer {
+    border-radius: 10px;
+    background-color: #2e2e2e;
+    color: white;
+    text-align: center;
+    width: 600px;
+    height: 500px;
+    
+  }
+  .classDetailsContainer img {
+    width: 150px;
+    height: auto;
+    margin: 10px 0;
+  }
+  .classDetailsContainer p {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+  
 }

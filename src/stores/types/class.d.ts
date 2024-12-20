@@ -12,6 +12,7 @@ export interface Class {
   classFeatures: string[];
   img: string;
   faceImg: string;
+  iconImg: string;
   initialSpells: string[];
   description: string;
   initialArmor: string[];

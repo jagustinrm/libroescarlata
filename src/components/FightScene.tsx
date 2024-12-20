@@ -2,7 +2,6 @@ import './FightScene.css';
 import './UI/designRpg.css';
 import { useSearchParams } from 'react-router-dom';
 import usePostCombatActions from '../customHooks/usePostCombatActions';
-import { usePlayerStore } from '../stores/playerStore.js';
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEnemyLoader } from '../customHooks/useEnemyLoader.ts';
@@ -12,23 +11,20 @@ import { handleCombatAction } from '../utils/combatHandlers';
 import { useLoadQuests } from '../customHooks/useLoadQuests.js';
 import { QuestData } from './interfaces/QuestsInt.ts';
 import useExpTable from '../customHooks/useExpTable.ts';
-import useInventoryStore from '../stores/inventoryStore.ts';
 import MessageBox from './UI/MessageBox.tsx';
 import { useEnemyTurn } from '../customHooks/useEnemyTurn.ts';
 import { useSummonTurn } from '../customHooks/useSummonTurn.ts';
 import SoundPlayer from './UI/soundPlayer/SoundPlayer.tsx';
 import GameBoard from './battlefield/GameBoard .tsx';
-import useSpellStore from '../stores/spellsStore.ts';
 import Dropdown from '../utils/DropDown.tsx';
 import KeyboardController from '../utils/KeyboardController.ts';
 import PlayerCharacter from './battlefield/PlayerCharacter.tsx';
-import useCreatureStore from '../stores/creatures.ts';
 import EndBattleActions from './battlefield/EndBattleActions.tsx';
 import EnemyChar from './battlefield/EnemyChar.tsx';
 import { Creature } from '../stores/types/creatures.ts';
-import { useWeaponStore } from '../stores/weaponStore.ts';
 import useAppStore from '../stores/appStore.ts';
 import AttackAndPotions from './battlefield/combatMenu/AttackAndPotions.tsx';
+import useGlobalState from '../customHooks/useGlobalState.ts';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -42,11 +38,7 @@ export default function FightScene() {
   const fightType = searchParams.get('type') || 'normal';
   const enemy = searchParams.get('enemy');
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
-  const { player, playerActions } = usePlayerStore();
-  const { creature, setCreatureHealth } = useCreatureStore();
-  const { spells } = useSpellStore();
-  const { inventories } = useInventoryStore();
-  const { weapons } = useWeaponStore();
+  const {spells, weapons, player, playerActions, creature, setCreatureHealth, inventories } = useGlobalState();
   const initialX = 0;
   const initialY = 45;
   // Compensar el ancho y alto de la imagen

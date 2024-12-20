@@ -6,32 +6,22 @@ import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
 import { assignWeaponByClass } from '../utils/assignWeaponByClass.js';
 import { assignArmorByClass } from '../utils/assignArmorByClass.js';
 import { useNavigate } from 'react-router-dom';
-import { usePlayerStore } from '../stores/playerStore.js';
-import useClassStore from '../stores/classStore';
 import { Class } from '../stores/types/class.js';
 import useInventoryStore from '../stores/inventoryStore';
-import { useWeaponStore } from '../stores/weaponStore.js';
 import useItemsStore from '../stores/itemsStore.js';
 import ButtonEdited from './UI/ButtonEdited.js';
-import useArmorStore from '../stores/armorStore.js';
+import useGlobalState from '../customHooks/useGlobalState.ts';
 export default function CharacterSelector() {
   const { createItems } = useItemsStore();
   const navigate = useNavigate();
-  const { classes, areClassesLoaded } = useClassStore();
-  const { weapons } = useWeaponStore();
-  const { armors } = useArmorStore();
-  const { player, playerActions } = usePlayerStore();
+  const {classes, areClassesLoaded, armors, weapons, player, playerActions} = useGlobalState()
   const inventoryStore = useInventoryStore.getState();
-
-  // Estado para la clase en hover
   const [hoveredClass, setHoveredClass] = useState<Class | null>(null);
-
   const handleButtonClick = (classData: Class) => {
     const {
       className,
       hitDie,
       classFeatures,
-      armorClass,
       baseAttackBonus,
       saves,
       img,
@@ -114,21 +104,23 @@ export default function CharacterSelector() {
   return (
     <div className="containerClassSelector">
       <div className="containerClases rpgui-container framed-golden-2">
-        <h1>Hola, {player.name ? player.name : 'invitade'}</h1>
-        <p>¿Cuál es tu clase?</p>
+        <div className='nameHeader'>
+          <h1 className='nameHeader'>Hola, {player.name ? player.name : 'invitade'}</h1>
+          <p>¿Cuál es tu clase?</p>
+        </div>
         <div className="buttonsClasses">
           {!areClassesLoaded ? (
             <p>Cargando clases...</p>
           ) : (
             <>
               {classes.map((classItem) => (
-                <ButtonEdited
-                  label={classItem.className}
-                  width="200px"
-                  height='32px'
-                  onMouseEnter={() => setHoveredClass(classItem)}
-                  onMouseLeave={() => setHoveredClass(null)}
-                  onClick={() => handleButtonClick(classItem)}
+                <img 
+                className='classIcons  rpgui-cursor-point' 
+                src={classItem.iconImg} 
+                alt={classItem.className} 
+                onMouseEnter={() => setHoveredClass(classItem)}
+                onMouseLeave={() => setHoveredClass(null)}
+                onClick={() => handleButtonClick(classItem)}
                 />
               ))}
             </>
