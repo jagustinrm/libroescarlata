@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./HeaderMenu.css";
 import useAppStore from "../../../stores/appStore";
 import SoundPlayer from "../soundPlayer/SoundPlayer";

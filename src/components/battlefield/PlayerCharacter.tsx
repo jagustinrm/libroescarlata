@@ -1,11 +1,12 @@
 import React from 'react';
 import { Player } from '../../stores/types/player';
+import { Pet } from '../../stores/types/pets';
 
 interface PlayerProps {
   player: Player;
   healthPercentage: number;
   xpPercentage: number;
-  pet?: string | null;
+  pet?: Pet | null;
   manaPercentage: number;
 }
 
@@ -69,7 +70,8 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
             </div>
           </div>
         </div>
-        <img className="imgPet" src={pet.img} alt="" />
+        {pet && <img className="imgPet" src={pet.img} alt="" /> }
+        
         {pet ? <p>Mascota: {pet.name}</p> : null}
       </div>
       {/* <div className="blackBar"></div> */}

@@ -25,6 +25,7 @@ import { Creature } from '../stores/types/creatures.ts';
 import useAppStore from '../stores/appStore.ts';
 import AttackAndPotions from './battlefield/combatMenu/AttackAndPotions.tsx';
 import useGlobalState from '../customHooks/useGlobalState.ts';
+import { Weapon } from '../stores/types/weapons.ts';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -61,8 +62,8 @@ export default function FightScene() {
     y: playerPosition.y + 4,
   });
   const [soundType, setSoundType] = useState<string>('');
-  const [soundUrl, setSoundUrl] = useState<string>('');
-  const { expTable, setExpTable } = useExpTable();
+  const [soundUrl, setSoundUrl] = useState<string | undefined>('');
+  const { expTable} = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
   const { quests } = useLoadQuests();
   const [turn, setTurn] = useState<'player' | 'enemy' | 'summon'>('player');
@@ -112,14 +113,14 @@ export default function FightScene() {
       calculateInitialHealth,
       playerActions,
       expTable,
-      setExpTable,
+      // setExpTable,
     });
   };
   const [selectedSpell, setSelectedSpell] = useState<string>('');
   const [selectedWeapon, setSelectedWeapon] = useState<string>('');
   const { setAmbientMusic, setMusicVolume } = useAppStore();
-  const [pocion, setpocion] = useState();
-  const [opcionesArmas, setOpcionesArmas] = useState();
+  const [pocion, setpocion] = useState<string>();
+  const [opcionesArmas, setOpcionesArmas] = useState<(string | undefined)[]>();
   // ************************USEEFFECTS ******************************
   useEffect(() => {
     const pot = inventories[player.inventoryId].potions.find(
@@ -127,7 +128,7 @@ export default function FightScene() {
     );
     setpocion(pot)
     const opctArm = inventories[player.inventoryId].weapons
-    .map((w) => weapons.find((ws) => ws.id === w)?.name) // Accede directamente a .name
+    .map((w) => weapons.find((ws) => ws.id === w)?.name) 
     .filter(Boolean); // Filtra nombres undefined o null
     setOpcionesArmas(opctArm)
   }, [inventories])

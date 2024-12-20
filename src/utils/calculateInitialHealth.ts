@@ -1,6 +1,6 @@
-type HitDie = 'd4' | 'd6' | 'd8' | 'd10' | 'd12' | 'd20';
+// type HitDie = 'd4' | 'd6' | 'd8' | 'd10' | 'd12' | 'd20';
 
-export function calculateInitialHealth(hitDie: HitDie): number {
+export function calculateInitialHealth(hitDie: string): number {
   switch (hitDie) {
     case 'd4':
       return 4;

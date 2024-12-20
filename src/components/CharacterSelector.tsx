@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { Class } from '../stores/types/class.js';
 import useInventoryStore from '../stores/inventoryStore';
 import useItemsStore from '../stores/itemsStore.js';
-import ButtonEdited from './UI/ButtonEdited.js';
 import useGlobalState from '../customHooks/useGlobalState.ts';
 export default function CharacterSelector() {
   const { createItems } = useItemsStore();

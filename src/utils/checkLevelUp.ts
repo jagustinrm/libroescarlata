@@ -10,7 +10,8 @@ interface CheckLevelUpParams {
   player: Player;
   setActionMessages: (callback: (messages: string[]) => string[]) => void;
   playerActions: PlayerActions;
-  expTable: ExpTable;
+  expTable: ExpTable | undefined;
+
 }
 
 export function checkLevelUp({
@@ -23,6 +24,7 @@ export function checkLevelUp({
   // Verificar si la experiencia actual es suficiente para subir de nivel
   const gainXpToNextLevel = (level: number) => {
     const levelSum = level + 1;
+    if (!expTable) return
     const nextLevelXp = expTable[levelSum.toString()] || expTable["20"]; // Evitar que supere el nivel 20
     const prevLevelXp = (level > 1 && expTable[level.toString()]) || expTable["20"];
     playerActions.setP_ExpToNextLevel(nextLevelXp);

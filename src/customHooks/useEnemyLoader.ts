@@ -25,7 +25,7 @@ export function useEnemyLoader(
   level: number,
   dungeonLevel: number,
   updateEnemy: boolean,
-  enemy: string,
+  enemy: string | null,
 ) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchParams] = useSearchParams();

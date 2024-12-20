@@ -24,7 +24,7 @@ export default function Inventory() {
   const { weapons } = useWeaponStore();
   const { potions } = usePotionStore();
   const { armors } = useArmorStore();
-  const [firebaseArmors, setFirebaseArmors] = useState(null);
+  const [firebaseArmors, setFirebaseArmors] = useState<(Armor)[] | null>(null);
   const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -121,14 +121,16 @@ export default function Inventory() {
 
       return;
     }
-
-    const firebaseArmor = firebaseArmors.find(
-      (armor: Armor) => armor.id === itemId,
-    );
-    if (firebaseArmor) {
-      setSelectedItem(firebaseArmor);
-      return;
+    if (firebaseArmors) {
+      const firebaseArmor = firebaseArmors.find(
+        (armor: Armor) => armor.id === itemId,
+      );
+      if (firebaseArmor) {
+        setSelectedItem(firebaseArmor);
+        return;
+      }
     }
+
     setSelectedItem(null);
   };
 
