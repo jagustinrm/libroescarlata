@@ -62,19 +62,37 @@ const useStoryStore = create<StoryStore>((set, get) => ({
     set((state) => {
       const newProgress = { ...state.userProgress };
       const storyProgress = newProgress[userId]?.find((p) => p.storyId === storyId);
-
-      if (storyProgress && !storyProgress.completedEvents.includes(eventId)) {
-        storyProgress.completedEvents = [...storyProgress.completedEvents, eventId]; // Añadir evento de forma inmutable
-        // Actualizar el estado del mundo si hay cambios en el evento
-        const event = get().stories.flatMap(story => story.events).find(e => e.id === eventId);
-        if (event && event.worldState) {
-          storyProgress.worldState = { ...storyProgress.worldState, ...event.worldState };
+  
+      if (storyProgress) {
+        // Buscar el capítulo y evento correspondiente dentro de la historia
+        const story = get().stories.find((s) => s.id === storyId);
+        if (story) {
+          // Buscar los capítulos dentro de la historia
+          const chapter = story.chapters?.find((c) =>
+            c.events.some((e) => e.id === eventId)
+          );
+  
+          if (chapter) {
+            // Buscar el evento dentro del capítulo
+            const event = chapter.events.find((e) => e.id === eventId);
+            
+            if (event && !storyProgress.completedEvents.includes(eventId)) {
+              // Marcar el evento como completado
+              storyProgress.completedEvents = [...storyProgress.completedEvents, eventId];
+  
+              // Actualizar el estado del mundo si hay cambios en el evento
+              if (event.worldState) {
+                storyProgress.worldState = { ...storyProgress.worldState, ...event.worldState };
+              }
+            }
+          }
         }
       }
-
+  
       return { userProgress: newProgress };
     });
   },
+  
 
   // Seleccionar una opción en un evento
   selectChoice: (userId: string, storyId: string, eventId: string, choice: string) => {

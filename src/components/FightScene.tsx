@@ -25,7 +25,7 @@ import { Creature } from '../stores/types/creatures.ts';
 import useAppStore from '../stores/appStore.ts';
 import AttackAndPotions from './battlefield/combatMenu/AttackAndPotions.tsx';
 import useGlobalState from '../customHooks/useGlobalState.ts';
-import { Weapon } from '../stores/types/weapons.ts';
+
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({

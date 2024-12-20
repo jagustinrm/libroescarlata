@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Importamos useNavigate
 import { Story } from "../../stores/types/story";
 import BackButton from "../UI/BackButton";

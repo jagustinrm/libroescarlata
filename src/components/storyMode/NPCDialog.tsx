@@ -72,9 +72,9 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd }) => {
       {currentDialog.lines[currentLineIndex].options && currentDialog.lines[currentLineIndex].options.length > 0 ? (
         <div className="dialog-options">
           {currentDialog.lines[currentLineIndex].options.map((option) => (
-            <button
+             <button
               key={option.id} // Usar ID como clave única
-              onClick={() => handleOptionSelect(option.outcome)}
+              onClick={() => option.outcome && handleOptionSelect(option.outcome)}
               className="dialog-option"
             >
               {option.text}
