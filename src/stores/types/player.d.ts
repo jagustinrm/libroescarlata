@@ -3,6 +3,7 @@ import Weapon from './weapons';
 import { Armor } from './armor';
 // import { Spell } from './spells';
 import { Stats } from './stats';
+import { Spell } from './spells';
 // Interfaz para el estado del player
 export interface Player {
   name: string;
@@ -27,6 +28,7 @@ export interface Player {
   classes: string[];
   selectedPet: Pet;
   selectedWeapon: Weapon | null;
+  selectedSpell: Spell | null;
   selectedArmor: Armor | null;
   inventoryId: string;
   petsName: string[];
@@ -53,6 +55,7 @@ export interface PlayerActions {
   setP_SelectedPet: (selectedPet: Pet) => void;
   setP_SelectedWeapon: (selectedWeapon: Weapon) => void;
   setP_SelectedArmor: (selectedArmor: Armor) => void;
+  setP_SelectedSpell: (selectedSpell: Spell) => void;
   setPlayerLevel: (level: number) => void;
   setP_MaxHealth: (p_MaxHealth: number) => void;
   setP_LeftHealth: (p_LeftHealth: number) => void;
@@ -85,7 +88,6 @@ export interface PlayerActions {
   setInventory: (inventory: string) => void;
   setClassImg: (classImg: string) => void;
   setAvatarImg: (avatarImg: string) => void;
-
   setStoryProgress: (progress: StoryProgress[]) => void; // Actualiza el progreso de las historias
   updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) => void; // Actualiza parte del progreso en una historia específica
   setCurrentStoryId: (storyId: string | null) => void; // Cambia la historia activa

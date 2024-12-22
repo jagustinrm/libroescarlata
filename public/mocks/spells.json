@@ -1,6 +1,7 @@
 [
     {
         "name": "Bola de fuego",
+        "id": "Spell-001",
         "type": "Ofensivo",
         "school": "Evocación",
         "subtype": "Fuego",
@@ -34,9 +35,9 @@
         "counteredBy": ["Cúpula de protección", "Contramagia"],
         "enhancedBy": ["Aura de fuego", "Amplificador elemental"]
       },
-      
-        {
+      {
           "name": "Proyectil mágico",
+          "id": "Spell-002",
           "type": "Ofensivo",
           "school": "Evocación",
           "subtype": "Fuerza",
@@ -70,6 +71,7 @@
         },
         {
           "name": "Rayo relampagueante",
+          "id": "Spell-003",
           "type": "Ofensivo",
           "school": "Evocación",
           "subtype": "Electricidad",
@@ -103,6 +105,7 @@
         },
         {
           "name": "Flecha ácida de Melf",
+          "id": "Spell-004",
           "type": "Ofensivo",
           "school": "Conjuración",
           "subtype": "Ácido",
@@ -136,6 +139,7 @@
         },
         {
             "name": "Curación menor",
+            "id": "Spell-005",
             "type": "Curación",
             "school": "Conjuración",
             "subtype": "Sanación",
@@ -169,6 +173,7 @@
           },
           {
             "name": "Convocar animales menores",
+            "id": "Spell-006",
             "level": "Druida 1",
             "damage": null,
             "healing": null,

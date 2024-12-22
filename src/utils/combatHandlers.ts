@@ -11,8 +11,7 @@ import usePositionStore from '../stores/positionStore.ts';
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
   setActionMessages?: Dispatch<SetStateAction<string[]>>;
-  selectedSpell?: string;
-  selectedWeapon?: string;
+  // selectedSpell?: string;
   handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
   handlePostCombatActs?: (fightType: string, creature: Creature) => void;
   fightType?: string;
@@ -41,8 +40,7 @@ export const handleCombatAction = (
   },
 ) => {
   const {
-    selectedSpell,
-    selectedWeapon,
+    // selectedSpell,
     setActionMessages,
     handleMessage,
     handlePostCombatActs,
@@ -87,30 +85,31 @@ export const handleCombatAction = (
   // ************************************                  *****************************
   const handleAttack = () => {
     if (!player || !creature) return;
-
-    const weaponFiltered = weapons?.find((w) => w.name === selectedWeapon);
+   
+    const weaponFiltered = weapons?.find((w) => w.name === player.selectedWeapon.name);
     const weaponRange = weaponFiltered?.range ?? 10; // Por defecto, rango es 10.
     const playerAttack = rollDice('1d20') + player.baseAttackBonus;
-
+    console.log(weaponFiltered, playerAttack)
     if (playerPosition && enemyPosition) {
       const adjustedDistance = calculateDistance(playerPosition, enemyPosition);
 
       if (adjustedDistance === -1) return; // Ignorar posición central del jugador.
-
+   
       if (adjustedDistance > weaponRange) {
         addActionMessage('¡Estás fuera de rango para atacar!');
         handleMessage?.('¡Estás fuera de rango!', 'warning', false);
         shouldFinalizeTurn = false;
         return;
       }
-
+      
       if (
         weaponFiltered &&
         playerAttack > creature.armorClass &&
         creature.health
       ) {
+        
         const playerDamage =
-          rollDice(player.selectedWeapon?.damage) + player.statsIncrease['str'];
+          rollDice(weaponFiltered.damage) + player.statsIncrease['str'];
         addActionMessage(
           `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`,
         );
@@ -123,6 +122,7 @@ export const handleCombatAction = (
           handlePostCombatActs?.(fightType, creature);
         }
       } else {
+
         addActionMessage(`¡Tu ataque falló!`);
       }
     }
@@ -132,7 +132,7 @@ export const handleCombatAction = (
   // ****************************************SPELLS********************************
   // ****************************************       ********************************
   const handleSpell = () => {
-    const spellDetails = spells?.find((s) => s.name === selectedSpell);
+    const spellDetails = spells?.find((s) => s.name === player.selectedSpell?.name);
     if (!spellDetails) {
       shouldFinalizeTurn = false; // No se encontró el hechizo, no se finaliza el turno.
       return;

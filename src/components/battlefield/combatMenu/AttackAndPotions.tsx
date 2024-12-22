@@ -6,14 +6,14 @@ import usePotionStore from '../../../stores/potionsStore';
 import useCreatureStore from '../../../stores/creatures';
 
 interface AttackAndPotionsProps {
-  selectedWeapon: string | null;
+  // selectedWeapon: string | null;
   executeAttack: () => void;
   pocion: string | undefined; // Cambiar el tipo a string | undefined
   handleMessage: (message: string, type: string, persist: boolean) => void;
 }
 
 const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
-  selectedWeapon,
+  // selectedWeapon,
   executeAttack,
   pocion,
   handleMessage,
@@ -33,7 +33,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         id="newDesign"
         onClick={executeAttack}
         disabled={
-          creature.health === 0 || player.p_LeftHealth === 0 || !selectedWeapon
+          creature.health === 0 || player.p_LeftHealth === 0 || !player.selectedWeapon
         }
       >
         ⚔️

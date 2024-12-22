@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Weapon } from '../stores/types/weapons';
+import { Spell } from '../stores/types/spells';
 // import { Weapon } from "../stores/types/weapons";
 type DropdownProps = {
-  options: (string | undefined)[];
-  value: string;
+  options: Weapon[] | Spell[];
+  value: Weapon | Spell;
   onChange: (value: string) => void;
   id?: string;
   disabled?: boolean;
@@ -21,7 +23,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const listRef = useRef<HTMLUListElement>(null);
 
   const arrowDownPrefix = '<label>&#9660;</label> ';
-
+  console.log(options)
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -44,20 +46,15 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
   };
 
-  const handleOptionClick = (option: string, index: number) => {
-    if (selectRef.current) {
-      selectRef.current.selectedIndex = index;
-      onChange(option);
-      setIsOpen(false);
-    }
+  const handleOptionClick = (option) => {
+    onChange(option);
+    setIsOpen(false);
   };
 
   const updateHeader = () => {
-    if (selectRef.current && headerRef.current) {
-      const selectedOption =
-        selectRef.current.options[selectRef.current.selectedIndex];
+    if (headerRef.current) {
       headerRef.current.innerHTML =
-        arrowDownPrefix + (selectedOption?.text || 'Seleccionar');
+        arrowDownPrefix + (value?.name || 'Seleccionar');
     }
   };
 
@@ -71,15 +68,20 @@ const Dropdown: React.FC<DropdownProps> = ({
         id={id}
         ref={selectRef}
         className="rpgui-dropdown"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={value?.id || ''}
+        onChange={(e) => {
+          const selectedOption = options.find(
+            (option) => option.id === e.target.value
+          );
+          if (selectedOption) onChange(selectedOption);
+        }}
         disabled={disabled}
         style={{ display: 'none' }}
       >
         <option value="">Seleccionar</option>
-        {options.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
+        {options.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.name}
           </option>
         ))}
       </select>
@@ -89,7 +91,9 @@ const Dropdown: React.FC<DropdownProps> = ({
         className="rpgui-dropdown-imp rpgui-dropdown-imp-header"
         ref={headerRef}
         onClick={toggleDropdown}
-        dangerouslySetInnerHTML={{ __html: arrowDownPrefix + 'Seleccionar' }}
+        dangerouslySetInnerHTML={{
+          __html: arrowDownPrefix + (value?.name || 'Seleccionar'),
+        }}
       />
 
       <ul
@@ -98,16 +102,13 @@ const Dropdown: React.FC<DropdownProps> = ({
         ref={listRef}
         style={{ display: isOpen ? 'block' : 'none' }}
       >
-        {options.map(
-          (option, index) =>
-            option && (
-              <li
-                key={index}
-                onClick={() => handleOptionClick(option, index)}
-                dangerouslySetInnerHTML={{ __html: option }}
-              />
-            ),
-        )}
+        {options.map((option) => (
+          <li
+            key={option.id}
+            onClick={() => handleOptionClick(option)}
+            dangerouslySetInnerHTML={{ __html: option.name }}
+          />
+        ))}
       </ul>
     </div>
   );

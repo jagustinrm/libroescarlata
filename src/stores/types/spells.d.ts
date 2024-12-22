@@ -1,5 +1,6 @@
 export interface Spell {
   name: string;
+  id: string;
   level: string;
   damage: string | null; // Algunas pueden no causar daño
   healingAmount?: string | null; // Opcional: Hechizos que curan (Ej: "1d8+1")

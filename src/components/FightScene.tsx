@@ -16,16 +16,14 @@ import { useEnemyTurn } from '../customHooks/useEnemyTurn.ts';
 import { useSummonTurn } from '../customHooks/useSummonTurn.ts';
 import SoundPlayer from './UI/soundPlayer/SoundPlayer.tsx';
 import GameBoard from './battlefield/GameBoard .tsx';
-import Dropdown from '../utils/DropDown.tsx';
 import KeyboardController from '../utils/KeyboardController.ts';
 import PlayerCharacter from './battlefield/PlayerCharacter.tsx';
 import EndBattleActions from './battlefield/EndBattleActions.tsx';
 import EnemyChar from './battlefield/EnemyChar.tsx';
 import { Creature } from '../stores/types/creatures.ts';
 import useAppStore from '../stores/appStore.ts';
-import AttackAndPotions from './battlefield/combatMenu/AttackAndPotions.tsx';
 import useGlobalState from '../customHooks/useGlobalState.ts';
-
+import CombatUI from './battlefield/combatMenu/CombatUI.tsx';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -62,14 +60,11 @@ export default function FightScene() {
       return prevTurn;
     });
   };
-
   const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
     const storedLevel = localStorage.getItem('dungeonLevel');
     return storedLevel ? parseInt(storedLevel, 10) : 1;
   });
-
   const [updateEnemy, setUpdateEnemy] = useState<boolean>(false);
-
   const {
     // cargar enemy
     isLoading,
@@ -98,11 +93,10 @@ export default function FightScene() {
       // setExpTable,
     });
   };
-  const [selectedSpell, setSelectedSpell] = useState<string>('');
-  const [selectedWeapon, setSelectedWeapon] = useState<string>('');
   const { setAmbientMusic, setMusicVolume } = useAppStore();
   const [pocion, setpocion] = useState<string>();
   const [opcionesArmas, setOpcionesArmas] = useState<(string | undefined)[]>();
+  const [opcionesSpells, setOpcionesSpells] = useState<(string | undefined)[]>(); 
   // ************************USEEFFECTS ******************************
   useEffect(() => {
     const pot = inventories[player.inventoryId].potions.find(
@@ -110,9 +104,15 @@ export default function FightScene() {
     );
     setpocion(pot)
     const opctArm = inventories[player.inventoryId].weapons
-    .map((w) => weapons.find((ws) => ws.id === w)?.name) 
-    .filter(Boolean); // Filtra nombres undefined o null
-    setOpcionesArmas(opctArm)
+    .map((w) => weapons.find((ws) => ws.id === w)) // Devuelve el objeto completo
+    .filter(Boolean); // Filtra objetos undefined o null
+    setOpcionesArmas(opctArm);
+    const opctSpells = player.spells
+    .map((s) => spells.find((sp) => sp.id === s)) // Devuelve el objeto completo
+    .filter(Boolean); // Filtra objetos undefined o null
+    setOpcionesSpells(opctSpells);
+
+
   }, [inventories])
 
   useEffect(() => {
@@ -137,18 +137,11 @@ export default function FightScene() {
   }, [summon]);
 
   useEffect(() => {
-    if (logRef.current) {
-      // Desplaza hacia abajo
+    if (logRef.current) {    // Desplaza hacia abajo
       logRef.current.scrollTop = logRef.current.scrollHeight;
     }
   }, [actionMessages]); // Ejecuta cada vez que la lista de mensajes cambia
 
-  useEffect(() => {
-    if (selectedWeapon) {
-      const weaponFiltered = weapons.find((w) => w.name === selectedWeapon);
-      playerActions.setP_SelectedWeapon(weaponFiltered);
-    }
-  }, [selectedWeapon, setSelectedWeapon]); // Ejecuta cada vez que la lista de mensajes cambia
 
   // ************************USEEFFECTS ******************************
   // ************************COMBATE *************************
@@ -162,8 +155,6 @@ export default function FightScene() {
       {
         setActionMessages,
         turn,
-        selectedSpell,
-        selectedWeapon,
         setSummon,
         switchTurn,
         handlePostCombatActs,
@@ -187,7 +178,6 @@ export default function FightScene() {
     summon,
     setCreatureHealth,
   });
-
   const executeAttack = () => {
     if (turn !== 'player') return;
     setSoundType('attack');
@@ -196,10 +186,9 @@ export default function FightScene() {
       setSoundType('');
     }, 300);
   };
-
   const executeSpell = () => {
-    if (turn !== 'player' || !selectedSpell) return;
-    const spell = spells.find((s) => selectedSpell === s.name);
+    if (turn !== 'player' || !player.selectedSpell) return;
+    const spell = spells.find((s) => player.selectedSpell?.name === s.name);
     const url = spell?.soundEffect; // ESTO PERMITE UTILIZAR LA URL DEL SONIDO DEL FUEGO
     setSoundUrl(url);
     handleAction('spell');
@@ -207,7 +196,6 @@ export default function FightScene() {
       setSoundUrl('');
     }, 1000);
   };
-
   // ************************COMBATE *************************
 
   const handleMessage = (
@@ -235,75 +223,31 @@ export default function FightScene() {
 
   const xpPercentage =
     player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0
-      ? ((player.playerExp - player.p_ExpPrevLevel) /
-          (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) *
-        100
-      : 0;
+    ? ((player.playerExp - player.p_ExpPrevLevel) /
+          (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100
+    : 0;
   const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
   const manaPercentage = (player.p_LeftMana / player.p_MaxMana) * 100;
 
-
   if (isLoading) return <p>Cargando enemigo...</p>;
   // if (error)  return <p>Error: {error}</p>;
-
+  console.log(player, "Player")
   return (
     <div className="fight-scene">
       <div className="turn-indicator fixedUI ">
         {fightType === 'dungeon' ? <h1>Dungeon {dungeonLevel}</h1> : <></>}
         {turn === 'player' ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
       </div>
-      <div className="rpgui-container framed attacks fixedUI">
-        {/* <div className="blackScreenAttacks "></div> */}
-        <div>
-          <Dropdown
-            id="spell-dropdown"
-            options={opcionesArmas || []}
-            value={selectedWeapon}
-            onChange={(value) => setSelectedWeapon(value)}
-            disabled={turn !== 'player' || creature.health === 0}
-          />
-        </div>
-        <AttackAndPotions
-          executeAttack={executeAttack}
-          selectedWeapon={selectedWeapon}
-          handleMessage={handleMessage}
-          pocion={pocion}
-        />
-        <div className="rpgui-container rpgui-draggable ">
-          <div>
-            <Dropdown
-              id="spell-dropdown"
-              options={player.spells || []}
-              value={selectedSpell}
-              onChange={(value) => setSelectedSpell(value)}
-              disabled={turn !== 'player' || creature.health === 0}
-            />
-          </div>
-          <button
-            onClick={executeSpell}
-            disabled={
-              turn !== 'player' ||
-              !selectedSpell ||
-              creature.health === 0 ||
-              player.p_LeftHealth <= 0
-            }
-          >
-            Lanzar hechizo
-          </button>
-        </div>
-        {fightType === 'normal' || player.p_LeftHealth === 0 ? (
-          <button
-            onClick={() =>
-              handleMessage('¡Has huido del combate!', 'warning', true)
-            }
-            className="rpgui-button newDesign huir"
-          >
-            😨 Huir
-          </button>
-        ) : (
-          <></>
-        )}
-      </div>
+      <CombatUI
+        opcionesArmas={opcionesArmas}
+        opcionesSpells = {opcionesSpells}
+        turn={turn}
+        executeAttack={executeAttack}
+        handleMessage={handleMessage}
+        pocion={pocion}
+        executeSpell={executeSpell}
+        fightType={fightType}
+      />
       <div>
         <ul className="action-log fixedUI " ref={logRef}>
           {actionMessages.map((message, index) => (
@@ -317,8 +261,6 @@ export default function FightScene() {
           summon={summon}
           setSummon={setSummon}
           switchTurn={switchTurn}
-          selectedWeapon={selectedWeapon}
-          selectedSpell={selectedSpell}
         />
         <EndBattleActions
           creature={creature}

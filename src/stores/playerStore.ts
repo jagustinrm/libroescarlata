@@ -45,6 +45,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     selectedPet: '',
     selectedWeapon: null,
     selectedArmor: null,
+    selectedSpell: null,
     playerMaterial: 0,
     petsName: [],
     enemiesDeleted: [],
@@ -261,7 +262,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, selectedArmor },
       })),
-
+    setP_SelectedSpell: (selectedSpell) =>
+        set((state) => ({
+          player: { ...state.player, selectedSpell },
+      })),  
     setHitDie: (hitDie) =>
       set((state) => ({
         player: {

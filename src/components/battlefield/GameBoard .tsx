@@ -22,8 +22,6 @@ interface GameBoardProps {
   summon?: Creature | null;
   setSummon: React.Dispatch<React.SetStateAction<Creature | null>>;
   switchTurn: () => void;
-  selectedWeapon: string;
-  selectedSpell: string;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -31,8 +29,6 @@ const GameBoard: React.FC<GameBoardProps> = ({
   SoundPlayer,
   summon,
   switchTurn,
-  selectedWeapon,
-  selectedSpell,
 }) => {
   const gridSize = 10; // Tamaño de la cuadrícula principal (10x10)
   const step = 5; // Tamaño del paso en vw
@@ -46,8 +42,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { weapons } = useWeaponStore();
   const { spells } = useSpellStore();
   const {playerPosition, enemyPosition, summonPosition} = usePositionStore();
-  const weaponFiltered = weapons?.find((w) => w.name === selectedWeapon);
-  const spellFiltered = spells?.find((s) => s.name === selectedSpell);
+  const weaponFiltered = weapons?.find((w) => w.name === player.selectedWeapon.name);
+  const spellFiltered = spells?.find((s) => s.name === player.selectedSpell?.name);
   const spellRange = spellFiltered?.range || 5;
   const weaponRange = weaponFiltered?.range || 5; // Rango del arma seleccionada
   // Generar botones al montar el componente

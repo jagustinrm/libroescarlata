@@ -24,7 +24,7 @@
         "img": "/img/classes/class_mage.png",
         "faceImg": "/img/classes/faces/charFaceMage.png",
         "iconImg": "img/icons/mage-icon.png",
-        "initialSpells": ["Bola de fuego", "Flecha ácida de Melf", "Rayo relampagueante", "Proyectil mágico"],
+        "initialSpells": ["Spell-001", "Spell-002", "Spell-003", "Spell-004"],
         "description": "Un maestro de las artes arcanas, capaz de lanzar poderosos hechizos pero físicamente frágil."
     },
     {
