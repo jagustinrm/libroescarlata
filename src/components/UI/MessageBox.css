@@ -1,8 +1,8 @@
 /* src/components/MessageBox/MessageBox.css */
 .message-box {
   position: fixed;
-  top: 10%;
-  left: 50%;
+  top: 40px;
+  left: 60%;
   transform: translateX(-50%);
   padding: 20px;
   border-radius: 8px;

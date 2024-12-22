@@ -1,18 +1,14 @@
 import React from 'react';
 import { Player } from '../../stores/types/player';
 import { Creature } from '../../stores/types/creatures';
+
 interface NewEnemyClickParams {
   player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
   setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
   updateEnemy: boolean;
   setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
-  setPlayerPosition: React.Dispatch<
-    React.SetStateAction<{ x: number; y: number }>
-  >;
-  setEnemyPosition: React.Dispatch<
-    React.SetStateAction<{ x: number; y: number }>
-  >;
+
 }
 
 interface EndBattleActionsProps {
@@ -24,12 +20,6 @@ interface EndBattleActionsProps {
   setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
   updateEnemy: boolean;
   setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
-  setPlayerPosition: React.Dispatch<
-    React.SetStateAction<{ x: number; y: number }>
-  >;
-  setEnemyPosition: React.Dispatch<
-    React.SetStateAction<{ x: number; y: number }>
-  >;
   creature: Creature;
 }
 
@@ -42,8 +32,6 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
   setTurn,
   updateEnemy,
   setUpdateEnemy,
-  setPlayerPosition,
-  setEnemyPosition,
   creature,
 }) => {
   if (creatureHealth !== 0) return null;
@@ -59,8 +47,6 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
               setTurn,
               updateEnemy,
               setUpdateEnemy,
-              setPlayerPosition,
-              setEnemyPosition,
             })
           }
           className="rpgui-button endBattleButton"

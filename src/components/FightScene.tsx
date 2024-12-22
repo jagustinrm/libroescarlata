@@ -39,28 +39,10 @@ export default function FightScene() {
   const fightType = searchParams.get('type') || 'normal';
   const enemy = searchParams.get('enemy');
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
-  const {spells, weapons, player, playerActions, creature, setCreatureHealth, inventories } = useGlobalState();
-  const initialX = 0;
-  const initialY = 45;
-  // Compensar el ancho y alto de la imagen
-  const offsetX = 10 / 1.2;
-  const offsetY = 20 / 1.5;
-  const [playerPosition, setPlayerPosition] = useState({
-    // PLAYER
-    x: initialX - offsetX,
-    y: initialY - offsetY,
-  });
-  const [enemyPosition, setEnemyPosition] = useState({
-    // ENEMY
-    x: 45 - offsetX,
-    y: 0 - offsetY,
-  });
+  const {spells, weapons, player, playerActions, creature, setCreatureHealth, inventories,
+    playerPosition, setPlayerPosition, setEnemyPosition, setSummonPosition,
+   } = useGlobalState();
   const [summon, setSummon] = useState<Creature | null>(null);
-  const [summonPosition, setSummonPosition] = useState({
-    // ENEMY
-    x: playerPosition.x + 6,
-    y: playerPosition.y + 4,
-  });
   const [soundType, setSoundType] = useState<string>('');
   const [soundUrl, setSoundUrl] = useState<string | undefined>('');
   const { expTable} = useExpTable();
@@ -133,12 +115,12 @@ export default function FightScene() {
     setOpcionesArmas(opctArm)
   }, [inventories])
 
-
-
   useEffect(() => {
     handleCheckLevelUp(); // Verificar subida de nivel
   }, [player.playerExp]);
   useEffect(() => {
+    setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 - 20 / 1.5 });
+    setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 - 20 / 1.5 });
     setAmbientMusic('battleSong');
     setMusicVolume(0.1);
   }, []);
@@ -178,14 +160,7 @@ export default function FightScene() {
     handleCombatAction(
       actionType,
       {
-        player,
-        creature,
-        weapons,
-        spells,
         setActionMessages,
-        playerPosition,
-        enemyPosition,
-        setPlayerPosition,
         turn,
         selectedSpell,
         selectedWeapon,
@@ -200,27 +175,15 @@ export default function FightScene() {
   };
 
   useEnemyTurn({
-    // enemy
-    creature,
     turn,
-    player,
-    playerActions,
     setActionMessages,
     switchTurn,
-    playerPosition,
-    enemyPosition,
-    setEnemyPosition,
   });
 
   useSummonTurn({
-    creature,
     turn,
-    player,
     setActionMessages,
     switchTurn,
-    enemyPosition,
-    summonPosition,
-    setSummonPosition,
     summon,
     setCreatureHealth,
   });
@@ -350,14 +313,9 @@ export default function FightScene() {
         <GameBoard
           // setCanAttack={setCanAttack}
           turn={turn}
-          playerPosition={playerPosition}
-          setPlayerPosition={setPlayerPosition}
-          enemyPosition={enemyPosition}
-          setEnemyPosition={setEnemyPosition}
           SoundPlayer={SoundPlayer}
           summon={summon}
           setSummon={setSummon}
-          summonPosition={summonPosition}
           switchTurn={switchTurn}
           selectedWeapon={selectedWeapon}
           selectedSpell={selectedSpell}
@@ -372,8 +330,6 @@ export default function FightScene() {
           setTurn={setTurn}
           updateEnemy={updateEnemy}
           setUpdateEnemy={setUpdateEnemy}
-          setPlayerPosition={setPlayerPosition}
-          setEnemyPosition={setEnemyPosition}
         />
       </div>
       <PlayerCharacter

@@ -2,38 +2,30 @@ import { useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
 // import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
 import { Creature } from '../stores/types/creatures.ts';
+import usePositionStore from '../stores/positionStore.ts';
+import useCreatureStore from '../stores/creatures.ts';
+import usePlayerStore from '../stores/playerStore.ts';
 
-interface Position {
-  x: number;
-  y: number;
-}
 
 interface SummonTurnProps {
-  creature: Creature | null;
   summon: Creature | null;
   turn: string;
-  player: { p_LeftHealth: number; armorClass: number };
   setCreatureHealth: (health: number) => void;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
   switchTurn: () => void;
-  enemyPosition: Position;
-  summonPosition: Position;
-  setSummonPosition: React.Dispatch<React.SetStateAction<Position>>;
 }
 
 export const useSummonTurn = ({
-  creature,
   turn,
-  player,
   setActionMessages,
   switchTurn,
-  enemyPosition,
-  summonPosition,
-  setSummonPosition,
   summon,
   setCreatureHealth,
 }: SummonTurnProps) => {
   useEffect(() => {
+    const {enemyPosition, summonPosition, setSummonPosition} = usePositionStore.getState();
+    const {creature} = useCreatureStore.getState();
+    const {player } = usePlayerStore.getState();
     const timeout = setTimeout(() => {
       if (
         turn === 'summon' &&

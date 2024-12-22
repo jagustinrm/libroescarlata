@@ -6,19 +6,15 @@ import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures';
 import { Dispatch, SetStateAction } from 'react';
 import { Player } from '../stores/types/player';
+import usePositionStore from '../stores/positionStore.ts';
 const BOSS_PROBABILITY = 0.5; // 5% de probabilidad para bosses
-interface Position {
-  x: number;
-  y: number;
-}
+
 interface HandleNewEnemyClickParams {
   player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
   setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
   updateEnemy: boolean;
   setUpdateEnemy: Dispatch<SetStateAction<boolean>>;
-  setPlayerPosition: Dispatch<SetStateAction<Position>>;
-  setEnemyPosition: Dispatch<SetStateAction<Position>>;
 }
 
 export function useEnemyLoader(
@@ -100,21 +96,14 @@ export function useEnemyLoader(
     setTurn,
     updateEnemy,
     setUpdateEnemy,
-    setPlayerPosition,
-    setEnemyPosition,
   }: HandleNewEnemyClickParams) => {
+    const {setPlayerPosition, setEnemyPosition,} = usePositionStore.getState();
     handleMessage(`${player.name} busca un nuevo enemigo...`, 'success', false);
     setTimeout(() => {
       setTurn('player');
       setUpdateEnemy(!updateEnemy);
-
-      const initialX = 0;
-      const initialY = 45;
-      const offsetX = 10 / 1.2;
-      const offsetY = 20 / 1.5;
-
-      setPlayerPosition({ x: initialX - offsetX, y: initialY - offsetY });
-      setEnemyPosition({ x: 45 - offsetX, y: 0 - offsetY });
+      setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 -  20 / 1.5 });
+      setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 -  20 / 1.5 });
     }, 1000);
   };
 

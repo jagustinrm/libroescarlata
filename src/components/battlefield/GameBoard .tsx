@@ -7,11 +7,8 @@ import usePlayerStore from '../../stores/playerStore';
 import useCreatureStore from '../../stores/creatures';
 import { useWeaponStore } from '../../stores/weaponStore';
 import useSpellStore from '../../stores/spellsStore';
+import usePositionStore from '../../stores/positionStore';
 
-interface Position {
-  x: number;
-  y: number;
-}
 
 interface Button {
   x: number;
@@ -21,27 +18,18 @@ interface Button {
 
 interface GameBoardProps {
   turn: 'player' | 'enemy' | 'summon';
-  playerPosition: Position;
-  enemyPosition: Position;
-  setPlayerPosition: React.Dispatch<React.SetStateAction<Position>>;
-  setEnemyPosition: React.Dispatch<React.SetStateAction<Position>>;
   SoundPlayer: React.FC<SoundPlayerProps>;
   summon?: Creature | null;
   setSummon: React.Dispatch<React.SetStateAction<Creature | null>>;
-  summonPosition: Position;
   switchTurn: () => void;
   selectedWeapon: string;
   selectedSpell: string;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
-  playerPosition,
-  setPlayerPosition,
-  enemyPosition,
   turn,
   SoundPlayer,
   summon,
-  summonPosition,
   switchTurn,
   selectedWeapon,
   selectedSpell,
@@ -57,6 +45,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { creature } = useCreatureStore();
   const { weapons } = useWeaponStore();
   const { spells } = useSpellStore();
+  const {playerPosition, enemyPosition, summonPosition} = usePositionStore();
   const weaponFiltered = weapons?.find((w) => w.name === selectedWeapon);
   const spellFiltered = spells?.find((s) => s.name === selectedSpell);
   const spellRange = spellFiltered?.range || 5;
@@ -81,8 +70,6 @@ const GameBoard: React.FC<GameBoardProps> = ({
     handleCombatAction(
       actionType,
       {
-        playerPosition,
-        setPlayerPosition,
         turn,
         switchTurn,
       },

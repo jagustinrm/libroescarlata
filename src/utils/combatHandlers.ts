@@ -1,30 +1,22 @@
 import { Dispatch, SetStateAction } from 'react';
 import { rollDice } from './rollDice.ts';
 import { PlayerActions } from '../stores/types/player.js';
-import { Player } from '../stores/types/player.js';
-import { Spell } from '../stores/types/spells';
 import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
-import { Weapon } from '../stores/types/weapons.ts';
+import useSpellStore from '../stores/spellsStore.ts';
+import { useWeaponStore } from '../stores/weaponStore.ts';
+import usePositionStore from '../stores/positionStore.ts';
 
 interface CombatHandlersProps {
-  player?: Player;
   playerActions?: PlayerActions;
   setActionMessages?: Dispatch<SetStateAction<string[]>>;
-  creature?: Creature | null;
-  spells?: Spell[];
-  weapons?: Weapon[];
-  charPositions?: { x: number; y: number }[];
   selectedSpell?: string;
   selectedWeapon?: string;
-  playerPosition?: Position;
-  enemyPosition?: Position;
   handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
   handlePostCombatActs?: (fightType: string, creature: Creature) => void;
   fightType?: string;
   setSummon?: Dispatch<SetStateAction<Creature | null>>;
-  setPlayerPosition?: Dispatch<SetStateAction<Position>>;
   switchTurn: () => void;
   turn?: 'enemy' | 'player' | 'summon';
   button?: Button;
@@ -49,16 +41,9 @@ export const handleCombatAction = (
   },
 ) => {
   const {
-    player,
-    creature,
-    spells,
-    weapons,
     selectedSpell,
     selectedWeapon,
-    playerPosition,
-    enemyPosition,
     setActionMessages,
-    setPlayerPosition,
     handleMessage,
     handlePostCombatActs,
     fightType,
@@ -68,11 +53,14 @@ export const handleCombatAction = (
   } = props;
 
   let shouldFinalizeTurn = true;
-
   const addActionMessage = (message: string) => {
     setActionMessages?.((prevMessages) => [...prevMessages, message]);
   };
-
+  const {player} = usePlayerStore.getState();
+  const {creature} = useCreatureStore.getState();
+  const {spells} = useSpellStore.getState();
+  const {weapons} = useWeaponStore.getState();
+  const {setPlayerPosition, playerPosition, enemyPosition} = usePositionStore.getState();
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
       switchTurn?.();
@@ -194,14 +182,16 @@ export const handleCombatAction = (
         useCreatureStore
           .getState()
           .setCreatureHealth(Math.max(creature.health - damage, 0));
-        typeof player?.p_LeftMana === 'number' &&
-          typeof spellDetails.manaCost === 'number' &&
-          usePlayerStore
-            .getState()
-            .playerActions.setP_LeftMana(
-              Math.max(player?.p_LeftMana - spellDetails.manaCost, 0),
-            );
-
+          if (
+            typeof player?.p_LeftMana === 'number' &&
+            typeof spellDetails.manaCost === 'number'
+          ) {
+            usePlayerStore
+              .getState()
+              .playerActions.setP_LeftMana(
+                Math.max(player.p_LeftMana - spellDetails.manaCost, 0),
+              );
+          }
         if (creature.health - damage <= 0 && fightType) {
           handleMessage?.('¡Has ganado el combate!', 'success', false);
           handlePostCombatActs?.(fightType, creature);

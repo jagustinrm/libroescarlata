@@ -153,7 +153,7 @@ export default function Inventory() {
   };
 
   return (
-    <section className="secctionInventory rpgui-container framed-golden-2">
+    <section className="sectionInventory rpgui-container framed-golden-2">
       <h1>Inventario</h1>
       <div className="buttonsInventory">
         <button
@@ -222,11 +222,9 @@ export default function Inventory() {
               <p>
                 <strong>Descripción:</strong> {selectedItem.description}
               </p>
-              {selectedItem.armorValue && (
-                <p>
-                  <strong>Armadura:</strong> {selectedItem.armorValue}
-                </p>
-              )}
+              <p>
+                <strong>Armadura:</strong> {selectedItem.armorValue}
+              </p>
               {/* <p><strong>Costo:</strong> {selectedItem.cost} <strong>materiales</strong></p> */}
               {selectedItem.damage && (
                 <p>
@@ -238,10 +236,10 @@ export default function Inventory() {
             <p>Selecciona un objeto para ver los detalles</p>
           )}
           {selectedItem && (
-            <div style={{ marginTop: '30px' }}>
+            <div style={{ marginTop: '3px' }}>
               <ButtonEdited
                 label="Equipar"
-                width="200px"
+                width="130px"
                 height="40px"
                 onClick={() => handleEquip(selectedItem)}
               />

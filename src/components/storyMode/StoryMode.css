@@ -68,3 +68,44 @@
   .dialog-bar{
     width: 100%;
   }
+
+  @media (max-width: 1360px) and (max-height: 768px) {
+    .story-mode-container {
+      padding: 30px;
+      height: 500px;
+      width: 900px;
+
+    }
+    .chapter-card {
+      padding: 20px;
+      border-radius: 8px;
+      width: 150px;
+      height: 100px;
+    }
+    
+    .chapter-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    .pagination {
+      gap: 5px;
+      margin-bottom: 10px;
+      height: 40px;
+    }
+    .pagination button {
+      font-size: 17px;
+      padding: 7px;
+
+    }
+    .story-title {
+      margin-bottom: 10px;
+    }
+    .chapterImg{
+      width: 200px;
+    }
+    .chapter-container {
+      height: 500px;
+
+    }
+  }

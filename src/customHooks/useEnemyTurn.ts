@@ -1,37 +1,25 @@
 import { useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
+import usePositionStore from '../stores/positionStore.ts';
+import useCreatureStore from '../stores/creatures.ts';
+import usePlayerStore from '../stores/playerStore.ts';
 
-import { Creature } from '../stores/types/creatures.ts';
-import { Player } from '../stores/types/player';
-
-interface Position {
-  x: number;
-  y: number;
-}
 
 interface EnemyTurnProps {
-  creature: Creature | null;
   turn: string;
-  player: Player;
-  playerActions: { setP_LeftHealth: (health: number) => void };
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
   switchTurn: () => void;
-  playerPosition: Position;
-  enemyPosition: Position;
-  setEnemyPosition: React.Dispatch<React.SetStateAction<Position>>;
 }
 
 export const useEnemyTurn = ({
-  creature,
   turn,
-  player,
-  playerActions,
   setActionMessages,
   switchTurn,
-  playerPosition,
-  enemyPosition,
-  setEnemyPosition,
+
 }: EnemyTurnProps) => {
+  const {playerPosition, enemyPosition, setEnemyPosition} = usePositionStore.getState();
+  const {creature} = useCreatureStore.getState();
+  const {player, playerActions} = usePlayerStore.getState();
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (
@@ -44,7 +32,7 @@ export const useEnemyTurn = ({
         const deltaX = playerPosition.x - enemyPosition.x;
         const deltaY = playerPosition.y - enemyPosition.y;
 
-        const stepSize = 5;
+        const stepSize = 10;
 
         const newX =
           Math.abs(deltaX) > stepSize

@@ -181,16 +181,17 @@ export default function Home() {
         />
       </div>
 
-      {showMessage && (
+
+
+      {showMissions && <Quests onClose={() => setShowMissions(false)} />}
+    </div>
+    {showMessage && (
         <MessageBox
           message="¡Te curaste toda la vida!"
           type="success"
           onClose={handleClose}
         />
       )}
-
-      {showMissions && <Quests onClose={() => setShowMissions(false)} />}
-    </div>
     </div>
   );
 }
