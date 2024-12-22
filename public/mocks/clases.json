@@ -108,7 +108,7 @@
         "img": "/img/classes/class_priest.png",
         "faceImg": "/img/classes/faces/charFacePriest.png",
         "iconImg": "img/icons/priest-icon.png",
-        "initialSpells": ["Curación menor"],
+        "initialSpells": ["Spell-005"],
         "description": "Un servidor divino con habilidades para sanar y luchar contra las fuerzas del mal."
     },
     {
@@ -192,7 +192,7 @@
         "img": "/img/classes/class_druid.png",
         "faceImg": "/img/classes/faces/charFaceDruid.png",
         "iconImg": "img/icons/druid-icon.png",
-        "initialSpells": ["Convocar animales menores"],
+        "initialSpells": ["Spell-006"],
         "description": "Un protector de la naturaleza con habilidades mágicas y transformaciones animales."
     },
     {
