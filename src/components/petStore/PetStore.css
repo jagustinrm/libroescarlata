@@ -56,7 +56,7 @@
   align-items: center;
   margin-right: 10px;
   margin-left: 10px;
-  min-width: 470px;
+  min-width: 480px;
   overflow: hidden; /* Oculta contenido que exceda el contenedor */
   transition:
     max-height 0.5s ease,
@@ -67,8 +67,8 @@
 
 .containerPets.open {
   opacity: 1; /* Visible al abrir */
-  max-height: 300px; /* Ajusta a un valor mayor que el contenido real */
-  min-height: 300px;
+  max-height: 350px; /* Ajusta a un valor mayor que el contenido real */
+  min-height: 350px;
   max-width: 500px;
   min-width: 500px;
 }
@@ -120,4 +120,8 @@
   line-height: none;
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.optionsDropDown{
+  background-color: rgb(237, 123, 17);
 }

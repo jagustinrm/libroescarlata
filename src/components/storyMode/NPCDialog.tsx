@@ -2,28 +2,61 @@ import React, { useEffect, useState } from "react";
 import useDialogStore from "../../stores/dialogStore";
 import BackButton from "../UI/BackButton";
 import { Dialog, DialogLine } from "../../stores/types/dialog";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useGlobalState from "../../customHooks/useGlobalState";
 interface NPCDialogProps {
   dialogId: string; // ID del diálogo inicial
   onDialogEnd?: () => void; // Callback cuando el diálogo termina
+  chapterIndex: number | undefined
+  storyIndex: number | undefined
 }
 
-const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd }) => {
-  const { getDialogById, dialogs } = useDialogStore(); // Obtener la función para buscar diálogos
-  const [currentLineIndex, setCurrentLineIndex] = useState(0); // Índice de la línea actual
-  const [currentLine, setCurrentLine] = useState<DialogLine | null>(null); // Línea actual
-  const [currentDialog, setCurrentDialog] = useState<Dialog | null>(null); // Diálogo actual
+const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd, chapterIndex, storyIndex }) => {
+  const { getDialogById, dialogs } = useDialogStore();
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [currentLine, setCurrentLine] = useState<DialogLine | null>(null);
+  const [currentDialog, setCurrentDialog] = useState<Dialog | null>(null);
+  const [currentEvent, setCurrentEvent] = useState<any | null>(null); // Estado para el evento
   const navigate = useNavigate();
+  const { player, playerActions, stories } = useGlobalState();
+  const location = useLocation();
   // Inicializar el diálogo al montar el componente o cambiar el dialogId
   useEffect(() => {
-    const dialog = getDialogById(dialogId); // Buscar el diálogo por ID
+    const dialog = getDialogById(dialogId);
     if (dialog) {
-      setCurrentDialog(dialog); // Establecer el diálogo actual
-      setCurrentLine(dialog.lines[0]); // Primera línea del diálogo
+      setCurrentDialog(dialog);
+      setCurrentLine(dialog.lines[0]);
     } else {
       console.error(`Dialog with ID "${dialogId}" not found.`);
     }
   }, [dialogId, dialogs]);
+ 
+  useEffect(() => {
+    if (!currentDialog) return; 
+
+    const storedEvent = localStorage.getItem("updatedEvent");
+
+    if (storedEvent) {
+      const updatedEvent = JSON.parse(storedEvent);
+      setCurrentEvent(updatedEvent);
+      console.log(updatedEvent) 
+      console.log(currentDialog)
+      if (updatedEvent.status === "completed" && currentDialog) {
+        playerActions.updateStoryProgress("story-001", {completedEvents: ["event-1-1"]})
+
+        // Saltar al siguiente diálogo después del evento
+        console.log(updatedEvent.id)
+        const nextIndex = currentDialog.lines.findIndex(
+          (line) => line.event === updatedEvent.id
+        ) + 1;
+        console.log(nextIndex)
+        setCurrentLineIndex(nextIndex !== -1 ? nextIndex : currentLineIndex);
+      }
+
+      // Limpiar el localStorage después de usar el evento
+      localStorage.removeItem("updatedEvent");
+    }
+  }, [currentDialog]);
 
   // Actualizar la línea actual cuando el índice cambia
   useEffect(() => {
@@ -32,16 +65,35 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd }) => {
     }
   }, [currentLineIndex, currentDialog]);
 
-  // Manejar la selección de una opción
-  const handleOptionSelect = (outcome: string) => {
-    console.log(`Opción seleccionada: ${outcome}`);
-    if (outcome === "fight") {
-        navigate("/fightScene?enemy=Goblin")
+  // Actualizar el evento basado en la línea actual, storyIndex y chapterIndex
+  useEffect(() => {
+    if (stories && storyIndex !== undefined && chapterIndex !== undefined && currentLine) {
+      const chapter = stories[storyIndex]?.chapters[chapterIndex];
+      if (chapter) {
+        const event = chapter.events?.find(e => e.id === currentLine.event);
+        setCurrentEvent(event || null); // Actualizar el estado del evento
+      } else {
+        setCurrentEvent(null);
+      }
     }
+  }, [stories, storyIndex, chapterIndex, currentLine]);
+
+  // Manejar la selección de una opción
+  const handleOptionSelect = (option: { outcome: string; enemies: any[]; }) => {
+    if (option.outcome === "fight") {
+      navigate("/fightScene", {
+        state: {
+          enemy: option.enemies[0],
+          fightType: "story",
+          event: currentEvent, 
+        },
+      });
+    }
+
     if (currentDialog && currentLineIndex < currentDialog.lines.length - 1) {
       setCurrentLineIndex((prev) => prev + 1);
     } else if (onDialogEnd) {
-      onDialogEnd(); // Llamar al callback cuando el diálogo termina
+      onDialogEnd();
     }
   };
 
@@ -50,31 +102,38 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd }) => {
     if (currentDialog && currentLineIndex < currentDialog.lines.length - 1) {
       setCurrentLineIndex((prev) => prev + 1);
     } else if (onDialogEnd) {
-      onDialogEnd(); // Llamar al callback cuando el diálogo termina
+      onDialogEnd();
     }
   };
 
-  // Renderizar "Cargando..." si el diálogo o la línea actual no están disponibles
   if (!currentLine || !currentDialog) {
     return <div className="npc-dialog">Cargando...</div>;
   }
-  console.log(currentDialog.lines[currentLineIndex])
+
+  
+ const verifyEvent = () => {
+    const actualStory = player.storyProgress.findIndex(sp => sp.storyId === "story-001" )
+    if (player.storyProgress[actualStory]) {
+      return player.storyProgress[actualStory].completedEvents.findIndex(ce => ce === currentEvent) != -1
+    } else {
+      return true
+    }
+ }
   return (
     <div className="npc-dialog">
-      {/* Mostrar la línea actual del diálogo */}
       <div className="dialog-bar rpgui-container framed-golden-2">
         <p>
           <strong>{currentLine.speaker}:</strong> {currentLine.text}
         </p>
       </div>
 
-      {/* Mostrar opciones si están disponibles */}
-      {currentDialog.lines[currentLineIndex].options && currentDialog.lines[currentLineIndex].options.length > 0 ? (
+      {/* Renderizar opciones del evento si está disponible */}
+      {currentEvent && verifyEvent() ? (
         <div className="dialog-options">
-          {currentDialog.lines[currentLineIndex].options.map((option) => (
-             <button
-              key={option.id} // Usar ID como clave única
-              onClick={() => option.outcome && handleOptionSelect(option.outcome)}
+          {currentEvent.options.map((option: any) => (
+            <button
+              key={option.id}
+              onClick={() => option.outcome && handleOptionSelect(option)}
               className="dialog-option"
             >
               {option.text}
@@ -82,13 +141,11 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd }) => {
           ))}
         </div>
       ) : (
-        // Mostrar botón de continuar si no hay opciones
         <button className="dialog-continue" onClick={handleContinue}>
           Continuar
         </button>
       )}
 
-      {/* Botón para volver */}
       <BackButton />
     </div>
   );

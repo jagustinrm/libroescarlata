@@ -21,10 +21,18 @@ export default function Home() {
   const handleAction = (action: string) => {
     switch (action) {
       case 'fight-normal':
-        navigate('/fightScene?type=normal');
+        navigate('/fightScene', { 
+          state: { 
+            fightType: "normal" 
+          }
+        });
         break;
       case 'fight-dungeon':
-        navigate('/fightScene?type=dungeon');
+        navigate('/fightScene', { 
+          state: { 
+            fightType: "dungeon" 
+          }
+        });
         break;
       case 'townMap':
         navigate('/townMap');
@@ -106,10 +114,10 @@ export default function Home() {
                   ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}
                 </p>
                 <p>🛠️ Materiales: {player.playerMaterial}</p>
-                <p>
+                {/* <p>
                   🗡️ Arma actual:{' '}
                   {player.selectedWeapon?.name || 'Sin arma equipada'}
-                </p>
+                </p> */}
                 {player.selectedPet && (
                   <p>🐶 Mascota: {player.selectedPet.name}</p>
                 )}

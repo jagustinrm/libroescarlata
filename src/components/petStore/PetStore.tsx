@@ -124,7 +124,7 @@ export default function PetStore() {
                 </div>
                 <div className="containerPetStats">
                   <h3 className="detailTitle">
-                    Detalles de {selectedPet.name}
+                    {selectedPet.name}
                   </h3>
                   <p className="petText">
                     <strong>Tipo:</strong> {selectedPet.type}
@@ -144,13 +144,14 @@ export default function PetStore() {
                   <p className="petText">
                     <strong>Habilidades especiales:</strong>
                   </p>
-                  <select className="specialAbilities">
+                  <select className="specialAbilities rpgui-dropdown rpgui-dropdown-imp-header listSize">
                     {selectedPet.specialAbilities.map((ability, index) => (
-                      <option key={index} value={ability}>
+                      <option className='optionsDropDown' key={index} value={ability}>
                         {ability}
                       </option>
                     ))}
                   </select>
+
                 </div>
               </>
             )}

@@ -8,7 +8,8 @@ export interface DialogOption {
   export interface DialogLine {
     speaker?: string; // Quién habla en esta línea (opcional)
     text: string; // Texto del diálogo
-    options?: DialogOption[]; // Opciones de diálogo si las hay
+    // options?: DialogOption[]; // Opciones de diálogo si las hay
+    event: string;
     unlockCondition?: { chapterId: number; eventId: string }; // Condición para desbloquear el diálogo (opcional)
   }
   

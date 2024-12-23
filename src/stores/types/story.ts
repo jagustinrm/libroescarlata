@@ -1,7 +1,13 @@
 export interface Event {
   id: string; // Identificador único del evento
-  description: string; // Descripción del evento
-  completed: boolean; // Indica si el evento fue completado
+  description?: string; // Descripción del evento
+  status: string; // Indica si el evento fue completado
+  options?: [{
+    id: string,
+    text: string,
+    outcome: string,
+    enemies?: string[]
+  }]
   choices?: { [key: string]: string }; // Opciones con sus descripciones
   selectedChoice?: string; // Elección tomada
   unlockCondition?: { chapterId: number; eventId: string }; // Requisito para desbloquear
@@ -10,10 +16,11 @@ export interface Event {
 }
 
 export interface Chapter {
-  id: number; // Identificador único del capítulo
+  id: string; // Identificador único del capítulo
   title: string; // Título del capítulo
   events: Event[]; // Lista de eventos asociados
   completed: boolean; // Indica si el capítulo fue completado
+  dialogSequence: string;
 }
 
 export interface Story {

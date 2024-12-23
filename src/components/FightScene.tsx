@@ -1,6 +1,6 @@
 import './FightScene.css';
 import './UI/designRpg.css';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import usePostCombatActions from '../customHooks/usePostCombatActions';
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -33,9 +33,9 @@ export default function FightScene() {
     redirectHome: false,
   });
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const fightType = searchParams.get('type') || 'normal';
-  const enemy = searchParams.get('enemy');
+  const location = useLocation()
+  const {enemy, fightType, event} = location.state
+
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {spells, weapons, player, playerActions, creature, setCreatureHealth, inventories,
     playerPosition, setPlayerPosition, setEnemyPosition, setSummonPosition,
@@ -69,7 +69,7 @@ export default function FightScene() {
     // cargar enemy
     isLoading,
     handleNewEnemyClick,
-  } = useEnemyLoader(player.level, dungeonLevel, updateEnemy, enemy);
+  } = useEnemyLoader(player.level, dungeonLevel, updateEnemy, enemy, fightType);
   const defaultQuests: QuestData = {
     questTree: {
       history: [],
@@ -217,7 +217,11 @@ export default function FightScene() {
       show: false,
     }));
     if (shouldClose) {
-      navigate('/home');
+ 
+      const updatedEvent = { ...event, status: "completed" };
+
+      localStorage.setItem("updatedEvent", JSON.stringify(updatedEvent));
+      navigate(-1);
     }
   };
 
@@ -231,7 +235,7 @@ export default function FightScene() {
 
   if (isLoading) return <p>Cargando enemigo...</p>;
   // if (error)  return <p>Error: {error}</p>;
-  console.log(player, "Player")
+  console.log(player.storyProgress)
   return (
     <div className="fight-scene">
       <div className="turn-indicator fixedUI ">

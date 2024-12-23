@@ -102,9 +102,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     randomSuffix?: string;
   };
   
-  // type ImagesMap = {
-  //   [key: string]: () => Promise<{ default: string }>;
-  // };
+
   
   const getImageUrl = async (
     {

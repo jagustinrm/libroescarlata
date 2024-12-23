@@ -11,24 +11,21 @@
       },
       {
         "speaker": "Player",
-        "options": [
-          {
-            "id": "choice-1",
-            "text": "Luchar",
-            "outcome": "fight",
-            "enemies": ["goblin"]
-          },
-          {
-            "id": "choice-2",
-            "text": "Huir",
-            "outcome": "escape"
-          }
-        ]
+        "event": "event-1-1"
       },
       {
         "speaker": "NPC",
         "text": "Tu elección dice mucho. Acá te dejo material para que hagas lo que necesites."
       }
+    ]
+  }, {
+    "id": "dialog-2",
+    "lines": [
+      {
+        "speaker": "Narrador",
+        "text": "Hola."
+      }
+
     ]
   }
 ]

@@ -295,13 +295,27 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         set((state) => ({
           player: { ...state.player, storyProgress: progress },
         })),
-      updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) =>
-        set((state) => {
-          const updatedProgress = state.player.storyProgress.map((story) =>
-            story.id === storyId ? { ...story, ...progress } : story
-          );
-          return { player: { ...state.player, storyProgress: updatedProgress } };
-        }),
+        updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) =>
+          set((state) => {
+            console.log(storyId);
+            console.log(progress);
+        
+            const existingStory = state.player.storyProgress.find((story) => story.storyId === storyId);
+        
+            let updatedProgress;
+            if (existingStory) {
+              // Si el storyId existe, actualiza el progreso
+              updatedProgress = state.player.storyProgress.map((story) =>
+                story.storyId === storyId ? { ...story, ...progress } : story
+              );
+            } else {
+              // Si el storyId no existe, agrega el nuevo progreso
+              updatedProgress = [...state.player.storyProgress, { storyId, ...progress }];
+            }
+        
+            return { player: { ...state.player, storyProgress: updatedProgress } };
+          }),
+        
       setCurrentStoryId: (storyId: string | null) =>
         set((state) => ({
           player: { ...state.player, currentStoryId: storyId },

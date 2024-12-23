@@ -98,6 +98,34 @@
       ],
       "img": "/img/minor_ice_elemental.png",
       "cost": 300
+    },
+    {
+      "name": "Serpetina",
+      "type": "reptil",
+      "alignment": "neutral",
+      "level": 1,
+      "hitPoints": "1d3",
+      "armorClass": 12,
+      "attack": {
+        "melee": "mordisco +1 (1d2 daño)"
+      },
+      "specialAbilities": ["veneno débil", "movimiento sigiloso"],
+      "img": "/img/baby_snake.png",
+      "cost": 1000
+    },
+    {
+      "name": "Tigresín",
+      "type": "mamífero",
+      "alignment": "neutral",
+      "level": 1,
+      "hitPoints": "1d6",
+      "armorClass": 14,
+      "attack": {
+        "melee": "zarpazo +2 (1d4 daño)"
+      },
+      "specialAbilities": ["visión nocturna", "agilidad mejorada"],
+      "img": "/img/baby_tiger.png",
+      "cost": 1000
     }
     
   ]

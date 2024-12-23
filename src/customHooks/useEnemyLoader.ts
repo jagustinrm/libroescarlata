@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
-import { useSearchParams } from 'react-router-dom';
 // import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
 import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures';
@@ -15,6 +14,7 @@ interface HandleNewEnemyClickParams {
   setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
   updateEnemy: boolean;
   setUpdateEnemy: Dispatch<SetStateAction<boolean>>;
+  fightType: string;
 }
 
 export function useEnemyLoader(
@@ -22,10 +22,10 @@ export function useEnemyLoader(
   dungeonLevel: number,
   updateEnemy: boolean,
   enemy: string | null,
+  fightType: string
 ) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [searchParams] = useSearchParams();
-  const type = searchParams.get('type') || 'normal';
+
   const { creatures, bosses, setCreature } = useCreatureStore();
 
   const filterByLevel = (
@@ -55,9 +55,11 @@ export function useEnemyLoader(
   const selectEnemy = () => {
 
     try {
+      console.log(enemy)
       if (enemy) {
         const storyCreature = creatures.find(c => c.name === enemy)
         if (storyCreature) {
+          console.log(storyCreature)
           const initialHealth = rollDice(storyCreature.hitPoints);
           setCreature({ ...storyCreature, health: initialHealth });
           setIsLoading(false);
@@ -66,7 +68,9 @@ export function useEnemyLoader(
         
 
       }
-      if (type === 'dungeon') {
+      console.log(fightType)
+      if (fightType === 'dungeon') {
+
         const isBoss = Math.random() < BOSS_PROBABILITY;
 
         if (isBoss && bosses.length > 0) {

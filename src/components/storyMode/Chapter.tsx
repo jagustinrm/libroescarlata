@@ -1,18 +1,19 @@
 
 import { useSearchParams } from "react-router-dom";
 import NPCDialog from "./NPCDialog";
+import useGlobalState from "../../customHooks/useGlobalState";
 
+// Verificar si está completo o no
 
 export default function Chapter() {
   const [searchParams] = useSearchParams();
-  
+  const {stories} = useGlobalState();
   // Obtener parámetros específicos
   const storyParam = searchParams.get("story");
-//   const chapterParam = searchParams.get("chapter");
-
   // Parsear storyParam si viene combinado
   const [storyId, chapterId] = storyParam ? storyParam.split("-chapter=") : ["", ""];
-
+  const chapterIndex = stories[0].chapters?.findIndex(c => c.id === chapterId);
+  const storyIndex = stories.findIndex(s => s.id === storyId);
   return (
     <div className="chapter-container rpgui-container framed-golden-2">
       <div>
@@ -23,8 +24,10 @@ export default function Chapter() {
         <div className="dialogsLogs">
             
             <NPCDialog 
-                dialogId="dialog-1" 
-                onDialogEnd={() => console.log("Diálogo terminado")} 
+                dialogId={ stories[storyIndex].chapters[chapterIndex].dialogSequence } 
+                onDialogEnd={() => console.log("Diálogo terminado")}
+                chapterIndex = {chapterIndex}
+                storyIndex = {storyIndex} 
             />
         </div>
     </div>

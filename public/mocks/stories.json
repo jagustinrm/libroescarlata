@@ -3,28 +3,30 @@
   "title": "La leyenda de Taní",
   "chapters": [
     {
-      "id": 1,
+      "id": "1",
       "title": "El Cuervo",
+      "dialogSequence": "dialog-1",
       "events": [
         {
           "id": "event-1-1",
           "description": "Devastado luego de ver arder tu aldea, un hombre misterioso se te presenta",
           "status": "in-progress",
+          "options": [
+          {
+            "id": "choice-1",
+            "text": "Luchar",
+            "outcome": "fight",
+            "enemies": ["Goblin"]
+          },
+          {
+            "id": "choice-2",
+            "text": "Huir",
+            "outcome": "escape"
+          }],
           "reward": [
             { "items": [{ "name": "Poción de Curación Menor", "type": "potions", "cant": 1 }] },
             { "materials": 200 }
-          ],
-          "fight": {
-            "canFight": true,
-            "enemies": ["goblin"]
-          },
-          "dialogSequence": "dialog-1",
-          "worldState": { "villageBurned": "true" },
-          "conditions": {
-            "requiresItem": "",
-            "requiresLevel": 1,
-            "requiresState": ""
-          }
+          ]
         },
         {
           "id": "event-1-2",
@@ -100,8 +102,9 @@
       "completed": false
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "La Cueva Misteriosa",
+      "dialogSequence": "dialog-2",
       "events": [
         {
           "id": "event-2-1",
@@ -186,7 +189,7 @@
       "completed": false
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "La Batalla de las Montañas",
       "events": [
         {
@@ -272,7 +275,7 @@
       "completed": false
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "El Reino Perdido",
       "events": [
         {

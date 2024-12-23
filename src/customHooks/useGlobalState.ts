@@ -5,6 +5,7 @@ import useInventoryStore from "../stores/inventoryStore";
 import usePlayerStore from "../stores/playerStore";
 import usePositionStore from "../stores/positionStore";
 import useSpellStore from "../stores/spellsStore";
+import useStoryStore from "../stores/storyStore";
 import { useWeaponStore } from "../stores/weaponStore";
 
 const useGlobalState = () => ({
@@ -16,6 +17,7 @@ const useGlobalState = () => ({
     ...useClassStore(),
     ...useArmorStore(),
     ...usePositionStore(),
+    ...useStoryStore(),
   });
 
 export default useGlobalState
