@@ -4,23 +4,33 @@ import BackButton from "../UI/BackButton";
 import { Dialog, DialogLine } from "../../stores/types/dialog";
 import { useLocation, useNavigate } from "react-router-dom";
 import useGlobalState from "../../customHooks/useGlobalState";
+
 interface NPCDialogProps {
   dialogId: string; // ID del diálogo inicial
   onDialogEnd?: () => void; // Callback cuando el diálogo termina
-  chapterIndex: number | undefined
-  storyIndex: number | undefined
+  chapterIndex: number | undefined;
+  storyIndex: number | undefined;
+  storyId: string;
 }
 
-const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd, chapterIndex, storyIndex }) => {
+const NPCDialog: React.FC<NPCDialogProps> = ({
+  dialogId,
+  onDialogEnd,
+  chapterIndex,
+  storyIndex,
+  storyId,
+}) => {
   const { getDialogById, dialogs } = useDialogStore();
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentLine, setCurrentLine] = useState<DialogLine | null>(null);
   const [currentDialog, setCurrentDialog] = useState<Dialog | null>(null);
   const [currentEvent, setCurrentEvent] = useState<any | null>(null); // Estado para el evento
+  const [displayedText, setDisplayedText] = useState(""); // Texto progresivo
+  const [isTextCompleted, setIsTextCompleted] = useState(false); // Estado de finalización del texto
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null); // Estado para guardar el ID del intervalo
   const navigate = useNavigate();
   const { player, playerActions, stories } = useGlobalState();
-  const location = useLocation();
-  // Inicializar el diálogo al montar el componente o cambiar el dialogId
+
   useEffect(() => {
     const dialog = getDialogById(dialogId);
     if (dialog) {
@@ -30,62 +40,62 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd, chapterInd
       console.error(`Dialog with ID "${dialogId}" not found.`);
     }
   }, [dialogId, dialogs]);
- 
+
   useEffect(() => {
-    if (!currentDialog) return; 
+    if (!currentDialog) return;
 
     const storedEvent = localStorage.getItem("updatedEvent");
 
     if (storedEvent) {
       const updatedEvent = JSON.parse(storedEvent);
-      setCurrentEvent(updatedEvent);
-      console.log(updatedEvent) 
-      console.log(currentDialog)
-      if (updatedEvent.status === "completed" && currentDialog) {
-        playerActions.updateStoryProgress("story-001", {completedEvents: ["event-1-1"]})
 
-        // Saltar al siguiente diálogo después del evento
-        console.log(updatedEvent.id)
-        const nextIndex = currentDialog.lines.findIndex(
-          (line) => line.event === updatedEvent.id
-        ) + 1;
-        console.log(nextIndex)
+      setCurrentEvent(updatedEvent);
+      if (updatedEvent.status === "completed" && currentDialog) {
+        playerActions.updateStoryProgress(storyId, {
+          completedEvents: [updatedEvent.id],
+        });
+
+        const nextIndex =
+          currentDialog.lines.findIndex(
+            (line) => line.event === updatedEvent.id
+          ) + 1;
         setCurrentLineIndex(nextIndex !== -1 ? nextIndex : currentLineIndex);
       }
 
-      // Limpiar el localStorage después de usar el evento
       localStorage.removeItem("updatedEvent");
     }
   }, [currentDialog]);
 
-  // Actualizar la línea actual cuando el índice cambia
   useEffect(() => {
     if (currentDialog) {
       setCurrentLine(currentDialog.lines[currentLineIndex]);
     }
   }, [currentLineIndex, currentDialog]);
 
-  // Actualizar el evento basado en la línea actual, storyIndex y chapterIndex
   useEffect(() => {
-    if (stories && storyIndex !== undefined && chapterIndex !== undefined && currentLine) {
+    if (
+      stories &&
+      storyIndex !== undefined &&
+      chapterIndex !== undefined &&
+      currentLine
+    ) {
       const chapter = stories[storyIndex]?.chapters[chapterIndex];
       if (chapter) {
-        const event = chapter.events?.find(e => e.id === currentLine.event);
-        setCurrentEvent(event || null); // Actualizar el estado del evento
+        const event = chapter.events?.find((e) => e.id === currentLine.event);
+        setCurrentEvent(event || null);
       } else {
         setCurrentEvent(null);
       }
     }
   }, [stories, storyIndex, chapterIndex, currentLine]);
 
-  // Manejar la selección de una opción
-  const handleOptionSelect = (option: { outcome: string; enemies: any[]; }) => {
+  const handleOptionSelect = (option: { outcome: string; enemies: any[] }) => {
     if (option.outcome === "fight") {
       navigate("/fightScene", {
         state: {
           enemy: option.enemies[0],
           fightType: "story",
-          event: currentEvent, 
+          event: currentEvent,
         },
       });
     }
@@ -97,12 +107,54 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd, chapterInd
     }
   };
 
-  // Manejar el botón de continuar
   const handleContinue = () => {
-    if (currentDialog && currentLineIndex < currentDialog.lines.length - 1) {
-      setCurrentLineIndex((prev) => prev + 1);
-    } else if (onDialogEnd) {
-      onDialogEnd();
+    if (isTextCompleted) {
+      if (currentDialog && currentLineIndex < currentDialog.lines.length - 1) {
+        setCurrentLineIndex((prev) => prev + 1);
+        setIsTextCompleted(false);
+      } else if (onDialogEnd) {
+        onDialogEnd();
+      }
+    } else {
+      // Elimina el texto progresivo y muestra el texto completo de inmediato
+      setDisplayedText("");
+      setTimeout(() => {
+        setDisplayedText(currentLine?.text || "");
+        setIsTextCompleted(true);
+      }, 0); // Permite limpiar antes de actualizar
+    }
+  };
+ 
+  useEffect(() => {
+    if (currentLine?.text) {
+      setDisplayedText("");
+      setIsTextCompleted(false);
+
+      const text = currentLine.text;
+      let index = 0;
+
+      const interval = setInterval(() => {
+        if (index < text.length - 1) {
+          setDisplayedText((prev) => prev + text[index]);
+          index++;
+        } else {
+          clearInterval(interval);
+          setIsTextCompleted(true);
+        }
+      }, 30);
+
+      // Guardamos el ID del intervalo para poder cancelarlo
+      setIntervalId(interval);
+
+      return () => clearInterval(interval);
+    }
+  }, [currentLine]);
+
+  // Maneja el clic para detener el intervalo si está en ejecución
+  const handleDialogClick = () => {
+    if (intervalId) {
+      clearInterval(intervalId); // Detenemos el intervalo al hacer clic
+      setIsTextCompleted(true); // Marcamos el texto como completado
     }
   };
 
@@ -110,24 +162,31 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd, chapterInd
     return <div className="npc-dialog">Cargando...</div>;
   }
 
-  
- const verifyEvent = () => {
-    const actualStory = player.storyProgress.findIndex(sp => sp.storyId === "story-001" )
+  const verifyEvent = () => {
+    // VERIFICA SI ESTÁ COMPLETO
+    const actualStory = player.storyProgress.findIndex(
+      (sp) => sp.storyId === storyId
+    );
     if (player.storyProgress[actualStory]) {
-      return player.storyProgress[actualStory].completedEvents.findIndex(ce => ce === currentEvent) != -1
+      return (
+        player.storyProgress[actualStory].completedEvents.findIndex(
+          (ce) => ce === currentEvent
+        ) !== -1
+      );
     } else {
-      return true
+      return true;
     }
- }
+  };
+
   return (
-    <div className="npc-dialog">
-      <div className="dialog-bar rpgui-container framed-golden-2">
-        <p>
-          <strong>{currentLine.speaker}:</strong> {currentLine.text}
-        </p>
+    <div className="npc-dialog" onClick={handleDialogClick}>
+      <div
+        className="dialog-bar rpgui-cursor-point"
+        onClick={!verifyEvent() ? handleContinue : undefined}
+      >
+        <p>{displayedText}</p>
       </div>
 
-      {/* Renderizar opciones del evento si está disponible */}
       {currentEvent && verifyEvent() ? (
         <div className="dialog-options">
           {currentEvent.options.map((option: any) => (
@@ -141,9 +200,14 @@ const NPCDialog: React.FC<NPCDialogProps> = ({ dialogId, onDialogEnd, chapterInd
           ))}
         </div>
       ) : (
-        <button className="dialog-continue" onClick={handleContinue}>
-          Continuar
-        </button>
+        currentLineIndex !== currentDialog.lines.length - 1 && (
+          <img
+            className="indicator-arrow-dialog rpgui-cursor-point"
+            src="/img/UI/indicator-arrow.png"
+            alt="Continuar"
+            onClick={!currentEvent ? handleContinue : undefined}
+          />
+        )
       )}
 
       <BackButton />

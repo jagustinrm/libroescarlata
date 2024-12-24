@@ -3,19 +3,23 @@
     "lines": [
       {
         "speaker": "Narrador",
-        "text": "Al escuchar tu nombre el cuervo sobre el hombro de aquel encapuchado se pone a graznar."
+        "text":"  Al escuchar tu nombre, el cuervo sobre el hombro del encapuchado se pone a graznar."
+      },      {
+        "speaker": "Narrador",
+        "text": "  El encapuchado señala con el dedo hacia tu aldea y te murmura con la voz áspera:"
       },
       {
         "speaker": "NPC",
-        "text": "Ahí está quien te atacó."
+        "text": "  Ahí está quien te atacó."
       },
       {
         "speaker": "Player",
-        "event": "event-1-1"
+        "event": "event-1-1",
+        "text": "  Un goblin "
       },
       {
         "speaker": "NPC",
-        "text": "Tu elección dice mucho. Acá te dejo material para que hagas lo que necesites."
+        "text": "  Tu elección dice mucho. Acá te dejo material para que hagas lo que necesites."
       }
     ]
   }, {
@@ -23,7 +27,7 @@
     "lines": [
       {
         "speaker": "Narrador",
-        "text": "Hola."
+        "text": "  Hola."
       }
 
     ]

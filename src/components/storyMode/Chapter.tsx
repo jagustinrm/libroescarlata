@@ -1,5 +1,5 @@
 
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import NPCDialog from "./NPCDialog";
 import useGlobalState from "../../customHooks/useGlobalState";
 
@@ -14,8 +14,15 @@ export default function Chapter() {
   const [storyId, chapterId] = storyParam ? storyParam.split("-chapter=") : ["", ""];
   const chapterIndex = stories[0].chapters?.findIndex(c => c.id === chapterId);
   const storyIndex = stories.findIndex(s => s.id === storyId);
+  const backgroundImageUrl = `/img/story/chapter-00${chapterId}.png`;
+  const navigate = useNavigate();
   return (
-    <div className="chapter-container rpgui-container framed-golden-2">
+    <div className="chapter-container rpgui-container framed-golden-2"
+    style={{
+      backgroundImage: `url(${backgroundImageUrl})`
+      }}
+    >
+
       <div>
       <h1>Historia: {storyId}</h1>
       <h2>Capítulo: {chapterId}</h2>
@@ -25,9 +32,10 @@ export default function Chapter() {
             
             <NPCDialog 
                 dialogId={ stories[storyIndex].chapters[chapterIndex].dialogSequence } 
-                onDialogEnd={() => console.log("Diálogo terminado")}
+                onDialogEnd={() => navigate(-1)}
                 chapterIndex = {chapterIndex}
                 storyIndex = {storyIndex} 
+                storyId = {storyId}
             />
         </div>
     </div>

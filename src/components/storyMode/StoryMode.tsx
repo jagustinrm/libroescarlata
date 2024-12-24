@@ -62,13 +62,19 @@ export default function StoryMode() {
 
           {/* Tarjetas de capítulos */}
           <div className="chapter-cards rpgui-cursor-point">
-            {currentStory.chapters && currentStory.chapters.map((chapter) => (
-              <div 
-                key={chapter.id} 
-                className="chapter-card" 
-                onClick={() => handleChapterClick(chapter.id)}>
-                <h3>{chapter.title}</h3>
-              </div>
+            {currentStory.chapters && currentStory.chapters.map((chapter) => 
+            (
+            <div 
+              style={{ 
+                backgroundImage: `url(/img/story/chapter-00${chapter.id}.png)`, 
+                backgroundSize: "cover", // Ajusta según tu diseño
+                backgroundPosition: "center"
+              }} 
+              key={chapter.id} 
+              className="chapter-card" 
+              onClick={() => handleChapterClick(chapter.id)}>
+              <h3>{chapter.title}</h3>
+            </div>
             ))}
           </div>
         </div>
