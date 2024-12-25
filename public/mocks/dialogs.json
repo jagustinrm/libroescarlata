@@ -9,16 +9,16 @@
         "text": "  El encapuchado señala con el dedo hacia tu aldea y te murmura con la voz áspera:"
       },
       {
-        "speaker": "NPC",
-        "text": "  Ahí está quien te atacó."
+        "speaker": "Hombre misterioso",
+        "text": "  Ahí está uno de los que ocasionó este desastre."
       },
       {
         "speaker": "Player",
         "event": "event-1-1",
-        "text": "  Un goblin "
+        "text": "  Un goblin se encuentra junto a un cuerpo, robándole las cosas"
       },
       {
-        "speaker": "NPC",
+        "speaker": "Hombre misterioso",
         "text": "  Tu elección dice mucho. Acá te dejo material para que hagas lo que necesites."
       }
     ]

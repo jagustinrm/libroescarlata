@@ -1,0 +1,4 @@
+24/12
+Agregué intervalos a los diálogos para que no aparezca inmedietamente. También que se pueda hacer click y que aparezca el texto completo.
+25/12
+Agregué imagen del speaker en NPCDialog y el nombre del speaker.

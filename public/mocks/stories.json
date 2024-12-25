@@ -20,7 +20,7 @@
           },
           {
             "id": "choice-2",
-            "text": "Huir",
+            "text": "No deseo pelear",
             "outcome": "escape"
           }],
           "reward": [

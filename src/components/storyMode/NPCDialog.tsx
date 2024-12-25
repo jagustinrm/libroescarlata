@@ -177,13 +177,28 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
       return true;
     }
   };
+  const speaker = currentLine?.speaker?.toLowerCase();
+  const isSpeakerNarrator = speaker === "narrador";
+  const speakerImage = !isSpeakerNarrator
+    ? `/img/NPC/${speaker}.png`
+    : null;
 
   return (
     <div className="npc-dialog" onClick={handleDialogClick}>
+            {!isSpeakerNarrator && speakerImage && (
+        <img
+          src={speakerImage}
+          alt={currentLine?.speaker}
+          className="npc-speaker-image"
+        />
+      )}
       <div
         className="dialog-bar rpgui-cursor-point"
-        onClick={!verifyEvent() ? handleContinue : undefined}
+        onClick={!currentEvent ? handleContinue : undefined}
       >
+        <div className="dialog-bar speakerLine">
+          <p className="speakerLine">{currentLine.speaker}</p>
+        </div>
         <p>{displayedText}</p>
       </div>
 

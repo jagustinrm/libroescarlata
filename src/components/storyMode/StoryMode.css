@@ -6,6 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  
   }
   
   .story-title {
@@ -54,7 +55,9 @@
     /* background-image: url("/img/story/chapter-001.png"); */
     background-repeat: no-repeat;
     background-size: contain;
+
   }
+
   .dialogsLogs{
     position: absolute;
     bottom: 0;
@@ -81,7 +84,7 @@
     background-color: rgba(61, 61, 61, 0.77);
     padding: 5px;
     position: relative;
-    
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5), inset 0px 2px 5px rgba(255, 255, 255, 0.2);
   }
   .indicator-arrow-dialog {
     position: absolute;
@@ -92,7 +95,32 @@
     /* Animación de parpadeo */
     animation: blink 1s infinite;
   }
-  
+  .npc-speaker-image {
+    width: 300px;
+    position: absolute;
+    top: -190px;
+    right: 20px;
+
+  }
+  .dialog-bar.speakerLine{
+    position: absolute;
+    top:-35px;
+    right: 0;
+    width: 300px;
+    height: 10px;
+    max-height: 30px;
+    padding: 0px;
+    padding-left: 10px;
+
+    min-height: 30px;
+    border-color: rgb(95, 95, 95);
+    border-color: rgb(48, 48, 48);
+
+  }
+  .speakerLine{
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
   @keyframes blink {
     0%, 100% {
       opacity: 1;
