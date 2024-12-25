@@ -108,10 +108,12 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
   };
 
   const handleContinue = () => {
+    
     if (isTextCompleted) {
       if (currentDialog && currentLineIndex < currentDialog.lines.length - 1) {
         setCurrentLineIndex((prev) => prev + 1);
         setIsTextCompleted(false);
+  
       } else if (onDialogEnd) {
         onDialogEnd();
       }
@@ -194,7 +196,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
       )}
       <div
         className="dialog-bar rpgui-cursor-point"
-        onClick={!currentEvent ? handleContinue : undefined}
+        onClick={!currentEvent || currentEvent && !verifyEvent()  ? handleContinue : undefined}
       >
         <div className="dialog-bar speakerLine">
           <p className="speakerLine">{currentLine.speaker}</p>
@@ -220,8 +222,8 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
             className="indicator-arrow-dialog rpgui-cursor-point"
             src="/img/UI/indicator-arrow.png"
             alt="Continuar"
-            onClick={!currentEvent ? handleContinue : undefined}
-          />
+            onClick={!currentEvent || currentEvent && !verifyEvent()  ? handleContinue : undefined}
+            />
         )
       )}
 
