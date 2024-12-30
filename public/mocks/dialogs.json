@@ -4,7 +4,8 @@
       {
         "speaker": "Narrador",
         "text":"  Al escuchar tu nombre, el cuervo sobre el hombro del encapuchado se pone a graznar."
-      },      {
+      },
+      {
         "speaker": "Narrador",
         "text": "  El encapuchado señala con el dedo hacia tu aldea y te murmura con la voz áspera:"
       },
@@ -13,13 +14,83 @@
         "text": "  Ahí está uno de los que ocasionó este desastre."
       },
       {
-        "speaker": "Player",
+        "speaker": "Narrador",
         "event": "event-1-1",
         "text": "  Un goblin se encuentra junto a un cuerpo, robándole las cosas."
       },
       {
         "speaker": "Hombre misterioso",
-        "text": "  Tu elección dice mucho. Acá te dejo material para que hagas lo que necesites."
+        "text": "  Deberías irte antes de que te atrapen"
+      },
+      {
+        "speaker": "Player",
+        "text": "  No puedo, mi familia está ahí..."
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  Está claro que son demasiados."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  La aldea está siendo arrasada por un ejército entero, goblins del tamaño de un humano y algunos incluso más grandes. Todos armados."
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  No te preocupes, los goblins no matan a todos. A la mayoría los esclavizan. Preocupémonos por salir de acá"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Decidís dar media vuelta, junto a este hombre misterioso, con la promesa de vengarte."
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  Vamos con mi caballo, está a cerca."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  De pronto, un nuevo goblin aparece. Esta vez está armado.",
+        "event": "event-1-2"
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  Ahora sí. ¡Subamos, rápido!"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Luego de un rato de andar unas lágrimas empiezan a recorrer tu rostro. La congestión se asoma por tu nariz y un sufrimiento te corroe el corazón"
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  Todavía no llores. Aún no están muertos. Los goblins no vienen acá para matar, sino porque buscan algo..."
+      },
+      {
+        "speaker": "Player",
+        "text": "  ¿Qué están buscando?"
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  Son unas hojas... unos pergaminos que permiten utilizar una magia desconocida y muy poderosa"
+      },
+      {
+        "speaker": "Player",
+        "text": "  Bueno, eso no me interesa realmente..."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  El hombre encapuchado te sonríe bajo su máscara y se mantiene en silencio el resto del camino."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Pasa un cuarto de día así hasta que detiene el caballo."
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  Nos detendremos. Necesitamos buscar recursos antes de que anochezca. El viaje será largo, así que ayudame a encontrar lo que necesito."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  El hombre misterioso te pide que llenes dos cantimploras con agua y que busques cinco trozos de carne.",
+        "event": "event-1-3"
       }
     ]
   }, {
@@ -27,9 +98,90 @@
     "lines": [
       {
         "speaker": "Narrador",
-        "text": "  Hola."
+        "text": "  Encuentran una posada donde descansar después de varias jornadas de andar a caballo."
+      },
+      {
+        "speaker": "Hombre misterioso",
+        "text": "  Vamos a dormir acá esta noche. No digamos de dónde venimos."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Piden una habitación para cada uno. El hombre misterioso paga la estadía y se va a su cuarto. Su cuervo lo sigue graznando como si le hablara."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Una vez en tu habitación se ponés a llorar desconosoladamente. Es la primera vez desde lo sucedido en tu aldea que podés descansar. Te dormís."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Unos ruidos y gritos que vienen de abajo te despiertan."
+      },
+      {
+        "speaker": "Voz",
+        "text": "  ¡Estamos buscando a un hombre con un cuervo, no es tan difícil!"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Te asomás por la puerta y escuchás la conversación"
+      },
+      {
+        "speaker": "Voz",
+        "text": "  Le robó al rey unos pergaminos muy importantes y los queremos de vuelta"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  De pronto un guardia se te acerca sin que te dieras cuenta, por la espalda, y te llama la atención."
+      },
+      {
+        "speaker": "Guardia",
+        "text": "  Usted. Dígame su nombre."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  No quedan muchas opciones...",
+        "event": "event-2-1"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Se escucha el retumbar de unos pasos subir por la escalera. Te das la vuelta y desde la conjunción entre las mismas y el pasillo se asoma un hombre enorme."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Te quedás en silencio. Tu cuerpo está petrificado. Su armadura tintinea con un sonido grave, como si retumbara. Una voz igual de penetrante sale de su garganta al hablar"
+      },
+      {
+        "speaker": "Guardia",
+        "text": "  ¿Qué está pasando?"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  No podés responder nada. Te tiemblan las piernas ante su presencia. El guardia mira sobre tu hombro, observa a su compañero y te devuelve la mirada."
+      },
+      {
+        "speaker": "Guardia",
+        "text": "  Hacés bien en no responder nada"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Entonces da media vuelta y se retira, sin decir nada más. Respirás con alivio cuando no lo ves cerca. Entonces tomás aliento y te encaminás a la habitación del hombre misterioso... Pero allí no hay nadie."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Sin embargo, al levantar la vista te encontrás con una criatura extraña husmeando los alrededores."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Tiene alas de murciélago y un cuerpo rojizo. Parece un ser de otro mundo.",
+        "event": "event-2-2"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Luego de derrotarla observas que sobre la mesa hay una nota. La abrís. Tiene unas anotaciones extrañas en un idioma que no conocés. Te guardás la nota y decidís volver a tu habitación."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Ya de vuelta en tu habitación decidís esperar. Escuchás a través de la puerta que la guardia real se marcha. Sentís el cansancio en tu cuerpo, por lo que decidís recostarte y dormir un rato, ya con alivio"
       }
-
     ]
   }
 ]

@@ -165,19 +165,20 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
   }
 
   const verifyEvent = () => {
-    // VERIFICA SI ESTÁ COMPLETO
-    const actualStory = player.storyProgress.findIndex(
+    // Busca el índice del progreso en la historia actual
+    const actualStoryIndex = player.storyProgress.findIndex(
       (sp) => sp.storyId === storyId
     );
-    if (player.storyProgress[actualStory]) {
-      return (
-        player.storyProgress[actualStory].completedEvents.findIndex(
-          (ce) => ce === currentEvent
-        ) !== -1
-      );
-    } else {
-      return true;
+  
+    if (actualStoryIndex === -1) {
+      // Si no hay progreso en la historia, el evento se considera incompleto
+      return false;
     }
+    const actualStory = player.storyProgress[actualStoryIndex];
+    const isEventCompleted = actualStory.completedEvents.includes(currentEvent.id);
+  
+    // Retorna si el evento está completo
+    return isEventCompleted;
   };
   const speaker = currentLine?.speaker?.toLowerCase();
   const isSpeakerNarrator = speaker === "narrador";
@@ -196,7 +197,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
       )}
       <div
         className="dialog-bar rpgui-cursor-point"
-        onClick={!currentEvent || currentEvent && !verifyEvent()  ? handleContinue : undefined}
+        onClick={!currentEvent || verifyEvent() ? handleContinue : undefined}
       >
         <div className="dialog-bar speakerLine">
           <p className="speakerLine">{currentLine.speaker}</p>
@@ -204,7 +205,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
         <p>{displayedText}</p>
       </div>
 
-      {currentEvent && verifyEvent() ? (
+      {currentEvent && !verifyEvent() ? (
         <div className="dialog-options">
           {currentEvent.options.map((option: any) => (
             <button
@@ -222,7 +223,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
             className="indicator-arrow-dialog rpgui-cursor-point"
             src="/img/UI/indicator-arrow.png"
             alt="Continuar"
-            onClick={!currentEvent || currentEvent && !verifyEvent()  ? handleContinue : undefined}
+            onClick={!currentEvent || currentEvent && verifyEvent()  ? handleContinue : undefined}
             />
         )
       )}

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Importamos useNavigate
+import { useNavigate } from "react-router-dom"; 
 import { Story } from "../../stores/types/story";
 import BackButton from "../UI/BackButton";
 import useStoryStore from "../../stores/storyStore";
-import './StoryMode.css'; // Asumiendo que tenemos un archivo de estilos
+import './StoryMode.css';
 
 
 export default function StoryMode() {

@@ -145,6 +145,27 @@
             ]
         },
         {
+          "name": "Goblin con hacha",
+          "img": "/img/enemies/goblin_2.png",
+          "type": "humanoide",
+          "alignment": "caótico maligno",
+          "level": 2,
+          "hitPoints": "2d8",
+          "armorClass": 16,
+          "attacks": [
+              {
+                  "name": "hacha de batalla",
+                  "type": "melee",
+                  "bonus": 3,
+                  "damage": "1d8"
+              }
+          ],
+          "specialAbilities": [
+              "olfato agudo",
+              "carga feroz"
+          ]
+      },
+        {
             "name": "Hobgoblin",
             "img": "/img/enemies/hobgoblin.png",
             "type": "humanoide",
@@ -171,6 +192,33 @@
                 "visión en la oscuridad"
             ]
         },
+        {
+          "name": "Guardia",
+          "img": "/img/enemies/guard.png",
+          "type": "humanoide",
+          "alignment": "legal neutral",
+          "level": 2,
+          "hitPoints": "2d8",
+          "armorClass": 17,
+          "attacks": [
+              {
+                  "name": "espada larga",
+                  "type": "melee",
+                  "bonus": 3,
+                  "damage": "1d8"
+              },
+              {
+                  "name": "ballesta ligera",
+                  "type": "rango",
+                  "bonus": 2,
+                  "damage": "1d8"
+              }
+          ],
+          "specialAbilities": [
+              "disciplina marcial",
+              "visión en la oscuridad"
+          ]
+      },
         {
           "name": "Planta Carnívora",
           "img": "/img/enemies/carnivorous_plant.png",
@@ -219,6 +267,27 @@
               "invisibilidad a voluntad",
               "visión verdadera (18 m)",
               "polvo de confusión"
+            ]
+          },
+          {
+            "name": "Demonio pequeño",
+            "img": "/img/enemies/little_demon.png",
+            "type": "demonio",
+            "alignment": "legal maligno",
+            "level": 4,
+            "hitPoints": "3d6+2",
+            "armorClass": 16,
+            "attacks": [
+              {
+                "name": "aliento de fuego",
+                "type": "melee",
+                "bonus": 4,
+                "damage": "1d4"
+              }
+            ],
+            "specialAbilities": [
+              "invisibilidad a voluntad",
+              "visión verdadera (18 m)"
             ]
           },
           {

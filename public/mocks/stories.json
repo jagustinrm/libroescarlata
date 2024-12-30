@@ -30,72 +30,48 @@
         },
         {
           "id": "event-1-2",
-          "description": "Encuentras a un anciano que te da un mapa antiguo.",
-          "completed": false,
-          "choices": {
-            "accept": "Aceptar el mapa",
-            "decline": "Rechazar el mapa"
-          },
-          "selectedChoice": "accept",
-          "reward": [
-            { "items": [{ "name": "Mapa antiguo", "type": "map", "cant": 1 }] }
-          ],
+          "description": "Un goblin te atrapa mientras huís",
+          "status": "in-progress",
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Luchar",
+              "outcome": "fight",
+              "enemies": ["Goblin con hacha"]
+            },
+            {
+              "id": "choice-2",
+              "text": "No deseo pelear",
+              "outcome": "escape"
+            }],
+            "reward": [
+              { "items": [{ "name": "Poción de Curación Menor", "type": "potions", "cant": 1 }] },
+              { "materials": 200 }
+            ],
           "worldState": { "mapReceived": "true" },
           "conditions": {
             "requiresItem": "Poción de Curación Menor",
-            "requiresLevel": 2,
+            "requiresLevel": 1,
             "requiresState": ""
           }
         },
         {
           "id": "event-1-3",
-          "description": "El héroe se despide de su familia.",
-          "completed": false,
+          "description": "Hay que buscar recursos para el viaje",
+          "status": "in-progress",
           "reward": [
             { "items": [{ "name": "Carta de despedida", "type": "letters", "cant": 1 }] }
           ],
-          "worldState": { "familyFarewell": "true" },
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Entregar",
+              "outcome": "deliver"
+            }],
           "conditions": {
             "requiresItem": "Mapa antiguo",
-            "requiresLevel": 3,
-            "requiresState": "villageBurned"
-          }
-        },
-        {
-          "id": "event-1-4",
-          "description": "El viaje comienza, pero una tormenta se desata en el camino.",
-          "completed": false,
-          "fight": {
-            "canFight": true,
-            "enemies": ["storm-spirit"]
-          },
-          "reward": [
-            { "items": [{ "name": "Amuleto contra tormentas", "type": "accessories", "cant": 1 }] }
-          ],
-          "worldState": { "stormRisen": "true" },
-          "conditions": {
-            "requiresItem": "Carta de despedida",
-            "requiresLevel": 3,
-            "requiresState": "mapReceived"
-          }
-        },
-        {
-          "id": "event-1-5",
-          "description": "El héroe llega a un cruce de caminos, eligiendo qué dirección tomar.",
-          "completed": false,
-          "choices": {
-            "north": "Tomar el camino hacia el norte",
-            "south": "Tomar el camino hacia el sur"
-          },
-          "selectedChoice": "north",
-          "reward": [
-            { "items": [{ "name": "Piedra de orientación", "type": "accessories", "cant": 1 }] }
-          ],
-          "worldState": { "pathChosen": "north" },
-          "conditions": {
-            "requiresItem": "Amuleto contra tormentas",
-            "requiresLevel": 4,
-            "requiresState": "familyFarewell"
+            "requiresLevel": 1,
+            "requiresState": ""
           }
         }
       ],
@@ -103,86 +79,51 @@
     },
     {
       "id": "2",
-      "title": "La Cueva Misteriosa",
+      "title": "Un descanso necesario",
       "dialogSequence": "dialog-2",
       "events": [
         {
           "id": "event-2-1",
-          "description": "El héroe encuentra una entrada secreta en una cueva en el bosque.",
-          "completed": false,
-          "reward": [
-            { "items": [{ "name": "Linterna mágica", "type": "tools", "cant": 1 }] }
-          ],
+          "description": "Luego de varios días de viaje, necesitados de descansar, encuentran una posada en un pueblo y deciden quedarse ahí la noche",
+          "status": "in-progress",
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Luchar",
+              "outcome": "fight",
+              "enemies": ["Guardia"]
+            },
+            {
+              "id": "choice-2",
+              "text": "Decirle tu nombre",
+              "outcome": "escape"
+            }],
           "worldState": { "caveEntrance": "found" },
           "conditions": {
-            "requiresItem": "Piedra de orientación",
-            "requiresLevel": 5,
-            "requiresState": "pathChosen"
+            "requiresItem": "",
+            "requiresLevel": 4,
+            "requiresState": ""
           }
         },
         {
           "id": "event-2-2",
-          "description": "Dentro de la cueva, se enfrenta a un monstruo guardián.",
+          "description": "Una criatura demoníaca entra por la ventana buscando al hombre encapuchado y te obliga a pelear.",
           "completed": false,
-          "fight": {
-            "canFight": true,
-            "enemies": ["guardian-monster"]
-          },
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Luchar",
+              "outcome": "fight",
+              "enemies": ["Demonio pequeño"]
+            }],
           "reward": [
             { "items": [{ "name": "Espada de luz", "type": "weapons", "cant": 1 }] }
           ],
           "worldState": { "monsterDefeated": "true" },
           "conditions": {
-            "requiresItem": "Linterna mágica",
-            "requiresLevel": 6,
-            "requiresState": "caveEntrance"
-          }
-        },
-        {
-          "id": "event-2-3",
-          "description": "Encuentra un cofrecillo que contiene un objeto mágico.",
-          "completed": false,
-          "reward": [
-            { "items": [{ "name": "Amuleto de poder", "type": "accessories", "cant": 1 }] }
-          ],
-          "worldState": { "magicItemFound": "true" },
-          "conditions": {
-            "requiresItem": "Espada de luz",
-            "requiresLevel": 7,
-            "requiresState": "monsterDefeated"
-          }
-        },
-        {
-          "id": "event-2-4",
-          "description": "El héroe se enfrenta a una decisión sobre qué hacer con el objeto mágico.",
-          "completed": false,
-          "choices": {
-            "use": "Usar el objeto",
-            "keep": "Guardarlo para más tarde"
-          },
-          "selectedChoice": "use",
-          "reward": [
-            { "items": [{ "name": "Esencia de poder", "type": "materials", "cant": 500 }] }
-          ],
-          "worldState": { "magicItemUsed": "true" },
-          "conditions": {
-            "requiresItem": "Amuleto de poder",
-            "requiresLevel": 8,
-            "requiresState": "magicItemFound"
-          }
-        },
-        {
-          "id": "event-2-5",
-          "description": "Al salir de la cueva, el héroe encuentra un extraño mapa.",
-          "completed": false,
-          "reward": [
-            { "items": [{ "name": "Mapa misterioso", "type": "map", "cant": 1 }] }
-          ],
-          "worldState": { "strangeMapFound": "true" },
-          "conditions": {
-            "requiresItem": "Esencia de poder",
-            "requiresLevel": 9,
-            "requiresState": "magicItemUsed"
+            "requiresItem": "",
+            "requiresLevel": 5,
+            "requiresState": ""
           }
         }
       ],
@@ -190,7 +131,7 @@
     },
     {
       "id": "3",
-      "title": "La Batalla de las Montañas",
+      "title": "El camino más largo",
       "events": [
         {
           "id": "event-3-1",
@@ -276,7 +217,7 @@
     },
     {
       "id": "4",
-      "title": "El Reino Perdido",
+      "title": "La ciudad de las tinieblas",
       "events": [
         {
           "id": "event-4-1",
