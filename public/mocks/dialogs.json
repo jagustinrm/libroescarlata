@@ -183,5 +183,108 @@
         "text": "  Ya de vuelta en tu habitación decidís esperar. Escuchás a través de la puerta que la guardia real se marcha. Sentís el cansancio en tu cuerpo, por lo que decidís recostarte y dormir un rato, ya con alivio"
       }
     ]
-  }
+  },
+  {
+    "id": "dialog-3",
+    "lines": [
+      {
+        "speaker": "Narrador",
+        "text":"  Parece que ahora todo está tranquilo. Los guardias se fueron. Recordás que el hombre capuchado dijo que el plan origina era ir a la ciudad."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Se te ocurre bajar las escaleras y preguntarle cómo continuar tu camino."
+      },
+      {
+        "speaker": "Posadero",
+        "text": "  ¿Y dónde están tus modales? ¿Cuál es tu nombre?"
+      },
+      {
+        "speaker": "Posadero",
+        "text": "  No, está bien, no quiero ser tan pesado después de que vino la guardia real a molestarnos."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Te quedás en silencio. El hombre parece amable, a pesar de su presentación tan efusiva"
+      },
+      {
+        "speaker": "Player",
+        "text": "  Necesito ir a la ciudad para rescatar a mi familia"
+      },
+      {
+        "speaker": "Posadero",
+        "text": "  Bien, te voy a indicar el camino. Pero es largo, así que vas a necesitar recursos. Si buscas algunas carnes y frutas por mí, puedo cocinarte algo."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Te pude 10 trozos de carne de lobo y 10 manzanas",
+        "event": "event-3-1"
+      },
+      {
+        "speaker": "Posadero",
+        "text": "  ¡Muy bien! Tomá este mapa, lo tenía guardado por ahí. Te va a servir para el viaje."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  Una vez guardado el mapa, saludás al posadero y te retirás de la posada."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  El camino parece largo y con algunos peligros. Te va a tomar 5 días y 5 noches llegar a destino."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "  En alguna de las cinco noches hay posibilidad de encontrarse enemigos....",
+        "event": "event-3-2"
+      }
+    ]
+  },
+  {
+    "id": "dialog-4",
+    "lines": [
+        {
+            "speaker": "Narrador",
+            "text": "Llegas a las puertas de una ciudad que parece desolada. La guardia, como envejecida, ni siquiera intenta detener tu paso. Solo dos guardias apoyados contra sus lanzas, agotados, te miran pasar de reojo."
+        },
+        {
+            "speaker": "Posadero",
+            "text": "La ciudad es oscura. A pesar de las luces de las velas y los candelabros que se encuentran encendidos, un manto de penumbra recorre las calles"
+        },
+        {
+            "speaker": "Narrador",
+            "text": "Caminás con cuidado. En el piso hay gente durmiendo y en los costados hombres y mujeres encapuchados, guardias que miran para otro lado y movimiento extraños"
+        },
+        {
+          "speaker": "Narrador",
+          "text": "Mientras buscás dónde descansar, empezás a recordar a tu familia y un dolor te recorre el cuerpo. Te cuesta respirar..."
+      },
+        {
+            "speaker": "Narrador",
+            "text": "¡Alguien de pronto tomó tu bolso y se lanzó a correr!",
+            "event": "event-4-1"
+        },
+        {
+            "speaker": "Narrador",
+            "text": "Te dirigís a la posada más cercana un poco herido. Allí, los parroquianos murmuran entre sí sobre la miseria y el hambre que azotan la ciudad."
+        },
+        {
+            "speaker": "Parroquiano",
+            "text": "¡Eh! ¿Estás herido? Acercate, te puedo curar."
+        },
+        {
+          "speaker": "Narrador",
+          "text": "El anciano pone sus manos sobre tu herida y sentís que una energía curativa te alivia. Luego de preguntarte de dónde venís, te da algunas indicaciones:"
+      },
+      {
+        "speaker": "Parroquiano",
+        "text": "Si querés sobrevivir aquí, amigo, buscá un oficio o alistate en el ejército. Incluso podrías probar suerte como gladiador, aunque no todos sobreviven a la arena."
+      },
+        {
+            "speaker": "Narrador",
+            "text": "Con nuevas posibilidades en mente, te preparás para tomar una decisión crucial sobre tu futuro. ¿Te volverás un gladiador, te unirás al ejército o buscarás un oficio para ganar fuerza y recursos?",
+            "event": "event-4-2"
+        }
+
+    ]
+}
 ]

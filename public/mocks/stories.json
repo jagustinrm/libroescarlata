@@ -132,17 +132,24 @@
     {
       "id": "3",
       "title": "El camino más largo",
+      "dialogSequence": "dialog-3",
       "events": [
         {
           "id": "event-3-1",
-          "description": "El héroe llega a las montañas y descubre una fortaleza enemiga.",
+          "description": "El posadero te pidió algunas cosas para poder cocinarte",
           "completed": false,
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Entregar",
+              "outcome": "deliver"
+            }],
           "reward": [
-            { "items": [{ "name": "Llave de la fortaleza", "type": "accessories", "cant": 1 }] }
+            { "items": [{ "name": "Recursos", "type": "accessories", "cant": 5 }] }
           ],
           "worldState": { "fortressFound": "true" },
           "conditions": {
-            "requiresItem": "Mapa misterioso",
+            "requiresItem": "Carne",
             "requiresLevel": 10,
             "requiresState": "strangeMapFound"
           }
@@ -151,65 +158,20 @@
           "id": "event-3-2",
           "description": "Un grupo de soldados aparece y te desafía a un combate.",
           "completed": false,
-          "fight": {
-            "canFight": true,
-            "enemies": ["enemy-soldiers"]
-          },
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Viajar",
+              "outcome": "travel"
+            }],
           "reward": [
             { "items": [{ "name": "Escudo de hierro", "type": "accessories", "cant": 1 }] }
           ],
           "worldState": { "soldiersDefeated": "true" },
           "conditions": {
-            "requiresItem": "Llave de la fortaleza",
+            "requiresItem": "",
             "requiresLevel": 11,
-            "requiresState": "fortressFound"
-          }
-        },
-        {
-          "id": "event-3-3",
-          "description": "El héroe decide luchar contra los soldados.",
-          "completed": false,
-          "choices": {
-            "fight": "Luchar contra los soldados",
-            "retreat": "Retirarse sin pelear"
-          },
-          "selectedChoice": "fight",
-          "reward": [
-            { "items": [{ "name": "Espada de acero", "type": "weapons", "cant": 1 }] }
-          ],
-          "worldState": { "battleWon": "true" },
-          "conditions": {
-            "requiresItem": "Escudo de hierro",
-            "requiresLevel": 12,
-            "requiresState": "soldiersDefeated"
-          }
-        },
-        {
-          "id": "event-3-4",
-          "description": "Tras la victoria, el héroe obtiene una llave que abre una puerta secreta.",
-          "completed": false,
-          "reward": [
-            { "items": [{ "name": "Llave secreta", "type": "accessories", "cant": 1 }] }
-          ],
-          "worldState": { "secretDoorKeyObtained": "true" },
-          "conditions": {
-            "requiresItem": "Espada de acero",
-            "requiresLevel": 13,
-            "requiresState": "battleWon"
-          }
-        },
-        {
-          "id": "event-3-5",
-          "description": "El héroe decide explorar la fortaleza para encontrar más secretos.",
-          "completed": false,
-          "reward": [
-            { "items": [{ "name": "Mapa detallado", "type": "map", "cant": 1 }] }
-          ],
-          "worldState": { "fortressExplored": "true" },
-          "conditions": {
-            "requiresItem": "Llave secreta",
-            "requiresLevel": 14,
-            "requiresState": "secretDoorKeyObtained"
+            "requiresState": ""
           }
         }
       ],
@@ -218,19 +180,38 @@
     {
       "id": "4",
       "title": "La ciudad de las tinieblas",
+      "dialogSequence": "dialog-4",
       "events": [
         {
           "id": "event-4-1",
-          "description": "El héroe finalmente llega al Reino Perdido, pero descubre que está desolado.",
+          "description": "Alguien te robó, ¿qué vas a hacer?",
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Atraparlo",
+              "outcome": "fight",
+              "enemies": ["vandido"]
+            },
+            {
+              "id": "choice-2",
+              "text": "Disparar",
+              "outcome": "fight"
+            },
+            {
+              "id": "choice-2",
+              "text": "Dejarlo ir",
+              "outcome": "escape"
+            }],
+            
           "completed": false,
           "reward": [
             { "items": [{ "name": "Antiguo libro", "type": "books", "cant": 1 }] }
           ],
           "worldState": { "lostKingdomDiscovered": "true" },
           "conditions": {
-            "requiresItem": "Mapa detallado",
+            "requiresItem": "",
             "requiresLevel": 15,
-            "requiresState": "fortressExplored"
+            "requiresState": ""
           }
         },
         {
@@ -240,58 +221,27 @@
           "reward": [
             { "items": [{ "name": "Papiro antiguo", "type": "books", "cant": 1 }] }
           ],
+          "options": [
+            {
+              "id": "choice-1",
+              "text": "Aprender un oficio",
+              "outcome": "job"
+            },
+            {
+              "id": "choice-2",
+              "text": "Guardia",
+              "outcome": "guard"
+            },
+            {
+              "id": "choice-3",
+              "text": "Gladiador",
+              "outcome": "gladiator"
+            }],
           "worldState": { "ancientLibraryFound": "true" },
           "conditions": {
-            "requiresItem": "Antiguo libro",
+            "requiresItem": "",
             "requiresLevel": 16,
-            "requiresState": "lostKingdomDiscovered"
-          }
-        },
-        {
-          "id": "event-4-3",
-          "description": "El héroe descubre un antiguo artefacto que podría restaurar el reino.",
-          "completed": false,
-          "reward": [
-            { "items": [{ "name": "Artefacto de restauración", "type": "accessories", "cant": 1 }] }
-          ],
-          "worldState": { "restorationArtifactFound": "true" },
-          "conditions": {
-            "requiresItem": "Papiro antiguo",
-            "requiresLevel": 17,
-            "requiresState": "ancientLibraryFound"
-          }
-        },
-        {
-          "id": "event-4-4",
-          "description": "El héroe se enfrenta a un dilema moral: usar el artefacto o destruirlo.",
-          "completed": false,
-          "choices": {
-            "use": "Usar el artefacto",
-            "destroy": "Destruir el artefacto"
-          },
-          "selectedChoice": "use",
-          "reward": [
-            { "items": [{ "name": "Esencia restauradora", "type": "materials", "cant": 1000 }] }
-          ],
-          "worldState": { "artifactUsed": "true" },
-          "conditions": {
-            "requiresItem": "Artefacto de restauración",
-            "requiresLevel": 18,
-            "requiresState": "restorationArtifactFound"
-          }
-        },
-        {
-          "id": "event-4-5",
-          "description": "El Reino Perdido comienza a resurgir gracias al poder del artefacto.",
-          "completed": false,
-          "reward": [
-            { "items": [{ "name": "Corona del rey restaurado", "type": "accessories", "cant": 1 }] }
-          ],
-          "worldState": { "kingdomRestored": "true" },
-          "conditions": {
-            "requiresItem": "Esencia restauradora",
-            "requiresLevel": 19,
-            "requiresState": "artifactUsed"
+            "requiresState": ""
           }
         }
       ],
