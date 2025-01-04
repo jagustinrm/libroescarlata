@@ -32,6 +32,8 @@ import Chapter from './components/storyMode/Chapter.js';
 import DialogLoader from './loaders/DialogLoader.js';
 import HeaderMenu from './components/UI/menu/HeaderMenu.js';
 import useGlobalState from './customHooks/useGlobalState.js';
+import OtherItemsLoader from './loaders/OtherItemsLoader.js';
+import Bestiary from './components/bestiary/Bestiary.js';
 
 function App() {
   const {player, inventories } = useGlobalState();
@@ -44,6 +46,7 @@ function App() {
     <BrowserRouter>
       <Particles />
       <PlayerStateLoader />
+      <OtherItemsLoader/>
       <WeaponLoader />
       <ArmorsLoader />
       <PotionsLoader />
@@ -71,6 +74,7 @@ function App() {
           <Route path="/firebase" element={<MyComponent />} />
           <Route path="/storyMode" element={< StoryMode />} />
           <Route path="/chapter" element={< Chapter />} />
+          <Route path="/bestiary" element={< Bestiary />} />
           <Route path="/testread" element={<TestFirebaseRead />} />
           <Route path="/loadPlayer/:playerName" element={<LoadPlayerFromFirebase />}/>
           <Route path="/chat" element={<Chat/>} />

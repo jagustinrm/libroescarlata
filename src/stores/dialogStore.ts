@@ -15,7 +15,7 @@ const useDialogStore = create<{
   loadDialogs: (dialogs) =>
   
     set(() => {
-        console.log(dialogs)
+
       return { dialogs };
     }),
 
@@ -39,8 +39,6 @@ const useDialogStore = create<{
 
   getDialogById: (dialogId) => {
     const dialogs = get().dialogs;
-    console.log( dialogId) 
-    console.log(dialogs)
     return dialogs.find((dialog) => dialog.id === dialogId); // Buscar por ID
   },
 }));

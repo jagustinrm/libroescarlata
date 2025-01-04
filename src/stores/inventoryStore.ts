@@ -37,11 +37,11 @@ const useInventoryStore = create<InventoryStore>((set) => ({
     }),
 
   // Eliminar un ítem del inventario de un ID específico
-  removeItem: (id, type, itemName) =>
+  removeItem: (id, type, itemId) =>
     set((state) => {
       const inventory = state.inventories[id];
       if (!inventory) return state;
-      const itemIndex = inventory[type].findIndex((i) => i === itemName);
+      const itemIndex = inventory[type].findIndex((i) => i === itemId);
       if (itemIndex === -1) return state;
       const updatedItems = [...inventory[type]];
       updatedItems.splice(itemIndex, 1);

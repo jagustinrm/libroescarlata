@@ -23,7 +23,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const listRef = useRef<HTMLUListElement>(null);
 
   const arrowDownPrefix = '<label>&#9660;</label> ';
-  console.log(options)
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (

@@ -291,30 +291,45 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, enemiesDeleted: enemiesDeleted },
       })),
-      setStoryProgress: (progress: StoryProgress[]) =>
+    setStoryProgress: (progress: StoryProgress[]) =>
         set((state) => ({
           player: { ...state.player, storyProgress: progress },
         })),
-        updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) =>
+    updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) =>
           set((state) => {
             console.log(storyId);
             console.log(progress);
         
-            const existingStory = state.player.storyProgress.find((story) => story.storyId === storyId);
+            const existingStory = state.player.storyProgress.find(
+              (story) => story.storyId === storyId
+            );
         
             let updatedProgress;
             if (existingStory) {
               // Si el storyId existe, actualiza el progreso
-              updatedProgress = state.player.storyProgress.map((story) =>
-                story.storyId === storyId ? { ...story, ...progress } : story
-              );
+              updatedProgress = state.player.storyProgress.map((story) => {
+                if (story.storyId === storyId) {
+                  return {
+                    ...story,
+                    completedEvents: [
+                      ...(story.completedEvents || []), // Mantenemos los eventos existentes
+                      ...(progress.completedEvents || []), // Agregamos los nuevos eventos
+                    ],
+                  };
+                }
+                return story;
+              });
             } else {
               // Si el storyId no existe, agrega el nuevo progreso
-              updatedProgress = [...state.player.storyProgress, { storyId, ...progress }];
+              updatedProgress = [
+                ...state.player.storyProgress,
+                { storyId, completedEvents: progress.completedEvents || [] },
+              ];
             }
         
             return { player: { ...state.player, storyProgress: updatedProgress } };
           }),
+        
         
       setCurrentStoryId: (storyId: string | null) =>
         set((state) => ({

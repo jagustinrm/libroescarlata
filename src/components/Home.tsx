@@ -114,10 +114,7 @@ export default function Home() {
                   ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}
                 </p>
                 <p>🛠️ Materiales: {player.playerMaterial}</p>
-                {/* <p>
-                  🗡️ Arma actual:{' '}
-                  {player.selectedWeapon?.name || 'Sin arma equipada'}
-                </p> */}
+
                 {player.selectedPet && (
                   <p>🐶 Mascota: {player.selectedPet.name}</p>
                 )}
@@ -132,14 +129,12 @@ export default function Home() {
                 onClick={() => handleAction('inventory')}
               />
             </div>
-            {/* <button onClick={() => handleAction('inventory')} className="rpgui-button">📜 Inventario</button> */}
           </div>
         )}
       </div>
  
       <div className="buttonsHome ">
         {/* 
-
                 <button onClick={() => handleAction('townMap')} className="rpgui-button">🏠 Hogar</button>
               */}
 
@@ -185,6 +180,12 @@ export default function Home() {
           onClick={() => handleAction('itemShop')}
           className="buttonPrueba"
           src="/img/UI/shopButton.png"
+          alt=""
+        />
+        <img
+          onClick={() => handleAction('bestiary')}
+          className="buttonPrueba"
+          src="/img/UI/bestiary.png"
           alt=""
         />
       </div>

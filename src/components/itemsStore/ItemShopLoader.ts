@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
-import usePotionStore from '../../stores/potionsStore';
 import useItemsStore from '../../stores/itemsStore';
-import { useWeaponStore } from '../../stores/weaponStore';
 import { Item } from '../../stores/types/items';
-import useArmorStore from '../../stores/armorStore';
 import CreateCustomArmor from '../../generators/customArmors/createCustomArmor';
 import { deleteArmorFromFirebase } from '../../firebase/saveArmorToFirebase';
+import useGlobalState from '../../customHooks/useGlobalState';
 
 const ItemShopLoader = () => {
   const { generatedArmor, createArmor } = CreateCustomArmor();
   const [prevArmorId, setPrevArmorId] = useState('');
-  const { weapons } = useWeaponStore();
-  const { armors } = useArmorStore();
-  const { potions } = usePotionStore();
+  const {weapons, armors, potions, otherItems} = useGlobalState();
   const { items, createItems, addItem, removeItem } = useItemsStore();
   const shopId = 1; // ID único para el inventario del shop (ahora es un número)
 
@@ -32,6 +28,12 @@ const ItemShopLoader = () => {
         addItem(shopId, 'potions', potion); // Agregar solo si no está ya en el inventario
       }
     });
+
+    otherItems.forEach((otherItem) => {
+      if (!items[shopId]?.others.some((i: Item) => i.id === otherItem.id)) {
+        addItem(shopId, 'others', otherItem); // Agregar solo si no está ya en el inventario
+      }
+    })  
     armors.forEach((armor) => {
       if (!items[shopId]?.armors.some((a: Item) => a.id === armor.id)) {
         addItem(shopId, 'armors', armor); // Agregar solo si no está ya en el inventario

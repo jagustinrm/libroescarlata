@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
-// import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
 import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures';
 import { Dispatch, SetStateAction } from 'react';
@@ -55,7 +54,7 @@ export function useEnemyLoader(
   const selectEnemy = () => {
 
     try {
-      console.log(enemy)
+      // Si recibe un enemy carga solamente ese enemy, no busca otro. Modo historia.
       if (enemy) {
         const storyCreature = creatures.find(c => c.name === enemy)
         if (storyCreature) {
@@ -68,7 +67,7 @@ export function useEnemyLoader(
         
 
       }
-      console.log(fightType)
+
       if (fightType === 'dungeon') {
 
         const isBoss = Math.random() < BOSS_PROBABILITY;

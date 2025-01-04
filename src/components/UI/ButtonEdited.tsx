@@ -8,6 +8,7 @@ interface HoverSoundButtonProps {
   onMouseLeave?: () => void;
   width?: string;
   height?: string;
+  disabled?: boolean; // Ahora es un booleano
 }
 
 const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
@@ -17,6 +18,7 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   onMouseLeave,
   width = '',
   height = '',
+  disabled = false, // Valor predeterminado
 }) => {
   const buttonSound = {
     name: 'buttonSound',
@@ -26,17 +28,20 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   };
 
   const handleMouseEnter = () => {
-    soundService.play(buttonSound);
-    if (onMouseEnter) onMouseEnter();
+    if (!disabled) {
+      soundService.play(buttonSound);
+      if (onMouseEnter) onMouseEnter();
+    }
   };
 
   const handleMouseLeave = () => {
-    // soundService.stop(buttonSound.name);
-    if (onMouseLeave) onMouseLeave();
+    if (!disabled) {
+      if (onMouseLeave) onMouseLeave();
+    }
   };
 
   const handleClick = () => {
-    if (onClick) {
+    if (!disabled && onClick) {
       onClick();
     }
   };
@@ -44,10 +49,17 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   return (
     <div className="button-edited-container rpgui-cursor-point">
       <div
-        style={{ width, height }}
+        style={{ 
+          width, 
+          height, 
+          filter: disabled ? 'grayscale(100%)' : 'none', // Filtro blanco y negro
+          pointerEvents: disabled ? 'none' : 'auto', // Evitar clics cuando está deshabilitado
+          cursor: disabled? 'cursor: not-allowed': 'auto'
+        }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
+        className={`button-content ${disabled ? 'disabled' : ''}`} // Clase para personalización
       >
         <img
           className="common-button rpgui-cursor-point"
@@ -56,15 +68,6 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
         />
         <p>{label}</p>
       </div>
-      {/* <button
-        className="rpgui-button"
-        style={{ width, height }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-      >
-        {label}
-      </button> */}
     </div>
   );
 };

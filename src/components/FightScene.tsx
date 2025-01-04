@@ -216,11 +216,18 @@ export default function FightScene() {
       ...prevState,
       show: false,
     }));
-    if (shouldClose) {
- 
-      const updatedEvent = { ...event, status: "completed" };
+    if (shouldClose && event) {
+      if (fightType === "travel") {
+        
+        localStorage.setItem("updateTravel", JSON.stringify(event))
+        navigate(-1);
+      } else {
+        const updatedEvent = { ...event, status: "completed" };
+        localStorage.setItem("updatedEvent", JSON.stringify(updatedEvent));
+        navigate(-1);
+      }
 
-      localStorage.setItem("updatedEvent", JSON.stringify(updatedEvent));
+    } else if (shouldClose) {
       navigate(-1);
     }
   };
@@ -235,7 +242,6 @@ export default function FightScene() {
 
   if (isLoading) return <p>Cargando enemigo...</p>;
   // if (error)  return <p>Error: {error}</p>;
-  console.log(player.storyProgress)
   return (
     <div className="fight-scene">
       <div className="turn-indicator fixedUI ">

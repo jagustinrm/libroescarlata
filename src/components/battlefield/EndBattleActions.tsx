@@ -53,7 +53,12 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
         >
           ⚔️ Seguir
         </button>
-        {(fightType === 'normal' || creature.role === 'boss' || fightType === 'story') && (
+        {(fightType === 'normal' || 
+        creature.role === 'boss' || 
+        fightType === 'story' ||
+        fightType === 'travel'
+      
+      ) && (
           <button
             className="rpgui-button endBattleButton"
             onClick={() =>

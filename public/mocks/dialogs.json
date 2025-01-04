@@ -150,7 +150,7 @@
         "text": "  Te quedás en silencio. Tu cuerpo está petrificado. Su armadura tintinea con un sonido grave, como si retumbara. Una voz igual de penetrante sale de su garganta al hablar"
       },
       {
-        "speaker": "Guardia",
+        "speaker": "General",
         "text": "  ¿Qué está pasando?"
       },
       {
@@ -158,7 +158,7 @@
         "text": "  No podés responder nada. Te tiemblan las piernas ante su presencia. El guardia mira sobre tu hombro, observa a su compañero y te devuelve la mirada."
       },
       {
-        "speaker": "Guardia",
+        "speaker": "General",
         "text": "  Hacés bien en no responder nada"
       },
       {
@@ -217,7 +217,7 @@
       },
       {
         "speaker": "Narrador",
-        "text": "  Te pude 10 trozos de carne de lobo y 10 manzanas",
+        "text": "  Te pude 10 trozos de carne y 10 manzanas",
         "event": "event-3-1"
       },
       {

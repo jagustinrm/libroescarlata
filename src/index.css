@@ -6,6 +6,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  user-select: none;
 }
 .rpgui-content * {
   font-family: 'Cormorant Unicase', serif;

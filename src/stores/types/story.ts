@@ -1,17 +1,19 @@
 export interface Event {
-  id: string; // Identificador único del evento
-  description?: string; // Descripción del evento
-  status: string; // Indica si el evento fue completado
+  id: string; 
+  description?: string; 
+  status: string; 
+  selectedChoice?: string; // Elección tomada
   options?: [{
     id: string,
     text: string,
     outcome: string,
-    enemies?: string[]
+    days?: number,
+    enemies?: string[],
+    requiresItem?: {name: string; cant: number; id: string}[]
   }]
-  choices?: { [key: string]: string }; // Opciones con sus descripciones
-  selectedChoice?: string; // Elección tomada
-  unlockCondition?: { chapterId: number; eventId: string }; // Requisito para desbloquear
-  reward?: { items: { name: string; type: string; cant: number }[] }; // Recompensas del evento
+  // choices?: { [key: string]: string }; 
+  conditions?: { requiresItem: number; requiresLevel: string; }; // Requisito para desbloquear
+  reward?: { items: { name: string; type: string; cant: number }[]; materials: number }; // Recompensas del evento
   worldState?: { [key: string]: string }; // Estado del mundo que cambia según el evento
 }
 

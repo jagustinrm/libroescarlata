@@ -1,5 +1,3 @@
-// import { CreatureInterface } from '../components/interfaces/CreatureInterface.js';
-// import { EnemyDeleted } from '../components/interfaces/characterProperties.js';
 import { QuestData } from '../components/interfaces/QuestsInt.js';
 // @ts-expect-error Para que funcione
 import checkQuests from '../utils/checkQuests.js';

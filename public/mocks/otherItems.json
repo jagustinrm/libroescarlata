@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Trozo de carne",
+        "id": "1",
+        "cost": 10,
+        "img": "/img/otherItems/pieceOfMeat.png"
+    },
+    {
+        "name": "Cantimplora",
+        "id": "2",
+        "cost": 10,
+        "img": "/img/otherItems/canteen.png"    
+    },
+    {
+        "name": "Manzana",
+        "id": "3",
+        "cost": 10,
+        "img": "/img/otherItems/apple.png"    
+    }
+]

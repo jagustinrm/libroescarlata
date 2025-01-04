@@ -41,7 +41,6 @@ const ItemShop: React.FC = () => {
       handleUpdateDeletable();
 
       addItemToInventory(playerInventoryId, itemType, itemId);
-      console.log(inventories);
       playerActions.setPlayerMaterial(player.playerMaterial - itemCost);
       setFloatingMessage('¡Comprado!');
     } else {

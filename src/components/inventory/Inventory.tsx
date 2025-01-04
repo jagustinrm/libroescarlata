@@ -1,29 +1,22 @@
 import { useEffect, useState } from 'react';
-import usePlayerStore from '../../stores/playerStore';
-import useInventoryStore from '../../stores/inventoryStore';
-import { useWeaponStore } from '../../stores/weaponStore';
-import usePotionStore from '../../stores/potionsStore';
 import './Inventory.css';
 import type { Inventory } from '../../stores/types/inventory';
 import BackButton from '../UI/BackButton';
 import { Armor } from '../../stores/types/armor';
 import { Potion } from '../../stores/types/potions';
 import { Weapon } from '../../stores/types/weapons';
-import useArmorStore from '../../stores/armorStore';
 import { getArmorsFromFirebase } from '../../firebase/saveArmorToFirebase';
 import ButtonEdited from '../UI/ButtonEdited';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
+import useGlobalState from '../../customHooks/useGlobalState';
+import { otherItem } from '../../stores/types/otherItems';
 
 export default function Inventory() {
   const [actualInventory, setActualInventory] = useState<Array<
-    Weapon | Armor | Potion
+    Weapon | Armor | Potion | otherItem
   > | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  const { player, playerActions } = usePlayerStore();
-  const { inventories } = useInventoryStore();
-  const { weapons } = useWeaponStore();
-  const { potions } = usePotionStore();
-  const { armors } = useArmorStore();
+  const {player, playerActions, inventories, weapons, potions, armors, otherItems} = useGlobalState();
   const [firebaseArmors, setFirebaseArmors] = useState<(Armor)[] | null>(null);
   const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
 
@@ -52,7 +45,7 @@ export default function Inventory() {
       return;
     }
 
-    let selectedCategory: Array<Weapon | Armor | Potion> = [];
+    let selectedCategory: Array<Weapon | Armor | Potion | otherItem> = [];
 
     // Filtrar según la categoría
     switch (category) {
@@ -91,9 +84,13 @@ export default function Inventory() {
           itemNames.includes(potion.id),
         );
         break;
-      // Agrega más categorías según sea necesario
+      case 'others':
+          selectedCategory = otherItems.filter((otherItem: otherItem) =>
+            itemNames.includes(otherItem.id),
+          );
+        break;
       default:
-        selectedCategory = []; // Si la categoría no tiene un store definido
+        selectedCategory = []; 
         break;
     }
     setActualInventory(selectedCategory);
@@ -108,17 +105,22 @@ export default function Inventory() {
       return;
     }
 
-    // Buscar en pociones
     const potion = potions.find((potion: Potion) => potion.id === itemId);
+
     if (potion) {
       setSelectedItem(potion);
       return;
     }
 
+    const otherItem = otherItems.find((otherItem: otherItem) => otherItem.id == itemId);
+
+    if (otherItem) {
+      setSelectedItem(otherItem);
+      return;
+    }
     const armor = armors.find((armor: Armor) => armor.id === itemId);
     if (armor) {
       setSelectedItem(armor);
-
       return;
     }
     if (firebaseArmors) {
