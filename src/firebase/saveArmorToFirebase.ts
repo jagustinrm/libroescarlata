@@ -1,10 +1,19 @@
 import { database } from './firebaseConfig'; // Importa la configuración de Firebase
 import { ref, set, get, remove, update } from 'firebase/database'; // Importa las funciones necesarias de Firebase
 import { Armor } from '../stores/types/armor';
+import { Item } from '../stores/types/items';
+// import useGlobalState from '../customHooks/useGlobalState';
+import useArmorStore from '../stores/armorStore';
 
 // Función para guardar una armadura en Firebase con control de ID único
-export const saveArmorToFirebase = async (armorId: string, armor: Armor) => {
+export const saveArmorToFirebase = async (armorId: string, armor: Armor | Item) => {
+  const {armors} = useArmorStore.getState();
   try {
+    const armorExistsInGlobalState = armors.some((existingArmor) => existingArmor.id === armorId);
+    if (armorExistsInGlobalState) {
+      console.warn(`El ID ${armorId} ya existe en el estado global. No se guardará.`);
+      return; 
+    }
     // Define la referencia en Firebase donde se verificará la existencia del ID
     const armorRef = ref(database, `armors/${armorId}`);
 
@@ -64,7 +73,6 @@ export const getArmorsFromFirebase = async (): Promise<Armor[]> => {
         id: key,
         ...armorsData[key],
       }));
-      console.log(armors);
       return armors; // Devuelve el array de armaduras
     } else {
       console.log('No se encontraron armaduras en Firebase.');

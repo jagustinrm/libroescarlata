@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import useItemsStore from '../../stores/itemsStore';
 import { Item } from '../../stores/types/items';
-import CreateCustomArmor from '../../generators/customArmors/createCustomArmor';
+import CreateCustomArmor, { CreateCustomArmors } from '../../generators/customArmors/createCustomArmor';
 import { deleteArmorFromFirebase } from '../../firebase/saveArmorToFirebase';
 import useGlobalState from '../../customHooks/useGlobalState';
+import { CreateCustomWeapons } from '../../generators/customWeapons/createCustomWeapons';
+import { CreateCustomAccessories } from '../../generators/customAccesories/createCustomAccesories';
 
 const ItemShopLoader = () => {
-  const { generatedArmor, createArmor } = CreateCustomArmor();
+  // const { generatedArmor, createArmor } = CreateCustomArmor();
+  const {generatedArmors, createArmors} = CreateCustomArmors()
+  const {generatedWeapons, createWeapons} = CreateCustomWeapons()
+  const {generatedAccessories, createAccessories} = CreateCustomAccessories();
   const [prevArmorId, setPrevArmorId] = useState('');
-  const {weapons, armors, potions, otherItems} = useGlobalState();
+  const {weapons, armors, potions, otherItems, removeItems} = useGlobalState();
   const { items, createItems, addItem, removeItem } = useItemsStore();
   const shopId = 1; // ID único para el inventario del shop (ahora es un número)
 
@@ -41,26 +46,66 @@ const ItemShopLoader = () => {
     });
   }, [weapons, potions, items, createItems, addItem, shopId, armors]);
 
+  // useEffect(() => {
+  //   if (generatedArmor) {
+  //     const handleDeleteFromFB = async () => {
+  //       await deleteArmorFromFirebase(prevArmorId);
+  //     };
+  //     handleDeleteFromFB();
+  //     removeItem(shopId, 'armors', prevArmorId);
+  //     addItem(shopId, 'armors', generatedArmor);
+  //     setPrevArmorId(generatedArmor.id);
+  //   }
+  // }, [generatedArmor]);
   useEffect(() => {
-    if (generatedArmor) {
-      const handleDeleteFromFB = async () => {
-        await deleteArmorFromFirebase(prevArmorId);
-      };
-      handleDeleteFromFB();
-      removeItem(shopId, 'armors', prevArmorId);
-      addItem(shopId, 'armors', generatedArmor);
-      setPrevArmorId(generatedArmor.id);
+    if (generatedArmors) {
+      generatedArmors.forEach(a => {
+        // removeItem(shopId, 'armors', prevArmorId);
+        addItem(shopId, 'armors', a);
+        // setPrevArmorId(a.id);  
+      })
     }
-  }, [generatedArmor]);
+  }, [generatedArmors])
+  useEffect(() => {
+    if (generatedWeapons) {
+      generatedWeapons.forEach(w => {
+        // removeItem(shopId, 'armors', prevArmorId);
+        addItem(shopId, 'weapons', w);
+        // setPrevArmorId(a.id);  
+      })
+    }
+  }, [generatedWeapons])
+  useEffect(() => {
+    if (generatedAccessories) {
+      generatedAccessories.forEach(a => {
+        // removeItem(shopId, 'armors', prevArmorId);
+        addItem(shopId, 'accessories', a);
+        // setPrevArmorId(a.id);  
+      })
+    }
+  }, [generatedAccessories])
 
   useEffect(() => {
-    const asyncCreateArmor = async () => {
-      await createArmor();
+    const asyncRemoveItemsAndCreate = async () => {
+      // Primero elimina los items existentes
+      await removeItems();
+  
+      // Luego crea nuevas armaduras, armas y accesorios
+      await createArmors(5);
+      await createWeapons(5);
+      await createAccessories(5);
     };
-    asyncCreateArmor();
-    const interval = setInterval(asyncCreateArmor, 60000);
+  
+    // Ejecuta la lógica inmediatamente al cargar el componente
+    asyncRemoveItemsAndCreate();
+  
+    // Configura un intervalo que ejecuta la lógica periódicamente
+    const interval = setInterval(asyncRemoveItemsAndCreate, 60000); // Cada 60 segundos
+  
+    // Limpia el intervalo al desmontar el componente
     return () => clearInterval(interval);
   }, []);
+  
 
   return null;
 };

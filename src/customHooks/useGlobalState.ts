@@ -1,7 +1,9 @@
+import useAccessoryStore from "../stores/accesoryStore";
 import useArmorStore from "../stores/armorStore";
 import useClassStore from "../stores/classStore";
 import useCreatureStore from "../stores/creatures";
 import useInventoryStore from "../stores/inventoryStore";
+import useItemsStore from "../stores/itemsStore";
 import useOtherItemsStore from "../stores/otherItemsStore";
 import usePlayerStore from "../stores/playerStore";
 import usePositionStore from "../stores/positionStore";
@@ -22,6 +24,8 @@ const useGlobalState = () => ({
     ...usePositionStore(),
     ...useStoryStore(),
     ...useOtherItemsStore(),
+    ...useItemsStore(),
+    ...useAccessoryStore(),
   });
 
 export default useGlobalState

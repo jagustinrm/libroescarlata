@@ -1,6 +1,7 @@
 export interface Inventory {
   weapons: Array<string>;
   armors: Array<string>;
+  accessories: Array<string>;
   potions: Array<string>;
   books: Array<string>;
   scrolls: Array<string>;

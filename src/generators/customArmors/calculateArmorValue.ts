@@ -1,4 +1,4 @@
-import { calculateCost } from './calculateCost';
+import { calculateCost } from '../calculateCost';
 export const calculateArmorValue = (
   material: string,
   equipLevel: number,

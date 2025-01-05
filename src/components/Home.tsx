@@ -187,6 +187,7 @@ export default function Home() {
           className="buttonPrueba"
           src="/img/UI/bestiary.png"
           alt=""
+
         />
       </div>
 

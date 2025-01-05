@@ -6,7 +6,8 @@ import usePlayerStore from '../../stores/playerStore';
 import useInventoryStore from '../../stores/inventoryStore';
 import BackButton from '../UI/BackButton';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
-import { updateArmorDeletable } from '../../firebase/saveArmorToFirebase';
+import { saveArmorToFirebase, updateArmorDeletable } from '../../firebase/saveArmorToFirebase';
+import { saveItemToFirebase } from '../../firebase/saveItemToFirebase';
 
 const ItemShop: React.FC = () => {
   const { player, playerActions } = usePlayerStore();
@@ -33,14 +34,25 @@ const ItemShop: React.FC = () => {
     itemId: string,
     itemType: keyof (typeof items)[1],
     itemCost: number,
+    item: Item
   ) => {
     if (player.playerMaterial >= itemCost) {
-      const handleUpdateDeletable = async () => {
-        await updateArmorDeletable(itemId, false);
-      };
-      handleUpdateDeletable();
 
+     
       addItemToInventory(playerInventoryId, itemType, itemId);
+      console.log(inventories)
+      if (itemType === "armors") {
+        saveArmorToFirebase(item.id, item);
+      } else if (itemType === "weapons") {
+        saveItemToFirebase(item.id, item, "weapons")
+      } else if (itemType === "accessories") {
+        saveItemToFirebase(item.id, item, "accessories")
+      }
+
+      // const handleUpdateDeletable = async () => {
+      //   await updateArmorDeletable(itemId, false);
+      // };
+      // handleUpdateDeletable();
       playerActions.setPlayerMaterial(player.playerMaterial - itemCost);
       setFloatingMessage('¡Comprado!');
     } else {
@@ -92,6 +104,7 @@ const ItemShop: React.FC = () => {
           items[shopId]?.[selectedType]?.map((item: Item) => (
             <div
               className="item-card"
+              style={{ borderColor: item.color }}
               key={item.id}
               onMouseMove={(e) =>
                 handleMouseMove(
@@ -104,7 +117,12 @@ const ItemShop: React.FC = () => {
               }
               onMouseLeave={handleMouseLeave}
             >
-              <h3 className="itemName">{item.name}</h3>
+                <h3
+                  className="itemName"
+                  style={{ color: item.color }}
+                >
+                  {item.name}
+                </h3>
               {item.img && item.img.length > 0 ? (
                 <img className="itemImg" src={item.img} alt={item.name} />
               ) : (
@@ -118,6 +136,7 @@ const ItemShop: React.FC = () => {
                     item.id,
                     selectedType,
                     item.cost,
+                    item
                   )
                 }
                 value={item.id}

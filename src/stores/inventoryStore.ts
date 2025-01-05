@@ -15,6 +15,7 @@ const useInventoryStore = create<InventoryStore>((set) => ({
             books: [],
             scrolls: [],
             others: [],
+            accessories: [],
           },
         },
       };
@@ -25,6 +26,8 @@ const useInventoryStore = create<InventoryStore>((set) => ({
     set((state) => {
       const inventory = state.inventories[id];
       if (!inventory) return state;
+      console.log(id, type, item)
+      
       return {
         inventories: {
           ...state.inventories,
@@ -71,6 +74,7 @@ const useInventoryStore = create<InventoryStore>((set) => ({
             books: [],
             scrolls: [],
             others: [],
+            accessories: [],
           },
         },
       };

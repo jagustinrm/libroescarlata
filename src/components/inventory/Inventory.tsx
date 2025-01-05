@@ -10,16 +10,19 @@ import ButtonEdited from '../UI/ButtonEdited';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
 import useGlobalState from '../../customHooks/useGlobalState';
 import { otherItem } from '../../stores/types/otherItems';
+import { Accessory } from '../../stores/types/accesories';
+import { getItemsFromFirebase } from '../../firebase/saveItemToFirebase';
+import { Item } from '../../stores/types/items';
 
 export default function Inventory() {
   const [actualInventory, setActualInventory] = useState<Array<
-    Weapon | Armor | Potion | otherItem
+    Weapon | Armor | Potion | Accessory | otherItem
   > | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  const {player, playerActions, inventories, weapons, potions, armors, otherItems} = useGlobalState();
+  const {player, playerActions, inventories, weapons, potions, armors, otherItems, accessories} = useGlobalState();
   const [firebaseArmors, setFirebaseArmors] = useState<(Armor)[] | null>(null);
   const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
-
+  const [firebaseItems, setFirebaseItems] = useState<{ weapons: Item[]; accessories: Item[]; } | null>(null)
   useEffect(() => {
     // Carga las armaduras el firebase
     const fetchArmors = async () => {
@@ -31,6 +34,19 @@ export default function Inventory() {
       }
     };
     fetchArmors();
+  }, []);
+
+  useEffect(() => {
+    // Carga las armaduras el firebase
+    const fetchItems = async () => {
+      try {
+        const data = await getItemsFromFirebase();
+        setFirebaseItems(data);
+      } catch (error) {
+        console.error('Error al obtener armaduras:', error);
+      }
+    };
+    fetchItems();
   }, []);
 
   const handleLoadActualInventory = (category: keyof Inventory) => {
@@ -50,33 +66,45 @@ export default function Inventory() {
     // Filtrar según la categoría
     switch (category) {
       case 'weapons': {
-        const weaponsJson: Weapon[] = weapons.filter((weapon: Weapon) =>
+        // Verifica que firebaseWeapons esté cargado antes de proceder
+        if (!firebaseItems?.weapons) {
+          setActualInventory(
+            weapons.filter((weapon: Weapon) => itemNames.includes(weapon.id)),
+          );
+          break;
+        }
+    
+        // Filtrar las armas locales
+        const localWeapons = weapons.filter((weapon: Weapon) =>
           itemNames.includes(weapon.id),
         );
-        selectedCategory = weaponsJson;
+        // Filtrar las armas de Firebase
+        const fbWeapons = firebaseItems.weapons.filter((weapon: Item) =>
+          itemNames.includes(weapon.id),
+        );
+    
+        // Combinar las armas locales y las de Firebase
+        selectedCategory = [...localWeapons, ...fbWeapons];
+    
         break;
       }
       case 'armors': {
-        // Verifica que firebaseArmors esté cargado antes de proceder
         if (!firebaseArmors) {
           setActualInventory(
             armors.filter((armor: Armor) => itemNames.includes(armor.id)),
           );
           break;
         }
-
-        // Filtrar las armaduras locales
+    
         const localArmors = armors.filter((armor: Armor) =>
           itemNames.includes(armor.id),
         );
-        // Filtrar las armaduras de Firebase
         const fbArmors = firebaseArmors.filter((armor: Armor) =>
           itemNames.includes(armor.id),
         );
-
-        // Combinar las armaduras locales y las de Firebase
+    
         selectedCategory = [...localArmors, ...fbArmors];
-
+    
         break;
       }
       case 'potions':
@@ -85,14 +113,42 @@ export default function Inventory() {
         );
         break;
       case 'others':
-          selectedCategory = otherItems.filter((otherItem: otherItem) =>
-            itemNames.includes(otherItem.id),
-          );
+        selectedCategory = otherItems.filter((otherItem: otherItem) =>
+          itemNames.includes(otherItem.id),
+        );
         break;
+      case 'accessories': {
+        console.log(firebaseItems)
+        // Verifica que firebaseAccessories esté cargado antes de proceder
+        if (!firebaseItems?.accessories) {
+          console.log("hola")
+          setActualInventory(
+            accessories.filter((accessory: Accessory) =>
+              itemNames.includes(accessory.id),
+            ),
+          );
+          break;
+        }
+    
+        // Filtrar los accesorios locales
+        const localAccessories = accessories.filter((accessory: Accessory) =>
+          itemNames.includes(accessory.id),
+        );
+        // Filtrar los accesorios de Firebase
+        const fbAccessories = firebaseItems.accessories.filter((accessory: Item) =>
+          itemNames.includes(accessory.id),
+        );
+    
+        // Combinar los accesorios locales y los de Firebase
+        selectedCategory = [...localAccessories, ...fbAccessories];
+    
+        break;
+      }
       default:
-        selectedCategory = []; 
+        selectedCategory = [];
         break;
     }
+    
     setActualInventory(selectedCategory);
   };
 
@@ -100,25 +156,21 @@ export default function Inventory() {
     // MODIFICAR, NECESITO QUE TODO UTILICE ID
     const itemId = isNaN(Number(itemName)) ? itemName : Number(itemName);
     const weapon = weapons.find((weapon: Weapon) => weapon.id === itemId);
+    const potion = potions.find((potion: Potion) => potion.id === itemId);
+    const otherItem = otherItems.find((otherItem: otherItem) => otherItem.id == itemId);
+    const armor = armors.find((armor: Armor) => armor.id === itemId);
     if (weapon) {
       setSelectedItem(weapon);
       return;
     }
-
-    const potion = potions.find((potion: Potion) => potion.id === itemId);
-
     if (potion) {
       setSelectedItem(potion);
       return;
     }
-
-    const otherItem = otherItems.find((otherItem: otherItem) => otherItem.id == itemId);
-
     if (otherItem) {
       setSelectedItem(otherItem);
       return;
     }
-    const armor = armors.find((armor: Armor) => armor.id === itemId);
     if (armor) {
       setSelectedItem(armor);
       return;
@@ -132,7 +184,24 @@ export default function Inventory() {
         return;
       }
     }
+    if (firebaseItems) {
 
+      const firebaseWeapon = firebaseItems.weapons.find(
+        (weapon: Item) => weapon.id === itemId,
+      );
+      if (firebaseWeapon) {
+        setSelectedItem(firebaseWeapon);
+        return;
+      }
+      const firebaseAccessory = firebaseItems.accessories.find(
+        (accesory: Item) => accesory.id === itemId,
+      );
+      if (firebaseAccessory) {
+        setSelectedItem(firebaseAccessory);
+        return;
+      }
+    }
+    
     setSelectedItem(null);
   };
 
@@ -187,6 +256,12 @@ export default function Inventory() {
           onClick={() => handleLoadActualInventory('scrolls')}
         >
           Pergaminos
+        </button>
+        <button
+          className="rpgui-button editedButtond "
+          onClick={() => handleLoadActualInventory('accessories')}
+        >
+          Accesorios
         </button>
         <button
           className="rpgui-button editedButtond"

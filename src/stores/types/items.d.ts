@@ -7,11 +7,14 @@ export interface Item {
   img?: string;
   cost: number;
   levelRequirement?: number;
+  deleteable?: boolean;
+  color?: string;
 }
 
 export interface Items {
   weapons: Item[];
   armors: Item[];
+  accessories: Item[];
   potions: Item[];
   books: Item[];
   scrolls: Item[];
@@ -25,4 +28,5 @@ export interface ItemsStore {
   addItem: (id: number, type: keyof Items, item: Item) => void;
   removeItem: (id: number, type: keyof Items, itemId: string) => void;
   clearItems: (id: number) => void;
+  removeItems: () => void;
 }

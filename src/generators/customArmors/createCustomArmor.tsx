@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Armor } from '../../stores/types/armor';
 import { saveArmorToFirebase } from '../../firebase/saveArmorToFirebase';
 import usePlayerStore from '../../stores/playerStore';
-import { generateUniqueId } from './generateUniqueId'; // Asegúrate de importar la función correctamente
-import { calculateCost } from './calculateCost';
-import { generateRandomStatRequirements } from './generateRandomStatReq';
+import { generateUniqueId } from '../generateUniqueId'; // Asegúrate de importar la función correctamente
+import { calculateCost } from '../calculateCost';
+import { generateRandomStatRequirements } from '../generateRandomStatReq';
 import { calculateArmorValue } from './calculateArmorValue';
-import { generateBonusEffects } from './generateBonusEffects';
+import { generateBonusEffects } from '../generateBonusEffects';
+import { getRarityColor } from '../getRarityColor';
 
 const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const rarities: Armor['rarity'][] = [
@@ -75,7 +76,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
   const randomRarity = rarities[Math.floor(Math.random() * rarities.length)];
   const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-  const uniqueId = await generateUniqueId();
+  const uniqueId = await generateUniqueId("armors");
   const equipLevel = Math.max(
     1,
     playerLevel - 5 + Math.floor(Math.random() * 11),
@@ -141,7 +142,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     randomMaterial,
     randomSuffix,
   });
-
+  const color = getRarityColor(randomRarity);
   return {
     id: uniqueId,
     name: `${randomPrefix} ${randomName} de ${randomMaterial} de ${randomSuffix}`,
@@ -152,6 +153,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     bodyPart: randomBodyPart,
     armorValue,
     equipLevel,
+    color,
     rarity: randomRarity,
     prefixes: [randomPrefix],
     suffixes: [randomSuffix],
@@ -175,14 +177,13 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
       newFeatures: ['Mejora de armadura'],
     },
     questReward: false,
-    deletable: true,
+    deleteable: true,
   };
 };
 
 const CreateCustomArmor = () => {
   const [generatedArmor, setGeneratedArmor] = useState<Armor | null>(null);
   const player = usePlayerStore((state) => state.player);
-
   const createArmor = async () => {
     const newArmor = await generateRandomArmor(player.level);
     setGeneratedArmor(newArmor);
@@ -196,5 +197,22 @@ const CreateCustomArmor = () => {
 
   return { generatedArmor, createArmor };
 };
+export const CreateCustomArmors = () => {
+  const [generatedArmors, setGeneratedArmors] = useState<Armor[]>([]); // Cambiamos a un array para almacenar múltiples armaduras
+  const player = usePlayerStore((state) => state.player);
 
+  const createArmors = async (count: number) => {
+    const armors: Armor[] = [];
+
+    for (let i = 0; i < count; i++) {
+      const newArmor = await generateRandomArmor(player.level); // Genera una armadura por cada iteración
+      armors.push(newArmor);
+    }
+
+    setGeneratedArmors(armors); // Actualiza el estado con todas las armaduras generadas
+    return armors; // Devuelve las armaduras generadas
+  };
+
+  return { generatedArmors, createArmors };
+};
 export default CreateCustomArmor;

@@ -3,10 +3,11 @@ import useGlobalState from '../../customHooks/useGlobalState';
 import BackButton from '../UI/BackButton';
 import './Bestiary.css';
 import ButtonEdited from '../UI/ButtonEdited';
+import { useNavigate } from 'react-router-dom';
 
 export default function Bestiary() {
     const { creatures, player } = useGlobalState();
-    
+    const navigate = useNavigate();
     // Estado para la página actual
     const [currentPage, setCurrentPage] = useState(1);
     const creaturesPerPage = 8;
@@ -32,14 +33,25 @@ export default function Bestiary() {
         }
     };
 
+    const handleBattle = (enemy: string) => {
+        navigate("/fightScene", {
+            state: {
+              enemy: enemy,
+              fightType: "normal",
+            },
+          });
+    }
+
     const renderCreatureImages = () => (
         <div className="bestiaryGrid">
             {currentCreatures.map(c => {
                 const isDefeated = player.enemiesDeleted?.some(ed => ed.name === c.name);
-                console.log()
                 const cant = player.enemiesDeleted.find(ed => ed.name === c.name)?.count;
                 return (
-                    <div key={c.name} className="creatureCard">
+                    <div key={c.name} 
+                    className="creatureCard  rpgui-cursor-point"
+                    onClick={() => isDefeated ? handleBattle(c.name) : null }
+                    >
                         <img
                             className="creatureImgCard"
                             style={{ filter: isDefeated ? "brightness(1)" : "brightness(0)" }}
@@ -53,7 +65,6 @@ export default function Bestiary() {
             })}
         </div>
     );
-
     return (
         <div className="bestiaryContainer rpgui-container framed-golden-2">
             {renderCreatureImages()}

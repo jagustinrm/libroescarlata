@@ -52,7 +52,8 @@ export interface Armor {
     newFeatures?: string[]; // Nuevas características al subir nivel
   };
   questReward?: boolean; // Indica si proviene de una misión
-  deletable?: boolean;
+  deleteable?: boolean;
+  color: string;
 }
 
 export interface ArmorStore {
