@@ -6,14 +6,21 @@ import usePlayerStore from '../../stores/playerStore';
 import useInventoryStore from '../../stores/inventoryStore';
 import BackButton from '../UI/BackButton';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
-import { saveArmorToFirebase, updateArmorDeletable } from '../../firebase/saveArmorToFirebase';
 import { saveItemToFirebase } from '../../firebase/saveItemToFirebase';
+import { useWeaponStore } from '../../stores/weaponStore';
+import useAccessoryStore from '../../stores/accesoryStore';
+import { Weapon } from '../../stores/types/weapons';
+import { Armor } from '../../stores/types/armor';
+import { Accessory } from '../../stores/types/accesories';
+import useArmorStore from '../../stores/armorStore';
 
 const ItemShop: React.FC = () => {
   const { player, playerActions } = usePlayerStore();
   const { addItem: addItemToInventory } = useInventoryStore();
+  const {addNewWeapon} = useWeaponStore();
+  const {addNewAccessory} = useAccessoryStore();
+  const {addNewArmor} = useArmorStore();
   const { items } = useItemsStore();
-  const { inventories } = useInventoryStore();
   const [selectedType, setSelectedType] = useState<
     keyof (typeof items)[1] | null
   >(null);
@@ -34,25 +41,22 @@ const ItemShop: React.FC = () => {
     itemId: string,
     itemType: keyof (typeof items)[1],
     itemCost: number,
-    item: Item
+    item: Item | Weapon | Armor | Accessory
   ) => {
     if (player.playerMaterial >= itemCost) {
-
+      const updatedItem = { ...item, playerOwner: true } as Item | Weapon | Armor | Accessory;
      
       addItemToInventory(playerInventoryId, itemType, itemId);
-      console.log(inventories)
       if (itemType === "armors") {
-        saveArmorToFirebase(item.id, item);
+        addNewArmor(updatedItem as Armor);
+        saveItemToFirebase(player.name, (updatedItem as Armor).id, updatedItem as Armor, "armors");
       } else if (itemType === "weapons") {
-        saveItemToFirebase(item.id, item, "weapons")
+        saveItemToFirebase(player.name, (updatedItem as Weapon).id, updatedItem as Weapon, "weapons");
+        addNewWeapon(updatedItem as Weapon);
       } else if (itemType === "accessories") {
-        saveItemToFirebase(item.id, item, "accessories")
+        saveItemToFirebase(player.name, (updatedItem as Accessory).id, updatedItem as Accessory, "accessories");
+        addNewAccessory(updatedItem as Accessory);
       }
-
-      // const handleUpdateDeletable = async () => {
-      //   await updateArmorDeletable(itemId, false);
-      // };
-      // handleUpdateDeletable();
       playerActions.setPlayerMaterial(player.playerMaterial - itemCost);
       setFloatingMessage('¡Comprado!');
     } else {
@@ -101,7 +105,7 @@ const ItemShop: React.FC = () => {
       {/* Renderizado de ítems basado en el tipo seleccionado */}
       <div className="item-grid">
         {selectedType &&
-          items[shopId]?.[selectedType]?.map((item: Item) => (
+          items[shopId]?.[selectedType]?.map((item) => (
             <div
               className="item-card"
               style={{ borderColor: item.color }}

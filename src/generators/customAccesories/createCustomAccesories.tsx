@@ -87,6 +87,7 @@ const generateRandomAccessory = async (playerLevel: number): Promise<Accessory> 
     questReward: false,
     deleteable: true,
     color,
+    playerOwner: false,
   };
 };
 
@@ -98,7 +99,7 @@ const CreateCustomAccessory = () => {
     const newAccessory = await generateRandomAccessory(player.level);
     setGeneratedAccessory(newAccessory);
     try {
-      await saveItemToFirebase(newAccessory.id, newAccessory, "accessories");
+      await saveItemToFirebase(player.name, newAccessory.id, newAccessory, "accessories");
       console.log('Accesorio guardado correctamente en Firebase.');
     } catch (error) {
       console.error('Error al guardar el accesorio en Firebase:', error);

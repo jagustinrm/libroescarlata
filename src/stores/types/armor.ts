@@ -54,12 +54,14 @@ export interface Armor {
   questReward?: boolean; // Indica si proviene de una misión
   deleteable?: boolean;
   color: string;
+  playerOwner: boolean;
 }
 
 export interface ArmorStore {
   armors: Armor[]; // Lista de armas
   areArmorsLoaded: boolean; // Indica si las armas están cargadas
-  setArmors: (weapons: Armor[]) => void; // Función para establecer las armas en el estado
-  addNewsetArmors: (newWeapon: Armor) => void; // Función para agregar una nueva arma
-  updatesetArmors: (updatedWeapon: Armor) => void; // Función para actualizar una arma existente
+  setArmors: (armor: Armor[]) => void; // Función para establecer las armas en el estado
+  addNewArmor: (armor: Armor) => void; 
+  addNewsetArmors: (newArmor: Armor) => void; // Función para agregar una nueva arma
+  updatesetArmors: (updatedArmor: Armor) => void; // Función para actualizar una arma existente
 }

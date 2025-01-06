@@ -6,13 +6,14 @@ import './UI/designRpg.css';
 import ButtonEdited from './UI/ButtonEdited';
 import { ref, get } from 'firebase/database'; // Importa desde Firebase
 import { database } from '../firebase/firebaseConfig'; // Asegúrate de importar tu configuración de Firebase
-
+import FirebaseItemsLoader from '../loaders/FirebaseItemsLoader';
 const LandingPage: React.FC = () => {
   const { playerActions } = usePlayerStore();
   const [inputName, setInputName] = useState<string>('');
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
+  
   const handleSaveName = async () => {
     const playerId = inputName || 'guest-player'; // Usa "guest-player" si el input está vacío
     const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
@@ -22,11 +23,10 @@ const LandingPage: React.FC = () => {
       const snapshot = await get(playerRef);
       if (snapshot.exists()) {
         alert('El nombre de usuario ya existe. Por favor, elige otro.');
-        return; // Detén la ejecución si el jugador existe
+        return;
       }
-
-      // Si no existe, guarda el nombre y continúa
       playerActions.setPlayerName(playerId);
+      FirebaseItemsLoader();
       setInputName(''); // Limpia el campo de entrada
       navigate('/characterSelector'); // Redirige a la siguiente página
     } catch (error) {
@@ -44,10 +44,12 @@ const LandingPage: React.FC = () => {
     if (playerName) {
       if (playerName === '') {
         const guestPlayer = 'guest-player';
+        FirebaseItemsLoader()
         navigate(`/loadPlayer/${guestPlayer}`);
       }
       navigate(`/loadPlayer/${playerName}`);
     } else {
+      FirebaseItemsLoader()
       alert('Por favor, ingresa un nombre de jugador.');
     }
   };

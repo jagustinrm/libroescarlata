@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Armor } from '../../stores/types/armor';
-import { saveArmorToFirebase } from '../../firebase/saveArmorToFirebase';
+// import { saveArmorToFirebase } from '../../firebase/saveArmorToFirebase';
 import usePlayerStore from '../../stores/playerStore';
 import { generateUniqueId } from '../generateUniqueId'; // Asegúrate de importar la función correctamente
 import { calculateCost } from '../calculateCost';
@@ -178,25 +178,26 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     },
     questReward: false,
     deleteable: true,
+    playerOwner: false,
   };
 };
 
-const CreateCustomArmor = () => {
-  const [generatedArmor, setGeneratedArmor] = useState<Armor | null>(null);
-  const player = usePlayerStore((state) => state.player);
-  const createArmor = async () => {
-    const newArmor = await generateRandomArmor(player.level);
-    setGeneratedArmor(newArmor);
-    try {
-      await saveArmorToFirebase(newArmor.id, newArmor);
-      console.log('Armadura guardada correctamente en Firebase.');
-    } catch (error) {
-      console.error('Error al guardar la armadura en Firebase:', error);
-    }
-  };
+// const CreateCustomArmor = () => {
+//   const [generatedArmor, setGeneratedArmor] = useState<Armor | null>(null);
+//   const player = usePlayerStore((state) => state.player);
+//   const createArmor = async () => {
+//     const newArmor = await generateRandomArmor(player.level);
+//     setGeneratedArmor(newArmor);
+//     try {
+//       await saveArmorToFirebase(newArmor.id, newArmor);
+//       console.log('Armadura guardada correctamente en Firebase.');
+//     } catch (error) {
+//       console.error('Error al guardar la armadura en Firebase:', error);
+//     }
+//   };
 
-  return { generatedArmor, createArmor };
-};
+//   return { generatedArmor, createArmor };
+// };
 export const CreateCustomArmors = () => {
   const [generatedArmors, setGeneratedArmors] = useState<Armor[]>([]); // Cambiamos a un array para almacenar múltiples armaduras
   const player = usePlayerStore((state) => state.player);
@@ -215,4 +216,4 @@ export const CreateCustomArmors = () => {
 
   return { generatedArmors, createArmors };
 };
-export default CreateCustomArmor;
+// export default CreateCustomArmor;

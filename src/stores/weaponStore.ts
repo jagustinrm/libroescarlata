@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { WeaponStore } from './types/weapons';
 export const useWeaponStore = create<WeaponStore>((set) => ({
   weapons: [],
+
   areWeaponsLoaded: false,
   setWeapons: (weapons) =>
     set((state) => {

@@ -88,6 +88,7 @@ export const handleCombatAction = (
    
     const weaponFiltered = weapons?.find((w) => w.name === player.selectedWeapon.name);
     const weaponRange = weaponFiltered?.range ?? 10; // Por defecto, rango es 10.
+    console.log(player.baseAttackBonus)
     const playerAttack = rollDice('1d20') + player.baseAttackBonus;
     console.log(weaponFiltered, playerAttack)
     if (playerPosition && enemyPosition) {
@@ -107,7 +108,7 @@ export const handleCombatAction = (
         playerAttack > creature.armorClass &&
         creature.health
       ) {
-        
+        console.log("Hola")
         const playerDamage =
           rollDice(weaponFiltered.damage) + player.statsIncrease['str'];
         addActionMessage(

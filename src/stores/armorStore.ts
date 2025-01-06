@@ -12,7 +12,10 @@ const useArmorStore = create<ArmorStore>((set) => ({
   addNewsetArmors: (newArmor: Armor) => {
     set((state) => ({ armors: [...state.armors, newArmor] }));
   },
-
+  addNewArmor: (newArmor: Armor) =>
+    set((state) => ({
+      armors: [...state.armors, newArmor],
+    })),
   updatesetArmors: (updatedArmor: Armor) => {
     set((state) => ({
       armors: state.armors.map((armor) =>

@@ -95,6 +95,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     sockets: Math.floor(Math.random() * 4),
     questReward: false,
     deleteable: true,
+    playerOwner: false,
   };
 };
 
@@ -106,7 +107,7 @@ const CreateCustomWeapon = () => {
     const newWeapon = await generateRandomWeapon(player.level);
     setGeneratedWeapon(newWeapon);
     try {
-      await saveItemToFirebase(newWeapon.id, newWeapon, "weapons");
+      // await saveItemToFirebase(player.name,newWeapon.id, newWeapon, "weapons");
       console.log('Arma guardada correctamente en Firebase.');
     } catch (error) {
       console.error('Error al guardar el arma en Firebase:', error);

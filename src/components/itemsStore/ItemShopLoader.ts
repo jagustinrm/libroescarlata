@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useItemsStore from '../../stores/itemsStore';
 import { Item } from '../../stores/types/items';
-import CreateCustomArmor, { CreateCustomArmors } from '../../generators/customArmors/createCustomArmor';
-import { deleteArmorFromFirebase } from '../../firebase/saveArmorToFirebase';
+import  { CreateCustomArmors } from '../../generators/customArmors/createCustomArmor';
+// import { deleteArmorFromFirebase } from '../../firebase/saveArmorToFirebase';
 import useGlobalState from '../../customHooks/useGlobalState';
 import { CreateCustomWeapons } from '../../generators/customWeapons/createCustomWeapons';
 import { CreateCustomAccessories } from '../../generators/customAccesories/createCustomAccesories';
+// import { Accessory } from '../../stores/types/accesories';
 
 const ItemShopLoader = () => {
   // const { generatedArmor, createArmor } = CreateCustomArmor();
   const {generatedArmors, createArmors} = CreateCustomArmors()
   const {generatedWeapons, createWeapons} = CreateCustomWeapons()
   const {generatedAccessories, createAccessories} = CreateCustomAccessories();
-  const [prevArmorId, setPrevArmorId] = useState('');
-  const {weapons, armors, potions, otherItems, removeItems} = useGlobalState();
-  const { items, createItems, addItem, removeItem } = useItemsStore();
+  const {weapons, armors, potions, otherItems, removeItems, accessories} = useGlobalState();
+  const { items, createItems, addItem } = useItemsStore();
   const shopId = 1; // ID único para el inventario del shop (ahora es un número)
 
   useEffect(() => {
@@ -23,11 +23,26 @@ const ItemShopLoader = () => {
     }
 
     weapons.forEach((weapon) => {
-      if (!items[shopId]?.weapons.some((w: Item) => w.id === weapon.id)) {
-        addItem(shopId, 'weapons', weapon); // Agregar solo si no está ya en el inventario
+      if (!items[shopId]?.weapons.some((w) => w.id === weapon.id)) {
+        if (weapon.playerOwner === false || !weapon.playerOwner) {
+          addItem(shopId, 'weapons', weapon);
+        }
       }
     });
-
+    accessories.forEach((accesory) => {
+      if (!items[shopId]?.accessories.some((a) => a.id === accesory.id)) {
+        if (accesory.playerOwner === false || !accesory.playerOwner) {
+          addItem(shopId, 'accessories', accesory);
+        }
+      }
+    });
+    armors.forEach((armor) => {
+      if (!items[shopId]?.armors.some((a) => a.id === armor.id)) {
+        if (armor.playerOwner === false || !armor.playerOwner) {
+        addItem(shopId, 'armors', armor);
+        }
+      }
+    });
     potions.forEach((potion) => {
       if (!items[shopId]?.potions.some((p: Item) => p.id === potion.id)) {
         addItem(shopId, 'potions', potion); // Agregar solo si no está ya en el inventario
@@ -39,11 +54,7 @@ const ItemShopLoader = () => {
         addItem(shopId, 'others', otherItem); // Agregar solo si no está ya en el inventario
       }
     })  
-    armors.forEach((armor) => {
-      if (!items[shopId]?.armors.some((a: Item) => a.id === armor.id)) {
-        addItem(shopId, 'armors', armor); // Agregar solo si no está ya en el inventario
-      }
-    });
+
   }, [weapons, potions, items, createItems, addItem, shopId, armors]);
 
   // useEffect(() => {

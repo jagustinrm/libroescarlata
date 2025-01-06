@@ -3,6 +3,7 @@ import { Accessory, AccessoryStore } from './types/accesories';
 
 const useAccessoryStore = create<AccessoryStore>((set) => ({
   accessories: [],
+  
   areAccessoriesLoaded: false,
 
   setAccessories: (accessories: Accessory[]) => {

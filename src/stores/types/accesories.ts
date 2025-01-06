@@ -50,6 +50,7 @@ export interface Accessory {
       setName: string; // Nombre del conjunto
       bonuses: string[]; // Lista de bonificaciones por piezas equipadas
     };
+    playerOwner: boolean;
   }
 
   export interface AccessoryStore {
