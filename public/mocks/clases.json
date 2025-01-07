@@ -1,7 +1,7 @@
 [
     {
         "className": "Mago",
-        "hitDie": "d4",
+        "hitDie": 40,
         "manaDie": "d12",
         "armorClass": 10,
         "baseAttackBonus": 0,
@@ -29,7 +29,7 @@
     },
     {
         "className": "Guerrero",
-        "hitDie": "d10",
+        "hitDie": 100,
         "manaDie": "d4",
         "armorClass": 15,
         "baseAttackBonus": 1,
@@ -57,7 +57,7 @@
     },
     {
         "className": "Pícaro",
-        "hitDie": "d6",
+        "hitDie": 60,
         "manaDie": "d6",
         "armorClass": 12,
         "baseAttackBonus": 0,
@@ -85,7 +85,7 @@
     },
     {
         "className": "Clérigo",
-        "hitDie": "d8",
+        "hitDie": 80,
         "manaDie": "d10",
         "armorClass": 14,
         "baseAttackBonus": 0,
@@ -113,7 +113,7 @@
     },
     {
         "className": "Bárbaro",
-        "hitDie": "d12",
+        "hitDie": 120,
         "manaDie": "d4",
         "armorClass": 13,
         "baseAttackBonus": 1,
@@ -141,7 +141,7 @@
     },
     {
         "className": "Bardo",
-        "hitDie": "d6",
+        "hitDie": 60,
         "manaDie": "d8",
         "armorClass": 11,
         "baseAttackBonus": 0,
@@ -169,7 +169,7 @@
     },
     {
         "className": "Druida",
-        "hitDie": "d8",
+        "hitDie": 80,
         "manaDie": "d10",
         "armorClass": 12,
         "baseAttackBonus": 0,
@@ -197,7 +197,7 @@
     },
     {
         "className": "Explorador",
-        "hitDie": "d8",
+        "hitDie": 80,
         "manaDie": "d6",
         "armorClass": 13,
         "baseAttackBonus": 1,
@@ -225,7 +225,7 @@
     },
     {
         "className": "Paladín",
-        "hitDie": "d10",
+        "hitDie": 100,
         "manaDie": "d8",
         "armorClass": 14,
         "baseAttackBonus": 1,

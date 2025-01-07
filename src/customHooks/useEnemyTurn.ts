@@ -3,6 +3,7 @@ import { rollDice } from '../utils/rollDice.ts';
 import usePositionStore from '../stores/positionStore.ts';
 import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
+import { calculateDodgePercentage, calculateHitRate, isAttackSuccessful } from '../utils/calculateDodgePercentage.ts';
 
 
 interface EnemyTurnProps {
@@ -59,18 +60,23 @@ export const useEnemyTurn = ({
 
         if (distanceX < 10 && distanceY < 10) {
           const enemyAttackTimeout = setTimeout(() => {
-            const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
-            if (totalAttack > player.totalArmorClass()) {
-              const damageDice = creature['attacks'][0].damage;
-              const damage = rollDice(damageDice);
+            // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
 
+            const success = isAttackSuccessful(
+              creature.hitRatePercentage?.() ?? 0,  // Usar 0 si hitRatePercentage no está definido
+              player.dodgePercentage?.() ?? 0       // Usar 0 si dodgePercentage no está definido
+            );
+            
+            if (success) {
+              const {damage, damageMax} = creature['attacks'][0];
+              const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage
               playerActions.setP_LeftHealth(
-                Math.max(player.p_LeftHealth - damage, 0),
+                Math.max(player.p_LeftHealth - rollDamage, 0),
               );
 
               setActionMessages((prev) => [
                 ...prev,
-                `El enemigo te ha atacado con ${creature['attacks'][0].name} y causó ${damage} puntos de daño.`,
+                `El enemigo te ha atacado con ${creature['attacks'][0].name} y causó ${rollDamage} puntos de daño.`,
               ]);
             } else {
               setActionMessages((prev) => [...prev, `¡El enemigo falló!`]);

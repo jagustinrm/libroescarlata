@@ -7,9 +7,9 @@
     "weight": "0.5 lb",
     "effect": {
       "type": "heal",
-      "amount": "1d8+1"
+      "amount": 100
     },
-    "description": "Restaura 1d8+1 puntos de vida.",
+    "description": "Restaura 100 puntos de vida.",
     "img": "/img/potions/low-healing-potion.png"
   },
   {
@@ -20,9 +20,9 @@
     "weight": "0.5 lb",
     "effect": {
       "type": "heal",
-      "amount": "2d8+3"
+      "amount": 300
     },
-    "description": "Restaura 2d8+3 puntos de vida.",
+    "description": "Restaura 300 puntos de vida.",
     "img": "/img/potions/moderate-healing-potion.png"
   },
   {

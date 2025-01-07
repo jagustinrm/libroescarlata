@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { PlayerStore } from './types/player';
 import useInventoryStore from './inventoryStore';
 import { StoryProgress } from './types/story';
+import { calculateDodgePercentage, calculateHitRate } from '../utils/calculateDodgePercentage';
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: {
@@ -15,7 +16,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     p_MaxMana: 1,
     p_LeftMana: 1,
     classes: [],
-    hitDie: '',
+    hitDie: 0,
     manaDie: '',
     armorClass: 0,
     baseAttackBonus: 0,
@@ -29,7 +30,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       dex: 0,
       con: 0,
       int: 0,
-      wis: 0,
+      agi: 0,
       cha: 0,
     },
     statsIncrease: {
@@ -37,7 +38,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       dex: 0,
       con: 0,
       int: 0,
-      wis: 0,
+      agi: 0,
       cha: 0,
     },
     leftPoints: 0,
@@ -53,10 +54,20 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     inventoryId: '',
     classImg: '',
     avatarImg: '',
+    hitRate: 0,
+    dodge: 0,
+    damage: 0,
+    damageMax: 0,
     totalArmorClass: () => {
       const state = get().player; // Obtén el estado actual
       const armorValue = state.selectedArmor?.armorValue || 0; // Usa 0 si selectedArmor es null
       return state.armorClass + armorValue;
+    },
+    dodgePercentage: () => {
+      return calculateDodgePercentage(get().player.stats.agi, get().player.dodge); 
+    },
+    hitRatePercentage:() => {
+      return calculateHitRate(get().player.stats.dex, get().player.hitRate); 
     },
     storyProgress: [], // Lista de progresos del jugador en las historias
     currentStoryId: null, // ID de la historia en la que está actualmente
@@ -184,6 +195,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, baseAttackBonus },
       })),
+    setDodge: (dodge) =>
+      set((state) => ({
+        player: { ...state.player, dodge },
+      })),
+    setHitRate: (hitRate) =>
+      set((state) => ({
+        player: { ...state.player, hitRate },
+      })),
     addClassFeature: (feature) =>
       set((state) => ({
         player: {
@@ -284,7 +303,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: {
           ...state.player,
-          hitDie: `${state.player.hitDie}, ${hitDie}`, // Agrega el nuevo valor al hitDie
+          hitDie: hitDie, // Agrega el nuevo valor al hitDie
         },
       })),
     setEnemiesDeleted: (enemiesDeleted) =>
@@ -297,9 +316,6 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         })),
     updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) =>
           set((state) => {
-            console.log(storyId);
-            console.log(progress);
-        
             const existingStory = state.player.storyProgress.find(
               (story) => story.storyId === storyId
             );

@@ -3,6 +3,6 @@ export interface Stats {
   dex: number;
   con: number;
   int: number;
-  wis: number;
+  agi: number;
   cha: number;
 }

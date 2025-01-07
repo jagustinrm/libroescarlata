@@ -7,6 +7,7 @@ import usePlayerStore from '../stores/playerStore.ts';
 import useSpellStore from '../stores/spellsStore.ts';
 import { useWeaponStore } from '../stores/weaponStore.ts';
 import usePositionStore from '../stores/positionStore.ts';
+import { calculateDodgePercentage, calculateHitRate, isAttackSuccessful } from './calculateDodgePercentage.ts';
 
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
@@ -88,9 +89,7 @@ export const handleCombatAction = (
    
     const weaponFiltered = weapons?.find((w) => w.name === player.selectedWeapon.name);
     const weaponRange = weaponFiltered?.range ?? 10; // Por defecto, rango es 10.
-    console.log(player.baseAttackBonus)
-    const playerAttack = rollDice('1d20') + player.baseAttackBonus;
-    console.log(weaponFiltered, playerAttack)
+    // const playerAttack = rollDice('1d20') + player.baseAttackBonus;
     if (playerPosition && enemyPosition) {
       const adjustedDistance = calculateDistance(playerPosition, enemyPosition);
 
@@ -102,15 +101,21 @@ export const handleCombatAction = (
         shouldFinalizeTurn = false;
         return;
       }
+
+      const success = isAttackSuccessful(
+        player.hitRatePercentage?.() ?? 0,  
+        creature.dodgePercentage?.() ?? 0    
+      );
       
       if (
         weaponFiltered &&
-        playerAttack > creature.armorClass &&
+        success &&
         creature.health
       ) {
-        console.log("Hola")
-        const playerDamage =
-          rollDice(weaponFiltered.damage) + player.statsIncrease['str'];
+        const playerDamage = 
+        Math.floor(Math.random() * (weaponFiltered.damageMax - weaponFiltered.damage + 1)) 
+        + weaponFiltered.damage 
+        + player.statsIncrease['str'];
         addActionMessage(
           `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`,
         );
@@ -175,8 +180,11 @@ export const handleCombatAction = (
       const adjustedDistance =
         dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
 
-      if (adjustedDistance <= spellDetails.range && spellDetails.damage) {
-        const damage = rollDice(spellDetails.damage);
+      if (adjustedDistance <= spellDetails.range && spellDetails.damage && spellDetails.damageMax ) {
+        const damage = 
+        Math.floor(Math.random() * (spellDetails.damageMax - spellDetails.damage + 1)) 
+        + spellDetails.damage 
+        + player.statsIncrease['int'];
         addActionMessage(
           `Has lanzado ${spellDetails.name} y causado ${damage} puntos de daño.`,
         );
@@ -252,8 +260,18 @@ export const handleCombatAction = (
         level: 1,
         hitPoints: '1d4',
         armorClass: 10,
-        attacks: [{ name: 'mordisco', type: 'melee', bonus: 1, damage: '1d3' }],
+        attacks: [{ name: 'mordisco', type: 'melee', bonus: 1, damage: 3, damageMax: 5 }],
         specialAbilities: ['forma gelatinosa', 'elasticidad', 'salto rápido'],
+        dodge: 20,
+        hitRate: 40,
+        stats: {
+          str: 1,
+          agi: 1,
+          dex: 1,
+          con: 1,
+          cha: 1,
+          int: 1
+        },
       });
       switchTurn?.();
     } else {

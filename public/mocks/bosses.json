@@ -12,13 +12,15 @@
                 "name": "Espada Maldita",
                 "type": "melee",
                 "bonus": 4,
-                "damage": "2d8"
+                "damage": 8,
+                "damageMax": 14
             },
             {
                 "name": "Rayo de Oscuridad",
                 "type": "rango",
                 "bonus": 3,
-                "damage": "3d6"
+                "damage": 8,
+                "damageMax": 14
             }
         ],
         "specialAbilities": [
@@ -40,13 +42,15 @@
                 "name": "Mordida",
                 "type": "melee",
                 "bonus": 6,
-                "damage": "3d10"
+                "damage": 10,
+                "damageMax": 18
             },
             {
                 "name": "Aliento de Fuego",
                 "type": "rango",
                 "bonus": 5,
-                "damage": "8d6"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -68,13 +72,15 @@
                 "name": "Garras",
                 "type": "melee",
                 "bonus": 5,
-                "damage": "2d6"
+                "damage": 6,
+                "damageMax": 18
             },
             {
                 "name": "Llama Infernal",
                 "type": "rango",
                 "bonus": 4,
-                "damage": "4d8"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -96,13 +102,15 @@
                 "name": "Martillo Gigante",
                 "type": "melee",
                 "bonus": 5,
-                "damage": "4d10"
+                "damage": 10,
+                "damageMax": 18
             },
             {
                 "name": "Lanzamiento de Rocas",
                 "type": "rango",
                 "bonus": 3,
-                "damage": "3d8"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -124,13 +132,15 @@
                 "name": "Rayo de Escarcha",
                 "type": "rango",
                 "bonus": 4,
-                "damage": "3d6"
+                "damage": 10,
+                "damageMax": 18
             },
             {
                 "name": "Explosión de Hielo",
                 "type": "área",
                 "bonus": 3,
-                "damage": "4d8"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -152,13 +162,15 @@
                 "name": "Espada corta",
                 "type": "melee",
                 "bonus": 2,
-                "damage": "1d6"
+                "damage": 10,
+                "damageMax": 18
             },
             {
                 "name": "Arco corto",
                 "type": "rango",
                 "bonus": 2,
-                "damage": "1d6"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -179,7 +191,8 @@
                 "name": "Mordida",
                 "type": "melee",
                 "bonus": 1,
-                "damage": "1d8"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -200,7 +213,8 @@
                 "name": "Mordida",
                 "type": "melee",
                 "bonus": 3,
-                "damage": "1d10 + veneno"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -222,7 +236,8 @@
                 "name": "Golpe",
                 "type": "melee",
                 "bonus": 1,
-                "damage": "1d6"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -243,7 +258,8 @@
                 "name": "Dardo mágico",
                 "type": "rango",
                 "bonus": 3,
-                "damage": "1d6"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [
@@ -264,13 +280,15 @@
                 "name": "Bombas caseras",
                 "type": "rango",
                 "bonus": 2,
-                "damage": "1d8"
+                "damage": 10,
+                "damageMax": 18
             },
             {
                 "name": "Daga oxidada",
                 "type": "melee",
                 "bonus": 1,
-                "damage": "1d4"
+                "damage": 10,
+                "damageMax": 18
             }
         ],
         "specialAbilities": [

@@ -37,7 +37,7 @@ export function checkLevelUp({
 
     // Aumentar salud con un mínimo de 1
     const healthIncrease = Math.floor(
-      Math.random() * calculateInitialHealth(player.hitDie) + player.statsIncrease["con"]
+      Math.random() * (player.hitDie) + player.statsIncrease["con"]
     );
     const newPlayerHealth = parseInt(player.p_MaxHealth.toString(), 10) + Math.max(1, healthIncrease);
     playerActions.setP_LeftHealth(newPlayerHealth);

@@ -123,6 +123,10 @@ export default function PlayerStats() {
               ))}
             </ul>
           </p>
+          <p>Esquiva: {player.dodge} </p>
+          <p>Puntería: {player.hitRate} </p>
+          <p>Porcentaje de esquiva: {player.dodgePercentage()} </p>
+          <p>Porcentaje de puntería: {player.hitRatePercentage()} </p>
           <p>
             💪 Tiradas de salvación:
             <ul>

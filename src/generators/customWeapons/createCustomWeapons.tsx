@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Weapon } from '../../stores/types/weapons';
-import { saveItemToFirebase } from '../../firebase/saveItemToFirebase';
+// import { saveItemToFirebase } from '../../firebase/saveItemToFirebase';
 import usePlayerStore from '../../stores/playerStore';
 import { generateUniqueId } from '../generateUniqueId';
 import { calculateCost } from '../calculateCost';
 import { generateRandomStatRequirements } from '../generateRandomStatReq';
 import { generateBonusEffects } from '../generateBonusEffects';
-import { calculateDamageValue } from './calculateDamageValue';
+import { calculateDamageValues } from './calculateDamageValue';
 import { getRarityColor } from '../getRarityColor';
 
 const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
@@ -39,7 +39,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
   const uniqueId = await generateUniqueId("weapons");
   const equipLevel = Math.max(1, playerLevel - 5 + Math.floor(Math.random() * 11));
   const cost = calculateCost(equipLevel, randomRarity);
-  const damage = calculateDamageValue(
+  const {damage, damageMax} = calculateDamageValues(
     randomMaterial,
     equipLevel,
     randomRarity,
@@ -84,6 +84,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     material: randomMaterial,
     rarity: randomRarity,
     damage,
+    damageMax,
     critical: "x2",
     color,
     equipLevel,
@@ -99,23 +100,23 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
   };
 };
 
-const CreateCustomWeapon = () => {
-  const [generatedWeapon, setGeneratedWeapon] = useState<Weapon | null>(null);
-  const player = usePlayerStore((state) => state.player);
+// const CreateCustomWeapon = () => {
+//   const [generatedWeapon, setGeneratedWeapon] = useState<Weapon | null>(null);
+//   const player = usePlayerStore((state) => state.player);
 
-  const createWeapon = async () => {
-    const newWeapon = await generateRandomWeapon(player.level);
-    setGeneratedWeapon(newWeapon);
-    try {
-      // await saveItemToFirebase(player.name,newWeapon.id, newWeapon, "weapons");
-      console.log('Arma guardada correctamente en Firebase.');
-    } catch (error) {
-      console.error('Error al guardar el arma en Firebase:', error);
-    }
-  };
+//   const createWeapon = async () => {
+//     const newWeapon = await generateRandomWeapon(player.level);
+//     setGeneratedWeapon(newWeapon);
+//     try {
+//       // await saveItemToFirebase(player.name,newWeapon.id, newWeapon, "weapons");
+//       console.log('Arma guardada correctamente en Firebase.');
+//     } catch (error) {
+//       console.error('Error al guardar el arma en Firebase:', error);
+//     }
+//   };
 
-  return { generatedWeapon, createWeapon };
-};
+//   return { generatedWeapon, createWeapon };
+// };
 
 export const CreateCustomWeapons = () => {
   const [generatedWeapons, setGeneratedWeapons] = useState<Weapon[]>([]);
@@ -134,4 +135,4 @@ export const CreateCustomWeapons = () => {
   return { generatedWeapons, createWeapons };
 };
 
-export default CreateCustomWeapon;
+// export default CreateCustomWeapon;

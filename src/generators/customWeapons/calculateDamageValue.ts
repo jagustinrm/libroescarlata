@@ -21,3 +21,19 @@ export const calculateDamageValue = (
   // Devuelve el valor total redondeado al entero más cercano
   return Math.floor(baseDamage + rarityBonus);
 };
+
+export const calculateDamageValues = (
+  material: 'Hierro' | 'Acero' | 'Madera' | 'Cristal' | string,
+  equipLevel: number,
+  rarity: string,
+): { damage: number, damageMax: number } => {
+  // Calcula el daño base usando la función original
+  const baseDamage = calculateDamageValue(material, equipLevel, rarity);
+
+  // Ajusta el daño máximo, por ejemplo, con un multiplicador adicional
+  const maxDamageMultiplier = 1.2; // Ajusta este valor según sea necesario
+  const maxDamage = Math.floor(baseDamage * maxDamageMultiplier);
+
+  // Devuelve un objeto con el daño mínimo y máximo
+  return { damage: baseDamage, damageMax: maxDamage };
+};

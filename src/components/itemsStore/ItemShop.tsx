@@ -28,7 +28,8 @@ const ItemShop: React.FC = () => {
   const [hoverInfo, setHoverInfo] = useState<{
     description: string;
     armorValue?: number;
-    damage?: string;
+    damage?: number;
+    damageMax?: number;
     levelRequirement?: number;
     x: number;
     y: number;
@@ -68,13 +69,15 @@ const ItemShop: React.FC = () => {
     event: React.MouseEvent,
     description: string,
     armorValue?: number,
-    damage?: string,
+    damage?: number,
+    damageMax?: number,
     levelRequirement?: number,
   ) => {
     setHoverInfo({
       description,
       armorValue,
       damage,
+      damageMax,
       levelRequirement,
       x: event.clientX,
       y: event.clientY,
@@ -116,6 +119,7 @@ const ItemShop: React.FC = () => {
                   item.description || 'Sin descripción',
                   item.armorValue && item.armorValue,
                   item.damage && item.damage,
+                  item.damageMax && item.damageMax,
                   item.levelRequirement,
                 )
               }
@@ -174,7 +178,7 @@ const ItemShop: React.FC = () => {
           {typeof hoverInfo.armorValue === 'number' && (
             <p>Armadura: {hoverInfo.armorValue}</p>
           )}
-          {hoverInfo.damage && <p>Daño: {hoverInfo.damage}</p>}
+          {hoverInfo.damage && hoverInfo.damageMax && <p>Daño: {hoverInfo.damage} - {hoverInfo.damageMax}</p>}
           {hoverInfo.levelRequirement && (
             <p>Requiere Nivel: {hoverInfo.levelRequirement}</p>
           )}

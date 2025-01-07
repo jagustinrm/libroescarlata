@@ -15,10 +15,14 @@ export interface Player {
   p_LeftHealth: number;
   p_MaxMana: number;
   p_LeftMana: number;
-  hitDie: string;
+  hitDie: number;
   manaDie: string;
   armorClass: number;
-  baseAttackBonus: number;
+  baseAttackBonus: number; // expertice
+  damage: number;
+  damageMax: number;
+  hitRate: number;
+  dodge: number;
   saves: {
     fortitude: string;
     reflex: string;
@@ -41,6 +45,8 @@ export interface Player {
   classImg: string;
   avatarImg: string;
   readonly totalArmorClass: () => number;
+  readonly dodgePercentage: () => number;
+  readonly hitRatePercentage: () => number;
   storyProgress: StoryProgress[]; // Lista de progresos del jugador en las historias
   currentStoryId: string | null; // ID de la historia en la que está actualmente
   
@@ -61,18 +67,20 @@ export interface PlayerActions {
   setP_LeftHealth: (p_LeftHealth: number) => void;
   setP_MaxMana: (p_MaxMana: number) => void;
   setP_LeftMana: (p_LeftMana: number) => void;
-  setHitDie: (hitDie: string) => void;
+  setHitDie: (hitDie: number) => void;
   setManaDie: (manaDie: string) => void;
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void;
   setArmorClass: (armorClass: number) => void;
   setBaseAttackBonus: (baseAttackBonus: number) => void;
+  setDodge: (dodge: number) => void;
+  setHitRate: (hitRate: number) => void;
   updateSaves: (saves: Partial<Player['saves']>) => void;
   addClassFeature: (feature: string) => void;
   setClassFeature: (classFeatures: Player['classFeatures']) => void;
   addPetsName: (petsName: string) => void;
-  updateHitDie: (hitDie: string) => void;
+  updateHitDie: (hitDie: number) => void;
   setSaves: (saves: Player['saves']) => void;
   updateSaves: (saves: Partial<Player['saves']>) => void;
   setEnemiesDeleted: (enemiesDeleted: Player['enemiesDeleted']) => void;

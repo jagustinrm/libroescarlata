@@ -1,20 +1,28 @@
+import { Stats } from './stats';
 export interface Creature {
   name: string;
   type?: string;
   role?: string; // "creature" o "boss"
   alignment: string;
   level: number;
+  expertice?: number;
+  dodge: number;
+  hitRate: number;
   hitPoints: string; // Ejemplo: "1d8"
   armorClass: number;
   attacks: {
     name: string; // Ejemplo: "daga"
     type: string; // "melee" o "rango"
     bonus: number; // Ejemplo: +1
-    damage: string; // Ejemplo: "1d4"
+    damage: number; 
+    damageMax: number;
   }[];
   specialAbilities: string[]; // Lista de habilidades especiales
   img: string; // URL o ruta de la imagen
   health?: number;
+  stats: Stats;
+  readonly dodgePercentage?: () => number;
+  readonly hitRatePercentage?: () => number;
 }
 
 export interface CreatureStore {

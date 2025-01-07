@@ -2,7 +2,7 @@
 // HABRÍA QUE AGREGAR VALUE PARA LAS OTRAS POCIONES QUE NO SON DE CURACIÓN
 export interface PotionEffect {
   type: string;
-  amount?: string;
+  amount?: number;
   stat?: string;
   duration?: string;
   description?: string;

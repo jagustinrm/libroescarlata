@@ -1,6 +1,6 @@
 export interface Class {
   className: string;
-  hitDie: string;
+  hitDie: number;
   manaDie: string;
   armorClass: number;
   baseAttackBonus: number;
@@ -9,6 +9,8 @@ export interface Class {
     reflex: string;
     will: string;
   };
+  expertice: number;
+  dodge: number;
   classFeatures: string[];
   img: string;
   faceImg: string;

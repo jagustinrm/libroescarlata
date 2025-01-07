@@ -208,7 +208,7 @@ const handleLoadActualInventory = (category: keyof Inventory) => {
               {/* <p><strong>Costo:</strong> {selectedItem.cost} <strong>materiales</strong></p> */}
               {selectedItem.damage && (
                 <p>
-                  <strong>Daño:</strong> {selectedItem.damage}
+                  <strong>Daño:</strong> {selectedItem.damage} - {selectedItem.damageMax}
                 </p>
               )}
             </>

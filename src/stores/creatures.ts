@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { CreatureStore, Creature } from './types/creatures';
-const useCreatureStore = create<CreatureStore>((set) => ({
+import { calculateDodgePercentage, calculateHitRate } from '../utils/calculateDodgePercentage';
+const useCreatureStore = create<CreatureStore>((set, get) => ({
   creatures: [],
   bosses: [],
   areCreaturesLoaded: false,
@@ -15,6 +16,22 @@ const useCreatureStore = create<CreatureStore>((set) => ({
     specialAbilities: [],
     img: '',
     health: 0,
+    stats: {
+      str: 0,
+      dex: 0,
+      con: 0,
+      int: 0,
+      agi: 0,
+      cha: 0,
+    },
+    dodge: 0,
+    hitRate: 0,
+    dodgePercentage: () => {
+      return calculateDodgePercentage(get().creature.stats.agi, get().creature.dodge); 
+    },
+    hitRatePercentage:() => {
+      return calculateHitRate(get().creature.stats.dex, get().creature.hitRate); 
+    },
   },
 
   setCreatures: (creatures: Creature[]) =>

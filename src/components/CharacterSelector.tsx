@@ -28,17 +28,19 @@ export default function CharacterSelector() {
       faceImg,
     } = classData;
     playerActions.setPlayerClass(className);
-    const InitialHealth = calculateInitialHealth(hitDie);
+    // const InitialHealth = calculateInitialHealth(hitDie);
     const InitialMana = calculateInitialHealth(manaDie);
     playerActions.setPlayerLevel(1);
-    playerActions.setP_MaxHealth(InitialHealth);
-    playerActions.setP_LeftHealth(InitialHealth);
+    playerActions.setP_MaxHealth(hitDie);
+    playerActions.setP_LeftHealth(hitDie);
     playerActions.setP_MaxMana(InitialMana);
     playerActions.setP_LeftMana(InitialMana);
     playerActions.setPlayerExp(0);
     playerActions.setP_ExpToNextLevel(1000);
     playerActions.setP_ExpPrevLevel(0);
     playerActions.setPlayerMaterial(10000000000);
+    playerActions.setDodge(40);
+    playerActions.setHitRate(40);
     //****************** INVENTNARIO */
     playerActions.setInventory(`${player.name}_inventory`);
     inventoryStore.createInventory(`${player.name}_inventory`);
@@ -57,7 +59,7 @@ export default function CharacterSelector() {
       dex: 0,
       con: 0,
       int: 0,
-      wis: 0,
+      agi: 0,
       cha: 0,
     });
     playerActions.setStatsIncrease({
@@ -65,7 +67,7 @@ export default function CharacterSelector() {
       dex: 0,
       con: 0,
       int: 0,
-      wis: 0,
+      agi: 0,
       cha: 0,
     });
     playerActions.setStatsLeftPoints(25);
