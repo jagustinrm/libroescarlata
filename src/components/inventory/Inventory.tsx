@@ -20,9 +20,6 @@ export default function Inventory() {
   const {player, playerActions, inventories, weapons, potions, armors, otherItems, accessories} = useGlobalState();
   const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
 
-
-console.log(inventories)
-console.log(weapons)
 const handleLoadActualInventory = (category: keyof Inventory) => {
     if (!player.inventoryId || !inventories[player.inventoryId]) {
       setActualInventory(null);
@@ -115,11 +112,11 @@ const handleLoadActualInventory = (category: keyof Inventory) => {
     }
 
     // Equipar según el tipo del objeto
-    if ('armorValue' in selectedItem) {
-      playerActions.setP_SelectedArmor(selectedItem as Armor);
+    if ('bodyPart' in selectedItem && 'armorValue' in selectedItem  ) {
+      playerActions.setP_SelectedBodyPart(selectedItem as Armor);
       setFloatingMessage('¡Equipado!');
-    } else if ('damage' in selectedItem) {
-      playerActions.setP_SelectedWeapon(selectedItem as Weapon);
+    } else if ('damage' in selectedItem && 'bodyPart' in selectedItem ) {
+      playerActions.setP_SelectedBodyPart(selectedItem as Weapon);
       setFloatingMessage('¡Equipado!');
     } else {
       console.log('Este objeto no puede ser equipado.');
@@ -127,7 +124,8 @@ const handleLoadActualInventory = (category: keyof Inventory) => {
   };
 
   return (
-    <section className="sectionInventory rpgui-container framed-golden-2">
+    <section style={{display: "flex", flexDirection: "row"}}>
+      <div className="sectionInventory rpgui-container framed-golden-2">
       <h1>Inventario</h1>
       <div className="buttonsInventory">
         <button
@@ -234,6 +232,55 @@ const handleLoadActualInventory = (category: keyof Inventory) => {
           onComplete={() => setFloatingMessage(null)}
         />
       )}
+      </div>
+      <div className='rpgui-container framed-golden-2 containerEquipment'>
+      <img 
+        className='head' 
+        src={player.bodyParts?.cabeza?.img || "https://via.placeholder.com/150"} 
+        alt="Head Item" 
+      />
+      <img 
+        className='chest' 
+        src={player.bodyParts?.pecho?.img || "https://via.placeholder.com/150"} 
+        alt="Chest Item" 
+      />
+      <img 
+        className='belt' 
+        src={player.bodyParts?.cintura?.img || "https://via.placeholder.com/150"} 
+        alt="Belt Item" 
+      />
+
+      <img 
+        className='back' 
+        src={player.bodyParts?.espalda?.img || "https://via.placeholder.com/150"} 
+        alt="Back Item" 
+      />
+      <img 
+        className='boots' 
+        src={player.bodyParts?.pies?.img || "https://via.placeholder.com/150"} 
+        alt="Boots Item" 
+      />
+      <img 
+        className='gloves' 
+        src={player.bodyParts?.manos?.img || "https://via.placeholder.com/150"} 
+        alt="Gloves Item" 
+      />
+            <img 
+        className='legs' 
+        src={player.bodyParts?.piernas?.img || "https://via.placeholder.com/150"} 
+        alt="Legs Item" 
+      />
+        <img 
+        className='face' 
+        src={player.bodyParts?.cara?.img || "https://via.placeholder.com/150"} 
+        alt="Face Item" 
+      />
+        <img 
+        className='shoulder' 
+        src={player.bodyParts?.hombros?.img || "https://via.placeholder.com/150"} 
+        alt="Shoulder Item" 
+      />
+      </div>
     </section>
   );
 }

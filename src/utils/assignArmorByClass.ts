@@ -7,7 +7,7 @@ interface AssignArmorParams {
   classes: Class[];
   armors: Armor[];
   playerActions: {
-    setP_SelectedArmor: (armor: Armor) => void;
+    setP_SelectedBodyPart: (armor: Armor) => void;
   };
   inventoryStore: InventoryStore;
   player: {
@@ -36,7 +36,7 @@ export function assignArmorByClass({
   const armor = armors.find((a) => a.id === initialArmorId);
 
   if (armor) {
-    playerActions.setP_SelectedArmor(armor);
+    playerActions.setP_SelectedBodyPart(armor);
   } else {
     console.error(`Initial armor with ID ${initialArmorId} not found.`);
   }

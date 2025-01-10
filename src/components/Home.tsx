@@ -17,7 +17,7 @@ export default function Home() {
   const {player, playerActions } = useGlobalState();
   const navigate = useNavigate();
   const [showMissions, setShowMissions] = useState(false);
-
+  console.log(player)
   const handleAction = (action: string) => {
     switch (action) {
       case 'fight-normal':

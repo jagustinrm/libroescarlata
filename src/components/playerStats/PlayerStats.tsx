@@ -39,17 +39,20 @@ export default function PlayerStats() {
             <p>🛠️ Materiales: {player.playerMaterial}</p>
             <p>
               🗡️ Arma actual:{' '}
-              {player.selectedWeapon?.name || 'Sin arma equipada'}
+              {player.bodyParts.manoDerecha?.name || 'Sin arma equipada'}
             </p>
             <p>
+              Daño: {player.damage()} - {player.damageMax()}
+            </p>
+            {/* <p>
               {' '}
               🛡️ Armadura actual:{' '}
               {player.selectedArmor?.name +
                 ' ' +
                 player.selectedArmor?.material || 'Sin arma equipada'}
-            </p>
-            <p> 🛡️ Clase de armadura: {player.totalArmorClass()}</p>
-            <p>⚔️ Ataque Base: {player.baseAttackBonus}</p>
+            </p> */}
+            <p> 🛡️ Armadura: {player.totalArmorClass()}</p>
+            <p>⚔️ Puntería: {player.hitRate}</p>
           </div>
           <button
             className="rpgui-button playerbackbutton"
@@ -66,8 +69,8 @@ export default function PlayerStats() {
                 Object.entries(player.stats).map(([key, value]) => (
                   <div className="statsAndAdd">
                     <li key={key}>
-                      {key}: {value} +{' '}
-                      {player.statsIncrease[key as keyof Stats]}
+                      {key}: {value}
+                      {/* {player.statsIncrease[key as keyof Stats]} */}
                     </li>
                     {player.leftPoints ? (
                       <button
@@ -123,11 +126,12 @@ export default function PlayerStats() {
               ))}
             </ul>
           </p>
-          <p>Esquiva: {player.dodge} </p>
+          <p>Esquiva: {player.totalDodge()} </p>
           <p>Puntería: {player.hitRate} </p>
-          <p>Porcentaje de esquiva: {player.dodgePercentage()} </p>
-          <p>Porcentaje de puntería: {player.hitRatePercentage()} </p>
-          <p>
+          <p>Porcentaje de esquiva: {player.dodgePercentage()}% </p>
+          <p>Porcentaje de puntería: {player.hitRatePercentage()}% </p>
+          <p>Reducción de daño: {player.totalDmgReduction(player.level)}%</p>
+          {/* <p>
             💪 Tiradas de salvación:
             <ul>
               {Object.entries(player.saves).map(([key, value]) => (
@@ -136,7 +140,7 @@ export default function PlayerStats() {
                 </li>
               ))}
             </ul>
-          </p>
+          </p> */}
 
           <p>
             🐾 Mascotas:

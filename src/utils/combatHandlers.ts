@@ -7,7 +7,9 @@ import usePlayerStore from '../stores/playerStore.ts';
 import useSpellStore from '../stores/spellsStore.ts';
 import { useWeaponStore } from '../stores/weaponStore.ts';
 import usePositionStore from '../stores/positionStore.ts';
-import { calculateDodgePercentage, calculateHitRate, isAttackSuccessful } from './calculateDodgePercentage.ts';
+import { isAttackSuccessful } from './calculateDodgePercentage.ts';
+import { simulateAttackMovement } from './simulateAttackMovement.ts';
+import { FloatingMessageProps } from '../stores/types/others';
 
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
@@ -20,6 +22,8 @@ interface CombatHandlersProps {
   switchTurn: () => void;
   turn?: 'enemy' | 'player' | 'summon';
   button?: Button;
+  setActivateImage: Dispatch<SetStateAction<boolean>>;
+  setFloatingMessage: Dispatch<SetStateAction<FloatingMessageProps | null>> ;
 }
 
 interface Position {
@@ -38,6 +42,7 @@ export const handleCombatAction = (
     y: number;
     x: number;
     button: Button;
+    
   },
 ) => {
   const {
@@ -49,6 +54,8 @@ export const handleCombatAction = (
     setSummon,
     switchTurn,
     turn,
+    setActivateImage,
+    setFloatingMessage,
   } = props;
 
   let shouldFinalizeTurn = true;
@@ -84,12 +91,14 @@ export const handleCombatAction = (
   // *********************************                  ********************************
   // ************************************CUERPO A CUERPO *****************************
   // ************************************                  *****************************
+  
+  
   const handleAttack = () => {
     if (!player || !creature) return;
    
-    const weaponFiltered = weapons?.find((w) => w.name === player.selectedWeapon.name);
+    const weaponFiltered = weapons?.find((w) => w.name === player.bodyParts.manoDerecha.name);
     const weaponRange = weaponFiltered?.range ?? 10; // Por defecto, rango es 10.
-    // const playerAttack = rollDice('1d20') + player.baseAttackBonus;
+    
     if (playerPosition && enemyPosition) {
       const adjustedDistance = calculateDistance(playerPosition, enemyPosition);
 
@@ -101,7 +110,7 @@ export const handleCombatAction = (
         shouldFinalizeTurn = false;
         return;
       }
-
+      simulateAttackMovement(playerPosition, 5, setPlayerPosition);
       const success = isAttackSuccessful(
         player.hitRatePercentage?.() ?? 0,  
         creature.dodgePercentage?.() ?? 0    
@@ -112,23 +121,27 @@ export const handleCombatAction = (
         success &&
         creature.health
       ) {
-        const playerDamage = 
-        Math.floor(Math.random() * (weaponFiltered.damageMax - weaponFiltered.damage + 1)) 
-        + weaponFiltered.damage 
-        + player.statsIncrease['str'];
+
+
+        setActivateImage(true);
+        setTimeout(() => {
+          setActivateImage(false);
+        }, 250);
+        const totalDamage = Math.floor(Math.random() * (player.damageMax() - player.damage()) + player.damage());
         addActionMessage(
-          `Has atacado al enemigo y causado ${playerDamage} puntos de daño.`,
+          `Has atacado al enemigo y causado ${totalDamage} puntos de daño.`,
         );
+        setFloatingMessage({message: totalDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
         useCreatureStore
           .getState()
-          .setCreatureHealth(Math.max(creature.health - playerDamage, 0));
+          .setCreatureHealth(Math.max(creature.health - totalDamage, 0));
 
-        if (creature.health - playerDamage <= 0 && fightType) {
+        if (creature.health - totalDamage <= 0 && fightType) {
           handleMessage?.('¡Has ganado el combate!', 'success', false);
           handlePostCombatActs?.(fightType, creature);
         }
       } else {
-
+        setFloatingMessage({message: '¡Falló!', onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
         addActionMessage(`¡Tu ataque falló!`);
       }
     }
@@ -184,10 +197,12 @@ export const handleCombatAction = (
         const damage = 
         Math.floor(Math.random() * (spellDetails.damageMax - spellDetails.damage + 1)) 
         + spellDetails.damage 
-        + player.statsIncrease['int'];
+        simulateAttackMovement(playerPosition, 5, setPlayerPosition);
         addActionMessage(
           `Has lanzado ${spellDetails.name} y causado ${damage} puntos de daño.`,
         );
+        setFloatingMessage({message: damage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
+
         useCreatureStore
           .getState()
           .setCreatureHealth(Math.max(creature.health - damage, 0));
@@ -205,9 +220,7 @@ export const handleCombatAction = (
           handleMessage?.('¡Has ganado el combate!', 'success', false);
           handlePostCombatActs?.(fightType, creature);
         }
-        console.log(shouldFinalizeTurn);
-        switchTurn?.();
-        console.log(shouldFinalizeTurn);
+
       } else {
         addActionMessage(
           `El enemigo está fuera de rango para ${spellDetails.name}.`,
@@ -228,6 +241,8 @@ export const handleCombatAction = (
       addActionMessage(
         `Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`,
       );
+      setFloatingMessage({message: healing.toString(), onComplete: () => setFloatingMessage(null), textColor: "green", position: playerPosition},  )
+
       const totalHealth = Math.min(
         player.p_LeftHealth + healing,
         player.p_MaxHealth,
@@ -252,7 +267,8 @@ export const handleCombatAction = (
         .playerActions.setP_LeftMana(
           Math.max(player?.p_LeftMana - spellDetails.manaCost, 0),
         );
-      setSummon({
+      const summon = {
+        ...creature,
         name: 'Mochi',
         img: '/img/summons/mochi.png',
         type: 'slime/animal',
@@ -272,15 +288,11 @@ export const handleCombatAction = (
           cha: 1,
           int: 1
         },
-      });
-      switchTurn?.();
+      }  
+      setSummon(summon);
+
     } else {
       shouldFinalizeTurn = false;
-    }
-
-    // Finaliza el turno solo si `shouldFinalizeTurn` es true.
-    if (shouldFinalizeTurn) {
-      finalizeTurn();
     }
   };
 
@@ -316,6 +328,5 @@ export const handleCombatAction = (
       handleMove();
       break;
   }
-
   finalizeTurn();
 };

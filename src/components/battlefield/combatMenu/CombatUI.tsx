@@ -38,8 +38,8 @@ const CombatUI: React.FC<CombatUIProps> = ({
         <Dropdown
           id="weapon-dropdown"
           options={opcionesArmas || []}
-          value={player.selectedWeapon}
-          onChange={(value) => playerActions.setP_SelectedWeapon(value)}
+          value={player.bodyParts.manoDerecha}
+          onChange={(value) => playerActions.setP_SelectedBodyPart(value)}
           disabled={turn !== 'player' || creature.health === 0}
         />
       </div>

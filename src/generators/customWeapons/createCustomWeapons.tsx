@@ -79,6 +79,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     img: imgUrl,
     weight: Math.floor(Math.random() * 10) + 1,
     cost,
+    bodyPart: "manoDerecha",
     description: 'Una poderosa arma con efectos mágicos.',
     type: randomWeaponType,
     material: randomMaterial,

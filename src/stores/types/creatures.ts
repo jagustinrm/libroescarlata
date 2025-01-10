@@ -21,8 +21,8 @@ export interface Creature {
   img: string; // URL o ruta de la imagen
   health?: number;
   stats: Stats;
-  readonly dodgePercentage?: () => number;
-  readonly hitRatePercentage?: () => number;
+  readonly dodgePercentage: () => number;
+  readonly hitRatePercentage: () => number;
 }
 
 export interface CreatureStore {

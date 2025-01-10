@@ -11,6 +11,7 @@ export interface Weapon {
   range?: number;
   img?: string;
   color: string;
+  bodyPart: string;
   material: 'Metal' | 'Madera' | string; // Otros materiales
   rarity:
   | 'Chatarra'
@@ -57,6 +58,7 @@ export interface Weapon {
   questReward?: boolean; // Indica si proviene de una misión
   deleteable?: boolean;
   playerOwner: boolean;
+  soundEffect: string;
 }
 
 export interface WeaponStore {

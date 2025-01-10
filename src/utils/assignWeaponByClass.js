@@ -10,7 +10,7 @@ export function assignWeaponByClass({
   console.log(classWeapon);
   const weapon = weapons.find((w) => w.id === classWeapon.initialWeapon[0]);
   if (weapon) {
-    playerActions.setP_SelectedWeapon(weapon);
+    playerActions.setP_SelectedBodyPart(weapon);
   }
   classWeapon.initialWeapon.forEach((weaponId) => {
     const weapon = weapons.find((w) => w.id === weaponId);

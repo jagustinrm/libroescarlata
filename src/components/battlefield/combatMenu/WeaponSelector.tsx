@@ -4,7 +4,7 @@ import Dropdown from '../../../utils/DropDown';
 interface WeaponSelectorProps {
   inventories: Inventory;
   selectedWeapon: string;
-  setSelectedWeapon: React.Dispatch<React.SetStateAction<string>>;
+  setP_SelectedBodyPart: React.Dispatch<React.SetStateAction<string>>;
   turn: 'player' | 'enemy' | 'summon';
   creatureHealth: number;
 }
@@ -12,7 +12,7 @@ interface WeaponSelectorProps {
 const WeaponSelector: React.FC<WeaponSelectorProps> = ({
   inventories,
   selectedWeapon,
-  setSelectedWeapon,
+  setP_SelectedBodyPart,
   turn,
   creatureHealth,
 }) => {
@@ -22,7 +22,7 @@ const WeaponSelector: React.FC<WeaponSelectorProps> = ({
         id="spell-dropdown"
         options={inventories.weapons || []}
         value={selectedWeapon}
-        onChange={(value) => setSelectedWeapon(value)}
+        onChange={(value) => setP_SelectedBodyPart(value)}
         disabled={turn !== 'player' || creatureHealth === 0}
       />
     </div>

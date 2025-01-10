@@ -8,7 +8,7 @@ interface NewEnemyClickParams {
   setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
   updateEnemy: boolean;
   setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
-
+  fightType: string;
 }
 
 interface EndBattleActionsProps {
@@ -39,26 +39,28 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
   return (
     <div>
       <div className="container-endBattle fixedUI ">
-        <button
-          onClick={() =>
-            handleNewEnemyClick({
-              player,
-              handleMessage,
-              setTurn,
-              updateEnemy,
-              setUpdateEnemy,
-            })
-          }
-          className="rpgui-button endBattleButton"
-        >
-          ⚔️ Seguir
-        </button>
+        {fightType !== 'story' &&
+                <button
+                onClick={() =>
+                  handleNewEnemyClick({
+                    player,
+                    handleMessage,
+                    setTurn,
+                    updateEnemy,
+                    setUpdateEnemy,
+                    fightType,
+                  })
+                }
+                className="rpgui-button endBattleButton"
+              >
+                ⚔️ Seguir
+              </button>
+        }
         {(fightType === 'normal' || 
         creature.role === 'boss' || 
         fightType === 'story' ||
         fightType === 'travel'
-      
-      ) && (
+        ) && (
           <button
             className="rpgui-button endBattleButton"
             onClick={() =>

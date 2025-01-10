@@ -1,13 +1,13 @@
 .floating-message {
   position: fixed;
-  bottom: 100px;
+  bottom: 300px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 10px 20px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 22px;
   z-index: 1000;
   opacity: 1;
   transition:

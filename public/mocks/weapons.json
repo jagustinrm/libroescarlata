@@ -10,7 +10,9 @@
             "weight": "4 lb",
             "cost": 15,
             "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros.",
-            "img": "/img/weapons/espada-larga.png"
+            "img": "/img/weapons/espada-larga.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-daga-002",
@@ -23,7 +25,10 @@
             "weight": "1 lb",
             "cost": 2,
             "description": "Ligera y fácil de ocultar, ideal como arma secundaria.",
-            "img": "/img/weapons/daga.png"
+            "img": "/img/weapons/daga.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
+            
         },
         {
             "id": "weapon-hacha-de-batalla-003",
@@ -36,7 +41,9 @@
             "weight": "6 lb",
             "cost": 10,
             "description": "Un arma poderosa capaz de infligir daños devastadores.",
-            "img": "/img/weapons/hacha-de-batalla.png"
+            "img": "/img/weapons/hacha-de-batalla.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-arco-largo-004",
@@ -49,7 +56,9 @@
             "weight": "3 lb",
             "cost": 75,
             "description": "Un arco de gran alcance, preferido por arqueros experimentados.",
-            "img": "/img/weapons/arco-largo.png"
+            "img": "/img/weapons/arco-largo.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-maza-005",
@@ -61,7 +70,9 @@
             "weight": "5 lb",
             "cost": 8,
             "description": "Perfecta para romper armaduras y golpear con fuerza contundente.",
-            "img": "/img/weapons/maza.png"
+            "img": "/img/weapons/maza.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-espadon-006",
@@ -73,7 +84,9 @@
             "weight": "8 lb",
             "cost": 50,
             "description": "Un arma imponente que requiere ambas manos para su uso.",
-            "img": "/img/weapons/espadon.png"
+            "img": "/img/weapons/espadon.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-lanza-007",
@@ -86,7 +99,9 @@
             "weight": "6 lb",
             "cost": 5,
             "description": "Versátil para el combate cercano o para arrojar a distancia.",
-            "img": "/img/weapons/lanza.png"
+            "img": "/img/weapons/lanza.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-ballesta-ligera-008",
@@ -99,7 +114,9 @@
             "weight": "4 lb",
             "cost": 35,
             "description": "Un arma fácil de usar, ideal para ataques a distancia precisos.",
-            "img": "/img/weapons/ballesta-ligera.png"
+            "img": "/img/weapons/ballesta-ligera.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-martillo-de-guerra-009",
@@ -111,7 +128,9 @@
             "weight": "5 lb",
             "cost": 12,
             "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados.",
-            "img": "/img/weapons/martillo-de-guerra.png"
+            "img": "/img/weapons/martillo-de-guerra.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         },
         {
             "id": "weapon-baston-010",
@@ -123,7 +142,9 @@
             "weight": "4 lb",
             "cost": 0,
             "description": "Un arma simple que puede utilizarse como herramienta o defensa.",
-            "img": "/img/weapons/baston.png"
+            "img": "/img/weapons/baston.png",
+            "bodyPart": "manoDerecha",
+            "soundEffect": "/music/attacks/sword-sound.mp3"
         }
     ]
 }

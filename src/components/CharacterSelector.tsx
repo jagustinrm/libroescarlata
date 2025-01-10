@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './CharacterSelector.css';
 import './UI/designRpg.css';
-import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
+// import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
 // @ts-expect-error Armas por clase
 import { assignWeaponByClass } from '../utils/assignWeaponByClass.js';
 import { assignArmorByClass } from '../utils/assignArmorByClass.js';
@@ -22,19 +22,18 @@ export default function CharacterSelector() {
       hitDie,
       classFeatures,
       baseAttackBonus,
-      saves,
       img,
       manaDie,
       faceImg,
     } = classData;
     playerActions.setPlayerClass(className);
     // const InitialHealth = calculateInitialHealth(hitDie);
-    const InitialMana = calculateInitialHealth(manaDie);
+    // const InitialMana = calculateInitialHealth(manaDie);
     playerActions.setPlayerLevel(1);
     playerActions.setP_MaxHealth(hitDie);
     playerActions.setP_LeftHealth(hitDie);
-    playerActions.setP_MaxMana(InitialMana);
-    playerActions.setP_LeftMana(InitialMana);
+    playerActions.setP_MaxMana(manaDie);
+    playerActions.setP_LeftMana(manaDie);
     playerActions.setPlayerExp(0);
     playerActions.setP_ExpToNextLevel(1000);
     playerActions.setP_ExpPrevLevel(0);
@@ -52,17 +51,9 @@ export default function CharacterSelector() {
     playerActions.setBaseAttackBonus(baseAttackBonus);
     playerActions.setHitDie(hitDie);
     playerActions.setManaDie(manaDie);
-    playerActions.setSaves(saves);
+
     createItems(1);
     playerActions.setStats({
-      str: 0,
-      dex: 0,
-      con: 0,
-      int: 0,
-      agi: 0,
-      cha: 0,
-    });
-    playerActions.setStatsIncrease({
       str: 0,
       dex: 0,
       con: 0,

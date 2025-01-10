@@ -27,10 +27,11 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     dodge: 0,
     hitRate: 0,
     dodgePercentage: () => {
-      return calculateDodgePercentage(get().creature.stats.agi, get().creature.dodge); 
+      return calculateDodgePercentage(get().creature.dodge); 
     },
     hitRatePercentage:() => {
-      return calculateHitRate(get().creature.stats.dex, get().creature.hitRate); 
+      console.log(get().creature.stats.dex, get().creature.hitRate)
+      return calculateHitRate(20, 50); 
     },
   },
 

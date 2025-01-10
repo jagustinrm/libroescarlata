@@ -38,6 +38,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     'espalda',
     'cintura',
     'piernas',
+    'pies',
   ];
 
   const randomBodyPart =

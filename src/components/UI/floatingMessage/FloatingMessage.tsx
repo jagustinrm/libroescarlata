@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './FloatingMessage.css';
-
-interface FloatingMessageProps {
-  message: string;
-  onComplete: () => void;
-}
+import { FloatingMessageProps } from '../../../stores/types/others';
 
 const FloatingMessage: React.FC<FloatingMessageProps> = ({
   message,
   onComplete,
+  position,
+  textColor,
 }) => {
   const [visible, setVisible] = useState(false);
-
+  console.log(position)
+  console.log(message)
+  console.log(textColor)
   useEffect(() => {
     // Reiniciar visibilidad cada vez que el mensaje cambie
     setVisible(true);
 
     const timeout = setTimeout(() => {
       setVisible(false);
-    }, 900); // Mostrar durante 1 segundo
+    }, 700); // Mostrar durante 1 segundo
 
     const cleanup = setTimeout(() => {
       onComplete();
@@ -29,10 +29,22 @@ const FloatingMessage: React.FC<FloatingMessageProps> = ({
       clearTimeout(timeout);
       clearTimeout(cleanup);
     };
-  }, [message, onComplete]); // Agregar `message` para reiniciar el efecto cuando cambie
+  }, [message]); // Agregar `message` para reiniciar el efecto cuando cambie
 
   return (
-    <div className={`floating-message ${visible ? 'visible' : 'hidden'}`}>
+    <div
+      className={`floating-message ${visible ? 'visible' : 'hidden'}`}
+      style={{
+        ...position && { // Solo aplica posición si `position` está definido
+          bottom: 'auto',
+          left: 'auto',
+          transform: `translate(${position.x -  5}vw, ${position.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
+          fontSize: '50px',
+          backgroundColor: 'transparent'
+        },
+        color: textColor, // Aplicar el color de letra
+      }}
+    >
       {message}
     </div>
   );

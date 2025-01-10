@@ -33,7 +33,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         id="newDesign"
         onClick={executeAttack}
         disabled={
-          creature.health === 0 || player.p_LeftHealth === 0 || !player.selectedWeapon
+          creature.health === 0 || player.p_LeftHealth === 0 || !player.bodyParts.manoDerecha
         }
       >
         ⚔️

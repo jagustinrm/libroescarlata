@@ -37,7 +37,7 @@ export function checkLevelUp({
 
     // Aumentar salud con un mínimo de 1
     const healthIncrease = Math.floor(
-      Math.random() * (player.hitDie) + player.statsIncrease["con"]
+      Math.random() * (player.hitDie) 
     );
     const newPlayerHealth = parseInt(player.p_MaxHealth.toString(), 10) + Math.max(1, healthIncrease);
     playerActions.setP_LeftHealth(newPlayerHealth);
@@ -45,7 +45,7 @@ export function checkLevelUp({
 
     // Aumentar mana con un mínimo de 1
     const manaIncrease = Math.floor(
-      Math.random() * calculateInitialHealth(player.manaDie) + player.statsIncrease["int"]
+      Math.random() * calculateInitialHealth(player.manaDie) 
     );
     const newPlayerMana = parseInt(player.p_MaxMana.toString(), 10) + Math.max(1, manaIncrease);
     playerActions.setP_LeftMana(newPlayerMana);

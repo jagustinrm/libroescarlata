@@ -24,6 +24,7 @@ import { Creature } from '../stores/types/creatures.ts';
 import useAppStore from '../stores/appStore.ts';
 import useGlobalState from '../customHooks/useGlobalState.ts';
 import CombatUI from './battlefield/combatMenu/CombatUI.tsx';
+import { FloatingMessageProps } from '../stores/types/others';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -35,13 +36,14 @@ export default function FightScene() {
   const navigate = useNavigate();
   const location = useLocation()
   const {enemy, fightType, event} = location.state
-
+  const [floatingMessage, setFloatingMessage] = useState<FloatingMessageProps | null>(null);
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {spells, weapons, player, playerActions, creature, setCreatureHealth, inventories,
     playerPosition, setPlayerPosition, setEnemyPosition, setSummonPosition,
    } = useGlobalState();
   const [summon, setSummon] = useState<Creature | null>(null);
   const [soundType, setSoundType] = useState<string>('');
+  const [activateImage, setActivateImage] = useState<boolean>(false)
   const [soundUrl, setSoundUrl] = useState<string | undefined>('');
   const { expTable} = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
@@ -154,12 +156,14 @@ export default function FightScene() {
       actionType,
       {
         setActionMessages,
+        setActivateImage,
         turn,
         setSummon,
         switchTurn,
         handlePostCombatActs,
         fightType,
         handleMessage,
+        setFloatingMessage
       },
       additionalData,
     );
@@ -169,6 +173,7 @@ export default function FightScene() {
     turn,
     setActionMessages,
     switchTurn,
+    setFloatingMessage,
   });
 
   useSummonTurn({
@@ -180,10 +185,12 @@ export default function FightScene() {
   });
   const executeAttack = () => {
     if (turn !== 'player') return;
-    setSoundType('attack');
+    const weapon = weapons.find((s) => player.bodyParts.manoDerecha?.name === s.name);
+    const url = weapon?.soundEffect;
+    setSoundUrl(url);
     handleAction('attack');
     setTimeout(() => {
-      setSoundType('');
+      setSoundUrl('');
     }, 300);
   };
   const executeSpell = () => {
@@ -244,6 +251,7 @@ export default function FightScene() {
   // if (error)  return <p>Error: {error}</p>;
   return (
     <div className="fight-scene">
+
       <div className="turn-indicator fixedUI ">
         {fightType === 'dungeon' ? <h1>Dungeon {dungeonLevel}</h1> : <></>}
         {turn === 'player' ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
@@ -265,12 +273,15 @@ export default function FightScene() {
           ))}
         </ul>
         <GameBoard
-          // setCanAttack={setCanAttack}
+          activateImage = {activateImage}
           turn={turn}
           SoundPlayer={SoundPlayer}
           summon={summon}
           setSummon={setSummon}
           switchTurn={switchTurn}
+          setActivateImage = {setActivateImage}
+          setFloatingMessage={setFloatingMessage}
+          floatingMessage = {floatingMessage}
         />
         <EndBattleActions
           creature={creature}
@@ -300,6 +311,7 @@ export default function FightScene() {
           onClose={() => handleClose(messageState.redirectHome)}
         />
       )}
+
       <KeyboardController />
     </div>
   );

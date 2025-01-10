@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { PlayerStore } from './types/player';
+import { Player, PlayerStore } from './types/player';
 import useInventoryStore from './inventoryStore';
 import { StoryProgress } from './types/story';
-import { calculateDodgePercentage, calculateHitRate } from '../utils/calculateDodgePercentage';
+import { calculateDmgReduction, calculateDodgePercentage, calculateHitRate, calculateTotalArmor, calculateTotalDamage, calculateTotalDodge, calculateTotalMaxDamage } from '../utils/calculateDodgePercentage';
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
   player: {
@@ -17,14 +17,9 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     p_LeftMana: 1,
     classes: [],
     hitDie: 0,
-    manaDie: '',
+    manaDie: 0,
     armorClass: 0,
-    baseAttackBonus: 0,
-    saves: {
-      fortitude: '',
-      reflex: '',
-      will: '',
-    },
+    // baseAttackBonus: 0,
     stats: {
       str: 0,
       dex: 0,
@@ -33,19 +28,37 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       agi: 0,
       cha: 0,
     },
-    statsIncrease: {
-      str: 0,
-      dex: 0,
-      con: 0,
-      int: 0,
-      agi: 0,
-      cha: 0,
-    },
+    movement: 0, // nuevo
+    turnSpeed: 0, //nuevo
+    blockChance: 0, //nuevo
+    parry: 0, //nuevo
+    critChance: 0, // nuevo
+    critDamage: 0, //nuevo
+    spellHitRate: 0, //nuevo
+    spellPenetration: 0, //nuevo
+    spellCrit: 0, //nuevo
+    spellDmg: 0, //nuevo
+    spiritReg: 0, //nuevo
+    healthReg: 0, //nuevo
+    healingPower: 0, //nuevo
     leftPoints: 0,
     classFeatures: [],
     selectedPet: '',
-    selectedWeapon: null,
-    selectedArmor: null,
+    // selectedWeapon: null,
+    // selectedArmor: null,
+    bodyParts: {
+        cabeza: null,
+        cara: null,
+        hombros:null,
+        pecho:  null,
+        manos: null,
+        espalda:  null,
+        cintura: null,
+        piernas:  null,
+        pies: null,
+        manoDerecha: null,
+        manoIzquierda: null,
+      },
     selectedSpell: null,
     playerMaterial: 0,
     petsName: [],
@@ -55,19 +68,35 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     classImg: '',
     avatarImg: '',
     hitRate: 0,
-    dodge: 0,
-    damage: 0,
-    damageMax: 0,
+    dodge: 1,
+    totalDodge:() => {
+      const state = get().player; // Obtén el estado actual
+      console.log("dodge")
+      return calculateTotalDodge(state.stats.agi, state.dodge) || 0
+    },
+    damage: () => {
+      const state = get().player; // Obtén el estado actual
+      return calculateTotalDamage(state.bodyParts, state.stats.str) || 0
+    },
+    damageMax: () => {
+      const state = get().player; // Obtén el estado actual
+      return calculateTotalMaxDamage(state.bodyParts, state.stats.str) || 0
+    },
     totalArmorClass: () => {
       const state = get().player; // Obtén el estado actual
-      const armorValue = state.selectedArmor?.armorValue || 0; // Usa 0 si selectedArmor es null
-      return state.armorClass + armorValue;
+      return calculateTotalArmor(state.bodyParts, state.armorClass) || 0
     },
     dodgePercentage: () => {
-      return calculateDodgePercentage(get().player.stats.agi, get().player.dodge); 
+      return calculateDodgePercentage(get().player.totalDodge()); 
     },
     hitRatePercentage:() => {
       return calculateHitRate(get().player.stats.dex, get().player.hitRate); 
+    },
+    totalDmgReduction: (enemyLevel) => {
+      return calculateDmgReduction(get().player.totalArmorClass(), enemyLevel)
+    },
+    totalBlockValue: () => {
+      return 0
     },
     storyProgress: [], // Lista de progresos del jugador en las historias
     currentStoryId: null, // ID de la historia en la que está actualmente
@@ -79,13 +108,6 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, inventoryId: inventory },
       })),
-    setSaves: (saves) =>
-      set((state) => ({
-        player: {
-          ...state.player,
-          saves,
-        },
-      })),
     addStatsPoints: (points, type) =>
       set((state) => ({
         player: {
@@ -96,20 +118,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
           },
         },
       })),
-    setStatsIncrease: (newstatsIncrease) =>
-      set((state) => ({
-        player: { ...state.player, statsIncrease: { ...newstatsIncrease } },
-      })),
-    addStatsIncrease: (points, type) =>
-      set((state) => ({
-        player: {
-          ...state.player,
-          statsIncrease: {
-            ...state.player.statsIncrease,
-            [type]: state.player.statsIncrease[type] + points,
-          },
-        },
-      })),
+    
     addStatsLeftPoints: (leftPoints) =>
       set((state) => ({
         player: {
@@ -124,16 +133,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
           leftPoints: leftPoints,
         },
       })),
-    updateSaves: (saves) =>
-      set((state) => ({
-        player: {
-          ...state.player,
-          saves: {
-            ...state.player.saves,
-            ...saves,
-          },
-        },
-      })),
+
     setStats: (newStats) =>
       set((state) => ({
         player: { ...state.player, stats: { ...newStats } },
@@ -273,14 +273,31 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, selectedPet },
       })),
-    setP_SelectedWeapon: (selectedWeapon) =>
-      set((state) => ({
-        player: { ...state.player, selectedWeapon },
-      })),
-    setP_SelectedArmor: (selectedArmor) =>
-      set((state) => ({
-        player: { ...state.player, selectedArmor },
-      })),
+      setBodyParts: (newBodyParts) =>
+        set((state) => ({
+          player: {
+            ...state.player, 
+            bodyParts: { ...state.player.bodyParts, ...newBodyParts }, 
+          },
+        })),
+    setP_SelectedBodyPart: (selectedBodyPart) =>
+      set((state) => {
+      const { bodyPart } = selectedBodyPart; // Obtenemos la parte del cuerpo del Armor
+      if (!bodyPart || !state.player.bodyParts.hasOwnProperty(bodyPart)) {
+        console.error("Invalid bodyPart:", bodyPart);
+        return state; // Retornamos el estado actual si el bodyPart no es válido
+      }
+      return {
+        player: {
+          ...state.player,
+          bodyParts: {
+            ...state.player.bodyParts,
+            [bodyPart]: selectedBodyPart, // Actualizamos solo la parte específica del cuerpo
+          },
+        },
+      };
+    }),
+  
     setP_SelectedSpell: (selectedSpell) =>
         set((state) => ({
           player: { ...state.player, selectedSpell },
@@ -350,6 +367,13 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       setCurrentStoryId: (storyId: string | null) =>
         set((state) => ({
           player: { ...state.player, currentStoryId: storyId },
+        })),
+      setPlayer: (newPlayer: Partial<Player>) =>
+        set((state) => ({
+          player: {
+            ...state.player, // Conservamos las propiedades actuales
+            ...newPlayer, // Sobrescribimos con las nuevas propiedades del objeto player proporcionado
+          },
         })),
   },
 
