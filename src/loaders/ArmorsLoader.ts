@@ -6,7 +6,7 @@ const ArmorsLoader = () => {
   const { areArmorsLoaded, setArmors } = useArmorStore();
 
   // Importa todas las imágenes como objetos con propiedades `.default`
-  const images = import.meta.glob('/src/assets/img/armors/*.png', { eager: true, import: 'default' });
+  const images = import.meta.glob('/src/assets/img/armors/*.png', { eager: true });
 
   useEffect(() => {
     if (!areArmorsLoaded) {
