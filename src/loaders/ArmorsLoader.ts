@@ -7,7 +7,7 @@ const ArmorsLoader = () => {
 
   // Importa todas las imágenes de la carpeta
   const images = import.meta.glob('/src/assets/img/armors/*.png', { eager: true });
-
+  console.log(images, "imagenes")
   useEffect(() => {
     if (!areArmorsLoaded) {
       const loadArmors = async () => {
