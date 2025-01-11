@@ -3,16 +3,16 @@ import Dropdown from '../../../utils/DropDown';
 import AttackAndPotions from './AttackAndPotions';
 import usePlayerStore from '../../../stores/playerStore';
 import useCreatureStore from '../../../stores/creatures';
+import { Weapon } from '../../../stores/types/weapons';
+import { Spell } from '../../../stores/types/spells';
 
 interface CombatUIProps {
-  opcionesArmas: string[] | unknown;
-  opcionesSpells: string[] | unknown;
+  opcionesArmas: Weapon[]
+  opcionesSpells: Spell[]
   turn: string;
   executeAttack: () => void;
   handleMessage: (message: string, type: string, dismissible: boolean) => void;
-  pocion: string | undefined; // Define mejor el tipo según tu implementación
-  // selectedSpell: string;
-  // setSelectedSpell: (value: string) => void;
+  pocion: string | undefined; 
   executeSpell: () => void;
   fightType: string;
 }
@@ -31,6 +31,8 @@ const CombatUI: React.FC<CombatUIProps> = ({
 }) => {
   const {player, playerActions} = usePlayerStore.getState()
   const {creature} = useCreatureStore.getState()
+
+  console.log(player.selectedSpell)
   return (
     <div className="rpgui-container framed attacks fixedUI">
       {/* Dropdown para armas */}
@@ -58,7 +60,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
           <Dropdown
             id="spell-dropdown"
             options={opcionesSpells || []}
-            value={player.selectedSpell}
+            value={player.selectedSpell }
             onChange={(value) => playerActions.setP_SelectedSpell(value)}
             disabled={turn !== 'player' || creature.health === 0}
           />

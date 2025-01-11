@@ -99,25 +99,26 @@ export default function FightScene() {
   };
   const { setAmbientMusic, setMusicVolume } = useAppStore();
   const [pocion, setpocion] = useState<string>();
-  const [opcionesArmas, setOpcionesArmas] = useState<(Weapon | undefined)[]>();
-  const [opcionesSpells, setOpcionesSpells] = useState<(Spell | undefined)[]>(); 
+  const [opcionesArmas, setOpcionesArmas] = useState<(Weapon)[]>();
+  const [opcionesSpells, setOpcionesSpells] = useState<Spell[]>(); 
   // ************************USEEFFECTS ******************************
   useEffect(() => {
     const pot = inventories[player.inventoryId].potions.find(
-      (p) => p === 'Poción de Curación Menor',
+      (p) => p === 'Poción de Curación Menor'
     );
-    setpocion(pot)
+    setpocion(pot);
+  
     const opctArm = inventories[player.inventoryId].weapons
-    .map((w) => weapons.find((ws) => ws.id === w)) // Devuelve el objeto completo
-    .filter(Boolean); // Filtra objetos undefined o null
+      .map((w) => weapons.find((ws) => ws.id === w))
+      .filter((w): w is Weapon => w !== undefined);
     setOpcionesArmas(opctArm);
+  
     const opctSpells = player.spells
-    .map((s) => spells.find((sp) => sp.id === s)) // Devuelve el objeto completo
-    .filter(Boolean); // Filtra objetos undefined o null
+      .map((s) => spells.find((sp) => sp.id === s))
+      .filter((s): s is Spell => s !== undefined);
     setOpcionesSpells(opctSpells);
-
-
-  }, [inventories])
+  }, [inventories]);
+  
 
   useEffect(() => {
     handleCheckLevelUp(); // Verificar subida de nivel
@@ -261,8 +262,8 @@ export default function FightScene() {
         {turn === 'player' ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
       </div>
       <CombatUI
-        opcionesArmas={opcionesArmas}
-        opcionesSpells = {opcionesSpells}
+        opcionesArmas={opcionesArmas ?? []} 
+        opcionesSpells = {opcionesSpells ?? []}
         turn={turn}
         executeAttack={executeAttack}
         handleMessage={handleMessage}

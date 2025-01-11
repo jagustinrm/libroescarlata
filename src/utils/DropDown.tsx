@@ -1,22 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Weapon } from '../stores/types/weapons';
-import { Spell } from '../stores/types/spells';
+import  { useEffect, useRef, useState } from 'react';
+
 // import { Weapon } from "../stores/types/weapons";
-type DropdownProps = {
-  options: Weapon[] | Spell[];
-  value: Weapon | Spell;
-  onChange: (value: string) => void;
+type DropdownProps<T> = {
+  options: T[];
+  value: T | null;
+  onChange: (value: T) => void;
   id?: string;
   disabled?: boolean;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({
+const Dropdown = <T extends { id: string; name: string }>({
   options,
   value,
   onChange,
   id,
   disabled = false,
-}) => {
+}: DropdownProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLSelectElement>(null);
   const headerRef = useRef<HTMLParagraphElement>(null);
@@ -46,7 +45,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
   };
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option: any) => {
     onChange(option);
     setIsOpen(false);
   };
