@@ -6,7 +6,7 @@ interface ExpTable {
 }
 
 interface CheckLevelUpParams {
-  calculateInitialHealth: (die: string) => number;
+  // calculateInitialHealth: (die: number) => number;
   player: Player;
   setActionMessages: (callback: (messages: string[]) => string[]) => void;
   playerActions: PlayerActions;
@@ -15,7 +15,7 @@ interface CheckLevelUpParams {
 }
 
 export function checkLevelUp({
-  calculateInitialHealth,
+  // calculateInitialHealth,
   player,
   setActionMessages,
   playerActions,
@@ -45,7 +45,7 @@ export function checkLevelUp({
 
     // Aumentar mana con un mínimo de 1
     const manaIncrease = Math.floor(
-      Math.random() * calculateInitialHealth(player.manaDie) 
+      Math.random() * player.manaDie
     );
     const newPlayerMana = parseInt(player.p_MaxMana.toString(), 10) + Math.max(1, manaIncrease);
     playerActions.setP_LeftMana(newPlayerMana);

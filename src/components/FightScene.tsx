@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEnemyLoader } from '../customHooks/useEnemyLoader.ts';
 import { checkLevelUp } from '../utils/checkLevelUp.ts';
-import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
+// import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
 import { handleCombatAction } from '../utils/combatHandlers';
 import { useLoadQuests } from '../customHooks/useLoadQuests.js';
 import { QuestData } from './interfaces/QuestsInt.ts';
@@ -91,7 +91,7 @@ export default function FightScene() {
     checkLevelUp({
       player,
       setActionMessages,
-      calculateInitialHealth,
+      // calculateInitialHealth,
       playerActions,
       expTable,
       // setExpTable,

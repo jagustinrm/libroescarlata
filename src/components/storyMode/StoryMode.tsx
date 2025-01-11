@@ -28,7 +28,7 @@ export default function StoryMode() {
   };
 
   // Función para manejar el clic en un capítulo
-  const handleChapterClick = (chapterId: number) => {
+  const handleChapterClick = (chapterId: string) => {
     if (currentStory) {
       const params = {
         storyId: currentStory.id,
