@@ -7,7 +7,7 @@ const ArmorsLoader = () => {
 
   // Importa todas las imágenes de la carpeta
   const images = import.meta.glob('/src/assets/img/armors/*.png', { eager: true });
-  console.log(images, "imagenes")
+
   useEffect(() => {
     if (!areArmorsLoaded) {
       const loadArmors = async () => {
@@ -15,10 +15,10 @@ const ArmorsLoader = () => {
           const res = await fetch('/mocks/armors.json');
           const data = await res.json();
 
-          // Reemplaza la propiedad img con las rutas importadas
+          // Reemplaza la propiedad img con las rutas procesadas
           const armorsWithImages = data.map((armor: Armor) => ({
             ...armor,
-            img: images[`/src/assets/img/armors/${armor.img}`] || armor.img,
+            img: images[`/src/assets/img/armors/${armor.img}`], // Obtén la ruta procesada
           }));
 
           setArmors(armorsWithImages);
