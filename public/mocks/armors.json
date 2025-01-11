@@ -2,7 +2,7 @@
     {
       "name": "Pechera",
       "id": "armor-leather-001",
-      "img": "leatherArmor.png",
+      "img": "/src/assets/img/armors/leatherArmor.png",
       "weight": 5,
       "cost": 50,
       "description": "Una armadura ligera de cuero, ideal para aventureros ágiles.",
@@ -22,7 +22,7 @@
     {
       "name": "Túnica",  
       "id": "armor-cloth-001",
-      "img": "clothArmor.png",
+      "img": "/src/assets/img/armors/clothArmor.png",
       "weight": 2,
       "cost": 30,
       "bodyPart": "pecho",
@@ -42,7 +42,7 @@
     {
       "name": "Pechera",   
       "id": "armor-steel-001",
-      "img": "steelArmor.png",
+      "img": "/src/assets/img/armors/steelArmor.png",
       "weight": 15,
       "cost": 100,
       "bodyPart": "pecho",
