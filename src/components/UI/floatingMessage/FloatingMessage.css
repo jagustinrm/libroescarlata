@@ -1,6 +1,6 @@
 .floating-message {
   position: fixed;
-  bottom: 300px;
+  bottom: 200px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.8);

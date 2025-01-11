@@ -28,7 +28,6 @@ const SoundPlayer: React.FC<SoundPlayerProps> = ({
             if (audioRef.current) {
               audioRef.current.volume = volume;
               await audioRef.current.play();
-              console.log('Reproducción iniciada con volumen:', volume);
             }
           } catch (error) {
             console.error('Error al intentar reproducir el sonido:', error);

@@ -25,6 +25,8 @@ import useAppStore from '../stores/appStore.ts';
 import useGlobalState from '../customHooks/useGlobalState.ts';
 import CombatUI from './battlefield/combatMenu/CombatUI.tsx';
 import { FloatingMessageProps } from '../stores/types/others';
+import { Weapon } from '../stores/types/weapons.ts';
+import { Spell } from '../stores/types/spells';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -42,7 +44,7 @@ export default function FightScene() {
     playerPosition, setPlayerPosition, setEnemyPosition, setSummonPosition,
    } = useGlobalState();
   const [summon, setSummon] = useState<Creature | null>(null);
-  const [soundType, setSoundType] = useState<string>('');
+  const [soundType] = useState<string>('');
   const [activateImage, setActivateImage] = useState<boolean>(false)
   const [soundUrl, setSoundUrl] = useState<string | undefined>('');
   const { expTable} = useExpTable();
@@ -97,8 +99,8 @@ export default function FightScene() {
   };
   const { setAmbientMusic, setMusicVolume } = useAppStore();
   const [pocion, setpocion] = useState<string>();
-  const [opcionesArmas, setOpcionesArmas] = useState<(string | undefined)[]>();
-  const [opcionesSpells, setOpcionesSpells] = useState<(string | undefined)[]>(); 
+  const [opcionesArmas, setOpcionesArmas] = useState<(Weapon | undefined)[]>();
+  const [opcionesSpells, setOpcionesSpells] = useState<(Spell | undefined)[]>(); 
   // ************************USEEFFECTS ******************************
   useEffect(() => {
     const pot = inventories[player.inventoryId].potions.find(
@@ -174,6 +176,7 @@ export default function FightScene() {
     setActionMessages,
     switchTurn,
     setFloatingMessage,
+    setSoundUrl,
   });
 
   useSummonTurn({
@@ -187,6 +190,7 @@ export default function FightScene() {
     if (turn !== 'player') return;
     const weapon = weapons.find((s) => player.bodyParts.manoDerecha?.name === s.name);
     const url = weapon?.soundEffect;
+    
     setSoundUrl(url);
     handleAction('attack');
     setTimeout(() => {
@@ -265,6 +269,7 @@ export default function FightScene() {
         pocion={pocion}
         executeSpell={executeSpell}
         fightType={fightType}
+      
       />
       <div>
         <ul className="action-log fixedUI " ref={logRef}>

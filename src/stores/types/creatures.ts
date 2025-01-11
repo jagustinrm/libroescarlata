@@ -16,6 +16,7 @@ export interface Creature {
     bonus: number; // Ejemplo: +1
     damage: number; 
     damageMax: number;
+    soundEffect: string;
   }[];
   specialAbilities: string[]; // Lista de habilidades especiales
   img: string; // URL o ruta de la imagen

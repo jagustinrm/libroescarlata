@@ -49,6 +49,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
         executeAttack={executeAttack}
         handleMessage={handleMessage}
         pocion={pocion}
+        turn = {turn}
       />
 
       {/* Dropdown y botón para hechizos */}

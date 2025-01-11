@@ -51,7 +51,8 @@ export default function CharacterSelector() {
     playerActions.setBaseAttackBonus(baseAttackBonus);
     playerActions.setHitDie(hitDie);
     playerActions.setManaDie(manaDie);
-
+    playerActions.setEnemiesDeleted([]);
+    playerActions.setP_SelectedSpell(null)
     createItems(1);
     playerActions.setStats({
       str: 0,

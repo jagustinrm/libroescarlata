@@ -69,7 +69,7 @@ export const handleCombatAction = (
   const {setPlayerPosition, playerPosition, enemyPosition} = usePositionStore.getState();
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
-      switchTurn?.();
+        switchTurn?.();
     }
   };
 
@@ -110,7 +110,9 @@ export const handleCombatAction = (
         shouldFinalizeTurn = false;
         return;
       }
+      setTimeout(() => {
       simulateAttackMovement(playerPosition, 5, setPlayerPosition);
+    }, 100); 
       const success = isAttackSuccessful(
         player.hitRatePercentage?.() ?? 0,  
         creature.dodgePercentage?.() ?? 0    
@@ -276,7 +278,7 @@ export const handleCombatAction = (
         level: 1,
         hitPoints: '1d4',
         armorClass: 10,
-        attacks: [{ name: 'mordisco', type: 'melee', bonus: 1, damage: 3, damageMax: 5 }],
+        attacks: [{ name: 'mordisco', type: 'melee', bonus: 1, damage: 3, damageMax: 5, soundEffect: "/music/attacks/bite.wav" }],
         specialAbilities: ['forma gelatinosa', 'elasticidad', 'salto rápido'],
         dodge: 20,
         hitRate: 40,

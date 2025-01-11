@@ -9,9 +9,7 @@ const FloatingMessage: React.FC<FloatingMessageProps> = ({
   textColor,
 }) => {
   const [visible, setVisible] = useState(false);
-  console.log(position)
-  console.log(message)
-  console.log(textColor)
+
   useEffect(() => {
     // Reiniciar visibilidad cada vez que el mensaje cambie
     setVisible(true);

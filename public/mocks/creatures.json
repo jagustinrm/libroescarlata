@@ -15,14 +15,16 @@
                     "type": "melee",
                     "bonus": 1,
                     "damage": 4,
-                    "damageMax": 8
+                    "damageMax": 8,
+                    "soundEffect": "/music/attacks/sword-sound.mp3"
                 },
                 {
                     "name": "arco corto",
                     "type": "rango",
                     "bonus": 2,
                     "damage": 4,
-                    "damageMax": 8
+                    "damageMax": 8,
+                    "soundEffect": "/music/attacks/bow.mp3"
                 }
             ],
             "specialAbilities": [
@@ -46,14 +48,16 @@
                     "type": "melee",
                     "bonus": "+0",
                     "damage": 4,
-                    "damageMax": 8
+                    "damageMax": 8,
+                    "soundEffect": "/music/attacks/spear.mp3"
                 },
                 {
                     "name": "honda",
                     "type": "rango",
                     "bonus": 1,
                     "damage": 4,
-                    "damageMax": 8
+                    "damageMax": 8,
+                    "soundEffect": "/music/attacks/bow.mp3"
                 }
             ],
             "specialAbilities": [
@@ -77,7 +81,8 @@
                     "type": "melee",
                     "bonus": 2,
                     "damage": 4,
-                    "damageMax": 8
+                    "damageMax": 8,
+                    "soundEffect": "/music/attacks/bite.wav"
                 }
             ],
             "specialAbilities": [
@@ -101,7 +106,8 @@
                     "type": "melee",
                     "bonus": 0,
                     "damage": 6,
-                    "damageMax": 8
+                    "damageMax": 8,
+                    "soundEffect": "/music/attacks/sword-sound.mp3"
                 }
             ],
             "specialAbilities": [
@@ -126,7 +132,8 @@
                     "bonus": 4,
                     "damage": 4,
                     "damageMax": 8,
-                    "additionalEffect": "veneno (1d6 CON)"
+                    "additionalEffect": "veneno (1d6 CON)",
+                    "soundEffect": "/music/attacks/bite.wav"
                 }
             ],
             "specialAbilities": [
@@ -150,14 +157,16 @@
                     "type": "melee",
                     "bonus": 3,
                     "damage": 8,
-                    "damageMax": 10
+                    "damageMax": 10,
+                    "soundEffect": "/music/attacks/sword-sound.mp3"
                 },
                 {
                     "name": "arco largo",
                     "type": "rango",
                     "bonus": 3,
                     "damage": 8,
-                    "damageMax": 10
+                    "damageMax": 10,
+                    "soundEffect": "/music/attacks/bow.mp3"
                 }
             ],
             "specialAbilities": [
@@ -181,7 +190,8 @@
                   "type": "melee",
                   "bonus": 3,
                   "damage": 8,
-                  "damageMax": 10
+                  "damageMax": 10,
+                  "soundEffect": "/music/attacks/sword-sound.mp3"
               }
           ],
           "specialAbilities": [
@@ -205,14 +215,16 @@
                     "type": "melee",
                     "bonus": 3,
                     "damage": 8,
-                    "damageMax": 10
+                    "damageMax": 10,
+                    "soundEffect": "/music/attacks/sword-sound.mp3"
                 },
                 {
                     "name": "ballesta ligera",
                     "type": "rango",
                     "bonus": 2,
                     "damage": 8,
-                    "damageMax": 10
+                    "damageMax": 10,
+                    "soundEffect": "/music/attacks/bow.mp3"
                 }
             ],
             "specialAbilities": [
@@ -236,14 +248,16 @@
                   "type": "melee",
                   "bonus": 3,
                   "damage": 8,
-                  "damageMax": 10
+                  "damageMax": 10,
+                  "soundEffect": "/music/attacks/sword-sound.mp3"
               },
               {
                   "name": "ballesta ligera",
                   "type": "rango",
                   "bonus": 2,
                   "damage": 8,
-                  "damageMax": 10
+                  "damageMax": 10,
+                  "soundEffect": "/music/attacks/bow.mp3"
               }
           ],
           "specialAbilities": [
@@ -267,14 +281,16 @@
                   "type": "melee",
                   "bonus": 3,
                   "damage": 6,
-                  "damageMax": 12
+                  "damageMax": 12,
+                  "soundEffect": "/music/attacks/bite.wav"
               },
               {
                   "name": "tentáculos",
                   "type": "melee",
                   "bonus": 2,
                   "damage": 8,
-                  "damageMax": 10
+                  "damageMax": 10,
+                  "soundEffect": "/music/attacks/claws-scratch.mp3"
               }
           ],
           "specialAbilities": [
@@ -299,7 +315,8 @@
                 "type": "rango",
                 "bonus": 5,
                 "damage": 4,
-                "damageMax": 10
+                "damageMax": 10,
+                "soundEffect": "/music/attacks/bow.mp3"
               }
             ],
             "specialAbilities": [
@@ -324,7 +341,8 @@
                 "type": "melee",
                 "bonus": 4,
                 "damage": 4,
-                "damageMax": 10
+                "damageMax": 10,
+                "soundEffect": "/music/attacks/fireBall.wav"
               }
             ],
             "specialAbilities": [
@@ -348,14 +366,16 @@
                 "type": "melee",
                 "bonus": 7,
                 "damage": 12,
-                "damageMax": 14
+                "damageMax": 14,
+                "soundEffect": "/music/attacks/claws-scratch.mp3"
               },
               {
                 "name": "mordisco",
                 "type": "melee",
                 "bonus": 5,
                 "damage": 12,
-                "damageMax": 14
+                "damageMax": 14,
+                "soundEffect": "/music/attacks/bite.wav"
               }
             ],
             "specialAbilities": [
@@ -380,21 +400,24 @@
                 "type": "melee",
                 "bonus": 4,
                 "damage": 8,
-                "damageMax": 14
+                "damageMax": 14,
+                "soundEffect": "/music/attacks/bite.wav"
               },
               {
                 "name": "garras",
                 "type": "melee",
                 "bonus": 4,
                 "damage": 8,
-                "damageMax": 14
+                "damageMax": 14,
+                "soundEffect": "/music/attacks/claws-scratch.mp3"
               },
               {
                 "name": "aliento de fuego",
                 "type": "rango",
                 "bonus": "ninguno",
                 "damage": 8,
-                "damageMax": 14
+                "damageMax": 14,
+                "soundEffect": "/music/attacks/fireBall.wav"
               }
             ],
             "specialAbilities": [
@@ -418,14 +441,16 @@
                 "type": "melee",
                 "bonus": 5,
                 "damage": 8,
-                "damageMax": 14
+                "damageMax": 14,
+                "soundEffect": "/music/attacks/sword-sound.mp3"
               },
               {
                 "name": "arco largo",
                 "type": "rango",
                 "bonus": 4,
                 "damage": 8,
-                "damageMax": 14
+                "damageMax": 14,
+                "soundEffect": "/music/attacks/bow.mp3"
               }
             ],
             "specialAbilities": [

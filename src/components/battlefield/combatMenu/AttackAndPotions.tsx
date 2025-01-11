@@ -10,6 +10,7 @@ interface AttackAndPotionsProps {
   executeAttack: () => void;
   pocion: string | undefined; // Cambiar el tipo a string | undefined
   handleMessage: (message: string, type: string, persist: boolean) => void;
+  turn: string;
 }
 
 const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
@@ -17,6 +18,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
   executeAttack,
   pocion,
   handleMessage,
+  turn
 }) => {
   // Lógica para encontrar la poción específica
   const findPotion = (name: string) => {
@@ -33,7 +35,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         id="newDesign"
         onClick={executeAttack}
         disabled={
-          creature.health === 0 || player.p_LeftHealth === 0 || !player.bodyParts.manoDerecha
+          creature.health === 0 || player.p_LeftHealth === 0 || !player.bodyParts.manoDerecha || turn !== "player"
         }
       >
         ⚔️

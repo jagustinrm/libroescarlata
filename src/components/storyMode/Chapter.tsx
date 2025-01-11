@@ -1,5 +1,5 @@
 
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import NPCDialog from "./NPCDialog";
 import useGlobalState from "../../customHooks/useGlobalState";
 
@@ -31,7 +31,9 @@ export default function Chapter() {
         <div className="dialogsLogs">
             
             <NPCDialog 
-                dialogId={ stories[storyIndex].chapters[chapterIndex].dialogSequence } 
+                dialogId={ stories[storyIndex].chapters &&
+                  chapterIndex && 
+                  stories[storyIndex].chapters[chapterIndex].dialogSequence } 
                 onDialogEnd={() => navigate(-1)}
                 chapterIndex = {chapterIndex}
                 storyIndex = {storyIndex} 

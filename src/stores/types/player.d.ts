@@ -80,7 +80,7 @@ export interface PlayerActions {
   // setP_SelectedArmor: (selectedArmor: Armor) => void;
   setBodyParts: (newBodyParts: bodyParts) => void;
   setP_SelectedBodyPart: (selectedBodyPart: Armor | Weapon) => void;
-  setP_SelectedSpell: (selectedSpell: Spell) => void;
+  setP_SelectedSpell: (selectedSpell: Spell | null ) => void;
   setPlayerLevel: (level: number) => void;
   setP_MaxHealth: (p_MaxHealth: number) => void;
   setP_LeftHealth: (p_LeftHealth: number) => void;

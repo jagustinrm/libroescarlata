@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import useDialogStore from "../../stores/dialogStore";
 import BackButton from "../UI/BackButton";
 import { Dialog, DialogLine } from "../../stores/types/dialog";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useGlobalState from "../../customHooks/useGlobalState";
 import { handleOptionSelect, handleContinue  } from "../handlers/dialogHandlers";
 import ButtonEdited from "../UI/ButtonEdited";
 interface NPCDialogProps {
-  dialogId: string; // ID del diálogo inicial
+  dialogId: string | 0 | undefined; 
   onDialogEnd?: () => void; // Callback cuando el diálogo termina
   chapterIndex: number | undefined;
   storyIndex: number | undefined;
@@ -34,6 +34,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
   const [travelCounter, setTravelCounter] = useState<number>(0);
 
   useEffect(() => {
+    if (!dialogId) return
     const dialog = getDialogById(dialogId);
     if (dialog) {
       setCurrentDialog(dialog);
@@ -226,7 +227,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
       
               <div key={option.id}>
                 {option.requiresItem &&
-                  option.requiresItem.map((i) => (
+                  option.requiresItem.map((i: any) => (
                     <p key={i.id}>
                       {i.name}: {findItem(i.id)}/{i.cant}
                     </p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import useGlobalState from '../../customHooks/useGlobalState';
 import BackButton from '../UI/BackButton';
 import './Bestiary.css';

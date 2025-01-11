@@ -12,20 +12,20 @@ interface EnemyTurnProps {
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
   switchTurn: () => void;
   setFloatingMessage: React.Dispatch<React.SetStateAction<FloatingMessageProps  | null>>;
-  
+  setSoundUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
-
 export const useEnemyTurn = ({
   turn,
   setActionMessages,
   switchTurn,
-  setFloatingMessage
-
+  setFloatingMessage,
+  setSoundUrl
 }: EnemyTurnProps) => {
   const {playerPosition, enemyPosition, setEnemyPosition} = usePositionStore.getState();
   const {creature} = useCreatureStore.getState();
   const {player, playerActions} = usePlayerStore.getState();
   useEffect(() => {
+
     const timeout = setTimeout(() => {
       if (
         turn === 'enemy' &&
@@ -70,15 +70,17 @@ export const useEnemyTurn = ({
               creature.hitRatePercentage(),  // Usar 0 si hitRatePercentage no está definido
               player.dodgePercentage()       // Usar 0 si dodgePercentage no está definido
             );
-            
+            console.log(playerPosition, "playerposition")
             if (success) {
               const {damage, damageMax} = creature['attacks'][0];
               const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage
               playerActions.setP_LeftHealth(
                 Math.max(player.p_LeftHealth - rollDamage, 0),
               );
-
-
+              setSoundUrl(creature.attacks[0].soundEffect)
+              setTimeout(() => {
+                setSoundUrl('');
+              }, 300);
               setActionMessages((prev) => [
                 ...prev,
                 `El enemigo te ha atacado con ${creature['attacks'][0].name} y causó ${rollDamage} puntos de daño.`,
@@ -86,6 +88,10 @@ export const useEnemyTurn = ({
               setFloatingMessage({message: rollDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: playerPosition},  )
 
             } else {
+              setSoundUrl('/music/attacks/weapon-swing.wav')
+              setTimeout(() => {
+                setSoundUrl('');
+              }, 300);
               setFloatingMessage({message: "¡Falló!", onComplete: () => setFloatingMessage(null), textColor: "red", position: playerPosition},  )
               setActionMessages((prev) => [...prev, `¡El enemigo falló!`]);
             }
