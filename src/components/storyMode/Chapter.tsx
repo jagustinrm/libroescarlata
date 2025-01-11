@@ -16,6 +16,7 @@ export default function Chapter() {
   const storyIndex = stories.findIndex(s => s.id === storyId);
   const backgroundImageUrl = `/img/story/chapter-00${chapterId}.png`;
   const navigate = useNavigate();
+  console.log(chapterIndex)
   return (
     <div className="chapter-container rpgui-container framed-golden-2"
     style={{
@@ -31,9 +32,13 @@ export default function Chapter() {
         <div className="dialogsLogs">
             
             <NPCDialog 
-                dialogId={ stories[storyIndex].chapters &&
-                  chapterIndex && 
-                  stories[storyIndex].chapters[chapterIndex].dialogSequence } 
+                dialogId={
+                  stories[storyIndex].chapters &&
+                  typeof chapterIndex === "number" &&
+                  stories[storyIndex].chapters[chapterIndex].dialogSequence
+                    ? stories[storyIndex].chapters[chapterIndex].dialogSequence
+                    : undefined
+                }
                 onDialogEnd={() => navigate(-1)}
                 chapterIndex = {chapterIndex}
                 storyIndex = {storyIndex} 
