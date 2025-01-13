@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './CharacterSelector.css';
 import './UI/designRpg.css';
-// import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
 // @ts-expect-error Armas por clase
 import { assignWeaponByClass } from '../utils/assignWeaponByClass.js';
 import { assignArmorByClass } from '../utils/assignArmorByClass.js';

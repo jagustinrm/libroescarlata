@@ -102,7 +102,7 @@ a {
   margin: 5px 0;
 }
 
-.containerEquipment{
+.containerEquipment, .containerWeaponEquip{
   display: grid;
   grid-template-areas:
     "face head shoulder"
@@ -119,7 +119,23 @@ a {
   border: 4px solid gold; /* Borde estilo RPG */
   border-radius: 10px;
 }
-.containerEquipment img {
+.containerWeaponEquip{
+  grid-template-areas:
+    "rightHand leftHand" ;
+  grid-template-columns: 1fr 1fr;
+}
+
+.default-image {
+  opacity: 0.5; /* Ajusta la opacidad */
+  filter: grayscale(100%); /* Aplica el filtro blanco y negro */
+}
+.selected {
+  border: 2px solid gold;
+  box-shadow: 0 0 10px gold;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease, border 0.2s ease;
+}
+.containerEquipment img, .containerWeaponEquip img  {
   width: 100px; /* Ajusta el tamaño de las imágenes */
   height: 100px;
   object-fit: cover; /* Mantiene el contenido dentro del área definida */

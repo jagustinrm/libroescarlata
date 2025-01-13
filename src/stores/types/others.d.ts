@@ -1,3 +1,5 @@
+import { Accessory } from "./accesories";
+
 export interface bodyParts {
     cabeza: Armor| null,
     cara: Armor| null,
@@ -11,6 +13,11 @@ export interface bodyParts {
     manoDerecha: Weapon| null,
     manoIzquierda: Weapon | null,
 }
+export interface accessoriesParts {
+    anillo: Accessory[],
+    aro: Accessory[],
+    amuleto: Accessory | null,
+  }
 
 export interface Position {
     x: number;

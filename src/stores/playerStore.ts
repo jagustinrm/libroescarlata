@@ -59,6 +59,11 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         manoDerecha: null,
         manoIzquierda: null,
       },
+      accessoriesParts: {
+        anillo: {},
+        aro: {},
+        amuleto: null,
+      },
     selectedSpell: null,
     playerMaterial: 0,
     petsName: [],
@@ -297,7 +302,96 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         },
       };
     }),
-  
+
+    addP_SelectedAccesories: (selectedAccesory, index = null) => {
+      console.log(selectedAccesory);
+      console.log(index);
+      const { type, id } = selectedAccesory; // Asegúrate de que `id` esté disponible en el accesorio
+      const lowerCaseType = type.toLowerCase();
+    
+      set((state) => {
+        const { accessoriesParts } = state.player;
+    
+        // Máximos permitidos por tipo
+        const maxAccessories: { [key: string]: number } = {
+          anillo: 10,
+          aro: 2,
+          amuleto: 1,
+        };
+    
+        // Accesorios actuales del tipo
+        const currentAccessories = accessoriesParts[lowerCaseType] || {};
+    
+        // Verificar si el accesorio ya está equipado
+        const isAlreadyEquipped = Object.values(currentAccessories).some(
+          (accessory: any) => accessory.id === id
+        );
+    
+        if (isAlreadyEquipped) {
+          console.log(`El accesorio con id ${id} ya está equipado.`);
+          return state; // No se realizan cambios
+        }
+    
+        // Si es un amuleto, tratarlo como un objeto único
+        if (lowerCaseType === "amuleto") {
+          // if (index !== null) {
+          //   console.error("No se puede reemplazar un amuleto con un índice.");
+          //   return state; // No se realizan cambios
+          // }
+          return {
+            player: {
+              ...state.player,
+              accessoriesParts: {
+                ...accessoriesParts,
+                [lowerCaseType]: selectedAccesory,
+              },
+            },
+          };
+        }
+    
+        // Manejo de anillos y aros con índices obligatorios
+        if (index !== null) {
+          if (
+            index < 0 || // Índice mínimo válido
+            index > maxAccessories[lowerCaseType] // Índice máximo permitido
+          ) {
+            console.error(`Índice fuera de rango para ${type}: ${index}.`);
+            return state; // No se realizan cambios
+          }
+    
+          // Reemplaza o agrega el accesorio en el índice proporcionado
+          return {
+            player: {
+              ...state.player,
+              accessoriesParts: {
+                ...accessoriesParts,
+                [lowerCaseType]: {
+                  ...currentAccessories,
+                  [index]: selectedAccesory,
+                },
+              },
+            },
+          };
+        }
+    
+        // Si no se proporciona índice, muestra un error porque es obligatorio en esta estructura
+        console.error(`Es necesario proporcionar un índice para ${type}.`);
+        return state; // No se realizan cambios
+      });
+    },
+    
+    
+    setP_SelectedAccessories: (newAccessoriesParts) => {
+      set((state) => {
+        return {
+          player: {
+            ...state.player,
+            accessoriesParts: newAccessoriesParts, // Reemplaza completamente el objeto
+          },
+        };
+      });
+    },
+    
     setP_SelectedSpell: (selectedSpell) =>
         set((state) => ({
           player: { ...state.player, selectedSpell },

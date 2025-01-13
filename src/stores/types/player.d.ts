@@ -3,7 +3,8 @@ import Weapon from './weapons';
 import { Armor } from './armor';
 import { Stats } from './stats';
 import { Spell } from './spells';
-import { bodyParts } from './others';
+import { accesoriesParts, bodyParts } from './others';
+import { Accessory } from './accesories';
 
 export interface Player {
   name: string;
@@ -32,6 +33,7 @@ export interface Player {
   selectedSpell: Spell | null;
   // selectedArmor: Armor | null; 
   bodyParts: bodyParts;
+  accessoriesParts: accessoriesParts;
   inventoryId: string;
   playerMaterial: number;
   stats: Stats;
@@ -80,6 +82,8 @@ export interface PlayerActions {
   // setP_SelectedArmor: (selectedArmor: Armor) => void;
   setBodyParts: (newBodyParts: bodyParts) => void;
   setP_SelectedBodyPart: (selectedBodyPart: Armor | Weapon) => void;
+  addP_SelectedAccesories: (selectedBodyPart: Accessory, index?) => void;
+  setP_SelectedAccessories: (newAccessoriesPart: accesoriesParts) => void;
   setP_SelectedSpell: (selectedSpell: Spell | null ) => void;
   setPlayerLevel: (level: number) => void;
   setP_MaxHealth: (p_MaxHealth: number) => void;
