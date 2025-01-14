@@ -17,7 +17,8 @@
         "max": 50,
         "repairable": true
       },
-      "sockets": 0
+      "sockets": 0,
+      "color": "#F8F8F8"
     },
     {
       "name": "Túnica",  
@@ -37,7 +38,8 @@
         "max": 40,
         "repairable": true
       },
-      "sockets": 0
+      "sockets": 0,
+      "color": "#F8F8F8"
     },
     {
       "name": "Pechera",   
@@ -57,7 +59,8 @@
         "max": 100,
         "repairable": true
       },
-      "sockets": 0
+      "sockets": 0,
+      "color": "#F8F8F8"
     }
   ]
   

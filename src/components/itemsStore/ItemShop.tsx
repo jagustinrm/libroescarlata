@@ -88,6 +88,23 @@ const ItemShop: React.FC = () => {
     setHoverInfo(null);
   };
 
+  const darkenHex = (hex: string, amount: number = 80): string => {
+    // Eliminar el símbolo '#' si está presente
+
+    const color = hex.slice(1);
+    console.log(color)
+    // Dividir en componentes RGB
+    const r = Math.max(0, parseInt(color.slice(0, 2), 16) - amount);
+    const g = Math.max(0, parseInt(color.slice(2, 4), 16) - amount);
+    const b = Math.max(0, parseInt(color.slice(4, 6), 16) - amount);
+    const result  = `#${[r, g, b]
+      .map((c) => c.toString(16).padStart(2, '0'))
+      .join('')}`;
+
+    // Reconstruir el color en formato hexadecimal
+    return result
+  };
+  
   return (
     <div className="item-shop-container rpgui-container framed-golden-2">
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
@@ -125,7 +142,10 @@ const ItemShop: React.FC = () => {
           items[shopId]?.[selectedType]?.map((item) => (
             <div
               className="item-card"
-              style={{ borderColor: item.color }}
+              style={{
+                borderColor: darkenHex(item.color, 20),
+                background: `linear-gradient(0deg, ${darkenHex(item.color, 20)} 0%, ${darkenHex(item.color, 70)} 70% , ${darkenHex(item.color, 100)} 100%)`,
+              }}
               key={item.id}
               onMouseMove={(e) =>
                 handleMouseMove(

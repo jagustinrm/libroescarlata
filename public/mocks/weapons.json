@@ -12,7 +12,8 @@
             "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros.",
             "img": "/img/weapons/espada-larga.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-daga-002",
@@ -27,7 +28,8 @@
             "description": "Ligera y fácil de ocultar, ideal como arma secundaria.",
             "img": "/img/weapons/daga.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
             
         },
         {
@@ -43,7 +45,8 @@
             "description": "Un arma poderosa capaz de infligir daños devastadores.",
             "img": "/img/weapons/hacha-de-batalla.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-arco-largo-004",
@@ -58,7 +61,8 @@
             "description": "Un arco de gran alcance, preferido por arqueros experimentados.",
             "img": "/img/weapons/arco-largo.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-maza-005",
@@ -72,7 +76,8 @@
             "description": "Perfecta para romper armaduras y golpear con fuerza contundente.",
             "img": "/img/weapons/maza.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-espadon-006",
@@ -86,7 +91,8 @@
             "description": "Un arma imponente que requiere ambas manos para su uso.",
             "img": "/img/weapons/espadon.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-lanza-007",
@@ -101,7 +107,8 @@
             "description": "Versátil para el combate cercano o para arrojar a distancia.",
             "img": "/img/weapons/lanza.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-ballesta-ligera-008",
@@ -116,7 +123,8 @@
             "description": "Un arma fácil de usar, ideal para ataques a distancia precisos.",
             "img": "/img/weapons/ballesta-ligera.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-martillo-de-guerra-009",
@@ -130,7 +138,8 @@
             "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados.",
             "img": "/img/weapons/martillo-de-guerra.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         },
         {
             "id": "weapon-baston-010",
@@ -144,7 +153,8 @@
             "description": "Un arma simple que puede utilizarse como herramienta o defensa.",
             "img": "/img/weapons/baston.png",
             "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3"
+            "soundEffect": "/music/attacks/sword-sound.mp3",
+            "color": "#F8F8F8"
         }
     ]
 }
