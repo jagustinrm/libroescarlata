@@ -42,8 +42,11 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
     selectedAccessoryEquipped?.type === type && selectedAccessoryEquipped.index === index;
 
   return (
-    <div className="rpgui-container framed-golden-2 containerEquipment">
-      {rings.map((ring, index) => (
+    <div className="rpgui-container framed-golden-2 accessoriesContainer">
+      <h2>Equipo</h2>
+      <div className="accesoriesEquipment">
+
+       {rings.map((ring, index) => (
         <img
           key={ring.id}
           className={`ring ${
@@ -55,10 +58,11 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
           onClick={() => setSelectedAccessoryEquipped({ type: "anillo", index })}
         />
       ))}
-      {earrings.map((earring, index) => (
+        
+        {earrings.map((earring, index) => (
         <img
           key={earring.id}
-          className={`earring ${
+          className={`earring-${index} ${
             isDefaultImage(earring.img, DEFAULT_IMAGES.aro) ? "default-image" : ""
           } ${isSelected("aro", index) ? "selected" : ""}`}
           src={earring.img}
@@ -79,6 +83,8 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
         data-index={0} // Índice fijo para el amuleto
         onClick={() => setSelectedAccessoryEquipped({ type: "amuleto", index: 0 })}
       />
+      
+      </div>
     </div>
   );
 };

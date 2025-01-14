@@ -90,11 +90,24 @@ const ItemShop: React.FC = () => {
 
   return (
     <div className="item-shop-container rpgui-container framed-golden-2">
-      <h1>Mercado</h1>
-
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        <h1>MERCADO</h1>
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        </div>
       {/* Botones dinámicos para seleccionar tipo de ítems */}
-      <div className="catalog-buttons">
-        {itemTypes.map((type) => (
+      <div className="catalog-buttons  rpgui-cursor-point">
+        <img  onClick={() => setSelectedType('weapons')} className='inventoryIcons' src="/img/icons/itemsIcons/weaponsicon.png" alt="" />
+        <img onClick={() => setSelectedType('armors')} className='inventoryIcons' src="/img/icons/itemsIcons/armoricon.png" alt="" />
+        <img onClick={() => setSelectedType('accessories')} className='inventoryIcons' src="/img/icons/itemsIcons/accessoriesicon.png" alt="" />
+        <img onClick={() => setSelectedType('others')}  className='inventoryIcons' src="/img/icons/itemsIcons/foodicon.png" alt="" />
+        <img onClick={() => setSelectedType('potions')} className='inventoryIcons' src="/img/icons/itemsIcons/potionicon.png" alt="" />
+        <img onClick={() => setSelectedType('books')} className='inventoryIcons' src="/img/icons/itemsIcons/bookicon.png" alt="" />
+        <img onClick={() => setSelectedType('scrolls')} className='inventoryIcons' src="/img/icons/itemsIcons/scrollicon.png" alt="" />
+
+        {/* {itemTypes.map((type) => (
           <button
             className="rpgui-button catalog-button"
             key={type}
@@ -102,7 +115,8 @@ const ItemShop: React.FC = () => {
           >
             {type}
           </button>
-        ))}
+          
+        ))} */}
       </div>
 
       {/* Renderizado de ítems basado en el tipo seleccionado */}

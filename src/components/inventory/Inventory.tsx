@@ -132,7 +132,6 @@ export default function Inventory() {
       (selectedItem.type === 'Amuleto' || selectedItem.type === 'Anillo' || selectedItem.type === 'Aro')
     ) {
       if (selectedAccessoryEquipped) {
-        console.log(selectedAccessoryEquipped)
         playerActions.addP_SelectedAccesories(selectedItem as Accessory, selectedAccessoryEquipped.index);
         setFloatingMessage('¡Accesorio equipado!');
       } else {
@@ -147,50 +146,21 @@ export default function Inventory() {
   return (
     <section style={{ display: 'flex', flexDirection: 'row' }}>
       <div className="sectionInventory rpgui-container framed-golden-2">
-        <h1>Inventario</h1>
-        <div className="buttonsInventory">
-          <button
-            className="rpgui-button editedButtond"
-            onClick={() => handleLoadActualInventory('weapons')}
-          >
-            Armas
-          </button>
-          <button
-            className="rpgui-button editedButtond"
-            onClick={() => handleLoadActualInventory('armors')}
-          >
-            Armaduras
-          </button>
-          <button
-            className="rpgui-button editedButtond"
-            onClick={() => handleLoadActualInventory('potions')}
-          >
-            Pociones
-          </button>
-          <button
-            className="rpgui-button editedButtond"
-            onClick={() => handleLoadActualInventory('books')}
-          >
-            Libros
-          </button>
-          <button
-            className="rpgui-button editedButtond "
-            onClick={() => handleLoadActualInventory('scrolls')}
-          >
-            Pergaminos
-          </button>
-          <button
-            className="rpgui-button editedButtond "
-            onClick={() => handleLoadActualInventory('accessories')}
-          >
-            Accesorios
-          </button>
-          <button
-            className="rpgui-button editedButtond"
-            onClick={() => handleLoadActualInventory('others')}
-          >
-            Otros
-          </button>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        <h1>INVENTARIO</h1>
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        </div>
+        <div className="buttonsInventory  rpgui-cursor-point">
+          <img  onClick={() => handleLoadActualInventory('weapons')} className='inventoryIcons' src="/img/icons/itemsIcons/weaponsicon.png" alt="" />
+          <img onClick={() => handleLoadActualInventory('armors')} className='inventoryIcons' src="/img/icons/itemsIcons/armoricon.png" alt="" />
+          <img onClick={() => handleLoadActualInventory('accessories')} className='inventoryIcons' src="/img/icons/itemsIcons/accessoriesicon.png" alt="" />
+          <img onClick={() => handleLoadActualInventory('others')}  className='inventoryIcons' src="/img/icons/itemsIcons/foodicon.png" alt="" />
+          <img onClick={() => handleLoadActualInventory('potions')} className='inventoryIcons' src="/img/icons/itemsIcons/potionicon.png" alt="" />
+          <img onClick={() => handleLoadActualInventory('books')} className='inventoryIcons' src="/img/icons/itemsIcons/bookicon.png" alt="" />
+          <img onClick={() => handleLoadActualInventory('scrolls')} className='inventoryIcons' src="/img/icons/itemsIcons/scrollicon.png" alt="" />
         </div>
         <div className="inventoryLayout">
           <div className="containerInventory">
@@ -215,15 +185,21 @@ export default function Inventory() {
                   src={selectedItem.img}
                   alt={selectedItem.name}
                 />
-                <p>
+                {/* <p>
                   <strong>Descripción:</strong> {selectedItem.description}
-                </p>
-                <p>
-                  <strong>Armadura:</strong> {selectedItem.armorValue}
-                </p>
+                </p> */}
+                {typeof selectedItem.armorValue === 'number'  &&
+                  <p>
+                  <strong>Armadura:</strong> { selectedItem.armorValue}
+                </p>}
                 {selectedItem.damage && (
                   <p>
                     <strong>Daño:</strong> {selectedItem.damage} - {selectedItem.damageMax}
+                  </p>
+                )}
+                  {selectedItem.range && (
+                  <p>
+                    <strong>Rango de ataque:</strong> {selectedItem.range}
                   </p>
                 )}
               </>

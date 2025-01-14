@@ -19,6 +19,7 @@
 .buttonsInventory {
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
 }
 
 .containerInventory h1 {
@@ -91,6 +92,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+ 
 }
 
 .detailsContainer h2 {
@@ -102,7 +104,7 @@ a {
   margin: 5px 0;
 }
 
-.containerEquipment, .containerWeaponEquip{
+.containerEquipment, .containerWeaponEquip, .accesoriesEquipment{
   display: grid;
   grid-template-areas:
     "face head shoulder"
@@ -116,8 +118,15 @@ a {
   align-items: center;
   padding: 20px;
   background: #2c2c2c; /* Fondo oscuro para el inventario */
-  border: 4px solid gold; /* Borde estilo RPG */
+  
   border-radius: 10px;
+}
+.accesoriesEquipment{
+  grid-template-areas:
+  ". . . . ."
+  ". . . . ."
+  ". earring-0 amulet earring-1 .";
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 .containerWeaponEquip{
   grid-template-areas:
@@ -135,13 +144,35 @@ a {
   border-radius: 8px;
   transition: box-shadow 0.2s ease, border 0.2s ease;
 }
-.containerEquipment img, .containerWeaponEquip img  {
-  width: 100px; /* Ajusta el tamaño de las imágenes */
+.containerEquipment img, .containerWeaponEquip img, .accesoriesEquipment img  {
+  width: 100px; 
   height: 100px;
   object-fit: cover; /* Mantiene el contenido dentro del área definida */
   border: 2px solid #555; /* Borde simple para las imágenes */
   border-radius: 5px;
   background: #a0522d; /* Fondo detrás de cada imagen */
+}
+.accesoriesEquipment img {
+  width: 60px;
+  height: fit-content;
+}
+.accessoriesContainer{
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+.amulet{
+  grid-area: amulet;
+  margin-top: 30px;
+}
+.earring-0{
+  grid-area: earring-0;
+  margin-top: 30px;
+}
+.earring-1{
+  grid-area: earring-1;
+  margin-top: 30px;
 }
 .head {
   grid-area: head;
@@ -150,6 +181,7 @@ a {
 .belt {
   grid-area: belt;
 }
+
 
 .rightHand {
   grid-area: rightHand;
@@ -177,6 +209,17 @@ a {
 }
 .shoulder {
   grid-area: shoulder;
+}
+
+.inventoryIcons{
+  width: 100px;
+  height:fit-content
+}
+.lines{
+  height: 100px;
+}
+.inventoryIcons:hover {
+  -webkit-filter: brightness(120%);
 }
 @media (max-width: 1360px) and (max-height: 768px) {
   .sectionInventory {
