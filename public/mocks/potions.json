@@ -10,7 +10,8 @@
       "amount": 100
     },
     "description": "Restaura 100 puntos de vida.",
-    "img": "/img/potions/low-healing-potion.png"
+    "img": "/img/potions/low-healing-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "mediumHealing-potion-002",
@@ -23,7 +24,8 @@
       "amount": 300
     },
     "description": "Restaura 300 puntos de vida.",
-    "img": "/img/potions/moderate-healing-potion.png"
+    "img": "/img/potions/moderate-healing-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "bullStrenght-potion-003",
@@ -38,7 +40,8 @@
       "duration": "3 minutos"
     },
     "description": "Aumenta la fuerza en +4 durante 3 minutos.",
-    "img": "/img/potions/bull-strength-potion.png"
+    "img": "/img/potions/bull-strength-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "invisibility-potion-004",
@@ -52,7 +55,8 @@
       "duration": "10 minutos"
     },
     "description": "Te hace invisible durante 10 minutos.",
-    "img": "/img/potions/invisibility-potion.png"
+    "img": "/img/potions/invisibility-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "speed-potion-005",
@@ -67,7 +71,8 @@
       "duration": "1 minuto"
     },
     "description": "Aumenta tu velocidad en 30 pies durante 1 minuto.",
-    "img": "/img/potions/speed-potion.png"
+    "img": "/img/potions/speed-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "fireResistance-potion-006",
@@ -82,7 +87,8 @@
       "duration": "10 minutos"
     },
     "description": "Reduce 10 puntos de daño por fuego durante 10 minutos.",
-    "img": "/img/potions/fire-resistance-potion.png"
+    "img": "/img/potions/fire-resistance-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "clarity-potion-007",
@@ -97,7 +103,8 @@
       "duration": "1 hora"
     },
     "description": "Aumenta tu percepción en +5 durante 1 hora.",
-    "img": "/img/potions/clairvoyance-potion.png"
+    "img": "/img/potions/clairvoyance-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "underWater-potion-002",
@@ -111,7 +118,8 @@
       "duration": "1 hora"
     },
     "description": "Te permite respirar bajo el agua durante 1 hora.",
-    "img": "/img/potions/water-breathing-potion.png"
+    "img": "/img/potions/water-breathing-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "faithShield-potion-002",
@@ -126,7 +134,8 @@
       "duration": "1 minuto"
     },
     "description": "Otorga un bono de +2 a la clase de armadura durante 1 minuto.",
-    "img": "/img/potions/shield-of-faith-potion.png"
+    "img": "/img/potions/shield-of-faith-potion.png",
+    "color": "#F8F8F8"
   },
   {
     "id": "flying-potion-002",
@@ -140,6 +149,7 @@
       "duration": "5 minutos"
     },
     "description": "Te permite volar durante 5 minutos.",
-    "img": "/img/potions/fly-potion.png"
+    "img": "/img/potions/fly-potion.png",
+    "color": "#F8F8F8"
   }
 ]

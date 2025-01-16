@@ -6,12 +6,14 @@ export interface Item {
   name: string;
   description?: string;
   armorValue?: number;
-  damage?: string | number;
+  damage?: number;
+  damageMax?: number;
   img?: string;
   cost: number;
   levelRequirement?: number;
   deleteable?: boolean;
   color?: string;
+  rarity?: string;
 }
 
 export interface Items {

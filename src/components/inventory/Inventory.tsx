@@ -142,14 +142,15 @@ export default function Inventory() {
       console.log('Este objeto no puede ser equipado.');
     }
   };
-
+  console.log(player)
+  console.log(inventories)
   return (
     <section style={{ display: 'flex', flexDirection: 'row' }}>
       <div className="sectionInventory rpgui-container framed-golden-2">
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
         <img className='lines' src="/img/UI/horizontallines.png" alt="" />
         <img className='lines' src="/img/UI/horizontallines.png" alt="" />
-        <h1>INVENTARIO</h1>
+        <h1 className='inventoryTitle'>INVENTARIO</h1>
         <img className='lines' src="/img/UI/horizontallines.png" alt="" />
         <img className='lines' src="/img/UI/horizontallines.png" alt="" />
         </div>

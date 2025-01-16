@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ItemShop.css';
 import useItemsStore from '../../stores/itemsStore';
-import { Item } from '../../stores/types/items';
+import { Item, Items } from '../../stores/types/items';
 import usePlayerStore from '../../stores/playerStore';
 import useInventoryStore from '../../stores/inventoryStore';
 import BackButton from '../UI/BackButton';
@@ -13,6 +13,7 @@ import { Weapon } from '../../stores/types/weapons';
 import { Armor } from '../../stores/types/armor';
 import { Accessory } from '../../stores/types/accesories';
 import useArmorStore from '../../stores/armorStore';
+import ItemGrid from './itemCards';
 
 const ItemShop: React.FC = () => {
   const { player, playerActions } = usePlayerStore();
@@ -21,9 +22,7 @@ const ItemShop: React.FC = () => {
   const {addNewAccessory} = useAccessoryStore();
   const {addNewArmor} = useArmorStore();
   const { items } = useItemsStore();
-  const [selectedType, setSelectedType] = useState<
-    keyof (typeof items)[1] | null
-  >(null);
+  const [selectedType, setSelectedType] = useState<keyof Items>("weapons");
   const shopId = 1;
   const [hoverInfo, setHoverInfo] = useState<{
     description: string;
@@ -52,6 +51,7 @@ const ItemShop: React.FC = () => {
         addNewArmor(updatedItem as Armor);
         saveItemToFirebase(player.name, (updatedItem as Armor).id, updatedItem as Armor, "armors");
       } else if (itemType === "weapons") {
+        console.log(playerInventoryId)
         saveItemToFirebase(player.name, (updatedItem as Weapon).id, updatedItem as Weapon, "weapons");
         addNewWeapon(updatedItem as Weapon);
       } else if (itemType === "accessories") {
@@ -87,23 +87,6 @@ const ItemShop: React.FC = () => {
   const handleMouseLeave = () => {
     setHoverInfo(null);
   };
-
-  const darkenHex = (hex: string, amount: number = 80): string => {
-    // Eliminar el símbolo '#' si está presente
-
-    const color = hex.slice(1);
-    console.log(color)
-    // Dividir en componentes RGB
-    const r = Math.max(0, parseInt(color.slice(0, 2), 16) - amount);
-    const g = Math.max(0, parseInt(color.slice(2, 4), 16) - amount);
-    const b = Math.max(0, parseInt(color.slice(4, 6), 16) - amount);
-    const result  = `#${[r, g, b]
-      .map((c) => c.toString(16).padStart(2, '0'))
-      .join('')}`;
-
-    // Reconstruir el color en formato hexadecimal
-    return result
-  };
   
   return (
     <div className="item-shop-container rpgui-container framed-golden-2">
@@ -137,58 +120,14 @@ const ItemShop: React.FC = () => {
       </div>
 
       {/* Renderizado de ítems basado en el tipo seleccionado */}
-      <div className="item-grid">
-        {selectedType &&
-          items[shopId]?.[selectedType]?.map((item) => (
-            <div
-              className="item-card"
-              style={{
-                borderColor: darkenHex(item.color, 20),
-                background: `linear-gradient(0deg, ${darkenHex(item.color, 20)} 0%, ${darkenHex(item.color, 70)} 70% , ${darkenHex(item.color, 100)} 100%)`,
-              }}
-              key={item.id}
-              onMouseMove={(e) =>
-                handleMouseMove(
-                  e,
-                  item.description || 'Sin descripción',
-                  item.armorValue && item.armorValue,
-                  item.damage && item.damage,
-                  item.damageMax && item.damageMax,
-                  item.levelRequirement,
-                )
-              }
-              onMouseLeave={handleMouseLeave}
-            >
-                <h3
-                  className="itemName"
-                  style={{ color: item.color }}
-                >
-                  {item.name}
-                </h3>
-              {item.img && item.img.length > 0 ? (
-                <img className="itemImg" src={item.img} alt={item.name} />
-              ) : (
-                <></>
-              )}
-              <button
-                className="rpgui-button buyButton"
-                onClick={() =>
-                  handleBuy(
-                    player.inventoryId,
-                    item.id,
-                    selectedType,
-                    item.cost,
-                    item
-                  )
-                }
-                value={item.id}
-              >
-                {item.cost} 🛠️
-              </button>
-            </div>
-          ))}
-      </div>
-
+      <ItemGrid
+          selectedType={selectedType}
+          items={items}
+          shopId={shopId}
+          handleMouseMove={handleMouseMove}
+          handleMouseLeave={handleMouseLeave}
+          handleBuy={handleBuy}
+      />
       <BackButton />
       <p>Materiales: {player.playerMaterial} 🛠️</p>
 

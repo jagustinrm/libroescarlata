@@ -1,3 +1,5 @@
+export type WeaponType = 'Espada' | 'Hacha' | 'Lanza' | 'Arco' | 'Daga' | 'Bastón';
+
 export interface Weapon {
   id: string; // Identificador único del arma
   name: string; // Nombre del arma

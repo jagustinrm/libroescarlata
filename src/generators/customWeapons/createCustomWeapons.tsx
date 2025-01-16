@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Weapon } from '../../stores/types/weapons';
+import { Weapon, WeaponType } from '../../stores/types/weapons';
 // import { saveItemToFirebase } from '../../firebase/saveItemToFirebase';
 import usePlayerStore from '../../stores/playerStore';
 import { generateUniqueId } from '../generateUniqueId';
@@ -8,6 +8,7 @@ import { generateRandomStatRequirements } from '../generateRandomStatReq';
 import { generateBonusEffects } from '../generateBonusEffects';
 import { calculateDamageValues } from './calculateDamageValue';
 import { getRarityColor } from '../getRarityColor';
+import assignRangeToItem from '../../utils/assignRangeToItem';
 
 const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
   const rarities: Weapon['rarity'][] = [
@@ -24,12 +25,12 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     'Prototipo',
     'Irónicas',
   ];
-  const weaponTypes = ['Espada', 'Hacha', 'Lanza', 'Arco', 'Daga', 'Bastón'];
+  const weaponTypes: WeaponType[] = ['Espada', 'Hacha', 'Lanza', 'Arco', 'Daga', 'Bastón'];
   const materials = ['Hierro', 'Acero', 'Madera', 'Cristal'];
   const prefixes = ['Feroz', 'Ágil', 'Implacable'];
   const suffixes = ['del Dragón', 'de la Tormenta', 'de las Sombras'];
   const effects = ['Aumenta el daño crítico', 'Genera electricidad', 'Inmune al hielo'];
-
+  
   const randomWeaponType = weaponTypes[Math.floor(Math.random() * weaponTypes.length)];
   const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
   const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
@@ -86,6 +87,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     rarity: randomRarity,
     damage,
     damageMax,
+    range: assignRangeToItem(randomWeaponType),
     critical: "x2",
     color,
     equipLevel,

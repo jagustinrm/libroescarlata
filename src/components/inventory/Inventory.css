@@ -223,9 +223,12 @@ a {
 }
 @media (max-width: 1360px) and (max-height: 768px) {
   .sectionInventory {
-    max-height: 500px;
+    max-height: 550px;
+    
   }
-
+  .inventoryIcons {
+    width: 90px;
+  }
   .inventoryLayout {
   display: flex;
   justify-content: flex-start;
@@ -248,5 +251,12 @@ a {
     margin: 5px 0;
     font-size: 15px;
   }
-  
+  .lines{
+    height: 50px;
+  }
+  .inventoryTitle{
+    font-size: 18px;
+  }
 }
+
+
