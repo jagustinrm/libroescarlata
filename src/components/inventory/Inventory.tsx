@@ -13,6 +13,7 @@ import { Accessory } from '../../stores/types/accesories';
 import PlayerEquipment from './Equipment';
 import AccesoriesEquipment from './AccesoriesEquip';
 import WeaponEquipment from './WeaponsEquip';
+import { darkenHex } from '../../utils/darkenHex';
 
 export default function Inventory() {
   const [actualInventory, setActualInventory] = useState<Array<
@@ -20,7 +21,7 @@ export default function Inventory() {
   > | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [selectedAccessoryEquipped, setSelectedAccessoryEquipped] = useState<{ type: string; index: number } | null>(null);
-
+  console.log(actualInventory)
   const {
     player,
     playerActions,
@@ -41,6 +42,7 @@ export default function Inventory() {
     }
 
     const itemNames = inventories[player.inventoryId][category];
+
     if (!itemNames) {
       setActualInventory([]);
       return;
@@ -142,8 +144,7 @@ export default function Inventory() {
       console.log('Este objeto no puede ser equipado.');
     }
   };
-  console.log(player)
-  console.log(inventories)
+ 
   return (
     <section style={{ display: 'flex', flexDirection: 'row' }}>
       <div className="sectionInventory rpgui-container framed-golden-2">
@@ -168,8 +169,8 @@ export default function Inventory() {
             <ul className="rpgui-list-imp">
               {actualInventory && actualInventory.length > 0 ? (
                 actualInventory.map((item, index) => (
-                  <li key={index} onClick={() => handleSelectItem(item.id)}>
-                    {item.name}
+                  item.color && <li key={index} style={{ color: darkenHex(item.color, 0, 1), marginTop: '2px' }} onClick={() => handleSelectItem(item.id)}>
+                    {item.name} 
                   </li>
                 ))
               ) : (
@@ -177,10 +178,16 @@ export default function Inventory() {
               )}
             </ul>
           </div>
-          <div className="detailsContainer">
+          <div className="detailsContainer"
+          style={selectedItem && {
+            borderColor: darkenHex(selectedItem.color, 90, 1),
+            boxShadow: `0px 0px 1px 3px ${darkenHex(selectedItem.color, 30, 1)}, 0px 0px 0px 4px ${darkenHex(selectedItem.color, 90, 1)}`,
+            background: `linear-gradient(0deg, ${darkenHex(selectedItem.color, 70, 0.8)} 10%, ${darkenHex(selectedItem.color, 40)} 50%, ${darkenHex(selectedItem.color, 10)} 70%)`,
+          }}
+          >
             {selectedItem ? (
               <>
-                <h2>{selectedItem.name}</h2>
+                <h2 style={{ color: darkenHex(selectedItem.color, 0, 1)}}>{selectedItem.name}</h2>
                 <img
                   className="itemIventoryImg"
                   src={selectedItem.img}

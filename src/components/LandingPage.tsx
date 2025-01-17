@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 import { usePlayerStore } from '../stores/playerStore';
@@ -59,6 +59,10 @@ const LandingPage: React.FC = () => {
 
   localStorage.removeItem('playerState');
   localStorage.removeItem('inventoryState');
+  
+  useEffect(() => {
+    playerActions.resetPlayer()
+  }, [])
 
   return (
     <>

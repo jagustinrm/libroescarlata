@@ -14,6 +14,7 @@
 .rpgui-list-imp {
   min-height: 220px;
   min-width: 200px;
+  max-height: 220px;
 }
 
 .buttonsInventory {
@@ -37,12 +38,13 @@
 
 .containerInventory li {
   background-color: #8b4513; /* Slightly darker than the background */
-  padding: 8px;
   margin-bottom: 5px;
   border-radius: 5px; /* Rounded corners for list items */
   transition: background-color 0.3s ease; /* Smooth hover effect */
   font-size: 20px;
-  padding-top: 10px;
+  overflow: hidden; /* Ocultar contenido desbordado */
+  text-overflow: ellipsis; /* Mostrar "..." si el texto es demasiado largo */
+  white-space: nowrap; /* Prevenir el ajuste del texto en varias líneas */
 }
 
 .containerInventory li:hover {
@@ -237,7 +239,7 @@ a {
   }
 
   .itemIventoryImg {
-    width: 60px;
+    max-width: 80px;
     aspect-ratio: 1 / 1;
     object-fit: cover; 
   }

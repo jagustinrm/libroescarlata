@@ -1,4 +1,5 @@
 import useGlobalState from "../../customHooks/useGlobalState";
+import { darkenHex } from "../../utils/darkenHex";
 
 const DEFAULT_IMAGES: Record<"anillo" | "aro" | "amulet", string> = {
   anillo: "img/armors/ringplaceholder.png",
@@ -26,7 +27,7 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
   setSelectedAccessoryEquipped,
 }) => {
   const { player } = useGlobalState();
-  console.log(player)
+
   const rings = generateAccessories("anillo", 10, player.accessoriesParts);
   const earrings = generateAccessories("aro", 2, player.accessoriesParts);
   const amulet =
@@ -41,49 +42,58 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
   const isSelected = (type: string, index: number) =>
     selectedAccessoryEquipped?.type === type && selectedAccessoryEquipped.index === index;
 
+  const renderAccessory = (
+    type: string,
+    item: any,
+    index: number,
+    defaultImg: string,
+    isSelectedItem: boolean
+  ) => {
+    const hasCustomImage = !isDefaultImage(item.img, defaultImg);
+
+    const styles = hasCustomImage
+      ? {
+          borderColor: darkenHex(item.color || "#fff", 90, 1),
+          boxShadow: `0px 0px 1px 3px ${darkenHex(item.color || "#fff", 30, 1)}, 
+                      0px 0px 0px 4px ${darkenHex(item.color || "#fff", 90, 1)}`,
+          background: `linear-gradient(0deg, 
+                      ${darkenHex(item.color || "#fff", 70, 0.8)} 10%, 
+                      ${darkenHex(item.color || "#fff", 40)} 50%, 
+                      ${darkenHex(item.color || "#fff", 10)} 70%)`,
+        }
+      : {};
+
+    return (
+      <img
+        key={item.id}
+        className={`${type} ${hasCustomImage ? "" : "default-image"} ${
+          isSelectedItem ? "selected" : ""
+        }`}
+        src={item.img}
+        alt={item.name}
+        style={styles}
+        onClick={() => setSelectedAccessoryEquipped({ type, index })}
+      />
+    );
+  };
+
   return (
     <div className="rpgui-container framed-golden-2 accessoriesContainer">
       <h2>Equipo</h2>
       <div className="accesoriesEquipment">
-
-       {rings.map((ring, index) => (
-        <img
-          key={ring.id}
-          className={`ring ${
-            isDefaultImage(ring.img, DEFAULT_IMAGES.anillo) ? "default-image" : ""
-          } ${isSelected("anillo", index) ? "selected" : ""}`}
-          src={ring.img}
-          alt={ring.name}
-          data-index={index}
-          onClick={() => setSelectedAccessoryEquipped({ type: "anillo", index })}
-        />
-      ))}
-        
-        {earrings.map((earring, index) => (
-        <img
-          key={earring.id}
-          className={`earring-${index} ${
-            isDefaultImage(earring.img, DEFAULT_IMAGES.aro) ? "default-image" : ""
-          } ${isSelected("aro", index) ? "selected" : ""}`}
-          src={earring.img}
-          alt={earring.name}
-          data-index={index}
-          onClick={() => setSelectedAccessoryEquipped({ type: "aro", index })}
-        />
-      ))}
-      <img
-        key={amulet.id}
-        className={`amulet ${
-          isDefaultImage(amulet.img, DEFAULT_IMAGES.amulet)
-            ? "default-image"
-            : ""
-        } ${selectedAccessoryEquipped?.type === "amuleto" ? "selected" : ""}`}
-        src={amulet.img}
-        alt={amulet.name}
-        data-index={0} // Índice fijo para el amuleto
-        onClick={() => setSelectedAccessoryEquipped({ type: "amuleto", index: 0 })}
-      />
-      
+        {rings.map((ring, index) =>
+          renderAccessory("ring", ring, index, DEFAULT_IMAGES.anillo, isSelected("anillo", index))
+        )}
+        {earrings.map((earring, index) =>
+          renderAccessory("earring-" + index, earring, index, DEFAULT_IMAGES.aro, isSelected("aro", index))
+        )}
+        {renderAccessory(
+          "amulet",
+          amulet,
+          0,
+          DEFAULT_IMAGES.amulet,
+          selectedAccessoryEquipped?.type === "amuleto"
+        )}
       </div>
     </div>
   );

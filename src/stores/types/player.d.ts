@@ -77,7 +77,7 @@ export interface PlayerActions {
   setP_ExpToNextLevel: (p_ExpToNextLevel: number) => void;
   setP_ExpPrevLevel: (p_ExpPrevLevel: number) => void;
   setP_SelectedPet: (selectedPet: Pet) => void;
-
+  resetPlayer: () => void,
   // setP_SelectedWeapon: (selectedWeapon: Weapon) => void;
   // setP_SelectedArmor: (selectedArmor: Armor) => void;
   setBodyParts: (newBodyParts: bodyParts) => void;

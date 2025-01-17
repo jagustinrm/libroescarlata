@@ -29,6 +29,7 @@ export function assignArmorByClass({
 }: AssignArmorParams): void {
   // Encuentra la clase correspondiente
   const {player} = usePlayerStore.getState();
+  console.log(player)
   const classArmor = classes.find((c) => c.className === className);
   if (!classArmor) {
     console.error(`Class ${className} not found.`);
@@ -39,9 +40,10 @@ export function assignArmorByClass({
   const initialArmorId = classArmor.initialArmor[0];
 
   const armor = armors.find((a) => a.id === initialArmorId);
-
+ 
   if (armor) {
     playerActions.setP_SelectedBodyPart(armor);
+    
   } else {
     console.error(`Initial armor with ID ${initialArmorId} not found.`);
   }
@@ -53,7 +55,7 @@ export function assignArmorByClass({
   // Agrega todas las armaduras iniciales al inventario del jugador
   classArmor.initialArmor.forEach((armorId) => {
     const armor = armors.find((a) => a.id === armorId);
-    console.log(armor);
+    console.log(player.name)
     if (armor) {
       inventoryStore.addItem(`${player.name}_inventory`, 'armors', armor.id);
     } else {

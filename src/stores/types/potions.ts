@@ -17,6 +17,7 @@ export interface Potion {
   description: string;
   img: string;
   levelRequirement?: number;
+  color?: string;
 }
 
 export interface PotionStore {

@@ -13,7 +13,8 @@
             "img": "/img/weapons/espada-larga.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "range": 5
         },
         {
             "id": "weapon-daga-002",

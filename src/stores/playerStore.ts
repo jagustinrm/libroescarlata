@@ -4,8 +4,8 @@ import useInventoryStore from './inventoryStore';
 import { StoryProgress } from './types/story';
 import { calculateDmgReduction, calculateDodgePercentage, calculateHitRate, calculateTotalArmor, calculateTotalDamage, calculateTotalDodge, calculateTotalMaxDamage } from '../utils/calculateDodgePercentage';
 
-export const usePlayerStore = create<PlayerStore>((set, get) => ({
-  player: {
+const initialPlayerState: Player = 
+  {
     name: '',
     level: 1,
     playerExp: 0,
@@ -28,6 +28,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       agi: 0,
       cha: 0,
     },
+    leftPoints: 25,
     movement: 0, // nuevo
     turnSpeed: 0, //nuevo
     blockChance: 0, //nuevo
@@ -41,7 +42,6 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     spiritReg: 0, //nuevo
     healthReg: 0, //nuevo
     healingPower: 0, //nuevo
-    leftPoints: 0,
     classFeatures: [],
     selectedPet: '',
     // selectedWeapon: null,
@@ -74,41 +74,46 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     avatarImg: '',
     hitRate: 0,
     dodge: 1,
-    totalDodge:() => {
-      const state = get().player; // Obtén el estado actual
-      console.log("dodge")
-      return calculateTotalDodge(state.stats.agi, state.dodge) || 0
+    storyProgress: [], // Lista de progresos del jugador en las historias
+    currentStoryId: null,
+    totalDodge: () => {
+      const state = usePlayerStore.getState().player;
+      return calculateTotalDodge(state.stats.agi, state.dodge) || 0;
     },
     damage: () => {
-      const state = get().player; // Obtén el estado actual
-      return calculateTotalDamage(state.bodyParts, state.stats.str) || 0
+      const state = usePlayerStore.getState().player;
+      return calculateTotalDamage(state.bodyParts, state.stats.str) || 0;
     },
     damageMax: () => {
-      const state = get().player; // Obtén el estado actual
-      return calculateTotalMaxDamage(state.bodyParts, state.stats.str) || 0
+      const state = usePlayerStore.getState().player;
+      return calculateTotalMaxDamage(state.bodyParts, state.stats.str) || 0;
     },
     totalArmorClass: () => {
-      const state = get().player; // Obtén el estado actual
-      return calculateTotalArmor(state.bodyParts, state.armorClass) || 0
+      const state = usePlayerStore.getState().player;
+      return calculateTotalArmor(state.bodyParts, state.armorClass) || 0;
     },
     dodgePercentage: () => {
-      return calculateDodgePercentage(get().player.totalDodge()); 
+      return calculateDodgePercentage(usePlayerStore.getState().player.totalDodge());
     },
-    hitRatePercentage:() => {
-      return calculateHitRate(get().player.stats.dex, get().player.hitRate); 
+    hitRatePercentage: () => {
+      const state = usePlayerStore.getState().player;
+      return calculateHitRate(state.stats.dex, state.hitRate);
     },
     totalDmgReduction: (enemyLevel) => {
-      return calculateDmgReduction(get().player.totalArmorClass(), enemyLevel)
+      const state = usePlayerStore.getState().player;
+      return calculateDmgReduction(state.totalArmorClass(), enemyLevel);
     },
     totalBlockValue: () => {
-      return 0
+      return 0; // Valor predeterminado para bloqueo
     },
-    storyProgress: [], // Lista de progresos del jugador en las historias
-    currentStoryId: null, // ID de la historia en la que está actualmente
-  },
+}
+
+export const usePlayerStore = create<PlayerStore>((set, get) => ({
+  player: initialPlayerState,
 
   // Agrupamos las acciones relacionadas con el jugador
   playerActions: {
+    resetPlayer: () => set({ player: initialPlayerState }),
     setInventory: (inventory) =>
       set((state) => ({
         player: { ...state.player, inventoryId: inventory },
