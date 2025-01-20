@@ -4,13 +4,14 @@ import usePlayerStore from '../../../stores/playerStore';
 import useInventoryStore from '../../../stores/inventoryStore';
 import usePotionStore from '../../../stores/potionsStore';
 import useCreatureStore from '../../../stores/creatures';
+import useTurnStore from '../../../stores/turnStore';
 
 interface AttackAndPotionsProps {
   // selectedWeapon: string | null;
   executeAttack: () => void;
   pocion: string | undefined; // Cambiar el tipo a string | undefined
   handleMessage: (message: string, type: string, persist: boolean) => void;
-  turn: string;
+  // turn: string;
 }
 
 const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
@@ -18,7 +19,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
   executeAttack,
   pocion,
   handleMessage,
-  turn
+  // turn
 }) => {
   // Lógica para encontrar la poción específica
   const findPotion = (name: string) => {
@@ -28,14 +29,18 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
   const { inventories, removeItem } = useInventoryStore();
   const { potions } = usePotionStore();
   const { creature } = useCreatureStore();
+  const {currentCharacter} = useTurnStore();
   return (
     <div className="attackAndPotions">
       <button
         className="rpgui-button newDesign espada"
         id="newDesign"
         onClick={executeAttack}
-        disabled={
-          creature.health === 0 || player.p_LeftHealth === 0 || !player.bodyParts.manoDerecha || turn !== "player"
+        disabled={ 
+          creature.health === 0 || 
+          player.p_LeftHealth === 0 || 
+          !player.bodyParts.manoDerecha || 
+           currentCharacter?.id !== "player"
         }
       >
         ⚔️

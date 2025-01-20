@@ -5,30 +5,32 @@ import usePlayerStore from '../stores/playerStore.ts';
 import { isAttackSuccessful } from '../utils/calculateDodgePercentage.ts';
 import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
+import useTurnStore from '../stores/turnStore.ts';
 
 
 interface EnemyTurnProps {
-  turn: string;
+  // turn: string;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-  switchTurn: () => void;
+  // switchTurn: () => void;
   setFloatingMessage: React.Dispatch<React.SetStateAction<FloatingMessageProps  | null>>;
   setSoundUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 export const useEnemyTurn = ({
-  turn,
+  // turn,
   setActionMessages,
-  switchTurn,
+  // switchTurn,
   setFloatingMessage,
   setSoundUrl
 }: EnemyTurnProps) => {
   const {playerPosition, enemyPosition, setEnemyPosition} = usePositionStore.getState();
   const {creature} = useCreatureStore.getState();
   const {player, playerActions} = usePlayerStore.getState();
+  const {currentCharacter, nextTurn } = useTurnStore.getState();
   useEffect(() => {
 
     const timeout = setTimeout(() => {
       if (
-        turn === 'enemy' &&
+        currentCharacter && currentCharacter.id === 'enemy' &&
         creature &&
         creature.health &&
         creature.health > 0 &&
@@ -54,7 +56,8 @@ export const useEnemyTurn = ({
       if (
         playerPosition &&
         creature &&
-        turn === 'enemy' &&
+        currentCharacter && 
+        currentCharacter.id === 'enemy' &&
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0
@@ -96,24 +99,24 @@ export const useEnemyTurn = ({
               setActionMessages((prev) => [...prev, `¡El enemigo falló!`]);
             }
 
-            switchTurn();
+            nextTurn();
           }, 1000);
 
           return () => clearTimeout(enemyAttackTimeout);
         } else {
-          switchTurn();
+          nextTurn();
         }
       } else if (
         creature &&
-        turn === 'enemy' &&
+        currentCharacter && currentCharacter.id === 'enemy' &&
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0
       ) {
-        switchTurn();
+        nextTurn();
       }
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [turn]);
+  }, [currentCharacter && currentCharacter.id]);
 };

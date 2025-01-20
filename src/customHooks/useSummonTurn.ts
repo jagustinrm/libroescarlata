@@ -5,30 +5,33 @@ import { Creature } from '../stores/types/creatures.ts';
 import usePositionStore from '../stores/positionStore.ts';
 import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
+import useTurnStore from '../stores/turnStore.ts';
 
 
 interface SummonTurnProps {
   summon: Creature | null;
-  turn: string;
+  // turn: string;
   setCreatureHealth: (health: number) => void;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-  switchTurn: () => void;
+  // switchTurn: () => void;
 }
 
 export const useSummonTurn = ({
-  turn,
+  // turn,
   setActionMessages,
-  switchTurn,
+  // switchTurn,
   summon,
   setCreatureHealth,
 }: SummonTurnProps) => {
+  const {enemyPosition, summonPosition, setSummonPosition} = usePositionStore.getState();
+  const {creature} = useCreatureStore.getState();
+  const {player } = usePlayerStore.getState();
+  const {currentCharacter, nextTurn} = useTurnStore.getState();
   useEffect(() => {
-    const {enemyPosition, summonPosition, setSummonPosition} = usePositionStore.getState();
-    const {creature} = useCreatureStore.getState();
-    const {player } = usePlayerStore.getState();
+
     const timeout = setTimeout(() => {
       if (
-        turn === 'summon' &&
+        currentCharacter && currentCharacter.id === 'summon' &&
         creature &&
         creature.health &&
         creature.health > 0 &&
@@ -55,7 +58,7 @@ export const useSummonTurn = ({
         enemyPosition &&
         summon &&
         creature &&
-        turn === 'summon' &&
+        currentCharacter && currentCharacter.id === 'summon' &&
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0
@@ -69,7 +72,7 @@ export const useSummonTurn = ({
             if (totalAttack > creature.armorClass && creature.health) {
               const damageDice = summon['attacks'][0].damage;
               const damage = rollDice(damageDice);
-              console.log(damage);
+
               setCreatureHealth(Math.max(creature.health - damage, 0));
 
               setActionMessages((prev) => [
@@ -80,24 +83,24 @@ export const useSummonTurn = ({
               setActionMessages((prev) => [...prev, `¡La invocación falló!`]);
             }
 
-            switchTurn();
+            nextTurn();
           }, 1000);
 
           return () => clearTimeout(summonAttackTimeout);
         } else {
-          switchTurn();
+          nextTurn();
         }
       } else if (
         creature &&
-        turn === 'summon' &&
+        currentCharacter && currentCharacter.id === 'summon' &&
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0
       ) {
-        switchTurn();
+        nextTurn();
       }
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [turn]);
+  }, [currentCharacter && currentCharacter.id]);
 };

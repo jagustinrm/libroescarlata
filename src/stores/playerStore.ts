@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Player, PlayerStore } from './types/player';
 import useInventoryStore from './inventoryStore';
 import { StoryProgress } from './types/story';
-import { calculateDmgReduction, calculateDodgePercentage, calculateHitRate, calculateTotalArmor, calculateTotalDamage, calculateTotalDodge, calculateTotalMaxDamage } from '../utils/calculateDodgePercentage';
+import { calculateDmgReduction, calculateDodgePercentage, calculateHitRatePercentage, calculateTotalArmor, calculateTotalDamage, calculateTotalDodge, calculateTotalHitRate, calculateTotalMaxDamage, calculateTotalMaxHealth, calculateTotalMaxMana } from '../utils/calculateDodgePercentage';
 
 const initialPlayerState: Player = 
   {
@@ -12,13 +12,23 @@ const initialPlayerState: Player =
     p_ExpToNextLevel: 1000,
     p_ExpPrevLevel: 0,
     p_MaxHealth: 1,
+    totalMaxHealth: () => {
+      const state = usePlayerStore.getState().player;
+      return calculateTotalMaxHealth(state.stats.con, state.stats.cha, state.p_MaxHealth) || 0;
+    },
     p_LeftHealth: 1,
     p_MaxMana: 1,
+    totalMaxMana: () => {
+      const state = usePlayerStore.getState().player;
+      return calculateTotalMaxMana(state.stats.int, state.p_MaxMana) || 0;
+    },
     p_LeftMana: 1,
     classes: [],
     hitDie: 0,
     manaDie: 0,
-    armorClass: 0,
+    hitRateDie: 0,
+    dodgeDie: 0,
+    // armorClass: 0,
     // baseAttackBonus: 0,
     stats: {
       str: 0,
@@ -80,6 +90,16 @@ const initialPlayerState: Player =
       const state = usePlayerStore.getState().player;
       return calculateTotalDodge(state.stats.agi, state.dodge) || 0;
     },
+    totalHitRate: () => {
+      const state = usePlayerStore.getState().player;
+      return calculateTotalHitRate(state.stats.dex, state.hitRate) || 0;
+    },
+    dodgePercentage: () => {
+      return calculateDodgePercentage(usePlayerStore.getState().player.totalDodge());
+    },
+    hitRatePercentage: () => {
+      return calculateHitRatePercentage(usePlayerStore.getState().player.totalHitRate());
+    },
     damage: () => {
       const state = usePlayerStore.getState().player;
       return calculateTotalDamage(state.bodyParts, state.stats.str) || 0;
@@ -90,15 +110,9 @@ const initialPlayerState: Player =
     },
     totalArmorClass: () => {
       const state = usePlayerStore.getState().player;
-      return calculateTotalArmor(state.bodyParts, state.armorClass) || 0;
+      return calculateTotalArmor(state.bodyParts, state.stats.con, state.level) || 0;
     },
-    dodgePercentage: () => {
-      return calculateDodgePercentage(usePlayerStore.getState().player.totalDodge());
-    },
-    hitRatePercentage: () => {
-      const state = usePlayerStore.getState().player;
-      return calculateHitRate(state.stats.dex, state.hitRate);
-    },
+
     totalDmgReduction: (enemyLevel) => {
       const state = usePlayerStore.getState().player;
       return calculateDmgReduction(state.totalArmorClass(), enemyLevel);
@@ -189,10 +203,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       set((state) => ({
         player: { ...state.player, p_LeftMana },
       })),
-    setArmorClass: (armorClass) =>
-      set((state) => ({
-        player: { ...state.player, armorClass },
-      })),
+    // setArmorClass: (armorClass) =>
+    //   set((state) => ({
+    //     player: { ...state.player, armorClass },
+    //   })),
     setClassImg: (classImg) =>
       set((state) => ({
         player: { ...state.player, classImg },
@@ -211,7 +225,15 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
       })),
     setHitRate: (hitRate) =>
       set((state) => ({
-        player: { ...state.player, hitRate },
+        player: { ...state.player, hitRate},
+      })),
+    setDodgeDie: (dodgeDie) =>
+      set((state) => ({
+        player: { ...state.player, dodgeDie },
+      })),
+    setHitRateDie: (hitRateDie) =>
+      set((state) => ({
+        player: { ...state.player, hitRateDie },
       })),
     addClassFeature: (feature) =>
       set((state) => ({
@@ -309,8 +331,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     }),
 
     addP_SelectedAccesories: (selectedAccesory, index = null) => {
-      console.log(selectedAccesory);
-      console.log(index);
+
       const { type, id } = selectedAccesory; // Asegúrate de que `id` esté disponible en el accesorio
       const lowerCaseType = type.toLowerCase();
     

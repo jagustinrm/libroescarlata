@@ -2,6 +2,8 @@ export interface Class {
   className: string;
   hitDie: number;
   manaDie: number;
+  dodgeDie: number;
+  hitRateDie: number;
   armorClass: number;
   baseAttackBonus: number;
   saves: {

@@ -27,11 +27,11 @@ export default function PlayerStats() {
               <div className="heart">❤️</div>
               <p>
                 {' '}
-                Vida: {player.p_LeftHealth} / {player.p_MaxHealth}
+                Vida: {player.p_LeftHealth} / {player.totalMaxHealth()}
               </p>
             </div>
             <p>
-              🌀 Espíritu: {player.p_LeftMana} / {player.p_MaxMana}
+              🌀 Espíritu: {player.p_LeftMana} / {player.totalMaxMana()}
             </p>
             <p>
               ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}
@@ -42,7 +42,7 @@ export default function PlayerStats() {
               {player.bodyParts.manoDerecha?.name || 'Sin arma equipada'}
             </p>
             <p>
-              Daño: {player.damage()} - {player.damageMax()}
+            🔱 Daño: {player.damage()} - {player.damageMax()}
             </p>
             {/* <p>
               {' '}
@@ -52,7 +52,7 @@ export default function PlayerStats() {
                 player.selectedArmor?.material || 'Sin arma equipada'}
             </p> */}
             <p> 🛡️ Armadura: {player.totalArmorClass()}</p>
-            <p>⚔️ Puntería: {player.hitRate}</p>
+            {/* <p>⚔️ Puntería: {player.hitRate}</p> */}
           </div>
           <button
             className="rpgui-button playerbackbutton"
@@ -127,7 +127,7 @@ export default function PlayerStats() {
             </ul>
           </p>
           <p>Esquiva: {player.totalDodge()} </p>
-          <p>Puntería: {player.hitRate} </p>
+          <p>Puntería: {player.totalHitRate()} </p>
           <p>Porcentaje de esquiva: {player.dodgePercentage()}% </p>
           <p>Porcentaje de puntería: {player.hitRatePercentage()}% </p>
           <p>Reducción de daño: {player.totalDmgReduction(player.level)}%</p>

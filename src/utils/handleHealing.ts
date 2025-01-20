@@ -26,7 +26,7 @@ export const handleHealing = ({
 }: HandleHealingParams) => {
   const potionName = 'Poción de Curación Menor';
   const currentHealth = player.p_LeftHealth;
-  const maxHealth = player.p_MaxHealth;
+  const maxHealth = player.totalMaxHealth();
 
   // Función para eliminar la poción
   const removePotion = () => {

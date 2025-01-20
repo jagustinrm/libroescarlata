@@ -5,7 +5,7 @@ import { Creature } from '../../stores/types/creatures';
 interface NewEnemyClickParams {
   player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
+  // setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
   updateEnemy: boolean;
   setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
   fightType: string;
@@ -17,7 +17,7 @@ interface EndBattleActionsProps {
   fightType: string;
   player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
+  // setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
   updateEnemy: boolean;
   setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
   creature: Creature;
@@ -29,7 +29,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
   fightType,
   player,
   handleMessage,
-  setTurn,
+  // setTurn,
   updateEnemy,
   setUpdateEnemy,
   creature,
@@ -45,7 +45,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
                   handleNewEnemyClick({
                     player,
                     handleMessage,
-                    setTurn,
+                    // setTurn,
                     updateEnemy,
                     setUpdateEnemy,
                     fightType,

@@ -14,23 +14,48 @@ export function calculateTotalDodge(
   // Asegurarse de que el porcentaje esté en un rango válido
   return totalDodge
 }
+export function  calculateTotalHitRate(
+  dex: number = 1,
+  hitRate: number
+): number {
+  const HIT_RATE_PER_DEX = 1;
+  const hitRateFromDex = dex * HIT_RATE_PER_DEX;
+  const totalHitRate = hitRate + hitRateFromDex;
+  return totalHitRate
+}
+export function  calculateTotalMaxHealth(
+  con: number = 1,
+  cha: number = 1,
+  p_MaxHealth: number
+): number {
+  const HEALTH_PER_CON = 5;
+  const HEALTH_PER_CHA = 1;
+  const healthFromCon = con * HEALTH_PER_CON;
+  const healthFromCha = cha * HEALTH_PER_CHA;
+  const totalMaxHealth = p_MaxHealth + healthFromCon + healthFromCha;
+  return totalMaxHealth
+}
+export function  calculateTotalMaxMana(
+  int: number = 1,
+  cha: number = 1,
+  p_MaxMana: number
+): number {
+  const MANA_PER_INT = 5;
+  const MANA_PER_CHA = 1;
+  const manaFromInt = int * MANA_PER_INT;
+  const manaFromCha = cha * MANA_PER_CHA;
+  const totalMaxMana= p_MaxMana + manaFromInt + manaFromCha;
+  return totalMaxMana
+}
 export function calculateDodgePercentage(
     dodge: number    // Esquiva base del personaje
   ): number {
     return parseFloat(Math.max(0, Math.min(dodge, 100)).toFixed(2));
 }
   
-export function calculateHitRate(
-  dex: number = 1,       // Destreza del atacante
-  baseHitRate: number // Hit rate base del atacante
+export function calculateHitRatePercentage(     
+  totalHitRate: number // Hit rate base del atacante
 ): number {
-  // Constantes específicas del juego
-  const HIT_RATE_PER_DEX = 1; // Ejemplo: Cada punto de dex aumenta 3% el hit rate
-
-  // Calcular el porcentaje de hit rate
-  const hitRateFromDex = dex * HIT_RATE_PER_DEX;
-  const totalHitRate = baseHitRate + hitRateFromDex;
-  console.log("hitrate", totalHitRate)
   // Asegurarse de que el porcentaje esté en un rango válido
   return parseFloat(Math.max(0, Math.min(totalHitRate, 100)).toFixed(2));
 }
@@ -60,12 +85,13 @@ export function calculateDmgReduction(armor: number, enemyLevel: number): number
     return parseFloat(Math.max(0, Math.min(reduction, 100)).toFixed(2));
 }
   
-export function calculateTotalArmor(bodyParts: bodyParts, playerArmor: number): number {
+export function calculateTotalArmor(bodyParts: bodyParts, playerCon: number, playerLevel: number): number {
     const armorValue = Object.values(bodyParts).reduce((total, part) => {
     return total + (part?.armorValue || 0);
     }, 0);
-  
-    return playerArmor + armorValue;
+    
+    const totalArmor = (playerCon / 5) * playerLevel + armorValue;
+    return parseFloat(totalArmor.toFixed(2));
 }
   
 export function calculateTotalDamage(bodyParts: bodyParts, playerStr: number): number {

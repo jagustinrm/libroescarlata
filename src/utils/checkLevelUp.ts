@@ -53,7 +53,10 @@ export function checkLevelUp({
 
     playerActions.setPlayerLevel(newLevel);
     gainXpToNextLevel(newLevel); // Actualizar la experiencia necesaria para el próximo nivel
+    
 
+    playerActions.setDodge(player.dodge + player.dodgeDie)
+    playerActions.setHitRate(player.hitRate + player.hitRateDie)
     setActionMessages((prevMessages) => [
       ...prevMessages,
       `¡Has subido al nivel ${newLevel}, ¡Tu nivel de vida aumentó a ${newPlayerHealth} y tu mana a ${newPlayerMana}!`,

@@ -27,6 +27,8 @@ export default function CharacterSelector() {
       img,
       manaDie,
       faceImg,
+      dodgeDie,
+      hitRateDie
     } = classData;
 
     playerActions.setPlayerClass(className);
@@ -41,8 +43,11 @@ export default function CharacterSelector() {
     // playerActions.setP_ExpToNextLevel(1000);
     // playerActions.setP_ExpPrevLevel(0);
     playerActions.setPlayerMaterial(10000000000);
-    playerActions.setDodge(40);
-    playerActions.setHitRate(40);
+    playerActions.setDodge(dodgeDie);
+    playerActions.setHitRate(hitRateDie);
+    
+    playerActions.setDodgeDie(dodgeDie);
+    playerActions.setHitRateDie(hitRateDie);
     //****************** INVENTNARIO */
     playerActions.setInventory(`${player.name}_inventory`);
     inventoryStore.createInventory(`${player.name}_inventory`);
@@ -50,7 +55,6 @@ export default function CharacterSelector() {
     playerActions.setClassFeature(classFeatures);
     playerActions.setClassImg(img);
     playerActions.setAvatarImg(faceImg);
-    playerActions.setArmorClass(10);
     playerActions.setBaseAttackBonus(baseAttackBonus);
     playerActions.setHitDie(hitDie);
     playerActions.setManaDie(manaDie);

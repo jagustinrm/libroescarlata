@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import './GameBoard.css';
 import { Creature } from '../../stores/types/creatures';
 import { SoundPlayerProps } from '../UI/soundPlayer/SoundPlayer';
@@ -10,6 +10,7 @@ import useSpellStore from '../../stores/spellsStore';
 import usePositionStore from '../../stores/positionStore';
 import { FloatingMessageProps } from '../../stores/types/others';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
+import useTurnStore from '../../stores/turnStore';
 
 
 interface Button {
@@ -19,26 +20,27 @@ interface Button {
 }
 
 interface GameBoardProps {
-  turn: 'player' | 'enemy' | 'summon';
+  // turn: 'player' | 'enemy' | 'summon';
   SoundPlayer: React.FC<SoundPlayerProps>;
   summon?: Creature | null;
   setSummon: React.Dispatch<React.SetStateAction<Creature | null>>;
-  switchTurn: () => void;
+  // switchTurn: () => void;
   activateImage: boolean;
   setActivateImage: React.Dispatch<React.SetStateAction<boolean>>;
   setFloatingMessage: React.Dispatch<React.SetStateAction<FloatingMessageProps  | null>>;
   floatingMessage: FloatingMessageProps | null;
+
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
-  turn,
+  // turn,
   SoundPlayer,
   summon,
-  switchTurn,
+  // switchTurn,
   activateImage,
   setActivateImage,
   setFloatingMessage,
-  floatingMessage
+  floatingMessage,
 }) => {
   const gridSize = 10; // Tamaño de la cuadrícula principal (10x10)
   const step = 5; // Tamaño del paso en vw
@@ -51,7 +53,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { creature } = useCreatureStore();
   const { weapons } = useWeaponStore();
   const { spells } = useSpellStore();
-  const {playerPosition, enemyPosition, summonPosition} = usePositionStore();
+  const {playerPosition, enemyPosition, summonPosition, petPosition} = usePositionStore();
+  const {currentCharacter} = useTurnStore();
   const weaponFiltered = weapons?.find((w) => w.name === player.bodyParts.manoDerecha.name);
   const spellFiltered = spells?.find((s) => s.name === player.selectedSpell?.name);
   const spellRange = spellFiltered?.range || 5;
@@ -76,8 +79,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
     handleCombatAction(
       actionType,
       {
-        turn,
-        switchTurn,
+        // turn,
+        // switchTurn,
         setActivateImage,
         setFloatingMessage,
       },
@@ -169,14 +172,24 @@ const GameBoard: React.FC<GameBoardProps> = ({
               if (
                 button.type === 'main' &&
                 isButtonHighlighted(button) &&
-                turn === 'player'
+                currentCharacter && currentCharacter.id === 'player'
               ) {
                 handleAction('move', button);
               }
             }}
           />
         ))}
+        {player.selectedPet &&
         <img
+        src={player.selectedPet.img}
+        alt="pet"
+        className="petChar"
+        style={{
+          transform: `translate(${petPosition.x}vw, ${petPosition.y}vw) rotateX(-20deg) rotateZ(-45deg)`,
+          pointerEvents: 'none',
+        }}
+      />} 
+          <img
           src={player.classImg}
           alt="player"
           className="playerChar"

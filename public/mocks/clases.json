@@ -3,7 +3,8 @@
         "className": "Mago",
         "hitDie": 40,
         "manaDie": 120,
-        "armorClass": 10,
+        "dodgeDie": 0.5,
+        "hitRateDie": 0.5,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 0,
@@ -31,7 +32,8 @@
         "className": "Guerrero",
         "hitDie": 100,
         "manaDie": 40,
-        "armorClass": 15,
+        "dodgeDie": 1,
+        "hitRateDie": 1,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,
@@ -59,7 +61,8 @@
         "className": "Pícaro",
         "hitDie": 60,
         "manaDie": 60,
-        "armorClass": 12,
+        "dodgeDie": 2,
+        "hitRateDie": 2,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 0,
@@ -87,7 +90,8 @@
         "className": "Clérigo",
         "hitDie": 80,
         "manaDie": 100,
-        "armorClass": 14,
+        "dodgeDie": 0.5,
+        "hitRateDie": 0.5,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 2,
@@ -115,7 +119,8 @@
         "className": "Bárbaro",
         "hitDie": 120,
         "manaDie": 40,
-        "armorClass": 13,
+        "dodgeDie": 1,
+        "hitRateDie": 1,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,
@@ -143,7 +148,8 @@
         "className": "Bardo",
         "hitDie": 60,
         "manaDie": 80,
-        "armorClass": 11,
+        "dodgeDie": 1,
+        "hitRateDie": 1,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 0,
@@ -171,7 +177,8 @@
         "className": "Druida",
         "hitDie": 80,
         "manaDie": 100,
-        "armorClass": 12,
+        "dodgeDie": 0.5,
+        "hitRateDie": 0.5,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 2,
@@ -199,7 +206,8 @@
         "className": "Explorador",
         "hitDie": 80,
         "manaDie": 60,
-        "armorClass": 13,
+        "dodgeDie": 1.5,
+        "hitRateDie": 2,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,
@@ -227,7 +235,8 @@
         "className": "Paladín",
         "hitDie": 100,
         "manaDie": 80,
-        "armorClass": 14,
+        "dodgeDie": 0.5,
+        "hitRateDie": 1,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,

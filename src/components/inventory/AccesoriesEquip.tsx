@@ -39,8 +39,11 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
 
   const isDefaultImage = (img: string, defaultImg: string) => img === defaultImg;
 
-  const isSelected = (type: string, index: number) =>
-    selectedAccessoryEquipped?.type === type && selectedAccessoryEquipped.index === index;
+  const isSelected = (type: string, index: number) => {
+
+    return selectedAccessoryEquipped?.type === type && selectedAccessoryEquipped.index === index;
+
+  }
 
   const renderAccessory = (
     type: string,
@@ -66,7 +69,7 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
     return (
       <img
         key={item.id}
-        className={`${type} ${hasCustomImage ? "" : "default-image"} ${
+        className={`${type} rpgui-cursor-point ${hasCustomImage ? "" : "default-image"} ${
           isSelectedItem ? "selected" : ""
         }`}
         src={item.img}
@@ -81,8 +84,10 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
     <div className="rpgui-container framed-golden-2 accessoriesContainer">
       <h2>Equipo</h2>
       <div className="accesoriesEquipment">
-        {rings.map((ring, index) =>
-          renderAccessory("ring", ring, index, DEFAULT_IMAGES.anillo, isSelected("anillo", index))
+        {rings.map((ring, index) =>{
+          return renderAccessory("anillo", ring, index, DEFAULT_IMAGES.anillo, isSelected("anillo", index))
+        }
+
         )}
         {earrings.map((earring, index) =>
           renderAccessory("earring-" + index, earring, index, DEFAULT_IMAGES.aro, isSelected("aro", index))

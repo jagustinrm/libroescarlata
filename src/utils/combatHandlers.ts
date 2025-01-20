@@ -10,6 +10,7 @@ import usePositionStore from '../stores/positionStore.ts';
 import { isAttackSuccessful } from './calculateDodgePercentage.ts';
 import { simulateAttackMovement } from './simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
+import useTurnStore from '../stores/turnStore.ts';
 
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
@@ -19,8 +20,8 @@ interface CombatHandlersProps {
   handlePostCombatActs?: (fightType: string, creature: Creature) => void;
   fightType?: string;
   setSummon?: Dispatch<SetStateAction<Creature | null>>;
-  switchTurn: () => void;
-  turn?: 'enemy' | 'player' | 'summon';
+  // switchTurn: () => void;
+  // turn?: 'enemy' | 'player' | 'summon';
   button?: Button;
   setActivateImage: Dispatch<SetStateAction<boolean>>;
   setFloatingMessage: Dispatch<SetStateAction<FloatingMessageProps | null>> ;
@@ -52,8 +53,8 @@ export const handleCombatAction = (
     handlePostCombatActs,
     fightType,
     setSummon,
-    switchTurn,
-    turn,
+    // switchTurn,
+    // turn,
     setActivateImage,
     setFloatingMessage,
   } = props;
@@ -66,10 +67,13 @@ export const handleCombatAction = (
   const {creature} = useCreatureStore.getState();
   const {spells} = useSpellStore.getState();
   const {weapons} = useWeaponStore.getState();
-  const {setPlayerPosition, playerPosition, enemyPosition} = usePositionStore.getState();
+  const {currentCharacter, nextTurn, addCharacter} = useTurnStore.getState();
+  const {setPlayerPosition, playerPosition, enemyPosition, setPetPosition} = usePositionStore.getState();
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
-        switchTurn?.();
+        // switchTurn?.();
+        nextTurn();
+        
     }
   };
 
@@ -247,7 +251,7 @@ export const handleCombatAction = (
 
       const totalHealth = Math.min(
         player.p_LeftHealth + healing,
-        player.p_MaxHealth,
+        player.totalMaxHealth(),
       );
       usePlayerStore.getState().playerActions.setP_LeftHealth(totalHealth);
       usePlayerStore
@@ -291,8 +295,9 @@ export const handleCombatAction = (
           int: 1
         },
       }  
+      addCharacter({id: "summon", name: summon.name})
       setSummon(summon);
-
+      
     } else {
       shouldFinalizeTurn = false;
     }
@@ -311,10 +316,14 @@ export const handleCombatAction = (
       Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
       Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step;
 
-    if (isWithinRange && turn === 'player') {
+    if (isWithinRange && currentCharacter && currentCharacter.id === 'player') {
       setPlayerPosition?.({
         x: button.x - offsetX,
         y: button.y - offsetY,
+      });
+      setPetPosition?.({
+        x: button.x - offsetX + 8,
+        y: button.y - offsetY + 12,
       });
     }
   };

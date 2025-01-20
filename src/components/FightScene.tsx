@@ -27,6 +27,8 @@ import CombatUI from './battlefield/combatMenu/CombatUI.tsx';
 import { FloatingMessageProps } from '../stores/types/others';
 import { Weapon } from '../stores/types/weapons.ts';
 import { Spell } from '../stores/types/spells';
+// import { createTurnHandler } from './battlefield/TurnSystem.ts';
+import useTurnStore from '../stores/turnStore.ts';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -41,8 +43,9 @@ export default function FightScene() {
   const [floatingMessage, setFloatingMessage] = useState<FloatingMessageProps | null>(null);
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {spells, weapons, player, playerActions, creature, setCreatureHealth, inventories,
-    playerPosition, setPlayerPosition, setEnemyPosition, setSummonPosition,
+    playerPosition, setPlayerPosition, setEnemyPosition, setSummonPosition, setPetPosition
    } = useGlobalState();
+   const {addCharacter, currentCharacter, characters} = useTurnStore();
   const [summon, setSummon] = useState<Creature | null>(null);
   const [soundType] = useState<string>('');
   const [activateImage, setActivateImage] = useState<boolean>(false)
@@ -50,20 +53,8 @@ export default function FightScene() {
   const { expTable} = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
   const { quests } = useLoadQuests();
-  const [turn, setTurn] = useState<'player' | 'enemy' | 'summon'>('player');
-  const switchTurn = () => {
-    setTurn((prevTurn) => {
-      // TURNOS
-      if (prevTurn === 'player') {
-        return summon ? 'summon' : 'enemy';
-      } else if (prevTurn === 'summon') {
-        return 'enemy';
-      } else if (prevTurn === 'enemy') {
-        return 'player';
-      }
-      return prevTurn;
-    });
-  };
+
+   console.log(characters)
   const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
     const storedLevel = localStorage.getItem('dungeonLevel');
     return storedLevel ? parseInt(storedLevel, 10) : 1;
@@ -126,6 +117,9 @@ export default function FightScene() {
   useEffect(() => {
     setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 - 20 / 1.5 });
     setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 - 20 / 1.5 });
+    player.selectedPet && setPetPosition({x: playerPosition.x + 8, y: playerPosition.y + 12})
+    addCharacter({id: "player", name: player.name})
+    addCharacter({id: "enemy", name: creature.name})
     setAmbientMusic('battleSong');
     setMusicVolume(0.1);
   }, []);
@@ -160,35 +154,35 @@ export default function FightScene() {
       {
         setActionMessages,
         setActivateImage,
-        turn,
+        // turn,
         setSummon,
-        switchTurn,
+        // switchTurn,
         handlePostCombatActs,
         fightType,
         handleMessage,
-        setFloatingMessage
+        setFloatingMessage,
       },
       additionalData,
     );
   };
 
   useEnemyTurn({
-    turn,
+    // turn,
     setActionMessages,
-    switchTurn,
+    // switchTurn,
     setFloatingMessage,
     setSoundUrl,
   });
 
   useSummonTurn({
-    turn,
+    // turn,
     setActionMessages,
-    switchTurn,
+    // switchTurn,
     summon,
     setCreatureHealth,
   });
   const executeAttack = () => {
-    if (turn !== 'player') return;
+    if (currentCharacter && currentCharacter.id  !== 'player') return;
     const weapon = weapons.find((s) => player.bodyParts.manoDerecha?.name === s.name);
     const url = weapon?.soundEffect;
     
@@ -199,7 +193,7 @@ export default function FightScene() {
     }, 300);
   };
   const executeSpell = () => {
-    if (turn !== 'player' || !player.selectedSpell) return;
+    if (currentCharacter && currentCharacter.id  !== 'player' || !player.selectedSpell) return;
     const spell = spells.find((s) => player.selectedSpell?.name === s.name);
     const url = spell?.soundEffect; // ESTO PERMITE UTILIZAR LA URL DEL SONIDO DEL FUEGO
     setSoundUrl(url);
@@ -249,8 +243,8 @@ export default function FightScene() {
     ? ((player.playerExp - player.p_ExpPrevLevel) /
           (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) * 100
     : 0;
-  const healthPercentage = (player.p_LeftHealth / player.p_MaxHealth) * 100;
-  const manaPercentage = (player.p_LeftMana / player.p_MaxMana) * 100;
+  const healthPercentage = (player.p_LeftHealth / player.totalMaxHealth()) * 100;
+  const manaPercentage = (player.p_LeftMana / player.totalMaxMana()) * 100;
 
   if (isLoading) return <p>Cargando enemigo...</p>;
   // if (error)  return <p>Error: {error}</p>;
@@ -259,12 +253,12 @@ export default function FightScene() {
 
       <div className="turn-indicator fixedUI ">
         {fightType === 'dungeon' ? <h1>Dungeon {dungeonLevel}</h1> : <></>}
-        {turn === 'player' ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
+        {currentCharacter && currentCharacter.id  === 'player' ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
       </div>
       <CombatUI
         opcionesArmas={opcionesArmas ?? []} 
         opcionesSpells = {opcionesSpells ?? []}
-        turn={turn}
+        // turn={turn}
         executeAttack={executeAttack}
         handleMessage={handleMessage}
         pocion={pocion}
@@ -280,11 +274,11 @@ export default function FightScene() {
         </ul>
         <GameBoard
           activateImage = {activateImage}
-          turn={turn}
+          // turn={turn}
           SoundPlayer={SoundPlayer}
           summon={summon}
           setSummon={setSummon}
-          switchTurn={switchTurn}
+          // switchTurn={switchTurn}
           setActivateImage = {setActivateImage}
           setFloatingMessage={setFloatingMessage}
           floatingMessage = {floatingMessage}
@@ -296,7 +290,7 @@ export default function FightScene() {
           fightType={fightType}
           player={player}
           handleMessage={handleMessage}
-          setTurn={setTurn}
+          // setTurn={setTurn}
           updateEnemy={updateEnemy}
           setUpdateEnemy={setUpdateEnemy}
         />

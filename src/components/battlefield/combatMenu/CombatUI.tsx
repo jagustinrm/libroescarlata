@@ -5,34 +5,36 @@ import usePlayerStore from '../../../stores/playerStore';
 import useCreatureStore from '../../../stores/creatures';
 import { Weapon } from '../../../stores/types/weapons';
 import { Spell } from '../../../stores/types/spells';
+import useTurnStore from '../../../stores/turnStore';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[]
   opcionesSpells: Spell[]
-  turn: string;
+  // turn: string;
   executeAttack: () => void;
   handleMessage: (message: string, type: string, dismissible: boolean) => void;
   pocion: string | undefined; 
   executeSpell: () => void;
   fightType: string;
+
 }
 
 const CombatUI: React.FC<CombatUIProps> = ({
   opcionesArmas,
   opcionesSpells,
-  turn,
+  // turn,
   executeAttack,
   handleMessage,
   pocion,
   // selectedSpell,
   // setSelectedSpell,
   executeSpell,
-  fightType
+  fightType,
+
 }) => {
   const {player, playerActions} = usePlayerStore.getState()
   const {creature} = useCreatureStore.getState()
-
-  console.log(player.selectedSpell)
+  const {currentCharacter } = useTurnStore.getState()
   return (
     <div className="rpgui-container framed attacks fixedUI">
       {/* Dropdown para armas */}
@@ -42,7 +44,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
           options={opcionesArmas || []}
           value={player.bodyParts.manoDerecha}
           onChange={(value) => playerActions.setP_SelectedBodyPart(value)}
-          disabled={turn !== 'player' || creature.health === 0}
+          disabled={currentCharacter && currentCharacter.id !== 'player' || creature.health === 0}
         />
       </div>
 
@@ -51,7 +53,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
         executeAttack={executeAttack}
         handleMessage={handleMessage}
         pocion={pocion}
-        turn = {turn}
+        // turn = {turn}
       />
 
       {/* Dropdown y botón para hechizos */}
@@ -62,13 +64,13 @@ const CombatUI: React.FC<CombatUIProps> = ({
             options={opcionesSpells || []}
             value={player.selectedSpell }
             onChange={(value) => playerActions.setP_SelectedSpell(value)}
-            disabled={turn !== 'player' || creature.health === 0}
+            disabled={currentCharacter && currentCharacter.id !== 'player' || creature.health === 0}
           />
         </div>
         <button
           onClick={executeSpell}
           disabled={
-            turn !== 'player' ||
+            currentCharacter && currentCharacter.id !== 'player' ||
             !player.selectedSpell ||
             creature.health === 0 ||
             player.p_LeftHealth <= 0

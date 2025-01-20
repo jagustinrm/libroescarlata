@@ -58,8 +58,8 @@ export default function Home() {
         navigate('/inventory');
         break;
       case 'recoverHealth':
-        playerActions.setP_LeftHealth(player.p_MaxHealth);
-        playerActions.setP_LeftMana(player.p_MaxMana);
+        playerActions.setP_LeftHealth(player.totalMaxHealth());
+        playerActions.setP_LeftMana(player.totalMaxMana());
         setShowMessage(true);
         break;
       case 'missions':
@@ -109,11 +109,11 @@ export default function Home() {
                   <div className="heart">❤️</div>
                   <p>
                     {' '}
-                    Vida: {player.p_LeftHealth} / {player.p_MaxHealth}
+                    Vida: {player.p_LeftHealth} / {player.totalMaxHealth()}
                   </p>
                 </div>
                 <p>
-                  🌀 Espíritu: {player.p_LeftMana} / {player.p_MaxMana}
+                  🌀 Espíritu: {player.p_LeftMana} / {player.totalMaxMana()}
                 </p>
                 <p>
                   ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}

@@ -9,9 +9,11 @@ interface PositionStore {
   playerPosition: Position;
   enemyPosition: Position;
   summonPosition: Position;
+  petPosition: Position;
   setPlayerPosition: (position: Position) => void;
   setEnemyPosition: (position: Position) => void;
   setSummonPosition: (position: Position) => void;
+  setPetPosition:(position: Position) => void;
 }
 
 const usePositionStore = create<PositionStore>((set) => {
@@ -30,12 +32,17 @@ const usePositionStore = create<PositionStore>((set) => {
       x: initialPlayerPosition.x + 6,
       y: initialPlayerPosition.y + 4,
     },
+    petPosition: {
+      x: initialPlayerPosition.x +8,
+      y: initialPlayerPosition.y + 12,
+    },
     setPlayerPosition: (position) =>
       set(() => ({
         playerPosition: position,
       })),
     setEnemyPosition: (position) => set(() => ({ enemyPosition: position })),
     setSummonPosition: (position) => set(() => ({ summonPosition: position })),
+    setPetPosition: (position) => set(() => ({ petPosition: position })),
   };
 });
 

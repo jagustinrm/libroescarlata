@@ -18,10 +18,11 @@ export interface Player {
   p_LeftMana: number;
   hitDie: number;
   manaDie: number; // Modificado
-  armorClass: number;
+  // armorClass: number;
   // baseAttackBonus: number;
   // Eliminé las tiradas de salvación
-
+  dodgeDie: number;
+  hitRateDie: number;
   hitRate: number;
   dodge: number;
 
@@ -57,6 +58,7 @@ export interface Player {
   classImg: string;
   avatarImg: string;
   readonly totalDodge: () => number;
+  readonly totalHitRate: () => number;
   readonly damage: () => number;
   readonly damageMax: () => number;
   readonly totalArmorClass: () => number;
@@ -64,7 +66,8 @@ export interface Player {
   readonly totalBlockValue: () => number; // nuevo
   readonly dodgePercentage: () => number;
   readonly hitRatePercentage: () => number;
-
+  readonly totalMaxHealth: () => number;
+  readonly totalMaxMana: () => number;
   storyProgress: StoryProgress[]; // Lista de progresos del jugador en las historias
   currentStoryId: string | null; // ID de la historia en la que está actualmente
   enemiesDeleted: { count: number; name: string }[];
@@ -95,10 +98,12 @@ export interface PlayerActions {
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void;
-  setArmorClass: (armorClass: number) => void;
+  // setArmorClass: (armorClass: number) => void;
   setBaseAttackBonus: (baseAttackBonus: number) => void;
   setDodge: (dodge: number) => void;
   setHitRate: (hitRate: number) => void;
+  setDodgeDie: (dodge: number) => void;
+  setHitRateDie: (hitRate: number) => void;
   addClassFeature: (feature: string) => void;
   setClassFeature: (classFeatures: Player['classFeatures']) => void;
   addPetsName: (petsName: string) => void;
