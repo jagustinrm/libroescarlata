@@ -39,12 +39,32 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
 
   const isDefaultImage = (img: string, defaultImg: string) => img === defaultImg;
 
-  const isSelected = (type: string, index: number) => {
+  const isSelected = (type: string, index: number): boolean => {
+    if (!selectedAccessoryEquipped) {
+      return false;
+    }
+  
+    const { type: equippedType, index: equippedIndex } = selectedAccessoryEquipped;
+  
+    if (
+      type === "aro" &&
+      (equippedType === "earring-0" || equippedType === "earring-1") &&
+      equippedIndex === index
+    ) {
+      return true;
+    }
 
-    return selectedAccessoryEquipped?.type === type && selectedAccessoryEquipped.index === index;
-
-  }
-
+    if (
+      type === "anillo" &&
+      equippedType === "ring" &&
+      equippedIndex === index
+    ) {
+      return true;
+    }
+  
+    // Si no cumple ninguna condición
+    return false;
+  };
   const renderAccessory = (
     type: string,
     item: any,
@@ -85,7 +105,7 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
       <h2>Equipo</h2>
       <div className="accesoriesEquipment">
         {rings.map((ring, index) =>{
-          return renderAccessory("anillo", ring, index, DEFAULT_IMAGES.anillo, isSelected("anillo", index))
+          return renderAccessory("ring", ring, index, DEFAULT_IMAGES.anillo, isSelected("anillo", index))
         }
 
         )}

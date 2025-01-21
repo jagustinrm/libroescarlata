@@ -1,5 +1,6 @@
+import { saveItemToFirebase } from '../firebase/saveItemToFirebase';
 import usePlayerStore from '../stores/playerStore';
-import { Accessory } from '../stores/types/accesories';
+// import { Accessory } from '../stores/types/accesories';
 import { Armor } from '../stores/types/armor';
 import { Class } from '../stores/types/class';
 import { InventoryStore } from '../stores/types/inventory';
@@ -29,7 +30,6 @@ export function assignArmorByClass({
 }: AssignArmorParams): void {
   // Encuentra la clase correspondiente
   const {player} = usePlayerStore.getState();
-  console.log(player)
   const classArmor = classes.find((c) => c.className === className);
   if (!classArmor) {
     console.error(`Class ${className} not found.`);
@@ -48,16 +48,17 @@ export function assignArmorByClass({
     console.error(`Initial armor with ID ${initialArmorId} not found.`);
   }
   playerActions.setP_SelectedAccessories({
-    anillo: [],  // Inicializa como un arreglo vacío para los anillos
-    aro: [],     // Inicializa como un arreglo vacío para los aros
-    amuleto: null, // Inicializa como null para el amuleto
+    anillo: [], 
+    aro: [],     
+    amuleto: null, 
   });
   // Agrega todas las armaduras iniciales al inventario del jugador
   classArmor.initialArmor.forEach((armorId) => {
     const armor = armors.find((a) => a.id === armorId);
-    console.log(player.name)
     if (armor) {
       inventoryStore.addItem(`${player.name}_inventory`, 'armors', armor.id);
+      saveItemToFirebase(player.name, armor.id, armor, "armors");
+
     } else {
       console.error(`Armor with ID ${armorId} not found.`);
     }

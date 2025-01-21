@@ -144,7 +144,7 @@ export default function Inventory() {
       console.log('Este objeto no puede ser equipado.');
     }
   };
- 
+  console.log(inventories)
   return (
     <section style={{ display: 'flex', flexDirection: 'row' }}>
       <div className="sectionInventory rpgui-container framed-golden-2">

@@ -1,5 +1,5 @@
 .questContainer {
-  background-color: #d2691e; /* Chocolate */
+  background-color: rgba(182, 111, 44, 0.938);
   width: 400px;
   height: 400px;
 
@@ -23,7 +23,7 @@
 }
 
 .questContainer li {
-  background-color: #8b4513; /* Slightly darker than the background */
+  background-color: rgba(128, 88, 50, 0.938);
   padding: 8px;
   margin-bottom: 5px;
   border-radius: 5px; /* Rounded corners for list items */
@@ -51,7 +51,7 @@
 }
 
 .quests-header {
-  background-color: #f99e1e;
+  background-color: #d48537;
   padding-left: 10px;
   border-radius: 8px 8px 0 0;
   display: flex;

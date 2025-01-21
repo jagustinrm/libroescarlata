@@ -8,8 +8,6 @@ import { useEnemyLoader } from '../customHooks/useEnemyLoader.ts';
 import { checkLevelUp } from '../utils/checkLevelUp.ts';
 // import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
 import { handleCombatAction } from '../utils/combatHandlers';
-import { useLoadQuests } from '../customHooks/useLoadQuests.js';
-import { QuestData } from './interfaces/QuestsInt.ts';
 import useExpTable from '../customHooks/useExpTable.ts';
 import MessageBox from './UI/MessageBox.tsx';
 import { useEnemyTurn } from '../customHooks/useEnemyTurn.ts';
@@ -29,6 +27,8 @@ import { Weapon } from '../stores/types/weapons.ts';
 import { Spell } from '../stores/types/spells';
 // import { createTurnHandler } from './battlefield/TurnSystem.ts';
 import useTurnStore from '../stores/turnStore.ts';
+import useQuestStore from '../stores/questStore.ts';
+import { QuestTree } from '../stores/types/quests.ts';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -52,7 +52,7 @@ export default function FightScene() {
   const [soundUrl, setSoundUrl] = useState<string | undefined>('');
   const { expTable} = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
-  const { quests } = useLoadQuests();
+  const { questTree } = useQuestStore();
 
    console.log(characters)
   const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
@@ -65,16 +65,14 @@ export default function FightScene() {
     isLoading,
     handleNewEnemyClick,
   } = useEnemyLoader(player.level, dungeonLevel, updateEnemy, enemy, fightType);
-  const defaultQuests: QuestData = {
-    questTree: {
+  const defaultQuests: QuestTree = {
       history: [],
       secondary: [],
       others: [],
-    },
   };
   const { handlePostCombatActs } = usePostCombatActions(
     setDungeonLevel,
-    quests || defaultQuests,
+    defaultQuests,
     playerActions,
     player,
   );

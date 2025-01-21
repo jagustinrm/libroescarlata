@@ -51,7 +51,7 @@ const ItemShop: React.FC = () => {
         addNewArmor(updatedItem as Armor);
         saveItemToFirebase(player.name, (updatedItem as Armor).id, updatedItem as Armor, "armors");
       } else if (itemType === "weapons") {
-        console.log(playerInventoryId)
+    
         saveItemToFirebase(player.name, (updatedItem as Weapon).id, updatedItem as Weapon, "weapons");
         addNewWeapon(updatedItem as Weapon);
       } else if (itemType === "accessories") {

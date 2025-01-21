@@ -34,6 +34,7 @@ import HeaderMenu from './components/UI/menu/HeaderMenu.js';
 import useGlobalState from './customHooks/useGlobalState.js';
 import OtherItemsLoader from './loaders/OtherItemsLoader.js';
 import Bestiary from './components/bestiary/Bestiary.js';
+import QuestLoader from './loaders/QuestsLoader.js';
 
 function App() {
   const {player, inventories } = useGlobalState();
@@ -52,6 +53,7 @@ function App() {
       <PotionsLoader />
       <ClassLoader />
       <SpellLoader />
+      <QuestLoader/>
       <CreatureLoader />
       <ItemShopLoader />
       <DialogLoader/>

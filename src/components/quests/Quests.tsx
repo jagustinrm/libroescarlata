@@ -1,18 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Quests.css';
-import { useLoadQuests } from '../../customHooks/useLoadQuests';
+import ButtonEdited from '../UI/ButtonEdited';
+import { handleQuestReward } from '../handlers/handleRewards';
+import useQuestStore from '../../stores/questStore';
+import { QuestTree } from '../../stores/types/quests';
 
 interface QuestsProps {
   onClose: () => void;
 }
 
 export default function Quests({ onClose }: QuestsProps) {
-  const { quests } = useLoadQuests();
+  const { questTree } = useQuestStore();
   const [position, setPosition] = useState({ x: 30, y: 100 });
   const [dragging, setDragging] = useState(false);
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
+  const [expandedMissions, setExpandedMissions] = useState<{ [key: string]: boolean }>({});
+  const componentRef = useRef<HTMLDivElement>(null);
 
-  // Load position from localStorage on mount
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        componentRef.current &&
+        !componentRef.current.contains(event.target as Node)
+      ) {
+        onClose(); 
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
+
   useEffect(() => {
     const savedPosition = localStorage.getItem('questsPosition');
     if (savedPosition) {
@@ -21,7 +41,6 @@ export default function Quests({ onClose }: QuestsProps) {
     }
   }, []);
 
-  // Save position to localStorage on drag end
   const handleMouseUp = () => {
     setDragging(false);
     localStorage.setItem('questsPosition', JSON.stringify(position));
@@ -44,6 +63,63 @@ export default function Quests({ onClose }: QuestsProps) {
     }
   };
 
+  const onToggleMission = (key: string) => {
+    setExpandedMissions((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const renderMission = (quest: any, key: string, category: keyof QuestTree) => {
+    const isExpanded = expandedMissions[key];
+
+    return (
+      <li
+      key={key}
+      className={`rpgui-content rpgui-container framed-golden-2 ${isExpanded ? '' : 'rpgui-cursor-point'}`}
+      >
+        <label
+          className="questName"
+          onClick={() => onToggleMission(key)}
+        >
+          {quest.name}
+        </label>
+        {isExpanded && (
+          <>
+            <p>{quest.description}</p>
+            {quest.objective && <p>Objetivo: {quest.objective}</p>}
+            {quest.counter && (
+              <p>
+                Cantidad: {quest.progress}/{quest.counter}
+              </p>
+            )}
+            <p>Recompensa: {quest.reward} materiales</p>
+            {/* {quest.finished && <button>Obtener recompensa</button>} */}
+            <div style={{display: 'flex', gap: '15px', justifyContent: 'center', alignItems: 'center'}}>
+            <input
+              className='rpgui-checkbox'
+              type="checkbox"
+              id={quest.name}
+              checked={quest.finished}
+              readOnly
+            /> <label></label>
+              {!quest.received && 
+              <ButtonEdited
+              label= {"Obtener"}
+              width="130px"
+              height="33px"
+              disabled={!quest.finished}
+              onClick={() => handleQuestReward(quest, category)}
+            />
+            }
+              {/* <button className="rpgui-button">Obtener recompensa</button> */}
+            </div>
+          </>
+        )}
+      </li>
+    );
+  };
+
   return (
     <div
       className="quests-window"
@@ -53,9 +129,10 @@ export default function Quests({ onClose }: QuestsProps) {
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
+      ref={componentRef} 
     >
       <div
-        className="quests-header"
+        className={`quests-header ${dragging? 'rpgui-cursor-grab-close' : 'rpgui-cursor-grab-open' } `}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
@@ -65,89 +142,39 @@ export default function Quests({ onClose }: QuestsProps) {
         </button>
       </div>
       <div className="questContainer">
-        {/* Misiones de historia */}
-        <div className="quests-category ">
+        <div 
+        className="quests-category "
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        >
           <h2>Misiones de historia</h2>
           <ul>
-            {quests?.questTree.history.map((quest, index) => (
-              <li key={index} className="rpgui-container framed-golden-2">
-                <label className="questName">{quest.name}</label>
-                <p>{quest.description}</p>
-                <p>Objetivo: {quest.objective}</p>
-                <p>
-                  Cantidad: {quest.progress}/{quest.counter}
-                </p>
-                <p>Recompensa: {quest.reward} materiales</p>
-                {quest.finished && <button>Obtener recompensa</button>}
-                <input
-                  type="checkbox"
-                  id={quest.name}
-                  checked={quest.finished}
-                  readOnly
-                />
-                {quest.finished && (
-                  <button className="rpgui-button">Obtener recompensa</button>
-                )}
-              </li>
-            ))}
+            {questTree.history?.map((quest, index) =>
+              renderMission(quest, `history-${index}`, "history")
+            )}
           </ul>
         </div>
-
-        {/* Misiones secundarias */}
-        <div className="quests-category">
+        <div className="quests-category"
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+        >
           <h2>Misiones secundarias</h2>
           <ul>
-            {quests?.questTree.secondary.map((quest, index) => (
-              <li key={index} className="rpgui-container framed-golden-2">
-                <label className="questName">{quest.name}</label>
-                <p>{quest.description}</p>
-                <p>Objetivo: {quest.objective}</p>
-                <p>
-                  Cantidad: {quest.progress}/{quest.counter}
-                </p>
-                <p>Recompensa: {quest.reward} materiales</p>
-                <div className="completedQuest">
-                  <label>Completado: </label>
-                  <input
-                    type="checkbox"
-                    id={quest.name}
-                    checked={quest.finished}
-                    readOnly
-                  />
-                  {quest.finished && (
-                    <button className="rpgui-button">Obtener recompensa</button>
-                  )}
-                </div>
-              </li>
-            ))}
+            {questTree.secondary?.map((quest, index) =>
+              renderMission(quest, `secondary-${index}`, "secondary")
+            )}
           </ul>
         </div>
-
-        {/* Otras misiones */}
-        <div className="quests-category">
+        <div className="quests-category"
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+        >
           <h2>Otras misiones</h2>
           <ul>
-            {quests?.questTree.others && quests?.questTree.others.length > 0 ? (
-              quests.questTree.others.map((quest, index) => (
-                <li key={index} className="rpgui-container framed-golden-2">
-                  <label className="questName">{quest.name}</label>
-                  <p>{quest.description}</p>
-                  <p>Objetivo: {quest.objective}</p>
-                  <p>Recompensa: {quest.reward} materiales</p>
-                  <p>
-                    Cantidad: {quest.progress}/{quest.counter}
-                  </p>
-                  <input
-                    type="checkbox"
-                    id={quest.name}
-                    checked={quest.finished}
-                    readOnly
-                  />
-                  {quest.finished && (
-                    <button className="rpgui-button">Obtener recompensa</button>
-                  )}
-                </li>
-              ))
+            {questTree.others && questTree.others.length > 0 ? (
+              questTree.others?.map((quest, index) =>
+                renderMission(quest, `others-${index}`, "others")
+              )
             ) : (
               <p>No hay misiones en esta categoría.</p>
             )}

@@ -20,7 +20,7 @@ export interface Class {
   initialSpells: string[];
   description: string;
   initialArmor: string[];
-  intiialWeapon: number[];
+  initialWeapon: string[];
 }
 
 interface ClassStore {

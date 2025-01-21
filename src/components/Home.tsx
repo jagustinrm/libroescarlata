@@ -80,6 +80,8 @@ export default function Home() {
 
   return (
     <div>
+      
+    {showMissions && <Quests onClose={() => setShowMissions(false)} />}
     <PrincipalSign/>   
     {/* <HomeOptionsSign/> */}
     <div className={`home-container rpgui-container framed-golden-2`}>
@@ -198,7 +200,6 @@ export default function Home() {
 
 
 
-      {showMissions && <Quests onClose={() => setShowMissions(false)} />}
     </div>
     {showMessage && (
         <MessageBox

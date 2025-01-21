@@ -1,14 +1,16 @@
-export default function checkQuestsFinished(quests) {
+import { Quest, QuestStore } from "../stores/types/quests";
+
+export default function checkQuestsFinished(quests: QuestStore) {
   // Obtener las misiones completadas desde el localStorage
   const completedQuests = JSON.parse(
     localStorage.getItem('completedQuests') || '[]',
   );
 
   // Función para actualizar el progreso y estado de finalización de las misiones
-  const updateQuests = (questCategory) => {
+  const updateQuests = (questCategory: Quest[]) => {
     return questCategory.map((quest) => {
       const completedQuest = completedQuests.find(
-        (completed) => completed.name === quest.name,
+        (completed: Quest) => completed.name === quest.name,
       );
 
       if (completedQuest) {

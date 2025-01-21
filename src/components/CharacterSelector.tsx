@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './CharacterSelector.css';
 import './UI/designRpg.css';
-// @ts-expect-error Armas por clase
-import { assignWeaponByClass } from '../utils/assignWeaponByClass.js';
+import { assignWeaponByClass } from '../utils/assignWeaponByClass.ts';
 import { assignArmorByClass } from '../utils/assignArmorByClass.js';
 import { useNavigate } from 'react-router-dom';
 import { Class } from '../stores/types/class.js';
@@ -32,20 +31,13 @@ export default function CharacterSelector() {
     } = classData;
 
     playerActions.setPlayerClass(className);
-    // const InitialHealth = calculateInitialHealth(hitDie);
-    // const InitialMana = calculateInitialHealth(manaDie);
-    // playerActions.setPlayerLevel(1);
     playerActions.setP_MaxHealth(hitDie);
     playerActions.setP_LeftHealth(hitDie);
     playerActions.setP_MaxMana(manaDie);
     playerActions.setP_LeftMana(manaDie);
-    // playerActions.setPlayerExp(0);
-    // playerActions.setP_ExpToNextLevel(1000);
-    // playerActions.setP_ExpPrevLevel(0);
     playerActions.setPlayerMaterial(10000000000);
     playerActions.setDodge(dodgeDie);
     playerActions.setHitRate(hitRateDie);
-    
     playerActions.setDodgeDie(dodgeDie);
     playerActions.setHitRateDie(hitRateDie);
     //****************** INVENTNARIO */
@@ -58,18 +50,7 @@ export default function CharacterSelector() {
     playerActions.setBaseAttackBonus(baseAttackBonus);
     playerActions.setHitDie(hitDie);
     playerActions.setManaDie(manaDie);
-    // playerActions.setEnemiesDeleted([]);
-    // playerActions.setP_SelectedSpell(null)
     createItems(1);
-    // playerActions.setStats({
-    //   str: 0,
-    //   dex: 0,
-    //   con: 0,
-    //   int: 0,
-    //   agi: 0,
-    //   cha: 0,
-    // });
-    // playerActions.setStatsLeftPoints(25);
     assignWeaponByClass({
       className,
       classes,

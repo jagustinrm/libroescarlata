@@ -1,16 +1,16 @@
-import { QuestData } from '../components/interfaces/QuestsInt.js';
-// @ts-expect-error Para que funcione
-import checkQuests from '../utils/checkQuests.js';
+
+import checkQuests from '../utils/checkQuests.ts';
 // @ts-expect-error Para que funcione
 import gainExp from '../utils/gainExp.js';
 import { Player, PlayerActions } from '../stores/types/player.js';
 import { Creature } from '../stores/types/creatures.js';
+import { QuestTree } from '../stores/types/quests.js';
 
 const usePostCombatActions = (
   setDungeonLevel: React.Dispatch<React.SetStateAction<number>>,
   // creature: CreatureInterface | null,
   // creature: Creature | null,
-  quests: QuestData,
+  quests: QuestTree,
   playerActions: PlayerActions,
   player: Player,
 ) => {
@@ -41,7 +41,7 @@ const usePostCombatActions = (
         const updatedEnemies = [...player.enemiesDeleted];
         updatedEnemies[existingEnemyIndex].count += 1;
         playerActions.setEnemiesDeleted(updatedEnemies);
-        checkQuests(quests, updatedEnemies);
+        checkQuests(updatedEnemies);
         // *******Corroborar si terminó la misión****
       } else {
         // Si el enemigo no existe, agregarlo a la lista
@@ -50,7 +50,7 @@ const usePostCombatActions = (
           { name: creature.name, count: 1 },
         ];
         playerActions.setEnemiesDeleted(updatedEnemies);
-        checkQuests(quests, updatedEnemies);
+        checkQuests(updatedEnemies);
       }
     }
   };

@@ -4,6 +4,7 @@ import { Item } from '../stores/types/items';
 import { Weapon } from '../stores/types/weapons';
 import { Accessory } from '../stores/types/accesories';
 import { Armor } from '../stores/types/armor';
+import { generateUniqueId } from '../generators/generateUniqueId';
 
 // Función para guardar un ítem en Firebase
 export const saveItemToFirebase = async (
@@ -22,7 +23,15 @@ export const saveItemToFirebase = async (
       console.warn(
         `El ID ${itemId} ya existe en Firebase en la categoría ${itemType} para el jugador ${playerId}. Genera un nuevo ID.`,
       );
-      return; // Evita guardar el ítem si el ID ya existe
+      const uniqueId = await generateUniqueId(itemType);
+      const newItem = { ...item, id: uniqueId };
+      const newItemRef = ref(database, `${itemType}_${playerId}/${uniqueId}`);
+      await set(newItemRef, newItem);
+
+      console.log(
+        `Ítem con nuevo ID "${uniqueId}" guardado correctamente bajo la categoría "${itemType}" para el jugador "${playerId}".`,
+      );
+      return;
     }
 
     // Guarda el ítem en la ruta correspondiente
