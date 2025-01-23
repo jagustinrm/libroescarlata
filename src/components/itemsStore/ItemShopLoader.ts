@@ -6,6 +6,7 @@ import  { CreateCustomArmors } from '../../generators/customArmors/createCustomA
 import useGlobalState from '../../customHooks/useGlobalState';
 import { CreateCustomWeapons } from '../../generators/customWeapons/createCustomWeapons';
 import { CreateCustomAccessories } from '../../generators/customAccesories/createCustomAccesories';
+import { createCustomScroll, useCreateCustomScrolls } from '../../generators/customScrolls/createCustomScrolls';
 // import { Accessory } from '../../stores/types/accesories';
 
 const ItemShopLoader = () => {
@@ -13,16 +14,18 @@ const ItemShopLoader = () => {
   const {generatedArmors, createArmors} = CreateCustomArmors()
   const {generatedWeapons, createWeapons} = CreateCustomWeapons()
   const {generatedAccessories, createAccessories} = CreateCustomAccessories();
-  const {weapons, armors, potions, otherItems, removeItems, accessories} = useGlobalState();
+  const {generatedScrolls, createScrolls} = useCreateCustomScrolls();
+  const {weapons, armors, potions, otherItems, removeItems, accessories, scrolls, books} = useGlobalState();
   const { items, createItems, addItem } = useItemsStore();
   const shopId = 1; // ID único para el inventario del shop (ahora es un número)
-
+ 
   useEffect(() => {
     if (!items[shopId]) {
       createItems(shopId); // Crear el inventario si no existe
     }
 
     weapons.forEach((weapon) => {
+
       if (!items[shopId]?.weapons.some((w) => w.id === weapon.id)) {
         if (weapon.playerOwner === false || !weapon.playerOwner) {
           addItem(shopId, 'weapons', weapon);
@@ -45,74 +48,75 @@ const ItemShopLoader = () => {
     });
     potions.forEach((potion) => {
       if (!items[shopId]?.potions.some((p: Item) => p.id === potion.id)) {
-        addItem(shopId, 'potions', potion); // Agregar solo si no está ya en el inventario
+        addItem(shopId, 'potions', potion); 
       }
     });
 
     otherItems.forEach((otherItem) => {
       if (!items[shopId]?.others.some((i: Item) => i.id === otherItem.id)) {
-        addItem(shopId, 'others', otherItem); // Agregar solo si no está ya en el inventario
+        addItem(shopId, 'others', otherItem); 
       }
     })  
+    books.forEach((book) => {
+      if (!items[shopId]?.books.some((i: Item) => i.id === book.id)) {
+        addItem(shopId, 'books', book); 
+      }
+    })
+    scrolls.forEach((scroll) => {
+      if (!items[shopId]?.scrolls.some((s: Item) => s.id === scroll.id)) {
+        addItem(shopId, 'scrolls', scroll); 
+      }
+    })
+  }, [weapons, potions, items, scrolls, createItems, addItem, shopId, armors, books]);
 
-  }, [weapons, potions, items, createItems, addItem, shopId, armors]);
-
-  // useEffect(() => {
-  //   if (generatedArmor) {
-  //     const handleDeleteFromFB = async () => {
-  //       await deleteArmorFromFirebase(prevArmorId);
-  //     };
-  //     handleDeleteFromFB();
-  //     removeItem(shopId, 'armors', prevArmorId);
-  //     addItem(shopId, 'armors', generatedArmor);
-  //     setPrevArmorId(generatedArmor.id);
-  //   }
-  // }, [generatedArmor]);
   useEffect(() => {
     if (generatedArmors) {
       generatedArmors.forEach(a => {
-        // removeItem(shopId, 'armors', prevArmorId);
         addItem(shopId, 'armors', a);
-        // setPrevArmorId(a.id);  
       })
     }
   }, [generatedArmors])
   useEffect(() => {
     if (generatedWeapons) {
       generatedWeapons.forEach(w => {
-        // removeItem(shopId, 'armors', prevArmorId);
         addItem(shopId, 'weapons', w);
-        // setPrevArmorId(a.id);  
       })
     }
   }, [generatedWeapons])
   useEffect(() => {
     if (generatedAccessories) {
       generatedAccessories.forEach(a => {
-        // removeItem(shopId, 'armors', prevArmorId);
         addItem(shopId, 'accessories', a);
-        // setPrevArmorId(a.id);  
       })
     }
   }, [generatedAccessories])
 
   useEffect(() => {
+    if (generatedScrolls) {
+      generatedScrolls.forEach(s => {
+        addItem(shopId, 'scrolls', s);
+      })
+    }
+    console.log(items[shopId])
+  }, [generatedScrolls])
+
+  useEffect(() => {
     const asyncRemoveItemsAndCreate = async () => {
       // Primero elimina los items existentes
       await removeItems();
-  
       // Luego crea nuevas armaduras, armas y accesorios
       await createArmors(5);
       await createWeapons(5);
       await createAccessories(5);
+      await createScrolls(5)
     };
-  
+    
     // Ejecuta la lógica inmediatamente al cargar el componente
     asyncRemoveItemsAndCreate();
   
     // Configura un intervalo que ejecuta la lógica periódicamente
     const interval = setInterval(asyncRemoveItemsAndCreate, 60000); // Cada 60 segundos
-  
+    
     // Limpia el intervalo al desmontar el componente
     return () => clearInterval(interval);
   }, []);

@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Fleur+De+Leah&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+::-moz-selection {
+    background: black;
+    color: white;
+}
+
+::selection {
+    background: black;
+    color: white;
+}
+
+
+
+/* body::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+body::-webkit-scrollbar-thumb {
+    border: 0.25rem solid #000;
+} */
+
+.flower {
+    float: right;
+    margin-right: -2rem;
+    height: 14rem;
+    shape-outside: url("/img/enemies/goblin.png");
+    shape-margin: 2rem;
+}
+
+.excerpt {
+    border: 0.25rem solid black;
+    position: absolute;
+    left: 1vw;
+    margin: 0 auto;
+    columns: 20rem auto;
+    column-gap: 1.3rem;
+    background: white;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 95%;
+    height: 85%;
+    color: black;
+    z-index: 1000;
+
+}
+.buttonBook{
+    color: white;
+}
+.title__container {
+    margin-left: 5px;
+}
+.text_container {
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+.bookH1,
+.bookH2,
+.bookH3 {
+    font-weight: 400;
+    text-align: center;
+}
+
+.title__first {
+    margin: 2rem 0 -2.5rem 0;
+    padding-left: 2rem;
+    font-weight: 400;
+    font-size: 2rem;
+    font-style: italic;
+    text-align: left;
+    text-shadow: none;
+}
+
+.title__second {
+    font-size: 3rem;
+    text-align: left;
+    text-shadow: none;
+    margin-bottom: 1rem;
+}
+
+.bookH2 {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    line-height: 2rem;
+    font-style: italic;
+    text-shadow: none;
+}
+
+.bookH3 {
+    width: 15rem;
+    margin: 1rem 0 2rem 0;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 400;
+    font-style: italic;
+    border-top: solid 0.15rem black;
+    border-bottom: solid 0.15rem black;
+    text-shadow: none;
+}
+
+.bookPgf {
+    text-align: justify;
+    margin: 1rem 0;
+    line-height: 1.5rem;
+    font-family: "Spectral", serif;
+    text-shadow: none;
+    font-weight: normal;
+    font-size: medium;
+}
+
+.bookPgf:first-of-type:first-letter {
+    padding: 0.25rem;
+    margin: -1rem 0.25rem -0.25rem 0;
+    font-family: "Fleur De Leah", cursive;
+    font-size: 3rem;
+}
+
+.bookPgf:first-of-type {
+    font-family: "Spectral", serif;
+    font-size: 1.25rem;
+    line-height: 2rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+}

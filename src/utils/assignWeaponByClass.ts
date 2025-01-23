@@ -29,7 +29,16 @@ export function assignWeaponByClass({
   }
   classWeapon?.initialWeapon.forEach((weaponId: string) => {
     const weapon = weapons.find((w) => w.id === weaponId);
-    weapon && saveItemToFirebase(player.name, weapon.id, weapon, "weapons");
-    weapon && inventoryStore.addItem(`${player.name}_inventory`, 'weapons', weapon.id);
+  
+    if (weapon) {
+      // Crear una copia del arma con la propiedad playerOwner
+      const weaponOwned = { ...weapon, playerOwner: true };
+  
+      // Guardar en Firebase
+      saveItemToFirebase(player.name, weaponOwned.id, weaponOwned, "weapons");
+  
+      // Añadir al inventario
+      inventoryStore.addItem(`${player.name}_inventory`, 'weapons', weaponOwned.id);
+    }
   });
 }

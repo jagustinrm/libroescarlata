@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dropdown from '../../../utils/DropDown';
 import AttackAndPotions from './AttackAndPotions';
 import usePlayerStore from '../../../stores/playerStore';
@@ -6,6 +6,8 @@ import useCreatureStore from '../../../stores/creatures';
 import { Weapon } from '../../../stores/types/weapons';
 import { Spell } from '../../../stores/types/spells';
 import useTurnStore from '../../../stores/turnStore';
+import { Item, Items } from '../../../stores/types/items';
+import ListCombatItems from './listCombatItems';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[]
@@ -16,7 +18,7 @@ interface CombatUIProps {
   pocion: string | undefined; 
   executeSpell: () => void;
   fightType: string;
-
+  executeScroll: (item: Item) => void;
 }
 
 const CombatUI: React.FC<CombatUIProps> = ({
@@ -30,12 +32,16 @@ const CombatUI: React.FC<CombatUIProps> = ({
   // setSelectedSpell,
   executeSpell,
   fightType,
+  executeScroll
 
 }) => {
   const {player, playerActions} = usePlayerStore.getState()
   const {creature} = useCreatureStore.getState()
   const {currentCharacter } = useTurnStore.getState()
+  const [selectedType, setSelectedType] = useState<keyof Items>();
+  
   return (
+    <div >
     <div className="rpgui-container framed attacks fixedUI">
       {/* Dropdown para armas */}
       <div>
@@ -47,7 +53,6 @@ const CombatUI: React.FC<CombatUIProps> = ({
           disabled={currentCharacter && currentCharacter.id !== 'player' || creature.health === 0}
         />
       </div>
-
       {/* Ataques y pociones */}
       <AttackAndPotions
         executeAttack={executeAttack}
@@ -79,6 +84,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
           Lanzar hechizo
         </button>
       </div>
+      <img onClick={() => setSelectedType('scrolls')} className='inventoryIcons rpgui-cursor-point' src="/img/icons/itemsIcons/scrollicon.png" alt="" />
 
       {/* Botón para huir */}
       {fightType === 'normal' || player.p_LeftHealth === 0 ? (
@@ -91,6 +97,16 @@ const CombatUI: React.FC<CombatUIProps> = ({
           😨 Huir
         </button>
       ) : null}
+      
+    </div>
+    {selectedType === 'scrolls' && 
+    <div className="rpgui-container framed listCombatItems">
+     <ListCombatItems 
+     selectedType={selectedType}
+     setSelectedType = {setSelectedType}
+     executeScroll = {executeScroll}
+     /> 
+     </div>}
     </div>
   );
 };

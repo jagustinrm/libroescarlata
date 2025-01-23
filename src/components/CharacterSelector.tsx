@@ -43,6 +43,7 @@ export default function CharacterSelector() {
     //****************** INVENTNARIO */
     playerActions.setInventory(`${player.name}_inventory`);
     inventoryStore.createInventory(`${player.name}_inventory`);
+    inventoryStore.clearInventory(`${player.name}_inventory`)
     //****************** INVENTNARIO */
     playerActions.setClassFeature(classFeatures);
     playerActions.setClassImg(img);

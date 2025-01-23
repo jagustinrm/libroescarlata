@@ -24,4 +24,5 @@ export const useWeaponStore = create<WeaponStore>((set) => ({
         weapon.id === updatedWeapon.id ? updatedWeapon : weapon,
       ),
     })),
+    clearWeapons: () => set({ weapons: [] }),
 }));

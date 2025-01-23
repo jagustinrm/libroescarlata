@@ -14,6 +14,10 @@ import { Armor } from '../../stores/types/armor';
 import { Accessory } from '../../stores/types/accesories';
 import useArmorStore from '../../stores/armorStore';
 import ItemGrid from './itemCards';
+import { otherItem } from '../../stores/types/otherItems';
+import { Book } from '../../stores/types/books';
+import { Scroll } from '../../stores/types/scrolls';
+import useScrollStore from '../../stores/scrollStore';
 
 const ItemShop: React.FC = () => {
   const { player, playerActions } = usePlayerStore();
@@ -21,6 +25,7 @@ const ItemShop: React.FC = () => {
   const {addNewWeapon} = useWeaponStore();
   const {addNewAccessory} = useAccessoryStore();
   const {addNewArmor} = useArmorStore();
+  const {addNewScroll} = useScrollStore();
   const { items } = useItemsStore();
   const [selectedType, setSelectedType] = useState<keyof Items>("weapons");
   const shopId = 1;
@@ -41,23 +46,30 @@ const ItemShop: React.FC = () => {
     itemId: string,
     itemType: keyof (typeof items)[1],
     itemCost: number,
-    item: Item | Weapon | Armor | Accessory
+    item: Item | Weapon | Armor | Accessory | otherItem | Book | Scroll
   ) => {
     if (player.playerMaterial >= itemCost) {
-      const updatedItem = { ...item, playerOwner: true } as Item | Weapon | Armor | Accessory;
+      const updatedItem = { ...item, playerOwner: true } as Item | Weapon | Armor | Accessory | otherItem | Scroll ;
      
       addItemToInventory(playerInventoryId, itemType, itemId);
       if (itemType === "armors") {
         addNewArmor(updatedItem as Armor);
         saveItemToFirebase(player.name, (updatedItem as Armor).id, updatedItem as Armor, "armors");
       } else if (itemType === "weapons") {
-    
         saveItemToFirebase(player.name, (updatedItem as Weapon).id, updatedItem as Weapon, "weapons");
         addNewWeapon(updatedItem as Weapon);
       } else if (itemType === "accessories") {
         saveItemToFirebase(player.name, (updatedItem as Accessory).id, updatedItem as Accessory, "accessories");
         addNewAccessory(updatedItem as Accessory);
-      }
+      } else if (itemType === "scrolls") {
+        saveItemToFirebase(player.name, (updatedItem as Scroll).id, updatedItem as Scroll, "scrolls");
+        addNewScroll(updatedItem as Scroll);
+      } 
+      // else if (itemType === "others") {
+      //   saveItemToFirebase(player.name, (updatedItem as otherItem).id, updatedItem as otherItem, "others");
+      // } else if (itemType === "books") {
+      //   saveItemToFirebase(player.name, (updatedItem as Book).id, updatedItem as Book, "books");
+      // }
       playerActions.setPlayerMaterial(player.playerMaterial - itemCost);
       setFloatingMessage('¡Comprado!');
     } else {

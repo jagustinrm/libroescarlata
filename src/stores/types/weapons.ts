@@ -61,6 +61,9 @@ export interface Weapon {
   deleteable?: boolean;
   playerOwner: boolean;
   soundEffect: string;
+  actions: {
+    equippable: boolean;
+  }
 }
 
 export interface WeaponStore {
@@ -69,4 +72,5 @@ export interface WeaponStore {
   setWeapons: (weapons: Weapon[]) => void; // Función para establecer las armas en el estado
   addNewWeapon: (newWeapon: Weapon) => void; // Función para agregar una nueva arma
   updateWeapon: (updatedWeapon: Weapon) => void; // Función para actualizar una arma existente
+  clearWeapons: () => void;
 }

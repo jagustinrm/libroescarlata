@@ -22,7 +22,7 @@ const FirebaseItemsLoader = async () => {
       addNewWeapon(weapon);
     });
 
-    // Agregar accesorios al store
+    // Agregar accesorios al store  
     accessories.forEach((accessory: Accessory) => {
       addNewAccessory(accessory);
     });

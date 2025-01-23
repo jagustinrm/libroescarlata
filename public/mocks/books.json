@@ -1,0 +1,17 @@
+[
+    {
+        "id": "annotations-goblin-1",
+        "name": "Anotaciones goblin 1",
+        "author": "Diocles",
+        "chapter": 1,
+        "description": "Anotaciones sobre la historia de los goblins.",
+        "img": "img/books/annotations-goblin-1.png",
+        "cost": 100,
+        "weight": 5,
+        "rarity": "Común",
+        "color": "#F8F8F8",
+        "actions": {
+            "readable": true
+          }
+    }
+]

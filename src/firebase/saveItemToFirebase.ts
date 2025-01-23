@@ -1,5 +1,5 @@
 import { database } from './firebaseConfig';
-import { ref, set, get } from 'firebase/database'; 
+import { ref, set, get, remove } from 'firebase/database'; 
 import { Item } from '../stores/types/items'; 
 import { Weapon } from '../stores/types/weapons';
 import { Accessory } from '../stores/types/accesories';
@@ -90,5 +90,28 @@ export const getItemsFromFirebase = async (
   } catch (error) {
     console.error(`Error al obtener los ítems desde Firebase para el jugador ${playerId}:`, error);
     return { weapons: [], accessories: [], armors: [] };
+  }
+};
+
+export const removeItemFromFirebase = async (
+  playerId: string,
+  itemId: string,
+  itemType: string,
+): Promise<void> => {
+  try {
+    // Define la referencia en Firebase según el tipo del ítem, ID del jugador y del ítem
+    const itemRef = ref(database, `${itemType}_${playerId}/${itemId}`);
+    
+    // Elimina el ítem de Firebase
+    await remove(itemRef);
+
+    console.log(
+      `Ítem de tipo ${itemType} con ID ${itemId} eliminado correctamente de Firebase para el jugador ${playerId}.`,
+    );
+  } catch (error) {
+    console.error(
+      `Error al eliminar el ítem de tipo ${itemType} con ID ${itemId} desde Firebase para el jugador ${playerId}:`,
+      error,
+    );
   }
 };

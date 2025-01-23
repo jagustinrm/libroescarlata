@@ -56,8 +56,9 @@ export function assignArmorByClass({
   classArmor.initialArmor.forEach((armorId) => {
     const armor = armors.find((a) => a.id === armorId);
     if (armor) {
-      inventoryStore.addItem(`${player.name}_inventory`, 'armors', armor.id);
-      saveItemToFirebase(player.name, armor.id, armor, "armors");
+      const armorOwned = { ...armor, playerOwner: true };
+      inventoryStore.addItem(`${player.name}_inventory`, 'armors', armorOwned.id);
+      saveItemToFirebase(player.name, armorOwned.id, armorOwned, "armors");
 
     } else {
       console.error(`Armor with ID ${armorId} not found.`);

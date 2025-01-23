@@ -100,7 +100,10 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     questReward: false,
     deleteable: true,
     playerOwner: false,
-    soundEffect: "modificar", 
+    soundEffect: "modificar",
+    actions: {
+        equippable: true
+      } 
   };
 };
 

@@ -14,14 +14,17 @@ import PlayerEquipment from './Equipment';
 import AccesoriesEquipment from './AccesoriesEquip';
 import WeaponEquipment from './WeaponsEquip';
 import { darkenHex } from '../../utils/darkenHex';
+import { Book } from '../../stores/types/books';
+import ReadBook from '../book/Book';
+import { Scroll } from '../../stores/types/scrolls';
 
 export default function Inventory() {
   const [actualInventory, setActualInventory] = useState<Array<
-    Weapon | Armor | Potion | Accessory | otherItem
+    Weapon | Armor | Potion | Accessory | otherItem | Book | Scroll
   > | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [readBook, setReadBook] = useState<boolean>(false)
   const [selectedAccessoryEquipped, setSelectedAccessoryEquipped] = useState<{ type: string; index: number } | null>(null);
-  console.log(actualInventory)
   const {
     player,
     playerActions,
@@ -31,10 +34,12 @@ export default function Inventory() {
     armors,
     otherItems,
     accessories,
+    books,
+    scrolls,
   } = useGlobalState();
+
   const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
   const [actualCategory, setActualCategory] = useState('');
-
   const handleLoadActualInventory = (category: keyof Inventory) => {
     if (!player.inventoryId || !inventories[player.inventoryId]) {
       setActualInventory(null);
@@ -48,7 +53,7 @@ export default function Inventory() {
       return;
     }
 
-    let selectedCategory: Array<Weapon | Armor | Potion | Accessory | otherItem> = [];
+    let selectedCategory: Array<Weapon | Armor | Potion | Accessory | otherItem | Scroll> = [];
     setActualCategory(category);
 
     switch (category) {
@@ -77,6 +82,17 @@ export default function Inventory() {
           itemNames.includes(accessory.id),
         );
         break;
+      case 'books':
+        selectedCategory = books.filter((book: Book) =>
+          itemNames.includes(book.id),
+        );
+      break;
+      case 'scrolls':
+        console.log(scrolls)
+        selectedCategory = scrolls.filter((scroll: Scroll) =>
+          itemNames.includes(scroll.id),
+        );
+      break;
       default:
         selectedCategory = [];
         break;
@@ -92,7 +108,8 @@ export default function Inventory() {
     const otherItem = otherItems.find((otherItem: otherItem) => otherItem.id === id);
     const armor = armors.find((armor: Armor) => armor.id === id);
     const accessory = accessories.find((accessory: Accessory) => accessory.id === id);
-
+    const book = books.find((book: Book) => book.id === id);
+    const scroll = scrolls.find((scroll: Scroll) => scroll.id === id);
     if (weapon) {
       setSelectedItem(weapon);
       return;
@@ -113,11 +130,18 @@ export default function Inventory() {
       setSelectedItem(armor);
       return;
     }
-
+    if (book) {
+      setSelectedItem(book);
+      return;
+    }
+    if (scroll) {
+      setSelectedItem(scroll);
+      return;
+    }
     setSelectedItem(null);
   };
 
-  const handleEquip = (selectedItem: Weapon | Armor | Potion | Accessory | null) => {
+  const handleEquip = (selectedItem: Weapon | Armor | Potion | Accessory | Book | Scroll |null) => {
     if (!selectedItem) {
       console.error('No hay un objeto seleccionado para equipar.');
       return;
@@ -137,16 +161,24 @@ export default function Inventory() {
         playerActions.addP_SelectedAccesories(selectedItem as Accessory, selectedAccessoryEquipped.index);
         setFloatingMessage('¡Accesorio equipado!');
       } else {
-        playerActions.addP_SelectedAccesories(selectedItem as Accessory);
-        // setFloatingMessage('Selecciona un accesorio primero.');
+        // playerActions.addP_SelectedAccesories(selectedItem as Accessory);
+        setFloatingMessage('Selecciona un accesorio primero.');
       }
     } else {
       console.log('Este objeto no puede ser equipado.');
     }
   };
-  console.log(inventories)
+  
+  const handleRead = () => {
+    setReadBook(!readBook);
+  };
+
   return (
     <section style={{ display: 'flex', flexDirection: 'row' }}>
+     {readBook &&  <ReadBook 
+     selectedItem={selectedItem} 
+     handleRead = {handleRead}
+     />}
       <div className="sectionInventory rpgui-container framed-golden-2">
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
         <img className='lines' src="/img/UI/horizontallines.png" alt="" />
@@ -200,12 +232,12 @@ export default function Inventory() {
                   <p>
                   <strong>Armadura:</strong> { selectedItem.armorValue}
                 </p>}
-                {selectedItem.damage && (
+                {typeof selectedItem.damage === 'number'  && (
                   <p>
                     <strong>Daño:</strong> {selectedItem.damage} - {selectedItem.damageMax}
                   </p>
                 )}
-                  {selectedItem.range && (
+                  {typeof selectedItem.range === 'number' && (
                   <p>
                     <strong>Rango de ataque:</strong> {selectedItem.range}
                   </p>
@@ -214,13 +246,19 @@ export default function Inventory() {
             ) : (
               <p>Selecciona un objeto para ver los detalles</p>
             )}
-            {selectedItem && (
+            {selectedItem && selectedItem.actions && (
               <div style={{ marginTop: '3px' }}>
                 <ButtonEdited
-                  label="Equipar"
+                  label= {
+                    selectedItem.actions.equippable && `Equipar` ||
+                    selectedItem.actions.readable && `Leer`
+                  }
                   width="130px"
                   height="40px"
-                  onClick={() => handleEquip(selectedItem)}
+                  onClick={() => 
+                    selectedItem.actions.equippable && handleEquip(selectedItem) ||
+                    selectedItem.actions.readable && handleRead()
+                  }
                 />
               </div>
             )}
@@ -233,6 +271,7 @@ export default function Inventory() {
             onComplete={() => setFloatingMessage(null)}
           />
         )}
+
       </div>
       {actualCategory === 'armors' && <PlayerEquipment />}
       {actualCategory === 'accessories' && (

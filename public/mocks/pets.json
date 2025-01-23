@@ -8,7 +8,7 @@
       "hitPoints": "1d4",
       "armorClass": 15,
       "attack": {
-        "melee": "mordisco +2 (1d2 daño)"
+        "melee": 4
       },
       "specialAbilities": ["visión nocturna", "sigilo"],
       "img": "/img/cat.png"
@@ -21,7 +21,7 @@
       "hitPoints": "1d4",
       "armorClass": 14,
       "attack": {
-        "melee": "mordisco +1 (1d3 daño)"
+        "melee": 5
       },
       "specialAbilities": ["cambio de color", "visibilidad en la oscuridad"],
       "img": "/img/chameleon.png"
@@ -34,7 +34,7 @@
       "hitPoints": "1d4",
       "armorClass": 15,
       "attack": {
-        "melee": "picotazo +1 (1d3 daño)"
+        "melee": 3
       },
       "specialAbilities": ["vuelo", "visión aguda"],
       "img": "/img/crow.png"
@@ -47,7 +47,7 @@
       "hitPoints": "1d6+1",
       "armorClass": 13,
       "attack": {
-        "melee": "mordisco +3 (1d4 daño)"
+        "melee": 5
       },
       "specialAbilities": ["olfato agudo", "sentidos agudos"],
       "img": "/img/dog.png"
@@ -60,7 +60,7 @@
       "hitPoints": "1d10+2",
       "armorClass": 15,
       "attack": {
-        "melee": "mordisco +4 (1d6+1 daño)"
+        "melee": 7
       },
       "specialAbilities": ["aliento de fuego", "visión en la oscuridad", "resistencia al fuego (5)"],
       "img": "/img/cute_baby_dragon.png"
@@ -73,7 +73,7 @@
       "hitPoints": "1d8",
       "armorClass": 14,
       "attack": {
-        "melee": "golpe ígneo +3 (1d4+1 daño)"
+        "melee": 10
       },
       "specialAbilities": [
         "inmunidad al fuego",
@@ -90,7 +90,7 @@
       "hitPoints": "1d8",
       "armorClass": 14,
       "attack": {
-        "melee": "golpe gélido +3 (1d4+1 daño)"
+        "melee": 9
       },
       "specialAbilities": [
         "inmunidad al hielo",
@@ -107,7 +107,7 @@
       "hitPoints": "1d3",
       "armorClass": 12,
       "attack": {
-        "melee": "mordisco +1 (1d2 daño)"
+        "melee": 9
       },
       "specialAbilities": ["veneno débil", "movimiento sigiloso"],
       "img": "/img/baby_snake.png",
@@ -121,7 +121,7 @@
       "hitPoints": "1d6",
       "armorClass": 14,
       "attack": {
-        "melee": "zarpazo +2 (1d4 daño)"
+        "melee": 10
       },
       "specialAbilities": ["visión nocturna", "agilidad mejorada"],
       "img": "/img/baby_tiger.png",

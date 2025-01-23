@@ -14,7 +14,10 @@
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
             "color": "#F8F8F8",
-            "range": 5
+            "range": 5,
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-daga-002",
@@ -30,7 +33,10 @@
             "img": "/img/weapons/daga.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
             
         },
         {
@@ -47,7 +53,10 @@
             "img": "/img/weapons/hacha-de-batalla.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-arco-largo-004",
@@ -63,7 +72,10 @@
             "img": "/img/weapons/arco-largo.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-maza-005",
@@ -78,7 +90,10 @@
             "img": "/img/weapons/maza.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-espadon-006",
@@ -93,7 +108,10 @@
             "img": "/img/weapons/espadon.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-lanza-007",
@@ -109,7 +127,10 @@
             "img": "/img/weapons/lanza.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-ballesta-ligera-008",
@@ -125,7 +146,10 @@
             "img": "/img/weapons/ballesta-ligera.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-martillo-de-guerra-009",
@@ -140,7 +164,10 @@
             "img": "/img/weapons/martillo-de-guerra.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         },
         {
             "id": "weapon-baston-010",
@@ -155,7 +182,10 @@
             "img": "/img/weapons/baston.png",
             "bodyPart": "manoDerecha",
             "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8"
+            "color": "#F8F8F8",
+            "actions": {
+              "equippable": true
+            }
         }
     ]
 }

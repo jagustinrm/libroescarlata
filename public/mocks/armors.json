@@ -18,7 +18,10 @@
         "repairable": true
       },
       "sockets": 0,
-      "color": "#F8F8F8"
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
     },
     {
       "name": "Túnica",  
@@ -39,7 +42,10 @@
         "repairable": true
       },
       "sockets": 0,
-      "color": "#F8F8F8"
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
     },
     {
       "name": "Pechera",   
@@ -60,7 +66,10 @@
         "repairable": true
       },
       "sockets": 0,
-      "color": "#F8F8F8"
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
     }
   ]
   

@@ -20,7 +20,7 @@ const initialPlayerState: Player =
     p_MaxMana: 1,
     totalMaxMana: () => {
       const state = usePlayerStore.getState().player;
-      return calculateTotalMaxMana(state.stats.int, state.p_MaxMana) || 0;
+      return calculateTotalMaxMana(state.stats.int, state.stats.cha, state.p_MaxMana) || 0;
     },
     p_LeftMana: 1,
     classes: [],

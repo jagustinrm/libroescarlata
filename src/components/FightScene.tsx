@@ -27,8 +27,9 @@ import { Weapon } from '../stores/types/weapons.ts';
 import { Spell } from '../stores/types/spells';
 // import { createTurnHandler } from './battlefield/TurnSystem.ts';
 import useTurnStore from '../stores/turnStore.ts';
-import useQuestStore from '../stores/questStore.ts';
 import { QuestTree } from '../stores/types/quests.ts';
+import { usePetTurn } from '../customHooks/usePetTurn.ts';
+import { Scroll } from '../stores/types/scrolls.ts';
 
 export default function FightScene() {
   const [messageState, setMessageState] = useState({
@@ -45,16 +46,13 @@ export default function FightScene() {
   const {spells, weapons, player, playerActions, creature, setCreatureHealth, inventories,
     playerPosition, setPlayerPosition, setEnemyPosition, setSummonPosition, setPetPosition
    } = useGlobalState();
-   const {addCharacter, currentCharacter, characters} = useTurnStore();
+   const {addCharacter, currentCharacter} = useTurnStore();
   const [summon, setSummon] = useState<Creature | null>(null);
   const [soundType] = useState<string>('');
   const [activateImage, setActivateImage] = useState<boolean>(false)
   const [soundUrl, setSoundUrl] = useState<string | undefined>('');
   const { expTable} = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
-  const { questTree } = useQuestStore();
-
-   console.log(characters)
   const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
     const storedLevel = localStorage.getItem('dungeonLevel');
     return storedLevel ? parseInt(storedLevel, 10) : 1;
@@ -116,8 +114,10 @@ export default function FightScene() {
     setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 - 20 / 1.5 });
     setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 - 20 / 1.5 });
     player.selectedPet && setPetPosition({x: playerPosition.x + 8, y: playerPosition.y + 12})
+
     addCharacter({id: "player", name: player.name})
     addCharacter({id: "enemy", name: creature.name})
+    player.selectedPet && addCharacter({id: "pet", name: player.selectedPet.name})
     setAmbientMusic('battleSong');
     setMusicVolume(0.1);
   }, []);
@@ -144,17 +144,16 @@ export default function FightScene() {
   // ************************COMBATE *************************
 
   const handleAction = (
-    actionType: 'attack' | 'spell' | 'move',
+    actionType: 'attack' | 'spell' | 'move' | 'scroll',
     additionalData?: any,
   ) => {
+
     handleCombatAction(
       actionType,
       {
         setActionMessages,
         setActivateImage,
-        // turn,
         setSummon,
-        // switchTurn,
         handlePostCombatActs,
         fightType,
         handleMessage,
@@ -179,6 +178,12 @@ export default function FightScene() {
     summon,
     setCreatureHealth,
   });
+
+  usePetTurn({
+    setActionMessages,
+    setFloatingMessage,
+    setSoundUrl
+  })
   const executeAttack = () => {
     if (currentCharacter && currentCharacter.id  !== 'player') return;
     const weapon = weapons.find((s) => player.bodyParts.manoDerecha?.name === s.name);
@@ -191,11 +196,22 @@ export default function FightScene() {
     }, 300);
   };
   const executeSpell = () => {
+  
     if (currentCharacter && currentCharacter.id  !== 'player' || !player.selectedSpell) return;
     const spell = spells.find((s) => player.selectedSpell?.name === s.name);
-    const url = spell?.soundEffect; // ESTO PERMITE UTILIZAR LA URL DEL SONIDO DEL FUEGO
+    const url = spell?.soundEffect; 
     setSoundUrl(url);
     handleAction('spell');
+    setTimeout(() => {
+      setSoundUrl('');
+    }, 1000);
+  };
+
+  const executeScroll = (scroll: Scroll) => {
+    const selectedAttack = scroll
+    const url = selectedAttack?.soundEffect; 
+    setSoundUrl(url);
+    handleAction('scroll', selectedAttack);
     setTimeout(() => {
       setSoundUrl('');
     }, 1000);
@@ -261,6 +277,7 @@ export default function FightScene() {
         handleMessage={handleMessage}
         pocion={pocion}
         executeSpell={executeSpell}
+        executeScroll= {executeScroll}
         fightType={fightType}
       
       />

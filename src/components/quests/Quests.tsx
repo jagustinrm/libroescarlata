@@ -132,11 +132,11 @@ export default function Quests({ onClose }: QuestsProps) {
       ref={componentRef} 
     >
       <div
-        className={`quests-header ${dragging? 'rpgui-cursor-grab-close' : 'rpgui-cursor-grab-open' } `}
+        className={`rpgui-content rpgui-container framed  quests-header ${dragging? 'rpgui-cursor-grab-close' : 'rpgui-cursor-grab-open' } `}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        <h1>Misiones</h1>
+        <h1 style={{margin: '0px'}}>Misiones</h1>
         <button onClick={onClose} className="close-button">
           ❌
         </button>

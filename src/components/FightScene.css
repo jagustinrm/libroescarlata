@@ -283,3 +283,9 @@ button:disabled:hover {
 .fixedUI {
   position: fixed; /* Permanece en el mismo lugar al mover la pantalla */
 }
+
+.listCombatItems{
+  position: fixed; 
+  top:38px;
+  left: 280px
+}

@@ -88,6 +88,9 @@ const generateRandomAccessory = async (playerLevel: number): Promise<Accessory> 
     deleteable: true,
     color,
     playerOwner: false,
+    actions: {
+        equippable: true
+      }
   };
 };
 

@@ -5,6 +5,7 @@ import { Weapon } from '../../stores/types/weapons';
 import { Armor } from '../../stores/types/armor';
 import { Accessory } from '../../stores/types/accesories';
 import { darkenHex } from '../../utils/darkenHex';
+import { Scroll } from '../../stores/types/scrolls';
 
 // Definición de Tipos
 
@@ -24,7 +25,7 @@ interface ItemGridProps {
   handleBuy: (playerInventoryId: string, itemId: string, 
     itemType: keyof Items, 
     itemCost: number, 
-    item: Item | Weapon | Armor | Accessory) => void
+    item: Item | Weapon | Armor | Accessory | Scroll) => void
 
 }
 
@@ -38,7 +39,7 @@ const ItemGrid: React.FC<ItemGridProps> = ({
 
 }) => {
   const {player} = usePlayerStore.getState();
-  
+
   return (
    
     <div className="item-grid">

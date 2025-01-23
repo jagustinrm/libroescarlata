@@ -6,7 +6,7 @@ export interface Pet {
   hitPoints: string; // Ejemplo: "1d4"
   armorClass: number;
   attack: {
-    melee: string; // Ejemplo: "mordisco +1 (1d3 daño)"
+    melee: number; 
   };
   specialAbilities: string[]; // Lista de habilidades especiales
   img: string; // URL o ruta de la imagen

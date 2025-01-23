@@ -1,29 +1,31 @@
 import { Accessory } from "./accesories";
 import { Armor } from "./armor";
+import { Book } from "./books";
+import { otherItem } from "./otherItems";
+import { Potion } from "./potions";
+import { Scroll } from "./scrolls";
 
-export interface Item {
-  id: string;
-  name: string;
-  description?: string;
-  armorValue?: number;
-  damage?: number;
-  damageMax?: number;
-  img?: string;
-  cost: number;
-  levelRequirement?: number;
-  deleteable?: boolean;
-  color?: string;
-  rarity?: string;
-}
+// export interface Item {
+//   id: string;
+//   name: string;
+//   description?: string;
+//   img?: string;
+//   cost: number;
+//   weight: number;
+//   color?: string;
+//   rarity?: string;
+//   deleteable?: boolean;
+// }
+export type Item = Weapon | Armor | Scroll | Accessory | Potion | Book | otherItem;
 
 export interface Items {
   weapons: Weapon[];
   armors: Armor[];
   accessories: Accessory[];
   potions: Potion[];
-  books: Item[];
-  scrolls: Item[];
-  others: Item[];
+  books: Book[];
+  scrolls: Scroll[];
+  others: otherItem[];
 }
 
 export interface ItemsStore {

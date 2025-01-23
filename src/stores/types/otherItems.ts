@@ -3,6 +3,7 @@ export interface otherItem {
     name: string;
     cost: number;
     color?: string;
+    weight: number;
 }
 
 export interface otherItemsStore {

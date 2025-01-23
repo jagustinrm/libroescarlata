@@ -35,9 +35,11 @@ import useGlobalState from './customHooks/useGlobalState.js';
 import OtherItemsLoader from './loaders/OtherItemsLoader.js';
 import Bestiary from './components/bestiary/Bestiary.js';
 import QuestLoader from './loaders/QuestsLoader.js';
+import BooksLoader from './loaders/BooksLoader.js';
 
 function App() {
   const {player, inventories } = useGlobalState();
+
   window.addEventListener('beforeunload', () => {
     localStorage.setItem('playerState', JSON.stringify(player));
     localStorage.setItem('inventoryState', JSON.stringify(inventories));
@@ -54,6 +56,7 @@ function App() {
       <ClassLoader />
       <SpellLoader />
       <QuestLoader/>
+      <BooksLoader/>
       <CreatureLoader />
       <ItemShopLoader />
       <DialogLoader/>

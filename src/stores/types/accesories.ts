@@ -51,6 +51,9 @@ export interface Accessory {
       bonuses: string[]; // Lista de bonificaciones por piezas equipadas
     };
     playerOwner: boolean;
+    actions: {
+      equippable: boolean;
+    }
   }
 
   export interface AccessoryStore {

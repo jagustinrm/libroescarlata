@@ -180,6 +180,9 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     questReward: false,
     deleteable: true,
     playerOwner: false,
+    actions: {
+        equippable: true
+      }
   };
 };
 

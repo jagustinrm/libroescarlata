@@ -11,17 +11,16 @@ import { isAttackSuccessful } from './calculateDodgePercentage.ts';
 import { simulateAttackMovement } from './simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
+import { Scroll } from '../stores/types/scrolls.ts';
+
 
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
   setActionMessages?: Dispatch<SetStateAction<string[]>>;
-  // selectedSpell?: string;
   handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
   handlePostCombatActs?: (fightType: string, creature: Creature) => void;
   fightType?: string;
   setSummon?: Dispatch<SetStateAction<Creature | null>>;
-  // switchTurn: () => void;
-  // turn?: 'enemy' | 'player' | 'summon';
   button?: Button;
   setActivateImage: Dispatch<SetStateAction<boolean>>;
   setFloatingMessage: Dispatch<SetStateAction<FloatingMessageProps | null>> ;
@@ -37,14 +36,9 @@ interface Button {
 }
 
 export const handleCombatAction = (
-  actionType: 'attack' | 'spell' | 'move',
+  actionType: 'attack' | 'spell' | 'move' | 'scroll',
   props: CombatHandlersProps,
-  additionalData?: {
-    y: number;
-    x: number;
-    button: Button;
-    
-  },
+  additionalData?: any,
 ) => {
   const {
     // selectedSpell,
@@ -71,9 +65,8 @@ export const handleCombatAction = (
   const {setPlayerPosition, playerPosition, enemyPosition, setPetPosition} = usePositionStore.getState();
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
-        // switchTurn?.();
         nextTurn();
-        
+
     }
   };
 
@@ -157,24 +150,31 @@ export const handleCombatAction = (
   // ****************************************SPELLS********************************
   // ****************************************       ********************************
   const handleSpell = () => {
-    const spellDetails = spells?.find((s) => s.name === player.selectedSpell?.name);
-    if (!spellDetails) {
-      shouldFinalizeTurn = false; // No se encontró el hechizo, no se finaliza el turno.
-      return;
-    }
+    const scroll = additionalData;
+    let spellDetails = null;
+    if (scroll) {
+      spellDetails = scroll
+    } else {
+    spellDetails = spells?.find((s) => s.name === player.selectedSpell?.name);
+      if (!spellDetails) {
+        shouldFinalizeTurn = false; // No se encontró el hechizo, no se finaliza el turno.
+        return;
+      }
+    
+      if (
+        spellDetails.manaCost &&
+        typeof player?.p_LeftMana === 'number' &&
+        spellDetails.manaCost > player?.p_LeftMana
+      ) {
+        addActionMessage(
+          `No tienes suficiente maná para lanzar ${spellDetails.name}.`,
+        );
+        handleMessage?.('¡No tienes suficiente maná!', 'warning', false);
 
-    if (
-      spellDetails.manaCost &&
-      typeof player?.p_LeftMana === 'number' &&
-      spellDetails.manaCost > player?.p_LeftMana
-    ) {
-      addActionMessage(
-        `No tienes suficiente maná para lanzar ${spellDetails.name}.`,
-      );
-      shouldFinalizeTurn = false; // No hay suficiente maná, no se finaliza el turno.
-      return;
+        shouldFinalizeTurn = false; // No hay suficiente maná, no se finaliza el turno.
+        return;
+      }
     }
-
     // Hechizos ofensivos
     if (
       spellDetails.type === 'Ofensivo' &&
@@ -214,7 +214,8 @@ export const handleCombatAction = (
           .setCreatureHealth(Math.max(creature.health - damage, 0));
           if (
             typeof player?.p_LeftMana === 'number' &&
-            typeof spellDetails.manaCost === 'number'
+            typeof spellDetails.manaCost === 'number' &&
+            !scroll
           ) {
             usePlayerStore
               .getState()
@@ -337,6 +338,9 @@ export const handleCombatAction = (
       break;
     case 'move':
       handleMove();
+      break;
+    case 'scroll':
+      handleSpell();
       break;
   }
   finalizeTurn();
