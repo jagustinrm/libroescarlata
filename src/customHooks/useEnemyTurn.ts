@@ -77,8 +77,11 @@ export const useEnemyTurn = ({
             if (success) {
               const {damage, damageMax} = creature['attacks'][0];
               const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage
+              const redDamage = player.totalDmgReduction(creature.level)
+              const finalDamage = Math.floor(rollDamage * (1 - redDamage / 100));
+
               playerActions.setP_LeftHealth(
-                Math.max(player.p_LeftHealth - rollDamage, 0),
+                Math.max(player.p_LeftHealth - finalDamage, 0),
               );
               setSoundUrl(creature.attacks[0].soundEffect)
               setTimeout(() => {
@@ -86,9 +89,9 @@ export const useEnemyTurn = ({
               }, 300);
               setActionMessages((prev) => [
                 ...prev,
-                `El enemigo te ha atacado con ${creature['attacks'][0].name} y causó ${rollDamage} puntos de daño.`,
+                `El enemigo te ha atacado con ${creature['attacks'][0].name} y causó ${finalDamage} puntos de daño.`,
               ]);
-              setFloatingMessage({message: rollDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: playerPosition},  )
+              setFloatingMessage({message: finalDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: playerPosition},  )
 
             } else {
               setSoundUrl('/music/attacks/weapon-swing.wav')

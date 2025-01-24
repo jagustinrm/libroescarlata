@@ -24,6 +24,7 @@ export interface Creature {
   stats: Stats;
   readonly dodgePercentage: () => number;
   readonly hitRatePercentage: () => number;
+  readonly totalDmgReduction: (enemyLevel: number) => number;
 }
 
 export interface CreatureStore {

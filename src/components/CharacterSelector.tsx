@@ -70,7 +70,7 @@ export default function CharacterSelector() {
     });
     playerActions.setSpell(classData.initialSpells);
 
-    localStorage.setItem('dungeonLevel', '1');
+
 
     type typeCompletedMQuests = {
       id: number;

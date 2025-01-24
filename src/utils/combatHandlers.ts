@@ -11,7 +11,7 @@ import { isAttackSuccessful } from './calculateDodgePercentage.ts';
 import { simulateAttackMovement } from './simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
-import { Scroll } from '../stores/types/scrolls.ts';
+import useSummonStore from '../stores/summonsStore.ts';
 
 
 interface CombatHandlersProps {
@@ -61,6 +61,7 @@ export const handleCombatAction = (
   const {creature} = useCreatureStore.getState();
   const {spells} = useSpellStore.getState();
   const {weapons} = useWeaponStore.getState();
+  const {summons} = useSummonStore.getState();
   const {currentCharacter, nextTurn, addCharacter} = useTurnStore.getState();
   const {setPlayerPosition, playerPosition, enemyPosition, setPetPosition} = usePositionStore.getState();
   const finalizeTurn = () => {
@@ -126,16 +127,19 @@ export const handleCombatAction = (
         setTimeout(() => {
           setActivateImage(false);
         }, 250);
+        const redDamage = creature.totalDmgReduction(player.level)
         const totalDamage = Math.floor(Math.random() * (player.damageMax() - player.damage()) + player.damage());
+        const finalDamage = Math.floor(totalDamage * (1 - redDamage / 100));
+        
         addActionMessage(
-          `Has atacado al enemigo y causado ${totalDamage} puntos de daño.`,
+          `Has atacado al enemigo y causado ${finalDamage} puntos de daño.`,
         );
-        setFloatingMessage({message: totalDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
+        setFloatingMessage({message: finalDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
         useCreatureStore
           .getState()
-          .setCreatureHealth(Math.max(creature.health - totalDamage, 0));
+          .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
 
-        if (creature.health - totalDamage <= 0 && fightType) {
+        if (creature.health - finalDamage <= 0 && fightType) {
           handleMessage?.('¡Has ganado el combate!', 'success', false);
           handlePostCombatActs?.(fightType, creature);
         }
@@ -274,30 +278,14 @@ export const handleCombatAction = (
         .playerActions.setP_LeftMana(
           Math.max(player?.p_LeftMana - spellDetails.manaCost, 0),
         );
-      const summon = {
-        ...creature,
-        name: 'Mochi',
-        img: '/img/summons/mochi.png',
-        type: 'slime/animal',
-        alignment: 'neutral',
-        level: 1,
-        hitPoints: '1d4',
-        armorClass: 10,
-        attacks: [{ name: 'mordisco', type: 'melee', bonus: 1, damage: 3, damageMax: 5, soundEffect: "/music/attacks/bite.wav" }],
-        specialAbilities: ['forma gelatinosa', 'elasticidad', 'salto rápido'],
-        dodge: 20,
-        hitRate: 40,
-        stats: {
-          str: 1,
-          agi: 1,
-          dex: 1,
-          con: 1,
-          cha: 1,
-          int: 1
-        },
-      }  
-      addCharacter({id: "summon", name: summon.name})
-      setSummon(summon);
+
+      const summon = summons.find(s => s.name === spellDetails.invocation)
+ 
+      if (summon) {
+        addCharacter({id: "summon", name: summon.name})
+        setSummon(summon);
+      }
+
       
     } else {
       shouldFinalizeTurn = false;

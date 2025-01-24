@@ -8,6 +8,7 @@ import { Spell } from '../../../stores/types/spells';
 import useTurnStore from '../../../stores/turnStore';
 import { Item, Items } from '../../../stores/types/items';
 import ListCombatItems from './listCombatItems';
+import { handleHealing } from '../../../utils/handleHealing';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[]
@@ -24,12 +25,9 @@ interface CombatUIProps {
 const CombatUI: React.FC<CombatUIProps> = ({
   opcionesArmas,
   opcionesSpells,
-  // turn,
   executeAttack,
   handleMessage,
   pocion,
-  // selectedSpell,
-  // setSelectedSpell,
   executeSpell,
   fightType,
   executeScroll
@@ -40,6 +38,14 @@ const CombatUI: React.FC<CombatUIProps> = ({
   const {currentCharacter } = useTurnStore.getState()
   const [selectedType, setSelectedType] = useState<keyof Items>();
   
+  const executeItem = (item: any) => {
+    if (selectedType === "scrolls") {
+      executeScroll(item);
+    } else if (selectedType === "potions") {
+      handleHealing({item, handleMessage})
+    }
+
+  };
   return (
     <div >
     <div className="rpgui-container framed attacks fixedUI">
@@ -84,8 +90,14 @@ const CombatUI: React.FC<CombatUIProps> = ({
           Lanzar hechizo
         </button>
       </div>
-      <img onClick={() => setSelectedType('scrolls')} className='inventoryIcons rpgui-cursor-point' src="/img/icons/itemsIcons/scrollicon.png" alt="" />
-
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+      <img onClick={() => setSelectedType('scrolls')} 
+      className='inventoryIcons rpgui-cursor-point' 
+      src="/img/icons/itemsIcons/scrollicon.png" alt="" />
+      <img onClick={() => setSelectedType('potions')} 
+      className='inventoryIcons rpgui-cursor-point' 
+      src="/img/icons/itemsIcons/potionicon.png" alt="" />
+      </div>
       {/* Botón para huir */}
       {fightType === 'normal' || player.p_LeftHealth === 0 ? (
         <button
@@ -99,14 +111,18 @@ const CombatUI: React.FC<CombatUIProps> = ({
       ) : null}
       
     </div>
-    {selectedType === 'scrolls' && 
+    <div className="rpgui-container framed listCombatItems">
+      <p>{player.buffs.str?.value}</p>
+     </div>
+    {selectedType  && 
     <div className="rpgui-container framed listCombatItems">
      <ListCombatItems 
      selectedType={selectedType}
      setSelectedType = {setSelectedType}
-     executeScroll = {executeScroll}
+     executeItem = {executeItem}
      /> 
      </div>}
+
     </div>
   );
 };

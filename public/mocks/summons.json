@@ -4,15 +4,19 @@
         "img": "/img/summons/mochi.png",
         "type": "slime/animal",
         "alignment": "neutral",
+        "dodge": 40,
+        "hitRate": 50,
         "level": 1,
-        "hitPoints": "1d4",
+        "hitPoints": 80,
         "armorClass": 10,
         "attacks": [
             {
                 "name": "mordisco",
                 "type": "melee",
                 "bonus": 1,
-                "damage": "1d3"
+                "damage": 10,
+                "damageMax": 15,
+                "soundEffect": "/music/attacks/bite.wav"
             }
         ],
         "specialAbilities": [
@@ -20,6 +24,135 @@
             "elasticidad",
             "salto rápido"
         ]
+    },
+    {
+        "name": "Porging",
+        "img": "/img/summons/porging.png",
+        "type": "beast",
+        "alignment": "neutral",
+        "dodge": 25,
+        "hitRate": 55,
+        "level": 2,
+        "hitPoints": 100,
+        "armorClass": 12,
+        "attacks": [
+            {
+                "name": "zarpazo",
+                "type": "melee",
+                "bonus": 2,
+                "damage": 20,
+                "damageMax": 26,
+                "soundEffect": "/music/attacks/scratch.wav"
+            }
+        ],
+        "specialAbilities": [
+            "olfato agudo",
+            "agilidad",
+            "vista nocturna"
+        ]
+    },
+    {
+        "name": "Sliref",
+        "img": "/img/summons/sliref.png",
+        "type": "reptile",
+        "alignment": "evil",
+        "dodge": 20,
+        "hitRate": 60,
+        "level": 3,
+        "hitPoints": 120,
+        "armorClass": 14,
+        "attacks": [
+            {
+                "name": "latigazo",
+                "type": "melee",
+                "bonus": 3,
+                "damage": 4,
+                "damageMax": 7,
+                "soundEffect": "/music/attacks/whip.wav"
+            }
+        ],
+        "specialAbilities": [
+            "lengua extendida",
+            "camuflaje",
+            "regeneración"
+        ]
+    },
+    {
+        "name": "Chormoch",
+        "img": "/img/summons/chormoch.png",
+        "type": "golem",
+        "alignment": "good",
+        "dodge": 15,
+        "hitRate": 45,
+        "level": 4,
+        "hitPoints": 150,
+        "armorClass": 16,
+        "attacks": [
+            {
+                "name": "puñetazo",
+                "type": "melee",
+                "bonus": 4,
+                "damage": 6,
+                "damageMax": 10,
+                "soundEffect": "/music/attacks/punch.wav"
+            }
+        ],
+        "specialAbilities": [
+            "resistencia mágica",
+            "fuerza descomunal",
+            "piel de piedra"
+        ]
+    },
+    {
+        "name": "Flowfer",
+        "img": "/img/summons/flowfer.png",
+        "type": "plant",
+        "alignment": "neutral",
+        "dodge": 35,
+        "hitRate": 50,
+        "level": 5,
+        "hitPoints": 110,
+        "armorClass": 13,
+        "attacks": [
+            {
+                "name": "latigazo de raíces",
+                "type": "melee",
+                "bonus": 3,
+                "damage": 5,
+                "damageMax": 8,
+                "soundEffect": "/music/attacks/root_whip.wav"
+            }
+        ],
+        "specialAbilities": [
+            "absorción de energía",
+            "raíces extensibles",
+            "sanación ambiental"
+        ]
+    },
+    {
+        "name": "Fleyff",
+        "img": "/img/summons/fleyff.png",
+        "type": "spirit",
+        "alignment": "good",
+        "dodge": 50,
+        "hitRate": 70,
+        "level": 6,
+        "hitPoints": 90,
+        "armorClass": 18,
+        "attacks": [
+            {
+                "name": "toque espiritual",
+                "type": "magic",
+                "bonus": 5,
+                "damage": 7,
+                "damageMax": 12,
+                "soundEffect": "/music/attacks/spirit_touch.wav"
+            }
+        ],
+        "specialAbilities": [
+            "intangible",
+            "curación grupal",
+            "resistencia a magia"
+        ]
     }
-    
 ]

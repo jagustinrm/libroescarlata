@@ -7,9 +7,6 @@ import { Creature } from '../stores/types/creatures.js';
 import { QuestTree } from '../stores/types/quests.js';
 
 const usePostCombatActions = (
-  setDungeonLevel: React.Dispatch<React.SetStateAction<number>>,
-  // creature: CreatureInterface | null,
-  // creature: Creature | null,
   quests: QuestTree,
   playerActions: PlayerActions,
   player: Player,
@@ -19,11 +16,8 @@ const usePostCombatActions = (
     if (creature) {
       //***** */ Incrementar el nivel de mazmorra si es un jefe*******
       if (fightType === 'dungeon' && creature.role === 'boss') {
-        setDungeonLevel((prevLevel) => {
-          const newLevel = prevLevel + 1;
-          localStorage.setItem('dungeonLevel', newLevel.toString());
-          return newLevel;
-        });
+          const newLevel = player.dungeonLevel + 1
+          playerActions.setDungeonLevel(newLevel);
       }
       gainExp(creature.level, playerActions.setPlayerExp, player.playerExp);
 

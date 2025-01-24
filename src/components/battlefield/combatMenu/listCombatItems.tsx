@@ -4,39 +4,48 @@ import useInventoryStore from "../../../stores/inventoryStore";
 import { Item, Items } from "../../../stores/types/items";
 
 export default function ListCombatItems(
-    { selectedType, setSelectedType, executeScroll}: 
+    { selectedType, setSelectedType, executeItem}: 
     { 
-        selectedType: keyof Items | undefined, 
+        selectedType: keyof Items, 
         setSelectedType: any
-        executeScroll: (item: Item) => void
+        executeItem: (item: Item) => void
     }
     
 ) {
-    const { inventories, player, scrolls, removeScroll } = useGlobalState();
-    const {removeItem} = useInventoryStore();
+    const { inventories, player, scrolls, removeScroll, potions } = useGlobalState();
+    const { removeItem } = useInventoryStore();
     const playerInventory = selectedType && inventories[player.inventoryId]?.[selectedType] || [];
-    const matchingScrolls = playerInventory
-        .map((item: Item) => scrolls.find((scroll) => scroll.id === item))
-        .filter(Boolean); // Filtra los valores `undefined` (scrolls no encontrados)
+    const collections = {
+      scrolls,
+      potions,
+    };
+    const matchingItems = playerInventory
+    .map((item: Item) => collections[selectedType as keyof typeof collections]?.find((obj) => obj.id === item))
+    .filter(Boolean);
 
-    const executeAction = (item: Item) => {
-        executeScroll(item)
+
+    const executeAction = (item: Item, selectedType: keyof Items) => {
+        executeItem(item)
         setSelectedType('')
         removeScroll(item.id)
-        removeItem(player.inventoryId, "scrolls", item.id)
-        removeItemFromFirebase(player.name, item.id, "scrolls")
+        removeItem(player.inventoryId, selectedType, item.id)
+        removeItemFromFirebase(player.name, item.id, selectedType)
     }    
     return (
-        <div >   { /*OJO con esta clase */}
-            {matchingScrolls.map((item: Item, index: number) => (
+        <div >   
+            {matchingItems.length > 0 ?
+             matchingItems.map((item: Item, index: number) => (
                 <img
                     className="inventoryIcons"
                     key={item?.id || index} // Usa `id` como clave si existe, o índice como fallback
                     src={item?.img || ""}
-                    alt={item?.name || "Scroll"}
-                    onClick={() => executeAction(item)}
+                    alt={item?.name || "Item"}
+                    onClick={() => executeAction(item, selectedType)}
                 />
-            ))}
+            ))
+            :
+            <p onClick= {() =>  setSelectedType('')}>No hay objetos</p>
+            }
         </div>
     );
 }

@@ -64,8 +64,11 @@ const ItemShopLoader = () => {
     })
     scrolls.forEach((scroll) => {
       if (!items[shopId]?.scrolls.some((s: Item) => s.id === scroll.id)) {
-        addItem(shopId, 'scrolls', scroll); 
+        if (scroll.playerOwner === false || !scroll.playerOwner) {
+          addItem(shopId, 'scrolls', scroll); 
+          }
       }
+
     })
   }, [weapons, potions, items, scrolls, createItems, addItem, shopId, armors, books]);
 

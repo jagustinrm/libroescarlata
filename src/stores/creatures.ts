@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { CreatureStore, Creature } from './types/creatures';
-import { calculateDodgePercentage, calculateHitRatePercentage } from '../utils/calculateDodgePercentage';
+import { calculateDmgReduction, calculateDodgePercentage, calculateHitRatePercentage } from '../utils/calculateDodgePercentage';
 const useCreatureStore = create<CreatureStore>((set, get) => ({
   creatures: [],
   bosses: [],
@@ -32,6 +32,9 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     hitRatePercentage:() => {
       console.log(get().creature.stats.dex, get().creature.hitRate)
       return calculateHitRatePercentage(20); 
+    },
+    totalDmgReduction: (enemyLevel) => {
+      return calculateDmgReduction(get().creature.armorClass, enemyLevel);
     },
   },
 

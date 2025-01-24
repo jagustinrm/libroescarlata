@@ -28,7 +28,8 @@ export async function createCustomScroll(): Promise<Scroll | null> {
     cost: 30,
     deleteable: true,
     color: "#F8F8F8",
-    weight: 1
+    weight: 1,
+    playerOwner: false
   };
 
   return customScroll;

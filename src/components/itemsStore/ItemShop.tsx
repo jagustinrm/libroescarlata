@@ -50,7 +50,6 @@ const ItemShop: React.FC = () => {
   ) => {
     if (player.playerMaterial >= itemCost) {
       const updatedItem = { ...item, playerOwner: true } as Item | Weapon | Armor | Accessory | otherItem | Scroll ;
-     
       addItemToInventory(playerInventoryId, itemType, itemId);
       if (itemType === "armors") {
         addNewArmor(updatedItem as Armor);

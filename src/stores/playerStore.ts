@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { Player, PlayerStore } from './types/player';
 import useInventoryStore from './inventoryStore';
 import { StoryProgress } from './types/story';
-import { calculateDmgReduction, calculateDodgePercentage, calculateHitRatePercentage, calculateTotalArmor, calculateTotalDamage, calculateTotalDodge, calculateTotalHitRate, calculateTotalMaxDamage, calculateTotalMaxHealth, calculateTotalMaxMana } from '../utils/calculateDodgePercentage';
+import { calculateDmgMReduction, calculateDmgReduction, calculateDodgePercentage, calculateHitRatePercentage, calculateSummonDmgIncrease, calculateTotalArmor, calculateTotalDamage, calculateTotalDodge, calculateTotalHitRate, calculateTotalMArmor, calculateTotalMaxDamage, calculateTotalMaxHealth, calculateTotalMaxMana } from '../utils/calculateDodgePercentage';
 
 const initialPlayerState: Player = 
   {
@@ -28,8 +28,7 @@ const initialPlayerState: Player =
     manaDie: 0,
     hitRateDie: 0,
     dodgeDie: 0,
-    // armorClass: 0,
-    // baseAttackBonus: 0,
+    dungeonLevel: 1,
     stats: {
       str: 0,
       dex: 0,
@@ -38,6 +37,7 @@ const initialPlayerState: Player =
       agi: 0,
       cha: 0,
     },
+    buffs: {},
     leftPoints: 25,
     movement: 0, // nuevo
     turnSpeed: 0, //nuevo
@@ -102,21 +102,33 @@ const initialPlayerState: Player =
     },
     damage: () => {
       const state = usePlayerStore.getState().player;
-      return calculateTotalDamage(state.bodyParts, state.stats.str) || 0;
+      return calculateTotalDamage(state.bodyParts, state.stats.str, state.buffs.str?.value) || 0;
+    },
+    summonDmgIncrease: () => {
+      const state = usePlayerStore.getState().player;
+      return calculateSummonDmgIncrease(state.stats.cha) || 0;
     },
     damageMax: () => {
       const state = usePlayerStore.getState().player;
-      return calculateTotalMaxDamage(state.bodyParts, state.stats.str) || 0;
+      return calculateTotalMaxDamage(state.bodyParts, state.stats.str, state.buffs.str?.value) || 0;
     },
     totalArmorClass: () => {
       const state = usePlayerStore.getState().player;
       return calculateTotalArmor(state.bodyParts, state.stats.con, state.level) || 0;
     },
-
     totalDmgReduction: (enemyLevel) => {
       const state = usePlayerStore.getState().player;
       return calculateDmgReduction(state.totalArmorClass(), enemyLevel);
     },
+    totalMArmor: () => {
+      const state = usePlayerStore.getState().player;
+      return calculateTotalMArmor(state.bodyParts, state.stats.int, state.level) || 0;
+    },
+    totalDmgMReduction: (enemyLevel) => {
+      const state = usePlayerStore.getState().player;
+      return calculateDmgMReduction(state.totalMArmor(), enemyLevel);
+    },
+
     totalBlockValue: () => {
       return 0; // Valor predeterminado para bloqueo
     },
@@ -142,7 +154,26 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
           },
         },
       })),
-    
+      addBuff: (buffName, value, duration) =>
+        set((state) => ({
+          player: {
+            ...state.player,
+            buffs: {
+              ...state.player.buffs,
+              [buffName]: {
+                value: (state.player.buffs[buffName]?.value || 0) + value, // Incrementa el valor del buff si ya existe
+                duration: Math.max(duration, state.player.buffs[buffName]?.duration || 0), // Actualiza la duración si es mayor
+              },
+            },
+          },
+        })),
+    resetBuffs: () =>
+      set((state) => ({
+        player: {
+          ...state.player,
+          buffs: {}, // Reinicia todos los buffs
+        },
+      })),    
     addStatsLeftPoints: (leftPoints) =>
       set((state) => ({
         player: {
@@ -198,6 +229,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     setP_MaxMana: (p_MaxMana) =>
       set((state) => ({
         player: { ...state.player, p_MaxMana },
+      })),
+    setDungeonLevel: (dungeonLevel) =>
+      set((state) => ({
+        player: { ...state.player, dungeonLevel },
       })),
     setP_LeftMana: (p_LeftMana) =>
       set((state) => ({

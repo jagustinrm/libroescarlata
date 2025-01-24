@@ -7,6 +7,7 @@ export interface Spell {
   healingAmount?: string | null; // Opcional: Hechizos que curan (Ej: "1d8+1")
   healingDice?: string | null; // Opcional: Dados de curación escalables (Ej: "1d8/nivel")
   range: number; // Ej: "30 m"
+  invocation?: string;
   rangePlus?: string; // Opcional: Cómo escala el rango (Ej: "3 m/nivel")
   components: string[]; // Ej: ["V", "S", "M"]
   castingTime: string; // Ej: "1 acción estándar"

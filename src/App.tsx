@@ -36,6 +36,7 @@ import OtherItemsLoader from './loaders/OtherItemsLoader.js';
 import Bestiary from './components/bestiary/Bestiary.js';
 import QuestLoader from './loaders/QuestsLoader.js';
 import BooksLoader from './loaders/BooksLoader.js';
+import SummonLoader from './loaders/SummonLoader.js';
 
 function App() {
   const {player, inventories } = useGlobalState();
@@ -56,6 +57,7 @@ function App() {
       <ClassLoader />
       <SpellLoader />
       <QuestLoader/>
+      <SummonLoader/>
       <BooksLoader/>
       <CreatureLoader />
       <ItemShopLoader />

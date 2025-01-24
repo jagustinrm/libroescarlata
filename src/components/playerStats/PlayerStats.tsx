@@ -52,7 +52,7 @@ export default function PlayerStats() {
                 player.selectedArmor?.material || 'Sin arma equipada'}
             </p> */}
             <p> 🛡️ Armadura: {player.totalArmorClass()}</p>
-            {/* <p>⚔️ Puntería: {player.hitRate}</p> */}
+            <p> 🛡️ Armadura Mágica: {player.totalMArmor()}</p>
           </div>
           <button
             className="rpgui-button playerbackbutton"
@@ -131,17 +131,8 @@ export default function PlayerStats() {
           <p>Porcentaje de esquiva: {player.dodgePercentage()}% </p>
           <p>Porcentaje de puntería: {player.hitRatePercentage()}% </p>
           <p>Reducción de daño: {player.totalDmgReduction(player.level)}%</p>
-          {/* <p>
-            💪 Tiradas de salvación:
-            <ul>
-              {Object.entries(player.saves).map(([key, value]) => (
-                <li key={key}>
-                  {key}: {value}
-                </li>
-              ))}
-            </ul>
-          </p> */}
-
+          <p>Reducción de daño mágico: {player.totalDmgMReduction(player.level)}%</p>
+          <p>Aumento de daño de invocación: {player.summonDmgIncrease()}%</p>
           <p>
             🐾 Mascotas:
             <ul>

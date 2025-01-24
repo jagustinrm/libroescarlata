@@ -35,9 +35,9 @@
     "weight": "0.5 lb",
     "effect": {
       "type": "buff",
-      "stat": "strength",
+      "stat": "str",
       "value": 4,
-      "duration": "3 minutos"
+      "duration": 3
     },
     "description": "Aumenta la fuerza en +4 durante 3 minutos.",
     "img": "/img/potions/bull-strength-potion.png",
@@ -46,13 +46,13 @@
   {
     "id": "invisibility-potion-004",
     "name": "Poción de Invisibilidad",
-    "type": "Buff",
+    "type": "Habilidad",
     "cost": 200,
     "weight": "0.5 lb",
     "effect": {
       "type": "buff",
       "stat": "invisibility",
-      "duration": "10 minutos"
+      "duration": 3
     },
     "description": "Te hace invisible durante 10 minutos.",
     "img": "/img/potions/invisibility-potion.png",
@@ -66,11 +66,11 @@
     "weight": "0.5 lb",
     "effect": {
       "type": "buff",
-      "stat": "speed",
-      "value": 30,
-      "duration": "1 minuto"
+      "stat": "agi",
+      "value": 4,
+      "duration": 3
     },
-    "description": "Aumenta tu velocidad en 30 pies durante 1 minuto.",
+    "description": "Aumenta tu velocidad.",
     "img": "/img/potions/speed-potion.png",
     "color": "#F8F8F8"
   },
@@ -98,9 +98,9 @@
     "weight": "0.5 lb",
     "effect": {
       "type": "buff",
-      "stat": "perception",
-      "value": 5,
-      "duration": "1 hora"
+      "stat": "dex",
+      "value": 4,
+      "duration": 3
     },
     "description": "Aumenta tu percepción en +5 durante 1 hora.",
     "img": "/img/potions/clairvoyance-potion.png",
@@ -124,7 +124,7 @@
   {
     "id": "faithShield-potion-002",
     "name": "Poción de Escudo de Fe",
-    "type": "Defensa",
+    "type": "Habilidad",
     "cost": 100,
     "weight": "0.5 lb",
     "effect": {

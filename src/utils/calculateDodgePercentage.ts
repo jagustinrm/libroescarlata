@@ -84,7 +84,11 @@ export function calculateDmgReduction(armor: number, enemyLevel: number): number
     const reduction = (armor / ((85 * enemyLevel) + armor + 400)) * 100;
     return parseFloat(Math.max(0, Math.min(reduction, 100)).toFixed(2));
 }
-  
+
+export function calculateDmgMReduction(mArmor: number, enemyLevel: number): number {
+  const reduction = (mArmor / ((85 * enemyLevel) + mArmor + 400)) * 100;
+  return parseFloat(Math.max(0, Math.min(reduction, 100)).toFixed(2));
+} 
 export function calculateTotalArmor(bodyParts: bodyParts, playerCon: number, playerLevel: number): number {
     const armorValue = Object.values(bodyParts).reduce((total, part) => {
     return total + (part?.armorValue || 0);
@@ -93,20 +97,34 @@ export function calculateTotalArmor(bodyParts: bodyParts, playerCon: number, pla
     const totalArmor = (playerCon / 5) * playerLevel + armorValue;
     return parseFloat(totalArmor.toFixed(2));
 }
+export function calculateTotalMArmor(bodyParts: bodyParts, playerInt: number, playerLevel: number): number {
+  const armorValue = Object.values(bodyParts).reduce((total, part) => {
+  return total + (part?.mArmorValue || 0);
+  }, 0);
   
-export function calculateTotalDamage(bodyParts: bodyParts, playerStr: number): number {
+  const totalArmor = (playerInt / 5) * playerLevel + armorValue;
+  return parseFloat(totalArmor.toFixed(2));
+}
+
+export function calculateTotalDamage(bodyParts: bodyParts, playerStr: number, strBuff?: number): number {
   const damageValue = Object.values(bodyParts).reduce((total, part) => {
     return total + (part?.damage || 0);
     }, 0);
 
-  return playerStr + damageValue;
+  const totalStr = strBuff ? playerStr + strBuff : playerStr
+  return totalStr + damageValue;
 }
   
-export function calculateTotalMaxDamage(bodyParts: bodyParts, playerStr: number): number {
+export function calculateTotalMaxDamage(bodyParts: bodyParts, playerStr: number, strBuff?: number): number {
   const damageValue = Object.values(bodyParts).reduce((total, part) => {
   return total + (part?.damageMax || 0);
   }, 0);
+  const totalStr = strBuff ? playerStr + strBuff : playerStr
 
-  return playerStr + damageValue;
+  return totalStr + damageValue;
+}  
+export function calculateSummonDmgIncrease(playerCar: number): number {
+  const summonDmg = parseFloat(((playerCar / 100) * 50).toFixed(2))
+  return summonDmg
 }  
 

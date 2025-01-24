@@ -53,23 +53,17 @@ export default function FightScene() {
   const [soundUrl, setSoundUrl] = useState<string | undefined>('');
   const { expTable} = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
-  const [dungeonLevel, setDungeonLevel] = useState<number>(() => {
-    const storedLevel = localStorage.getItem('dungeonLevel');
-    return storedLevel ? parseInt(storedLevel, 10) : 1;
-  });
   const [updateEnemy, setUpdateEnemy] = useState<boolean>(false);
   const {
-    // cargar enemy
     isLoading,
     handleNewEnemyClick,
-  } = useEnemyLoader(player.level, dungeonLevel, updateEnemy, enemy, fightType);
+  } = useEnemyLoader(player.level, player.dungeonLevel, updateEnemy, enemy, fightType);
   const defaultQuests: QuestTree = {
       history: [],
       secondary: [],
       others: [],
   };
   const { handlePostCombatActs } = usePostCombatActions(
-    setDungeonLevel,
     defaultQuests,
     playerActions,
     player,
@@ -264,15 +258,14 @@ export default function FightScene() {
   // if (error)  return <p>Error: {error}</p>;
   return (
     <div className="fight-scene">
-
+        {fightType === 'dungeon' ? <h1 className='dungeonLevel'>Dungeon {player.dungeonLevel}</h1> : <></>}
       <div className="turn-indicator fixedUI ">
-        {fightType === 'dungeon' ? <h1>Dungeon {dungeonLevel}</h1> : <></>}
+
         {currentCharacter && currentCharacter.id  === 'player' ? <h2>Tu turno</h2> : <h2>Turno del enemigo</h2>}
       </div>
       <CombatUI
         opcionesArmas={opcionesArmas ?? []} 
         opcionesSpells = {opcionesSpells ?? []}
-        // turn={turn}
         executeAttack={executeAttack}
         handleMessage={handleMessage}
         pocion={pocion}
@@ -289,11 +282,9 @@ export default function FightScene() {
         </ul>
         <GameBoard
           activateImage = {activateImage}
-          // turn={turn}
           SoundPlayer={SoundPlayer}
           summon={summon}
           setSummon={setSummon}
-          // switchTurn={switchTurn}
           setActivateImage = {setActivateImage}
           setFloatingMessage={setFloatingMessage}
           floatingMessage = {floatingMessage}

@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
 // import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
-import { Creature } from '../stores/types/creatures.ts';
+
 import usePositionStore from '../stores/positionStore.ts';
 import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
 import useTurnStore from '../stores/turnStore.ts';
+import { Summon } from '../stores/types/summons.ts';
 
 
 interface SummonTurnProps {
-  summon: Creature | null;
+  summon: Summon | null;
   // turn: string;
   setCreatureHealth: (health: number) => void;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
@@ -68,16 +69,15 @@ export const useSummonTurn = ({
 
         if (distanceX < 10 && distanceY < 10) {
           const summonAttackTimeout = setTimeout(() => {
+
             const totalAttack = rollDice('1d20') + summon['attacks'][0].bonus;
             if (totalAttack > creature.armorClass && creature.health) {
-              const damageDice = summon['attacks'][0].damage;
-              const damage = rollDice(damageDice);
-
-              setCreatureHealth(Math.max(creature.health - damage, 0));
-
+              const damageBase = summon['attacks'][0].damage;
+              const totalDamage = damageBase + Math.round((damageBase * player.summonDmgIncrease()) / 100)
+              setCreatureHealth(Math.max(creature.health - totalDamage, 0));
               setActionMessages((prev) => [
                 ...prev,
-                `La invocación ha atacado con ${summon['attacks'][0].name} y causó ${damage} puntos de daño.`,
+                `La invocación ha atacado con ${summon['attacks'][0].name} y causó ${totalDamage} puntos de daño.`,
               ]);
             } else {
               setActionMessages((prev) => [...prev, `¡La invocación falló!`]);

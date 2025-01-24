@@ -17,29 +17,29 @@ export interface Player {
   p_MaxMana: number;
   p_LeftMana: number;
   hitDie: number;
-  manaDie: number; // Modificado
-  // armorClass: number;
-  // baseAttackBonus: number;
-  // Eliminé las tiradas de salvación
+  manaDie: number; 
   dodgeDie: number;
   hitRateDie: number;
   hitRate: number;
   dodge: number;
-
+  dungeonLevel: number;
   classFeatures: string[];
   classes: string[];
   selectedPet: Pet;
   petsName: string[];
-  // selectedWeapon: Weapon | null;
   selectedSpell: Spell | null;
-  // selectedArmor: Armor | null; 
   bodyParts: bodyParts;
   accessoriesParts: accessoriesParts;
   inventoryId: string;
   playerMaterial: number;
   stats: Stats;
+  buffs: {
+    [key: string]: {
+      value: number;
+      duration: number; // Duración en turnos, segundos, etc.
+    };
+  };
   leftPoints: number;
-  // statsIncrease: Stats;
   spells: string[];
   movement: number; // nuevo
   turnSpeed: number; //nuevo
@@ -61,8 +61,11 @@ export interface Player {
   readonly totalHitRate: () => number;
   readonly damage: () => number;
   readonly damageMax: () => number;
+  readonly summonDmgIncrease: () => number;
   readonly totalArmorClass: () => number;
-  readonly totalDmgReduction: (enemyLevel) => number; // nuevo
+  readonly totalMArmor: () => number;
+  readonly totalDmgReduction: (enemyLevel) => number; 
+  readonly totalDmgMReduction: (enemyLevel) => number;
   readonly totalBlockValue: () => number; // nuevo
   readonly dodgePercentage: () => number;
   readonly hitRatePercentage: () => number;
@@ -81,8 +84,9 @@ export interface PlayerActions {
   setP_ExpPrevLevel: (p_ExpPrevLevel: number) => void;
   setP_SelectedPet: (selectedPet: Pet) => void;
   resetPlayer: () => void,
-  // setP_SelectedWeapon: (selectedWeapon: Weapon) => void;
-  // setP_SelectedArmor: (selectedArmor: Armor) => void;
+  addBuff: (buffName: string, value: number, duration: number) => void;
+  resetBuffs: () => void,
+  setDungeonLevel: (dungeonLevel) => void;
   setBodyParts: (newBodyParts: bodyParts) => void;
   setP_SelectedBodyPart: (selectedBodyPart: Armor | Weapon) => void;
   addP_SelectedAccesories: (selectedBodyPart: Accessory, index?) => void;

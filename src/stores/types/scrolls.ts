@@ -42,6 +42,7 @@ export interface Scroll {
     deleteable: boolean;
     color: string;
     weight: number;
+    playerOwner: boolean;
   }
   
 export interface ScrollStore {

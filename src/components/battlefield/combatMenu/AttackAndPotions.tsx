@@ -1,7 +1,7 @@
 import React from 'react';
 import { handleHealing } from '../../../utils/handleHealing';
 import usePlayerStore from '../../../stores/playerStore';
-import useInventoryStore from '../../../stores/inventoryStore';
+
 import usePotionStore from '../../../stores/potionsStore';
 import useCreatureStore from '../../../stores/creatures';
 import useTurnStore from '../../../stores/turnStore';
@@ -25,8 +25,8 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
   const findPotion = (name: string) => {
     return potions.find((potion) => potion.name === name);
   };
-  const { player, playerActions } = usePlayerStore();
-  const { inventories, removeItem } = useInventoryStore();
+  const { player} = usePlayerStore();
+
   const { potions } = usePotionStore();
   const { creature } = useCreatureStore();
   const {currentCharacter} = useTurnStore();
@@ -50,16 +50,11 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         <button
           className="rpgui-button newDesign potionsButton"
           id="newDesign"
-          onClick={() =>
-            handleHealing({
-              player,
-              inventories,
-              potions,
-              removeItem,
-              playerActions,
-              handleMessage,
-            })
-          }
+          // onClick={() =>
+          //   handleHealing({
+          //     handleMessage,
+          //   })
+          // }
           disabled={creature.health === 0 || player.p_LeftHealth === 0}
         >
           {

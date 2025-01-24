@@ -199,7 +199,7 @@
         "img": "/img/classes/class_druid.png",
         "faceImg": "/img/classes/faces/charFaceDruid.png",
         "iconImg": "img/icons/druid-icon.png",
-        "initialSpells": ["Spell-006"],
+        "initialSpells": ["Spell-006", "Spell-007"],
         "description": "Un protector de la naturaleza con habilidades mágicas y transformaciones animales."
     },
     {

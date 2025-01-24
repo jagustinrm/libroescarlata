@@ -289,3 +289,9 @@ button:disabled:hover {
   top:38px;
   left: 280px
 }
+
+.dungeonLevel{
+  position: absolute;
+  top:60px;
+  z-index: 1000000;
+}
