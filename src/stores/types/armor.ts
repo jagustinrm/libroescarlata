@@ -57,14 +57,14 @@ export interface Armor {
   playerOwner: boolean;
   actions: {
     equippable: boolean;
-  }
+  };
 }
 
 export interface ArmorStore {
   armors: Armor[]; // Lista de armas
   areArmorsLoaded: boolean; // Indica si las armas están cargadas
-  setArmors: (armor: Armor[]) => void; 
-  addNewArmor: (armor: Armor) => void; 
+  setArmors: (armor: Armor[]) => void;
+  addNewArmor: (armor: Armor) => void;
   addNewsetArmors: (newArmor: Armor) => void;
   updatesetArmors: (updatedArmor: Armor) => void; // Función para actualizar una arma existente
 }

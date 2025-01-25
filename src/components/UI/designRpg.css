@@ -33,8 +33,6 @@
   background-color: Transparent;
 }
 
-
-
 /* button clicked */
 .rpgui-button.down,
 .rpgui-button:active {
@@ -134,12 +132,17 @@ label {
 }
 .rpgui-cursor-grab-open,
 .rpgui-cursor-grab-open * {
-  cursor: url("../designImg/cursor/grab-open.png") 10 0, auto !important; }
+  cursor:
+    url('../designImg/cursor/grab-open.png') 10 0,
+    auto !important;
+}
 
 .rpgui-cursor-grab-close,
 .rpgui-cursor-grab-close * {
-  cursor: url("img/cursor/grab-close.png") 10 0, auto !important; }
-  
+  cursor:
+    url('img/cursor/grab-close.png') 10 0,
+    auto !important;
+}
 
 /* pointer / hand cursor, not important, for all elements that have pointer by-default */
 .rpgui-content a,
@@ -578,12 +581,12 @@ ul.rpgui-dropdown-imp {
   color: yellow;
 }
 
+.rpgui-content input[type='checkbox'].rpgui-checkbox {
+  display: none;
+}
 
-.rpgui-content input[type=checkbox].rpgui-checkbox {
-  display: none; }
-
-.rpgui-content input[type=checkbox].rpgui-checkbox + label {
-  background: url("../designImg/checkbox/checkbox-off.png") no-repeat;
+.rpgui-content input[type='checkbox'].rpgui-checkbox + label {
+  background: url('../designImg/checkbox/checkbox-off.png') no-repeat;
   line-height: 24px;
   display: inline-block;
   background-size: auto 100%;
@@ -591,15 +594,13 @@ ul.rpgui-dropdown-imp {
   height: 45px;
   width: 10px;
   margin-top: 10px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   -webkit-filter: brightness(110%);
-  filter: drop-shadow(3px 3px 0.5px rgba(0, 0, 0, 0.7))
+  filter: drop-shadow(3px 3px 0.5px rgba(0, 0, 0, 0.7));
 }
 
-  
-
-.rpgui-content input[type=checkbox].rpgui-checkbox:checked + label {
-  background: url("../designImg/checkbox/checkbox-on.png") no-repeat;
+.rpgui-content input[type='checkbox'].rpgui-checkbox:checked + label {
+  background: url('../designImg/checkbox/checkbox-on.png') no-repeat;
   line-height: 24px;
   display: inline-block;
   background-size: auto 100%;

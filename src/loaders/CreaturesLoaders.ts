@@ -9,12 +9,11 @@ const CreatureLoader = () => {
     // Solo cargar las criaturas si no han sido cargadas previamente
     if (!areCreaturesLoaded) {
       const loadCreaturesAndBosses = async () => {
-        
         try {
           // Cargar las criaturas normales
           const resCreatures = await fetch('/mocks/creatures.json'); // Ruta del archivo JSON de criaturas normales
           const creaturesData = await resCreatures.json();
-          const baseCreature = creature
+          const baseCreature = creature;
           // Asignarles el rol "creature"
           const creaturesWithRole = creaturesData.map((creature: Creature) => ({
             ...baseCreature,

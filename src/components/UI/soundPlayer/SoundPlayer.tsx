@@ -10,7 +10,7 @@ export interface SoundPlayerProps {
 const SoundPlayer: React.FC<SoundPlayerProps> = ({
   soundType,
   volume = 0.7,
-  soundUrl, 
+  soundUrl,
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { stopCurrentSong } = useSoundStore();

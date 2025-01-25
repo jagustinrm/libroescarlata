@@ -22,12 +22,12 @@ import useScrollStore from '../../stores/scrollStore';
 const ItemShop: React.FC = () => {
   const { player, playerActions } = usePlayerStore();
   const { addItem: addItemToInventory } = useInventoryStore();
-  const {addNewWeapon} = useWeaponStore();
-  const {addNewAccessory} = useAccessoryStore();
-  const {addNewArmor} = useArmorStore();
-  const {addNewScroll} = useScrollStore();
+  const { addNewWeapon } = useWeaponStore();
+  const { addNewAccessory } = useAccessoryStore();
+  const { addNewArmor } = useArmorStore();
+  const { addNewScroll } = useScrollStore();
   const { items } = useItemsStore();
-  const [selectedType, setSelectedType] = useState<keyof Items>("weapons");
+  const [selectedType, setSelectedType] = useState<keyof Items>('weapons');
   const shopId = 1;
   const [hoverInfo, setHoverInfo] = useState<{
     description: string;
@@ -46,24 +46,50 @@ const ItemShop: React.FC = () => {
     itemId: string,
     itemType: keyof (typeof items)[1],
     itemCost: number,
-    item: Item | Weapon | Armor | Accessory | otherItem | Book | Scroll
+    item: Item | Weapon | Armor | Accessory | otherItem | Book | Scroll,
   ) => {
     if (player.playerMaterial >= itemCost) {
-      const updatedItem = { ...item, playerOwner: true } as Item | Weapon | Armor | Accessory | otherItem | Scroll ;
+      const updatedItem = { ...item, playerOwner: true } as
+        | Item
+        | Weapon
+        | Armor
+        | Accessory
+        | otherItem
+        | Scroll;
       addItemToInventory(playerInventoryId, itemType, itemId);
-      if (itemType === "armors") {
+      if (itemType === 'armors') {
         addNewArmor(updatedItem as Armor);
-        saveItemToFirebase(player.name, (updatedItem as Armor).id, updatedItem as Armor, "armors");
-      } else if (itemType === "weapons") {
-        saveItemToFirebase(player.name, (updatedItem as Weapon).id, updatedItem as Weapon, "weapons");
+        saveItemToFirebase(
+          player.name,
+          (updatedItem as Armor).id,
+          updatedItem as Armor,
+          'armors',
+        );
+      } else if (itemType === 'weapons') {
+        saveItemToFirebase(
+          player.name,
+          (updatedItem as Weapon).id,
+          updatedItem as Weapon,
+          'weapons',
+        );
         addNewWeapon(updatedItem as Weapon);
-      } else if (itemType === "accessories") {
-        saveItemToFirebase(player.name, (updatedItem as Accessory).id, updatedItem as Accessory, "accessories");
+      } else if (itemType === 'accessories') {
+        saveItemToFirebase(
+          player.name,
+          (updatedItem as Accessory).id,
+          updatedItem as Accessory,
+          'accessories',
+        );
         addNewAccessory(updatedItem as Accessory);
-      } else if (itemType === "scrolls") {
-        saveItemToFirebase(player.name, (updatedItem as Scroll).id, updatedItem as Scroll, "scrolls");
+      } else if (itemType === 'scrolls') {
+        saveItemToFirebase(
+          player.name,
+          (updatedItem as Scroll).id,
+          updatedItem as Scroll,
+          'scrolls',
+        );
         addNewScroll(updatedItem as Scroll);
-      } 
+      }
       // else if (itemType === "others") {
       //   saveItemToFirebase(player.name, (updatedItem as otherItem).id, updatedItem as otherItem, "others");
       // } else if (itemType === "books") {
@@ -98,25 +124,62 @@ const ItemShop: React.FC = () => {
   const handleMouseLeave = () => {
     setHoverInfo(null);
   };
-  
+
   return (
     <div className="item-shop-container rpgui-container framed-golden-2">
-        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+      <div
+        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+      >
+        <img className="lines" src="/img/UI/horizontallines.png" alt="" />
+        <img className="lines" src="/img/UI/horizontallines.png" alt="" />
         <h1>MERCADO</h1>
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
-        </div>
+        <img className="lines" src="/img/UI/horizontallines.png" alt="" />
+        <img className="lines" src="/img/UI/horizontallines.png" alt="" />
+      </div>
       {/* Botones dinámicos para seleccionar tipo de ítems */}
       <div className="catalog-buttons  rpgui-cursor-point">
-        <img  onClick={() => setSelectedType('weapons')} className='inventoryIcons' src="/img/icons/itemsIcons/weaponsicon.png" alt="" />
-        <img onClick={() => setSelectedType('armors')} className='inventoryIcons' src="/img/icons/itemsIcons/armoricon.png" alt="" />
-        <img onClick={() => setSelectedType('accessories')} className='inventoryIcons' src="/img/icons/itemsIcons/accessoriesicon.png" alt="" />
-        <img onClick={() => setSelectedType('others')}  className='inventoryIcons' src="/img/icons/itemsIcons/foodicon.png" alt="" />
-        <img onClick={() => setSelectedType('potions')} className='inventoryIcons' src="/img/icons/itemsIcons/potionicon.png" alt="" />
-        <img onClick={() => setSelectedType('books')} className='inventoryIcons' src="/img/icons/itemsIcons/bookicon.png" alt="" />
-        <img onClick={() => setSelectedType('scrolls')} className='inventoryIcons' src="/img/icons/itemsIcons/scrollicon.png" alt="" />
+        <img
+          onClick={() => setSelectedType('weapons')}
+          className="inventoryIcons"
+          src="/img/icons/itemsIcons/weaponsicon.png"
+          alt=""
+        />
+        <img
+          onClick={() => setSelectedType('armors')}
+          className="inventoryIcons"
+          src="/img/icons/itemsIcons/armoricon.png"
+          alt=""
+        />
+        <img
+          onClick={() => setSelectedType('accessories')}
+          className="inventoryIcons"
+          src="/img/icons/itemsIcons/accessoriesicon.png"
+          alt=""
+        />
+        <img
+          onClick={() => setSelectedType('others')}
+          className="inventoryIcons"
+          src="/img/icons/itemsIcons/foodicon.png"
+          alt=""
+        />
+        <img
+          onClick={() => setSelectedType('potions')}
+          className="inventoryIcons"
+          src="/img/icons/itemsIcons/potionicon.png"
+          alt=""
+        />
+        <img
+          onClick={() => setSelectedType('books')}
+          className="inventoryIcons"
+          src="/img/icons/itemsIcons/bookicon.png"
+          alt=""
+        />
+        <img
+          onClick={() => setSelectedType('scrolls')}
+          className="inventoryIcons"
+          src="/img/icons/itemsIcons/scrollicon.png"
+          alt=""
+        />
 
         {/* {itemTypes.map((type) => (
           <button
@@ -132,12 +195,12 @@ const ItemShop: React.FC = () => {
 
       {/* Renderizado de ítems basado en el tipo seleccionado */}
       <ItemGrid
-          selectedType={selectedType}
-          items={items}
-          shopId={shopId}
-          handleMouseMove={handleMouseMove}
-          handleMouseLeave={handleMouseLeave}
-          handleBuy={handleBuy}
+        selectedType={selectedType}
+        items={items}
+        shopId={shopId}
+        handleMouseMove={handleMouseMove}
+        handleMouseLeave={handleMouseLeave}
+        handleBuy={handleBuy}
       />
       <BackButton />
       <p>Materiales: {player.playerMaterial} 🛠️</p>
@@ -162,7 +225,11 @@ const ItemShop: React.FC = () => {
           {typeof hoverInfo.armorValue === 'number' && (
             <p>Armadura: {hoverInfo.armorValue}</p>
           )}
-          {hoverInfo.damage && hoverInfo.damageMax && <p>Daño: {hoverInfo.damage} - {hoverInfo.damageMax}</p>}
+          {hoverInfo.damage && hoverInfo.damageMax && (
+            <p>
+              Daño: {hoverInfo.damage} - {hoverInfo.damageMax}
+            </p>
+          )}
           {hoverInfo.levelRequirement && (
             <p>Requiere Nivel: {hoverInfo.levelRequirement}</p>
           )}

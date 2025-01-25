@@ -5,7 +5,9 @@ export const calculateDamageValue = (
   equipLevel: number,
   rarity: string,
 ): number => {
-  const materialMultiplier: { [key in 'Hierro' | 'Acero' | 'Madera' | 'Cristal' | string]: number } = {
+  const materialMultiplier: {
+    [key in 'Hierro' | 'Acero' | 'Madera' | 'Cristal' | string]: number;
+  } = {
     Madera: 1.5,
     Hierro: 3,
     Acero: 5,
@@ -26,7 +28,7 @@ export const calculateDamageValues = (
   material: 'Hierro' | 'Acero' | 'Madera' | 'Cristal' | string,
   equipLevel: number,
   rarity: string,
-): { damage: number, damageMax: number } => {
+): { damage: number; damageMax: number } => {
   // Calcula el daño base usando la función original
   const baseDamage = calculateDamageValue(material, equipLevel, rarity);
 

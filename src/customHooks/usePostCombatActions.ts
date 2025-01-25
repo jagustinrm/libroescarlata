@@ -1,4 +1,3 @@
-
 import checkQuests from '../utils/checkQuests.ts';
 // @ts-expect-error Para que funcione
 import gainExp from '../utils/gainExp.js';
@@ -16,8 +15,8 @@ const usePostCombatActions = (
     if (creature) {
       //***** */ Incrementar el nivel de mazmorra si es un jefe*******
       if (fightType === 'dungeon' && creature.role === 'boss') {
-          const newLevel = player.dungeonLevel + 1
-          playerActions.setDungeonLevel(newLevel);
+        const newLevel = player.dungeonLevel + 1;
+        playerActions.setDungeonLevel(newLevel);
       }
       gainExp(creature.level, playerActions.setPlayerExp, player.playerExp);
 

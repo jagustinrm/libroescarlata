@@ -25,22 +25,22 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
   const findPotion = (name: string) => {
     return potions.find((potion) => potion.name === name);
   };
-  const { player} = usePlayerStore();
+  const { player } = usePlayerStore();
 
   const { potions } = usePotionStore();
   const { creature } = useCreatureStore();
-  const {currentCharacter} = useTurnStore();
+  const { currentCharacter } = useTurnStore();
   return (
     <div className="attackAndPotions">
       <button
         className="rpgui-button newDesign espada"
         id="newDesign"
         onClick={executeAttack}
-        disabled={ 
-          creature.health === 0 || 
-          player.p_LeftHealth === 0 || 
-          !player.bodyParts.manoDerecha || 
-           currentCharacter?.id !== "player"
+        disabled={
+          creature.health === 0 ||
+          player.p_LeftHealth === 0 ||
+          !player.bodyParts.manoDerecha ||
+          currentCharacter?.id !== 'player'
         }
       >
         ⚔️

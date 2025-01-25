@@ -5,8 +5,7 @@ import useScrollStore from '../../stores/scrollStore';
 import { useState } from 'react';
 
 export async function createCustomScroll(): Promise<Scroll | null> {
-  const { spells} = useSpellStore.getState();
-
+  const { spells } = useSpellStore.getState();
 
   if (!spells || spells.length === 0) {
     console.warn('No hay hechizos disponibles para crear un pergamino.');
@@ -17,7 +16,7 @@ export async function createCustomScroll(): Promise<Scroll | null> {
   const selectedSpell = spells[randomIndex];
 
   const id = await generateUniqueId('scrolls');
-  
+
   const numberSpell = selectedSpell.id.replace(/\D+/g, '');
 
   const customScroll = {
@@ -27,29 +26,29 @@ export async function createCustomScroll(): Promise<Scroll | null> {
     img: `img/scrolls/scroll-${numberSpell}.png`, // Usa numberSpell en la URL
     cost: 30,
     deleteable: true,
-    color: "#F8F8F8",
+    color: '#F8F8F8',
     weight: 1,
-    playerOwner: false
+    playerOwner: false,
   };
 
   return customScroll;
 }
 
 export const useCreateCustomScrolls = () => {
-    const [generatedScrolls, setGeneratedScrolls] = useState<Scroll[]>([]);
-  
-    const createScrolls = async (quantity: number) => {
-      const scrolls: Scroll[] = [];
-  
-      for (let i = 0; i < quantity; i++) {
-        const newScroll = await createCustomScroll();
-        if (newScroll) {
-          scrolls.push(newScroll);
-        }
+  const [generatedScrolls, setGeneratedScrolls] = useState<Scroll[]>([]);
+
+  const createScrolls = async (quantity: number) => {
+    const scrolls: Scroll[] = [];
+
+    for (let i = 0; i < quantity; i++) {
+      const newScroll = await createCustomScroll();
+      if (newScroll) {
+        scrolls.push(newScroll);
       }
-  
-      setGeneratedScrolls(scrolls); // Actualiza el estado local
-      return scrolls; // Devuelve las scrolls generadas
-    };
-    return { generatedScrolls, createScrolls };
+    }
+
+    setGeneratedScrolls(scrolls); // Actualiza el estado local
+    return scrolls; // Devuelve las scrolls generadas
   };
+  return { generatedScrolls, createScrolls };
+};

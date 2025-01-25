@@ -22,10 +22,10 @@ export function useEnemyLoader(
   dungeonLevel: number,
   updateEnemy: boolean,
   enemy: string | null,
-  fightType: string
+  fightType: string,
 ) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const {setTurn} = useTurnStore();
+  const { setTurn } = useTurnStore();
   const { creatures, bosses, setCreature } = useCreatureStore();
 
   const filterByLevel = (
@@ -53,24 +53,20 @@ export function useEnemyLoader(
   };
 
   const selectEnemy = () => {
-
     try {
       // Si recibe un enemy carga solamente ese enemy, no busca otro. Modo historia.
       if (enemy) {
-        const storyCreature = creatures.find(c => c.name === enemy)
+        const storyCreature = creatures.find((c) => c.name === enemy);
         if (storyCreature) {
-          console.log(storyCreature)
+          console.log(storyCreature);
           const initialHealth = rollDice(storyCreature.hitPoints);
           setCreature({ ...storyCreature, health: initialHealth });
           setIsLoading(false);
-          return
+          return;
         }
-        
-
       }
 
       if (fightType === 'dungeon') {
-
         const isBoss = Math.random() < BOSS_PROBABILITY;
 
         if (isBoss && bosses.length > 0) {
@@ -101,14 +97,14 @@ export function useEnemyLoader(
     updateEnemy,
     setUpdateEnemy,
   }: HandleNewEnemyClickParams) => {
-    const {setPlayerPosition, setEnemyPosition,} = usePositionStore.getState();
+    const { setPlayerPosition, setEnemyPosition } = usePositionStore.getState();
     handleMessage(`${player.name} busca un nuevo enemigo...`, 'success', false);
     setTimeout(() => {
       // setTurn('player');
-      setTurn('player')
+      setTurn('player');
       setUpdateEnemy(!updateEnemy);
-      setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 -  20 / 1.5 });
-      setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 -  20 / 1.5 });
+      setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 - 20 / 1.5 });
+      setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 - 20 / 1.5 });
     }, 1000);
   };
 

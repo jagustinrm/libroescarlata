@@ -1,4 +1,4 @@
-import { WeaponType } from "../stores/types/weapons";
+import { WeaponType } from '../stores/types/weapons';
 
 export default function assignRangeToItem(itemType: WeaponType) {
   const rangeOfWeapons: Record<WeaponType, number> = {

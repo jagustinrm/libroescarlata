@@ -1,13 +1,19 @@
-export type WeaponType = 'Espada' | 'Hacha' | 'Lanza' | 'Arco' | 'Daga' | 'Bastón';
+export type WeaponType =
+  | 'Espada'
+  | 'Hacha'
+  | 'Lanza'
+  | 'Arco'
+  | 'Daga'
+  | 'Bastón';
 
 export interface Weapon {
   id: string; // Identificador único del arma
   name: string; // Nombre del arma
   type: string; // Tipo de arma (Cuerpo a cuerpo, Distancia)
-  damage:  number; // Daño del arma (por ejemplo, "1d8")
+  damage: number; // Daño del arma (por ejemplo, "1d8")
   damageMax: number;
   critical: string; // Crítico del arma (por ejemplo, "19-20/x2")
-  weight: number; 
+  weight: number;
   cost: number;
   description: string; // Descripción del arma
   range?: number;
@@ -16,18 +22,18 @@ export interface Weapon {
   bodyPart: string;
   material: 'Metal' | 'Madera' | string; // Otros materiales
   rarity:
-  | 'Chatarra'
-  | 'Común'
-  | 'Poco común'
-  | 'Raro'
-  | 'Épico'
-  | 'Legendario'
-  | 'Mítico'
-  | 'Artefacto'
-  | 'Corrupto'
-  | 'Antiguo'
-  | 'Prototipo'
-  | 'Irónicas';
+    | 'Chatarra'
+    | 'Común'
+    | 'Poco común'
+    | 'Raro'
+    | 'Épico'
+    | 'Legendario'
+    | 'Mítico'
+    | 'Artefacto'
+    | 'Corrupto'
+    | 'Antiguo'
+    | 'Prototipo'
+    | 'Irónicas';
   equipLevel?: number;
   prefixes?: string[];
   suffixes?: string[];
@@ -63,7 +69,7 @@ export interface Weapon {
   soundEffect: string;
   actions: {
     equippable: boolean;
-  }
+  };
 }
 
 export interface WeaponStore {

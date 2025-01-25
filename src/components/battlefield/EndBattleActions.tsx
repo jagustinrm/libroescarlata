@@ -39,28 +39,27 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
   return (
     <div>
       <div className="container-endBattle fixedUI ">
-        {fightType !== 'story' &&
-                <button
-                onClick={() =>
-                  handleNewEnemyClick({
-                    player,
-                    handleMessage,
-                    // setTurn,
-                    updateEnemy,
-                    setUpdateEnemy,
-                    fightType,
-                  })
-                }
-                className="rpgui-button endBattleButton"
-              >
-                ⚔️ Seguir
-              </button>
-        }
-        {(fightType === 'normal' || 
-        creature.role === 'boss' || 
-        fightType === 'story' ||
-        fightType === 'travel'
-        ) && (
+        {fightType !== 'story' && (
+          <button
+            onClick={() =>
+              handleNewEnemyClick({
+                player,
+                handleMessage,
+                // setTurn,
+                updateEnemy,
+                setUpdateEnemy,
+                fightType,
+              })
+            }
+            className="rpgui-button endBattleButton"
+          >
+            ⚔️ Seguir
+          </button>
+        )}
+        {(fightType === 'normal' ||
+          creature.role === 'boss' ||
+          fightType === 'story' ||
+          fightType === 'travel') && (
           <button
             className="rpgui-button endBattleButton"
             onClick={() =>

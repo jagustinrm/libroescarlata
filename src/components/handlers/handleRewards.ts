@@ -1,6 +1,6 @@
-import usePlayerStore from "../../stores/playerStore";
-import useQuestStore from "../../stores/questStore";
-import { Quest, QuestTree } from "../../stores/types/quests";
+import usePlayerStore from '../../stores/playerStore';
+import useQuestStore from '../../stores/questStore';
+import { Quest, QuestTree } from '../../stores/types/quests';
 
 export const handleQuestReward = (quest: Quest, category: keyof QuestTree) => {
   const { player, playerActions } = usePlayerStore.getState();
@@ -24,6 +24,6 @@ export const handleQuestReward = (quest: Quest, category: keyof QuestTree) => {
   updateQuest(quest.name, { received: true }, category); // Cambia "history" por la categoría correspondiente
 
   console.log(
-    `Recompensa obtenida: ${quest.reward} materiales. Nuevos materiales: ${newMaterial}`
+    `Recompensa obtenida: ${quest.reward} materiales. Nuevos materiales: ${newMaterial}`,
   );
 };

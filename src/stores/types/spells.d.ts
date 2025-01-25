@@ -2,8 +2,8 @@ export interface Spell {
   name: string;
   id: string;
   level: string;
-  damage?: number| null;
-  damageMax?: number| null;
+  damage?: number | null;
+  damageMax?: number | null;
   healingAmount?: string | null; // Opcional: Hechizos que curan (Ej: "1d8+1")
   healingDice?: string | null; // Opcional: Dados de curación escalables (Ej: "1d8/nivel")
   range: number; // Ej: "30 m"
@@ -25,7 +25,7 @@ export interface Spell {
   concentration: boolean; // Indica si requiere concentración
   ritual: boolean; // Si puede lanzarse como ritual
   materialCost?: { [key: string]: any }; // Ej: { objeto: "rubí", cantidad: 1 }
-  scalingDamage?: number; 
+  scalingDamage?: number;
   scalingRange?: string; // Opcional: Cómo escala el rango con el nivel
   maxLevelEffect?: number; // Opcional: Nivel máximo que afecta
   condition?: string; // Opcional: Condición adicional (Ej: "Prendido en llamas")

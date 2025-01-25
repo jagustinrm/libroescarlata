@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import useDialogStore from "../../stores/dialogStore";
-import BackButton from "../UI/BackButton";
-import { Dialog, DialogLine } from "../../stores/types/dialog";
-import { useNavigate } from "react-router-dom";
-import useGlobalState from "../../customHooks/useGlobalState";
-import { handleOptionSelect, handleContinue  } from "../handlers/dialogHandlers";
-import ButtonEdited from "../UI/ButtonEdited";
+import React, { useEffect, useState } from 'react';
+import useDialogStore from '../../stores/dialogStore';
+import BackButton from '../UI/BackButton';
+import { Dialog, DialogLine } from '../../stores/types/dialog';
+import { useNavigate } from 'react-router-dom';
+import useGlobalState from '../../customHooks/useGlobalState';
+import { handleOptionSelect, handleContinue } from '../handlers/dialogHandlers';
+import ButtonEdited from '../UI/ButtonEdited';
 interface NPCDialogProps {
-  dialogId: string | 0 | undefined; 
+  dialogId: string | 0 | undefined;
   onDialogEnd?: () => void; // Callback cuando el diálogo termina
   chapterIndex: number | undefined;
   storyIndex: number | undefined;
@@ -26,15 +26,16 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
   const [currentLine, setCurrentLine] = useState<DialogLine | null>(null);
   const [currentDialog, setCurrentDialog] = useState<Dialog | null>(null);
   const [currentEvent, setCurrentEvent] = useState<any | null>(null); // Estado para el evento
-  const [displayedText, setDisplayedText] = useState(""); // Texto progresivo
+  const [displayedText, setDisplayedText] = useState(''); // Texto progresivo
   const [isTextCompleted, setIsTextCompleted] = useState(false); // Estado de finalización del texto
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null); // Estado para guardar el ID del intervalo
   const navigate = useNavigate();
-  const { player, playerActions, stories, inventories, removeItem } = useGlobalState();
+  const { player, playerActions, stories, inventories, removeItem } =
+    useGlobalState();
   const [travelCounter, setTravelCounter] = useState<number>(0);
 
   useEffect(() => {
-    if (!dialogId) return
+    if (!dialogId) return;
     const dialog = getDialogById(dialogId);
     if (dialog) {
       setCurrentDialog(dialog);
@@ -47,36 +48,33 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
   useEffect(() => {
     if (!currentDialog) return;
 
-    const storedEvent = localStorage.getItem("updatedEvent");
-    const storedTravel = localStorage.getItem("updateTravel");
+    const storedEvent = localStorage.getItem('updatedEvent');
+    const storedTravel = localStorage.getItem('updateTravel');
     if (storedTravel) {
-
       const updateTravel = JSON.parse(storedTravel);
-      const index =
-      currentDialog.lines.findIndex(
-        (line) => line.event === updateTravel.id
-      )
+      const index = currentDialog.lines.findIndex(
+        (line) => line.event === updateTravel.id,
+      );
       setCurrentLineIndex(index !== -1 ? index : currentLineIndex);
-      localStorage.removeItem("updateTravel");
+      localStorage.removeItem('updateTravel');
     }
 
     if (storedEvent) {
       const updatedEvent = JSON.parse(storedEvent);
 
       setCurrentEvent(updatedEvent);
-      if (updatedEvent.status === "completed" && currentDialog) {
+      if (updatedEvent.status === 'completed' && currentDialog) {
         playerActions.updateStoryProgress(storyId, {
           completedEvents: [updatedEvent.id],
         });
 
         const nextIndex =
           currentDialog.lines.findIndex(
-            (line) => line.event === updatedEvent.id
+            (line) => line.event === updatedEvent.id,
           ) + 1;
         setCurrentLineIndex(nextIndex !== -1 ? nextIndex : currentLineIndex);
       }
-      localStorage.removeItem("updatedEvent");
-
+      localStorage.removeItem('updatedEvent');
     }
   }, [currentDialog]);
 
@@ -88,7 +86,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
 
   useEffect(() => {
     // Cargar contador de viajes desde localStorage
-    const savedCounter = localStorage.getItem("travelCounter");
+    const savedCounter = localStorage.getItem('travelCounter');
     setTravelCounter(savedCounter ? parseInt(savedCounter, 10) : 0);
   }, []);
 
@@ -139,7 +137,7 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
 
   useEffect(() => {
     if (currentLine?.text) {
-      setDisplayedText("");
+      setDisplayedText('');
       setIsTextCompleted(false);
 
       const text = currentLine.text;
@@ -176,68 +174,69 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
   const findItem = (id: string): number => {
     const inventory = inventories[player.inventoryId];
     if (!inventory || !inventory.others) return 0; // Manejo de casos en que no existe el inventario
-  
-    const countItems = inventory.others.filter(item => item === id).length;
+
+    const countItems = inventory.others.filter((item) => item === id).length;
     return countItems;
   };
   const verifyEvent = () => {
     // Busca el índice del progreso en la historia actual
     const actualStoryIndex = player.storyProgress.findIndex(
-      (sp) => sp.storyId === storyId
+      (sp) => sp.storyId === storyId,
     );
-  
+
     if (actualStoryIndex === -1) {
       // Si no hay progreso en la historia, el evento se considera incompleto
       return false;
     }
     const actualStory = player.storyProgress[actualStoryIndex];
-    const isEventCompleted = actualStory.completedEvents.includes(currentEvent.id);
-  
+    const isEventCompleted = actualStory.completedEvents.includes(
+      currentEvent.id,
+    );
+
     // Retorna si el evento está completo
     return isEventCompleted;
   };
   const speaker = currentLine?.speaker?.toLowerCase();
-  const isSpeakerNarrator = speaker === "narrador";
-  const speakerImage = !isSpeakerNarrator
-    ? `/img/NPC/${speaker}.png`
-    : null;
+  const isSpeakerNarrator = speaker === 'narrador';
+  const speakerImage = !isSpeakerNarrator ? `/img/NPC/${speaker}.png` : null;
 
-    return (
-      <div className="npc-dialog" onClick={handleDialogClick}>
-              {!isSpeakerNarrator && speakerImage && (
-          <img
-            src={speakerImage}
-            alt={currentLine?.speaker}
-            className="npc-speaker-image"
-          />
-        )}
-        <div
-          className="dialog-bar rpgui-cursor-point"
-          onClick={!currentEvent || verifyEvent() ? handleContinueWrapper : undefined}
-        >
-          <div className="dialog-bar speakerLine">
-            <p className="speakerLine">{currentLine.speaker}</p>
-          </div>
-          <p>{displayedText}</p>
+  return (
+    <div className="npc-dialog" onClick={handleDialogClick}>
+      {!isSpeakerNarrator && speakerImage && (
+        <img
+          src={speakerImage}
+          alt={currentLine?.speaker}
+          className="npc-speaker-image"
+        />
+      )}
+      <div
+        className="dialog-bar rpgui-cursor-point"
+        onClick={
+          !currentEvent || verifyEvent() ? handleContinueWrapper : undefined
+        }
+      >
+        <div className="dialog-bar speakerLine">
+          <p className="speakerLine">{currentLine.speaker}</p>
         </div>
-  
-        {currentEvent && !verifyEvent() ? (
-          <div className="dialog-options">
-            {currentEvent.options.map((option: any) => (
-      
-              <div key={option.id}>
-                {option.requiresItem &&
-                  option.requiresItem.map((i: any) => (
-                    <p key={i.id}>
-                      {i.name}: {findItem(i.id)}/{i.cant}
-                    </p>
-                  ))}
-                {option.outcome === "travel" && (
-                  <p>
-                    Días viajados: {travelCounter}/{option.days || "5"}
+        <p>{displayedText}</p>
+      </div>
+
+      {currentEvent && !verifyEvent() ? (
+        <div className="dialog-options">
+          {currentEvent.options.map((option: any) => (
+            <div key={option.id}>
+              {option.requiresItem &&
+                option.requiresItem.map((i: any) => (
+                  <p key={i.id}>
+                    {i.name}: {findItem(i.id)}/{i.cant}
                   </p>
-                )}
-                {/* <button
+                ))}
+              {option.outcome === 'travel' && (
+                <p>
+                  Días viajados: {travelCounter}/{option.days || '5'}
+                </p>
+              )}
+              {/* <button
                   onClick={() => option.outcome && handleOptionSelectWrapper(option)}
                   className="dialog-option"
                   disabled={
@@ -248,43 +247,51 @@ const NPCDialog: React.FC<NPCDialogProps> = ({
                 >
                   {option.text}
                 </button> */}
-                
-
-              </div>
-   
-            ))}
-            <div style={{display: 'flex', flexDirection: 'row', marginBottom: '5px', justifyContent: 'center'}}>
-              {currentEvent.options.map((option: any) => (
-                  <div style={{ marginTop: '5px'}}>
-                  <ButtonEdited
-                    label= {option.text}
-                    width="130px"
-                    height="33px"
-                    onClick={() => option.outcome && handleOptionSelectWrapper(option)}
-                    disabled={
-                      option.requiresItem?.some(
-                        (i: any) => findItem(i.id) < i.cant
-                      ) 
-                    }
-                  />
-                  </div>
-                ))}
             </div>
+          ))}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              marginBottom: '5px',
+              justifyContent: 'center',
+            }}
+          >
+            {currentEvent.options.map((option: any) => (
+              <div style={{ marginTop: '5px' }}>
+                <ButtonEdited
+                  label={option.text}
+                  width="130px"
+                  height="33px"
+                  onClick={() =>
+                    option.outcome && handleOptionSelectWrapper(option)
+                  }
+                  disabled={option.requiresItem?.some(
+                    (i: any) => findItem(i.id) < i.cant,
+                  )}
+                />
+              </div>
+            ))}
           </div>
-        ) : (
-          currentLineIndex !== currentDialog.lines.length - 1 && (
-            <img
-              className="indicator-arrow-dialog rpgui-cursor-point"
-              src="/img/UI/indicator-arrow.png"
-              alt="Continuar"
-              onClick={!currentEvent || currentEvent && verifyEvent()  ? handleContinueWrapper : undefined}
-              />
-          )
-        )}
-  
-        <BackButton />
-      </div>
-    );
-  };
-  
-  export default NPCDialog;
+        </div>
+      ) : (
+        currentLineIndex !== currentDialog.lines.length - 1 && (
+          <img
+            className="indicator-arrow-dialog rpgui-cursor-point"
+            src="/img/UI/indicator-arrow.png"
+            alt="Continuar"
+            onClick={
+              !currentEvent || (currentEvent && verifyEvent())
+                ? handleContinueWrapper
+                : undefined
+            }
+          />
+        )
+      )}
+
+      <BackButton />
+    </div>
+  );
+};
+
+export default NPCDialog;

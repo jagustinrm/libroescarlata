@@ -12,7 +12,6 @@ import { FloatingMessageProps } from '../../stores/types/others';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
 import useTurnStore from '../../stores/turnStore';
 
-
 interface Button {
   x: number;
   y: number;
@@ -27,9 +26,10 @@ interface GameBoardProps {
   // switchTurn: () => void;
   activateImage: boolean;
   setActivateImage: React.Dispatch<React.SetStateAction<boolean>>;
-  setFloatingMessage: React.Dispatch<React.SetStateAction<FloatingMessageProps  | null>>;
+  setFloatingMessage: React.Dispatch<
+    React.SetStateAction<FloatingMessageProps | null>
+  >;
   floatingMessage: FloatingMessageProps | null;
-
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -53,10 +53,15 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { creature } = useCreatureStore();
   const { weapons } = useWeaponStore();
   const { spells } = useSpellStore();
-  const {playerPosition, enemyPosition, summonPosition, petPosition} = usePositionStore();
-  const {currentCharacter} = useTurnStore();
-  const weaponFiltered = weapons?.find((w) => w.name === player.bodyParts.manoDerecha.name);
-  const spellFiltered = spells?.find((s) => s.name === player.selectedSpell?.name);
+  const { playerPosition, enemyPosition, summonPosition, petPosition } =
+    usePositionStore();
+  const { currentCharacter } = useTurnStore();
+  const weaponFiltered = weapons?.find(
+    (w) => w.name === player.bodyParts.manoDerecha.name,
+  );
+  const spellFiltered = spells?.find(
+    (s) => s.name === player.selectedSpell?.name,
+  );
   const spellRange = spellFiltered?.range || 5;
   const weaponRange = weaponFiltered?.range || 5; // Rango del arma seleccionada
   // Generar botones al montar el componente
@@ -172,24 +177,26 @@ const GameBoard: React.FC<GameBoardProps> = ({
               if (
                 button.type === 'main' &&
                 isButtonHighlighted(button) &&
-                currentCharacter && currentCharacter.id === 'player'
+                currentCharacter &&
+                currentCharacter.id === 'player'
               ) {
                 handleAction('move', button);
               }
             }}
           />
         ))}
-        {player.selectedPet &&
-        <img
-        src={player.selectedPet.img}
-        alt="pet"
-        className="petChar"
-        style={{
-          transform: `translate(${petPosition.x}vw, ${petPosition.y}vw) rotateX(-20deg) rotateZ(-45deg)`,
-          pointerEvents: 'none',
-        }}
-      />} 
+        {player.selectedPet && (
           <img
+            src={player.selectedPet.img}
+            alt="pet"
+            className="petChar"
+            style={{
+              transform: `translate(${petPosition.x}vw, ${petPosition.y}vw) rotateX(-20deg) rotateZ(-45deg)`,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
+        <img
           src={player.classImg}
           alt="player"
           className="playerChar"
@@ -208,8 +215,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
             pointerEvents: 'none',
           }}
         />
-        {activateImage && 
-            <img
+        {activateImage && (
+          <img
             src="/img/assets/combat/swordCut.gif"
             alt="AttackImg"
             className="enemy"
@@ -217,8 +224,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
               transform: `translate(${enemyPosition.x}vw, ${enemyPosition.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
               pointerEvents: 'none',
             }}
-            />
-        }
+          />
+        )}
 
         {summon && (
           <img
@@ -233,13 +240,13 @@ const GameBoard: React.FC<GameBoardProps> = ({
         )}
         {playSound && <SoundPlayer soundType="charStep" volume={1} />}
         {floatingMessage && (
-        <FloatingMessage
-          message={floatingMessage.message}
-          onComplete={() => setFloatingMessage(null)}
-          position= {floatingMessage.position }
-          textColor = {floatingMessage.textColor}
-        />
-      )}
+          <FloatingMessage
+            message={floatingMessage.message}
+            onComplete={() => setFloatingMessage(null)}
+            position={floatingMessage.position}
+            textColor={floatingMessage.textColor}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Quest, QuestStore } from "../stores/types/quests";
+import { Quest, QuestStore } from '../stores/types/quests';
 
 export default function checkQuestsFinished(quests: QuestStore) {
   // Obtener las misiones completadas desde el localStorage

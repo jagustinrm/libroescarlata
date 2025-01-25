@@ -35,9 +35,8 @@
   width: 80%;
   margin-top: 50px;
   gap: 60px;
-  
 }
-.nameHeader{
+.nameHeader {
   margin-top: 0px;
   display: flex;
   flex-direction: column;
@@ -117,11 +116,12 @@ a:hover {
   margin-bottom: 0px;
   margin-top: 0px;
 }
-.classIcons{
+.classIcons {
   width: 90px;
 }
 .classIcons:hover {
-  -webkit-filter: brightness(120%);}
+  -webkit-filter: brightness(120%);
+}
 
 @media (max-width: 480px) {
   .containerClases {
@@ -132,7 +132,6 @@ a:hover {
     position: absolute;
     top: 0;
     left: 0;
-    
   }
 
   .containerClases h1 {
@@ -149,20 +148,17 @@ a:hover {
     grid-template-columns: 1fr; /* Botones en una sola columna */
     gap: 20px; /* Reducir el espacio entre botones */
     margin-top: 20px;
-    
   }
 
   .botonesClases {
     padding: 8px 16px; /* Ajustar padding */
     font-size: 0.9rem; /* Reducir tamaño de texto */
-
   }
 
   .classDetailsContainer {
     width: 100%; /* Ocupa todo el ancho disponible */
     height: 50%;
     padding: 10px; /* Añadir espacio interno */
-
   }
 
   .classDetailsContainer img {
@@ -181,7 +177,8 @@ a:hover {
     margin: 5px 0;
   }
 
-  .redFont, .blueFont {
+  .redFont,
+  .blueFont {
     font-size: 0.9rem; /* Reducir tamaño de fuente */
   }
 }
@@ -201,7 +198,6 @@ a:hover {
     text-align: center;
     width: 600px;
     height: 500px;
-    
   }
   .classDetailsContainer img {
     width: 150px;
@@ -214,7 +210,7 @@ a:hover {
     margin-bottom: 10px;
     margin-top: 5px;
   }
-  .buttonsClasses{
+  .buttonsClasses {
     gap: 0px;
   }
 }

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 interface Message {
   sender: string;
@@ -7,17 +7,17 @@ interface Message {
 }
 
 const Chat: React.FC = () => {
-  const [userInput, setUserInput] = useState<string>("");
+  const [userInput, setUserInput] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const API_KEY = "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";  // Reemplaza con tu API Key de Hugging Face
+  const API_KEY = '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'; // Reemplaza con tu API Key de Hugging Face
 
   const sendMessage = async () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://api-inference.huggingface.co/models/gpt2",  // O el modelo que estés usando
+        'https://api-inference.huggingface.co/models/gpt2', // O el modelo que estés usando
         {
           inputs: userInput,
         },
@@ -25,18 +25,18 @@ const Chat: React.FC = () => {
           headers: {
             Authorization: `Bearer ${API_KEY}`,
           },
-        }
+        },
       );
 
       const npcResponse = response.data[0].generated_text;
       setMessages([
         ...messages,
-        { sender: "User", text: userInput },
-        { sender: "NPC", text: npcResponse },
+        { sender: 'User', text: userInput },
+        { sender: 'NPC', text: npcResponse },
       ]);
-      setUserInput("");
+      setUserInput('');
     } catch (error) {
-      console.error("Error al enviar el mensaje", error);
+      console.error('Error al enviar el mensaje', error);
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,7 @@ const Chat: React.FC = () => {
         placeholder="Escribe tu mensaje..."
       />
       <button onClick={sendMessage} disabled={loading}>
-        {loading ? "Cargando..." : "Enviar"}
+        {loading ? 'Cargando...' : 'Enviar'}
       </button>
     </div>
   );

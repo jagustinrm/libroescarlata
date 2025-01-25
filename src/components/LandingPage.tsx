@@ -13,7 +13,7 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
-  
+
   const handleSaveName = async () => {
     const playerId = inputName || 'guest-player'; // Usa "guest-player" si el input está vacío
     const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
@@ -44,12 +44,12 @@ const LandingPage: React.FC = () => {
     if (playerName) {
       if (playerName === '') {
         const guestPlayer = 'guest-player';
-        FirebaseItemsLoader()
+        FirebaseItemsLoader();
         navigate(`/loadPlayer/${guestPlayer}`);
       }
       navigate(`/loadPlayer/${playerName}`);
     } else {
-      FirebaseItemsLoader()
+      FirebaseItemsLoader();
       alert('Por favor, ingresa un nombre de jugador.');
     }
   };
@@ -59,10 +59,10 @@ const LandingPage: React.FC = () => {
 
   localStorage.removeItem('playerState');
   localStorage.removeItem('inventoryState');
-  
+
   useEffect(() => {
-    playerActions.resetPlayer()
-  }, [])
+    playerActions.resetPlayer();
+  }, []);
 
   return (
     <>
@@ -102,10 +102,9 @@ const LandingPage: React.FC = () => {
                 height="0px"
                 onClick={handleSaveName}
               />
-
             </div>
-            <div className='createAccount'>
-            <p>¿No tenés cuenta?{' '}  </p>
+            <div className="createAccount">
+              <p>¿No tenés cuenta? </p>
               <p className="linkButton rpgui-cursor-point" onClick={toggleView}>
                 Cargar personaje
               </p>
@@ -130,13 +129,15 @@ const LandingPage: React.FC = () => {
                 onClick={handleSubmit}
               />
             </div>
-            <div className='createAccount'>
-            <p>¿No tienes una cuenta?{' '}</p>
-              <p className="linkButton rpgui-cursor-point " onClick={toggleView}>
+            <div className="createAccount">
+              <p>¿No tienes una cuenta? </p>
+              <p
+                className="linkButton rpgui-cursor-point "
+                onClick={toggleView}
+              >
                 Crear cuenta
               </p>
             </div>
-
           </>
         )}
       </div>

@@ -49,12 +49,12 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   return (
     <div className="button-edited-container rpgui-cursor-point">
       <div
-        style={{ 
-          width, 
-          height, 
+        style={{
+          width,
+          height,
           filter: disabled ? 'grayscale(100%)' : 'none', // Filtro blanco y negro
           pointerEvents: disabled ? 'none' : 'auto', // Evitar clics cuando está deshabilitado
-          cursor: disabled? 'cursor: not-allowed': 'auto'
+          cursor: disabled ? 'cursor: not-allowed' : 'auto',
         }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

@@ -25,22 +25,38 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     'Prototipo',
     'Irónicas',
   ];
-  const weaponTypes: WeaponType[] = ['Espada', 'Hacha', 'Lanza', 'Arco', 'Daga', 'Bastón'];
+  const weaponTypes: WeaponType[] = [
+    'Espada',
+    'Hacha',
+    'Lanza',
+    'Arco',
+    'Daga',
+    'Bastón',
+  ];
   const materials = ['Hierro', 'Acero', 'Madera', 'Cristal'];
   const prefixes = ['Feroz', 'Ágil', 'Implacable'];
   const suffixes = ['del Dragón', 'de la Tormenta', 'de las Sombras'];
-  const effects = ['Aumenta el daño crítico', 'Genera electricidad', 'Inmune al hielo'];
-  
-  const randomWeaponType = weaponTypes[Math.floor(Math.random() * weaponTypes.length)];
-  const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
+  const effects = [
+    'Aumenta el daño crítico',
+    'Genera electricidad',
+    'Inmune al hielo',
+  ];
+
+  const randomWeaponType =
+    weaponTypes[Math.floor(Math.random() * weaponTypes.length)];
+  const randomMaterial =
+    materials[Math.floor(Math.random() * materials.length)];
   const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
   const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
   const randomRarity = rarities[Math.floor(Math.random() * rarities.length)];
   const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-  const uniqueId = await generateUniqueId("weapons");
-  const equipLevel = Math.max(1, playerLevel - 5 + Math.floor(Math.random() * 11));
+  const uniqueId = await generateUniqueId('weapons');
+  const equipLevel = Math.max(
+    1,
+    playerLevel - 5 + Math.floor(Math.random() * 11),
+  );
   const cost = calculateCost(equipLevel, randomRarity);
-  const {damage, damageMax} = calculateDamageValues(
+  const { damage, damageMax } = calculateDamageValues(
     randomMaterial,
     equipLevel,
     randomRarity,
@@ -80,7 +96,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     img: imgUrl,
     weight: Math.floor(Math.random() * 10) + 1,
     cost,
-    bodyPart: "manoDerecha",
+    bodyPart: 'manoDerecha',
     description: 'Una poderosa arma con efectos mágicos.',
     type: randomWeaponType,
     material: randomMaterial,
@@ -88,7 +104,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     damage,
     damageMax,
     range: assignRangeToItem(randomWeaponType),
-    critical: "x2",
+    critical: 'x2',
     color,
     equipLevel,
     levelRequirement: Math.max(1, equipLevel - 2),
@@ -100,10 +116,10 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     questReward: false,
     deleteable: true,
     playerOwner: false,
-    soundEffect: "modificar",
+    soundEffect: 'modificar',
     actions: {
-        equippable: true
-      } 
+      equippable: true,
+    },
   };
 };
 

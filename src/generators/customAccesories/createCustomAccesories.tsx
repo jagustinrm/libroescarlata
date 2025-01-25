@@ -8,7 +8,9 @@ import { generateRandomStatRequirements } from '../generateRandomStatReq';
 import { generateBonusEffects } from '../generateBonusEffects';
 import { getRarityColor } from '../getRarityColor';
 
-const generateRandomAccessory = async (playerLevel: number): Promise<Accessory> => {
+const generateRandomAccessory = async (
+  playerLevel: number,
+): Promise<Accessory> => {
   const rarities: Accessory['rarity'][] = [
     'Chatarra',
     'Común',
@@ -27,25 +29,32 @@ const generateRandomAccessory = async (playerLevel: number): Promise<Accessory> 
   const materials = ['Hierro', 'Acero', 'Oro', 'Cristal'];
   const prefixes = ['Brillante', 'Místico', 'Resistente'];
   const suffixes = ['de la Luz', 'de la Sombra', 'del Trueno'];
-  const effects = ['Aumenta la resistencia al fuego', 'Incrementa la agilidad', 'Regenera maná lentamente'];
+  const effects = [
+    'Aumenta la resistencia al fuego',
+    'Incrementa la agilidad',
+    'Regenera maná lentamente',
+  ];
 
-  const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
-  const randomAccessoryType = accessoryTypes[Math.floor(Math.random() * accessoryTypes.length)];
+  const randomMaterial =
+    materials[Math.floor(Math.random() * materials.length)];
+  const randomAccessoryType =
+    accessoryTypes[Math.floor(Math.random() * accessoryTypes.length)];
   const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
   const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
   const randomRarity = rarities[Math.floor(Math.random() * rarities.length)];
   const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-  const uniqueId = await generateUniqueId("accessories");
-  const equipLevel = Math.max(1, playerLevel - 5 + Math.floor(Math.random() * 11));
+  const uniqueId = await generateUniqueId('accessories');
+  const equipLevel = Math.max(
+    1,
+    playerLevel - 5 + Math.floor(Math.random() * 11),
+  );
   const cost = calculateCost(equipLevel, randomRarity);
 
   const color = getRarityColor(randomRarity);
 
-
-  const images = import.meta.glob('/src/assets/img/accessories/**/*.png') as Record<
-  string,
-  () => Promise<{ default: string }>
->;
+  const images = import.meta.glob(
+    '/src/assets/img/accessories/**/*.png',
+  ) as Record<string, () => Promise<{ default: string }>>;
   const getImageUrl = async (): Promise<string> => {
     const paths = [
       `/src/assets/img/accessories/${randomAccessoryType}-${randomMaterial}-${randomRarity}.png`,
@@ -89,20 +98,26 @@ const generateRandomAccessory = async (playerLevel: number): Promise<Accessory> 
     color,
     playerOwner: false,
     actions: {
-        equippable: true
-      }
+      equippable: true,
+    },
   };
 };
 
 const CreateCustomAccessory = () => {
-  const [generatedAccessory, setGeneratedAccessory] = useState<Accessory | null>(null);
+  const [generatedAccessory, setGeneratedAccessory] =
+    useState<Accessory | null>(null);
   const player = usePlayerStore((state) => state.player);
 
   const createAccessory = async () => {
     const newAccessory = await generateRandomAccessory(player.level);
     setGeneratedAccessory(newAccessory);
     try {
-      await saveItemToFirebase(player.name, newAccessory.id, newAccessory, "accessories");
+      await saveItemToFirebase(
+        player.name,
+        newAccessory.id,
+        newAccessory,
+        'accessories',
+      );
       console.log('Accesorio guardado correctamente en Firebase.');
     } catch (error) {
       console.error('Error al guardar el accesorio en Firebase:', error);
@@ -113,7 +128,9 @@ const CreateCustomAccessory = () => {
 };
 
 export const CreateCustomAccessories = () => {
-  const [generatedAccessories, setGeneratedAccessories] = useState<Accessory[]>([]);
+  const [generatedAccessories, setGeneratedAccessories] = useState<Accessory[]>(
+    [],
+  );
   const player = usePlayerStore((state) => state.player);
 
   const createAccessories = async (count: number) => {

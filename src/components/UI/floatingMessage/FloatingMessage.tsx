@@ -33,13 +33,14 @@ const FloatingMessage: React.FC<FloatingMessageProps> = ({
     <div
       className={`floating-message ${visible ? 'visible' : 'hidden'}`}
       style={{
-        ...position && { // Solo aplica posición si `position` está definido
+        ...(position && {
+          // Solo aplica posición si `position` está definido
           bottom: 'auto',
           left: 'auto',
-          transform: `translate(${position.x -  5}vw, ${position.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
+          transform: `translate(${position.x - 5}vw, ${position.y}vw) rotateX(-30deg) rotateZ(-45deg)`,
           fontSize: '50px',
-          backgroundColor: 'transparent'
-        },
+          backgroundColor: 'transparent',
+        }),
         color: textColor, // Aplicar el color de letra
       }}
     >

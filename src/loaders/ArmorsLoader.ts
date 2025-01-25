@@ -31,7 +31,7 @@ const ArmorsLoader = () => {
                 }
               }
               return armor; // Si no se encuentra la imagen, devuelve el objeto original
-            })
+            }),
           );
 
           setArmors(armorsWithImages);

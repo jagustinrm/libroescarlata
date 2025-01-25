@@ -49,20 +49,16 @@
   font-size: 25px;
 }
 
-
-
 @media (max-width: 480px) {
   .landingContainer {
     padding: 0px;
     max-width: 95%;
-    
   }
 
   .landingTitleContainer {
     flex-direction: column; /* Apilar título e imagen */
     font-size: 20px;
     text-align: center; /* Centrar el texto */
-    
   }
 
   .landingImg {
@@ -81,13 +77,11 @@
     align-items: center;
   }
 
-
   .yourName {
     font-size: 18px;
     margin-top: 10px;
   }
 }
-
 
 .createAccount {
   display: flex;
@@ -96,9 +90,8 @@
   align-items: center;
   margin-top: 5px;
   justify-content: center;
-
 }
 .createAccount p {
-    margin-left: 5px;
-    margin-bottom: 1px;
+  margin-left: 5px;
+  margin-bottom: 1px;
 }

@@ -1,19 +1,24 @@
 export interface Event {
-  id: string; 
-  description?: string; 
-  status: string; 
+  id: string;
+  description?: string;
+  status: string;
   selectedChoice?: string; // Elección tomada
-  options?: [{
-    id: string,
-    text: string,
-    outcome: string,
-    days?: number,
-    enemies?: string[],
-    requiresItem?: {name: string; cant: number; id: string}[]
-  }]
-  // choices?: { [key: string]: string }; 
-  conditions?: { requiresItem: number; requiresLevel: string; }; // Requisito para desbloquear
-  reward?: { items: { name: string; type: string; cant: number }[]; materials: number }; // Recompensas del evento
+  options?: [
+    {
+      id: string;
+      text: string;
+      outcome: string;
+      days?: number;
+      enemies?: string[];
+      requiresItem?: { name: string; cant: number; id: string }[];
+    },
+  ];
+  // choices?: { [key: string]: string };
+  conditions?: { requiresItem: number; requiresLevel: string }; // Requisito para desbloquear
+  reward?: {
+    items: { name: string; type: string; cant: number }[];
+    materials: number;
+  }; // Recompensas del evento
   worldState?: { [key: string]: string }; // Estado del mundo que cambia según el evento
 }
 
@@ -43,16 +48,28 @@ export interface StoryProgress {
 export interface StoryStore {
   stories: Story[]; // Lista de historias disponibles
   userProgress: { [userId: string]: StoryProgress[] }; // Progreso de las historias para cada usuario
-  
+
   // Funciones para manejar el progreso
   completeChapter: (userId: string, storyId: string, chapterId: number) => void;
   completeEvent: (userId: string, storyId: string, eventId: string) => void;
-  selectChoice: (userId: string, storyId: string, eventId: string, choice: string) => void;
+  selectChoice: (
+    userId: string,
+    storyId: string,
+    eventId: string,
+    choice: string,
+  ) => void;
 
   // Funciones adicionales para cargar historias
   loadStory: (story: Story) => void;
   loadStories: (stories: Story[]) => void;
-  getUserProgress: (userId: string, storyId: string) => StoryProgress | undefined;
+  getUserProgress: (
+    userId: string,
+    storyId: string,
+  ) => StoryProgress | undefined;
   getStoryById: (storyId: string) => Story | undefined;
-  updateWorldState: (userId: string, storyId: string, worldState: { [key: string]: string }) => void; // Para actualizar el estado del mundo en el progreso
+  updateWorldState: (
+    userId: string,
+    storyId: string,
+    worldState: { [key: string]: string },
+  ) => void; // Para actualizar el estado del mundo en el progreso
 }

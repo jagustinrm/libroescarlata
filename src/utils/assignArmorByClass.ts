@@ -29,7 +29,7 @@ export function assignArmorByClass({
   // player,
 }: AssignArmorParams): void {
   // Encuentra la clase correspondiente
-  const {player} = usePlayerStore.getState();
+  const { player } = usePlayerStore.getState();
   const classArmor = classes.find((c) => c.className === className);
   if (!classArmor) {
     console.error(`Class ${className} not found.`);
@@ -40,26 +40,28 @@ export function assignArmorByClass({
   const initialArmorId = classArmor.initialArmor[0];
 
   const armor = armors.find((a) => a.id === initialArmorId);
- 
+
   if (armor) {
     playerActions.setP_SelectedBodyPart(armor);
-    
   } else {
     console.error(`Initial armor with ID ${initialArmorId} not found.`);
   }
   playerActions.setP_SelectedAccessories({
-    anillo: [], 
-    aro: [],     
-    amuleto: null, 
+    anillo: [],
+    aro: [],
+    amuleto: null,
   });
   // Agrega todas las armaduras iniciales al inventario del jugador
   classArmor.initialArmor.forEach((armorId) => {
     const armor = armors.find((a) => a.id === armorId);
     if (armor) {
       const armorOwned = { ...armor, playerOwner: true };
-      inventoryStore.addItem(`${player.name}_inventory`, 'armors', armorOwned.id);
-      saveItemToFirebase(player.name, armorOwned.id, armorOwned, "armors");
-
+      inventoryStore.addItem(
+        `${player.name}_inventory`,
+        'armors',
+        armorOwned.id,
+      );
+      saveItemToFirebase(player.name, armorOwned.id, armorOwned, 'armors');
     } else {
       console.error(`Armor with ID ${armorId} not found.`);
     }

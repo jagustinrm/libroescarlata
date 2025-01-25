@@ -37,7 +37,7 @@ const useQuestStore = create<QuestStore>((set) => ({
   updateQuest: (questName, updates, category) =>
     set((state) => {
       const updatedCategory = state.questTree[category].map((quest) =>
-        quest.name === questName ? { ...quest, ...updates } : quest
+        quest.name === questName ? { ...quest, ...updates } : quest,
       );
       return {
         questTree: {

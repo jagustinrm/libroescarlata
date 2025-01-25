@@ -18,20 +18,20 @@ const useScrollStore = create<ScrollStore>((set) => ({
     set((state) => ({
       scrolls: [...state.scrolls, newScroll],
     })),
-    removeScroll: (id) =>
-      set((state) => {
-        const scrollIndex = state.scrolls.findIndex((scroll) => scroll.id === id);
-        if (scrollIndex !== -1) {
-          const updatedScrolls = [...state.scrolls];
-          updatedScrolls.splice(scrollIndex, 1); // Elimina solo un scroll
-          return { scrolls: updatedScrolls };
-        }
-        return state; // Si no se encuentra el scroll, no se actualiza el estado
-      }),
+  removeScroll: (id) =>
+    set((state) => {
+      const scrollIndex = state.scrolls.findIndex((scroll) => scroll.id === id);
+      if (scrollIndex !== -1) {
+        const updatedScrolls = [...state.scrolls];
+        updatedScrolls.splice(scrollIndex, 1); // Elimina solo un scroll
+        return { scrolls: updatedScrolls };
+      }
+      return state; // Si no se encuentra el scroll, no se actualiza el estado
+    }),
   updateScroll: (updatedScroll) =>
     set((state) => {
       const existingScrollIndex = state.scrolls.findIndex(
-        (s) => s.id === updatedScroll.id
+        (s) => s.id === updatedScroll.id,
       );
 
       if (existingScrollIndex >= 0) {

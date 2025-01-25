@@ -73,28 +73,27 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
         },
       };
     }),
-    removeItems: () =>
-      set((state) => {
-        const updatedItems = Object.fromEntries(
-          Object.entries(state.items).map(([id, itemSet]) => {
-            const filteredItemSet: Items = {
-              weapons: itemSet.weapons.filter((item) => !item.deleteable),
-              armors: itemSet.armors.filter((item) => !item.deleteable),
-              potions: itemSet.potions.filter((item) => !item.deleteable),
-              books: itemSet.books.filter((item) => !item.deleteable),
-              scrolls: itemSet.scrolls.filter((item) => !item.deleteable),
-              others: itemSet.others.filter((item) => !item.deleteable),
-              accessories: itemSet.accessories.filter((item) => !item.deleteable),
-            };
-            return [id, filteredItemSet];
-          })
-        );
-    
-        return {
-          items: updatedItems,
-        };
-      }),
-    
+  removeItems: () =>
+    set((state) => {
+      const updatedItems = Object.fromEntries(
+        Object.entries(state.items).map(([id, itemSet]) => {
+          const filteredItemSet: Items = {
+            weapons: itemSet.weapons.filter((item) => !item.deleteable),
+            armors: itemSet.armors.filter((item) => !item.deleteable),
+            potions: itemSet.potions.filter((item) => !item.deleteable),
+            books: itemSet.books.filter((item) => !item.deleteable),
+            scrolls: itemSet.scrolls.filter((item) => !item.deleteable),
+            others: itemSet.others.filter((item) => !item.deleteable),
+            accessories: itemSet.accessories.filter((item) => !item.deleteable),
+          };
+          return [id, filteredItemSet];
+        }),
+      );
+
+      return {
+        items: updatedItems,
+      };
+    }),
 }));
 
 export default useItemsStore;

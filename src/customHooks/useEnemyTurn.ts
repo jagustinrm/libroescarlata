@@ -7,12 +7,13 @@ import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
 
-
 interface EnemyTurnProps {
   // turn: string;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
   // switchTurn: () => void;
-  setFloatingMessage: React.Dispatch<React.SetStateAction<FloatingMessageProps  | null>>;
+  setFloatingMessage: React.Dispatch<
+    React.SetStateAction<FloatingMessageProps | null>
+  >;
   setSoundUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 export const useEnemyTurn = ({
@@ -20,17 +21,18 @@ export const useEnemyTurn = ({
   setActionMessages,
   // switchTurn,
   setFloatingMessage,
-  setSoundUrl
+  setSoundUrl,
 }: EnemyTurnProps) => {
-  const {playerPosition, enemyPosition, setEnemyPosition} = usePositionStore.getState();
-  const {creature} = useCreatureStore.getState();
-  const {player, playerActions} = usePlayerStore.getState();
-  const {currentCharacter, nextTurn } = useTurnStore.getState();
+  const { playerPosition, enemyPosition, setEnemyPosition } =
+    usePositionStore.getState();
+  const { creature } = useCreatureStore.getState();
+  const { player, playerActions } = usePlayerStore.getState();
+  const { currentCharacter, nextTurn } = useTurnStore.getState();
   useEffect(() => {
-
     const timeout = setTimeout(() => {
       if (
-        currentCharacter && currentCharacter.id === 'enemy' &&
+        currentCharacter &&
+        currentCharacter.id === 'enemy' &&
         creature &&
         creature.health &&
         creature.health > 0 &&
@@ -56,7 +58,7 @@ export const useEnemyTurn = ({
       if (
         playerPosition &&
         creature &&
-        currentCharacter && 
+        currentCharacter &&
         currentCharacter.id === 'enemy' &&
         creature.health &&
         creature.health > 0 &&
@@ -70,20 +72,23 @@ export const useEnemyTurn = ({
             // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
             simulateAttackMovement(enemyPosition, 5, setEnemyPosition);
             const success = isAttackSuccessful(
-              creature.hitRatePercentage(),  // Usar 0 si hitRatePercentage no está definido
-              player.dodgePercentage()       // Usar 0 si dodgePercentage no está definido
+              creature.hitRatePercentage(), // Usar 0 si hitRatePercentage no está definido
+              player.dodgePercentage(), // Usar 0 si dodgePercentage no está definido
             );
-            console.log(playerPosition, "playerposition")
+            console.log(playerPosition, 'playerposition');
             if (success) {
-              const {damage, damageMax} = creature['attacks'][0];
-              const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage
-              const redDamage = player.totalDmgReduction(creature.level)
-              const finalDamage = Math.floor(rollDamage * (1 - redDamage / 100));
+              const { damage, damageMax } = creature['attacks'][0];
+              const rollDamage =
+                Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
+              const redDamage = player.totalDmgReduction(creature.level);
+              const finalDamage = Math.floor(
+                rollDamage * (1 - redDamage / 100),
+              );
 
               playerActions.setP_LeftHealth(
                 Math.max(player.p_LeftHealth - finalDamage, 0),
               );
-              setSoundUrl(creature.attacks[0].soundEffect)
+              setSoundUrl(creature.attacks[0].soundEffect);
               setTimeout(() => {
                 setSoundUrl('');
               }, 300);
@@ -91,14 +96,23 @@ export const useEnemyTurn = ({
                 ...prev,
                 `El enemigo te ha atacado con ${creature['attacks'][0].name} y causó ${finalDamage} puntos de daño.`,
               ]);
-              setFloatingMessage({message: finalDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: playerPosition},  )
-
+              setFloatingMessage({
+                message: finalDamage.toString(),
+                onComplete: () => setFloatingMessage(null),
+                textColor: 'red',
+                position: playerPosition,
+              });
             } else {
-              setSoundUrl('/music/attacks/weapon-swing.wav')
+              setSoundUrl('/music/attacks/weapon-swing.wav');
               setTimeout(() => {
                 setSoundUrl('');
               }, 300);
-              setFloatingMessage({message: "¡Falló!", onComplete: () => setFloatingMessage(null), textColor: "red", position: playerPosition},  )
+              setFloatingMessage({
+                message: '¡Falló!',
+                onComplete: () => setFloatingMessage(null),
+                textColor: 'red',
+                position: playerPosition,
+              });
               setActionMessages((prev) => [...prev, `¡El enemigo falló!`]);
             }
 
@@ -111,7 +125,8 @@ export const useEnemyTurn = ({
         }
       } else if (
         creature &&
-        currentCharacter && currentCharacter.id === 'enemy' &&
+        currentCharacter &&
+        currentCharacter.id === 'enemy' &&
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0

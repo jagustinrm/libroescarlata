@@ -77,7 +77,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
   const randomRarity = rarities[Math.floor(Math.random() * rarities.length)];
   const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-  const uniqueId = await generateUniqueId("armors");
+  const uniqueId = await generateUniqueId('armors');
   const equipLevel = Math.max(
     1,
     playerLevel - 5 + Math.floor(Math.random() * 11),
@@ -92,10 +92,10 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
   const randomName = randomInitialName();
   // IMPORTAR  IMAGENES CON VITE
   const images = import.meta.glob('/src/assets/img/armors/**/*.png') as Record<
-  string,
-  () => Promise<{ default: string }>
->;
-  
+    string,
+    () => Promise<{ default: string }>
+  >;
+
   type GetImageUrlParams = {
     randomPrefix?: string;
     randomBodyPart: string;
@@ -103,25 +103,21 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     randomMaterial?: string;
     randomSuffix?: string;
   };
-  
 
-  
-  const getImageUrl = async (
-    {
-      randomPrefix,
-      randomBodyPart,
-      randomName,
-      randomMaterial,
-      randomSuffix,
-    }: GetImageUrlParams
-  ): Promise<string> => {
+  const getImageUrl = async ({
+    randomPrefix,
+    randomBodyPart,
+    randomName,
+    randomMaterial,
+    randomSuffix,
+  }: GetImageUrlParams): Promise<string> => {
     const paths = [
       `/src/assets/img/armors/${randomBodyPart}/${randomPrefix}-${randomName}-${randomMaterial}-${randomSuffix}.png`,
       `/src/assets/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}-${randomSuffix}.png`,
       `/src/assets/img/armors/${randomBodyPart}/${randomName}-${randomMaterial}.png`,
       `/src/assets/img/armors/${randomBodyPart}/${randomName}.png`,
     ].map((path) => path.toLowerCase());
-  
+
     for (const path of paths) {
       if (images[path]) {
         try {
@@ -132,10 +128,10 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
         }
       }
     }
-  
+
     return 'https://via.placeholder.com/150'; // Si la imagen no existe
   };
-  
+
   const imgUrl = await getImageUrl({
     randomPrefix,
     randomBodyPart,
@@ -181,8 +177,8 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
     deleteable: true,
     playerOwner: false,
     actions: {
-        equippable: true
-      }
+      equippable: true,
+    },
   };
 };
 

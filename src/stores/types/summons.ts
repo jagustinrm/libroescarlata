@@ -2,19 +2,19 @@ import { Stats } from './stats';
 export interface Summon {
   name: string;
   type?: string;
-  role?: string; 
+  role?: string;
   alignment: string;
   level: number;
   expertice?: number;
   dodge: number;
   hitRate: number;
-  hitPoints: string; 
+  hitPoints: string;
   armorClass: number;
   attacks: {
-    name: string; 
+    name: string;
     type: string;
-    bonus: number; 
-    damage: number; 
+    bonus: number;
+    damage: number;
     damageMax: number;
     soundEffect: string;
   }[];

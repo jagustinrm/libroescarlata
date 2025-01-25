@@ -1,8 +1,8 @@
-import { saveItemToFirebase } from "../firebase/saveItemToFirebase";
-import { Class } from "../stores/types/class";
-import { InventoryStore } from "../stores/types/inventory";
-import { Player, PlayerActions } from "../stores/types/player";
-import { Weapon } from "../stores/types/weapons";
+import { saveItemToFirebase } from '../firebase/saveItemToFirebase';
+import { Class } from '../stores/types/class';
+import { InventoryStore } from '../stores/types/inventory';
+import { Player, PlayerActions } from '../stores/types/player';
+import { Weapon } from '../stores/types/weapons';
 
 interface AssignWeaponsParams {
   className: string;
@@ -10,7 +10,7 @@ interface AssignWeaponsParams {
   weapons: Weapon[];
   playerActions: PlayerActions;
   inventoryStore: InventoryStore;
-  player: Player
+  player: Player;
 }
 
 export function assignWeaponByClass({
@@ -29,16 +29,20 @@ export function assignWeaponByClass({
   }
   classWeapon?.initialWeapon.forEach((weaponId: string) => {
     const weapon = weapons.find((w) => w.id === weaponId);
-  
+
     if (weapon) {
       // Crear una copia del arma con la propiedad playerOwner
       const weaponOwned = { ...weapon, playerOwner: true };
-  
+
       // Guardar en Firebase
-      saveItemToFirebase(player.name, weaponOwned.id, weaponOwned, "weapons");
-  
+      saveItemToFirebase(player.name, weaponOwned.id, weaponOwned, 'weapons');
+
       // Añadir al inventario
-      inventoryStore.addItem(`${player.name}_inventory`, 'weapons', weaponOwned.id);
+      inventoryStore.addItem(
+        `${player.name}_inventory`,
+        'weapons',
+        weaponOwned.id,
+      );
     }
   });
 }

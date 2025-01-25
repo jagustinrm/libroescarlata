@@ -76,7 +76,6 @@ a {
   z-index: 1;
 }
 
-
 .inventoryLayout {
   display: flex;
   justify-content: flex-start;
@@ -94,7 +93,6 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
- 
 }
 
 .detailsContainer h2 {
@@ -106,33 +104,34 @@ a {
   margin: 5px 0;
 }
 
-.containerEquipment, .containerWeaponEquip, .accesoriesEquipment{
+.containerEquipment,
+.containerWeaponEquip,
+.accesoriesEquipment {
   display: grid;
   grid-template-areas:
-    "face head shoulder"
-    ". chest back"
-    "gloves belt boots"
-    ". legs .";
+    'face head shoulder'
+    '. chest back'
+    'gloves belt boots'
+    '. legs .';
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
-  gap: 10px; 
+  gap: 10px;
   justify-content: center;
   align-items: center;
   padding: 20px;
   background: #2c2c2c; /* Fondo oscuro para el inventario */
-  
+
   border-radius: 10px;
 }
-.accesoriesEquipment{
+.accesoriesEquipment {
   grid-template-areas:
-  ". . . . ."
-  ". . . . ."
-  ". earring-0 amulet earring-1 .";
+    '. . . . .'
+    '. . . . .'
+    '. earring-0 amulet earring-1 .';
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
-.containerWeaponEquip{
-  grid-template-areas:
-    "rightHand leftHand" ;
+.containerWeaponEquip {
+  grid-template-areas: 'rightHand leftHand';
   grid-template-columns: 1fr 1fr;
 }
 
@@ -144,10 +143,14 @@ a {
   border: 2px solid gold;
   box-shadow: 0 0 10px gold;
   border-radius: 8px;
-  transition: box-shadow 0.2s ease, border 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border 0.2s ease;
 }
-.containerEquipment img, .containerWeaponEquip img, .accesoriesEquipment img  {
-  width: 100px; 
+.containerEquipment img,
+.containerWeaponEquip img,
+.accesoriesEquipment img {
+  width: 100px;
   height: 100px;
   object-fit: cover; /* Mantiene el contenido dentro del área definida */
   border: 2px solid #555; /* Borde simple para las imágenes */
@@ -158,21 +161,21 @@ a {
   width: 60px;
   height: fit-content;
 }
-.accessoriesContainer{
+.accessoriesContainer {
   display: flex;
   flex-direction: column;
 
   align-items: center;
 }
-.amulet{
+.amulet {
   grid-area: amulet;
   margin-top: 30px;
 }
-.earring-0{
+.earring-0 {
   grid-area: earring-0;
   margin-top: 30px;
 }
-.earring-1{
+.earring-1 {
   grid-area: earring-1;
   margin-top: 30px;
 }
@@ -183,7 +186,6 @@ a {
 .belt {
   grid-area: belt;
 }
-
 
 .rightHand {
   grid-area: rightHand;
@@ -200,10 +202,10 @@ a {
 .gloves {
   grid-area: gloves;
 }
-.chest{
+.chest {
   grid-area: chest;
 }
-.legs{
+.legs {
   grid-area: legs;
 }
 .face {
@@ -213,11 +215,11 @@ a {
   grid-area: shoulder;
 }
 
-.inventoryIcons{
+.inventoryIcons {
   width: 100px;
-  height:fit-content
+  height: fit-content;
 }
-.lines{
+.lines {
   height: 100px;
 }
 .inventoryIcons:hover {
@@ -226,22 +228,21 @@ a {
 @media (max-width: 1360px) and (max-height: 768px) {
   .sectionInventory {
     max-height: 550px;
-    
   }
   .inventoryIcons {
     width: 90px;
   }
   .inventoryLayout {
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px;
-  max-height: 250px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    max-height: 250px;
   }
 
   .itemIventoryImg {
     max-width: 80px;
     aspect-ratio: 1 / 1;
-    object-fit: cover; 
+    object-fit: cover;
   }
   .detailsContainer h2 {
     margin-bottom: 10px;
@@ -253,12 +254,10 @@ a {
     margin: 5px 0;
     font-size: 15px;
   }
-  .lines{
+  .lines {
     height: 50px;
   }
-  .inventoryTitle{
+  .inventoryTitle {
     font-size: 18px;
   }
 }
-
-

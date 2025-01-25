@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import "./HeaderMenu.css";
-import useAppStore from "../../../stores/appStore";
-import SoundPlayer from "../soundPlayer/SoundPlayer";
+import { useEffect, useState } from 'react';
+import './HeaderMenu.css';
+import useAppStore from '../../../stores/appStore';
+import SoundPlayer from '../soundPlayer/SoundPlayer';
 
 const HeaderMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,7 +14,6 @@ const HeaderMenu = () => {
     setMusicVolume,
   } = useAppStore();
 
-
   useEffect(() => {
     setAmbientMusic('medievalAmbient');
     setMusicVolume(0.2);
@@ -25,32 +24,36 @@ const HeaderMenu = () => {
 
   return (
     <header className="header">
-     
       <div className="logo">El Libro Escarlata</div>
-      <nav className={`menu ${isMenuOpen ? "open" : ""}`}>
+      <nav className={`menu ${isMenuOpen ? 'open' : ''}`}>
         <ul>
-        {isMusicPlaying && (
-          <SoundPlayer soundType={ambientMusic} volume={musicVolume} />
-        )}
-       
-        <li><a href="#">Ingresar</a></li>
-        <li> <div className="music-controls">
-          <button className="buttonSoundToggle" onClick={toggleMusic}>
-            {isMusicPlaying ? (
-              <img
-                className="soundPlayerSimbol"
-                src="/img/UI/musicOnSimbol.png"
-                alt=""
-              />
-            ) : (
-              <img
-                className="soundPlayerSimbol"
-                src="/img/UI/musicOffSimbol.png"
-                alt=""
-              />
-            )}
-          </button>
-        </div></li>
+          {isMusicPlaying && (
+            <SoundPlayer soundType={ambientMusic} volume={musicVolume} />
+          )}
+
+          <li>
+            <a href="#">Ingresar</a>
+          </li>
+          <li>
+            {' '}
+            <div className="music-controls">
+              <button className="buttonSoundToggle" onClick={toggleMusic}>
+                {isMusicPlaying ? (
+                  <img
+                    className="soundPlayerSimbol"
+                    src="/img/UI/musicOnSimbol.png"
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    className="soundPlayerSimbol"
+                    src="/img/UI/musicOffSimbol.png"
+                    alt=""
+                  />
+                )}
+              </button>
+            </div>
+          </li>
           {/* <li><a href="#inicio">Inicio</a></li>
           <li><a href="#servicios">Servicios</a></li>
           <li><a href="#nosotros">Nosotros</a></li>
@@ -58,7 +61,7 @@ const HeaderMenu = () => {
         </ul>
       </nav>
       <button className="menu-toggle" onClick={toggleMenu}>
-        {isMenuOpen ? "Cerrar" : "Menú"}
+        {isMenuOpen ? 'Cerrar' : 'Menú'}
       </button>
     </header>
   );

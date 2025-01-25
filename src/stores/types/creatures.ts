@@ -14,7 +14,7 @@ export interface Creature {
     name: string; // Ejemplo: "daga"
     type: string; // "melee" o "rango"
     bonus: number; // Ejemplo: +1
-    damage: number; 
+    damage: number;
     damageMax: number;
     soundEffect: string;
   }[];

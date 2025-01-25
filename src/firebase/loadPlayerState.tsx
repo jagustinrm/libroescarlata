@@ -20,7 +20,7 @@ const LoadPlayerFromFirebase = () => {
 
         if (snapshot.exists()) {
           const playerData = snapshot.val();
-          playerActions.setPlayer(playerData)
+          playerActions.setPlayer(playerData);
           // Carga los datos en el store utilizando las acciones de playerActions
           // playerActions.setPlayerName(playerData.name);
           // playerActions.setPlayerLevel(playerData.level);

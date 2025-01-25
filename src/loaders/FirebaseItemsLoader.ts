@@ -11,25 +11,27 @@ const FirebaseItemsLoader = async () => {
   try {
     const { addNewAccessory } = useAccessoryStore.getState();
     const { addNewWeapon } = useWeaponStore.getState();
-    const {addNewArmor} = useArmorStore.getState();
+    const { addNewArmor } = useArmorStore.getState();
     const { player } = usePlayerStore.getState();
 
     // Llama a la función unificada para obtener los ítems
-    const { weapons, accessories, armors } = await getItemsFromFirebase(player.name);
+    const { weapons, accessories, armors } = await getItemsFromFirebase(
+      player.name,
+    );
 
     // Agregar armas al store
     weapons.forEach((weapon: Weapon) => {
       addNewWeapon(weapon);
     });
 
-    // Agregar accesorios al store  
+    // Agregar accesorios al store
     accessories.forEach((accessory: Accessory) => {
       addNewAccessory(accessory);
     });
 
     armors.forEach((armor: Armor) => {
-      addNewArmor(armor)
-    })
+      addNewArmor(armor);
+    });
     console.log('Armas y accesorios cargados exitosamente.');
   } catch (error) {
     console.error('Error al cargar los ítems desde Firebase:', error);

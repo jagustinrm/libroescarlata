@@ -1,9 +1,8 @@
-export function rollDice(dice: string | number ): number {
-
-  if (typeof dice === "number") {
+export function rollDice(dice: string | number): number {
+  if (typeof dice === 'number') {
     return dice;
   }
-  
+
   const regex = /(\d+)d(\d+)(?:\s*\+\s*(\d+))?/;
   const match = dice.match(regex);
 

@@ -17,7 +17,7 @@ export interface Player {
   p_MaxMana: number;
   p_LeftMana: number;
   hitDie: number;
-  manaDie: number; 
+  manaDie: number;
   dodgeDie: number;
   hitRateDie: number;
   hitRate: number;
@@ -44,7 +44,7 @@ export interface Player {
   movement: number; // nuevo
   turnSpeed: number; //nuevo
   blockChance: number; //nuevo
-  parry: number //nuevo
+  parry: number; //nuevo
   critChance: number; // nuevo
   critDamage: number; //nuevo
   spellHitRate: number; //nuevo
@@ -64,7 +64,7 @@ export interface Player {
   readonly summonDmgIncrease: () => number;
   readonly totalArmorClass: () => number;
   readonly totalMArmor: () => number;
-  readonly totalDmgReduction: (enemyLevel) => number; 
+  readonly totalDmgReduction: (enemyLevel) => number;
   readonly totalDmgMReduction: (enemyLevel) => number;
   readonly totalBlockValue: () => number; // nuevo
   readonly dodgePercentage: () => number;
@@ -83,15 +83,16 @@ export interface PlayerActions {
   setP_ExpToNextLevel: (p_ExpToNextLevel: number) => void;
   setP_ExpPrevLevel: (p_ExpPrevLevel: number) => void;
   setP_SelectedPet: (selectedPet: Pet) => void;
-  resetPlayer: () => void,
+  resetPlayer: () => void;
   addBuff: (buffName: string, value: number, duration: number) => void;
-  resetBuffs: () => void,
+  resetBuffs: () => void;
+  decrementBuffDurations: () => void;
   setDungeonLevel: (dungeonLevel) => void;
   setBodyParts: (newBodyParts: bodyParts) => void;
   setP_SelectedBodyPart: (selectedBodyPart: Armor | Weapon) => void;
   addP_SelectedAccesories: (selectedBodyPart: Accessory, index?) => void;
   setP_SelectedAccessories: (newAccessoriesPart: accesoriesParts) => void;
-  setP_SelectedSpell: (selectedSpell: Spell | null ) => void;
+  setP_SelectedSpell: (selectedSpell: Spell | null) => void;
   setPlayerLevel: (level: number) => void;
   setP_MaxHealth: (p_MaxHealth: number) => void;
   setP_LeftHealth: (p_LeftHealth: number) => void;
@@ -126,9 +127,12 @@ export interface PlayerActions {
   setClassImg: (classImg: string) => void;
   setAvatarImg: (avatarImg: string) => void;
   setStoryProgress: (progress: StoryProgress[]) => void; // Actualiza el progreso de las historias
-  updateStoryProgress: (storyId: string, progress: Partial<StoryProgress>) => void; // Actualiza parte del progreso en una historia específica
+  updateStoryProgress: (
+    storyId: string,
+    progress: Partial<StoryProgress>,
+  ) => void; // Actualiza parte del progreso en una historia específica
   setCurrentStoryId: (storyId: string | null) => void; // Cambia la historia activa
-  setPlayer: (newPlayer: Player ) => void
+  setPlayer: (newPlayer: Player) => void;
 }
 
 // Interfaz para el store del player

@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
-import { Story } from "../../stores/types/story";
-import BackButton from "../UI/BackButton";
-import useStoryStore from "../../stores/storyStore";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Story } from '../../stores/types/story';
+import BackButton from '../UI/BackButton';
+import useStoryStore from '../../stores/storyStore';
 import './StoryMode.css';
-
 
 export default function StoryMode() {
   const { stories } = useStoryStore(); // Accedemos a las historias desde el store
@@ -47,35 +46,40 @@ export default function StoryMode() {
 
           {/* Paginador */}
           <div className="pagination">
-            <button 
-              onClick={() => handlePageChange(currentPage - 1)} 
-              disabled={currentPage === 0}>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 0}
+            >
               Anterior
             </button>
-            <span>{currentPage + 1} / {stories.length}</span>
-            <button 
-              onClick={() => handlePageChange(currentPage + 1)} 
-              disabled={currentPage === stories.length - 1}>
+            <span>
+              {currentPage + 1} / {stories.length}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === stories.length - 1}
+            >
               Siguiente
             </button>
           </div>
 
           {/* Tarjetas de capítulos */}
           <div className="chapter-cards rpgui-cursor-point">
-            {currentStory.chapters && currentStory.chapters.map((chapter) => 
-            (
-            <div 
-              style={{ 
-                backgroundImage: `url(/img/story/chapter-00${chapter.id}.png)`, 
-                backgroundSize: "cover", // Ajusta según tu diseño
-                backgroundPosition: "center"
-              }} 
-              key={chapter.id} 
-              className="chapter-card" 
-              onClick={() => handleChapterClick(chapter.id)}>
-              <h3>{chapter.title}</h3>
-            </div>
-            ))}
+            {currentStory.chapters &&
+              currentStory.chapters.map((chapter) => (
+                <div
+                  style={{
+                    backgroundImage: `url(/img/story/chapter-00${chapter.id}.png)`,
+                    backgroundSize: 'cover', // Ajusta según tu diseño
+                    backgroundPosition: 'center',
+                  }}
+                  key={chapter.id}
+                  className="chapter-card"
+                  onClick={() => handleChapterClick(chapter.id)}
+                >
+                  <h3>{chapter.title}</h3>
+                </div>
+              ))}
           </div>
         </div>
       )}

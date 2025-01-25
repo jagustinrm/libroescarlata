@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // import { Weapon } from "../stores/types/weapons";
 type DropdownProps<T> = {
@@ -70,7 +70,7 @@ const Dropdown = <T extends { id: string; name: string }>({
         value={value?.id || ''}
         onChange={(e) => {
           const selectedOption = options.find(
-            (option) => option.id === e.target.value
+            (option) => option.id === e.target.value,
           );
           if (selectedOption) onChange(selectedOption);
         }}

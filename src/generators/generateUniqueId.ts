@@ -2,7 +2,10 @@ import { ref, get } from 'firebase/database';
 import { database } from '../firebase/firebaseConfig'; // Asegúrate de importar correctamente tu instancia de Firebase
 
 // Verifica si el ID ya existe en la base de datos
-const checkIfIdExists = async (id: string, itemType: string): Promise<boolean> => {
+const checkIfIdExists = async (
+  id: string,
+  itemType: string,
+): Promise<boolean> => {
   try {
     const armorRef = ref(database, `${itemType}/${id}`);
     const snapshot = await get(armorRef);
@@ -14,7 +17,7 @@ const checkIfIdExists = async (id: string, itemType: string): Promise<boolean> =
 };
 
 // Genera un ID único que no exista en la base de datos
-const generateId= async (itemType : string): Promise<string> => {
+const generateId = async (itemType: string): Promise<string> => {
   let id = '';
   let idExists = true;
   do {

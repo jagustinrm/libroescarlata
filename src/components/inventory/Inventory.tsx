@@ -23,8 +23,11 @@ export default function Inventory() {
     Weapon | Armor | Potion | Accessory | otherItem | Book | Scroll
   > | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [readBook, setReadBook] = useState<boolean>(false)
-  const [selectedAccessoryEquipped, setSelectedAccessoryEquipped] = useState<{ type: string; index: number } | null>(null);
+  const [readBook, setReadBook] = useState<boolean>(false);
+  const [selectedAccessoryEquipped, setSelectedAccessoryEquipped] = useState<{
+    type: string;
+    index: number;
+  } | null>(null);
   const {
     player,
     playerActions,
@@ -53,7 +56,9 @@ export default function Inventory() {
       return;
     }
 
-    let selectedCategory: Array<Weapon | Armor | Potion | Accessory | otherItem | Scroll> = [];
+    let selectedCategory: Array<
+      Weapon | Armor | Potion | Accessory | otherItem | Scroll
+    > = [];
     setActualCategory(category);
 
     switch (category) {
@@ -86,13 +91,13 @@ export default function Inventory() {
         selectedCategory = books.filter((book: Book) =>
           itemNames.includes(book.id),
         );
-      break;
+        break;
       case 'scrolls':
-        console.log(scrolls)
+        console.log(scrolls);
         selectedCategory = scrolls.filter((scroll: Scroll) =>
           itemNames.includes(scroll.id),
         );
-      break;
+        break;
       default:
         selectedCategory = [];
         break;
@@ -105,9 +110,13 @@ export default function Inventory() {
     const id = isNaN(Number(itemId)) ? itemId : Number(itemId);
     const weapon = weapons.find((weapon: Weapon) => weapon.id === id);
     const potion = potions.find((potion: Potion) => potion.id === id);
-    const otherItem = otherItems.find((otherItem: otherItem) => otherItem.id === id);
+    const otherItem = otherItems.find(
+      (otherItem: otherItem) => otherItem.id === id,
+    );
     const armor = armors.find((armor: Armor) => armor.id === id);
-    const accessory = accessories.find((accessory: Accessory) => accessory.id === id);
+    const accessory = accessories.find(
+      (accessory: Accessory) => accessory.id === id,
+    );
     const book = books.find((book: Book) => book.id === id);
     const scroll = scrolls.find((scroll: Scroll) => scroll.id === id);
     if (weapon) {
@@ -141,7 +150,9 @@ export default function Inventory() {
     setSelectedItem(null);
   };
 
-  const handleEquip = (selectedItem: Weapon | Armor | Potion | Accessory | Book | Scroll |null) => {
+  const handleEquip = (
+    selectedItem: Weapon | Armor | Potion | Accessory | Book | Scroll | null,
+  ) => {
     if (!selectedItem) {
       console.error('No hay un objeto seleccionado para equipar.');
       return;
@@ -155,10 +166,15 @@ export default function Inventory() {
       setFloatingMessage('¡Equipado!');
     } else if (
       'type' in selectedItem &&
-      (selectedItem.type === 'Amuleto' || selectedItem.type === 'Anillo' || selectedItem.type === 'Aro')
+      (selectedItem.type === 'Amuleto' ||
+        selectedItem.type === 'Anillo' ||
+        selectedItem.type === 'Aro')
     ) {
       if (selectedAccessoryEquipped) {
-        playerActions.addP_SelectedAccesories(selectedItem as Accessory, selectedAccessoryEquipped.index);
+        playerActions.addP_SelectedAccesories(
+          selectedItem as Accessory,
+          selectedAccessoryEquipped.index,
+        );
         setFloatingMessage('¡Accesorio equipado!');
       } else {
         // playerActions.addP_SelectedAccesories(selectedItem as Accessory);
@@ -168,58 +184,113 @@ export default function Inventory() {
       console.log('Este objeto no puede ser equipado.');
     }
   };
-  
+
   const handleRead = () => {
     setReadBook(!readBook);
   };
 
   return (
     <section style={{ display: 'flex', flexDirection: 'row' }}>
-     {readBook &&  <ReadBook 
-     selectedItem={selectedItem} 
-     handleRead = {handleRead}
-     />}
+      {readBook && (
+        <ReadBook selectedItem={selectedItem} handleRead={handleRead} />
+      )}
       <div className="sectionInventory rpgui-container framed-golden-2">
-        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
-        <h1 className='inventoryTitle'>INVENTARIO</h1>
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
-        <img className='lines' src="/img/UI/horizontallines.png" alt="" />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <img className="lines" src="/img/UI/horizontallines.png" alt="" />
+          <img className="lines" src="/img/UI/horizontallines.png" alt="" />
+          <h1 className="inventoryTitle">INVENTARIO</h1>
+          <img className="lines" src="/img/UI/horizontallines.png" alt="" />
+          <img className="lines" src="/img/UI/horizontallines.png" alt="" />
         </div>
         <div className="buttonsInventory  rpgui-cursor-point">
-          <img  onClick={() => handleLoadActualInventory('weapons')} className='inventoryIcons' src="/img/icons/itemsIcons/weaponsicon.png" alt="" />
-          <img onClick={() => handleLoadActualInventory('armors')} className='inventoryIcons' src="/img/icons/itemsIcons/armoricon.png" alt="" />
-          <img onClick={() => handleLoadActualInventory('accessories')} className='inventoryIcons' src="/img/icons/itemsIcons/accessoriesicon.png" alt="" />
-          <img onClick={() => handleLoadActualInventory('others')}  className='inventoryIcons' src="/img/icons/itemsIcons/foodicon.png" alt="" />
-          <img onClick={() => handleLoadActualInventory('potions')} className='inventoryIcons' src="/img/icons/itemsIcons/potionicon.png" alt="" />
-          <img onClick={() => handleLoadActualInventory('books')} className='inventoryIcons' src="/img/icons/itemsIcons/bookicon.png" alt="" />
-          <img onClick={() => handleLoadActualInventory('scrolls')} className='inventoryIcons' src="/img/icons/itemsIcons/scrollicon.png" alt="" />
+          <img
+            onClick={() => handleLoadActualInventory('weapons')}
+            className="inventoryIcons"
+            src="/img/icons/itemsIcons/weaponsicon.png"
+            alt=""
+          />
+          <img
+            onClick={() => handleLoadActualInventory('armors')}
+            className="inventoryIcons"
+            src="/img/icons/itemsIcons/armoricon.png"
+            alt=""
+          />
+          <img
+            onClick={() => handleLoadActualInventory('accessories')}
+            className="inventoryIcons"
+            src="/img/icons/itemsIcons/accessoriesicon.png"
+            alt=""
+          />
+          <img
+            onClick={() => handleLoadActualInventory('others')}
+            className="inventoryIcons"
+            src="/img/icons/itemsIcons/foodicon.png"
+            alt=""
+          />
+          <img
+            onClick={() => handleLoadActualInventory('potions')}
+            className="inventoryIcons"
+            src="/img/icons/itemsIcons/potionicon.png"
+            alt=""
+          />
+          <img
+            onClick={() => handleLoadActualInventory('books')}
+            className="inventoryIcons"
+            src="/img/icons/itemsIcons/bookicon.png"
+            alt=""
+          />
+          <img
+            onClick={() => handleLoadActualInventory('scrolls')}
+            className="inventoryIcons"
+            src="/img/icons/itemsIcons/scrollicon.png"
+            alt=""
+          />
         </div>
         <div className="inventoryLayout">
           <div className="containerInventory">
             <ul className="rpgui-list-imp">
               {actualInventory && actualInventory.length > 0 ? (
-                actualInventory.map((item, index) => (
-                  item.color && <li key={index} style={{ color: darkenHex(item.color, 0, 1), marginTop: '2px' }} onClick={() => handleSelectItem(item.id)}>
-                    {item.name} 
-                  </li>
-                ))
+                actualInventory.map(
+                  (item, index) =>
+                    item.color && (
+                      <li
+                        key={index}
+                        style={{
+                          color: darkenHex(item.color, 0, 1),
+                          marginTop: '2px',
+                        }}
+                        onClick={() => handleSelectItem(item.id)}
+                      >
+                        {item.name}
+                      </li>
+                    ),
+                )
               ) : (
                 <p>No se encontraron</p>
               )}
             </ul>
           </div>
-          <div className="detailsContainer"
-          style={selectedItem && {
-            borderColor: darkenHex(selectedItem.color, 90, 1),
-            boxShadow: `0px 0px 1px 3px ${darkenHex(selectedItem.color, 30, 1)}, 0px 0px 0px 4px ${darkenHex(selectedItem.color, 90, 1)}`,
-            background: `linear-gradient(0deg, ${darkenHex(selectedItem.color, 70, 0.8)} 10%, ${darkenHex(selectedItem.color, 40)} 50%, ${darkenHex(selectedItem.color, 10)} 70%)`,
-          }}
+          <div
+            className="detailsContainer"
+            style={
+              selectedItem && {
+                borderColor: darkenHex(selectedItem.color, 90, 1),
+                boxShadow: `0px 0px 1px 3px ${darkenHex(selectedItem.color, 30, 1)}, 0px 0px 0px 4px ${darkenHex(selectedItem.color, 90, 1)}`,
+                background: `linear-gradient(0deg, ${darkenHex(selectedItem.color, 70, 0.8)} 10%, ${darkenHex(selectedItem.color, 40)} 50%, ${darkenHex(selectedItem.color, 10)} 70%)`,
+              }
+            }
           >
             {selectedItem ? (
               <>
-                <h2 style={{ color: darkenHex(selectedItem.color, 0, 1)}}>{selectedItem.name}</h2>
+                <h2 style={{ color: darkenHex(selectedItem.color, 0, 1) }}>
+                  {selectedItem.name}
+                </h2>
                 <img
                   className="itemIventoryImg"
                   src={selectedItem.img}
@@ -228,16 +299,18 @@ export default function Inventory() {
                 {/* <p>
                   <strong>Descripción:</strong> {selectedItem.description}
                 </p> */}
-                {typeof selectedItem.armorValue === 'number'  &&
+                {typeof selectedItem.armorValue === 'number' && (
                   <p>
-                  <strong>Armadura:</strong> { selectedItem.armorValue}
-                </p>}
-                {typeof selectedItem.damage === 'number'  && (
-                  <p>
-                    <strong>Daño:</strong> {selectedItem.damage} - {selectedItem.damageMax}
+                    <strong>Armadura:</strong> {selectedItem.armorValue}
                   </p>
                 )}
-                  {typeof selectedItem.range === 'number' && (
+                {typeof selectedItem.damage === 'number' && (
+                  <p>
+                    <strong>Daño:</strong> {selectedItem.damage} -{' '}
+                    {selectedItem.damageMax}
+                  </p>
+                )}
+                {typeof selectedItem.range === 'number' && (
                   <p>
                     <strong>Rango de ataque:</strong> {selectedItem.range}
                   </p>
@@ -249,15 +322,16 @@ export default function Inventory() {
             {selectedItem && selectedItem.actions && (
               <div style={{ marginTop: '3px' }}>
                 <ButtonEdited
-                  label= {
-                    selectedItem.actions.equippable && `Equipar` ||
-                    selectedItem.actions.readable && `Leer`
+                  label={
+                    (selectedItem.actions.equippable && `Equipar`) ||
+                    (selectedItem.actions.readable && `Leer`)
                   }
                   width="130px"
                   height="40px"
-                  onClick={() => 
-                    selectedItem.actions.equippable && handleEquip(selectedItem) ||
-                    selectedItem.actions.readable && handleRead()
+                  onClick={() =>
+                    (selectedItem.actions.equippable &&
+                      handleEquip(selectedItem)) ||
+                    (selectedItem.actions.readable && handleRead())
                   }
                 />
               </div>
@@ -271,7 +345,6 @@ export default function Inventory() {
             onComplete={() => setFloatingMessage(null)}
           />
         )}
-
       </div>
       {actualCategory === 'armors' && <PlayerEquipment />}
       {actualCategory === 'accessories' && (

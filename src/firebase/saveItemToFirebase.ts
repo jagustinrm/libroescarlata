@@ -1,6 +1,6 @@
 import { database } from './firebaseConfig';
-import { ref, set, get, remove } from 'firebase/database'; 
-import { Item } from '../stores/types/items'; 
+import { ref, set, get, remove } from 'firebase/database';
+import { Item } from '../stores/types/items';
 import { Weapon } from '../stores/types/weapons';
 import { Accessory } from '../stores/types/accesories';
 import { Armor } from '../stores/types/armor';
@@ -49,20 +49,25 @@ export const saveItemToFirebase = async (
 
 // Función para obtener ítems desde Firebase
 export const getItemsFromFirebase = async (
-  playerId: string // Se agrega el ID del jugador como parámetro
-): Promise<{ weapons: Weapon[]; accessories: Accessory[]; armors: Armor[] }> => {
+  playerId: string, // Se agrega el ID del jugador como parámetro
+): Promise<{
+  weapons: Weapon[];
+  accessories: Accessory[];
+  armors: Armor[];
+}> => {
   try {
     // Define las referencias de armas, accesorios y armaduras para el jugador
     const weaponsRef = ref(database, `weapons_${playerId}`);
     const accessoriesRef = ref(database, `accessories_${playerId}`);
     const armorsRef = ref(database, `armors_${playerId}`); // Referencia para armors
-    
+
     // Obtén los datos desde Firebase en paralelo
-    const [snapshotWeapons, snapshotAccessories, snapshotArmors] = await Promise.all([
-      get(weaponsRef),
-      get(accessoriesRef),
-      get(armorsRef), // Obtén los datos de armors
-    ]);
+    const [snapshotWeapons, snapshotAccessories, snapshotArmors] =
+      await Promise.all([
+        get(weaponsRef),
+        get(accessoriesRef),
+        get(armorsRef), // Obtén los datos de armors
+      ]);
 
     // Mapea los datos a arrays de Weapon, Accessory y Armor
     const weapons: Weapon[] = snapshotWeapons.exists()
@@ -88,7 +93,10 @@ export const getItemsFromFirebase = async (
 
     return { weapons, accessories, armors }; // Retorna todos los arrays en un objeto
   } catch (error) {
-    console.error(`Error al obtener los ítems desde Firebase para el jugador ${playerId}:`, error);
+    console.error(
+      `Error al obtener los ítems desde Firebase para el jugador ${playerId}:`,
+      error,
+    );
     return { weapons: [], accessories: [], armors: [] };
   }
 };
@@ -101,7 +109,7 @@ export const removeItemFromFirebase = async (
   try {
     // Define la referencia en Firebase según el tipo del ítem, ID del jugador y del ítem
     const itemRef = ref(database, `${itemType}_${playerId}/${itemId}`);
-    
+
     // Elimina el ítem de Firebase
     await remove(itemRef);
 

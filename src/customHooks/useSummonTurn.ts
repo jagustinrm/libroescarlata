@@ -8,7 +8,6 @@ import usePlayerStore from '../stores/playerStore.ts';
 import useTurnStore from '../stores/turnStore.ts';
 import { Summon } from '../stores/types/summons.ts';
 
-
 interface SummonTurnProps {
   summon: Summon | null;
   // turn: string;
@@ -24,15 +23,16 @@ export const useSummonTurn = ({
   summon,
   setCreatureHealth,
 }: SummonTurnProps) => {
-  const {enemyPosition, summonPosition, setSummonPosition} = usePositionStore.getState();
-  const {creature} = useCreatureStore.getState();
-  const {player } = usePlayerStore.getState();
-  const {currentCharacter, nextTurn} = useTurnStore.getState();
+  const { enemyPosition, summonPosition, setSummonPosition } =
+    usePositionStore.getState();
+  const { creature } = useCreatureStore.getState();
+  const { player } = usePlayerStore.getState();
+  const { currentCharacter, nextTurn } = useTurnStore.getState();
   useEffect(() => {
-
     const timeout = setTimeout(() => {
       if (
-        currentCharacter && currentCharacter.id === 'summon' &&
+        currentCharacter &&
+        currentCharacter.id === 'summon' &&
         creature &&
         creature.health &&
         creature.health > 0 &&
@@ -59,7 +59,8 @@ export const useSummonTurn = ({
         enemyPosition &&
         summon &&
         creature &&
-        currentCharacter && currentCharacter.id === 'summon' &&
+        currentCharacter &&
+        currentCharacter.id === 'summon' &&
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0
@@ -69,11 +70,12 @@ export const useSummonTurn = ({
 
         if (distanceX < 10 && distanceY < 10) {
           const summonAttackTimeout = setTimeout(() => {
-
             const totalAttack = rollDice('1d20') + summon['attacks'][0].bonus;
             if (totalAttack > creature.armorClass && creature.health) {
               const damageBase = summon['attacks'][0].damage;
-              const totalDamage = damageBase + Math.round((damageBase * player.summonDmgIncrease()) / 100)
+              const totalDamage =
+                damageBase +
+                Math.round((damageBase * player.summonDmgIncrease()) / 100);
               setCreatureHealth(Math.max(creature.health - totalDamage, 0));
               setActionMessages((prev) => [
                 ...prev,
@@ -92,7 +94,8 @@ export const useSummonTurn = ({
         }
       } else if (
         creature &&
-        currentCharacter && currentCharacter.id === 'summon' &&
+        currentCharacter &&
+        currentCharacter.id === 'summon' &&
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0

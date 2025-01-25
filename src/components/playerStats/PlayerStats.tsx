@@ -42,7 +42,7 @@ export default function PlayerStats() {
               {player.bodyParts.manoDerecha?.name || 'Sin arma equipada'}
             </p>
             <p>
-            🔱 Daño: {player.damage()} - {player.damageMax()}
+              🔱 Daño: {player.damage()} - {player.damageMax()}
             </p>
             {/* <p>
               {' '}
@@ -131,7 +131,9 @@ export default function PlayerStats() {
           <p>Porcentaje de esquiva: {player.dodgePercentage()}% </p>
           <p>Porcentaje de puntería: {player.hitRatePercentage()}% </p>
           <p>Reducción de daño: {player.totalDmgReduction(player.level)}%</p>
-          <p>Reducción de daño mágico: {player.totalDmgMReduction(player.level)}%</p>
+          <p>
+            Reducción de daño mágico: {player.totalDmgMReduction(player.level)}%
+          </p>
           <p>Aumento de daño de invocación: {player.summonDmgIncrease()}%</p>
           <p>
             🐾 Mascotas:

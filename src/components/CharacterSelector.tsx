@@ -9,15 +9,14 @@ import useInventoryStore from '../stores/inventoryStore';
 import useItemsStore from '../stores/itemsStore.js';
 import useGlobalState from '../customHooks/useGlobalState.ts';
 export default function CharacterSelector() {
-  
   const { createItems } = useItemsStore();
   const navigate = useNavigate();
-  const {classes, areClassesLoaded, armors, weapons, player, playerActions} = useGlobalState()
+  const { classes, areClassesLoaded, armors, weapons, player, playerActions } =
+    useGlobalState();
 
   const inventoryStore = useInventoryStore.getState();
   const [hoveredClass, setHoveredClass] = useState<Class | null>(null);
   const handleButtonClick = (classData: Class) => {
-  
     const {
       className,
       hitDie,
@@ -27,7 +26,7 @@ export default function CharacterSelector() {
       manaDie,
       faceImg,
       dodgeDie,
-      hitRateDie
+      hitRateDie,
     } = classData;
 
     playerActions.setPlayerClass(className);
@@ -43,7 +42,7 @@ export default function CharacterSelector() {
     //****************** INVENTNARIO */
     playerActions.setInventory(`${player.name}_inventory`);
     inventoryStore.createInventory(`${player.name}_inventory`);
-    inventoryStore.clearInventory(`${player.name}_inventory`)
+    inventoryStore.clearInventory(`${player.name}_inventory`);
     //****************** INVENTNARIO */
     playerActions.setClassFeature(classFeatures);
     playerActions.setClassImg(img);
@@ -70,8 +69,6 @@ export default function CharacterSelector() {
     });
     playerActions.setSpell(classData.initialSpells);
 
-
-
     type typeCompletedMQuests = {
       id: number;
       name: string;
@@ -86,8 +83,10 @@ export default function CharacterSelector() {
   return (
     <div className="containerClassSelector">
       <div className="containerClases rpgui-container framed-golden-2">
-        <div className='nameHeader'>
-          <h1 className='nameHeader'>Hola, {player.name ? player.name : 'invitade'}</h1>
+        <div className="nameHeader">
+          <h1 className="nameHeader">
+            Hola, {player.name ? player.name : 'invitade'}
+          </h1>
           <p>¿Cuál es tu clase?</p>
         </div>
         <div className="buttonsClasses">
@@ -96,13 +95,13 @@ export default function CharacterSelector() {
           ) : (
             <>
               {classes.map((classItem) => (
-                <img 
-                className='classIcons  rpgui-cursor-point' 
-                src={classItem.iconImg} 
-                alt={classItem.className} 
-                onMouseEnter={() => setHoveredClass(classItem)}
-                onMouseLeave={() => setHoveredClass(null)}
-                onClick={() => handleButtonClick(classItem)}
+                <img
+                  className="classIcons  rpgui-cursor-point"
+                  src={classItem.iconImg}
+                  alt={classItem.className}
+                  onMouseEnter={() => setHoveredClass(classItem)}
+                  onMouseLeave={() => setHoveredClass(null)}
+                  onClick={() => handleButtonClick(classItem)}
                 />
               ))}
             </>

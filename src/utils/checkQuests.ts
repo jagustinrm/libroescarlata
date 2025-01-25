@@ -1,7 +1,9 @@
-import { QuestTree, Quest } from "../stores/types/quests";
-import useQuestStore from "../stores/questStore";
+import { QuestTree, Quest } from '../stores/types/quests';
+import useQuestStore from '../stores/questStore';
 
-export default function checkQuests(updatedEnemies: { count: number; name: string }[]) {
+export default function checkQuests(
+  updatedEnemies: { count: number; name: string }[],
+) {
   // Obtener el árbol de quests desde el estado global
   const { questTree, updateQuest } = useQuestStore.getState();
 
@@ -10,7 +12,9 @@ export default function checkQuests(updatedEnemies: { count: number; name: strin
     if (quest.finished) return;
 
     // Encontrar el enemigo relacionado con el objetivo de la quest
-    const matchingEnemy = updatedEnemies.find((enemy) => enemy.name === quest.objective);
+    const matchingEnemy = updatedEnemies.find(
+      (enemy) => enemy.name === quest.objective,
+    );
 
     if (matchingEnemy) {
       // Actualizar el progreso de la quest
@@ -25,7 +29,7 @@ export default function checkQuests(updatedEnemies: { count: number; name: strin
           progress: Math.min(newProgress, quest.counter), // Progreso máximo es el contador necesario
           finished: isFinished,
         },
-        category
+        category,
       );
     }
   };
@@ -33,6 +37,8 @@ export default function checkQuests(updatedEnemies: { count: number; name: strin
   // Iterar sobre cada categoría de quests y verificar cada quest
   Object.keys(questTree).forEach((category) => {
     const questCategory = category as keyof QuestTree; // Asegurar el tipo
-    questTree[questCategory].forEach((quest) => checkAndUpdateQuest(quest, questCategory));
+    questTree[questCategory].forEach((quest) =>
+      checkAndUpdateQuest(quest, questCategory),
+    );
   });
 }

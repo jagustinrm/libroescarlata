@@ -5,9 +5,8 @@ import usePlayerStore from '../stores/playerStore';
 const InventoryStateLoader = () => {
   const { createInventory, addItem } = useInventoryStore();
   const { player } = usePlayerStore();
- 
-  useEffect(() => {
 
+  useEffect(() => {
     const storedInventoryState = localStorage.getItem('inventoryState');
 
     if (storedInventoryState) {
@@ -31,7 +30,7 @@ const InventoryStateLoader = () => {
                   `${player.name}_inventory`,
                   category as keyof Inventory,
                   item,
-                ); 
+                );
               });
             }
           },

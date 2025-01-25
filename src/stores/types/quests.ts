@@ -24,6 +24,6 @@ export interface QuestStore {
   updateQuest: (
     questName: string,
     updates: Partial<Quest>,
-    category: keyof QuestTree
+    category: keyof QuestTree,
   ) => void; // Actualiza una misión existente en una categoría específica
 }

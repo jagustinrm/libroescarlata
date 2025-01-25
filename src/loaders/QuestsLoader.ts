@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import useQuestStore from '../stores/questStore';// Asegúrate de crear este store si no existe
+import useQuestStore from '../stores/questStore'; // Asegúrate de crear este store si no existe
 
 const QuestLoader = () => {
   const { areQuestsLoaded, setQuestTree } = useQuestStore(); // Variables y funciones del store

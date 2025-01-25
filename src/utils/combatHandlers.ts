@@ -13,7 +13,6 @@ import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
 import useSummonStore from '../stores/summonsStore.ts';
 
-
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
   setActionMessages?: Dispatch<SetStateAction<string[]>>;
@@ -23,7 +22,7 @@ interface CombatHandlersProps {
   setSummon?: Dispatch<SetStateAction<Creature | null>>;
   button?: Button;
   setActivateImage: Dispatch<SetStateAction<boolean>>;
-  setFloatingMessage: Dispatch<SetStateAction<FloatingMessageProps | null>> ;
+  setFloatingMessage: Dispatch<SetStateAction<FloatingMessageProps | null>>;
 }
 
 interface Position {
@@ -57,17 +56,18 @@ export const handleCombatAction = (
   const addActionMessage = (message: string) => {
     setActionMessages?.((prevMessages) => [...prevMessages, message]);
   };
-  const {player} = usePlayerStore.getState();
-  const {creature} = useCreatureStore.getState();
-  const {spells} = useSpellStore.getState();
-  const {weapons} = useWeaponStore.getState();
-  const {summons} = useSummonStore.getState();
-  const {currentCharacter, nextTurn, addCharacter} = useTurnStore.getState();
-  const {setPlayerPosition, playerPosition, enemyPosition, setPetPosition} = usePositionStore.getState();
+  const { player, playerActions } = usePlayerStore.getState();
+  const { creature } = useCreatureStore.getState();
+  const { spells } = useSpellStore.getState();
+  const { weapons } = useWeaponStore.getState();
+  const { summons } = useSummonStore.getState();
+  const { currentCharacter, nextTurn, addCharacter } = useTurnStore.getState();
+  const { setPlayerPosition, playerPosition, enemyPosition, setPetPosition } =
+    usePositionStore.getState();
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
-        nextTurn();
-
+      playerActions.decrementBuffDurations();
+      nextTurn();
     }
   };
 
@@ -89,19 +89,20 @@ export const handleCombatAction = (
   // *********************************                  ********************************
   // ************************************CUERPO A CUERPO *****************************
   // ************************************                  *****************************
-  
-  
+
   const handleAttack = () => {
     if (!player || !creature) return;
-   
-    const weaponFiltered = weapons?.find((w) => w.name === player.bodyParts.manoDerecha.name);
+
+    const weaponFiltered = weapons?.find(
+      (w) => w.name === player.bodyParts.manoDerecha.name,
+    );
     const weaponRange = weaponFiltered?.range ?? 10; // Por defecto, rango es 10.
-    
+
     if (playerPosition && enemyPosition) {
       const adjustedDistance = calculateDistance(playerPosition, enemyPosition);
 
       if (adjustedDistance === -1) return; // Ignorar posición central del jugador.
-   
+
       if (adjustedDistance > weaponRange) {
         addActionMessage('¡Estás fuera de rango para atacar!');
         handleMessage?.('¡Estás fuera de rango!', 'warning', false);
@@ -109,32 +110,34 @@ export const handleCombatAction = (
         return;
       }
       setTimeout(() => {
-      simulateAttackMovement(playerPosition, 5, setPlayerPosition);
-    }, 100); 
+        simulateAttackMovement(playerPosition, 5, setPlayerPosition);
+      }, 100);
       const success = isAttackSuccessful(
-        player.hitRatePercentage?.() ?? 0,  
-        creature.dodgePercentage?.() ?? 0    
+        player.hitRatePercentage?.() ?? 0,
+        creature.dodgePercentage?.() ?? 0,
       );
-      
-      if (
-        weaponFiltered &&
-        success &&
-        creature.health
-      ) {
 
-
+      if (weaponFiltered && success && creature.health) {
         setActivateImage(true);
         setTimeout(() => {
           setActivateImage(false);
         }, 250);
-        const redDamage = creature.totalDmgReduction(player.level)
-        const totalDamage = Math.floor(Math.random() * (player.damageMax() - player.damage()) + player.damage());
+        const redDamage = creature.totalDmgReduction(player.level);
+        const totalDamage = Math.floor(
+          Math.random() * (player.damageMax() - player.damage()) +
+            player.damage(),
+        );
         const finalDamage = Math.floor(totalDamage * (1 - redDamage / 100));
-        
+
         addActionMessage(
           `Has atacado al enemigo y causado ${finalDamage} puntos de daño.`,
         );
-        setFloatingMessage({message: finalDamage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
+        setFloatingMessage({
+          message: finalDamage.toString(),
+          onComplete: () => setFloatingMessage(null),
+          textColor: 'red',
+          position: enemyPosition,
+        });
         useCreatureStore
           .getState()
           .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
@@ -144,7 +147,12 @@ export const handleCombatAction = (
           handlePostCombatActs?.(fightType, creature);
         }
       } else {
-        setFloatingMessage({message: '¡Falló!', onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
+        setFloatingMessage({
+          message: '¡Falló!',
+          onComplete: () => setFloatingMessage(null),
+          textColor: 'red',
+          position: enemyPosition,
+        });
         addActionMessage(`¡Tu ataque falló!`);
       }
     }
@@ -157,14 +165,14 @@ export const handleCombatAction = (
     const scroll = additionalData;
     let spellDetails = null;
     if (scroll) {
-      spellDetails = scroll
+      spellDetails = scroll;
     } else {
-    spellDetails = spells?.find((s) => s.name === player.selectedSpell?.name);
+      spellDetails = spells?.find((s) => s.name === player.selectedSpell?.name);
       if (!spellDetails) {
         shouldFinalizeTurn = false; // No se encontró el hechizo, no se finaliza el turno.
         return;
       }
-    
+
       if (
         spellDetails.manaCost &&
         typeof player?.p_LeftMana === 'number' &&
@@ -203,35 +211,44 @@ export const handleCombatAction = (
       const adjustedDistance =
         dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
 
-      if (adjustedDistance <= spellDetails.range && spellDetails.damage && spellDetails.damageMax ) {
-        const damage = 
-        Math.floor(Math.random() * (spellDetails.damageMax - spellDetails.damage + 1)) 
-        + spellDetails.damage 
+      if (
+        adjustedDistance <= spellDetails.range &&
+        spellDetails.damage &&
+        spellDetails.damageMax
+      ) {
+        const damage =
+          Math.floor(
+            Math.random() * (spellDetails.damageMax - spellDetails.damage + 1),
+          ) + spellDetails.damage;
         simulateAttackMovement(playerPosition, 5, setPlayerPosition);
         addActionMessage(
           `Has lanzado ${spellDetails.name} y causado ${damage} puntos de daño.`,
         );
-        setFloatingMessage({message: damage.toString(), onComplete: () => setFloatingMessage(null), textColor: "red", position: enemyPosition},  )
+        setFloatingMessage({
+          message: damage.toString(),
+          onComplete: () => setFloatingMessage(null),
+          textColor: 'red',
+          position: enemyPosition,
+        });
 
         useCreatureStore
           .getState()
           .setCreatureHealth(Math.max(creature.health - damage, 0));
-          if (
-            typeof player?.p_LeftMana === 'number' &&
-            typeof spellDetails.manaCost === 'number' &&
-            !scroll
-          ) {
-            usePlayerStore
-              .getState()
-              .playerActions.setP_LeftMana(
-                Math.max(player.p_LeftMana - spellDetails.manaCost, 0),
-              );
-          }
+        if (
+          typeof player?.p_LeftMana === 'number' &&
+          typeof spellDetails.manaCost === 'number' &&
+          !scroll
+        ) {
+          usePlayerStore
+            .getState()
+            .playerActions.setP_LeftMana(
+              Math.max(player.p_LeftMana - spellDetails.manaCost, 0),
+            );
+        }
         if (creature.health - damage <= 0 && fightType) {
           handleMessage?.('¡Has ganado el combate!', 'success', false);
           handlePostCombatActs?.(fightType, creature);
         }
-
       } else {
         addActionMessage(
           `El enemigo está fuera de rango para ${spellDetails.name}.`,
@@ -252,7 +269,12 @@ export const handleCombatAction = (
       addActionMessage(
         `Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`,
       );
-      setFloatingMessage({message: healing.toString(), onComplete: () => setFloatingMessage(null), textColor: "green", position: playerPosition},  )
+      setFloatingMessage({
+        message: healing.toString(),
+        onComplete: () => setFloatingMessage(null),
+        textColor: 'green',
+        position: playerPosition,
+      });
 
       const totalHealth = Math.min(
         player.p_LeftHealth + healing,
@@ -279,14 +301,12 @@ export const handleCombatAction = (
           Math.max(player?.p_LeftMana - spellDetails.manaCost, 0),
         );
 
-      const summon = summons.find(s => s.name === spellDetails.invocation)
- 
+      const summon = summons.find((s) => s.name === spellDetails.invocation);
+
       if (summon) {
-        addCharacter({id: "summon", name: summon.name})
+        addCharacter({ id: 'summon', name: summon.name });
         setSummon(summon);
       }
-
-      
     } else {
       shouldFinalizeTurn = false;
     }
@@ -296,7 +316,7 @@ export const handleCombatAction = (
   const handleMove = () => {
     const button = additionalData;
     if (!button || !playerPosition) return;
-
+    console.log(player.buffs.str?.value)
     const step = 5;
     const offsetX = 10 / 1.2;
     const offsetY = 20 / 1.5;

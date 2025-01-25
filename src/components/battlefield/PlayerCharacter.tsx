@@ -70,8 +70,8 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
             </div>
           </div>
         </div>
-        {pet && <img className="imgPet" src={pet.img} alt="" /> }
-        
+        {pet && <img className="imgPet" src={pet.img} alt="" />}
+
         {pet ? <p>Mascota: {pet.name}</p> : null}
       </div>
       {/* <div className="blackBar"></div> */}

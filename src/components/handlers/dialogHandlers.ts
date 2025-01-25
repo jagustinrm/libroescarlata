@@ -1,7 +1,12 @@
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from 'react-router-dom';
 
 export const handleOptionSelect = (
-  option: { outcome: string; enemies: any[]; requiresItem: any[]; days: number },
+  option: {
+    outcome: string;
+    enemies: any[];
+    requiresItem: any[];
+    days: number;
+  },
   context: {
     navigate: NavigateFunction;
     playerActions: any;
@@ -12,7 +17,7 @@ export const handleOptionSelect = (
     travelCounter: number;
     setTravelCounter: (value: number) => void;
     handleContinue: () => void;
-  }
+  },
 ) => {
   const {
     navigate,
@@ -26,25 +31,25 @@ export const handleOptionSelect = (
     handleContinue,
   } = context;
 
-  if (option.outcome === "fight") {
-    navigate("/fightScene", {
+  if (option.outcome === 'fight') {
+    navigate('/fightScene', {
       state: {
         enemy: option.enemies[0],
-        fightType: "story",
+        fightType: 'story',
         event: currentEvent,
       },
     });
-  } else if (option.outcome === "deliver" && option.requiresItem) {
+  } else if (option.outcome === 'deliver' && option.requiresItem) {
     option.requiresItem.forEach((item) => {
       for (let i = 0; i < item.cant; i++) {
-        removeItem(player.inventoryId, "others", item.id);
+        removeItem(player.inventoryId, 'others', item.id);
       }
     });
     playerActions.updateStoryProgress(storyId, {
       completedEvents: [currentEvent.id],
     });
     handleContinue();
-  } else if (option.outcome === "travel") {
+  } else if (option.outcome === 'travel') {
     if (travelCounter >= option.days) {
       playerActions.updateStoryProgress(storyId, {
         completedEvents: [currentEvent.id],
@@ -53,13 +58,13 @@ export const handleOptionSelect = (
     } else {
       const newCounter = travelCounter + 1;
       setTravelCounter(newCounter);
-      localStorage.setItem("travelCounter", newCounter.toString());
+      localStorage.setItem('travelCounter', newCounter.toString());
 
       if (Math.random() < 0.2) {
-        navigate("/fightScene", {
+        navigate('/fightScene', {
           state: {
             enemy: option.enemies[0],
-            fightType: "travel",
+            fightType: 'travel',
             event: currentEvent,
           },
         });
@@ -70,18 +75,16 @@ export const handleOptionSelect = (
   }
 };
 
-export const handleContinue = (
-  context: {
-    currentDialog: any;
-    currentLineIndex: number;
-    setCurrentLineIndex: React.Dispatch<React.SetStateAction<number>>;
-    isTextCompleted: boolean;
-    setIsTextCompleted: (value: boolean) => void;
-    currentLine: any;
-    setDisplayedText: (value: string) => void;
-    onDialogEnd?: () => void;
-  }
-) => {
+export const handleContinue = (context: {
+  currentDialog: any;
+  currentLineIndex: number;
+  setCurrentLineIndex: React.Dispatch<React.SetStateAction<number>>;
+  isTextCompleted: boolean;
+  setIsTextCompleted: (value: boolean) => void;
+  currentLine: any;
+  setDisplayedText: (value: string) => void;
+  onDialogEnd?: () => void;
+}) => {
   const {
     currentDialog,
     currentLineIndex,
@@ -101,9 +104,9 @@ export const handleContinue = (
       onDialogEnd();
     }
   } else {
-    setDisplayedText("");
+    setDisplayedText('');
     setTimeout(() => {
-      setDisplayedText(currentLine?.text || "");
+      setDisplayedText(currentLine?.text || '');
       setIsTextCompleted(true);
     }, 0);
   }

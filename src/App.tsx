@@ -39,7 +39,7 @@ import BooksLoader from './loaders/BooksLoader.js';
 import SummonLoader from './loaders/SummonLoader.js';
 
 function App() {
-  const {player, inventories } = useGlobalState();
+  const { player, inventories } = useGlobalState();
 
   window.addEventListener('beforeunload', () => {
     localStorage.setItem('playerState', JSON.stringify(player));
@@ -50,42 +50,45 @@ function App() {
     <BrowserRouter>
       <Particles />
       <PlayerStateLoader />
-      <OtherItemsLoader/>
+      <OtherItemsLoader />
       <WeaponLoader />
       <ArmorsLoader />
       <PotionsLoader />
       <ClassLoader />
       <SpellLoader />
-      <QuestLoader/>
-      <SummonLoader/>
-      <BooksLoader/>
+      <QuestLoader />
+      <SummonLoader />
+      <BooksLoader />
       <CreatureLoader />
       <ItemShopLoader />
-      <DialogLoader/>
-      <StoryLoader/>
+      <DialogLoader />
+      <StoryLoader />
       <PlayerStateSaver />
       <InventoryStateLoader />
       <HomeProvider>
-        <HeaderMenu/>
+        <HeaderMenu />
         <DelayedDisplay delay={300} duration={200}>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/characterSelector" element={<CharacterSelector />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/fightScene" element={<FightScene />} />
-          <Route path="/townMap" element={<TownMap />} />
-          <Route path="/petStore" element={<PetStore />} />
-          <Route path="/inventory" element={<Inventory />} />
-          <Route path="/itemShop" element={<ItemShop />} />
-          <Route path="/playerstats" element={<PlayerStats />} />
-          <Route path="/firebase" element={<MyComponent />} />
-          <Route path="/storyMode" element={< StoryMode />} />
-          <Route path="/chapter" element={< Chapter />} />
-          <Route path="/bestiary" element={< Bestiary />} />
-          <Route path="/testread" element={<TestFirebaseRead />} />
-          <Route path="/loadPlayer/:playerName" element={<LoadPlayerFromFirebase />}/>
-          <Route path="/chat" element={<Chat/>} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/characterSelector" element={<CharacterSelector />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/fightScene" element={<FightScene />} />
+            <Route path="/townMap" element={<TownMap />} />
+            <Route path="/petStore" element={<PetStore />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/itemShop" element={<ItemShop />} />
+            <Route path="/playerstats" element={<PlayerStats />} />
+            <Route path="/firebase" element={<MyComponent />} />
+            <Route path="/storyMode" element={<StoryMode />} />
+            <Route path="/chapter" element={<Chapter />} />
+            <Route path="/bestiary" element={<Bestiary />} />
+            <Route path="/testread" element={<TestFirebaseRead />} />
+            <Route
+              path="/loadPlayer/:playerName"
+              element={<LoadPlayerFromFirebase />}
+            />
+            <Route path="/chat" element={<Chat />} />
+          </Routes>
         </DelayedDisplay>
       </HomeProvider>
     </BrowserRouter>

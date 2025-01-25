@@ -284,14 +284,14 @@ button:disabled:hover {
   position: fixed; /* Permanece en el mismo lugar al mover la pantalla */
 }
 
-.listCombatItems{
-  position: fixed; 
-  top:38px;
-  left: 280px
+.listCombatItems {
+  position: fixed;
+  top: 38px;
+  left: 280px;
 }
 
-.dungeonLevel{
+.dungeonLevel {
   position: absolute;
-  top:60px;
+  top: 60px;
   z-index: 1000000;
 }

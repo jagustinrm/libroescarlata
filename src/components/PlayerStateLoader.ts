@@ -10,7 +10,7 @@ const PlayerStateLoader = () => {
 
     if (storedPlayerState) {
       const parsedPlayerState = JSON.parse(storedPlayerState);
-      playerActions.setPlayer(parsedPlayerState)
+      playerActions.setPlayer(parsedPlayerState);
     }
   }, []);
 

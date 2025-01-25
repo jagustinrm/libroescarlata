@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { Dialog } from "./types/dialog"; // Asegúrate de definir el tipo "Dialog" en otro archivo
+import { create } from 'zustand';
+import { Dialog } from './types/dialog'; // Asegúrate de definir el tipo "Dialog" en otro archivo
 
 const useDialogStore = create<{
   dialogs: Dialog[];
@@ -13,9 +13,7 @@ const useDialogStore = create<{
   userDialogProgress: {},
 
   loadDialogs: (dialogs) =>
-  
     set(() => {
-
       return { dialogs };
     }),
 
