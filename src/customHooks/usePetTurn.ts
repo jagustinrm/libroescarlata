@@ -49,20 +49,24 @@ export const usePetTurn = ({
 
             if (success) {
               const damage = player.selectedPet.attack.melee;
-
+              const redDamage = player.totalDmgReduction(creature.level);
               const rollDamage =
                 Math.floor(Math.random() * (damage + 1)) + damage;
-              setCreatureHealth(Math.max(player.p_LeftHealth - rollDamage, 0));
+                const finalDamage = Math.floor(
+                  rollDamage * (1 - redDamage / 100),
+                );
+  
+              setCreatureHealth(Math.max(player.p_LeftHealth - finalDamage, 0));
               //   setSoundUrl(creature.attacks[0].soundEffect)
               //   setTimeout(() => {
               //     setSoundUrl('');
               //   }, 300);
               setActionMessages((prev) => [
                 ...prev,
-                `Tu acompañante ha atacado y causó ${rollDamage} puntos de daño.`,
+                `Tu acompañante ha atacado y causó ${finalDamage} puntos de daño.`,
               ]);
               setFloatingMessage({
-                message: rollDamage.toString(),
+                message: finalDamage.toString(),
                 onComplete: () => setFloatingMessage(null),
                 textColor: 'red',
                 position: enemyPosition,

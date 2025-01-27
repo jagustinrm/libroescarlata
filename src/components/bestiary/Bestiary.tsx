@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import useGlobalState from '../../customHooks/useGlobalState';
 import BackButton from '../UI/BackButton';
 import './Bestiary.css';
@@ -6,7 +6,8 @@ import ButtonEdited from '../UI/ButtonEdited';
 import { useNavigate } from 'react-router-dom';
 
 export default function Bestiary() {
-  const { creatures, player } = useGlobalState();
+  const { creatures, bosses, player } = useGlobalState();
+  const [monsterCategory, setMonsterCategory] = useState("creatures")
   const navigate = useNavigate();
   // Estado para la página actual
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,10 +16,16 @@ export default function Bestiary() {
   // Calcular los índices de inicio y fin para la página actual
   const indexOfLastCreature = currentPage * creaturesPerPage;
   const indexOfFirstCreature = indexOfLastCreature - creaturesPerPage;
-  const currentCreatures = creatures.slice(
-    indexOfFirstCreature,
-    indexOfLastCreature,
-  );
+
+ 
+  const currentMonsters = useMemo(() => {
+    if (monsterCategory === "creatures") {
+      return creatures.slice(indexOfFirstCreature, indexOfLastCreature);
+    } else if (monsterCategory === "bosses") {
+      return bosses.slice(indexOfFirstCreature, indexOfLastCreature);
+    }
+    return [];
+  }, [monsterCategory, creatures, bosses, currentPage]);
 
   // Número total de páginas
   const totalPages = Math.ceil(creatures.length / creaturesPerPage);
@@ -47,7 +54,7 @@ export default function Bestiary() {
 
   const renderCreatureImages = () => (
     <div className="bestiaryGrid">
-      {currentCreatures.map((c) => {
+      {currentMonsters.map((c) => {
         const isDefeated = player.enemiesDeleted?.some(
           (ed) => ed.name === c.name,
         );
@@ -85,6 +92,20 @@ export default function Bestiary() {
   );
   return (
     <div className="bestiaryContainer rpgui-container framed-golden-2">
+      <div style={{display: 'flex'}}>
+      <ButtonEdited
+            label="Normal"
+            width="130px"
+            height="33px"
+            onClick={() => setMonsterCategory("creatures")}
+          />
+      <ButtonEdited
+            label="Jefes"
+            width="130px"
+            height="33px"
+            onClick={() => setMonsterCategory("bosses")}
+      />
+      </div>
       {renderCreatureImages()}
 
       <div className="pagination">

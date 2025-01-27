@@ -75,11 +75,10 @@ export const useEnemyTurn = ({
               creature.hitRatePercentage(), // Usar 0 si hitRatePercentage no está definido
               player.dodgePercentage(), // Usar 0 si dodgePercentage no está definido
             );
-            console.log(playerPosition, 'playerposition');
+      ;
             if (success) {
               const { damage, damageMax } = creature['attacks'][0];
-              const rollDamage =
-                Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
+              const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
               const redDamage = player.totalDmgReduction(creature.level);
               const finalDamage = Math.floor(
                 rollDamage * (1 - redDamage / 100),

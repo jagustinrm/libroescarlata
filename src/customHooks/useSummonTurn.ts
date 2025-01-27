@@ -72,10 +72,16 @@ export const useSummonTurn = ({
           const summonAttackTimeout = setTimeout(() => {
             const totalAttack = rollDice('1d20') + summon['attacks'][0].bonus;
             if (totalAttack > creature.armorClass && creature.health) {
-              const damageBase = summon['attacks'][0].damage;
-              const totalDamage =
-                damageBase +
-                Math.round((damageBase * player.summonDmgIncrease()) / 100);
+              // const damageBase = summon['attacks'][0].damage;
+              const { damage, damageMax } = summon['attacks'][0];
+              // 1- Daño random min y max 2- reduccion de daño 3- incrementar los daños a- calcular 4- Calculo total con el incremento
+              const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
+              const redDamage = creature.totalDmgReduction(summon.level);
+              const damageIncrease = rollDamage + Math.round((rollDamage * player.summonDmgIncrease()) / 100);
+              const totalDamage = Math.floor(
+                damageIncrease * (1 - redDamage / 100),
+              );
+
               setCreatureHealth(Math.max(creature.health - totalDamage, 0));
               setActionMessages((prev) => [
                 ...prev,

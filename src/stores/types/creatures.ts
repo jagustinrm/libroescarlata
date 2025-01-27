@@ -8,18 +8,18 @@ export interface Creature {
   expertice?: number;
   dodge: number;
   hitRate: number;
-  hitPoints: string; // Ejemplo: "1d8"
+  hitPoints: string; 
   armorClass: number;
   attacks: {
-    name: string; // Ejemplo: "daga"
+    name: string; 
     type: string; // "melee" o "rango"
-    bonus: number; // Ejemplo: +1
+    bonus: number; 
     damage: number;
     damageMax: number;
     soundEffect: string;
   }[];
-  specialAbilities: string[]; // Lista de habilidades especiales
-  img: string; // URL o ruta de la imagen
+  specialAbilities: string[]; 
+  img: string; 
   health?: number;
   stats: Stats;
   readonly dodgePercentage: () => number;

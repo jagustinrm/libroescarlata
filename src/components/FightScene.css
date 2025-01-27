@@ -95,7 +95,7 @@ button:disabled:hover {
   left: 1%;
   padding: 1%;
   max-width: 250px;
-  max-height: 400px;
+  max-height: 500px;
   min-width: 250px;
 }
 .blackScreenAttacks {
@@ -282,6 +282,7 @@ button:disabled:hover {
 
 .fixedUI {
   position: fixed; /* Permanece en el mismo lugar al mover la pantalla */
+  
 }
 
 .listCombatItems {
