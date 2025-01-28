@@ -17,7 +17,6 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
   onMouseEnter,
   onMouseLeave,
   width = '',
-  height = '',
   disabled = false, // Valor predeterminado
 }) => {
   const buttonSound = {
@@ -51,10 +50,10 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
       <div
         style={{
           width,
-          height,
-          filter: disabled ? 'grayscale(100%)' : 'none', // Filtro blanco y negro
+          filter: disabled ? 'grayscale(100%)' : 'none', 
           pointerEvents: disabled ? 'none' : 'auto', // Evitar clics cuando está deshabilitado
-          cursor: disabled ? 'cursor: not-allowed' : 'auto',
+          cursor: disabled ? 'not-allowed' : 'auto', 
+          display:  disabled ? 'inline-block' : '',
         }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

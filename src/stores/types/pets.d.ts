@@ -1,15 +1,6 @@
-export interface Pet {
-  name: string;
-  type: string;
-  alignment: string;
-  level: number;
-  hitPoints: string; // Ejemplo: "1d4"
-  armorClass: number;
-  attack: {
-    melee: number;
-  };
-  specialAbilities: string[]; // Lista de habilidades especiales
-  img: string; // URL o ruta de la imagen
+import { Creature } from "./creatures";
+
+export interface Pet extends Creature {
   cost?: number;
 }
 

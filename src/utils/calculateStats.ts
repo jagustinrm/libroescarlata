@@ -2,7 +2,7 @@ import { bodyParts } from '../stores/types/others';
 
 export function calculateTotalDodge(agi: number = 1, dodge: number): number {
   // Constantes específicas del juego
-  const DODGE_PER_AGILITY = 0.5; // Ejemplo: 1.2% por cada 100 puntos de agilidad
+  const DODGE_PER_AGILITY = 0.1; // Ejemplo: 1.2% por cada 100 puntos de agilidad
 
   // Cálculo del porcentaje de esquiva
   const dodgeFromAgility = agi * DODGE_PER_AGILITY;
@@ -11,14 +11,42 @@ export function calculateTotalDodge(agi: number = 1, dodge: number): number {
   // Asegurarse de que el porcentaje esté en un rango válido
   return totalDodge;
 }
+export function calculateDodgePercentage(
+  dodge: number,
+  enemyLevel: number = 1,
+): number {
+  // return parseFloat(Math.max(0, Math.min(dodge, 100)).toFixed(2));
+   // Se aplica una penalización que se incrementa conforme el nivel del enemigo crece.
+   const penalty = Math.pow(0.95, enemyLevel - 1); // Penaliza con un factor decreciente exponencialmente
+   // Calculamos la probabilidad de golpear usando la evasión (flee o estimada) y la penalización.
+   const dodgeChance = (dodge / (dodge + enemyLevel * 10)) * 100 * penalty;
+   // Aseguramos que el hitChance esté entre 5% y 95%
+   const finalDodgeRate = Math.max(5, Math.min(95, dodgeChance));
+ 
+   return parseFloat(finalDodgeRate.toFixed(2)); 
+}
+
 export function calculateTotalHitRate(
   dex: number = 1,
   hitRate: number,
 ): number {
   const HIT_RATE_PER_DEX = 1;
   const hitRateFromDex = dex * HIT_RATE_PER_DEX;
-  const totalHitRate = hitRate + hitRateFromDex;
+  const totalHitRate = hitRateFromDex + hitRate;
   return totalHitRate;
+}
+export function calculateHitRatePercentage(
+  totalHitRate: number,
+  enemyLevel: number = 1,
+): number {
+  // Se aplica una penalización que se incrementa conforme el nivel del enemigo crece.
+  const penalty = Math.pow(0.95, enemyLevel - 1); // Penaliza con un factor decreciente exponencialmente
+  // Calculamos la probabilidad de golpear usando la evasión (flee o estimada) y la penalización.
+  const hitChance = (totalHitRate / (totalHitRate + enemyLevel * 10)) * 100 * penalty;
+  // Aseguramos que el hitChance esté entre 5% y 95%
+  const finalHitRate = Math.max(5, Math.min(95, hitChance));
+
+  return parseFloat(finalHitRate.toFixed(2));  // Redondeamos el resultado a 2 decimales
 }
 export function calculateTotalMaxHealth(
   con: number = 1,
@@ -44,18 +72,8 @@ export function calculateTotalMaxMana(
   const totalMaxMana = p_MaxMana + manaFromInt + manaFromCha;
   return totalMaxMana;
 }
-export function calculateDodgePercentage(
-  dodge: number, // Esquiva base del personaje
-): number {
-  return parseFloat(Math.max(0, Math.min(dodge, 100)).toFixed(2));
-}
 
-export function calculateHitRatePercentage(
-  totalHitRate: number, // Hit rate base del atacante
-): number {
-  // Asegurarse de que el porcentaje esté en un rango válido
-  return parseFloat(Math.max(0, Math.min(totalHitRate, 100)).toFixed(2));
-}
+
 
 export function isAttackSuccessful(
   hitRatePercentage: number, // Porcentaje de hit rate del atacante
@@ -124,7 +142,6 @@ export function calculateTotalDamage(
   const damageValue = Object.values(bodyParts).reduce((total, part) => {
     return total + (part?.damage || 0);
   }, 0);
-
   const totalStr = strBuff ? playerStr + strBuff : playerStr;
   return totalStr + damageValue;
 }
@@ -138,9 +155,35 @@ export function calculateTotalMaxDamage(
     return total + (part?.damageMax || 0);
   }, 0);
   const totalStr = strBuff ? playerStr + strBuff : playerStr;
-
   return totalStr + damageValue;
 }
+
+export function calculateMTotalDamage(
+  bodyParts: bodyParts,
+  playerInt: number,
+  intBuff?: number,
+): number {
+  const damageValue = Object.values(bodyParts).reduce((total, part) => {
+    return total + (part?.mDamage || 0);
+  }, 0);
+  const totalStr = intBuff ? playerInt + intBuff : playerInt;
+  return totalStr + damageValue;
+}
+
+export function calculateMTotalMaxDamage(
+  bodyParts: bodyParts,
+  playerInt: number,
+  intBuff?: number,
+): number {
+  const damageValue = Object.values(bodyParts).reduce((total, part) => {
+    return total + (part?.mDamageMax|| 0);
+  }, 0);
+  const totalStr = intBuff ? playerInt + intBuff : playerInt;
+  return totalStr + damageValue;
+}
+
+
+
 export function calculateSummonDmgIncrease(playerCar: number): number {
   const summonDmg = parseFloat(((playerCar / 100) * 50).toFixed(2));
   return summonDmg;

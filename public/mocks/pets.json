@@ -7,9 +7,10 @@
       "level": 1,
       "hitPoints": "1d4",
       "armorClass": 15,
-      "attack": {
-        "melee": 4
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": ["visión nocturna", "sigilo"],
       "img": "/img/cat.png"
     },
@@ -20,9 +21,10 @@
       "level": 1,
       "hitPoints": "1d4",
       "armorClass": 14,
-      "attack": {
-        "melee": 5
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": ["cambio de color", "visibilidad en la oscuridad"],
       "img": "/img/chameleon.png"
     },
@@ -33,9 +35,10 @@
       "level": 1,
       "hitPoints": "1d4",
       "armorClass": 15,
-      "attack": {
-        "melee": 3
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": ["vuelo", "visión aguda"],
       "img": "/img/crow.png"
     },
@@ -46,9 +49,10 @@
       "level": 1,
       "hitPoints": "1d6+1",
       "armorClass": 13,
-      "attack": {
-        "melee": 5
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": ["olfato agudo", "sentidos agudos"],
       "img": "/img/dog.png"
     },
@@ -59,9 +63,10 @@
       "level": 1,
       "hitPoints": "1d10+2",
       "armorClass": 15,
-      "attack": {
-        "melee": 7
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": ["aliento de fuego", "visión en la oscuridad", "resistencia al fuego (5)"],
       "img": "/img/cute_baby_dragon.png"
     },
@@ -72,9 +77,10 @@
       "level": 1,
       "hitPoints": "1d8",
       "armorClass": 14,
-      "attack": {
-        "melee": 10
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": [
         "inmunidad al fuego",
         "toque ardiente"
@@ -89,9 +95,10 @@
       "level": 1,
       "hitPoints": "1d8",
       "armorClass": 14,
-      "attack": {
-        "melee": 9
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": [
         "inmunidad al hielo",
         "toque congelante"
@@ -106,9 +113,10 @@
       "level": 1,
       "hitPoints": "1d3",
       "armorClass": 12,
-      "attack": {
-        "melee": 9
-      },
+      "attacks":[ {
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": ["veneno débil", "movimiento sigiloso"],
       "img": "/img/baby_snake.png",
       "cost": 1000
@@ -120,9 +128,10 @@
       "level": 1,
       "hitPoints": "1d6",
       "armorClass": 14,
-      "attack": {
-        "melee": 10
-      },
+      "attacks": [{
+        "damage": 20,
+        "damageMax": 40
+      }],
       "specialAbilities": ["visión nocturna", "agilidad mejorada"],
       "img": "/img/baby_tiger.png",
       "cost": 1000

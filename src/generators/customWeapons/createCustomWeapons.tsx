@@ -9,6 +9,7 @@ import { generateBonusEffects } from '../generateBonusEffects';
 import { calculateDamageValues } from './calculateDamageValue';
 import { getRarityColor } from '../getRarityColor';
 import assignRangeToItem from '../../utils/assignRangeToItem';
+import { getWeaponSound } from '../../utils/getWeaponSound';
 
 const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
   const rarities: Weapon['rarity'][] = [
@@ -44,6 +45,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
 
   const randomWeaponType =
     weaponTypes[Math.floor(Math.random() * weaponTypes.length)];
+  const weaponSound = getWeaponSound(randomWeaponType);
   const randomMaterial =
     materials[Math.floor(Math.random() * materials.length)];
   const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
@@ -51,6 +53,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
   const randomRarity = rarities[Math.floor(Math.random() * rarities.length)];
   const randomEffect = effects[Math.floor(Math.random() * effects.length)];
   const uniqueId = await generateUniqueId('weapons');
+
   const equipLevel = Math.max(
     1,
     playerLevel - 5 + Math.floor(Math.random() * 11),
@@ -116,7 +119,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     questReward: false,
     deleteable: true,
     playerOwner: false,
-    soundEffect: 'modificar',
+    soundEffect: weaponSound,
     actions: {
       equippable: true,
     },

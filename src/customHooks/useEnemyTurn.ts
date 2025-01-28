@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import usePositionStore from '../stores/positionStore.ts';
 import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
-import { isAttackSuccessful } from '../utils/calculateDodgePercentage.ts';
+import { isAttackSuccessful } from '../utils/calculateStats.ts';
 import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';

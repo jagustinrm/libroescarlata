@@ -4,7 +4,7 @@
         "hitDie": 40,
         "manaDie": 120,
         "dodgeDie": 0.5,
-        "hitRateDie": 0.5,
+        "hitRateDie":40,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 0,
@@ -33,7 +33,7 @@
         "hitDie": 100,
         "manaDie": 40,
         "dodgeDie": 1,
-        "hitRateDie": 1,
+        "hitRateDie": 60,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,
@@ -62,7 +62,7 @@
         "hitDie": 60,
         "manaDie": 60,
         "dodgeDie": 2,
-        "hitRateDie": 2,
+        "hitRateDie": 80,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 0,
@@ -91,7 +91,7 @@
         "hitDie": 80,
         "manaDie": 100,
         "dodgeDie": 0.5,
-        "hitRateDie": 0.5,
+        "hitRateDie": 40,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 2,
@@ -120,7 +120,7 @@
         "hitDie": 120,
         "manaDie": 40,
         "dodgeDie": 1,
-        "hitRateDie": 1,
+        "hitRateDie": 60,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,
@@ -149,7 +149,7 @@
         "hitDie": 60,
         "manaDie": 80,
         "dodgeDie": 1,
-        "hitRateDie": 1,
+        "hitRateDie": 70,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 0,
@@ -178,7 +178,7 @@
         "hitDie": 80,
         "manaDie": 100,
         "dodgeDie": 0.5,
-        "hitRateDie": 0.5,
+        "hitRateDie": 50,
         "baseAttackBonus": 0,
         "saves": {
             "fortitude": 2,
@@ -207,7 +207,7 @@
         "hitDie": 80,
         "manaDie": 60,
         "dodgeDie": 1.5,
-        "hitRateDie": 2,
+        "hitRateDie": 80,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,
@@ -236,7 +236,7 @@
         "hitDie": 100,
         "manaDie": 80,
         "dodgeDie": 0.5,
-        "hitRateDie": 1,
+        "hitRateDie": 55,
         "baseAttackBonus": 1,
         "saves": {
             "fortitude": 2,

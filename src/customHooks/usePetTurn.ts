@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import usePositionStore from '../stores/positionStore.ts';
 import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
-import { isAttackSuccessful } from '../utils/calculateDodgePercentage.ts';
+import { isAttackSuccessful } from '../utils/calculateStats.ts';
 import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
+import { Creature } from '../stores/types/creatures.ts';
 
 interface EnemyTurnProps {
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
@@ -13,11 +14,17 @@ interface EnemyTurnProps {
     React.SetStateAction<FloatingMessageProps | null>
   >;
   setSoundUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
+    handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
+    handlePostCombatActs?: (fightType: string, creature: Creature) => void;
+    fightType?: string;
 }
 export const usePetTurn = ({
   setActionMessages,
   setFloatingMessage,
   setSoundUrl,
+  fightType,
+  handleMessage,
+  handlePostCombatActs
 }: EnemyTurnProps) => {
   const { enemyPosition, petPosition, setPetPosition } =
     usePositionStore.getState();
@@ -48,15 +55,18 @@ export const usePetTurn = ({
             );
 
             if (success) {
-              const damage = player.selectedPet.attack.melee;
-              const redDamage = player.totalDmgReduction(creature.level);
-              const rollDamage =
-                Math.floor(Math.random() * (damage + 1)) + damage;
+              const {damage, damageMax} = player.selectedPet.attacks[0]
+              const totalDamage = Math.floor(
+                Math.random() * (damageMax - damage) +
+                damage,
+              );
+              const redDamage = creature.totalDmgReduction(creature.level);
                 const finalDamage = Math.floor(
-                  rollDamage * (1 - redDamage / 100),
+                  totalDamage * (1 - redDamage / 100),
                 );
   
               setCreatureHealth(Math.max(player.p_LeftHealth - finalDamage, 0));
+
               //   setSoundUrl(creature.attacks[0].soundEffect)
               //   setTimeout(() => {
               //     setSoundUrl('');
@@ -71,11 +81,17 @@ export const usePetTurn = ({
                 textColor: 'red',
                 position: enemyPosition,
               });
+                            
+              if (creature.health &&  creature.health - finalDamage <= 0 && fightType) {
+                handleMessage?.('¡Has ganado el combate!', 'success', false);
+                handlePostCombatActs?.(fightType, creature);
+              }
             } else {
               setSoundUrl('/music/attacks/weapon-swing.wav');
               setTimeout(() => {
                 setSoundUrl('');
               }, 300);
+
               setFloatingMessage({
                 message: '¡Falló!',
                 onComplete: () => setFloatingMessage(null),

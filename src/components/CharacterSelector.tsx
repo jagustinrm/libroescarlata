@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './CharacterSelector.css';
 import './UI/designRpg.css';
 import { assignWeaponByClass } from '../utils/assignWeaponByClass.ts';
@@ -8,12 +8,14 @@ import { Class } from '../stores/types/class.js';
 import useInventoryStore from '../stores/inventoryStore';
 import useItemsStore from '../stores/itemsStore.js';
 import useGlobalState from '../customHooks/useGlobalState.ts';
+import {useInstantSavePlayerState } from '../firebase/savePlayerStateToFirebase .tsx';
 export default function CharacterSelector() {
   const { createItems } = useItemsStore();
   const navigate = useNavigate();
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
   const { classes, areClassesLoaded, armors, weapons, player, playerActions } =
     useGlobalState();
-
+  const savePlayerState = useInstantSavePlayerState();
   const inventoryStore = useInventoryStore.getState();
   const [hoveredClass, setHoveredClass] = useState<Class | null>(null);
   const handleButtonClick = (classData: Class) => {
@@ -68,18 +70,23 @@ export default function CharacterSelector() {
       player,
     });
     playerActions.setSpell(classData.initialSpells);
+    setIsPlayerReady(true);
+    // type typeCompletedMQuests = {
+    //   id: number;
+    //   name: string;
+    //   progress: number;
+    //   completed: boolean;
+    // };
+    // const completedQuests: typeCompletedMQuests[] = [];
+    // localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
 
-    type typeCompletedMQuests = {
-      id: number;
-      name: string;
-      progress: number;
-      completed: boolean;
-    };
-    const completedQuests: typeCompletedMQuests[] = [];
-    localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
-    navigate('/home');
   };
-
+  useEffect(() => {
+    if (isPlayerReady) {
+      savePlayerState(); 
+      navigate('/home'); 
+    }
+  }, [isPlayerReady]);
   return (
     <div className="containerClassSelector">
       <div className="containerClases rpgui-container framed-golden-2">

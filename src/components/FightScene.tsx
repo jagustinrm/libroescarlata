@@ -150,6 +150,19 @@ export default function FightScene() {
     }
   }, [actionMessages]); // Ejecuta cada vez que la lista de mensajes cambia
 
+  
+  const handleMessage = (
+    message: string,
+    type: string,
+    shouldClose: boolean,
+  ) => {
+    setMessageState({
+      show: true,
+      content: message,
+      type,
+      redirectHome: shouldClose,
+    });
+  };
   // ************************USEEFFECTS ******************************
   // ************************COMBATE *************************
 
@@ -181,9 +194,7 @@ export default function FightScene() {
   });
 
   useSummonTurn({
-    // turn,
     setActionMessages,
-    // switchTurn,
     summon,
     setCreatureHealth,
   });
@@ -192,6 +203,9 @@ export default function FightScene() {
     setActionMessages,
     setFloatingMessage,
     setSoundUrl,
+    fightType,
+    handleMessage,
+    handlePostCombatActs
   });
   const executeAttack = () => {
     if (currentCharacter && currentCharacter.id !== 'player') return;
@@ -232,18 +246,7 @@ export default function FightScene() {
   };
   // ************************COMBATE *************************
 
-  const handleMessage = (
-    message: string,
-    type: string,
-    shouldClose: boolean,
-  ) => {
-    setMessageState({
-      show: true,
-      content: message,
-      type,
-      redirectHome: shouldClose,
-    });
-  };
+ 
 
   const handleClose = (shouldClose: boolean) => {
     setMessageState((prevState) => ({

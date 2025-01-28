@@ -4,7 +4,7 @@ import {
   calculateDmgReduction,
   calculateDodgePercentage,
   calculateHitRatePercentage,
-} from '../utils/calculateDodgePercentage';
+} from '../utils/calculateStats';
 import { Summon, SummonsStore } from './types/summons';
 const useSummonStore = create<SummonsStore>((set, get) => ({
   summons: [],
@@ -12,6 +12,7 @@ const useSummonStore = create<SummonsStore>((set, get) => ({
   summon: {
     name: '',
     type: '',
+    mdef: 0,
     alignment: '',
     level: 0,
     hitPoints: '',
@@ -38,6 +39,9 @@ const useSummonStore = create<SummonsStore>((set, get) => ({
       return calculateHitRatePercentage(20);
     },
     totalDmgReduction: (enemyLevel) => {
+      return calculateDmgReduction(get().summon.armorClass, enemyLevel);
+    },
+    totalMDmgReduction: (enemyLevel) => {
       return calculateDmgReduction(get().summon.armorClass, enemyLevel);
     },
   },

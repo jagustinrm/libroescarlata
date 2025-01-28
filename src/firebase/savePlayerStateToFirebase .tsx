@@ -7,7 +7,7 @@ import useInventoryStore from '../stores/inventoryStore';
 import { Inventory } from '../stores/types/inventory';
 
 // Función para comparar propiedades específicas de dos objetos
-const comparePlayerState = (player1: Player, player2: Player) => {
+const comparePlayerState = (player1: any, player2: any) => {
   // Compara solo las propiedades 'name' y 'level'
 
   if (!player1) return false;
@@ -19,6 +19,111 @@ const comparePlayerState = (player1: Player, player2: Player) => {
 };
 
 // Función para guardar el estado en Firebase
+const filterPlayerState = (player: Player): Partial<Player> => {
+  const {
+    name,
+    level,
+    playerExp,
+    p_ExpToNextLevel,
+    p_ExpPrevLevel,
+    p_MaxHealth,
+    p_LeftHealth,
+    p_MaxMana,
+    p_LeftMana,
+    hitDie,
+    manaDie,
+    dodgeDie,
+    hitRateDie,
+    hitRate,
+    dodge,
+    dungeonLevel,
+    classFeatures,
+    classes,
+    selectedPet,
+    petsName,
+    selectedSpell,
+    bodyParts,
+    accessoriesParts,
+    inventoryId,
+    playerMaterial,
+    stats,
+    buffs,
+    leftPoints,
+    spells,
+    statusEffects,
+    movement,
+    turnSpeed,
+    blockChance,
+    parry,
+    critChance,
+    critDamage,
+    spellHitRate,
+    spellPenetration,
+    spellCrit,
+    spellDmg,
+    spiritReg,
+    healthReg,
+    healingPower,
+    classImg,
+    avatarImg,
+    storyProgress,
+    currentStoryId,
+    enemiesDeleted,
+  } = player;
+
+  return {
+    name,
+    level,
+    playerExp,
+    p_ExpToNextLevel,
+    p_ExpPrevLevel,
+    p_MaxHealth,
+    p_LeftHealth,
+    p_MaxMana,
+    p_LeftMana,
+    hitDie,
+    manaDie,
+    dodgeDie,
+    hitRateDie,
+    hitRate,
+    dodge,
+    dungeonLevel,
+    classFeatures,
+    classes,
+    selectedPet,
+    petsName,
+    selectedSpell,
+    bodyParts,
+    accessoriesParts,
+    inventoryId,
+    playerMaterial,
+    stats,
+    buffs,
+    leftPoints,
+    spells,
+    statusEffects,
+    movement,
+    turnSpeed,
+    blockChance,
+    parry,
+    critChance,
+    critDamage,
+    spellHitRate,
+    spellPenetration,
+    spellCrit,
+    spellDmg,
+    spiritReg,
+    healthReg,
+    healingPower,
+    classImg,
+    avatarImg,
+    storyProgress,
+    currentStoryId,
+    enemiesDeleted,
+  };
+};
+
+// Función para guardar el estado del jugador en Firebase
 const savePlayerStateToFirebase = async (
   playerId: string,
   player: Player,
@@ -29,12 +134,16 @@ const savePlayerStateToFirebase = async (
     database,
     `players/${playerId}/${player.inventoryId}`,
   );
+
+  // Filtrar las propiedades relevantes antes de guardar
+  const filteredPlayer = filterPlayerState(player);
+
   // Verifica si los datos han cambiado antes de guardar
   const snapshot = await get(playerRef);
   const existingData = snapshot.val();
 
-  if (!comparePlayerState(existingData, player) && playerId != 'guest-player') {
-    await set(playerRef, player);
+  if (!comparePlayerState(existingData, filteredPlayer) && playerId !== 'guest-player') {
+    await set(playerRef, filteredPlayer);
     await set(inventoryRef, inventory);
     console.log('Estado del jugador guardado en Firebase.');
   } else {
@@ -53,7 +162,7 @@ const PlayerStateSaver = () => {
     // Configurar el intervalo de guardado (por ejemplo, cada 30 segundos)
     const intervalId = setInterval(() => {
       savePlayerStateToFirebase(playerId, player, inventory);
-    }, 1000000000); // 30 segundos
+    }, 60000); // 1min
 
     // Limpiar el intervalo cuando el componente se desmonte
     return () => clearInterval(intervalId);
@@ -63,3 +172,39 @@ const PlayerStateSaver = () => {
 };
 
 export default PlayerStateSaver;
+
+export const useInstantSavePlayerState = () => {
+  const { player } = usePlayerStore();
+  const { inventories } = useInventoryStore();
+
+  const saveState = () => {
+    const playerId = player.name || 'guest-player';
+    const inventory = inventories[`${player.name}_inventory`];
+    savePlayerStateToFirebase(playerId, player, inventory);
+  };
+
+  return saveState;
+};
+
+
+export const verifyUserName = async (name: string): Promise<boolean> => {
+  // Referencia al nodo de los jugadores en la base de datos
+  const playerRef = ref(database, `players`);
+
+  try {
+    // Obtener los datos de la base de datos
+    const snapshot = await get(playerRef);
+    const data = snapshot.val();
+
+    // Verificar si el nombre ya existe en la base de datos
+    if (data) {
+      const playerNames = Object.keys(data); // Obtener las claves (nombres de jugadores) del objeto
+      return playerNames.includes(name); // Si el nombre está en la lista, devuelve true
+    }
+
+    return false; // Si no hay datos, el nombre no existe
+  } catch (error) {
+    console.error('Error al verificar el nombre de usuario:', error);
+    return false; // Si ocurre un error, asumimos que el nombre no existe
+  }
+};

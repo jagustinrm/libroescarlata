@@ -7,7 +7,7 @@ import usePlayerStore from '../stores/playerStore.ts';
 import useSpellStore from '../stores/spellsStore.ts';
 import { useWeaponStore } from '../stores/weaponStore.ts';
 import usePositionStore from '../stores/positionStore.ts';
-import { isAttackSuccessful } from './calculateDodgePercentage.ts';
+import { isAttackSuccessful } from './calculateStats.ts';
 import { simulateAttackMovement } from './simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
@@ -128,7 +128,10 @@ export const handleCombatAction = (
             player.damage(),
         );
         const finalDamage = Math.floor(totalDamage * (1 - redDamage / 100));
-
+        useCreatureStore
+          .getState()
+          .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
+          
         addActionMessage(
           `Has atacado al enemigo y causado ${finalDamage} puntos de daño.`,
         );
@@ -138,9 +141,7 @@ export const handleCombatAction = (
           textColor: 'red',
           position: enemyPosition,
         });
-        useCreatureStore
-          .getState()
-          .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
+
 
         if (creature.health - finalDamage <= 0 && fightType) {
           handleMessage?.('¡Has ganado el combate!', 'success', false);
@@ -216,13 +217,16 @@ export const handleCombatAction = (
         spellDetails.damage &&
         spellDetails.damageMax
       ) {
+        // EL DAÑO MINIMO Y MAXIMO NO VARÍAN IGUAL. EL MAXIMO AUMENTA MÁS
         const damage =
           Math.floor(
-            Math.random() * (spellDetails.damageMax - spellDetails.damage + 1),
-          ) + spellDetails.damage;
+            Math.random() * (spellDetails.damageMax + player.mDamageMax() - spellDetails.damage + player.mDamage() + 1),
+          ) + spellDetails.damage + player.mDamage();
+          const redDamage = creature.totalDmgReduction(player.level);
+          const finalDamage = Math.floor(damage * (1 - redDamage / 100));  
         simulateAttackMovement(playerPosition, 5, setPlayerPosition);
         addActionMessage(
-          `Has lanzado ${spellDetails.name} y causado ${damage} puntos de daño.`,
+          `Has lanzado ${spellDetails.name} y causado ${finalDamage} puntos de daño.`,
         );
         setFloatingMessage({
           message: damage.toString(),
@@ -233,7 +237,7 @@ export const handleCombatAction = (
 
         useCreatureStore
           .getState()
-          .setCreatureHealth(Math.max(creature.health - damage, 0));
+          .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
         if (
           typeof player?.p_LeftMana === 'number' &&
           typeof spellDetails.manaCost === 'number' &&

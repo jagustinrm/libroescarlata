@@ -77,7 +77,7 @@ export default function Home() {
   const handleStats = () => {
     navigate('/playerStats');
   };
-
+  console.log(player)
   return (
     <div>
       {showMissions && <Quests onClose={() => setShowMissions(false)} />}

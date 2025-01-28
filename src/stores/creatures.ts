@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 import { CreatureStore, Creature } from './types/creatures';
 import {
+  calculateDmgMReduction,
   calculateDmgReduction,
   calculateDodgePercentage,
   calculateHitRatePercentage,
-} from '../utils/calculateDodgePercentage';
+} from '../utils/calculateStats';
 const useCreatureStore = create<CreatureStore>((set, get) => ({
   creatures: [],
   bosses: [],
@@ -14,6 +15,7 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     type: '',
     alignment: '',
     level: 0,
+    mdef: 0,
     hitPoints: '',
     armorClass: 0,
     attacks: [],
@@ -40,6 +42,10 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     totalDmgReduction: (enemyLevel) => {
       return calculateDmgReduction(get().creature.armorClass, enemyLevel);
     },
+    totalMDmgReduction: (enemyLevel) => {
+      return calculateDmgMReduction(get().creature.mdef, enemyLevel);
+    },
+    
   },
 
   setCreatures: (creatures: Creature[]) =>

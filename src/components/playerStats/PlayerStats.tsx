@@ -8,8 +8,6 @@ export default function PlayerStats() {
   const { player } = usePlayerStore();
   const navigate = useNavigate();
   const { handleIncreaseStat } = useStatManagement();
-
-  console.log(player);
   return (
     <section className="sectionPlayer rpgui-container framed-golden-2">
       <div className="container containerPlayer ">
@@ -43,6 +41,9 @@ export default function PlayerStats() {
             </p>
             <p>
               🔱 Daño: {player.damage()} - {player.damageMax()}
+            </p>
+            <p>
+              Daño mágico: {player.mDamage()} - {player.mDamageMax()}
             </p>
             {/* <p>
               {' '}
@@ -107,8 +108,12 @@ export default function PlayerStats() {
                 <p className="petPara">
                   Clase de armadura: {player.selectedPet.armorClass}{' '}
                 </p>
-                <p className="petPara">Ataque:</p>
-                <p className="petPara"> {player.selectedPet.attack.melee}</p>
+                <p className="petPara">Daño:</p>
+                <p className="petPara"> {
+                player.selectedPet.attacks[0].damage}  (+{ player.selectedPet.attacks[0].damage * player.summonDmgIncrease() / 100})
+                -
+                {player.selectedPet.attacks[0].damageMax} (+{ player.selectedPet.attacks[0].damageMax * player.summonDmgIncrease() / 100})
+                </p>
               </div>
             </div>
           )}

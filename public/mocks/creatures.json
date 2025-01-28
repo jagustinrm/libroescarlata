@@ -1,465 +1,479 @@
-  [
-        {
-            "name": "Goblin",
-            "img": "/img/enemies/goblin.png",
-            "type": "humanoide",
-            "alignment": "neutral maligno",
-            "dodge": 20,
-            "hitRate": 40,
-            "level": 1,
-            "hitPoints": 80,
-            "armorClass": 15,
-            "attacks": [
-                {
-                    "name": "daga",
-                    "type": "melee",
-                    "bonus": 1,
-                    "damage": 4,
-                    "damageMax": 8,
-                    "soundEffect": "/music/attacks/sword-sound.mp3"
-                },
-                {
-                    "name": "arco corto",
-                    "type": "rango",
-                    "bonus": 2,
-                    "damage": 4,
-                    "damageMax": 8,
-                    "soundEffect": "/music/attacks/bow.mp3"
-                }
-            ],
-            "specialAbilities": [
-                "sigilo",
-                "visión en la oscuridad"
-            ]
-        },
-        {
-            "name": "Kobold",
-            "img": "/img/enemies/kobold.png",
-            "type": "dragón",
-            "alignment": "legal maligno",
-            "level": 1,
-            "hitPoints": 80,
-            "armorClass": 13,
-            "hitRate": 40,
-            "dodge": 20,
-            "attacks": [
-                {
-                    "name": "lanza",
-                    "type": "melee",
-                    "bonus": "+0",
-                    "damage": 4,
-                    "damageMax": 8,
-                    "soundEffect": "/music/attacks/spear.mp3"
-                },
-                {
-                    "name": "honda",
-                    "type": "rango",
-                    "bonus": 1,
-                    "damage": 4,
-                    "damageMax": 8,
-                    "soundEffect": "/music/attacks/bow.mp3"
-                }
-            ],
-            "specialAbilities": [
-                "visión en la oscuridad",
-                "resistencia a conjuros"
-            ]
-        },
-        {
-            "name": "Rata Gigante",
-            "img": "/img/enemies/gigantrat.png",
-            "type": "animal",
-            "alignment": "neutral",
-            "dodge": 20,
-            "hitRate": 40,
-            "level": 1,
-            "hitPoints": 60,
-            "armorClass": 12,
-            "attacks": [
-                {
-                    "name": "mordisco",
-                    "type": "melee",
-                    "bonus": 2,
-                    "damage": 4,
-                    "damageMax": 8,
-                    "soundEffect": "/music/attacks/bite.wav"
-                }
-            ],
-            "specialAbilities": [
-                "olfato agudo",
-                "visión en la oscuridad"
-            ]
-        },
-        {
-            "name": "Esqueleto Humanoide",
-            "img": "/img/enemies/skeleton.png",
-            "type": "no muerto",
-            "alignment": "neutral maligno",
-            "level": 1,
-            "hitPoints": 120,
-            "armorClass": 13,
-            "dodge": 20,
-            "hitRate": 40,
-            "attacks": [
-                {
-                    "name": "espada corta",
-                    "type": "melee",
-                    "bonus": 0,
-                    "damage": 6,
-                    "damageMax": 8,
-                    "soundEffect": "/music/attacks/sword-sound.mp3"
-                }
-            ],
-            "specialAbilities": [
-                "inmunidad a parálisis",
-                "visión en la oscuridad"
-            ]
-        },
-        {
-            "name": "Serpiente Venenosa Pequeña",
-            "img": "/img/enemies/snake.png",
-            "type": "animal",
-            "alignment": "neutral",
-            "level": 1,
-            "hitPoints": 40,
-            "armorClass": 15,
-            "dodge": 20,
-            "hitRate": 40,
-            "attacks": [
-                {
-                    "name": "mordisco",
-                    "type": "melee",
-                    "bonus": 4,
-                    "damage": 4,
-                    "damageMax": 8,
-                    "additionalEffect": "veneno (1d6 CON)",
-                    "soundEffect": "/music/attacks/bite.wav"
-                }
-            ],
-            "specialAbilities": [
-                "veneno (1d6 CON)",
-                "visión en la oscuridad"
-            ]
-        },
-        {
-            "name": "Gnoll",
-            "img": "/img/enemies/gnoll.png",
-            "type": "humanoide",
-            "alignment": "caótico maligno",
-            "level": 2,
-            "hitPoints": 100,
-            "dodge": 20,
-            "hitRate": 40,
-            "armorClass": 16,
-            "attacks": [
-                {
-                    "name": "hacha de batalla",
-                    "type": "melee",
-                    "bonus": 3,
-                    "damage": 8,
-                    "damageMax": 10,
-                    "soundEffect": "/music/attacks/sword-sound.mp3"
-                },
-                {
-                    "name": "arco largo",
-                    "type": "rango",
-                    "bonus": 3,
-                    "damage": 8,
-                    "damageMax": 10,
-                    "soundEffect": "/music/attacks/bow.mp3"
-                }
-            ],
-            "specialAbilities": [
-                "olfato agudo",
-                "carga feroz"
-            ]
-        },
-        {
-          "name": "Goblin con hacha",
-          "img": "/img/enemies/goblin_2.png",
-          "type": "humanoide",
-          "alignment": "caótico maligno",
-          "level": 2,
-          "hitPoints": 100,
-          "dodge": 20,
-          "hitRate": 40,
-          "armorClass": 16,
-          "attacks": [
-              {
-                  "name": "hacha de batalla",
-                  "type": "melee",
-                  "bonus": 3,
-                  "damage": 8,
-                  "damageMax": 10,
-                  "soundEffect": "/music/attacks/sword-sound.mp3"
-              }
-          ],
-          "specialAbilities": [
-              "olfato agudo",
-              "carga feroz"
-          ]
-      },
-        {
-            "name": "Hobgoblin",
-            "img": "/img/enemies/hobgoblin.png",
-            "type": "humanoide",
-            "alignment": "legal maligno",
-            "level": 2,
-            "dodge": 20,
-            "hitRate": 40,
-            "hitPoints": 110,
-            "armorClass": 17,
-            "attacks": [
-                {
-                    "name": "espada larga",
-                    "type": "melee",
-                    "bonus": 3,
-                    "damage": 8,
-                    "damageMax": 10,
-                    "soundEffect": "/music/attacks/sword-sound.mp3"
-                },
-                {
-                    "name": "ballesta ligera",
-                    "type": "rango",
-                    "bonus": 2,
-                    "damage": 8,
-                    "damageMax": 10,
-                    "soundEffect": "/music/attacks/bow.mp3"
-                }
-            ],
-            "specialAbilities": [
-                "disciplina marcial",
-                "visión en la oscuridad"
-            ]
-        },
-        {
-          "name": "Guardia",
-          "img": "/img/enemies/guard.png",
-          "type": "humanoide",
-          "alignment": "legal neutral",
-          "level": 2,
-          "dodge": 20,
-          "hitRate": 40,
-          "hitPoints": 120,
-          "armorClass": 17,
-          "attacks": [
-              {
-                  "name": "espada larga",
-                  "type": "melee",
-                  "bonus": 3,
-                  "damage": 8,
-                  "damageMax": 10,
-                  "soundEffect": "/music/attacks/sword-sound.mp3"
-              },
-              {
-                  "name": "ballesta ligera",
-                  "type": "rango",
-                  "bonus": 2,
-                  "damage": 8,
-                  "damageMax": 10,
-                  "soundEffect": "/music/attacks/bow.mp3"
-              }
-          ],
-          "specialAbilities": [
-              "disciplina marcial",
-              "visión en la oscuridad"
-          ]
-      },
-        {
-          "name": "Planta Carnívora",
-          "img": "/img/enemies/carnivorous_plant.png",
-          "type": "vegetal",
-          "alignment": "neutral maligno",
-          "level": 3,
-          "hitPoints": 250,
-          "armorClass": 13,
-          "dodge": 20,
-          "hitRate": 40,
-          "attacks": [
-              {
-                  "name": "mordisco",
-                  "type": "melee",
-                  "bonus": 3,
-                  "damage": 6,
-                  "damageMax": 12,
-                  "soundEffect": "/music/attacks/bite.wav"
-              },
-              {
-                  "name": "tentáculos",
-                  "type": "melee",
-                  "bonus": 2,
-                  "damage": 8,
-                  "damageMax": 10,
-                  "soundEffect": "/music/attacks/claws-scratch.mp3"
-              }
-          ],
-          "specialAbilities": [
-              "enredar",
-              "toxicidad",
-              "visión en la oscuridad"
-          ]
-      },      
-        {
-            "name": "Pixie",
-            "img": "/img/enemies/pixie.png",
-            "type": "hada",
-            "dodge": 20,
-            "hitRate": 40,
-            "alignment": "neutral bueno",
-            "level": 4,
-            "hitPoints": 250,
-            "armorClass": 16,
-            "attacks": [
-              {
-                "name": "arco corto mágico",
-                "type": "rango",
-                "bonus": 5,
-                "damage": 4,
-                "damageMax": 10,
-                "soundEffect": "/music/attacks/bow.mp3"
-              }
-            ],
-            "specialAbilities": [
-              "invisibilidad a voluntad",
-              "visión verdadera (18 m)",
-              "polvo de confusión"
-            ]
-          },
-          {
-            "name": "Demonio pequeño",
-            "img": "/img/enemies/little_demon.png",
-            "type": "demonio",
-            "alignment": "legal maligno",
-            "level": 4,
-            "hitPoints": 300,
-            "dodge": 20,
-            "hitRate": 40,
-            "armorClass": 16,
-            "attacks": [
-              {
-                "name": "aliento de fuego",
-                "type": "melee",
-                "bonus": 4,
-                "damage": 4,
-                "damageMax": 10,
-                "soundEffect": "/music/attacks/fireBall.wav"
-              }
-            ],
-            "specialAbilities": [
-              "invisibilidad a voluntad",
-              "visión verdadera (18 m)"
-            ]
-          },
-          {
-            "name": "Troll",
-            "img": "/img/enemies/troll.png",
-            "type": "gigante",
-            "alignment": "caótico maligno",
-            "level": 5,
-            "hitPoints": 500,
-            "armorClass": 16,
-            "dodge": 20,
-            "hitRate": 40,
-            "attacks": [
-              {
-                "name": "garra",
-                "type": "melee",
-                "bonus": 7,
-                "damage": 12,
-                "damageMax": 14,
-                "soundEffect": "/music/attacks/claws-scratch.mp3"
-              },
-              {
-                "name": "mordisco",
-                "type": "melee",
-                "bonus": 5,
-                "damage": 12,
-                "damageMax": 14,
-                "soundEffect": "/music/attacks/bite.wav"
-              }
-            ],
-            "specialAbilities": [
-              "regeneración (5 HP por turno)",
-              "visión en la oscuridad",
-              "olfato agudo"
-            ]
-          },
-          {
-            "name": "Dragón Bebé",
-            "img": "/img/enemies/baby_dragon.png",
-            "type": "dragón",
-            "alignment": "neutral",
-            "level": 3,
-            "hitPoints": 200,
-            "dodge": 20,
-            "hitRate": 40,
-            "armorClass": 18,
-            "attacks": [
-              {
-                "name": "mordisco",
-                "type": "melee",
-                "bonus": 4,
-                "damage": 8,
-                "damageMax": 14,
-                "soundEffect": "/music/attacks/bite.wav"
-              },
-              {
-                "name": "garras",
-                "type": "melee",
-                "bonus": 4,
-                "damage": 8,
-                "damageMax": 14,
-                "soundEffect": "/music/attacks/claws-scratch.mp3"
-              },
-              {
-                "name": "aliento de fuego",
-                "type": "rango",
-                "bonus": "ninguno",
-                "damage": 8,
-                "damageMax": 14,
-                "soundEffect": "/music/attacks/fireBall.wav"
-              }
-            ],
-            "specialAbilities": [
-              "aliento de fuego (recarga 1d4 turnos)",
-              "visión en la oscuridad",
-              "resistencia al fuego (10)"
-            ]
-          },
-          {
-            "name": "Elfo Maligno",
-            "type": "humanoide",
-            "alignment": "caótico maligno",
-            "level": 3,
-            "hitPoints": 150,
-            "dodge": 20,
-            "hitRate": 40,
-            "armorClass": 15,
-            "attacks": [
-              {
-                "name": "espada larga",
-                "type": "melee",
-                "bonus": 5,
-                "damage": 8,
-                "damageMax": 14,
-                "soundEffect": "/music/attacks/sword-sound.mp3"
-              },
-              {
-                "name": "arco largo",
-                "type": "rango",
-                "bonus": 4,
-                "damage": 8,
-                "damageMax": 14,
-                "soundEffect": "/music/attacks/bow.mp3"
-              }
-            ],
-            "specialAbilities": [
-              "visión en la oscuridad",
-              "resistencia a encantamientos",
-              "sigilo (+6 en tiradas)",
-              "paso sin dejar rastro (puede moverse sin ser detectado en bosques o terrenos naturales)"
-            ],
-            "img": "/img/enemies/evil_elf.png"
-          }
-        
+[
+  {
+    "name": "Rata Gigante",
+    "img": "/img/enemies/gigantrat.png",
+    "type": "animal",
+    "alignment": "neutral",
+    "mdef": 20,
+    "dodge": 20,
+    "hitRate": 40,
+    "level": 1,
+    "hitPoints": 60,
+    "armorClass": 12,
+    "attacks": [
+      {
+        "name": "mordisco",
+        "type": "melee",
+        "bonus": 2,
+        "damage": 20,
+        "damageMax": 40,
+        "soundEffect": "/music/attacks/bite.wav"
+      }
+    ],
+    "specialAbilities": [
+      "olfato agudo",
+      "visión en la oscuridad"
     ]
+  },
+  {
+    "name": "Serpiente Venenosa Pequeña",
+    "img": "/img/enemies/snake.png",
+    "type": "animal",
+    "alignment": "neutral",
+    "level": 1,
+    "hitPoints": 40,
+    "armorClass": 15,
+    "dodge": 40,
+    "hitRate": 40,
+    "attacks": [
+      {
+        "name": "mordisco",
+        "type": "melee",
+        "bonus": 4,
+        "damage": 20,
+        "damageMax": 40,
+        "additionalEffect": "veneno (1d6 CON)",
+        "soundEffect": "/music/attacks/bite.wav"
+      }
+    ],
+    "specialAbilities": [
+      "veneno (1d6 CON)",
+      "visión en la oscuridad"
+    ],
+    "mdef": 20
+  },
+  {
+    "name": "Esqueleto Humanoide",
+    "img": "/img/enemies/skeleton.png",
+    "type": "no muerto",
+    "alignment": "neutral maligno",
+    "level": 1,
+    "hitPoints": 120,
+    "armorClass": 13,
+    "dodge": 18,
+    "hitRate": 43,
+    "attacks": [
+      {
+        "name": "espada corta",
+        "type": "melee",
+        "bonus": 0,
+        "damage": 20,
+        "damageMax": 40,
+        "soundEffect": "/music/attacks/sword-sound.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "inmunidad a parálisis",
+      "visión en la oscuridad"
+    ],
+    "mdef": 20
+  },
+  {
+    "name": "Goblin",
+    "img": "/img/enemies/goblin.png",
+    "type": "humanoide",
+    "alignment": "neutral maligno",
+    "dodge": 20,
+    "hitRate": 40,
+    "level": 1,
+    "hitPoints": 80,
+    "armorClass": 15,
+    "attacks": [
+      {
+        "name": "daga",
+        "type": "melee",
+        "bonus": 1,
+        "damage": 20,
+        "damageMax": 40,
+        "soundEffect": "/music/attacks/sword-sound.mp3"
+      },
+      {
+        "name": "arco corto",
+        "type": "rango",
+        "bonus": 2,
+        "damage": 20,
+        "damageMax": 40,
+        "soundEffect": "/music/attacks/bow.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "sigilo",
+      "visión en la oscuridad"
+    ],
+    "mdef": 20
+  },
+  {
+    "name": "Kobold",
+    "img": "/img/enemies/kobold.png",
+    "type": "dragón",
+    "alignment": "legal maligno",
+    "level": 1,
+    "hitPoints": 80,
+    "armorClass": 13,
+    "hitRate": 40,
+    "dodge": 20,
+    "attacks": [
+      {
+        "name": "lanza",
+        "type": "melee",
+        "bonus": "+0",
+        "damage": 20,
+        "damageMax": 40,
+        "soundEffect": "/music/attacks/spear.mp3"
+      },
+      {
+        "name": "honda",
+        "type": "rango",
+        "bonus": 1,
+        "damage": 20,
+        "damageMax": 40,
+        "soundEffect": "/music/attacks/bow.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "visión en la oscuridad",
+      "resistencia a conjuros"
+    ],
+    "mdef": 20
+  },
+  {
+    "name": "Goblin con hacha",
+    "img": "/img/enemies/goblin_2.png",
+    "type": "humanoide",
+    "alignment": "caótico maligno",
+    "level": 2,
+    "hitPoints": 100,
+    "dodge": 30,
+    "hitRate": 45,
+    "armorClass": 16,
+    "attacks": [
+      {
+        "name": "hacha de batalla",
+        "type": "melee",
+        "bonus": 3,
+        "damage": 35,
+        "damageMax": 60,
+        "soundEffect": "/music/attacks/sword-sound.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "olfato agudo",
+      "carga feroz"
+    ],
+    "mdef": 40
+  },
+  {
+    "name": "Gnoll",
+    "img": "/img/enemies/gnoll.png",
+    "type": "humanoide",
+    "alignment": "caótico maligno",
+    "level": 2,
+    "hitPoints": 100,
+    "dodge": 23,
+    "hitRate": 37,
+    "armorClass": 16,
+    "attacks": [
+      {
+        "name": "hacha de batalla",
+        "type": "melee",
+        "bonus": 3,
+        "damage": 35,
+        "damageMax": 70,
+        "soundEffect": "/music/attacks/sword-sound.mp3"
+      },
+      {
+        "name": "arco largo",
+        "type": "rango",
+        "bonus": 3,
+        "damage": 35,
+        "damageMax": 70,
+        "soundEffect": "/music/attacks/bow.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "olfato agudo",
+      "carga feroz"
+    ],
+    "mdef": 40
+  },
+  {
+    "name": "Guardia",
+    "img": "/img/enemies/guard.png",
+    "type": "humanoide",
+    "alignment": "legal neutral",
+    "level": 2,
+    "dodge": 30,
+    "hitRate": 45,
+    "hitPoints": 120,
+    "armorClass": 17,
+    "attacks": [
+      {
+        "name": "espada larga",
+        "type": "melee",
+        "bonus": 3,
+        "damage": 35,
+        "damageMax": 70,
+        "soundEffect": "/music/attacks/sword-sound.mp3"
+      },
+      {
+        "name": "ballesta ligera",
+        "type": "rango",
+        "bonus": 2,
+        "damage": 35,
+        "damageMax": 70,
+        "soundEffect": "/music/attacks/bow.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "disciplina marcial",
+      "visión en la oscuridad"
+    ],
+    "mdef": 40
+  },
+  {
+    "name": "Hobgoblin",
+    "img": "/img/enemies/hobgoblin.png",
+    "type": "humanoide",
+    "alignment": "legal maligno",
+    "level": 2,
+    "dodge": 30,
+    "hitRate": 45,
+    "hitPoints": 110,
+    "armorClass": 17,
+    "attacks": [
+      {
+        "name": "espada larga",
+        "type": "melee",
+        "bonus": 3,
+        "damage": 35,
+        "damageMax": 70,
+        "soundEffect": "/music/attacks/sword-sound.mp3"
+      },
+      {
+        "name": "ballesta ligera",
+        "type": "rango",
+        "bonus": 2,
+        "damage": 35,
+        "damageMax": 70,
+        "soundEffect": "/music/attacks/bow.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "disciplina marcial",
+      "visión en la oscuridad"
+    ],
+    "mdef": 40
+  },
+  {
+    "name": "Elfo Maligno",
+    "type": "humanoide",
+    "alignment": "caótico maligno",
+    "level": 3,
+    "hitPoints": 200,
+    "dodge": 50,
+    "hitRate": 40,
+    "armorClass": 15,
+    "attacks": [
+      {
+        "name": "espada larga",
+        "type": "melee",
+        "bonus": 5,
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/sword-sound.mp3"
+      },
+      {
+        "name": "arco largo",
+        "type": "rango",
+        "bonus": 4,
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/bow.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "visión en la oscuridad",
+      "resistencia a encantamientos",
+      "sigilo (+6 en tiradas)",
+      "paso sin dejar rastro (puede moverse sin ser detectado en bosques o terrenos naturales)"
+    ],
+    "img": "/img/enemies/evil_elf.png",
+    "mdef": 60
+  },
+  {
+    "name": "Planta Carnívora",
+    "img": "/img/enemies/carnivorous_plant.png",
+    "type": "vegetal",
+    "alignment": "neutral maligno",
+    "level": 3,
+    "hitPoints": 300,
+    "armorClass": 13,
+    "dodge": 20,
+    "hitRate": 60,
+    "attacks": [
+      {
+        "name": "mordisco",
+        "type": "melee",
+        "bonus": 3,
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/bite.wav"
+      },
+      {
+        "name": "tentáculos",
+        "type": "melee",
+        "bonus": 2,
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/claws-scratch.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "enredar",
+      "toxicidad",
+      "visión en la oscuridad"
+    ],
+    "mdef": 70
+  },
+  {
+    "name": "Dragón Bebé",
+    "img": "/img/enemies/baby_dragon.png",
+    "type": "dragón",
+    "alignment": "neutral",
+    "level": 3,
+    "hitPoints": 250,
+    "dodge": 40,
+    "hitRate": 60,
+    "armorClass": 18,
+    "attacks": [
+      {
+        "name": "mordisco",
+        "type": "melee",
+        "bonus": 4,
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/bite.wav"
+      },
+      {
+        "name": "garras",
+        "type": "melee",
+        "bonus": 4,
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/claws-scratch.mp3"
+      },
+      {
+        "name": "aliento de fuego",
+        "type": "rango",
+        "bonus": "ninguno",
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/fireBall.wav"
+      }
+    ],
+    "specialAbilities": [
+      "aliento de fuego (recarga 1d4 turnos)",
+      "visión en la oscuridad",
+      "resistencia al fuego (10)"
+    ],
+    "mdef": 80
+  },
+  {
+    "name": "Demonio pequeño",
+    "img": "/img/enemies/little_demon.png",
+    "type": "demonio",
+    "alignment": "legal maligno",
+    "level": 4,
+    "hitPoints": 300,
+    "dodge": 65,
+    "hitRate": 65,
+    "armorClass": 16,
+    "attacks": [
+      {
+        "name": "aliento de fuego",
+        "type": "melee",
+        "bonus": 4,
+        "damage": 70,
+        "damageMax": 140,
+        "soundEffect": "/music/attacks/fireBall.wav"
+      }
+    ],
+    "specialAbilities": [
+      "invisibilidad a voluntad",
+      "visión verdadera (18 m)"
+    ],
+    "mdef": 100
+  },
+  {
+    "name": "Pixie",
+    "img": "/img/enemies/pixie.png",
+    "type": "hada",
+    "dodge": 80,
+    "hitRate": 80,
+    "alignment": "neutral bueno",
+    "level": 4,
+    "hitPoints": 250,
+    "armorClass": 16,
+    "attacks": [
+      {
+        "name": "arco corto mágico",
+        "type": "rango",
+        "bonus": 5,
+        "damage": 70,
+        "damageMax": 140,
+        "soundEffect": "/music/attacks/bow.mp3"
+      }
+    ],
+    "specialAbilities": [
+      "invisibilidad a voluntad",
+      "visión verdadera (18 m)",
+      "polvo de confusión"
+    ],
+    "mdef": 110
+  },
+  {
+    "name": "Troll",
+    "img": "/img/enemies/troll.png",
+    "type": "gigante",
+    "alignment": "caótico maligno",
+    "level": 5,
+    "hitPoints": 600,
+    "armorClass": 16,
+    "dodge": 50,
+    "hitRate": 40,
+    "attacks": [
+      {
+        "name": "garra",
+        "type": "melee",
+        "bonus": 7,
+        "damage": 85,
+        "damageMax": 150,
+        "soundEffect": "/music/attacks/claws-scratch.mp3"
+      },
+      {
+        "name": "mordisco",
+        "type": "melee",
+        "bonus": 5,
+        "damage": 85,
+        "damageMax": 150,
+        "soundEffect": "/music/attacks/bite.wav"
+      }
+    ],
+    "specialAbilities": [
+      "regeneración (5 HP por turno)",
+      "visión en la oscuridad",
+      "olfato agudo"
+    ],
+    "mdef": 120
+  }
+]

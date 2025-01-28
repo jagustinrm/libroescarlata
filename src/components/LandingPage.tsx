@@ -7,14 +7,36 @@ import ButtonEdited from './UI/ButtonEdited';
 import { ref, get } from 'firebase/database'; // Importa desde Firebase
 import { database } from '../firebase/firebaseConfig'; // Asegúrate de importar tu configuración de Firebase
 import FirebaseItemsLoader from '../loaders/FirebaseItemsLoader';
+import { validateUsername } from '../utils/validations/validateUsername';
+import { ValidatePassword } from '../utils/validations/validatePassword';
+import { verifyUserName } from '../firebase/savePlayerStateToFirebase ';
 const LandingPage: React.FC = () => {
   const { playerActions } = usePlayerStore();
   const [inputName, setInputName] = useState<string>('');
+  const [inputPassword, setInputPassword] = useState<string>('');
+  const [validatedName, setValidatedName] = useState<boolean>(false);
+  const [validatedPassword, setValidatedPassword] = useState<string>('');
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
 
   const handleSaveName = async () => {
+    const validateRes = validateUsername(inputName)
+    if (!validateRes) {
+      console.log("Nombre de usuario incorrecto")
+      return
+    }
+    const validatePRes = ValidatePassword(inputPassword,inputName)
+    if (validatePRes) {
+      console.log(validatePRes)
+      return
+    }
+    
+    const validateDbUsername = await verifyUserName(inputName)
+    if (validateDbUsername) {
+      console.log("Nombre de usuario ya existe en la base de datos")
+    }
+
     const playerId = inputName || 'guest-player'; // Usa "guest-player" si el input está vacío
     const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
 
@@ -34,6 +56,15 @@ const LandingPage: React.FC = () => {
       alert('Hubo un error al verificar el nombre. Inténtalo de nuevo.');
     }
   };
+
+  useEffect(() => {
+    const validateRes = validateUsername(inputName)
+    setValidatedName(validateRes)
+  }, [inputName])
+  useEffect(() => {
+    const validateRes = ValidatePassword(inputPassword, inputName)
+    setValidatedPassword(validateRes)
+  }, [inputPassword, inputName])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(event.target.value);
@@ -89,6 +120,7 @@ const LandingPage: React.FC = () => {
           <>
             <h2>Tu nombre es: {inputName} </h2>
             <div className="playerLoaderButton">
+              <div style={{display: 'flex', flexDirection: 'column', gap: '2px'}}>
               <input
                 className="nameInput"
                 type="text"
@@ -96,13 +128,27 @@ const LandingPage: React.FC = () => {
                 value={inputName}
                 onChange={(e) => setInputName(e.target.value)}
               />
-              <ButtonEdited
+                         <input
+                className="passInput"
+                type="password"
+                placeholder="Ingresá contraseña"
+                value={inputPassword}
+                onChange={(e) => setInputPassword(e.target.value)}
+              />
+              </div>
+              <div>
+              {<ButtonEdited
                 label="Ingresar"
                 width="130px"
                 height="0px"
                 onClick={handleSaveName}
-              />
+                disabled={!validatedName || validatedPassword ? true : false}
+              />}
+
+              </div>
+              
             </div>
+            <p style={{fontSize: '18px', marginBottom: '0px'}}>{validatedPassword} </p>
             <div className="createAccount">
               <p>¿No tenés cuenta? </p>
               <p className="linkButton rpgui-cursor-point" onClick={toggleView}>

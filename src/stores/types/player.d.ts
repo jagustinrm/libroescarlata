@@ -41,6 +41,7 @@ export interface Player {
   };
   leftPoints: number;
   spells: string[];
+  statusEffects: string[];
   movement: number; // nuevo
   turnSpeed: number; //nuevo
   blockChance: number; //nuevo
@@ -61,6 +62,8 @@ export interface Player {
   readonly totalHitRate: () => number;
   readonly damage: () => number;
   readonly damageMax: () => number;
+  readonly mDamage: () => number;
+  readonly mDamageMax: () => number;
   readonly summonDmgIncrease: () => number;
   readonly totalArmorClass: () => number;
   readonly totalMArmor: () => number;

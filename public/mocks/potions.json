@@ -28,6 +28,20 @@
     "color": "#F8F8F8"
   },
   {
+    "id": "mediumHealing-potion-012",
+    "name": "Poción de Curación Grande",
+    "type": "Curación",
+    "cost": 300,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "heal",
+      "amount": 600
+    },
+    "description": "Restaura 600 puntos de vida.",
+    "img": "/img/potions/bigHealth-potion.png",
+    "color": "#F8F8F8"
+  },
+  {
     "id": "bullStrenght-potion-003",
     "name": "Poción de Fuerza de Toro",
     "type": "Buff",
@@ -39,23 +53,8 @@
       "value": 4,
       "duration": 3
     },
-    "description": "Aumenta la fuerza en +4 durante 3 minutos.",
-    "img": "/img/potions/bull-strength-potion.png",
-    "color": "#F8F8F8"
-  },
-  {
-    "id": "invisibility-potion-004",
-    "name": "Poción de Invisibilidad",
-    "type": "Habilidad",
-    "cost": 200,
-    "weight": "0.5 lb",
-    "effect": {
-      "type": "buff",
-      "stat": "invisibility",
-      "duration": 3
-    },
-    "description": "Te hace invisible durante 10 minutos.",
-    "img": "/img/potions/invisibility-potion.png",
+    "description": "Aumenta tu fuerza.",
+    "img": "/img/potions/str-potion.png",
     "color": "#F8F8F8"
   },
   {
@@ -70,24 +69,8 @@
       "value": 4,
       "duration": 3
     },
-    "description": "Aumenta tu velocidad.",
+    "description": "Aumenta tu agilidad.",
     "img": "/img/potions/speed-potion.png",
-    "color": "#F8F8F8"
-  },
-  {
-    "id": "fireResistance-potion-006",
-    "name": "Poción de Resistencia a Fuego",
-    "type": "Resistencia",
-    "cost": 250,
-    "weight": "0.5 lb",
-    "effect": {
-      "type": "resistance",
-      "element": "fire",
-      "value": 10,
-      "duration": "10 minutos"
-    },
-    "description": "Reduce 10 puntos de daño por fuego durante 10 minutos.",
-    "img": "/img/potions/fire-resistance-potion.png",
     "color": "#F8F8F8"
   },
   {
@@ -102,23 +85,87 @@
       "value": 4,
       "duration": 3
     },
-    "description": "Aumenta tu percepción en +5 durante 1 hora.",
+    "description": "Aumenta tu destreza.",
     "img": "/img/potions/clairvoyance-potion.png",
     "color": "#F8F8F8"
   },
   {
+    "id": "potion-008",
+    "name": "Elixir de encanto radiante",
+    "type": "Buff",
+    "cost": 350,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "car",
+      "value": 4,
+      "duration": 3
+    },
+    "description": "Aumenta tu carisma.",
+    "img": "/img/potions/car-potion.png",
+    "color": "#F8F8F8"
+  },
+  {
+    "id": "potion-009",
+    "name": "Tónico de vitalidad de roble",
+    "type": "Buff",
+    "cost": 350,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "con",
+      "value": 4,
+      "duration": 3
+    },
+    "description": "Aumenta tu constitución.",
+    "img": "/img/potions/con-potion.png",
+    "color": "#F8F8F8"
+  },  
+  {
+    "id": "potion-010",
+    "name": "Elixir de la mente brillante",
+    "type": "Buff",
+    "cost": 350,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "int",
+      "value": 4,
+      "duration": 3
+    },
+    "description": "Aumenta tu inteligencia.",
+    "img": "/img/potions/int-potion.png",
+    "color": "#F8F8F8"
+  },
+  {
     "id": "underWater-potion-002",
-    "name": "Poción de Respirar Bajo el Agua",
-    "type": "Habilidad",
+    "name": "Poción de Resistencia al Agua",
+    "type": "Resistencia",
     "cost": 200,
     "weight": "0.5 lb",
     "effect": {
       "type": "ability",
-      "stat": "water-breathing",
+      "stat": "res",
       "duration": "1 hora"
     },
-    "description": "Te permite respirar bajo el agua durante 1 hora.",
-    "img": "/img/potions/water-breathing-potion.png",
+    "description": "Te permite resistir los ataques acuáticos",
+    "img": "/img/potions/water-res.png",
+    "color": "#F8F8F8"
+  },  
+  {
+    "id": "fireResistance-potion-006",
+    "name": "Poción de Resistencia a Fuego",
+    "type": "Resistencia",
+    "cost": 250,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "resistance",
+      "element": "fire",
+      "value": 10,
+      "duration": "10 minutos"
+    },
+    "description": "Reduce 10 puntos de daño por fuego durante 10 minutos.",
+    "img": "/img/potions/fire-resistance-potion.png",
     "color": "#F8F8F8"
   },
   {
@@ -150,6 +197,21 @@
     },
     "description": "Te permite volar durante 5 minutos.",
     "img": "/img/potions/fly-potion.png",
+    "color": "#F8F8F8"
+  },
+  {
+    "id": "invisibility-potion-004",
+    "name": "Poción de Invisibilidad",
+    "type": "Habilidad",
+    "cost": 200,
+    "weight": "0.5 lb",
+    "effect": {
+      "type": "buff",
+      "stat": "invisibility",
+      "duration": 3
+    },
+    "description": "Te hace invisible durante 10 minutos.",
+    "img": "/img/potions/invisibility-potion.png",
     "color": "#F8F8F8"
   }
 ]

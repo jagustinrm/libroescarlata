@@ -7,6 +7,8 @@ import {
   calculateDmgReduction,
   calculateDodgePercentage,
   calculateHitRatePercentage,
+  calculateMTotalDamage,
+  calculateMTotalMaxDamage,
   calculateSummonDmgIncrease,
   calculateTotalArmor,
   calculateTotalDamage,
@@ -16,7 +18,7 @@ import {
   calculateTotalMaxDamage,
   calculateTotalMaxHealth,
   calculateTotalMaxMana,
-} from '../utils/calculateDodgePercentage';
+} from '../utils/calculateStats';
 
 const initialPlayerState: Player = {
   name: '',
@@ -62,6 +64,7 @@ const initialPlayerState: Player = {
     agi: 0,
     cha: 0,
   },
+  statusEffects: [],
   buffs: {},
   leftPoints: 25,
   movement: 0, // nuevo
@@ -107,7 +110,7 @@ const initialPlayerState: Player = {
   inventoryId: '',
   classImg: '',
   avatarImg: '',
-  hitRate: 0,
+  hitRate: 50,
   dodge: 1,
   storyProgress: [], // Lista de progresos del jugador en las historias
   currentStoryId: null,
@@ -119,16 +122,18 @@ const initialPlayerState: Player = {
     const state = usePlayerStore.getState().player;
     return calculateTotalHitRate(state.stats.dex, state.hitRate) || 0;
   },
+  hitRatePercentage: () => {
+    return calculateHitRatePercentage(
+      usePlayerStore.getState().player.totalHitRate(),
+      usePlayerStore.getState().player.level
+    );
+  },
   dodgePercentage: () => {
     return calculateDodgePercentage(
       usePlayerStore.getState().player.totalDodge(),
     );
   },
-  hitRatePercentage: () => {
-    return calculateHitRatePercentage(
-      usePlayerStore.getState().player.totalHitRate(),
-    );
-  },
+
   damage: () => {
     const state = usePlayerStore.getState().player;
     return (
@@ -138,10 +143,6 @@ const initialPlayerState: Player = {
         state.buffs.str?.value,
       ) || 0
     );
-  },
-  summonDmgIncrease: () => {
-    const state = usePlayerStore.getState().player;
-    return calculateSummonDmgIncrease(state.stats.cha) || 0;
   },
   damageMax: () => {
     const state = usePlayerStore.getState().player;
@@ -153,6 +154,31 @@ const initialPlayerState: Player = {
       ) || 0
     );
   },
+  mDamage: () => {
+    const state = usePlayerStore.getState().player;
+    return (
+      calculateMTotalDamage(
+        state.bodyParts,
+        state.stats.int,
+        state.buffs.int?.value,
+      ) || 0
+    );
+  },
+  mDamageMax: () => {
+    const state = usePlayerStore.getState().player;
+    return (
+      calculateMTotalMaxDamage(
+        state.bodyParts,
+        state.stats.int,
+        state.buffs.int?.value,
+      ) || 0
+    );
+  },
+  summonDmgIncrease: () => {
+    const state = usePlayerStore.getState().player;
+    return calculateSummonDmgIncrease(state.stats.cha) || 0;
+  },
+
   totalArmorClass: () => {
     const state = usePlayerStore.getState().player;
     return (

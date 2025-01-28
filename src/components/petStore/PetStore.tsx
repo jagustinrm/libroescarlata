@@ -137,7 +137,7 @@ export default function PetStore() {
                     <strong>Clase de armadura:</strong> {selectedPet.armorClass}
                   </p>
                   <p className="petText">
-                    <strong>Ataque:</strong> {selectedPet.attack.melee}
+                    <strong>Daño:</strong> {selectedPet.attacks[0].damage} - {selectedPet.attacks[0].damageMax} 
                   </p>
                   <p className="petText">
                     <strong>Habilidades especiales:</strong>

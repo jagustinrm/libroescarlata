@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom'; // Importa useLocation
 import './HeaderMenu.css';
 import useAppStore from '../../../stores/appStore';
 import SoundPlayer from '../soundPlayer/SoundPlayer';
+import Quests from '../../quests/Quests';
 
 const HeaderMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showMissions, setShowMissions] = useState(false);
   const {
     isMusicPlaying,
     ambientMusic,
@@ -14,10 +17,14 @@ const HeaderMenu = () => {
     setMusicVolume,
   } = useAppStore();
 
+  // Obtener la ubicación actual
+  const location = useLocation();
+
   useEffect(() => {
     setAmbientMusic('medievalAmbient');
     setMusicVolume(0.2);
   }, [setAmbientMusic, setMusicVolume]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -32,10 +39,15 @@ const HeaderMenu = () => {
           )}
 
           <li>
-            <a href="#">Ingresar</a>
+            <a href="/">Desconectar</a>
           </li>
+          {/* Mostrar "Misiones" solo si no estamos en la URL "/" */}
+          {location.pathname !== '/' && location.pathname !== '/characterSelector' && (
+            <li onClick={() => setShowMissions(true)}>
+              <a href="#">Misiones</a>
+            </li>
+          )}
           <li>
-            {' '}
             <div className="music-controls">
               <button className="buttonSoundToggle" onClick={toggleMusic}>
                 {isMusicPlaying ? (
@@ -54,15 +66,12 @@ const HeaderMenu = () => {
               </button>
             </div>
           </li>
-          {/* <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#nosotros">Nosotros</a></li>
-          <li><a href="#contacto">Contacto</a></li> */}
         </ul>
       </nav>
       <button className="menu-toggle" onClick={toggleMenu}>
         {isMenuOpen ? 'Cerrar' : 'Menú'}
       </button>
+      {showMissions && <Quests onClose={() => setShowMissions(false)} />}
     </header>
   );
 };
