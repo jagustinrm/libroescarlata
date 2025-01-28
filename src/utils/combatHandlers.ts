@@ -12,6 +12,7 @@ import { simulateAttackMovement } from './simulateAttackMovement.ts';
 import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
 import useSummonStore from '../stores/summonsStore.ts';
+import useInventoryStore from '../stores/inventoryStore.ts';
 
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
@@ -259,6 +260,7 @@ export const handleCombatAction = (
         );
         handleMessage?.('¡Estás fuera de rango!', 'warning', false);
         shouldFinalizeTurn = false; // Fuera de rango, no se finaliza el turno.
+        return false
       }
 
       // Hechizos de curación
@@ -273,6 +275,7 @@ export const handleCombatAction = (
       addActionMessage(
         `Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`,
       );
+
       setFloatingMessage({
         message: healing.toString(),
         onComplete: () => setFloatingMessage(null),

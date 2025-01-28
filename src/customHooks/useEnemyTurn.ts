@@ -8,18 +8,14 @@ import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
 
 interface EnemyTurnProps {
-  // turn: string;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-  // switchTurn: () => void;
   setFloatingMessage: React.Dispatch<
     React.SetStateAction<FloatingMessageProps | null>
   >;
   setSoundUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 export const useEnemyTurn = ({
-  // turn,
   setActionMessages,
-  // switchTurn,
   setFloatingMessage,
   setSoundUrl,
 }: EnemyTurnProps) => {

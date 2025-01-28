@@ -1,6 +1,6 @@
-import { rollDice } from '../utils/rollDice';
+
 import usePlayerStore from '../stores/playerStore';
-import usePotionStore from '../stores/potionsStore';
+import useTurnStore from '../stores/turnStore';
 import { Item } from '../stores/types/items';
 
 interface HandleHealingParams {
@@ -10,8 +10,7 @@ interface HandleHealingParams {
 export const handleHealing = ({ item, handleMessage }: HandleHealingParams) => {
   const { player, playerActions } = usePlayerStore.getState();
   const currentHealth = player.p_LeftHealth;
-  const maxHealth = player.totalMaxHealth();
-
+  const {nextTurn } = useTurnStore.getState();
   // Verificar si se necesita curación
   if (item.type === 'Curación') {
     if (!item) return;
@@ -20,6 +19,8 @@ export const handleHealing = ({ item, handleMessage }: HandleHealingParams) => {
       playerActions.setP_LeftHealth(
         Math.min(totalLeftHealth, player.totalMaxHealth()),
       );
+      nextTurn()
+
     } else {
       handleMessage('Tu vida está completa', 'success', false);
     }
@@ -29,5 +30,7 @@ export const handleHealing = ({ item, handleMessage }: HandleHealingParams) => {
       item.effect.value,
       item.effect.duration,
     );
+    nextTurn()
   }
+  
 };

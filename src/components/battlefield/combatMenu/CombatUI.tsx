@@ -7,8 +7,9 @@ import { Weapon } from '../../../stores/types/weapons';
 import { Spell } from '../../../stores/types/spells';
 import useTurnStore from '../../../stores/turnStore';
 import { Item, Items } from '../../../stores/types/items';
-import ListCombatItems from './listCombatItems';
+
 import { handleHealing } from '../../../utils/handleHealing';
+import ListCombatItems from './listCombatItems';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[];

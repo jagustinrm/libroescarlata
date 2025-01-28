@@ -12,7 +12,7 @@ export default function ListCombatItems({
   setSelectedType: any;
   executeItem: (item: Item) => void;
 }) {
-  const { inventories, player, scrolls, removeScroll, potions } =
+  const { inventories, player, scrolls, potions } =
     useGlobalState();
   const { removeItem } = useInventoryStore();
   const playerInventory =
@@ -32,9 +32,10 @@ export default function ListCombatItems({
   const executeAction = (item: Item, selectedType: keyof Items) => {
     executeItem(item);
     setSelectedType('');
-    removeScroll(item.id);
     removeItem(player.inventoryId, selectedType, item.id);
     removeItemFromFirebase(player.name, item.id, selectedType);
+
+
   };
   return (
     <div>

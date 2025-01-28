@@ -186,9 +186,7 @@ export default function FightScene() {
   };
 
   useEnemyTurn({
-    // turn,
     setActionMessages,
-    // switchTurn,
     setFloatingMessage,
     setSoundUrl,
   });
@@ -235,7 +233,7 @@ export default function FightScene() {
     }, 1000);
   };
 
-  const executeScroll = (scroll: Scroll) => {
+  const executeScroll = (scroll: Scroll ): void  => {
     const selectedAttack = scroll;
     const url = selectedAttack?.soundEffect;
     setSoundUrl(url);
@@ -243,6 +241,7 @@ export default function FightScene() {
     setTimeout(() => {
       setSoundUrl('');
     }, 1000);
+
   };
   // ************************COMBATE *************************
 
