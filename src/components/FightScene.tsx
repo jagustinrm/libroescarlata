@@ -24,7 +24,7 @@ import CombatUI from './battlefield/combatMenu/CombatUI.tsx';
 import { Weapon } from '../stores/types/weapons.ts';
 import { Spell } from '../stores/types/spells';
 import useTurnStore from '../stores/turnStore.ts';
-import { QuestTree } from '../stores/types/quests.ts';
+
 import { usePetTurn } from '../customHooks/usePetTurn.ts';
 import { Scroll } from '../stores/types/scrolls.ts';
 

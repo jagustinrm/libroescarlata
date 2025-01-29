@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { rollDice } from './rollDice.ts';
 import { PlayerActions } from '../stores/types/player.js';
 import { Creature } from '../stores/types/creatures.ts';
@@ -24,11 +24,6 @@ interface CombatHandlersProps {
   setSummon?: Dispatch<SetStateAction<Creature | null>>;
   button?: Button;
   setActivateImage: Dispatch<SetStateAction<boolean>>;
-}
-
-interface Position {
-  x: number;
-  y: number;
 }
 interface Button {
   x: number;

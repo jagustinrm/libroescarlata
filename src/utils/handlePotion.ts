@@ -1,5 +1,4 @@
 
-import SoundPlayer from '../components/UI/soundPlayer/SoundPlayer';
 import useAppStore from '../stores/appStore';
 import usePlayerStore from '../stores/playerStore';
 import usePositionStore from '../stores/positionStore';

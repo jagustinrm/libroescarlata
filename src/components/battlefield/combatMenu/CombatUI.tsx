@@ -66,7 +66,6 @@ const CombatUI: React.FC<CombatUIProps> = ({
         {/* Ataques y pociones */}
         <AttackAndPotions
           executeAttack={executeAttack}
-          handleMessage={handleMessage}
           pocion={pocion}
           // turn = {turn}
         />

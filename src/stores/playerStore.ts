@@ -205,7 +205,7 @@ const initialPlayerState: Player = {
   },
 };
 
-export const usePlayerStore = create<PlayerStore>((set, get) => ({
+export const usePlayerStore = create<PlayerStore>((set) => ({
   player: initialPlayerState,
 
   // Agrupamos las acciones relacionadas con el jugador

@@ -1,6 +1,5 @@
 import './PlayerStats.css';
 import usePlayerStore from '../../stores/playerStore';
-import { useNavigate } from 'react-router-dom';
 import { Stats } from '../../stores/types/stats';
 import useStatManagement from '../../customHooks/useStatManagement';
 import BackButton from '../UI/BackButton';
