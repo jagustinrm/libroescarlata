@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { rollDice } from './rollDice.ts';
 import { PlayerActions } from '../stores/types/player.js';
 import { Creature } from '../stores/types/creatures.ts';
@@ -9,10 +9,11 @@ import { useWeaponStore } from '../stores/weaponStore.ts';
 import usePositionStore from '../stores/positionStore.ts';
 import { isAttackSuccessful } from './calculateStats.ts';
 import { simulateAttackMovement } from './simulateAttackMovement.ts';
-import { FloatingMessageProps } from '../stores/types/others';
+
 import useTurnStore from '../stores/turnStore.ts';
 import useSummonStore from '../stores/summonsStore.ts';
-import useInventoryStore from '../stores/inventoryStore.ts';
+import useAppStore from '../stores/appStore.ts';
+import { calculateDistance } from './calculateDistance.ts';
 
 interface CombatHandlersProps {
   playerActions?: PlayerActions;
@@ -23,7 +24,6 @@ interface CombatHandlersProps {
   setSummon?: Dispatch<SetStateAction<Creature | null>>;
   button?: Button;
   setActivateImage: Dispatch<SetStateAction<boolean>>;
-  setFloatingMessage: Dispatch<SetStateAction<FloatingMessageProps | null>>;
 }
 
 interface Position {
@@ -41,16 +41,12 @@ export const handleCombatAction = (
   additionalData?: any,
 ) => {
   const {
-    // selectedSpell,
     setActionMessages,
     handleMessage,
     handlePostCombatActs,
     fightType,
     setSummon,
-    // switchTurn,
-    // turn,
     setActivateImage,
-    setFloatingMessage,
   } = props;
 
   let shouldFinalizeTurn = true;
@@ -59,12 +55,14 @@ export const handleCombatAction = (
   };
   const { player, playerActions } = usePlayerStore.getState();
   const { creature } = useCreatureStore.getState();
+  const { setFloatingMessage } = useAppStore.getState();
   const { spells } = useSpellStore.getState();
   const { weapons } = useWeaponStore.getState();
   const { summons } = useSummonStore.getState();
   const { currentCharacter, nextTurn, addCharacter } = useTurnStore.getState();
   const { setPlayerPosition, playerPosition, enemyPosition, setPetPosition } =
     usePositionStore.getState();
+
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
       playerActions.decrementBuffDurations();
@@ -72,47 +70,33 @@ export const handleCombatAction = (
     }
   };
 
-  const calculateDistance = (
-    position1: Position,
-    position2: Position,
-    diagonalPenalty = 1,
-  ) => {
-    const dx = Math.abs(position1.x - position2.x);
-    const dy = Math.abs(position1.y - position2.y);
 
-    // Ignorar el casillero central del jugador
-    if (dx === 0 && dy === 0) return -1;
 
-    // Ajustar por penalización de diagonal
-    return dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
-  };
-
-  // *********************************                  ********************************
-  // ************************************CUERPO A CUERPO *****************************
-  // ************************************                  *****************************
-
-  const handleAttack = () => {
-    if (!player || !creature) return;
+  const handleAttack = (): boolean => {
+    if (!player || !creature) return false;
 
     const weaponFiltered = weapons?.find(
       (w) => w.name === player.bodyParts.manoDerecha.name,
     );
-    const weaponRange = weaponFiltered?.range ?? 10; // Por defecto, rango es 10.
+    const weaponRange = weaponFiltered?.range ?? 10;
 
     if (playerPosition && enemyPosition) {
       const adjustedDistance = calculateDistance(playerPosition, enemyPosition);
 
-      if (adjustedDistance === -1) return; // Ignorar posición central del jugador.
-
+      if (adjustedDistance === -1) return false;
+      console.log(adjustedDistance, 'distancia palyer')
+      console.log(weaponRange, 'rango de espada')
       if (adjustedDistance > weaponRange) {
         addActionMessage('¡Estás fuera de rango para atacar!');
         handleMessage?.('¡Estás fuera de rango!', 'warning', false);
         shouldFinalizeTurn = false;
-        return;
+        return false;
       }
+
       setTimeout(() => {
         simulateAttackMovement(playerPosition, 5, setPlayerPosition);
       }, 100);
+
       const success = isAttackSuccessful(
         player.hitRatePercentage?.() ?? 0,
         creature.dodgePercentage?.() ?? 0,
@@ -123,6 +107,7 @@ export const handleCombatAction = (
         setTimeout(() => {
           setActivateImage(false);
         }, 250);
+
         const redDamage = creature.totalDmgReduction(player.level);
         const totalDamage = Math.floor(
           Math.random() * (player.damageMax() - player.damage()) +
@@ -132,7 +117,7 @@ export const handleCombatAction = (
         useCreatureStore
           .getState()
           .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
-          
+
         addActionMessage(
           `Has atacado al enemigo y causado ${finalDamage} puntos de daño.`,
         );
@@ -143,11 +128,12 @@ export const handleCombatAction = (
           position: enemyPosition,
         });
 
-
         if (creature.health - finalDamage <= 0 && fightType) {
           handleMessage?.('¡Has ganado el combate!', 'success', false);
           handlePostCombatActs?.(fightType, creature);
         }
+
+        return true; // Ataque exitoso
       } else {
         setFloatingMessage({
           message: '¡Falló!',
@@ -156,26 +142,24 @@ export const handleCombatAction = (
           position: enemyPosition,
         });
         addActionMessage(`¡Tu ataque falló!`);
+        return false; // Ataque fallido
       }
     }
+
+    return false; // No se pudo realizar el ataque
   };
 
-  // ****************************************    ********************************
-  // ****************************************SPELLS********************************
-  // ****************************************       ********************************
-  const handleSpell = () => {
+  const handleSpell = (): boolean => {
     const scroll = additionalData;
     let spellDetails = null;
-    if (scroll) {
+
+    if (actionType === 'scroll' && scroll) {
       spellDetails = scroll;
     } else {
       spellDetails = spells?.find((s) => s.name === player.selectedSpell?.name);
-      if (!spellDetails) {
-        shouldFinalizeTurn = false; // No se encontró el hechizo, no se finaliza el turno.
-        return;
-      }
 
       if (
+        spellDetails &&
         spellDetails.manaCost &&
         typeof player?.p_LeftMana === 'number' &&
         spellDetails.manaCost > player?.p_LeftMana
@@ -184,12 +168,16 @@ export const handleCombatAction = (
           `No tienes suficiente maná para lanzar ${spellDetails.name}.`,
         );
         handleMessage?.('¡No tienes suficiente maná!', 'warning', false);
+        shouldFinalizeTurn = false;
+        return false;
+      }
 
-        shouldFinalizeTurn = false; // No hay suficiente maná, no se finaliza el turno.
-        return;
+      if (!spellDetails) {
+        shouldFinalizeTurn = false;
+        return false;
       }
     }
-    // Hechizos ofensivos
+
     if (
       spellDetails.type === 'Ofensivo' &&
       creature?.health &&
@@ -199,17 +187,15 @@ export const handleCombatAction = (
       const dx = Math.abs(playerPosition.x - enemyPosition.x);
       const dy = Math.abs(playerPosition.y - enemyPosition.y);
 
-      // Ignorar el casillero central del jugador
       if (dx === 0 && dy === 0) {
         addActionMessage(
           `El enemigo está demasiado cerca para atacar con ${spellDetails.name}.`,
         );
         shouldFinalizeTurn = false;
-        return;
+        return false;
       }
 
-      // Factor de penalización para diagonales
-      const diagonalPenalty = 1; // Ajusta según la reducción deseada
+      const diagonalPenalty = 1;
       const adjustedDistance =
         dx + dy - Math.min(dx, dy) * (1 - diagonalPenalty);
 
@@ -218,13 +204,13 @@ export const handleCombatAction = (
         spellDetails.damage &&
         spellDetails.damageMax
       ) {
-        // EL DAÑO MINIMO Y MAXIMO NO VARÍAN IGUAL. EL MAXIMO AUMENTA MÁS
         const damage =
           Math.floor(
             Math.random() * (spellDetails.damageMax + player.mDamageMax() - spellDetails.damage + player.mDamage() + 1),
           ) + spellDetails.damage + player.mDamage();
-          const redDamage = creature.totalDmgReduction(player.level);
-          const finalDamage = Math.floor(damage * (1 - redDamage / 100));  
+        const redDamage = creature.totalDmgReduction(player.level);
+        const finalDamage = Math.floor(damage * (1 - redDamage / 100));
+
         simulateAttackMovement(playerPosition, 5, setPlayerPosition);
         addActionMessage(
           `Has lanzado ${spellDetails.name} y causado ${finalDamage} puntos de daño.`,
@@ -239,6 +225,7 @@ export const handleCombatAction = (
         useCreatureStore
           .getState()
           .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
+
         if (
           typeof player?.p_LeftMana === 'number' &&
           typeof spellDetails.manaCost === 'number' &&
@@ -250,20 +237,21 @@ export const handleCombatAction = (
               Math.max(player.p_LeftMana - spellDetails.manaCost, 0),
             );
         }
+
         if (creature.health - damage <= 0 && fightType) {
           handleMessage?.('¡Has ganado el combate!', 'success', false);
           handlePostCombatActs?.(fightType, creature);
         }
+
+        return true; // Hechizo exitoso
       } else {
         addActionMessage(
           `El enemigo está fuera de rango para ${spellDetails.name}.`,
         );
         handleMessage?.('¡Estás fuera de rango!', 'warning', false);
-        shouldFinalizeTurn = false; // Fuera de rango, no se finaliza el turno.
-        return false
+        shouldFinalizeTurn = false;
+        return false; // Hechizo fallido
       }
-
-      // Hechizos de curación
     } else if (
       spellDetails.type === 'Curación' &&
       player &&
@@ -294,7 +282,7 @@ export const handleCombatAction = (
           Math.max(player?.p_LeftMana - spellDetails.manaCost, 0),
         );
 
-      // Hechizos de invocación
+      return true; // Hechizo de curación exitoso
     } else if (
       spellDetails.type === 'Utilidad' &&
       setSummon &&
@@ -314,23 +302,25 @@ export const handleCombatAction = (
         addCharacter({ id: 'summon', name: summon.name });
         setSummon(summon);
       }
+
+      return true; // Hechizo de invocación exitoso
     } else {
       shouldFinalizeTurn = false;
+      return false; // Hechizo fallido
     }
   };
 
-  // ************************MOVIMIENTO ***********************************
-  const handleMove = () => {
+  const handleMove = (): boolean => {
     const button = additionalData;
-    if (!button || !playerPosition) return;
-    console.log(player.buffs.str?.value)
+    if (!button || !playerPosition) return false;
+
     const step = 5;
     const offsetX = 10 / 1.2;
     const offsetY = 20 / 1.5;
 
     const isWithinRange =
-      Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
-      Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step;
+      Math.abs(button.x - playerPosition.x - offsetX) <= 3.5 * step &&
+      Math.abs(button.y - playerPosition.y - offsetY) <= 3.5 * step;
 
     if (isWithinRange && currentCharacter && currentCharacter.id === 'player') {
       setPlayerPosition?.({
@@ -341,22 +331,31 @@ export const handleCombatAction = (
         x: button.x - offsetX + 8,
         y: button.y - offsetY + 12,
       });
+
+      return true; // Movimiento exitoso
     }
+
+    return false; // Movimiento fallido
   };
+
+  let result = false;
 
   switch (actionType) {
     case 'attack':
-      handleAttack();
+      result = handleAttack();
       break;
     case 'spell':
-      handleSpell();
+      result = handleSpell();
       break;
     case 'move':
-      handleMove();
+      result = handleMove();
       break;
     case 'scroll':
-      handleSpell();
+      result = handleSpell();
       break;
   }
+
   finalizeTurn();
+  console.log(result)
+  return result; // Retorna el resultado de la acción
 };

@@ -6,7 +6,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEnemyLoader } from '../customHooks/useEnemyLoader.ts';
 import { checkLevelUp } from '../utils/checkLevelUp.ts';
-// import { calculateInitialHealth } from '../utils/calculateInitialHealth.ts';
 import { handleCombatAction } from '../utils/combatHandlers';
 import useExpTable from '../customHooks/useExpTable.ts';
 import MessageBox from './UI/MessageBox.tsx';
@@ -22,10 +21,8 @@ import { Creature } from '../stores/types/creatures.ts';
 import useAppStore from '../stores/appStore.ts';
 import useGlobalState from '../customHooks/useGlobalState.ts';
 import CombatUI from './battlefield/combatMenu/CombatUI.tsx';
-import { FloatingMessageProps } from '../stores/types/others';
 import { Weapon } from '../stores/types/weapons.ts';
 import { Spell } from '../stores/types/spells';
-// import { createTurnHandler } from './battlefield/TurnSystem.ts';
 import useTurnStore from '../stores/turnStore.ts';
 import { QuestTree } from '../stores/types/quests.ts';
 import { usePetTurn } from '../customHooks/usePetTurn.ts';
@@ -41,8 +38,9 @@ export default function FightScene() {
   const navigate = useNavigate();
   const location = useLocation();
   const { enemy, fightType, event } = location.state;
-  const [floatingMessage, setFloatingMessage] =
-    useState<FloatingMessageProps | null>(null);
+  // const [floatingMessage, setFloatingMessage] =
+  //   useState<FloatingMessageProps | null>(null);
+  
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {
     spells,
@@ -60,9 +58,7 @@ export default function FightScene() {
   } = useGlobalState();
   const { addCharacter, currentCharacter } = useTurnStore();
   const [summon, setSummon] = useState<Creature | null>(null);
-  const [soundType] = useState<string>('');
   const [activateImage, setActivateImage] = useState<boolean>(false);
-  const [soundUrl, setSoundUrl] = useState<string | undefined>('');
   const { expTable } = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
   const [updateEnemy, setUpdateEnemy] = useState<boolean>(false);
@@ -73,16 +69,7 @@ export default function FightScene() {
     enemy,
     fightType,
   );
-  const defaultQuests: QuestTree = {
-    history: [],
-    secondary: [],
-    others: [],
-  };
-  const { handlePostCombatActs } = usePostCombatActions(
-    defaultQuests,
-    playerActions,
-    player,
-  );
+  const { handlePostCombatActs } = usePostCombatActions();
   const handleCheckLevelUp = () => {
     checkLevelUp({
       player,
@@ -93,7 +80,7 @@ export default function FightScene() {
       // setExpTable,
     });
   };
-  const { setAmbientMusic, setMusicVolume } = useAppStore();
+  const { setAmbientMusic, setMusicVolume, soundUrl, setSoundUrl } = useAppStore();
   const [pocion, setpocion] = useState<string>();
   const [opcionesArmas, setOpcionesArmas] = useState<Weapon[]>();
   const [opcionesSpells, setOpcionesSpells] = useState<Spell[]>();
@@ -119,15 +106,21 @@ export default function FightScene() {
     handleCheckLevelUp(); // Verificar subida de nivel
   }, [player.playerExp]);
   useEffect(() => {
-    setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 - 20 / 1.5 });
-    setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 - 20 / 1.5 });
+    const playerXOffset = 10 / 1.2; 
+    const playerYOffset = 20 / 1.5; 
+    const gridSize = 45; 
+    // Calcular posiciones
+    const playerPosition = { x: 0 - playerXOffset, y: gridSize - playerYOffset };
+    const enemyPosition = { x: gridSize - playerXOffset, y: 0 - playerYOffset };
+    setPlayerPosition(playerPosition);
+    setEnemyPosition(enemyPosition);
     player.selectedPet &&
       setPetPosition({ x: playerPosition.x + 8, y: playerPosition.y + 12 });
 
     addCharacter({ id: 'player', name: player.name });
     addCharacter({ id: 'enemy', name: creature.name });
     player.selectedPet &&
-      addCharacter({ id: 'pet', name: player.selectedPet.name });
+    addCharacter({ id: 'pet', name: player.selectedPet.name });
     setAmbientMusic('battleSong');
     setMusicVolume(0.1);
   }, []);
@@ -170,7 +163,7 @@ export default function FightScene() {
     actionType: 'attack' | 'spell' | 'move' | 'scroll',
     additionalData?: any,
   ) => {
-    handleCombatAction(
+    const res = handleCombatAction(
       actionType,
       {
         setActionMessages,
@@ -179,16 +172,15 @@ export default function FightScene() {
         handlePostCombatActs,
         fightType,
         handleMessage,
-        setFloatingMessage,
+   
       },
       additionalData,
     );
+    return res
   };
 
   useEnemyTurn({
     setActionMessages,
-    setFloatingMessage,
-    setSoundUrl,
   });
 
   useSummonTurn({
@@ -199,8 +191,6 @@ export default function FightScene() {
 
   usePetTurn({
     setActionMessages,
-    setFloatingMessage,
-    setSoundUrl,
     fightType,
     handleMessage,
     handlePostCombatActs
@@ -210,12 +200,11 @@ export default function FightScene() {
     const weapon = weapons.find(
       (s) => player.bodyParts.manoDerecha?.name === s.name,
     );
-    const url = weapon?.soundEffect;
-
+    const url = weapon?.soundEffect || null;
     setSoundUrl(url);
     handleAction('attack');
     setTimeout(() => {
-      setSoundUrl('');
+      setSoundUrl(null);
     }, 300);
   };
   const executeSpell = () => {
@@ -225,23 +214,24 @@ export default function FightScene() {
     )
       return;
     const spell = spells.find((s) => player.selectedSpell?.name === s.name);
-    const url = spell?.soundEffect;
+    const url = spell?.soundEffect || null;
     setSoundUrl(url);
     handleAction('spell');
     setTimeout(() => {
-      setSoundUrl('');
+      setSoundUrl(null);
     }, 1000);
   };
 
-  const executeScroll = (scroll: Scroll ): void  => {
+  const executeScroll = (scroll: Scroll ): boolean  => {
     const selectedAttack = scroll;
-    const url = selectedAttack?.soundEffect;
+    const url = selectedAttack?.soundEffect || null;
     setSoundUrl(url);
-    handleAction('scroll', selectedAttack);
+    const res = handleAction('scroll', selectedAttack);
+    console.log(res)
     setTimeout(() => {
-      setSoundUrl('');
+      setSoundUrl(null);
     }, 1000);
-
+    return res
   };
   // ************************COMBATE *************************
 
@@ -315,8 +305,6 @@ export default function FightScene() {
           summon={summon}
           setSummon={setSummon}
           setActivateImage={setActivateImage}
-          setFloatingMessage={setFloatingMessage}
-          floatingMessage={floatingMessage}
         />
         <EndBattleActions
           creature={creature}
@@ -338,9 +326,9 @@ export default function FightScene() {
         manaPercentage={manaPercentage}
       />
       <EnemyChar creature={creature} />
-      {soundType ||
+      {
         (soundUrl && (
-          <SoundPlayer soundType={soundType} volume={0.3} soundUrl={soundUrl} />
+          <SoundPlayer volume={0.3} soundUrl={soundUrl} />
         ))}
       {messageState.show && (
         <MessageBox

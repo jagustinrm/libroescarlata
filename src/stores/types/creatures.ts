@@ -18,6 +18,7 @@ export interface Creature {
     damage: number;
     damageMax: number;
     soundEffect: string;
+    range: number;
   }[];
   specialAbilities: string[]; 
   img: string; 

@@ -9,6 +9,7 @@ export interface Book {
   color?: string;
   rarity?: string;
   weight: number;
+  deleteable?: boolean;
 }
 
 export interface BookStore {

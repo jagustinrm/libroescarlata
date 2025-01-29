@@ -6,10 +6,7 @@ import { CreateCustomArmors } from '../../generators/customArmors/createCustomAr
 import useGlobalState from '../../customHooks/useGlobalState';
 import { CreateCustomWeapons } from '../../generators/customWeapons/createCustomWeapons';
 import { CreateCustomAccessories } from '../../generators/customAccesories/createCustomAccesories';
-import {
-  createCustomScroll,
-  useCreateCustomScrolls,
-} from '../../generators/customScrolls/createCustomScrolls';
+import {useCreateCustomScrolls} from '../../generators/customScrolls/createCustomScrolls';
 // import { Accessory } from '../../stores/types/accesories';
 
 const ItemShopLoader = () => {

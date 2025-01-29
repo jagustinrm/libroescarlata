@@ -1,15 +1,11 @@
 import checkQuests from '../utils/checkQuests.ts';
 // @ts-expect-error Para que funcione
 import gainExp from '../utils/gainExp.js';
-import { Player, PlayerActions } from '../stores/types/player.js';
 import { Creature } from '../stores/types/creatures.js';
-import { QuestTree } from '../stores/types/quests.js';
+import usePlayerStore from '../stores/playerStore.ts';
 
-const usePostCombatActions = (
-  quests: QuestTree,
-  playerActions: PlayerActions,
-  player: Player,
-) => {
+const usePostCombatActions = () => {
+  const {player,playerActions} = usePlayerStore.getState();
   const handlePostCombatActs = (fightType: string, creature: Creature) => {
     // Si el enemigo es derrotado
     if (creature) {

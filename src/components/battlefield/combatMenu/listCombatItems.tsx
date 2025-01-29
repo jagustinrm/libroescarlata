@@ -10,7 +10,7 @@ export default function ListCombatItems({
 }: {
   selectedType: keyof Items;
   setSelectedType: any;
-  executeItem: (item: Item) => void;
+  executeItem: (item: Item) => boolean;
 }) {
   const { inventories, player, scrolls, potions } =
     useGlobalState();
@@ -29,12 +29,13 @@ export default function ListCombatItems({
     )
     .filter(Boolean);
 
-  const executeAction = (item: Item, selectedType: keyof Items) => {
-    executeItem(item);
-    setSelectedType('');
-    removeItem(player.inventoryId, selectedType, item.id);
-    removeItemFromFirebase(player.name, item.id, selectedType);
-
+  const executeAction = async (item: Item, selectedType: keyof Items) => {
+    const wasItemUsed = executeItem(item);
+    if (wasItemUsed) {
+      setSelectedType('');
+      removeItem(player.inventoryId, selectedType, item.id);
+      await removeItemFromFirebase(player.name, item.id, selectedType);
+    }
 
   };
   return (

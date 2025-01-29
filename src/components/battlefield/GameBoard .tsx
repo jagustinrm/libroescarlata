@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 import './GameBoard.css';
 import { Creature } from '../../stores/types/creatures';
 import { SoundPlayerProps } from '../UI/soundPlayer/SoundPlayer';
@@ -8,9 +8,9 @@ import useCreatureStore from '../../stores/creatures';
 import { useWeaponStore } from '../../stores/weaponStore';
 import useSpellStore from '../../stores/spellsStore';
 import usePositionStore from '../../stores/positionStore';
-import { FloatingMessageProps } from '../../stores/types/others';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
 import useTurnStore from '../../stores/turnStore';
+import useAppStore from '../../stores/appStore';
 
 interface Button {
   x: number;
@@ -19,17 +19,11 @@ interface Button {
 }
 
 interface GameBoardProps {
-  // turn: 'player' | 'enemy' | 'summon';
   SoundPlayer: React.FC<SoundPlayerProps>;
   summon?: Creature | null;
   setSummon: React.Dispatch<React.SetStateAction<Creature | null>>;
-  // switchTurn: () => void;
   activateImage: boolean;
   setActivateImage: React.Dispatch<React.SetStateAction<boolean>>;
-  setFloatingMessage: React.Dispatch<
-    React.SetStateAction<FloatingMessageProps | null>
-  >;
-  floatingMessage: FloatingMessageProps | null;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -39,8 +33,6 @@ const GameBoard: React.FC<GameBoardProps> = ({
   // switchTurn,
   activateImage,
   setActivateImage,
-  setFloatingMessage,
-  floatingMessage,
 }) => {
   const gridSize = 10; // Tamaño de la cuadrícula principal (10x10)
   const step = 5; // Tamaño del paso en vw
@@ -53,6 +45,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { creature } = useCreatureStore();
   const { weapons } = useWeaponStore();
   const { spells } = useSpellStore();
+  const {floatingMessage, setFloatingMessage} = useAppStore.getState()
   const { playerPosition, enemyPosition, summonPosition, petPosition } =
     usePositionStore();
   const { currentCharacter } = useTurnStore();
@@ -83,12 +76,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   ) => {
     handleCombatAction(
       actionType,
-      {
-        // turn,
-        // switchTurn,
-        setActivateImage,
-        setFloatingMessage,
-      },
+      {setActivateImage},
       additionalData,
     );
 
@@ -101,8 +89,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const isButtonHighlighted = (button: Button): boolean => {
     return (
       button.type === 'main' &&
-      Math.abs(button.x - playerPosition.x - offsetX) <= 3 * step &&
-      Math.abs(button.y - playerPosition.y - offsetY) <= 3 * step
+      Math.abs(button.x - playerPosition.x - offsetX) <= 3.5 * step &&
+      Math.abs(button.y - playerPosition.y - offsetY) <= 3.5 * step
     );
   };
 

@@ -17,7 +17,8 @@
         "bonus": 2,
         "damage": 20,
         "damageMax": 40,
-        "soundEffect": "/music/attacks/bite.wav"
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -43,7 +44,8 @@
         "damage": 20,
         "damageMax": 40,
         "additionalEffect": "veneno (1d6 CON)",
-        "soundEffect": "/music/attacks/bite.wav"
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -69,7 +71,8 @@
         "bonus": 0,
         "damage": 20,
         "damageMax": 40,
-        "soundEffect": "/music/attacks/sword-sound.mp3"
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -95,7 +98,8 @@
         "bonus": 1,
         "damage": 20,
         "damageMax": 40,
-        "soundEffect": "/music/attacks/sword-sound.mp3"
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 5
       },
       {
         "name": "arco corto",
@@ -103,7 +107,8 @@
         "bonus": 2,
         "damage": 20,
         "damageMax": 40,
-        "soundEffect": "/music/attacks/bow.mp3"
+        "soundEffect": "/music/attacks/bow.mp3",
+        "range": 35
       }
     ],
     "specialAbilities": [
@@ -129,7 +134,8 @@
         "bonus": "+0",
         "damage": 20,
         "damageMax": 40,
-        "soundEffect": "/music/attacks/spear.mp3"
+        "soundEffect": "/music/attacks/spear.mp3",
+        "range": 10
       },
       {
         "name": "honda",
@@ -137,7 +143,8 @@
         "bonus": 1,
         "damage": 20,
         "damageMax": 40,
-        "soundEffect": "/music/attacks/bow.mp3"
+        "soundEffect": "/music/attacks/bow.mp3",
+        "range": 35
       }
     ],
     "specialAbilities": [
@@ -163,7 +170,8 @@
         "bonus": 3,
         "damage": 35,
         "damageMax": 60,
-        "soundEffect": "/music/attacks/sword-sound.mp3"
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
       }
     ],
     "specialAbilities": [
@@ -189,7 +197,8 @@
         "bonus": 3,
         "damage": 35,
         "damageMax": 70,
-        "soundEffect": "/music/attacks/sword-sound.mp3"
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
       },
       {
         "name": "arco largo",
@@ -197,7 +206,8 @@
         "bonus": 3,
         "damage": 35,
         "damageMax": 70,
-        "soundEffect": "/music/attacks/bow.mp3"
+        "soundEffect": "/music/attacks/bow.mp3",
+        "range": 35
       }
     ],
     "specialAbilities": [
@@ -223,7 +233,8 @@
         "bonus": 3,
         "damage": 35,
         "damageMax": 70,
-        "soundEffect": "/music/attacks/sword-sound.mp3"
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
       },
       {
         "name": "ballesta ligera",
@@ -231,7 +242,8 @@
         "bonus": 2,
         "damage": 35,
         "damageMax": 70,
-        "soundEffect": "/music/attacks/bow.mp3"
+        "soundEffect": "/music/attacks/bow.mp3",
+        "range": 35
       }
     ],
     "specialAbilities": [
@@ -257,7 +269,8 @@
         "bonus": 3,
         "damage": 35,
         "damageMax": 70,
-        "soundEffect": "/music/attacks/sword-sound.mp3"
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
       },
       {
         "name": "ballesta ligera",
@@ -265,7 +278,8 @@
         "bonus": 2,
         "damage": 35,
         "damageMax": 70,
-        "soundEffect": "/music/attacks/bow.mp3"
+        "soundEffect": "/music/attacks/bow.mp3",
+        "range": 35
       }
     ],
     "specialAbilities": [
@@ -290,7 +304,8 @@
         "bonus": 5,
         "damage": 50,
         "damageMax": 100,
-        "soundEffect": "/music/attacks/sword-sound.mp3"
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
       },
       {
         "name": "arco largo",
@@ -298,7 +313,8 @@
         "bonus": 4,
         "damage": 50,
         "damageMax": 100,
-        "soundEffect": "/music/attacks/bow.mp3"
+        "soundEffect": "/music/attacks/bow.mp3",
+        "range": 40
       }
     ],
     "specialAbilities": [
@@ -327,7 +343,8 @@
         "bonus": 3,
         "damage": 50,
         "damageMax": 100,
-        "soundEffect": "/music/attacks/bite.wav"
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "tentáculos",
@@ -335,7 +352,8 @@
         "bonus": 2,
         "damage": 50,
         "damageMax": 100,
-        "soundEffect": "/music/attacks/claws-scratch.mp3"
+        "soundEffect": "/music/attacks/claws-scratch.mp3",
+        "range": 35
       }
     ],
     "specialAbilities": [
@@ -362,7 +380,8 @@
         "bonus": 4,
         "damage": 50,
         "damageMax": 100,
-        "soundEffect": "/music/attacks/bite.wav"
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "garras",
@@ -370,7 +389,8 @@
         "bonus": 4,
         "damage": 50,
         "damageMax": 100,
-        "soundEffect": "/music/attacks/claws-scratch.mp3"
+        "soundEffect": "/music/attacks/claws-scratch.mp3",
+        "range": 5
       },
       {
         "name": "aliento de fuego",
@@ -378,7 +398,8 @@
         "bonus": "ninguno",
         "damage": 50,
         "damageMax": 100,
-        "soundEffect": "/music/attacks/fireBall.wav"
+        "soundEffect": "/music/attacks/fireBall.wav",
+        "range": 30
       }
     ],
     "specialAbilities": [
@@ -405,7 +426,8 @@
         "bonus": 4,
         "damage": 70,
         "damageMax": 140,
-        "soundEffect": "/music/attacks/fireBall.wav"
+        "soundEffect": "/music/attacks/fireBall.wav",
+        "range": 30
       }
     ],
     "specialAbilities": [
@@ -431,7 +453,8 @@
         "bonus": 5,
         "damage": 70,
         "damageMax": 140,
-        "soundEffect": "/music/attacks/bow.mp3"
+        "soundEffect": "/music/attacks/bow.mp3",
+        "range": 35
       }
     ],
     "specialAbilities": [
@@ -458,7 +481,8 @@
         "bonus": 7,
         "damage": 85,
         "damageMax": 150,
-        "soundEffect": "/music/attacks/claws-scratch.mp3"
+        "soundEffect": "/music/attacks/claws-scratch.mp3",
+        "range": 5
       },
       {
         "name": "mordisco",
@@ -466,7 +490,8 @@
         "bonus": 5,
         "damage": 85,
         "damageMax": 150,
-        "soundEffect": "/music/attacks/bite.wav"
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [

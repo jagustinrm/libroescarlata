@@ -4,6 +4,7 @@ export interface otherItem {
   cost: number;
   color?: string;
   weight: number;
+  deleteable?: boolean;
 }
 
 export interface otherItemsStore {

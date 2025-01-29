@@ -7,8 +7,7 @@ import { Weapon } from '../../../stores/types/weapons';
 import { Spell } from '../../../stores/types/spells';
 import useTurnStore from '../../../stores/turnStore';
 import { Item, Items } from '../../../stores/types/items';
-
-import { handleHealing } from '../../../utils/handleHealing';
+import { handlePotion } from '../../../utils/handlePotion';
 import ListCombatItems from './listCombatItems';
 
 interface CombatUIProps {
@@ -20,7 +19,7 @@ interface CombatUIProps {
   pocion: string | undefined;
   executeSpell: () => void;
   fightType: string;
-  executeScroll: (item: Item) => void;
+  executeScroll: (item: Item) => boolean;
 }
 
 const CombatUI: React.FC<CombatUIProps> = ({
@@ -38,12 +37,15 @@ const CombatUI: React.FC<CombatUIProps> = ({
   const { currentCharacter } = useTurnStore.getState();
   const [selectedType, setSelectedType] = useState<keyof Items>();
 
-  const executeItem = (item: any) => {
+  const executeItem = (item: any): boolean => {
     if (selectedType === 'scrolls') {
-      executeScroll(item);
+      const res = executeScroll(item);
+      console.log(res)
+      return  res
     } else if (selectedType === 'potions') {
-      handleHealing({ item, handleMessage });
+      return handlePotion({ item, handleMessage });
     }
+    return false; 
   };
   return (
     <div>
@@ -127,7 +129,9 @@ const CombatUI: React.FC<CombatUIProps> = ({
         key={key} >
           <img
           style={{width: '30px'}} 
-          src={`img/icons/buffsIcons/${key}.png`} alt="" />  
+          src={key === 'con'? 
+            `img/icons/buffsIcons/${key}s.png`
+            : `img/icons/buffsIcons/${key}.png`} alt="" />  
           <p
            style={{position: 'absolute', top: 0, left: 34}}
           >{val.duration}</p>

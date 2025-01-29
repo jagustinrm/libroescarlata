@@ -39,8 +39,6 @@ const ItemShop: React.FC = () => {
     y: number;
   } | null>(null);
   const [floatingMessage, setFloatingMessage] = useState<string | null>(null);
-  const itemTypes = items[shopId] ? Object.keys(items[shopId]) : [];
-
   const handleBuy = (
     playerInventoryId: string,
     itemId: string,

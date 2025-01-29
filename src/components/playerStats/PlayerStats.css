@@ -15,7 +15,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  gap: 2px;
+  gap: 4px;
 }
 ul {
   list-style: none;
@@ -66,4 +66,26 @@ ul {
 .playerbackbutton {
   height: 100px;
   width: 100px;
+}
+.mediumColumnStats {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  align-items: center;
+}
+@media (max-width: 1360px) and (max-height: 768px) {
+  .sectionPlayer {
+    max-height: 550px;
+    font-size: 0.7em;
+  }
+  .statsAvatar{
+    width: 100px;
+  }
+  .PetDescription {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    height: 200px;
+  }
+
 }

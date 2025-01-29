@@ -4,27 +4,26 @@ import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
 import { isAttackSuccessful } from '../utils/calculateStats.ts';
 import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
-import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
+import useAppStore from '../stores/appStore.ts';
+import { calculateDistance } from '../utils/calculateDistance.ts';
+import automaticMove from './automaticMove.ts';
 
 interface EnemyTurnProps {
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-  setFloatingMessage: React.Dispatch<
-    React.SetStateAction<FloatingMessageProps | null>
-  >;
-  setSoundUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
+
 }
 export const useEnemyTurn = ({
   setActionMessages,
-  setFloatingMessage,
-  setSoundUrl,
 }: EnemyTurnProps) => {
   const { playerPosition, enemyPosition, setEnemyPosition } =
     usePositionStore.getState();
   const { creature } = useCreatureStore.getState();
+  const {setFloatingMessage, setSoundUrl} = useAppStore.getState()
   const { player, playerActions } = usePlayerStore.getState();
   const { currentCharacter, nextTurn } = useTurnStore.getState();
   useEffect(() => {
+    const adjustedDistance = calculateDistance(enemyPosition, playerPosition);
     const timeout = setTimeout(() => {
       if (
         currentCharacter &&
@@ -32,23 +31,10 @@ export const useEnemyTurn = ({
         creature &&
         creature.health &&
         creature.health > 0 &&
-        player.p_LeftHealth > 0
+        player.p_LeftHealth > 0 &&
+        adjustedDistance > Math.max(...creature.attacks.map(a => a.range))
       ) {
-        const deltaX = playerPosition.x - enemyPosition.x;
-        const deltaY = playerPosition.y - enemyPosition.y;
-
-        const stepSize = 10;
-
-        const newX =
-          Math.abs(deltaX) > stepSize
-            ? enemyPosition.x + (deltaX > 0 ? stepSize : -stepSize)
-            : enemyPosition.x;
-
-        const newY =
-          Math.abs(deltaY) > stepSize
-            ? enemyPosition.y + (deltaY > 0 ? stepSize : -stepSize)
-            : enemyPosition.y;
-        setEnemyPosition({ x: newX, y: newY });
+        automaticMove();
       }
 
       if (
@@ -60,10 +46,8 @@ export const useEnemyTurn = ({
         creature.health > 0 &&
         player.p_LeftHealth > 0
       ) {
-        const distanceX = Math.abs(playerPosition.x - enemyPosition.x);
-        const distanceY = Math.abs(playerPosition.y - enemyPosition.y);
 
-        if (distanceX < 10 && distanceY < 10) {
+        if (adjustedDistance <=  Math.max(...creature.attacks.map(a => a.range))) {
           const enemyAttackTimeout = setTimeout(() => {
             // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
             simulateAttackMovement(enemyPosition, 5, setEnemyPosition);
@@ -71,7 +55,6 @@ export const useEnemyTurn = ({
               creature.hitRatePercentage(), // Usar 0 si hitRatePercentage no está definido
               player.dodgePercentage(), // Usar 0 si dodgePercentage no está definido
             );
-      ;
             if (success) {
               const { damage, damageMax } = creature['attacks'][0];
               const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage;

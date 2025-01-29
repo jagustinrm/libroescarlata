@@ -3,10 +3,11 @@ import usePlayerStore from '../../stores/playerStore';
 import { useNavigate } from 'react-router-dom';
 import { Stats } from '../../stores/types/stats';
 import useStatManagement from '../../customHooks/useStatManagement';
+import BackButton from '../UI/BackButton';
 
 export default function PlayerStats() {
   const { player } = usePlayerStore();
-  const navigate = useNavigate();
+
   const { handleIncreaseStat } = useStatManagement();
   return (
     <section className="sectionPlayer rpgui-container framed-golden-2">
@@ -14,7 +15,7 @@ export default function PlayerStats() {
         <div className="player">
           <div className="stats">
             <img
-              className="playerAvatar"
+              className="playerAvatar statsAvatar"
               src={player.avatarImg}
               alt="avatar img"
             />
@@ -39,28 +40,12 @@ export default function PlayerStats() {
               🗡️ Arma actual:{' '}
               {player.bodyParts.manoDerecha?.name || 'Sin arma equipada'}
             </p>
-            <p>
-              🔱 Daño: {player.damage()} - {player.damageMax()}
-            </p>
-            <p>
-              Daño mágico: {player.mDamage()} - {player.mDamageMax()}
-            </p>
-            {/* <p>
-              {' '}
-              🛡️ Armadura actual:{' '}
-              {player.selectedArmor?.name +
-                ' ' +
-                player.selectedArmor?.material || 'Sin arma equipada'}
-            </p> */}
+            <p>🔱 Daño: {player.damage()} - {player.damageMax()}</p>
+            <p> Daño mágico: {player.mDamage()} - {player.mDamageMax()}</p>
             <p> 🛡️ Armadura: {player.totalArmorClass()}</p>
             <p> 🛡️ Armadura Mágica: {player.totalMArmor()}</p>
           </div>
-          <button
-            className="rpgui-button playerbackbutton"
-            onClick={() => navigate('/home')}
-          >
-            Volver
-          </button>
+         
         </div>
         <div className="mediumColumnStats">
           <div className="statsAndAdd">
@@ -88,18 +73,25 @@ export default function PlayerStats() {
                   </div>
                 ))}
             </ul>
-            <ul className="statsPoints"></ul>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems:' center', gap: '0px'}}>
+            <p> Restan:</p>
+            <p> {player.leftPoints}</p>
+            </div>
+            {/* <ul className="statsPoints"></ul> */}
+
           </div>
-          <p> Puntos restantes: {player.leftPoints}</p>
+          
 
           {player.selectedPet && (
             <div className="PetDescription rpgui-container framed-grey bars">
+              <div>
               <p>Mascota: {player.selectedPet.name}</p>
               <img
                 className="imgPet"
                 src={player.selectedPet.img}
                 alt={player.selectedPet.name}
               />
+              </div>
               <div className="PetStats">
                 <p className="petPara">Tipo: {player.selectedPet.type}</p>
                 <p className="petPara">
@@ -117,6 +109,7 @@ export default function PlayerStats() {
               </div>
             </div>
           )}
+             <BackButton/>
         </div>
         {/* **************************************** ESTADÍSTICAS ************************************ */}
 

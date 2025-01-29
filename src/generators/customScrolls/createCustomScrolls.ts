@@ -1,7 +1,6 @@
 import { generateUniqueId } from '../generateUniqueId';
 import useSpellStore from '../../stores/spellsStore';
 import { Scroll } from '../../stores/types/scrolls';
-import useScrollStore from '../../stores/scrollStore';
 import { useState } from 'react';
 
 export async function createCustomScroll(): Promise<Scroll | null> {

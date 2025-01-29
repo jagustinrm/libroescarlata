@@ -4,24 +4,18 @@ import useCreatureStore from '../stores/creatures.ts';
 import usePlayerStore from '../stores/playerStore.ts';
 import { isAttackSuccessful } from '../utils/calculateStats.ts';
 import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
-import { FloatingMessageProps } from '../stores/types/others';
 import useTurnStore from '../stores/turnStore.ts';
 import { Creature } from '../stores/types/creatures.ts';
+import useAppStore from '../stores/appStore.ts';
 
 interface EnemyTurnProps {
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-  setFloatingMessage: React.Dispatch<
-    React.SetStateAction<FloatingMessageProps | null>
-  >;
-  setSoundUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
-    handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
-    handlePostCombatActs?: (fightType: string, creature: Creature) => void;
-    fightType?: string;
+  handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
+  handlePostCombatActs?: (fightType: string, creature: Creature) => void;
+  fightType?: string;
 }
 export const usePetTurn = ({
   setActionMessages,
-  setFloatingMessage,
-  setSoundUrl,
   fightType,
   handleMessage,
   handlePostCombatActs
@@ -30,6 +24,7 @@ export const usePetTurn = ({
     usePositionStore.getState();
   const { creature, setCreatureHealth } = useCreatureStore.getState();
   const { player } = usePlayerStore.getState();
+  const {setFloatingMessage, setSoundUrl} = useAppStore.getState()
   const { currentCharacter, nextTurn } = useTurnStore.getState();
   useEffect(() => {
     const timeout = setTimeout(() => {
