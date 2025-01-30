@@ -9,7 +9,7 @@ import { database } from '../firebase/firebaseConfig'; // Asegúrate de importar
 import FirebaseItemsLoader from '../loaders/FirebaseItemsLoader';
 import { validateUsername } from '../utils/validations/validateUsername';
 import { ValidatePassword } from '../utils/validations/validatePassword';
-import { verifyUserName } from '../firebase/savePlayerStateToFirebase ';
+import { useInstantSavePlayerState, verifyUserName } from '../firebase/savePlayerStateToFirebase ';
 const LandingPage: React.FC = () => {
   const { playerActions } = usePlayerStore();
   const [inputName, setInputName] = useState<string>('');
@@ -19,9 +19,11 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
+  const savePlayerState = useInstantSavePlayerState();
 
   const handleSaveName = async () => {
     const validateRes = validateUsername(inputName)
+
     if (!validateRes) {
       console.log("Nombre de usuario incorrecto")
       return
@@ -39,7 +41,7 @@ const LandingPage: React.FC = () => {
 
     const playerId = inputName || 'guest-player'; // Usa "guest-player" si el input está vacío
     const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
-
+    savePlayerState(inputPassword); 
     try {
       // Verifica si el jugador existe en Firebase
       const snapshot = await get(playerRef);
@@ -118,17 +120,17 @@ const LandingPage: React.FC = () => {
         </p>
         {isCreatingAccount ? (
           <>
-            <h2>Tu nombre es: {inputName} </h2>
+            <h2 style={{marginBottom: '3px'}} >Tu nombre es: {inputName} </h2>
             <div className="playerLoaderButton">
               <div style={{display: 'flex', flexDirection: 'column', gap: '2px'}}>
-              <input
+                <input
                 className="nameInput"
                 type="text"
                 placeholder="Ingresá tu nombre"
                 value={inputName}
                 onChange={(e) => setInputName(e.target.value)}
-              />
-                         <input
+                />
+                <input
                 className="passInput"
                 type="password"
                 placeholder="Ingresá contraseña"
@@ -148,9 +150,10 @@ const LandingPage: React.FC = () => {
               </div>
               
             </div>
+
             <p style={{fontSize: '18px', marginBottom: '0px'}}>{validatedPassword} </p>
             <div className="createAccount">
-              <p>¿No tenés cuenta? </p>
+              <p>¿Tenés cuenta? </p>
               <p className="linkButton rpgui-cursor-point" onClick={toggleView}>
                 Cargar personaje
               </p>
@@ -158,8 +161,9 @@ const LandingPage: React.FC = () => {
           </>
         ) : (
           <>
-            <h3>Cargar Personaje</h3>
-            <div className="playerLoaderButton">
+            <h2 style={{marginBottom: '3px'}}>Cargar Personaje</h2>
+            <div className="playerLoaderButton" style={{marginBottom: '10px'}}>
+            <div style={{display: 'flex', flexDirection: 'column', gap: '2px'}} >
               <input
                 type="text"
                 id="playerName"
@@ -168,20 +172,30 @@ const LandingPage: React.FC = () => {
                 onChange={handleInputChange}
                 placeholder="Cargar personaje"
               />
+                                       <input
+                className="passInput"
+                type="password"
+                placeholder="Ingresá contraseña"
+                value={inputPassword}
+                onChange={(e) => setInputPassword(e.target.value)}
+              />
+              </div>
+              <div>
               <ButtonEdited
                 label="Cargar"
                 width="130px"
                 height="0px"
                 onClick={handleSubmit}
               />
-            </div>
+              </div>
+              </div>
             <div className="createAccount">
-              <p>¿No tienes una cuenta? </p>
+              <p>¿No tenés cuenta? </p>
               <p
                 className="linkButton rpgui-cursor-point "
                 onClick={toggleView}
               >
-                Crear cuenta
+                 Crear cuenta
               </p>
             </div>
           </>

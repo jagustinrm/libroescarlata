@@ -1,11 +1,11 @@
 import { database } from './firebaseConfig';
 import { useEffect } from 'react';
-import { ref, set, get } from 'firebase/database';
+import { ref, set, get, getDatabase } from 'firebase/database';
 import usePlayerStore from '../stores/playerStore';
 import { Player } from '../stores/types/player';
 import useInventoryStore from '../stores/inventoryStore';
 import { Inventory } from '../stores/types/inventory';
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Función para comparar propiedades específicas de dos objetos
 const comparePlayerState = (player1: any, player2: any) => {
   // Compara solo las propiedades 'name' y 'level'
@@ -128,13 +128,21 @@ const savePlayerStateToFirebase = async (
   playerId: string,
   player: Player,
   inventory: Inventory,
+  password?: string,
 ) => {
+  const db = getDatabase();
+  const auth = getAuth();
+  const fakeEmail = `${player.name.toLowerCase().replace(/\s/g, "_")}@game.com`;
+  const userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
+  const user = userCredential.user;
+  const playerUid = user.uid;
+  
   const playerRef = ref(database, `players/${playerId}`);
   const inventoryRef = ref(
     database,
     `players/${playerId}/${player.inventoryId}`,
   );
-
+  
   // Filtrar las propiedades relevantes antes de guardar
   const filteredPlayer = filterPlayerState(player);
 
@@ -177,10 +185,15 @@ export const useInstantSavePlayerState = () => {
   const { player } = usePlayerStore();
   const { inventories } = useInventoryStore();
 
-  const saveState = () => {
+  const saveState = (password?: string) => {
     const playerId = player.name || 'guest-player';
     const inventory = inventories[`${player.name}_inventory`];
-    savePlayerStateToFirebase(playerId, player, inventory);
+    if (password) {
+      savePlayerStateToFirebase(playerId, player, inventory, password);
+    } else {
+      savePlayerStateToFirebase(playerId, player, inventory);
+    }
+
   };
 
   return saveState;
