@@ -50,7 +50,7 @@ export default function Inventory() {
     }
 
     const itemNames = inventories[player.inventoryId][category];
-
+    console.log(inventories[player.inventoryId])
     if (!itemNames) {
       setActualInventory([]);
       return;
@@ -97,6 +97,7 @@ export default function Inventory() {
         selectedCategory = scrolls.filter((scroll: Scroll) =>
           itemNames.includes(scroll.id),
         );
+        console.log(selectedCategory)
         break;
       default:
         selectedCategory = [];
@@ -107,18 +108,19 @@ export default function Inventory() {
   };
 
   const handleSelectItem = (itemId: string | number) => {
-    const id = isNaN(Number(itemId)) ? itemId : Number(itemId);
-    const weapon = weapons.find((weapon: Weapon) => weapon.id === id);
-    const potion = potions.find((potion: Potion) => potion.id === id);
+
+    const weapon = weapons.find((weapon: Weapon) => weapon.id === itemId);
+    const potion = potions.find((potion: Potion) => potion.id === itemId);
     const otherItem = otherItems.find(
-      (otherItem: otherItem) => otherItem.id === id,
+      (otherItem: otherItem) => otherItem.id === itemId,
     );
-    const armor = armors.find((armor: Armor) => armor.id === id);
+
+    const armor = armors.find((armor: Armor) => armor.id === itemId);
     const accessory = accessories.find(
-      (accessory: Accessory) => accessory.id === id,
+      (accessory: Accessory) => accessory.id === itemId,
     );
-    const book = books.find((book: Book) => book.id === id);
-    const scroll = scrolls.find((scroll: Scroll) => scroll.id === id);
+    const book = books.find((book: Book) => book.id === itemId);
+    const scroll = scrolls.find((scroll: Scroll) => scroll.id === itemId);
     if (weapon) {
       setSelectedItem(weapon);
       return;
@@ -132,6 +134,7 @@ export default function Inventory() {
       return;
     }
     if (otherItem) {
+      console.log(otherItem)
       setSelectedItem(otherItem);
       return;
     }
@@ -159,6 +162,7 @@ export default function Inventory() {
     }
 
     if ('bodyPart' in selectedItem && 'armorValue' in selectedItem) {
+      console.log(selectedItem)
       playerActions.setP_SelectedBodyPart(selectedItem as Armor);
       setFloatingMessage('¡Equipado!');
     } else if ('damage' in selectedItem && 'bodyPart' in selectedItem) {

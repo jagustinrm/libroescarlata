@@ -4,16 +4,10 @@ import { ScrollStore } from './types/scrolls';
 const useScrollStore = create<ScrollStore>((set) => ({
   scrolls: [],
   areScrollsLoaded: false,
-  setScrolls: (scrolls) =>
-    set((state) => {
-      if (state.scrolls.length === 0 && scrolls.length > 0) {
-        return {
-          scrolls,
-          areScrollsLoaded: true,
-        };
-      }
-      return state;
-    }),
+  setScrolls: (scrolls) => {
+    console.log(scrolls)
+    set({ scrolls, areScrollsLoaded: true });
+  },
   addNewScroll: (newScroll) =>
     set((state) => ({
       scrolls: [...state.scrolls, newScroll],

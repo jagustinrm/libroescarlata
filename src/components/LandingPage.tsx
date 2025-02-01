@@ -9,7 +9,8 @@ import { database } from '../firebase/firebaseConfig'; // Asegúrate de importar
 import FirebaseItemsLoader from '../loaders/FirebaseItemsLoader';
 import { validateUsername } from '../utils/validations/validateUsername';
 import { ValidatePassword } from '../utils/validations/validatePassword';
-import { useInstantSavePlayerState, verifyUserName } from '../firebase/savePlayerStateToFirebase ';
+import {createPlayerToFirebase, loadPlayerFromFirebase, useInstantSavePlayerState, verifyUserName } from '../firebase/savePlayerStateToFirebase ';
+import useGlobalState from '../customHooks/useGlobalState';
 const LandingPage: React.FC = () => {
   const { playerActions } = usePlayerStore();
   const [inputName, setInputName] = useState<string>('');
@@ -19,8 +20,8 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
-  const savePlayerState = useInstantSavePlayerState();
-
+  // const createPlayerToFirebase = useInstantSavePlayerState();
+  const {setAreItemsLoaded} = useGlobalState();
   const handleSaveName = async () => {
     const validateRes = validateUsername(inputName)
 
@@ -40,19 +41,22 @@ const LandingPage: React.FC = () => {
     }
 
     const playerId = inputName || 'guest-player'; // Usa "guest-player" si el input está vacío
-    const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
-    savePlayerState(inputPassword); 
+    // const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
+    // savePlayerState(inputPassword); 
+    await createPlayerToFirebase(inputName, inputPassword)
     try {
       // Verifica si el jugador existe en Firebase
-      const snapshot = await get(playerRef);
-      if (snapshot.exists()) {
-        alert('El nombre de usuario ya existe. Por favor, elige otro.');
-        return;
-      }
+
+      // const snapshot = await get(playerRef);
+      // if (snapshot.exists()) {
+      //   alert('El nombre de usuario ya existe. Por favor, elige otro.');
+      //   return;
+      // }
+
       playerActions.setPlayerName(playerId);
       FirebaseItemsLoader();
       setInputName(''); // Limpia el campo de entrada
-      navigate('/characterSelector'); // Redirige a la siguiente página
+      navigate('/characterSelector'); 
     } catch (error) {
       console.error('Error al verificar el jugador en Firebase:', error);
       alert('Hubo un error al verificar el nombre. Inténtalo de nuevo.');
@@ -72,15 +76,19 @@ const LandingPage: React.FC = () => {
     setPlayerName(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // event.preventDefault();
     if (playerName) {
       if (playerName === '') {
         const guestPlayer = 'guest-player';
         FirebaseItemsLoader();
-        navigate(`/loadPlayer/${guestPlayer}`);
+        loadPlayerFromFirebase(guestPlayer, '')
+        // navigate(`/loadPlayer/${guestPlayer}`);
       }
-      navigate(`/loadPlayer/${playerName}`);
+      // navigate(`/loadPlayer/${playerName}`);
+      const res = await loadPlayerFromFirebase(playerName, inputPassword)
+      res ?  navigate('/home') : null;
+    
     } else {
       FirebaseItemsLoader();
       alert('Por favor, ingresa un nombre de jugador.');
@@ -95,6 +103,7 @@ const LandingPage: React.FC = () => {
 
   useEffect(() => {
     playerActions.resetPlayer();
+    setAreItemsLoaded(false)
   }, []);
 
   return (
@@ -143,7 +152,7 @@ const LandingPage: React.FC = () => {
                 label="Ingresar"
                 width="130px"
                 height="0px"
-                onClick={handleSaveName}
+                onClick={() => handleSaveName()}
                 disabled={!validatedName || validatedPassword ? true : false}
               />}
 

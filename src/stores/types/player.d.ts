@@ -8,6 +8,7 @@ import { Accessory } from './accesories';
 
 export interface Player {
   name: string;
+  playerId: string;
   level: number;
   playerExp: number;
   p_ExpToNextLevel: number;
@@ -106,6 +107,7 @@ export interface PlayerActions {
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void;
+  setPlayerId:(name: string) => void;
   // setArmorClass: (armorClass: number) => void;
   setBaseAttackBonus: (baseAttackBonus: number) => void;
   setDodge: (dodge: number) => void;

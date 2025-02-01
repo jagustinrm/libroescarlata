@@ -5,6 +5,7 @@ import { Weapon } from '../stores/types/weapons';
 import { Accessory } from '../stores/types/accesories';
 import { Armor } from '../stores/types/armor';
 import { generateUniqueId } from '../generators/generateUniqueId';
+import { Scroll } from '../stores/types/scrolls';
 
 // Función para guardar un ítem en Firebase
 export const saveItemToFirebase = async (
@@ -54,19 +55,22 @@ export const getItemsFromFirebase = async (
   weapons: Weapon[];
   accessories: Accessory[];
   armors: Armor[];
+  scrolls: Scroll[];
 }> => {
   try {
     // Define las referencias de armas, accesorios y armaduras para el jugador
     const weaponsRef = ref(database, `weapons_${playerId}`);
     const accessoriesRef = ref(database, `accessories_${playerId}`);
     const armorsRef = ref(database, `armors_${playerId}`); // Referencia para armors
+    const scrollsRef = ref(database, `scrolls_${playerId}`); // Referencia para armors
 
     // Obtén los datos desde Firebase en paralelo
-    const [snapshotWeapons, snapshotAccessories, snapshotArmors] =
+    const [snapshotWeapons, snapshotAccessories, snapshotArmors, snapshotScrolls] =
       await Promise.all([
         get(weaponsRef),
         get(accessoriesRef),
-        get(armorsRef), // Obtén los datos de armors
+        get(armorsRef), 
+        get(scrollsRef),
       ]);
 
     // Mapea los datos a arrays de Weapon, Accessory y Armor
@@ -90,14 +94,19 @@ export const getItemsFromFirebase = async (
           ...snapshotArmors.val()[key],
         }))
       : [];
-
-    return { weapons, accessories, armors }; // Retorna todos los arrays en un objeto
+      const scrolls: Scroll[] = snapshotScrolls.exists()
+      ? Object.keys(snapshotScrolls.val()).map((key) => ({
+          id: key,
+          ...snapshotScrolls.val()[key],
+        }))
+      : [];
+    return { weapons, accessories, armors, scrolls }; // Retorna todos los arrays en un objeto
   } catch (error) {
     console.error(
       `Error al obtener los ítems desde Firebase para el jugador ${playerId}:`,
       error,
     );
-    return { weapons: [], accessories: [], armors: [] };
+    return { weapons: [], accessories: [], armors: [], scrolls: [] };
   }
 };
 

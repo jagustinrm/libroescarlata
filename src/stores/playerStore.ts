@@ -22,6 +22,7 @@ import {
 
 const initialPlayerState: Player = {
   name: '',
+  playerId: '',
   level: 1,
   playerExp: 0,
   p_ExpToNextLevel: 1000,
@@ -316,6 +317,13 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, name },
       })),
+      setPlayerId: (id) => {
+        console.log(id);
+        set((state) => ({
+          player: { ...state.player, playerId: id }, // Asegúrate de usar un nombre de propiedad consistente
+        }));
+      },
+
     setPlayerLevel: (level) =>
       set((state) => ({
         player: { ...state.player, level },
@@ -451,11 +459,14 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       })),
     setP_SelectedBodyPart: (selectedBodyPart) =>
       set((state) => {
+        console.log(selectedBodyPart)
         const { bodyPart } = selectedBodyPart; // Obtenemos la parte del cuerpo del Armor
-        if (!bodyPart || !state.player.bodyParts.hasOwnProperty(bodyPart)) {
-          console.error('Invalid bodyPart:', bodyPart);
-          return state; // Retornamos el estado actual si el bodyPart no es válido
-        }
+        // console.log(bodyPart)
+        // console.log(!state.player.bodyParts.hasOwnProperty(bodyPart))
+        // if (!bodyPart || !state.player.bodyParts.hasOwnProperty(bodyPart)) {
+        //   console.error('Invalid bodyPart:', bodyPart);
+        //   return state; // Retornamos el estado actual si el bodyPart no es válido
+        // }
         return {
           player: {
             ...state.player,

@@ -10,15 +10,18 @@ import ButtonEdited from './UI/ButtonEdited.tsx';
 import PrincipalSign from './UI/PrincipalSign.tsx';
 import useGlobalState from '../customHooks/useGlobalState.ts';
 import useAppStore from '../stores/appStore.ts';
+import ItemsFromFirebaseLoader from '../firebase/ItemsFromFirebaseLoader .ts';
+
 // import HomeOptionsSign from './UI/HomeOptionsSign.tsx';
 
 export default function Home() {
   const [showMessage, setShowMessage] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { player, playerActions } = useGlobalState();
+  const { player, playerActions, areItemsLoaded } = useGlobalState();
   const { setAmbientMusic, setMusicVolume } = useAppStore();
   const navigate = useNavigate();
   const [showMissions, setShowMissions] = useState(false);
+ 
   useEffect(() => {
     setAmbientMusic('medievalAmbient');
     setMusicVolume(0.1);
@@ -77,7 +80,7 @@ export default function Home() {
   const handleStats = () => {
     navigate('/playerStats');
   };
-  console.log(player)
+
   return (
     <div>
       {showMissions && <Quests onClose={() => setShowMissions(false)} />}
@@ -202,6 +205,7 @@ export default function Home() {
           onClose={handleClose}
         />
       )}
+      {!areItemsLoaded && <ItemsFromFirebaseLoader/>}
     </div>
   );
 }

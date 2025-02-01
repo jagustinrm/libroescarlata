@@ -1,4 +1,5 @@
 import useAccessoryStore from '../stores/accesoryStore';
+import useAppStore from '../stores/appStore';
 import useArmorStore from '../stores/armorStore';
 import { useBookStore } from '../stores/bookStore';
 import useClassStore from '../stores/classStore';
@@ -30,6 +31,7 @@ const useGlobalState = () => ({
   ...useAccessoryStore(),
   ...useBookStore(),
   ...useScrollStore(),
+  ...useAppStore(),
 });
 
 export default useGlobalState;

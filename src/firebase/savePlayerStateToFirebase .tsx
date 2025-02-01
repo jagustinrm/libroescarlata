@@ -1,11 +1,11 @@
 import { database } from './firebaseConfig';
 import { useEffect } from 'react';
-import { ref, set, get, getDatabase } from 'firebase/database';
+import { ref, set, get} from 'firebase/database';
 import usePlayerStore from '../stores/playerStore';
 import { Player } from '../stores/types/player';
 import useInventoryStore from '../stores/inventoryStore';
 import { Inventory } from '../stores/types/inventory';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 // Función para comparar propiedades específicas de dos objetos
 const comparePlayerState = (player1: any, player2: any) => {
   // Compara solo las propiedades 'name' y 'level'
@@ -14,14 +14,17 @@ const comparePlayerState = (player1: any, player2: any) => {
   return (
     player1.name === player2.name &&
     player1.level === player2.level &&
-    player1.playerExp === player2.playerExp
+    player1.playerExp === player2.playerExp &&
+    player1.playerMaterial === player2.playerMaterial
   );
 };
 
 // Función para guardar el estado en Firebase
 const filterPlayerState = (player: Player): Partial<Player> => {
+  console.log("DATOS FILTRADOS CON EXITO", player)
   const {
     name,
+    playerId,
     level,
     playerExp,
     p_ExpToNextLevel,
@@ -73,6 +76,7 @@ const filterPlayerState = (player: Player): Partial<Player> => {
 
   return {
     name,
+    playerId,
     level,
     playerExp,
     p_ExpToNextLevel,
@@ -128,14 +132,7 @@ const savePlayerStateToFirebase = async (
   playerId: string,
   player: Player,
   inventory: Inventory,
-  password?: string,
 ) => {
-  const db = getDatabase();
-  const auth = getAuth();
-  const fakeEmail = `${player.name.toLowerCase().replace(/\s/g, "_")}@game.com`;
-  const userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
-  const user = userCredential.user;
-  const playerUid = user.uid;
   
   const playerRef = ref(database, `players/${playerId}`);
   const inventoryRef = ref(
@@ -165,7 +162,7 @@ const PlayerStateSaver = () => {
   const { inventories } = useInventoryStore();
 
   useEffect(() => {
-    const playerId = player.name || 'guest-player'; // Usa un ID único del jugador o 'guest-player'
+    const playerId = player.playerId || 'guest-player'; // Usa un ID único del jugador o 'guest-player'
     const inventory = inventories[`${player.name}_inventory`];
     // Configurar el intervalo de guardado (por ejemplo, cada 30 segundos)
     const intervalId = setInterval(() => {
@@ -185,14 +182,11 @@ export const useInstantSavePlayerState = () => {
   const { player } = usePlayerStore();
   const { inventories } = useInventoryStore();
 
-  const saveState = (password?: string) => {
-    const playerId = player.name || 'guest-player';
+  const saveState = () => {
+    const playerId = player.playerId || 'guest-player';
     const inventory = inventories[`${player.name}_inventory`];
-    if (password) {
-      savePlayerStateToFirebase(playerId, player, inventory, password);
-    } else {
-      savePlayerStateToFirebase(playerId, player, inventory);
-    }
+    savePlayerStateToFirebase(playerId, player, inventory);
+
 
   };
 
@@ -219,5 +213,104 @@ export const verifyUserName = async (name: string): Promise<boolean> => {
   } catch (error) {
     console.error('Error al verificar el nombre de usuario:', error);
     return false; // Si ocurre un error, asumimos que el nombre no existe
+  }
+};
+
+
+export const createPlayerToFirebase = async (inputName: string,password: string) => {
+  const { player, playerActions } = usePlayerStore.getState();
+
+  try {
+
+    const auth = getAuth();
+    const sanitizedPlayerName = inputName.toLowerCase().replace(/[^a-z0-9_]/g, "");  
+    const fakeEmail = `${sanitizedPlayerName}@game.com`;
+    // Crear el usuario en Firebase Authentication
+    const userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
+    const user = userCredential.user;
+    const playerId = user.uid;
+    playerActions.setPlayerId(playerId)
+    // Referencias en la base de datos
+    const playerRef = ref(database, `players/${playerId}`);
+
+
+    // Filtrar datos del jugador antes de guardar
+    const filteredPlayer = filterPlayerState(player);
+
+    // Guardar datos en la base de datos
+    await set(playerRef, filteredPlayer);
+
+    console.log('Jugador creado y guardado en Firebase:', playerId);
+    return playerId;
+  } catch (error) {
+    console.error('Error al crear el jugador:', error);
+    throw error;
+  }
+};
+
+
+export const loadPlayerFromFirebase = async (inputName: string, password: string) => {
+  const { playerActions } = usePlayerStore.getState();
+  const { createInventory, addItem } = useInventoryStore.getState();
+  
+  try {
+    const auth = getAuth();
+    const sanitizedPlayerName = inputName.toLowerCase().replace(/[^a-z0-9_]/g, "");
+    const fakeEmail = `${sanitizedPlayerName}@game.com`;
+
+    // Iniciar sesión en Firebase Authentication
+    const userCredential = await signInWithEmailAndPassword(auth, fakeEmail, password);
+    const user = userCredential.user;
+    const playerId = user.uid;
+
+    // Obtener referencia a la base de datos
+    const playerRef = ref(database, `players/${playerId}`);
+    const snapshot = await get(playerRef);
+
+    if (!snapshot.exists()) {
+      throw new Error("El jugador no existe en la base de datos.");
+    }
+
+    // Cargar datos del jugador en el estado global
+    const playerData = snapshot.val();
+    playerActions.setPlayer(playerData);
+
+    console.log("Jugador cargado desde Firebase:", playerId);
+
+    const inventoryRef = ref(
+      database,
+      `players/${playerData.playerId}/${playerData.inventoryId}`,
+    );
+    const inventorySnapshot = await get(inventoryRef);
+          const inventoryData = inventorySnapshot.val();
+          const inventoryDefault: Inventory = {
+            weapons: inventoryData?.weapons || [],
+            armors: inventoryData?.armors || [],
+            potions: inventoryData?.potions || [],
+            books: inventoryData?.books || [],
+            scrolls: inventoryData?.scrolls || [],
+            accessories: inventoryData?.accessories || [],
+            others: inventoryData?.others || [],
+          };
+          console.log(inventoryDefault)
+          createInventory(`${playerData.name}_inventory`);
+
+          // Agregar ítems al inventario
+          Object.entries(inventoryDefault).forEach(([category, items]) => {
+            if (Array.isArray(items)) {
+              items.forEach((item) => {
+                addItem(
+                  `${playerData.name}_inventory`,
+                  category as keyof Inventory,
+                  item,
+                );
+              });
+            }
+          });
+    console.log(inventorySnapshot)
+    return playerData;
+  } catch (error) {
+    console.error("Error al cargar el jugador:", error);
+    throw error;
   }
 };
