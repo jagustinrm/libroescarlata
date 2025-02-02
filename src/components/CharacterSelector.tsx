@@ -36,7 +36,6 @@ export default function CharacterSelector() {
     playerActions.setP_LeftHealth(hitDie);
     playerActions.setP_MaxMana(manaDie);
     playerActions.setP_LeftMana(manaDie);
-    playerActions.setPlayerMaterial(10000000000);
     playerActions.setDodge(dodgeDie);
     playerActions.setHitRate(hitRateDie);
     playerActions.setDodgeDie(dodgeDie);

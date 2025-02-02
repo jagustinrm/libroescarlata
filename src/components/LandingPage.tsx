@@ -1,14 +1,15 @@
+import './LandingPage.css';
+import './UI/designRpg.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LandingPage.css';
 import { usePlayerStore } from '../stores/playerStore';
-import './UI/designRpg.css';
 import ButtonEdited from './UI/ButtonEdited';
 import FirebaseItemsLoader from '../loaders/FirebaseItemsLoader';
 import { validateUsername } from '../utils/validations/validateUsername';
-import { ValidatePassword } from '../utils/validations/validatePassword';
+import { validatePassword } from '../utils/validations/validatePassword';
 import {createPlayerToFirebase, loadPlayerFromFirebase, verifyUserName } from '../firebase/savePlayerStateToFirebase ';
 import useGlobalState from '../customHooks/useGlobalState';
+import { useValidateInputs } from '../customHooks/useValidateInputs ';
 const LandingPage: React.FC = () => {
   const { playerActions } = usePlayerStore();
   const [inputName, setInputName] = useState<string>('');
@@ -16,17 +17,17 @@ const LandingPage: React.FC = () => {
   const [validatedName, setValidatedName] = useState<boolean>(false);
   const [validatedPassword, setValidatedPassword] = useState<string>('');
   const navigate = useNavigate();
-  const [playerName, setPlayerName] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
   const {setAreItemsLoaded} = useGlobalState();
-  const handleSaveName = async () => {
+
+  const handleSaveNewPlayer = async () => {
     const validateRes = validateUsername(inputName)
 
     if (!validateRes) {
       console.log("Nombre de usuario incorrecto")
       return
     }
-    const validatePRes = ValidatePassword(inputPassword,inputName)
+    const validatePRes = validatePassword(inputPassword,inputName)
     if (validatePRes) {
       console.log(validatePRes)
       return
@@ -38,18 +39,9 @@ const LandingPage: React.FC = () => {
     }
 
     const playerId = inputName || 'guest-player'; // Usa "guest-player" si el input está vacío
-    // const playerRef = ref(database, `players/${playerId}`); // Referencia al jugador en la base de datos
-    // savePlayerState(inputPassword); 
+
     await createPlayerToFirebase(inputName, inputPassword)
     try {
-      // Verifica si el jugador existe en Firebase
-
-      // const snapshot = await get(playerRef);
-      // if (snapshot.exists()) {
-      //   alert('El nombre de usuario ya existe. Por favor, elige otro.');
-      //   return;
-      // }
-
       playerActions.setPlayerName(playerId);
       FirebaseItemsLoader();
       setInputName(''); // Limpia el campo de entrada
@@ -60,30 +52,17 @@ const LandingPage: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const validateRes = validateUsername(inputName)
-    setValidatedName(validateRes)
-  }, [inputName])
-  useEffect(() => {
-    const validateRes = ValidatePassword(inputPassword, inputName)
-    setValidatedPassword(validateRes)
-  }, [inputPassword, inputName])
+  useValidateInputs(inputName, inputPassword, setValidatedName, setValidatedPassword);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPlayerName(event.target.value);
-  };
-
-  const handleSubmit = async () => {
+  const handleLoadPlayer = async () => {
     // event.preventDefault();
-    if (playerName) {
-      if (playerName === '') {
+    if (inputName) {
+      if (inputName === '') {
         const guestPlayer = 'guest-player';
         FirebaseItemsLoader();
         loadPlayerFromFirebase(guestPlayer, '')
-        // navigate(`/loadPlayer/${guestPlayer}`);
       }
-      // navigate(`/loadPlayer/${playerName}`);
-      const res = await loadPlayerFromFirebase(playerName, inputPassword)
+      const res = await loadPlayerFromFirebase(inputName, inputPassword)
       res ?  navigate('/home') : null;
     
     } else {
@@ -149,7 +128,7 @@ const LandingPage: React.FC = () => {
                 label="Ingresar"
                 width="130px"
                 height="0px"
-                onClick={() => handleSaveName()}
+                onClick={() => handleSaveNewPlayer()}
                 disabled={!validatedName || validatedPassword ? true : false}
               />}
 
@@ -174,8 +153,8 @@ const LandingPage: React.FC = () => {
                 type="text"
                 id="playerName"
                 className="nameInput"
-                value={playerName}
-                onChange={handleInputChange}
+                value={inputName}
+                onChange={(e) => setInputName(e.target.value)}
                 placeholder="Cargar personaje"
               />
                                        <input
@@ -191,7 +170,7 @@ const LandingPage: React.FC = () => {
                 label="Cargar"
                 width="130px"
                 height="0px"
-                onClick={handleSubmit}
+                onClick={handleLoadPlayer}
               />
               </div>
               </div>

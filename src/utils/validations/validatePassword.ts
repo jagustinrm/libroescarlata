@@ -1,4 +1,4 @@
-export function ValidatePassword(password: string, username: string): string {
+export function validatePassword(password: string, username: string): string {
 
     if (password.length === 0 && username.length === 0) {
         return ''
