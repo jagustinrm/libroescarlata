@@ -4,12 +4,10 @@ import './LandingPage.css';
 import { usePlayerStore } from '../stores/playerStore';
 import './UI/designRpg.css';
 import ButtonEdited from './UI/ButtonEdited';
-import { ref, get } from 'firebase/database'; // Importa desde Firebase
-import { database } from '../firebase/firebaseConfig'; // Asegúrate de importar tu configuración de Firebase
 import FirebaseItemsLoader from '../loaders/FirebaseItemsLoader';
 import { validateUsername } from '../utils/validations/validateUsername';
 import { ValidatePassword } from '../utils/validations/validatePassword';
-import {createPlayerToFirebase, loadPlayerFromFirebase, useInstantSavePlayerState, verifyUserName } from '../firebase/savePlayerStateToFirebase ';
+import {createPlayerToFirebase, loadPlayerFromFirebase, verifyUserName } from '../firebase/savePlayerStateToFirebase ';
 import useGlobalState from '../customHooks/useGlobalState';
 const LandingPage: React.FC = () => {
   const { playerActions } = usePlayerStore();
@@ -20,7 +18,6 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
-  // const createPlayerToFirebase = useInstantSavePlayerState();
   const {setAreItemsLoaded} = useGlobalState();
   const handleSaveName = async () => {
     const validateRes = validateUsername(inputName)
