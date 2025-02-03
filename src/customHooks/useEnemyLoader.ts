@@ -97,14 +97,13 @@ export function useEnemyLoader(
     updateEnemy,
     setUpdateEnemy,
   }: HandleNewEnemyClickParams) => {
-    const { setPlayerPosition, setEnemyPosition } = usePositionStore.getState();
+    const { resetPositions } = usePositionStore.getState();
     handleMessage(`${player.name} busca un nuevo enemigo...`, 'success', false);
     setTimeout(() => {
       // setTurn('player');
       setTurn('player');
       setUpdateEnemy(!updateEnemy);
-      setPlayerPosition({ x: 0 - 10 / 1.2, y: 45 - 20 / 1.5 });
-      setEnemyPosition({ x: 45 - 10 / 1.2, y: 0 - 20 / 1.5 });
+      resetPositions()
     }, 1000);
   };
 

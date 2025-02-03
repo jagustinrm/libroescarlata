@@ -14,6 +14,7 @@ interface PositionStore {
   setEnemyPosition: (position: Position) => void;
   setSummonPosition: (position: Position) => void;
   setPetPosition: (position: Position) => void;
+  resetPositions: () => void;
 }
 
 const usePositionStore = create<PositionStore>((set) => {
@@ -22,20 +23,25 @@ const usePositionStore = create<PositionStore>((set) => {
     y: 45 - 20 / 1.5, // initialY - offsetY
   };
 
+  const initialEnemyPosition: Position = {
+    x: 45 - 10 / 1.2, // 45 - offsetX
+    y: 0 - 20 / 1.5,  // 0 - offsetY
+  };
+
+  const initialSummonPosition: Position = {
+    x: initialPlayerPosition.x + 6,
+    y: initialPlayerPosition.y + 4,
+  };
+
+  const initialPetPosition: Position = {
+    x: initialPlayerPosition.x + 8,
+    y: initialPlayerPosition.y + 12,
+  };
   return {
     playerPosition: initialPlayerPosition,
-    enemyPosition: {
-      x: 45 - 10 / 1.2, // 45 - offsetX
-      y: 0 - 20 / 1.5, // 0 - offsetY
-    },
-    summonPosition: {
-      x: initialPlayerPosition.x + 6,
-      y: initialPlayerPosition.y + 4,
-    },
-    petPosition: {
-      x: initialPlayerPosition.x + 8,
-      y: initialPlayerPosition.y + 12,
-    },
+    enemyPosition: initialEnemyPosition,
+    summonPosition: initialSummonPosition,
+    petPosition: initialPetPosition,
     setPlayerPosition: (position) =>
       set(() => ({
         playerPosition: position,
@@ -43,6 +49,13 @@ const usePositionStore = create<PositionStore>((set) => {
     setEnemyPosition: (position) => set(() => ({ enemyPosition: position })),
     setSummonPosition: (position) => set(() => ({ summonPosition: position })),
     setPetPosition: (position) => set(() => ({ petPosition: position })),
+    resetPositions: () =>
+      set(() => ({
+        playerPosition: { ...initialPlayerPosition },
+        enemyPosition: { ...initialEnemyPosition },
+        summonPosition: { ...initialSummonPosition },
+        petPosition: { ...initialPetPosition },
+      })),
   };
 });
 

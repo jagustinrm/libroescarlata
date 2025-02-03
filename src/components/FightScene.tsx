@@ -51,10 +51,8 @@ export default function FightScene() {
     setCreatureHealth,
     inventories,
     playerPosition,
-    setPlayerPosition,
-    setEnemyPosition,
     setSummonPosition,
-    setPetPosition,
+    resetPositions
   } = useGlobalState();
   const { addCharacter, currentCharacter } = useTurnStore();
   const [summon, setSummon] = useState<Creature | null>(null);
@@ -106,17 +104,7 @@ export default function FightScene() {
     handleCheckLevelUp(); // Verificar subida de nivel
   }, [player.playerExp]);
   useEffect(() => {
-    const playerXOffset = 10 / 1.2; 
-    const playerYOffset = 20 / 1.5; 
-    const gridSize = 45; 
-    // Calcular posiciones
-    const playerPosition = { x: 0 - playerXOffset, y: gridSize - playerYOffset };
-    const enemyPosition = { x: gridSize - playerXOffset, y: 0 - playerYOffset };
-    setPlayerPosition(playerPosition);
-    setEnemyPosition(enemyPosition);
-    player.selectedPet &&
-      setPetPosition({ x: playerPosition.x + 8, y: playerPosition.y + 12 });
-
+    resetPositions()
     addCharacter({ id: 'player', name: player.name });
     addCharacter({ id: 'enemy', name: creature.name });
     player.selectedPet &&

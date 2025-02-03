@@ -7,6 +7,7 @@ import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
 import useTurnStore from '../stores/turnStore.ts';
 import { Creature } from '../stores/types/creatures.ts';
 import useAppStore from '../stores/appStore.ts';
+import { calculateDistance } from '../utils/calculateDistance.ts';
 
 interface EnemyTurnProps {
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
@@ -20,7 +21,7 @@ export const usePetTurn = ({
   handleMessage,
   handlePostCombatActs
 }: EnemyTurnProps) => {
-  const { enemyPosition, petPosition, setPetPosition } =
+  const { enemyPosition, petPosition, setPetPosition, playerPosition } =
     usePositionStore.getState();
   const { creature, setCreatureHealth } = useCreatureStore.getState();
   const { player } = usePlayerStore.getState();
@@ -37,10 +38,11 @@ export const usePetTurn = ({
         creature.health > 0 &&
         player.p_LeftHealth > 0
       ) {
-        const distanceX = Math.abs(enemyPosition.x - petPosition.x);
-        const distanceY = Math.abs(enemyPosition.y - petPosition.y);
-
-        if (distanceX < 20 && distanceY < 20) {
+        const adjustedDistance = calculateDistance(playerPosition, enemyPosition); 
+        console.log(adjustedDistance)
+        console.log(player.selectedPet.attacks[0]) 
+       
+        if (adjustedDistance <= player.selectedPet.attacks[0].range) {
           const petAttackTimeout = setTimeout(() => {
             // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
             simulateAttackMovement(petPosition, 5, setPetPosition);

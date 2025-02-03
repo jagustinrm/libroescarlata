@@ -9,10 +9,11 @@
       "armorClass": 15,
       "attacks": [{
         "damage": 20,
-        "damageMax": 40
+        "damageMax": 40,
+        "range": 10
       }],
       "specialAbilities": ["visión nocturna", "sigilo"],
-      "img": "/img/cat.png"
+      "img": "/img/pets/cat.png"
     },
     {
       "name": "Camaleón",
@@ -23,10 +24,11 @@
       "armorClass": 14,
       "attacks": [{
         "damage": 20,
-        "damageMax": 40
+        "damageMax": 40,
+        "range": 10
       }],
       "specialAbilities": ["cambio de color", "visibilidad en la oscuridad"],
-      "img": "/img/chameleon.png"
+      "img": "/img/pets/baby_chameleon.png"
     },
     {
       "name": "Cuervo",
@@ -37,10 +39,11 @@
       "armorClass": 15,
       "attacks": [{
         "damage": 20,
-        "damageMax": 40
+        "damageMax": 40,
+        "range": 10
       }],
       "specialAbilities": ["vuelo", "visión aguda"],
-      "img": "/img/crow.png"
+      "img": "/img/pets/crow.png"
     },
     {
       "name": "Perro",
@@ -51,10 +54,11 @@
       "armorClass": 13,
       "attacks": [{
         "damage": 20,
-        "damageMax": 40
+        "damageMax": 40,
+        "range": 10
       }],
       "specialAbilities": ["olfato agudo", "sentidos agudos"],
-      "img": "/img/dog.png"
+      "img": "/img/pets/baby_dog.png"
     },
     {
       "name": "Dragón Bebé",
@@ -65,10 +69,12 @@
       "armorClass": 15,
       "attacks": [{
         "damage": 20,
-        "damageMax": 40
+        "damageMax": 40,
+        "range": 10
       }],
       "specialAbilities": ["aliento de fuego", "visión en la oscuridad", "resistencia al fuego (5)"],
-      "img": "/img/cute_baby_dragon.png"
+      "img": "/img/pets/baby_dragon.png",
+      "cost": 1500
     },
     {
       "name": "Elemental de Fuego Menor",
@@ -78,14 +84,15 @@
       "hitPoints": "1d8",
       "armorClass": 14,
       "attacks": [{
-        "damage": 20,
-        "damageMax": 40
+        "damage": 25,
+        "damageMax": 45,
+        "range": 10
       }],
       "specialAbilities": [
         "inmunidad al fuego",
         "toque ardiente"
       ],
-      "img": "/img/minor_fire_elemental.png",
+      "img": "/img/pets/minor_fire_elemental.png",
       "cost": 300
     },
     {
@@ -96,14 +103,15 @@
       "hitPoints": "1d8",
       "armorClass": 14,
       "attacks": [{
-        "damage": 20,
-        "damageMax": 40
+        "damage": 25,
+        "damageMax": 45,
+        "range": 10
       }],
       "specialAbilities": [
         "inmunidad al hielo",
         "toque congelante"
       ],
-      "img": "/img/minor_ice_elemental.png",
+      "img": "/img/pets/minor_ice_elemental.png",
       "cost": 300
     },
     {
@@ -114,11 +122,12 @@
       "hitPoints": "1d3",
       "armorClass": 12,
       "attacks":[ {
-        "damage": 20,
-        "damageMax": 40
+        "damage": 30,
+        "damageMax": 50,
+        "range": 10
       }],
       "specialAbilities": ["veneno débil", "movimiento sigiloso"],
-      "img": "/img/baby_snake.png",
+      "img": "/img/pets/baby_snake.png",
       "cost": 1000
     },
     {
@@ -129,11 +138,12 @@
       "hitPoints": "1d6",
       "armorClass": 14,
       "attacks": [{
-        "damage": 20,
-        "damageMax": 40
+        "damage": 30,
+        "damageMax": 50,
+        "range": 10
       }],
       "specialAbilities": ["visión nocturna", "agilidad mejorada"],
-      "img": "/img/baby_tiger.png",
+      "img": "/img/pets/baby_tiger.png",
       "cost": 1000
     }
     

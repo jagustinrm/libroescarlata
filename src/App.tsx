@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
+import LandingPage from './components/LandingPage/LandingPage.js';
 import CharacterSelector from './components/CharacterSelector';
 import Home from './components/Home';
 import FightScene from './components/FightScene';

@@ -70,15 +70,6 @@ export default function CharacterSelector() {
     });
     playerActions.setSpell(classData.initialSpells);
     setIsPlayerReady(true);
-    // type typeCompletedMQuests = {
-    //   id: number;
-    //   name: string;
-    //   progress: number;
-    //   completed: boolean;
-    // };
-    // const completedQuests: typeCompletedMQuests[] = [];
-    // localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
-
   };
   useEffect(() => {
     if (isPlayerReady) {

@@ -78,9 +78,6 @@ export const handleCombatAction = (
     if (playerPosition && enemyPosition) {
       const adjustedDistance = calculateDistance(playerPosition, enemyPosition);
 
-      if (adjustedDistance === -1) return false;
-      console.log(adjustedDistance, 'distancia palyer')
-      console.log(weaponRange, 'rango de espada')
       if (adjustedDistance > weaponRange) {
         addActionMessage('¡Estás fuera de rango para atacar!');
         handleMessage?.('¡Estás fuera de rango!', 'warning', false);
