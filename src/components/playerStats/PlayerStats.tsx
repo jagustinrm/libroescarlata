@@ -3,10 +3,11 @@ import usePlayerStore from '../../stores/playerStore';
 import { Stats } from '../../stores/types/stats';
 import useStatManagement from '../../customHooks/useStatManagement';
 import BackButton from '../UI/BackButton';
+import { useAnimateExclamationMark } from '../../utils/animateExclamationMark';
 
 export default function PlayerStats() {
   const { player } = usePlayerStore();
-
+  useAnimateExclamationMark()
   const { handleIncreaseStat } = useStatManagement();
   return (
     <section className="sectionPlayer rpgui-container framed-golden-2">
@@ -74,7 +75,11 @@ export default function PlayerStats() {
             </ul>
             <div style={{display: 'flex', flexDirection: 'column', alignItems:' center', gap: '0px'}}>
             <p> Restan:</p>
+            <div style={{position: 'relative'}}>
             <p> {player.leftPoints}</p>
+            { player.leftPoints ? <img className='exclamationMark' style={{left: '0px', width: '20px', top: '5px'}} src="./img/UI/exclamation-mark.png" alt="Signo de exclamación" /> : null }
+            
+            </div>
             </div>
             {/* <ul className="statsPoints"></ul> */}
 

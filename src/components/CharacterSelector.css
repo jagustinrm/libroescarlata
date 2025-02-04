@@ -1,5 +1,5 @@
 /* General container styling */
-.containerClases {
+.rpgui-container .framed-golden-2 .containerClases {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +10,6 @@
   font-family: 'Arial', sans-serif;
   height: 750px;
   width: 600px;
-  padding: 1px;
   margin-top: 0px;
 }
 
@@ -34,7 +33,8 @@
   align-items: center;
   width: 80%;
   margin-top: 50px;
-  gap: 60px;
+  gap: 50px;
+
 }
 .nameHeader {
   margin-top: 0px;
@@ -117,7 +117,7 @@ a:hover {
   margin-top: 0px;
 }
 .classIcons {
-  width: 90px;
+  width: 120px;
 }
 .classIcons:hover {
   -webkit-filter: brightness(120%);
@@ -133,7 +133,9 @@ a:hover {
     top: 0;
     left: 0;
   }
-
+  .classIcons {
+    width: 90px;
+  }
   .containerClases h1 {
     font-size: 1.5rem; /* Reducir tamaño del título */
     margin-bottom: 5px;

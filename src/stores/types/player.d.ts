@@ -108,8 +108,6 @@ export interface PlayerActions {
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void;
   setPlayerId:(name: string) => void;
-  // setArmorClass: (armorClass: number) => void;
-  setBaseAttackBonus: (baseAttackBonus: number) => void;
   setDodge: (dodge: number) => void;
   setHitRate: (hitRate: number) => void;
   setDodgeDie: (dodge: number) => void;
@@ -120,12 +118,9 @@ export interface PlayerActions {
   updateHitDie: (hitDie: number) => void;
   setEnemiesDeleted: (enemiesDeleted: Player['enemiesDeleted']) => void;
   setStats: (stats: Player['stats']) => void;
-  // updateStats: (stats: Partial<Player['stats']>) => void;
   addStatsPoints: (points: number, type: keyof Player['stats']) => void; // REVISAR
   addStatsLeftPoints: (leftPoints: number) => void;
   setStatsLeftPoints: (leftPoints: number) => void;
-  // setStatsIncrease: (stats: Player['stats']) => void;
-  // addStatsIncrease: (points: number, type: keyof Player['stats']) => void;
   setSpell: (spells: string[]) => void;
   addSpell: (spell: string) => void;
   setInventory: (inventory: string) => void;

@@ -5,7 +5,6 @@ export interface Class {
   dodgeDie: number;
   hitRateDie: number;
   armorClass: number;
-  baseAttackBonus: number;
   saves: {
     fortitude: string;
     reflex: string;

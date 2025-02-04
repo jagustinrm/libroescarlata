@@ -13,8 +13,7 @@ export default function CharacterSelector() {
   const { createItems } = useItemsStore();
   const navigate = useNavigate();
   const [isPlayerReady, setIsPlayerReady] = useState(false);
-  const { classes, areClassesLoaded, armors, weapons, player, playerActions } =
-    useGlobalState();
+  const { classes, areClassesLoaded, armors, weapons, player, playerActions } = useGlobalState();
   const savePlayerState = useInstantSavePlayerState();
   const inventoryStore = useInventoryStore.getState();
   const [hoveredClass, setHoveredClass] = useState<Class | null>(null);
@@ -23,7 +22,6 @@ export default function CharacterSelector() {
       className,
       hitDie,
       classFeatures,
-      baseAttackBonus,
       img,
       manaDie,
       faceImg,
@@ -48,7 +46,6 @@ export default function CharacterSelector() {
     playerActions.setClassFeature(classFeatures);
     playerActions.setClassImg(img);
     playerActions.setAvatarImg(faceImg);
-    playerActions.setBaseAttackBonus(baseAttackBonus);
     playerActions.setHitDie(hitDie);
     playerActions.setManaDie(manaDie);
     createItems(1);
@@ -79,7 +76,7 @@ export default function CharacterSelector() {
   }, [isPlayerReady]);
   return (
     <div className="containerClassSelector">
-      <div className="containerClases rpgui-container framed-golden-2">
+      <div className="rpgui-container framed-golden-2 containerClases">
         <div className="nameHeader">
           <h1 className="nameHeader">
             Hola, {player.name ? player.name : 'invitade'}
@@ -92,6 +89,7 @@ export default function CharacterSelector() {
           ) : (
             <>
               {classes.map((classItem) => (
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
                 <img
                   className="classIcons  rpgui-cursor-point"
                   src={classItem.iconImg}
@@ -100,6 +98,8 @@ export default function CharacterSelector() {
                   onMouseLeave={() => setHoveredClass(null)}
                   onClick={() => handleButtonClick(classItem)}
                 />
+                <p style={{margin: '0px'}}>{classItem.className} </p>
+                </div>
               ))}
             </>
           )}
@@ -138,12 +138,6 @@ export default function CharacterSelector() {
                 </p>
               </div>
               <div>
-                <p>
-                  <strong>Ataque:</strong> {hoveredClass.baseAttackBonus}
-                </p>
-                <p>
-                  <strong>Armadura:</strong> {hoveredClass.armorClass}
-                </p>
               </div>
             </div>
           </div>

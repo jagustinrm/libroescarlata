@@ -360,10 +360,6 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, avatarImg },
       })),
-    setBaseAttackBonus: (baseAttackBonus) =>
-      set((state) => ({
-        player: { ...state.player, baseAttackBonus },
-      })),
     setDodge: (dodge) =>
       set((state) => ({
         player: { ...state.player, dodge },

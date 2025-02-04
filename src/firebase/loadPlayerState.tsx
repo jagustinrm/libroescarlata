@@ -22,32 +22,6 @@ const LoadPlayerFromFirebase = () => {
         if (snapshot.exists()) {
           const playerData = snapshot.val();
           playerActions.setPlayer(playerData);
-          // Carga los datos en el store utilizando las acciones de playerActions
-          // playerActions.setPlayerName(playerData.name);
-          // playerActions.setPlayerLevel(playerData.level);
-          // playerActions.setPlayerMaterial(playerData.playerMaterial);
-          // playerActions.setPlayerExp(playerData.playerExp);
-          // playerActions.setP_ExpToNextLevel(playerData.p_ExpToNextLevel);
-          // playerActions.setP_ExpPrevLevel(playerData.p_ExpPrevLevel);
-          // playerActions.setArmorClass(playerData.armorClass);
-          // playerActions.setBaseAttackBonus(playerData.baseAttackBonus);
-          // playerActions.setClassFeature(playerData.classFeatures);
-          // playerActions.setP_LeftHealth(playerData.p_LeftHealth);
-          // playerActions.setP_MaxHealth(playerData.p_MaxHealth);
-          // playerActions.setPlayerClass(playerData.classes);
-          // playerActions.setP_SelectedPet(playerData.selectedPet);
-          // // playerActions.setP_SelectedBodyPart(playerData.selectedWeapon);
-          // // playerActions.setP_SelectedBodyPart(playerData.selectedArmor);
-          // playerActions.setStats(playerData.stats);
-          // playerActions.setStatsLeftPoints(playerData.leftPoints);
-          // playerActions.setSpell(playerData.spells);
-          // playerActions.setClassImg(playerData.classImg);
-          // playerActions.setInventory(playerData.inventoryId);
-          // playerActions.setAvatarImg(playerData.avatarImg);
-          // playerActions.setHitDie(playerData.hitDie);
-          // playerActions.setManaDie(playerData.manaDie);
-          // playerActions.setP_LeftMana(playerData.p_LeftMana);
-          // playerActions.setP_MaxMana(playerData.p_MaxMana);
           const inventoryRef = ref(
             database,
             `players/${playerName}/${playerData.inventoryId}`,
