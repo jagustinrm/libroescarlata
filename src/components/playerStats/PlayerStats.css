@@ -6,7 +6,11 @@
   display: flex;
   justify-content: center;
 }
-
+.exclamationMark.playerStats{
+  left: 10px; 
+  width: 20px; 
+  top: 5px
+}
 .statsPoints {
   width: 150px;
 }
@@ -87,5 +91,9 @@ ul {
     width: 300px;
     height: 200px;
   }
-
+  .exclamationMark.playerStats{
+    left: 0px; 
+    width: 20px; 
+    top: -10px
+  }
 }
