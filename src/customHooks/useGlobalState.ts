@@ -7,6 +7,7 @@ import useCreatureStore from '../stores/creatures';
 import useInventoryStore from '../stores/inventoryStore';
 import useItemsStore from '../stores/itemsStore';
 import useOtherItemsStore from '../stores/otherItemsStore';
+import { usePetStore } from '../stores/petsStore';
 import usePlayerStore from '../stores/playerStore';
 import usePositionStore from '../stores/positionStore';
 import usePotionStore from '../stores/potionsStore';
@@ -32,6 +33,7 @@ const useGlobalState = () => ({
   ...useBookStore(),
   ...useScrollStore(),
   ...useAppStore(),
+  ...usePetStore(),
 });
 
 export default useGlobalState;

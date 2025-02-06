@@ -60,9 +60,9 @@
   overflow: hidden; /* Oculta contenido que exceda el contenedor */
   transition:
     max-height 0.5s ease,
-    opacity 0.5s ease; /* Transición suave */
+    opacity 0.5s ease; 
   opacity: 0; /* Inicialmente invisible */
-  max-height: 0; /* Inicialmente colapsado */
+
 }
 
 .containerPets.open {

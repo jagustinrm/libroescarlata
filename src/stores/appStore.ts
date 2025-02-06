@@ -9,12 +9,22 @@ interface AppState {
   floatingMessage: FloatingMessageProps | null
   soundUrl: string | null;
   areItemsLoaded: boolean;
+
+  message: {
+    showMessage: boolean;
+    content: string;
+    type: string;
+  };
+
   toggleMusic: () => void;
   setAmbientMusic: (music: string) => void;
   setMusicVolume: (volume: number) => void;
   setFloatingMessage:(message: FloatingMessageProps | null) => void;
   setSoundUrl: (sound: string | null) => void;
   setAreItemsLoaded: (areLoaded: boolean) => void
+
+  setMessage: (messageContent: string, messageType: string) => void;
+  clearMessage: () => void;
 }
 
 // Crea el store con tipos
@@ -26,6 +36,12 @@ const useAppStore = create<AppState>((set) => ({
   floatingMessage: null,
   soundUrl: null,
   areItemsLoaded: false,
+  message: {
+    showMessage: false,
+    content: "",
+    type: "",
+  },
+
   // Funciones para actualizar estados
 
   toggleMusic: () =>
@@ -39,6 +55,14 @@ const useAppStore = create<AppState>((set) => ({
   setAmbientMusic: (music) => set({ ambientMusic: music }),
   setMusicVolume: (volume) => set({ musicVolume: volume }),
   setFloatingMessage:  (message) => set({ floatingMessage: message }),
+  setMessage: (messageContent, messageType) =>
+    set({
+      message: { showMessage: true, content: messageContent, type: messageType },
+    }),
+  clearMessage: () =>
+    set({
+      message: { showMessage: false, content: "", type: "" },
+    }),
 }));
 
 export default useAppStore;

@@ -32,6 +32,7 @@ import Bestiary from './components/bestiary/Bestiary.js';
 import QuestLoader from './loaders/QuestsLoader.js';
 import BooksLoader from './loaders/BooksLoader.js';
 import SummonLoader from './loaders/SummonLoader.js';
+import PetsLoader from './loaders/PetsLoader.js';
 
 function App() {
   const { player, inventories } = useGlobalState();
@@ -48,6 +49,7 @@ function App() {
       <OtherItemsLoader />
       <WeaponLoader />
       <ArmorsLoader />
+      <PetsLoader/>
       <PotionsLoader />
       <ClassLoader />
       <SpellLoader />

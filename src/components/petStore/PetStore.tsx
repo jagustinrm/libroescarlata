@@ -1,53 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './PetStore.css';
 import '../UI/designRpg.css';
-import { usePetStore } from '../../stores/petsStore';
 import { usePlayerStore } from '../../stores/playerStore';
 import { Pet } from '../../stores/types/pets';
 import BackButton from '../UI/BackButton';
 import MessageBox from '../UI/MessageBox';
-
-// Resto del código
+import PetsList from './PetsList';
+import PetDetails from './PetsDetails';
+import useAppStore from '../../stores/appStore';
 
 export default function PetStore() {
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageContent, setMessageContent] = useState('');
-  const [messageType, setMessageType] = useState('');
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
-  const [isContainerOpen, setIsContainerOpen] = useState(false); // Control de apertura del contenedor
-  const { pets, setPets } = usePetStore();
+  const [isContainerOpen, setIsContainerOpen] = useState(false); 
   const { playerActions, player } = usePlayerStore();
   const [isBuyable, setIsBuyable] = useState(false);
-
-  useEffect(() => {
-    fetch('/mocks/pets.json')
-      .then((response) => response.json())
-      .then((data) => {
-        setPets(data.pets);
-      })
-      .catch((error) => {
-        console.error('Error al cargar los datos:', error);
-      });
-  }, []);
-
-  const handleSelectPet = (creature: Pet) => {
-    setSelectedPet(creature);
-    setIsContainerOpen(true); // Abre el contenedor al seleccionar una mascota
-    const findPet = player.petsName.some((p) => p === creature.name);
-    if (creature.cost && !findPet) {
-      setIsBuyable(true);
-    } else {
-      setIsBuyable(false);
-    }
-  };
-
+  const {setMessage, message, clearMessage} = useAppStore();
   const handleSelectedPet = () => {
     if (selectedPet) {
       playerActions.setP_SelectedPet(selectedPet);
-
-      setShowMessage(true);
-      setMessageContent('¡Seleccionaste a ' + selectedPet.name + '!');
-      setMessageType('success');
+      setMessage(
+        '¡Seleccionaste a ' + selectedPet.name + '!',
+        'success'
+      )
     }
   };
 
@@ -55,116 +29,43 @@ export default function PetStore() {
     if (player.playerMaterial >= petCost) {
       playerActions.addPetsName(petName);
       playerActions.setPlayerMaterial(player.playerMaterial - petCost);
-      setShowMessage(true);
-      setMessageContent('¡Adoptaste a ' + petName + '!');
-      setMessageType('success');
+      setMessage(
+        '¡Adoptaste a ' + petName + '!',
+        'success'
+      )
       setIsBuyable(false);
     } else {
-      setShowMessage(true);
-      setMessageContent('Te falta materiales');
-      setMessageType('warning');
+      setMessage(
+        'Te falta materiales',
+        'warning'
+      )
     }
   };
 
   return (
     <section className="petSection rpgui-container framed-golden-2">
       <div className="sectionPet">
-        <div className="selectPet">
-          <h3>Elegí una mascota</h3>
-          <div className="listPets">
-            <ul className="rpgui-list-imp">
-              {pets ? (
-                pets.map((creature) => (
-                  <li
-                    className="petList"
-                    key={creature.name}
-                    onClick={() => handleSelectPet(creature)}
-                  >
-                    {creature.name}
-                  </li>
-                ))
-              ) : (
-                <p>Cargando mascotas...</p>
-              )}
-            </ul>
-          </div>
-        </div>
-        <div className="">
-          <div className={`containerPets ${isContainerOpen ? 'open' : ''}`}>
-            {selectedPet && (
-              <>
-                <div className="imgPetandSelect">
-                  <img
-                    className="imgPet"
-                    src={selectedPet.img}
-                    alt={selectedPet.name}
-                  />
-                  {isBuyable ? (
-                    <div className="costSect">
-                      <button
-                        onClick={() =>
-                          handleBuy(selectedPet.name, selectedPet.cost ?? 0)
-                        }
-                        className="rpgui-button adoptButton"
-                      >
-                        Adoptar
-                      </button>
-                      <p className="petCostText">
-                        {selectedPet.cost} materiales{' '}
-                      </p>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={handleSelectedPet}
-                      className="rpgui-button"
-                    >
-                      Seleccionar
-                    </button>
-                  )}
-                </div>
-                <div className="containerPetStats">
-                  <h3 className="detailTitle">{selectedPet.name}</h3>
-                  <p className="petText">
-                    <strong>Tipo:</strong> {selectedPet.type}
-                  </p>
-                  <p className="petText">
-                    <strong>Alineación:</strong> {selectedPet.alignment}
-                  </p>
-                  <p className="petText">
-                    <strong>Puntos de vida:</strong> {selectedPet.hitPoints}
-                  </p>
-                  <p className="petText">
-                    <strong>Clase de armadura:</strong> {selectedPet.armorClass}
-                  </p>
-                  <p className="petText">
-                    <strong>Daño:</strong> {selectedPet.attacks[0].damage} - {selectedPet.attacks[0].damageMax} 
-                  </p>
-                  <p className="petText">
-                    <strong>Habilidades especiales:</strong>
-                  </p>
-                  <select className="specialAbilities rpgui-dropdown rpgui-dropdown-imp-header listSize">
-                    {selectedPet.specialAbilities.map((ability, index) => (
-                      <option
-                        className="optionsDropDown"
-                        key={index}
-                        value={ability}
-                      >
-                        {ability}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
+        <PetsList
+        setSelectedPet={setSelectedPet}
+        setIsContainerOpen={setIsContainerOpen}
+        setIsBuyable={setIsBuyable}
+        />
+      <div className={`containerPets ${isContainerOpen ? 'open' : ''}`}>
+      <PetDetails
+        selectedPet={selectedPet}
+        isContainerOpen={isContainerOpen}
+        isBuyable={isBuyable}
+        handleBuy={handleBuy}
+        handleSelectedPet={handleSelectedPet}
+      />
+      </div>
       </div>
       <BackButton />
-      {showMessage && (
+      {message.showMessage && (
         <MessageBox
-          message={messageContent}
-          type={messageType as 'error' | 'warning' | 'success'}
-          onClose={() => setShowMessage(false)}
+          message={message.content}
+          type={message.type as 'error' | 'warning' | 'success'}
+          onClose={() => clearMessage()}
         />
       )}
     </section>
