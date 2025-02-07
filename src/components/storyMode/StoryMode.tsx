@@ -6,7 +6,7 @@ import useStoryStore from '../../stores/storyStore';
 import './StoryMode.css';
 
 export default function StoryMode() {
-  const { stories } = useStoryStore(); // Accedemos a las historias desde el store
+  const { stories, setCurrentChapter } = useStoryStore(); // Accedemos a las historias desde el store
   const [currentPage, setCurrentPage] = useState(0); // Controlamos la página actual
   const [currentStory, setCurrentStory] = useState<Story | null>(null);
   const navigate = useNavigate(); // Hook para navegar
@@ -14,16 +14,12 @@ export default function StoryMode() {
   // Cargar la historia seleccionada al cambiar la página
   useEffect(() => {
     const story = stories[currentPage];
-    if (story) {
-      setCurrentStory(story);
-    }
+    if (story) setCurrentStory(story);
   }, [currentPage, stories]);
 
   // Función para cambiar de página
   const handlePageChange = (page: number) => {
-    if (page >= 0 && page < stories.length) {
-      setCurrentPage(page);
-    }
+    if (page >= 0 && page < stories.length) setCurrentPage(page);
   };
 
   // Función para manejar el clic en un capítulo
@@ -32,8 +28,10 @@ export default function StoryMode() {
       const params = {
         storyId: currentStory.id,
         chapterId: chapterId.toString(),
+        currentDialogLine: 0,
       };
-      navigate(`/chapter/?story=${params.storyId}-chapter=${params.chapterId}`); // Navegamos a Chapter con parámetros
+      setCurrentChapter(params);
+      navigate(`/chapter/`);
     }
   };
 
@@ -83,7 +81,6 @@ export default function StoryMode() {
           </div>
         </div>
       )}
-
       <BackButton />
     </div>
   );

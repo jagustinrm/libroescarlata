@@ -1,4 +1,4 @@
-export interface Event {
+export interface CEvent {
   id: string;
   description?: string;
   status: string;
@@ -25,7 +25,7 @@ export interface Event {
 export interface Chapter {
   id: string; // Identificador único del capítulo
   title: string; // Título del capítulo
-  events: Event[]; // Lista de eventos asociados
+  events: CEvent[]; // Lista de eventos asociados
   completed: boolean; // Indica si el capítulo fue completado
   dialogSequence: string;
 }
@@ -45,11 +45,18 @@ export interface StoryProgress {
   worldState: { [key: string]: string }; // Estado global del mundo en el progreso del usuario
 }
 
+export interface currentChapter {
+  storyId: string;
+  chapterId: string;
+  currentDialogLine: number;
+}
+
 export interface StoryStore {
   stories: Story[]; // Lista de historias disponibles
   userProgress: { [userId: string]: StoryProgress[] }; // Progreso de las historias para cada usuario
-
+  currentChapter: currentChapter;
   // Funciones para manejar el progreso
+  setCurrentChapter: (currentChapter: currentChapter) => void;
   completeChapter: (userId: string, storyId: string, chapterId: number) => void;
   completeEvent: (userId: string, storyId: string, eventId: string) => void;
   selectChoice: (

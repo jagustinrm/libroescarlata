@@ -8,7 +8,7 @@ import { renderCreatureImages } from './renderCreatureImages';
 
 export default function Bestiary() {
   const { creatures, bosses, player } = useGlobalState();
-  const [monsterCategory, setMonsterCategory] = useState("creatures")
+  const [monsterCategory, setMonsterCategory] = useState('creatures');
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const creaturesPerPage = 8;
@@ -28,9 +28,9 @@ export default function Bestiary() {
   const indexOfFirstCreature = indexOfLastCreature - creaturesPerPage;
 
   const currentMonsters = useMemo(() => {
-    if (monsterCategory === "creatures") {
+    if (monsterCategory === 'creatures') {
       return creatures.slice(indexOfFirstCreature, indexOfLastCreature);
-    } else if (monsterCategory === "bosses") {
+    } else if (monsterCategory === 'bosses') {
       return bosses.slice(indexOfFirstCreature, indexOfLastCreature);
     }
     return [];
@@ -49,21 +49,21 @@ export default function Bestiary() {
 
   return (
     <div className="bestiaryContainer rpgui-container framed-golden-2">
-      <div style={{display: 'flex'}}>
-      <ButtonEdited
-            label="Normal"
-            width="130px"
-            height="33px"
-            onClick={() => setMonsterCategory("creatures")}
-          />
-      <ButtonEdited
-            label="Jefes"
-            width="130px"
-            height="33px"
-            onClick={() => setMonsterCategory("bosses")}
-      />
+      <div style={{ display: 'flex' }}>
+        <ButtonEdited
+          label="Normal"
+          width="130px"
+          height="33px"
+          onClick={() => setMonsterCategory('creatures')}
+        />
+        <ButtonEdited
+          label="Jefes"
+          width="130px"
+          height="33px"
+          onClick={() => setMonsterCategory('bosses')}
+        />
       </div>
-      { renderCreatureImages(currentMonsters, handleBattle, player) }
+      {renderCreatureImages(currentMonsters, handleBattle, player)}
 
       <div className="pagination">
         <div style={{ marginTop: '5px' }}>

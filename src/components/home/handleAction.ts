@@ -1,11 +1,11 @@
-import { NavigateFunction } from "react-router-dom";
-import openMissions from "../../utils/openMissionsWindow";
-import usePlayerStore from "../../stores/playerStore";
+import { NavigateFunction } from 'react-router-dom';
+import openMissions from '../../utils/openMissionsWindow';
+import usePlayerStore from '../../stores/playerStore';
 
 export const handleAction = (
   action: string,
   navigate: NavigateFunction,
-  setShowMessage: (show: boolean) => void
+  setShowMessage: (show: boolean) => void,
 ) => {
   const { playerActions, player } = usePlayerStore.getState();
   switch (action) {

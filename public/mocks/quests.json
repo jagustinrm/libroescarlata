@@ -1,100 +1,98 @@
 {
-  
-        "history": [
-            {
-                "name": "1-1 - El cuervo",
-                "description": "Terminar el capítulo El cuervo",
-                "reward": 500,
-                "finished": false,
-                "received": false
-            },
-            {
-                "name": "1-2 - Un descanso necesario",
-                "description": "Terminar el capítulo Un descanso necesario",
-                "reward": 500,
-                "finished": false,
-                "received": false
-            },
-            {
-                "name": "1-3 - El camino más largo",
-                "description": "Terminar el capítulo El camino más largo",
-                "reward": 500,
-                "finished": false,
-                "received": false
-            },
-            {
-                "name": "1-4 - La ciudad de las tinieblas",
-                "description": "Terminar el capítulo La ciudad de las tinieblas",
-                "reward": 500,
-                "finished": false,
-                "received": false
-            }
-        ],
-        "secondary": [
-            {
-                "name": "Cazar Goblins",
-                "description": "Caza 5 Goblins que están atacando los caminos.",
-                "counter": 5,
-                "objective": "Goblin",
-                "reward": 500,
-                "type": "kill",
-                "finished": false,
-                "progress": 0,
-                "received": false
-            },
-            {
-                "name": "Eliminar Kobolds",
-                "description": "Elimina a 3 Kobolds que rondan las minas abandonadas.",
-                "counter": 3,
-                "objective": "Kobold",
-                "reward": 500,
-                "type": "kill",
-                "finished": false,
-                "progress": 0,
-                "received": false
-            },
-            {
-                "name": "Cazar Ratas Gigantes",
-                "description": "Caza 7 Ratas Gigantes que infestan las bodegas.",
-                "counter": 7,
-                "objective": "Rata Gigante",
-                "reward": 500,
-                "type": "kill",
-                "finished": false,
-                "progress": 0,
-                "received": false
-            },
-            {
-                "name": "Derrotar al Esqueleto Humanoide",
-                "description": "Derrota al temible Esqueleto Humanoide en las ruinas antiguas.",
-                "counter": 1,
-                "objective": "Esqueleto Humanoide",
-                "reward": 100,
-                "type": "kill",
-                "finished": false,
-                "progress": 0,
-                "received": false
-            },
-            {
-                "name": "Derrotar al Hobgoblin",
-                "description": "El líder Hobgoblin amenaza la aldea. Acaba con él.",
-                "counter": 1,
-                "objective": "Hobgoblin",
-                "reward": 100,
-                "type": "kill",
-                "finished": false,
-                "progress": 0,
-                "received": false
-            }
-        ],
-        "others": [
-            {
-                "name": "Conseguir todos los elementales",
-                "description": "Conseguir todos los elementales",
-                "reward": 100,
-                "finished": false,
-                "received": false
-            }
-        ]
-    
+  "history": [
+    {
+      "name": "1-1 - El cuervo",
+      "description": "Terminar el capítulo El cuervo",
+      "reward": 500,
+      "finished": false,
+      "received": false
+    },
+    {
+      "name": "1-2 - Un descanso necesario",
+      "description": "Terminar el capítulo Un descanso necesario",
+      "reward": 500,
+      "finished": false,
+      "received": false
+    },
+    {
+      "name": "1-3 - El camino más largo",
+      "description": "Terminar el capítulo El camino más largo",
+      "reward": 500,
+      "finished": false,
+      "received": false
+    },
+    {
+      "name": "1-4 - La ciudad de las tinieblas",
+      "description": "Terminar el capítulo La ciudad de las tinieblas",
+      "reward": 500,
+      "finished": false,
+      "received": false
+    }
+  ],
+  "secondary": [
+    {
+      "name": "Cazar Goblins",
+      "description": "Caza 5 Goblins que están atacando los caminos.",
+      "counter": 5,
+      "objective": "Goblin",
+      "reward": 500,
+      "type": "kill",
+      "finished": false,
+      "progress": 0,
+      "received": false
+    },
+    {
+      "name": "Eliminar Kobolds",
+      "description": "Elimina a 3 Kobolds que rondan las minas abandonadas.",
+      "counter": 3,
+      "objective": "Kobold",
+      "reward": 500,
+      "type": "kill",
+      "finished": false,
+      "progress": 0,
+      "received": false
+    },
+    {
+      "name": "Cazar Ratas Gigantes",
+      "description": "Caza 7 Ratas Gigantes que infestan las bodegas.",
+      "counter": 7,
+      "objective": "Rata Gigante",
+      "reward": 500,
+      "type": "kill",
+      "finished": false,
+      "progress": 0,
+      "received": false
+    },
+    {
+      "name": "Derrotar al Esqueleto Humanoide",
+      "description": "Derrota al temible Esqueleto Humanoide en las ruinas antiguas.",
+      "counter": 1,
+      "objective": "Esqueleto Humanoide",
+      "reward": 100,
+      "type": "kill",
+      "finished": false,
+      "progress": 0,
+      "received": false
+    },
+    {
+      "name": "Derrotar al Hobgoblin",
+      "description": "El líder Hobgoblin amenaza la aldea. Acaba con él.",
+      "counter": 1,
+      "objective": "Hobgoblin",
+      "reward": 100,
+      "type": "kill",
+      "finished": false,
+      "progress": 0,
+      "received": false
+    }
+  ],
+  "others": [
+    {
+      "name": "Conseguir todos los elementales",
+      "description": "Conseguir todos los elementales",
+      "reward": 100,
+      "finished": false,
+      "received": false
+    }
+  ]
 }

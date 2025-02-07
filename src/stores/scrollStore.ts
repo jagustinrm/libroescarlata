@@ -5,7 +5,7 @@ const useScrollStore = create<ScrollStore>((set) => ({
   scrolls: [],
   areScrollsLoaded: false,
   setScrolls: (scrolls) => {
-    console.log(scrolls)
+    console.log(scrolls);
     set({ scrolls, areScrollsLoaded: true });
   },
   addNewScroll: (newScroll) =>

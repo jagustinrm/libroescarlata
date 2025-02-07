@@ -103,7 +103,7 @@ export function useEnemyLoader(
       // setTurn('player');
       setTurn('player');
       setUpdateEnemy(!updateEnemy);
-      resetPositions()
+      resetPositions();
     }, 1000);
   };
 

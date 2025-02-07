@@ -1,8 +1,6 @@
 import { Creature } from './creatures';
 // import { Stats } from './stats';
-export interface Summon extends Creature {
-
-}
+export interface Summon extends Creature {}
 
 export interface SummonsStore {
   summons: Summon[];

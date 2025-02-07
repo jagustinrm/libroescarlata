@@ -1,9 +1,10 @@
-[ {
+[
+  {
     "id": "dialog-1",
     "lines": [
       {
         "speaker": "Narrador",
-        "text":"  Al escuchar tu nombre, el cuervo sobre el hombro del encapuchado se pone a graznar."
+        "text": "  Al escuchar tu nombre, el cuervo sobre el hombro del encapuchado se pone a graznar."
       },
       {
         "speaker": "Narrador",
@@ -93,7 +94,8 @@
         "event": "event-1-3"
       }
     ]
-  }, {
+  },
+  {
     "id": "dialog-2",
     "lines": [
       {
@@ -189,7 +191,7 @@
     "lines": [
       {
         "speaker": "Narrador",
-        "text":"  Parece que ahora todo está tranquilo. Los guardias se fueron. Recordás que el hombre capuchado dijo que el plan origina era ir a la ciudad."
+        "text": "  Parece que ahora todo está tranquilo. Los guardias se fueron. Recordás que el hombre capuchado dijo que el plan origina era ir a la ciudad."
       },
       {
         "speaker": "Narrador",
@@ -242,49 +244,48 @@
   {
     "id": "dialog-4",
     "lines": [
-        {
-            "speaker": "Narrador",
-            "text": "Llegas a las puertas de una ciudad que parece desolada. La guardia, como envejecida, ni siquiera intenta detener tu paso. Solo dos guardias apoyados contra sus lanzas, agotados, te miran pasar de reojo."
-        },
-        {
-            "speaker": "Posadero",
-            "text": "La ciudad es oscura. A pesar de las luces de las velas y los candelabros que se encuentran encendidos, un manto de penumbra recorre las calles"
-        },
-        {
-            "speaker": "Narrador",
-            "text": "Caminás con cuidado. En el piso hay gente durmiendo y en los costados hombres y mujeres encapuchados, guardias que miran para otro lado y movimiento extraños"
-        },
-        {
-          "speaker": "Narrador",
-          "text": "Mientras buscás dónde descansar, empezás a recordar a tu familia y un dolor te recorre el cuerpo. Te cuesta respirar..."
+      {
+        "speaker": "Narrador",
+        "text": "Llegas a las puertas de una ciudad que parece desolada. La guardia, como envejecida, ni siquiera intenta detener tu paso. Solo dos guardias apoyados contra sus lanzas, agotados, te miran pasar de reojo."
       },
-        {
-            "speaker": "Narrador",
-            "text": "¡Alguien de pronto tomó tu bolso y se lanzó a correr!",
-            "event": "event-4-1"
-        },
-        {
-            "speaker": "Narrador",
-            "text": "Te dirigís a la posada más cercana un poco herido. Allí, los parroquianos murmuran entre sí sobre la miseria y el hambre que azotan la ciudad."
-        },
-        {
-            "speaker": "Parroquiano",
-            "text": "¡Eh! ¿Estás herido? Acercate, te puedo curar."
-        },
-        {
-          "speaker": "Narrador",
-          "text": "El anciano pone sus manos sobre tu herida y sentís que una energía curativa te alivia. Luego de preguntarte de dónde venís, te da algunas indicaciones:"
+      {
+        "speaker": "Posadero",
+        "text": "La ciudad es oscura. A pesar de las luces de las velas y los candelabros que se encuentran encendidos, un manto de penumbra recorre las calles"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "Caminás con cuidado. En el piso hay gente durmiendo y en los costados hombres y mujeres encapuchados, guardias que miran para otro lado y movimiento extraños"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "Mientras buscás dónde descansar, empezás a recordar a tu familia y un dolor te recorre el cuerpo. Te cuesta respirar..."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "¡Alguien de pronto tomó tu bolso y se lanzó a correr!",
+        "event": "event-4-1"
+      },
+      {
+        "speaker": "Narrador",
+        "text": "Te dirigís a la posada más cercana un poco herido. Allí, los parroquianos murmuran entre sí sobre la miseria y el hambre que azotan la ciudad."
+      },
+      {
+        "speaker": "Parroquiano",
+        "text": "¡Eh! ¿Estás herido? Acercate, te puedo curar."
+      },
+      {
+        "speaker": "Narrador",
+        "text": "El anciano pone sus manos sobre tu herida y sentís que una energía curativa te alivia. Luego de preguntarte de dónde venís, te da algunas indicaciones:"
       },
       {
         "speaker": "Parroquiano",
         "text": "Si querés sobrevivir aquí, amigo, buscá un oficio o alistate en el ejército. Incluso podrías probar suerte como gladiador, aunque no todos sobreviven a la arena."
       },
-        {
-            "speaker": "Narrador",
-            "text": "Con nuevas posibilidades en mente, te preparás para tomar una decisión crucial sobre tu futuro. ¿Te volverás un gladiador, te unirás al ejército o buscarás un oficio para ganar fuerza y recursos?",
-            "event": "event-4-2"
-        }
-
+      {
+        "speaker": "Narrador",
+        "text": "Con nuevas posibilidades en mente, te preparás para tomar una decisión crucial sobre tu futuro. ¿Te volverás un gladiador, te unirás al ejército o buscarás un oficio para ganar fuerza y recursos?",
+        "event": "event-4-2"
+      }
     ]
-}
+  }
 ]

@@ -12,7 +12,6 @@
     "description": "Restaura 100 puntos de vida.",
     "img": "/img/potions/low-healing-potion.png",
     "color": "#F8F8F8"
- 
   },
   {
     "id": "mediumHealing-potion-002",
@@ -121,7 +120,7 @@
     "description": "Aumenta tu constitución.",
     "img": "/img/potions/con-potion.png",
     "color": "#F8F8F8"
-  },  
+  },
   {
     "id": "potion-010",
     "name": "Elixir de la mente brillante",
@@ -152,7 +151,7 @@
     "description": "Te permite resistir los ataques acuáticos",
     "img": "/img/potions/water-res.png",
     "color": "#F8F8F8"
-  },  
+  },
   {
     "id": "fireResistance-potion-006",
     "name": "Poción de Resistencia a Fuego",

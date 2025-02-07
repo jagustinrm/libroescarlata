@@ -6,10 +6,10 @@
   display: flex;
   justify-content: center;
 }
-.exclamationMark.playerStats{
-  left: 10px; 
-  width: 20px; 
-  top: 5px
+.exclamationMark.playerStats {
+  left: 10px;
+  width: 20px;
+  top: 5px;
 }
 .statsPoints {
   width: 150px;
@@ -74,7 +74,7 @@ ul {
 .mediumColumnStats {
   display: flex;
   flex-direction: column;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
 }
 @media (max-width: 1360px) and (max-height: 768px) {
@@ -82,7 +82,7 @@ ul {
     max-height: 550px;
     font-size: 0.7em;
   }
-  .statsAvatar{
+  .statsAvatar {
     width: 100px;
   }
   .PetDescription {
@@ -91,9 +91,9 @@ ul {
     width: 300px;
     height: 200px;
   }
-  .exclamationMark.playerStats{
-    left: 0px; 
-    width: 20px; 
-    top: -10px
+  .exclamationMark.playerStats {
+    left: 0px;
+    width: 20px;
+    top: -10px;
   }
 }

@@ -9,7 +9,7 @@ const PetsLoader = () => {
         try {
           const res = await fetch('/mocks/pets.json'); // Ruta del archivo books.json
           const data = await res.json();
-          console.log(data)
+          console.log(data);
           setPets(data.pets);
         } catch (error) {
           console.error('Error loading books:', error);

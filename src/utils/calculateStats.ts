@@ -16,14 +16,14 @@ export function calculateDodgePercentage(
   enemyLevel: number = 1,
 ): number {
   // return parseFloat(Math.max(0, Math.min(dodge, 100)).toFixed(2));
-   // Se aplica una penalización que se incrementa conforme el nivel del enemigo crece.
-   const penalty = Math.pow(0.95, enemyLevel - 1); // Penaliza con un factor decreciente exponencialmente
-   // Calculamos la probabilidad de golpear usando la evasión (flee o estimada) y la penalización.
-   const dodgeChance = (dodge / (dodge + enemyLevel * 10)) * 100 * penalty;
-   // Aseguramos que el hitChance esté entre 5% y 95%
-   const finalDodgeRate = Math.max(5, Math.min(95, dodgeChance));
- 
-   return parseFloat(finalDodgeRate.toFixed(2)); 
+  // Se aplica una penalización que se incrementa conforme el nivel del enemigo crece.
+  const penalty = Math.pow(0.95, enemyLevel - 1); // Penaliza con un factor decreciente exponencialmente
+  // Calculamos la probabilidad de golpear usando la evasión (flee o estimada) y la penalización.
+  const dodgeChance = (dodge / (dodge + enemyLevel * 10)) * 100 * penalty;
+  // Aseguramos que el hitChance esté entre 5% y 95%
+  const finalDodgeRate = Math.max(5, Math.min(95, dodgeChance));
+
+  return parseFloat(finalDodgeRate.toFixed(2));
 }
 
 export function calculateTotalHitRate(
@@ -42,11 +42,12 @@ export function calculateHitRatePercentage(
   // Se aplica una penalización que se incrementa conforme el nivel del enemigo crece.
   const penalty = Math.pow(0.95, enemyLevel - 1); // Penaliza con un factor decreciente exponencialmente
   // Calculamos la probabilidad de golpear usando la evasión (flee o estimada) y la penalización.
-  const hitChance = (totalHitRate / (totalHitRate + enemyLevel * 10)) * 100 * penalty;
+  const hitChance =
+    (totalHitRate / (totalHitRate + enemyLevel * 10)) * 100 * penalty;
   // Aseguramos que el hitChance esté entre 5% y 95%
   const finalHitRate = Math.max(5, Math.min(95, hitChance));
 
-  return parseFloat(finalHitRate.toFixed(2));  // Redondeamos el resultado a 2 decimales
+  return parseFloat(finalHitRate.toFixed(2)); // Redondeamos el resultado a 2 decimales
 }
 export function calculateTotalMaxHealth(
   con: number = 1,
@@ -72,8 +73,6 @@ export function calculateTotalMaxMana(
   const totalMaxMana = p_MaxMana + manaFromInt + manaFromCha;
   return totalMaxMana;
 }
-
-
 
 export function isAttackSuccessful(
   hitRatePercentage: number, // Porcentaje de hit rate del atacante
@@ -176,13 +175,11 @@ export function calculateMTotalMaxDamage(
   intBuff?: number,
 ): number {
   const damageValue = Object.values(bodyParts).reduce((total, part) => {
-    return total + (part?.mDamageMax|| 0);
+    return total + (part?.mDamageMax || 0);
   }, 0);
   const totalStr = intBuff ? playerInt + intBuff : playerInt;
   return totalStr + damageValue;
 }
-
-
 
 export function calculateSummonDmgIncrease(playerCar: number): number {
   const summonDmg = parseFloat(((playerCar / 100) * 50).toFixed(2));

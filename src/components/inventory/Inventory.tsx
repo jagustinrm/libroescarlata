@@ -50,7 +50,7 @@ export default function Inventory() {
     }
 
     const itemNames = inventories[player.inventoryId][category];
-    console.log(inventories[player.inventoryId])
+    console.log(inventories[player.inventoryId]);
     if (!itemNames) {
       setActualInventory([]);
       return;
@@ -97,7 +97,7 @@ export default function Inventory() {
         selectedCategory = scrolls.filter((scroll: Scroll) =>
           itemNames.includes(scroll.id),
         );
-        console.log(selectedCategory)
+        console.log(selectedCategory);
         break;
       default:
         selectedCategory = [];
@@ -108,7 +108,6 @@ export default function Inventory() {
   };
 
   const handleSelectItem = (itemId: string | number) => {
-
     const weapon = weapons.find((weapon: Weapon) => weapon.id === itemId);
     const potion = potions.find((potion: Potion) => potion.id === itemId);
     const otherItem = otherItems.find(
@@ -134,7 +133,7 @@ export default function Inventory() {
       return;
     }
     if (otherItem) {
-      console.log(otherItem)
+      console.log(otherItem);
       setSelectedItem(otherItem);
       return;
     }
@@ -162,7 +161,7 @@ export default function Inventory() {
     }
 
     if ('bodyPart' in selectedItem && 'armorValue' in selectedItem) {
-      console.log(selectedItem)
+      console.log(selectedItem);
       playerActions.setP_SelectedBodyPart(selectedItem as Armor);
       setFloatingMessage('¡Equipado!');
     } else if ('damage' in selectedItem && 'bodyPart' in selectedItem) {

@@ -14,7 +14,6 @@ import { handleAction } from './handleAction.ts';
 import { useAnimateExclamationMark } from '../../utils/animateExclamationMark.ts';
 import HomeOptionsSign from '../UI/HomeOptionsSign.tsx';
 
-
 export default function Home() {
   const [showMessage, setShowMessage] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -22,12 +21,12 @@ export default function Home() {
   const { setAmbientMusic, setMusicVolume } = useAppStore();
   const navigate = useNavigate();
   const [showMissions, setShowMissions] = useState(false);
- 
+
   useEffect(() => {
     setAmbientMusic('medievalAmbient');
     setMusicVolume(0.1);
   }, []);
-  useAnimateExclamationMark()
+  useAnimateExclamationMark();
   const handleClose = () => {
     setShowMessage(false);
   };
@@ -55,14 +54,19 @@ export default function Home() {
             <div className="player">
               <div className="stats">
                 <div>
-                <img
-                  onClick={handleStats}
-                  className="playerAvatar rpgui-cursor-point"
-                  src={player.avatarImg}
-                  alt="avatar img"
-                />
-                { player.leftPoints ?
-                  <img className='exclamationMark' src="./img/UI/exclamation-mark.png" alt="Signo de exclamación" /> : null}
+                  <img
+                    onClick={handleStats}
+                    className="playerAvatar rpgui-cursor-point"
+                    src={player.avatarImg}
+                    alt="avatar img"
+                  />
+                  {player.leftPoints ? (
+                    <img
+                      className="exclamationMark"
+                      src="./img/UI/exclamation-mark.png"
+                      alt="Signo de exclamación"
+                    />
+                  ) : null}
                 </div>
                 <div className="centerStats">
                   <p>👤 {player.name}</p>
@@ -70,15 +74,20 @@ export default function Home() {
                   <p>⭐ Nivel: {player.level}</p>
                   <div className="p_leaftHealth">
                     <div className="heart">❤️</div>
-                    <p>Vida: {player.p_LeftHealth} / {player.totalMaxHealth()}</p>
+                    <p>
+                      Vida: {player.p_LeftHealth} / {player.totalMaxHealth()}
+                    </p>
                   </div>
-                  <p>🌀 Espíritu: {player.p_LeftMana} / {player.totalMaxMana()}</p>
-                  <p>✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}</p>
+                  <p>
+                    🌀 Espíritu: {player.p_LeftMana} / {player.totalMaxMana()}
+                  </p>
+                  <p>
+                    ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}
+                  </p>
                   <p>🛠️ Materiales: {player.playerMaterial}</p>
                   {player.selectedPet && (
                     <p>🐶 Mascota: {player.selectedPet.name}</p>
                   )}
-                  
                 </div>
               </div>
 
@@ -87,7 +96,9 @@ export default function Home() {
                   label="Inventario"
                   width="130px"
                   height="33px"
-                  onClick={() => handleAction('inventory', navigate, setShowMessage)}
+                  onClick={() =>
+                    handleAction('inventory', navigate, setShowMessage)
+                  }
                 />
               </div>
             </div>
@@ -97,7 +108,9 @@ export default function Home() {
         <div className="buttonsHome ">
           {player.p_LeftHealth > 0 && (
             <img
-              onClick={() => handleAction('fight-normal', navigate, setShowMessage)}
+              onClick={() =>
+                handleAction('fight-normal', navigate, setShowMessage)
+              }
               className="buttonPrueba  rpgui-cursor-point"
               src="/img/UI/training.png"
               alt=""
@@ -105,7 +118,9 @@ export default function Home() {
           )}
           {player.p_LeftHealth > 0 && (
             <img
-              onClick={() => handleAction('fight-dungeon', navigate, setShowMessage)}
+              onClick={() =>
+                handleAction('fight-dungeon', navigate, setShowMessage)
+              }
               className="buttonPrueba  rpgui-cursor-point"
               src="/img/UI/dungeonButton.png"
               alt=""
@@ -113,11 +128,12 @@ export default function Home() {
           )}
           <div className="hospitalRecover">
             <img
-              onClick={() =>handleAction('recoverHealth', navigate, setShowMessage)}
+              onClick={() =>
+                handleAction('recoverHealth', navigate, setShowMessage)
+              }
               className="buttonPrueba  rpgui-cursor-point"
               src="/img/UI/innButton.png"
               alt=""
-              
             />
             {player.p_LeftHealth === 0 && <div className="arrows"></div>}
           </div>
@@ -154,7 +170,7 @@ export default function Home() {
           onClose={handleClose}
         />
       )}
-      {!areItemsLoaded && <ItemsFromFirebaseLoader/>}
+      {!areItemsLoaded && <ItemsFromFirebaseLoader />}
     </div>
   );
 }

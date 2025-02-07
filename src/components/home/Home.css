@@ -109,7 +109,8 @@
 }
 /* Definimos la animación "pulse" */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     filter: brightness(100%) drop-shadow(0 0 0 rgba(255, 255, 0, 0)); /* Sin sombra */
   }
   50% {

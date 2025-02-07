@@ -42,11 +42,12 @@ const HeaderMenu = () => {
             <a href="/">Desconectar</a>
           </li>
           {/* Mostrar "Misiones" solo si no estamos en la URL "/" */}
-          {location.pathname !== '/' && location.pathname !== '/characterSelector' && (
-            <li onClick={() => setShowMissions(true)}>
-              <a href="#">Misiones</a>
-            </li>
-          )}
+          {location.pathname !== '/' &&
+            location.pathname !== '/characterSelector' && (
+              <li onClick={() => setShowMissions(true)}>
+                <a href="#">Misiones</a>
+              </li>
+            )}
           <li>
             <div className="music-controls">
               <button className="buttonSoundToggle" onClick={toggleMusic}>

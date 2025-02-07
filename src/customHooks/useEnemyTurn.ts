@@ -11,15 +11,12 @@ import automaticMove from './automaticMove.ts';
 
 interface EnemyTurnProps {
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-
 }
-export const useEnemyTurn = ({
-  setActionMessages,
-}: EnemyTurnProps) => {
+export const useEnemyTurn = ({ setActionMessages }: EnemyTurnProps) => {
   const { playerPosition, enemyPosition, setEnemyPosition } =
     usePositionStore.getState();
   const { creature } = useCreatureStore.getState();
-  const {setFloatingMessage, setSoundUrl} = useAppStore.getState()
+  const { setFloatingMessage, setSoundUrl } = useAppStore.getState();
   const { player, playerActions } = usePlayerStore.getState();
   const { currentCharacter, nextTurn } = useTurnStore.getState();
   useEffect(() => {
@@ -32,7 +29,7 @@ export const useEnemyTurn = ({
         creature.health &&
         creature.health > 0 &&
         player.p_LeftHealth > 0 &&
-        adjustedDistance > Math.max(...creature.attacks.map(a => a.range))
+        adjustedDistance > Math.max(...creature.attacks.map((a) => a.range))
       ) {
         automaticMove();
       }
@@ -46,8 +43,9 @@ export const useEnemyTurn = ({
         creature.health > 0 &&
         player.p_LeftHealth > 0
       ) {
-
-        if (adjustedDistance <=  Math.max(...creature.attacks.map(a => a.range))) {
+        if (
+          adjustedDistance <= Math.max(...creature.attacks.map((a) => a.range))
+        ) {
           const enemyAttackTimeout = setTimeout(() => {
             // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
             simulateAttackMovement(enemyPosition, 5, setEnemyPosition);
@@ -57,7 +55,8 @@ export const useEnemyTurn = ({
             );
             if (success) {
               const { damage, damageMax } = creature['attacks'][0];
-              const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
+              const rollDamage =
+                Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
               const redDamage = player.totalDmgReduction(creature.level);
               const finalDamage = Math.floor(
                 rollDamage * (1 - redDamage / 100),

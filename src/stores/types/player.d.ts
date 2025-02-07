@@ -107,7 +107,7 @@ export interface PlayerActions {
   addClasses: (classes: string) => void;
   setPlayerClass: (classes: string) => void;
   setPlayerName: (name: string) => void;
-  setPlayerId:(name: string) => void;
+  setPlayerId: (name: string) => void;
   setDodge: (dodge: number) => void;
   setHitRate: (hitRate: number) => void;
   setDodgeDie: (dodge: number) => void;

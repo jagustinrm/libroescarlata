@@ -126,7 +126,7 @@ const initialPlayerState: Player = {
   hitRatePercentage: () => {
     return calculateHitRatePercentage(
       usePlayerStore.getState().player.totalHitRate(),
-      usePlayerStore.getState().player.level
+      usePlayerStore.getState().player.level,
     );
   },
   dodgePercentage: () => {
@@ -249,34 +249,41 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           buffs: {}, // Reinicia todos los buffs
         },
       })),
-      decrementBuffDurations: () =>
-        set((state) => {
-          const updatedBuffs = Object.fromEntries(
-            Object.entries(state.player.buffs)
-              .map(([buffName, buff]) => {
-                if (typeof buff === "object" && buff !== null && "duration" in buff) {
-                  // TypeScript garantiza que buff es del tipo correcto aquí
-                  return [
-                    buffName,
-                    {
-                      ...buff,
-                      duration: buff.duration - 1,
-                    },
-                  ];
-                }
-                return null; // Ignorar buffs que no cumplan con los requisitos
-              })
-              .filter((entry): entry is [string, { duration: number; value: number }] => entry !== null) // Filtra entradas inválidas
-              .filter(([_, buff]) => buff.duration > -1) // Filtra buffs con duración <= 0
-          );
-      
-          return {
-            player: {
-              ...state.player,
-              buffs: updatedBuffs,
-            },
-          };
-        }),
+    decrementBuffDurations: () =>
+      set((state) => {
+        const updatedBuffs = Object.fromEntries(
+          Object.entries(state.player.buffs)
+            .map(([buffName, buff]) => {
+              if (
+                typeof buff === 'object' &&
+                buff !== null &&
+                'duration' in buff
+              ) {
+                // TypeScript garantiza que buff es del tipo correcto aquí
+                return [
+                  buffName,
+                  {
+                    ...buff,
+                    duration: buff.duration - 1,
+                  },
+                ];
+              }
+              return null; // Ignorar buffs que no cumplan con los requisitos
+            })
+            .filter(
+              (entry): entry is [string, { duration: number; value: number }] =>
+                entry !== null,
+            ) // Filtra entradas inválidas
+            .filter(([_, buff]) => buff.duration > -1), // Filtra buffs con duración <= 0
+        );
+
+        return {
+          player: {
+            ...state.player,
+            buffs: updatedBuffs,
+          },
+        };
+      }),
     addStatsLeftPoints: (leftPoints) =>
       set((state) => ({
         player: {
@@ -317,12 +324,12 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, name },
       })),
-      setPlayerId: (id) => {
-        console.log(id);
-        set((state) => ({
-          player: { ...state.player, playerId: id }, // Asegúrate de usar un nombre de propiedad consistente
-        }));
-      },
+    setPlayerId: (id) => {
+      console.log(id);
+      set((state) => ({
+        player: { ...state.player, playerId: id }, // Asegúrate de usar un nombre de propiedad consistente
+      }));
+    },
 
     setPlayerLevel: (level) =>
       set((state) => ({
@@ -455,7 +462,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       })),
     setP_SelectedBodyPart: (selectedBodyPart) =>
       set((state) => {
-        console.log(selectedBodyPart)
+        console.log(selectedBodyPart);
         const { bodyPart } = selectedBodyPart; // Obtenemos la parte del cuerpo del Armor
         // console.log(bodyPart)
         // console.log(!state.player.bodyParts.hasOwnProperty(bodyPart))

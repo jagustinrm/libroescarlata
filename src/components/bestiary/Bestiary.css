@@ -76,7 +76,7 @@
   background-color: #ddd;
 }
 @media (max-width: 1360px) and (max-height: 768px) {
-  .bestiaryContainer{
+  .bestiaryContainer {
     max-height: 550px;
   }
 }

@@ -1,75 +1,74 @@
 [
-    {
-      "name": "Pechera",
-      "id": "armor-leather-001",
-      "img": "leatherArmor.png",
-      "weight": 5,
-      "cost": 50,
-      "description": "Una armadura ligera de cuero, ideal para aventureros ágiles.",
-      "armorValue": 1,
-      "bodyPart": "pecho",
-      "equipLevel": 1,
-      "rarity": "Común",
-      "material": "de cuero",
-      "levelRequirement": 1,
-      "durability": {
-        "current": 50,
-        "max": 50,
-        "repairable": true
-      },
-      "sockets": 0,
-      "color": "#F8F8F8",
-      "actions": {
-        "equippable": true
-      }
+  {
+    "name": "Pechera",
+    "id": "armor-leather-001",
+    "img": "leatherArmor.png",
+    "weight": 5,
+    "cost": 50,
+    "description": "Una armadura ligera de cuero, ideal para aventureros ágiles.",
+    "armorValue": 1,
+    "bodyPart": "pecho",
+    "equipLevel": 1,
+    "rarity": "Común",
+    "material": "de cuero",
+    "levelRequirement": 1,
+    "durability": {
+      "current": 50,
+      "max": 50,
+      "repairable": true
     },
-    {
-      "name": "Túnica",  
-      "id": "armor-cloth-001",
-      "img": "clothArmor.png",
-      "weight": 2,
-      "cost": 30,
-      "bodyPart": "pecho",
-      "description": "Una túnica de tela resistente, común entre los magos y estudiosos.",
-      "armorValue": 0,
-      "equipLevel": 1,
-      "rarity": "Común",
-      "material": "de tela",
-      "levelRequirement": 1,
-      "durability": {
-        "current": 40,
-        "max": 40,
-        "repairable": true
-      },
-      "sockets": 0,
-      "color": "#F8F8F8",
-      "actions": {
-        "equippable": true
-      }
-    },
-    {
-      "name": "Pechera",   
-      "id": "armor-steel-001",
-      "img": "steelArmor.png",
-      "weight": 15,
-      "cost": 100,
-      "bodyPart": "pecho",
-      "description": "Una armadura robusta de acero, perfecta para guerreros fuertes.",
-      "armorValue": 3,
-      "equipLevel": 1,
-      "rarity": "Común",
-      "material": "de metal",
-      "levelRequirement": 1,
-      "durability": {
-        "current": 100,
-        "max": 100,
-        "repairable": true
-      },
-      "sockets": 0,
-      "color": "#F8F8F8",
-      "actions": {
-        "equippable": true
-      }
+    "sockets": 0,
+    "color": "#F8F8F8",
+    "actions": {
+      "equippable": true
     }
-  ]
-  
+  },
+  {
+    "name": "Túnica",
+    "id": "armor-cloth-001",
+    "img": "clothArmor.png",
+    "weight": 2,
+    "cost": 30,
+    "bodyPart": "pecho",
+    "description": "Una túnica de tela resistente, común entre los magos y estudiosos.",
+    "armorValue": 0,
+    "equipLevel": 1,
+    "rarity": "Común",
+    "material": "de tela",
+    "levelRequirement": 1,
+    "durability": {
+      "current": 40,
+      "max": 40,
+      "repairable": true
+    },
+    "sockets": 0,
+    "color": "#F8F8F8",
+    "actions": {
+      "equippable": true
+    }
+  },
+  {
+    "name": "Pechera",
+    "id": "armor-steel-001",
+    "img": "steelArmor.png",
+    "weight": 15,
+    "cost": 100,
+    "bodyPart": "pecho",
+    "description": "Una armadura robusta de acero, perfecta para guerreros fuertes.",
+    "armorValue": 3,
+    "equipLevel": 1,
+    "rarity": "Común",
+    "material": "de metal",
+    "levelRequirement": 1,
+    "durability": {
+      "current": 100,
+      "max": 100,
+      "repairable": true
+    },
+    "sockets": 0,
+    "color": "#F8F8F8",
+    "actions": {
+      "equippable": true
+    }
+  }
+]

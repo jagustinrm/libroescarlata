@@ -65,13 +65,17 @@ export const getItemsFromFirebase = async (
     const scrollsRef = ref(database, `scrolls_${playerId}`); // Referencia para armors
 
     // Obtén los datos desde Firebase en paralelo
-    const [snapshotWeapons, snapshotAccessories, snapshotArmors, snapshotScrolls] =
-      await Promise.all([
-        get(weaponsRef),
-        get(accessoriesRef),
-        get(armorsRef), 
-        get(scrollsRef),
-      ]);
+    const [
+      snapshotWeapons,
+      snapshotAccessories,
+      snapshotArmors,
+      snapshotScrolls,
+    ] = await Promise.all([
+      get(weaponsRef),
+      get(accessoriesRef),
+      get(armorsRef),
+      get(scrollsRef),
+    ]);
 
     // Mapea los datos a arrays de Weapon, Accessory y Armor
     const weapons: Weapon[] = snapshotWeapons.exists()
@@ -94,7 +98,7 @@ export const getItemsFromFirebase = async (
           ...snapshotArmors.val()[key],
         }))
       : [];
-      const scrolls: Scroll[] = snapshotScrolls.exists()
+    const scrolls: Scroll[] = snapshotScrolls.exists()
       ? Object.keys(snapshotScrolls.val()).map((key) => ({
           id: key,
           ...snapshotScrolls.val()[key],

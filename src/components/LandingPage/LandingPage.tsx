@@ -15,22 +15,35 @@ const LandingPage: React.FC = () => {
   const [validatedName, setValidatedName] = useState<boolean>(false);
   const [validatedPassword, setValidatedPassword] = useState<string>('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
-  const {setAreItemsLoaded, playerActions} = useGlobalState();
-  useValidateInputs(inputName, inputPassword, setValidatedName, setValidatedPassword);
+  const { setAreItemsLoaded, playerActions } = useGlobalState();
+  useValidateInputs(
+    inputName,
+    inputPassword,
+    setValidatedName,
+    setValidatedPassword,
+  );
 
-  const onNewPlayer = async () => { // Crear nuevo personaje
-    await handleSaveNewPlayer({inputName, inputPassword, setInputName, navigate})
+  const onNewPlayer = async () => {
+    // Crear nuevo personaje
+    await handleSaveNewPlayer({
+      inputName,
+      inputPassword,
+      setInputName,
+      navigate,
+    });
   };
-  const onLoadPlayer = async () => { // Cargar personaje
+  const onLoadPlayer = async () => {
+    // Cargar personaje
     await handleLoadPlayer({ inputName, inputPassword, navigate });
   };
-  const toggleView = () => {  // Alternar entre crear cuenta y cargar personaje
-    setIsCreatingAccount(!isCreatingAccount); 
+  const toggleView = () => {
+    // Alternar entre crear cuenta y cargar personaje
+    setIsCreatingAccount(!isCreatingAccount);
   };
 
   useEffect(() => {
     playerActions.resetPlayer();
-    setAreItemsLoaded(false)
+    setAreItemsLoaded(false);
     localStorage.removeItem('playerState');
     localStorage.removeItem('inventoryState');
   }, []);
@@ -58,35 +71,43 @@ const LandingPage: React.FC = () => {
         </p>
         {isCreatingAccount ? (
           <>
-            <h2 style={{marginBottom: '3px'}} >Tu nombre es: {inputName} </h2>
+            <h2 style={{ marginBottom: '3px' }}>Tu nombre es: {inputName} </h2>
             <div className="playerLoaderButton">
-              <div style={{display: 'flex', flexDirection: 'column', gap: '2px'}}>
+              <div
+                style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}
+              >
                 <input
-                className="nameInput"
-                type="text"
-                placeholder="Ingresá tu nombre"
-                value={inputName}
-                onChange={(e) => setInputName(e.target.value)}
+                  className="nameInput"
+                  type="text"
+                  placeholder="Ingresá tu nombre"
+                  value={inputName}
+                  onChange={(e) => setInputName(e.target.value)}
                 />
                 <input
-                className="passInput"
-                type="password"
-                placeholder="Ingresá contraseña"
-                value={inputPassword}
-                onChange={(e) => setInputPassword(e.target.value)}
-              />
+                  className="passInput"
+                  type="password"
+                  placeholder="Ingresá contraseña"
+                  value={inputPassword}
+                  onChange={(e) => setInputPassword(e.target.value)}
+                />
               </div>
               <div>
-              {<ButtonEdited
-                label="Ingresar"
-                width="130px"
-                height="0px"
-                onClick={onNewPlayer}
-                disabled={!validatedName || validatedPassword ? true : false}
-              />}
+                {
+                  <ButtonEdited
+                    label="Ingresar"
+                    width="130px"
+                    height="0px"
+                    onClick={onNewPlayer}
+                    disabled={
+                      !validatedName || validatedPassword ? true : false
+                    }
+                  />
+                }
               </div>
             </div>
-            <p style={{fontSize: '18px', marginBottom: '0px'}}>{validatedPassword} </p>
+            <p style={{ fontSize: '18px', marginBottom: '0px' }}>
+              {validatedPassword}{' '}
+            </p>
             <div className="createAccount">
               <p>¿Tenés cuenta? </p>
               <p className="linkButton rpgui-cursor-point" onClick={toggleView}>
@@ -96,41 +117,46 @@ const LandingPage: React.FC = () => {
           </>
         ) : (
           <>
-            <h2 style={{marginBottom: '3px'}}>Cargar Personaje</h2>
-            <div className="playerLoaderButton" style={{marginBottom: '10px'}}>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '2px'}} >
-              <input
-                type="text"
-                id="playerName"
-                className="nameInput"
-                value={inputName}
-                onChange={(e) => setInputName(e.target.value)}
-                placeholder="Cargar personaje"
-              />
-                                       <input
-                className="passInput"
-                type="password"
-                placeholder="Ingresá contraseña"
-                value={inputPassword}
-                onChange={(e) => setInputPassword(e.target.value)}
-              />
+            <h2 style={{ marginBottom: '3px' }}>Cargar Personaje</h2>
+            <div
+              className="playerLoaderButton"
+              style={{ marginBottom: '10px' }}
+            >
+              <div
+                style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}
+              >
+                <input
+                  type="text"
+                  id="playerName"
+                  className="nameInput"
+                  value={inputName}
+                  onChange={(e) => setInputName(e.target.value)}
+                  placeholder="Cargar personaje"
+                />
+                <input
+                  className="passInput"
+                  type="password"
+                  placeholder="Ingresá contraseña"
+                  value={inputPassword}
+                  onChange={(e) => setInputPassword(e.target.value)}
+                />
               </div>
               <div>
-              <ButtonEdited
-                label="Cargar"
-                width="130px"
-                height="0px"
-                onClick={onLoadPlayer}
-              />
+                <ButtonEdited
+                  label="Cargar"
+                  width="130px"
+                  height="0px"
+                  onClick={onLoadPlayer}
+                />
               </div>
-              </div>
+            </div>
             <div className="createAccount">
               <p>¿No tenés cuenta? </p>
               <p
                 className="linkButton rpgui-cursor-point "
                 onClick={toggleView}
               >
-                 Crear cuenta
+                Crear cuenta
               </p>
             </div>
           </>

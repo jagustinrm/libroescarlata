@@ -1,7 +1,7 @@
 // playerActions.ts
-import { NavigateFunction } from "react-router-dom";
-import FirebaseItemsLoader from "../../loaders/FirebaseItemsLoader";
-import { loadPlayerFromFirebase } from "../../firebase/savePlayerStateToFirebase ";
+import { NavigateFunction } from 'react-router-dom';
+import FirebaseItemsLoader from '../../loaders/FirebaseItemsLoader';
+import { loadPlayerFromFirebase } from '../../firebase/savePlayerStateToFirebase ';
 
 interface HandleLoadPlayerProps {
   inputName?: string; // Puede venir undefined
@@ -19,16 +19,16 @@ export const handleLoadPlayer = async ({
 
   // Si no se proporcionó ningún nombre, se alerta
   if (inputName === undefined || inputName === null) {
-    alert("Por favor, ingresa un nombre de jugador.");
+    alert('Por favor, ingresa un nombre de jugador.');
     return;
   }
 
   // Si el nombre ingresado es una cadena vacía o solo espacios, se usa "guest-player"
-  if (inputName.trim() === "") {
-    const guestPlayer = "guest-player";
-    const res = await loadPlayerFromFirebase(guestPlayer, "");
+  if (inputName.trim() === '') {
+    const guestPlayer = 'guest-player';
+    const res = await loadPlayerFromFirebase(guestPlayer, '');
     if (res) {
-      navigate("/home");
+      navigate('/home');
     }
     return;
   }
@@ -36,6 +36,6 @@ export const handleLoadPlayer = async ({
   // Se intenta cargar el jugador con los datos ingresados
   const res = await loadPlayerFromFirebase(inputName, inputPassword);
   if (res) {
-    navigate("/home");
+    navigate('/home');
   }
 };

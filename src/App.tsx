@@ -49,7 +49,7 @@ function App() {
       <OtherItemsLoader />
       <WeaponLoader />
       <ArmorsLoader />
-      <PetsLoader/>
+      <PetsLoader />
       <PotionsLoader />
       <ClassLoader />
       <SpellLoader />
@@ -62,23 +62,23 @@ function App() {
       <StoryLoader />
       <PlayerStateSaver />
       <InventoryStateLoader />
-        <HeaderMenu />
-        <DelayedDisplay delay={300} duration={200}>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/characterSelector" element={<CharacterSelector />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/fightScene" element={<FightScene />} />
-            <Route path="/petStore" element={<PetStore />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/itemShop" element={<ItemShop />} />
-            <Route path="/playerstats" element={<PlayerStats />} />
-            <Route path="/storyMode" element={<StoryMode />} />
-            <Route path="/chapter" element={<Chapter />} />
-            <Route path="/bestiary" element={<Bestiary />} />
-            <Route path="/chat" element={<Chat />} />
-          </Routes>
-        </DelayedDisplay>
+      <HeaderMenu />
+      <DelayedDisplay delay={300} duration={200}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/characterSelector" element={<CharacterSelector />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/fightScene" element={<FightScene />} />
+          <Route path="/petStore" element={<PetStore />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/itemShop" element={<ItemShop />} />
+          <Route path="/playerstats" element={<PlayerStats />} />
+          <Route path="/storyMode" element={<StoryMode />} />
+          <Route path="/chapter" element={<Chapter />} />
+          <Route path="/bestiary" element={<Bestiary />} />
+          <Route path="/chat" element={<Chat />} />
+        </Routes>
+      </DelayedDisplay>
     </BrowserRouter>
   );
 }

@@ -41,7 +41,6 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         <button
           className="rpgui-button newDesign potionsButton"
           id="newDesign"
-
           disabled={creature.health === 0 || player.p_LeftHealth === 0}
         >
           {

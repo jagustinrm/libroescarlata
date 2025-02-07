@@ -7,11 +7,13 @@
       "level": 1,
       "hitPoints": "1d4",
       "armorClass": 15,
-      "attacks": [{
-        "damage": 20,
-        "damageMax": 40,
-        "range": 10
-      }],
+      "attacks": [
+        {
+          "damage": 20,
+          "damageMax": 40,
+          "range": 10
+        }
+      ],
       "specialAbilities": ["visión nocturna", "sigilo"],
       "img": "/img/pets/cat.png"
     },
@@ -22,11 +24,13 @@
       "level": 1,
       "hitPoints": "1d4",
       "armorClass": 14,
-      "attacks": [{
-        "damage": 20,
-        "damageMax": 40,
-        "range": 10
-      }],
+      "attacks": [
+        {
+          "damage": 20,
+          "damageMax": 40,
+          "range": 10
+        }
+      ],
       "specialAbilities": ["cambio de color", "visibilidad en la oscuridad"],
       "img": "/img/pets/baby_chameleon.png"
     },
@@ -37,11 +41,13 @@
       "level": 1,
       "hitPoints": "1d4",
       "armorClass": 15,
-      "attacks": [{
-        "damage": 20,
-        "damageMax": 40,
-        "range": 10
-      }],
+      "attacks": [
+        {
+          "damage": 20,
+          "damageMax": 40,
+          "range": 10
+        }
+      ],
       "specialAbilities": ["vuelo", "visión aguda"],
       "img": "/img/pets/crow.png"
     },
@@ -52,11 +58,13 @@
       "level": 1,
       "hitPoints": "1d6+1",
       "armorClass": 13,
-      "attacks": [{
-        "damage": 20,
-        "damageMax": 40,
-        "range": 10
-      }],
+      "attacks": [
+        {
+          "damage": 20,
+          "damageMax": 40,
+          "range": 10
+        }
+      ],
       "specialAbilities": ["olfato agudo", "sentidos agudos"],
       "img": "/img/pets/baby_dog.png"
     },
@@ -67,12 +75,18 @@
       "level": 1,
       "hitPoints": "1d10+2",
       "armorClass": 15,
-      "attacks": [{
-        "damage": 20,
-        "damageMax": 40,
-        "range": 10
-      }],
-      "specialAbilities": ["aliento de fuego", "visión en la oscuridad", "resistencia al fuego (5)"],
+      "attacks": [
+        {
+          "damage": 20,
+          "damageMax": 40,
+          "range": 10
+        }
+      ],
+      "specialAbilities": [
+        "aliento de fuego",
+        "visión en la oscuridad",
+        "resistencia al fuego (5)"
+      ],
       "img": "/img/pets/baby_dragon.png",
       "cost": 1500
     },
@@ -83,15 +97,14 @@
       "level": 1,
       "hitPoints": "1d8",
       "armorClass": 14,
-      "attacks": [{
-        "damage": 25,
-        "damageMax": 45,
-        "range": 10
-      }],
-      "specialAbilities": [
-        "inmunidad al fuego",
-        "toque ardiente"
+      "attacks": [
+        {
+          "damage": 25,
+          "damageMax": 45,
+          "range": 10
+        }
       ],
+      "specialAbilities": ["inmunidad al fuego", "toque ardiente"],
       "img": "/img/pets/minor_fire_elemental.png",
       "cost": 300
     },
@@ -102,15 +115,14 @@
       "level": 1,
       "hitPoints": "1d8",
       "armorClass": 14,
-      "attacks": [{
-        "damage": 25,
-        "damageMax": 45,
-        "range": 10
-      }],
-      "specialAbilities": [
-        "inmunidad al hielo",
-        "toque congelante"
+      "attacks": [
+        {
+          "damage": 25,
+          "damageMax": 45,
+          "range": 10
+        }
       ],
+      "specialAbilities": ["inmunidad al hielo", "toque congelante"],
       "img": "/img/pets/minor_ice_elemental.png",
       "cost": 300
     },
@@ -121,11 +133,13 @@
       "level": 1,
       "hitPoints": "1d3",
       "armorClass": 12,
-      "attacks":[ {
-        "damage": 30,
-        "damageMax": 50,
-        "range": 10
-      }],
+      "attacks": [
+        {
+          "damage": 30,
+          "damageMax": 50,
+          "range": 10
+        }
+      ],
       "specialAbilities": ["veneno débil", "movimiento sigiloso"],
       "img": "/img/pets/baby_snake.png",
       "cost": 1000
@@ -137,15 +151,16 @@
       "level": 1,
       "hitPoints": "1d6",
       "armorClass": 14,
-      "attacks": [{
-        "damage": 30,
-        "damageMax": 50,
-        "range": 10
-      }],
+      "attacks": [
+        {
+          "damage": 30,
+          "damageMax": 50,
+          "range": 10
+        }
+      ],
       "specialAbilities": ["visión nocturna", "agilidad mejorada"],
       "img": "/img/pets/baby_tiger.png",
       "cost": 1000
     }
-    
   ]
 }

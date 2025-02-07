@@ -15,13 +15,13 @@ El componente `NPCDialog` permite crear y manejar un sistema de diálogo interac
 
 ### Props del Componente
 
-| Prop           | Tipo                  | Descripción                                                                 |
-|----------------|-----------------------|-----------------------------------------------------------------------------|
-| `dialogId`     | `string`             | ID del diálogo inicial.                                                    |
-| `onDialogEnd`  | `() => void`         | Callback que se ejecuta al finalizar el diálogo.                           |
-| `chapterIndex` | `number | undefined` | Índice del capítulo actual en la historia.                                 |
-| `storyIndex`   | `number | undefined` | Índice de la historia en progreso.                                         |
-| `storyId`      | `string`             | ID único de la historia a la que pertenece el diálogo.                     |
+| Prop           | Tipo         | Descripción                                            |
+| -------------- | ------------ | ------------------------------------------------------ | ------------------------------------------ |
+| `dialogId`     | `string`     | ID del diálogo inicial.                                |
+| `onDialogEnd`  | `() => void` | Callback que se ejecuta al finalizar el diálogo.       |
+| `chapterIndex` | `number      | undefined`                                             | Índice del capítulo actual en la historia. |
+| `storyIndex`   | `number      | undefined`                                             | Índice de la historia en progreso.         |
+| `storyId`      | `string`     | ID único de la historia a la que pertenece el diálogo. |
 
 ### Estados Internos
 
@@ -52,11 +52,9 @@ El componente utiliza funciones definidas en `dialogHandlers.ts`:
 Este archivo contiene los controladores para manejar las interacciones en el diálogo:
 
 1. **`handleOptionSelect`**:
+
    - Lógica para determinar la acción según el resultado (`outcome`) de la opción seleccionada.
    - Actualiza el progreso del jugador, navega a escenas específicas o gestiona el inventario.
 
 2. **`handleContinue`**:
    - Avanza el diálogo a la siguiente línea o finaliza el diálogo si no hay más líneas.
-
-
-

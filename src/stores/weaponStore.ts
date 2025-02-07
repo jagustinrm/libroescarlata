@@ -4,7 +4,7 @@ export const useWeaponStore = create<WeaponStore>((set) => ({
   weapons: [],
 
   areWeaponsLoaded: false,
- setWeapons: (weapons) => {
+  setWeapons: (weapons) => {
     set({ weapons, areWeaponsLoaded: true });
   },
   addNewWeapon: (newWeapon) =>

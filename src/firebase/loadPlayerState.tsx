@@ -14,7 +14,6 @@ const LoadPlayerFromFirebase = () => {
   useEffect(() => {
     const fetchPlayerData = async () => {
       try {
-        
         const playerRef = ref(database, `players/${playerName}`);
 
         const snapshot = await get(playerRef);

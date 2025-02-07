@@ -45,7 +45,6 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     totalMDmgReduction: (enemyLevel) => {
       return calculateDmgMReduction(get().creature.mdef, enemyLevel);
     },
-    
   },
 
   setCreatures: (creatures: Creature[]) =>

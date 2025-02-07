@@ -23,4 +23,3 @@ const WeaponLoader = () => {
   return null;
 };
 export default WeaponLoader;
-

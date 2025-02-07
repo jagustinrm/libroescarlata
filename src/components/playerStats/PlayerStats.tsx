@@ -4,13 +4,13 @@ import LeftColumnPStats from './leftColumn';
 import MediumColumnPStats from './mediumColumn';
 import RightColumnPStats from './rightColumn';
 export default function PlayerStats() {
-  useAnimateExclamationMark()
+  useAnimateExclamationMark();
   return (
     <section className="sectionPlayer rpgui-container framed-golden-2">
       <div className="container containerPlayer ">
-        <LeftColumnPStats/>
-        <MediumColumnPStats/>
-        <RightColumnPStats/>
+        <LeftColumnPStats />
+        <MediumColumnPStats />
+        <RightColumnPStats />
       </div>
     </section>
   );

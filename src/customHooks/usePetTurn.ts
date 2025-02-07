@@ -19,13 +19,13 @@ export const usePetTurn = ({
   setActionMessages,
   fightType,
   handleMessage,
-  handlePostCombatActs
+  handlePostCombatActs,
 }: EnemyTurnProps) => {
   const { enemyPosition, petPosition, setPetPosition, playerPosition } =
     usePositionStore.getState();
   const { creature, setCreatureHealth } = useCreatureStore.getState();
   const { player } = usePlayerStore.getState();
-  const {setFloatingMessage, setSoundUrl} = useAppStore.getState()
+  const { setFloatingMessage, setSoundUrl } = useAppStore.getState();
   const { currentCharacter, nextTurn } = useTurnStore.getState();
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -38,10 +38,13 @@ export const usePetTurn = ({
         creature.health > 0 &&
         player.p_LeftHealth > 0
       ) {
-        const adjustedDistance = calculateDistance(playerPosition, enemyPosition); 
-        console.log(adjustedDistance)
-        console.log(player.selectedPet.attacks[0]) 
-       
+        const adjustedDistance = calculateDistance(
+          playerPosition,
+          enemyPosition,
+        );
+        console.log(adjustedDistance);
+        console.log(player.selectedPet.attacks[0]);
+
         if (adjustedDistance <= player.selectedPet.attacks[0].range) {
           const petAttackTimeout = setTimeout(() => {
             // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
@@ -52,16 +55,15 @@ export const usePetTurn = ({
             );
 
             if (success) {
-              const {damage, damageMax} = player.selectedPet.attacks[0]
+              const { damage, damageMax } = player.selectedPet.attacks[0];
               const totalDamage = Math.floor(
-                Math.random() * (damageMax - damage) +
-                damage,
+                Math.random() * (damageMax - damage) + damage,
               );
               const redDamage = creature.totalDmgReduction(creature.level);
-                const finalDamage = Math.floor(
-                  totalDamage * (1 - redDamage / 100),
-                );
-  
+              const finalDamage = Math.floor(
+                totalDamage * (1 - redDamage / 100),
+              );
+
               setCreatureHealth(Math.max(player.p_LeftHealth - finalDamage, 0));
 
               //   setSoundUrl(creature.attacks[0].soundEffect)
@@ -78,8 +80,12 @@ export const usePetTurn = ({
                 textColor: 'red',
                 position: enemyPosition,
               });
-                            
-              if (creature.health &&  creature.health - finalDamage <= 0 && fightType) {
+
+              if (
+                creature.health &&
+                creature.health - finalDamage <= 0 &&
+                fightType
+              ) {
                 handleMessage?.('¡Has ganado el combate!', 'success', false);
                 handlePostCombatActs?.(fightType, creature);
               }

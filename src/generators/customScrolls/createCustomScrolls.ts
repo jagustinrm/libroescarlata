@@ -19,28 +19,27 @@ export async function createCustomScroll(): Promise<Scroll | null> {
   const numberSpell = selectedSpell.id.replace(/\D+/g, '');
 
   const images = import.meta.glob('/src/assets/img/scrolls/*.png') as Record<
-  string,
-  () => Promise<{ default: string }>
->;
-const getImageUrl = async (): Promise<string> => {
-  const paths = [
-    `/src/assets/img/scrolls/scroll-${numberSpell}.png`,
-    `/src/assets/img/scrolls/scroll.png`,
-  ].map((path) => path.toLowerCase());
-  for (const path of paths) {
-    if (images[path]) {
-      try {
-        const module = await images[path]();
-        return module.default;
-      } catch (error) {
-        console.error(`Error cargando la imagen: ${path}`, error);
+    string,
+    () => Promise<{ default: string }>
+  >;
+  const getImageUrl = async (): Promise<string> => {
+    const paths = [
+      `/src/assets/img/scrolls/scroll-${numberSpell}.png`,
+      `/src/assets/img/scrolls/scroll.png`,
+    ].map((path) => path.toLowerCase());
+    for (const path of paths) {
+      if (images[path]) {
+        try {
+          const module = await images[path]();
+          return module.default;
+        } catch (error) {
+          console.error(`Error cargando la imagen: ${path}`, error);
+        }
       }
     }
-  }
-  return '/src/assets/img/scrolls/scroll.png';
-};
-const imgUrl = await getImageUrl();
-
+    return '/src/assets/img/scrolls/scroll.png';
+  };
+  const imgUrl = await getImageUrl();
 
   const customScroll = {
     ...selectedSpell,

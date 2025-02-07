@@ -1,4 +1,4 @@
-import { Creature } from "./creatures";
+import { Creature } from './creatures';
 
 export interface Pet extends Creature {
   cost?: number;

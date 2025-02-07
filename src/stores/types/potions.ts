@@ -18,7 +18,7 @@ export interface Potion {
   img: string;
   levelRequirement?: number;
   color?: string;
-  deleteable?: boolean
+  deleteable?: boolean;
 }
 
 export interface PotionStore {

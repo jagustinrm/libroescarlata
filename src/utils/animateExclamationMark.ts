@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import usePlayerStore from "../stores/playerStore";
+import { useEffect } from 'react';
+import usePlayerStore from '../stores/playerStore';
 
 export function useAnimateExclamationMark() {
   // Obtenemos leftPoints directamente desde el store usando un selector

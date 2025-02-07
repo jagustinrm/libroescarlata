@@ -40,7 +40,7 @@ export default function FightScene() {
   const { enemy, fightType, event } = location.state;
   // const [floatingMessage, setFloatingMessage] =
   //   useState<FloatingMessageProps | null>(null);
-  
+
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {
     spells,
@@ -52,7 +52,7 @@ export default function FightScene() {
     inventories,
     playerPosition,
     setSummonPosition,
-    resetPositions
+    resetPositions,
   } = useGlobalState();
   const { addCharacter, currentCharacter } = useTurnStore();
   const [summon, setSummon] = useState<Creature | null>(null);
@@ -78,7 +78,8 @@ export default function FightScene() {
       // setExpTable,
     });
   };
-  const { setAmbientMusic, setMusicVolume, soundUrl, setSoundUrl } = useAppStore();
+  const { setAmbientMusic, setMusicVolume, soundUrl, setSoundUrl } =
+    useAppStore();
   const [pocion, setpocion] = useState<string>();
   const [opcionesArmas, setOpcionesArmas] = useState<Weapon[]>();
   const [opcionesSpells, setOpcionesSpells] = useState<Spell[]>();
@@ -104,11 +105,11 @@ export default function FightScene() {
     handleCheckLevelUp(); // Verificar subida de nivel
   }, [player.playerExp]);
   useEffect(() => {
-    resetPositions()
+    resetPositions();
     addCharacter({ id: 'player', name: player.name });
     addCharacter({ id: 'enemy', name: creature.name });
     player.selectedPet &&
-    addCharacter({ id: 'pet', name: player.selectedPet.name });
+      addCharacter({ id: 'pet', name: player.selectedPet.name });
     setAmbientMusic('battleSong');
     setMusicVolume(0.1);
   }, []);
@@ -131,7 +132,6 @@ export default function FightScene() {
     }
   }, [actionMessages]); // Ejecuta cada vez que la lista de mensajes cambia
 
-  
   const handleMessage = (
     message: string,
     type: string,
@@ -160,11 +160,10 @@ export default function FightScene() {
         handlePostCombatActs,
         fightType,
         handleMessage,
-   
       },
       additionalData,
     );
-    return res
+    return res;
   };
 
   useEnemyTurn({
@@ -181,7 +180,7 @@ export default function FightScene() {
     setActionMessages,
     fightType,
     handleMessage,
-    handlePostCombatActs
+    handlePostCombatActs,
   });
   const executeAttack = () => {
     if (currentCharacter && currentCharacter.id !== 'player') return;
@@ -210,20 +209,18 @@ export default function FightScene() {
     }, 1000);
   };
 
-  const executeScroll = (scroll: Scroll ): boolean  => {
+  const executeScroll = (scroll: Scroll): boolean => {
     const selectedAttack = scroll;
     const url = selectedAttack?.soundEffect || null;
     setSoundUrl(url);
     const res = handleAction('scroll', selectedAttack);
-    console.log(res)
+    console.log(res);
     setTimeout(() => {
       setSoundUrl(null);
     }, 1000);
-    return res
+    return res;
   };
   // ************************COMBATE *************************
-
- 
 
   const handleClose = (shouldClose: boolean) => {
     setMessageState((prevState) => ({
@@ -233,16 +230,14 @@ export default function FightScene() {
     if (shouldClose) {
       if (event) {
         const key = fightType === 'travel' ? 'updateTravel' : 'updatedEvent';
-        const data = fightType === 'travel' 
-          ? event 
-          : { ...event, status: 'completed' };
-  
+        const data =
+          fightType === 'travel' ? event : { ...event, status: 'completed' };
+
         localStorage.setItem(key, JSON.stringify(data));
       }
-      playerActions.resetBuffs()
+      playerActions.resetBuffs();
       navigate(-1);
     }
-
   };
 
   const xpPercentage =
@@ -314,10 +309,7 @@ export default function FightScene() {
         manaPercentage={manaPercentage}
       />
       <EnemyChar creature={creature} />
-      {
-        (soundUrl && (
-          <SoundPlayer volume={0.3} soundUrl={soundUrl} />
-        ))}
+      {soundUrl && <SoundPlayer volume={0.3} soundUrl={soundUrl} />}
       {messageState.show && (
         <MessageBox
           message={messageState.content}

@@ -25,7 +25,7 @@ const usePositionStore = create<PositionStore>((set) => {
 
   const initialEnemyPosition: Position = {
     x: 45 - 10 / 1.2, // 45 - offsetX
-    y: 0 - 20 / 1.5,  // 0 - offsetY
+    y: 0 - 20 / 1.5, // 0 - offsetY
   };
 
   const initialSummonPosition: Position = {

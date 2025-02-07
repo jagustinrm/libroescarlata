@@ -5,9 +5,14 @@ import { Story, StoryStore } from './types/story';
 const useStoryStore = create<StoryStore>((set, get) => ({
   stories: [],
   userProgress: {},
-
+  currentChapter: {
+    storyId: '',
+    chapterId: '',
+    currentDialogLine: 0,
+  },
+  setCurrentChapter: (currentChapter) => set({ currentChapter }),
   // Cargar una historia
-  loadStory: (story: Story) =>
+  loadStory: (story) =>
     set((state) => ({
       stories: [...state.stories, story],
     })),
@@ -15,7 +20,6 @@ const useStoryStore = create<StoryStore>((set, get) => ({
   // Cargar varias historias
   loadStories: (stories: Story[]) =>
     set((state) => {
-      console.log(stories);
       return {
         stories: [...state.stories, ...stories],
       };

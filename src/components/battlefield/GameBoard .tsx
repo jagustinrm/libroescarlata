@@ -45,7 +45,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   const { creature } = useCreatureStore();
   const { weapons } = useWeaponStore();
   const { spells } = useSpellStore();
-  const {floatingMessage, setFloatingMessage} = useAppStore.getState()
+  const { floatingMessage, setFloatingMessage } = useAppStore.getState();
   const { playerPosition, enemyPosition, summonPosition, petPosition } =
     usePositionStore();
   const { currentCharacter } = useTurnStore();
@@ -74,11 +74,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
     actionType: 'attack' | 'spell' | 'move',
     additionalData?: any,
   ) => {
-    handleCombatAction(
-      actionType,
-      {setActivateImage},
-      additionalData,
-    );
+    handleCombatAction(actionType, { setActivateImage }, additionalData);
 
     setPlaySound(true);
     setTimeout(() => {

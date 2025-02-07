@@ -40,12 +40,12 @@ const CombatUI: React.FC<CombatUIProps> = ({
   const executeItem = (item: any): boolean => {
     if (selectedType === 'scrolls') {
       const res = executeScroll(item);
-      console.log(res)
-      return  res
+      console.log(res);
+      return res;
     } else if (selectedType === 'potions') {
       return handlePotion({ item, handleMessage });
     }
-    return false; 
+    return false;
   };
   return (
     <div>
@@ -124,18 +124,20 @@ const CombatUI: React.FC<CombatUIProps> = ({
       </div>
       <div className="rpgui-container framed listCombatItems">
         {Object.entries(player.buffs).map(([key, val]) => (
-        <div 
-        key={key} >
-          <img
-          style={{width: '30px'}} 
-          src={key === 'con'? 
-            `img/icons/buffsIcons/${key}s.png`
-            : `img/icons/buffsIcons/${key}.png`} alt="" />  
-          <p
-           style={{position: 'absolute', top: 0, left: 34}}
-          >{val.duration}</p>
-        </div>
-
+          <div key={key}>
+            <img
+              style={{ width: '30px' }}
+              src={
+                key === 'con'
+                  ? `img/icons/buffsIcons/${key}s.png`
+                  : `img/icons/buffsIcons/${key}.png`
+              }
+              alt=""
+            />
+            <p style={{ position: 'absolute', top: 0, left: 34 }}>
+              {val.duration}
+            </p>
+          </div>
         ))}
       </div>
       {selectedType && (

@@ -5,7 +5,7 @@ import { Creature } from '../stores/types/creatures.js';
 import usePlayerStore from '../stores/playerStore.ts';
 
 const usePostCombatActions = () => {
-  const {player,playerActions} = usePlayerStore.getState();
+  const { player, playerActions } = usePlayerStore.getState();
   const handlePostCombatActs = (fightType: string, creature: Creature) => {
     // Si el enemigo es derrotado
     if (creature) {

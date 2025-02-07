@@ -8,12 +8,13 @@ import { Class } from '../stores/types/class.js';
 import useInventoryStore from '../stores/inventoryStore';
 import useItemsStore from '../stores/itemsStore.js';
 import useGlobalState from '../customHooks/useGlobalState.ts';
-import {useInstantSavePlayerState } from '../firebase/savePlayerStateToFirebase .tsx';
+import { useInstantSavePlayerState } from '../firebase/savePlayerStateToFirebase .tsx';
 export default function CharacterSelector() {
   const { createItems } = useItemsStore();
   const navigate = useNavigate();
   const [isPlayerReady, setIsPlayerReady] = useState(false);
-  const { classes, areClassesLoaded, armors, weapons, player, playerActions } = useGlobalState();
+  const { classes, areClassesLoaded, armors, weapons, player, playerActions } =
+    useGlobalState();
   const savePlayerState = useInstantSavePlayerState();
   const inventoryStore = useInventoryStore.getState();
   const [hoveredClass, setHoveredClass] = useState<Class | null>(null);
@@ -70,8 +71,8 @@ export default function CharacterSelector() {
   };
   useEffect(() => {
     if (isPlayerReady) {
-      savePlayerState(); 
-      navigate('/home'); 
+      savePlayerState();
+      navigate('/home');
     }
   }, [isPlayerReady]);
   return (
@@ -89,16 +90,22 @@ export default function CharacterSelector() {
           ) : (
             <>
               {classes.map((classItem) => (
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
-                <img
-                  className="classIcons  rpgui-cursor-point"
-                  src={classItem.iconImg}
-                  alt={classItem.className}
-                  onMouseEnter={() => setHoveredClass(classItem)}
-                  onMouseLeave={() => setHoveredClass(null)}
-                  onClick={() => handleButtonClick(classItem)}
-                />
-                <p style={{margin: '0px'}}>{classItem.className} </p>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <img
+                    className="classIcons  rpgui-cursor-point"
+                    src={classItem.iconImg}
+                    alt={classItem.className}
+                    onMouseEnter={() => setHoveredClass(classItem)}
+                    onMouseLeave={() => setHoveredClass(null)}
+                    onClick={() => handleButtonClick(classItem)}
+                  />
+                  <p style={{ margin: '0px' }}>{classItem.className} </p>
                 </div>
               ))}
             </>
@@ -137,8 +144,7 @@ export default function CharacterSelector() {
                   {hoveredClass.manaDie}
                 </p>
               </div>
-              <div>
-              </div>
+              <div></div>
             </div>
           </div>
         )}

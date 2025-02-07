@@ -1,4 +1,3 @@
-
 import useAppStore from '../stores/appStore';
 import usePlayerStore from '../stores/playerStore';
 import usePositionStore from '../stores/positionStore';
@@ -9,16 +8,18 @@ interface HandleHealingParams {
   item: Item;
   handleMessage: (message: string, type: string, persist: boolean) => void;
 }
-export const handlePotion = ({ item, handleMessage }: HandleHealingParams): boolean => {
+export const handlePotion = ({
+  item,
+  handleMessage,
+}: HandleHealingParams): boolean => {
   const { player, playerActions } = usePlayerStore.getState();
   const currentHealth = player.p_LeftHealth;
   const { nextTurn } = useTurnStore.getState();
-  const {setFloatingMessage, setSoundUrl} = useAppStore.getState();
-  const {playerPosition} = usePositionStore.getState();
+  const { setFloatingMessage, setSoundUrl } = useAppStore.getState();
+  const { playerPosition } = usePositionStore.getState();
   if (item.type === 'Curación') {
-    
     if (!item) return false;
-    
+
     if (currentHealth < player.totalMaxHealth()) {
       const totalLeftHealth = currentHealth + item.effect?.amount;
       playerActions.setP_LeftHealth(
@@ -31,11 +32,11 @@ export const handlePotion = ({ item, handleMessage }: HandleHealingParams): bool
         textColor: 'green',
         position: playerPosition,
       });
-      setSoundUrl("/music/attacks/potion-drink.wav");
-      return true; 
+      setSoundUrl('/music/attacks/potion-drink.wav');
+      return true;
     } else {
       handleMessage('Tu vida está completa', 'success', false);
-      return false; 
+      return false;
     }
   } else if (item.type === 'Buff') {
     playerActions.addBuff(

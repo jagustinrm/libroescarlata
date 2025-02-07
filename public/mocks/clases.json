@@ -1,254 +1,273 @@
 [
-    {
-        "className": "Mago",
-        "hitDie": 40,
-        "manaDie": 120,
-        "dodgeDie": 0.5,
-        "hitRateDie":40,
-        "saves": {
-            "fortitude": 0,
-            "reflex": 0,
-            "will": 2
-        },
-        "classFeatures": ["Hechizos", "Familiar"],
-        "initialWeapon": ["weapon-baston-010"],
-        "initialArmor": ["armor-cloth-001"],
-        "stats": {
-            "strength": 8,
-            "dexterity": 12,
-            "constitution": 10,
-            "intelligence": 16,
-            "wisdom": 14,
-            "charisma": 10
-        },
-        "img": "/img/classes/class_mage.png",
-        "faceImg": "/img/classes/faces/charFaceMage.png",
-        "iconImg": "img/icons/mage-icon.png",
-        "initialSpells": ["Spell-001", "Spell-002", "Spell-003", "Spell-004"],
-        "description": "Un maestro de las artes arcanas, capaz de lanzar poderosos hechizos pero físicamente frágil."
+  {
+    "className": "Mago",
+    "hitDie": 40,
+    "manaDie": 120,
+    "dodgeDie": 0.5,
+    "hitRateDie": 40,
+    "saves": {
+      "fortitude": 0,
+      "reflex": 0,
+      "will": 2
     },
-    {
-        "className": "Guerrero",
-        "hitDie": 100,
-        "manaDie": 40,
-        "dodgeDie": 1,
-        "hitRateDie": 60,
-        "saves": {
-            "fortitude": 2,
-            "reflex": 0,
-            "will": 0
-        },
-        "classFeatures": ["Ataque poderoso", "Resistencia"],
-        "initialWeapon": ["weapon-espada-larga-001", "weapon-hacha-de-batalla-003"],
-        "initialArmor": ["armor-steel-001"],
-        "stats": {
-            "strength": 16,
-            "dexterity": 12,
-            "constitution": 14,
-            "intelligence": 10,
-            "wisdom": 10,
-            "charisma": 10
-        },
-        "img": "/img/classes/class_warrior.png",
-        "faceImg": "/img/classes/faces/charFaceWarrior.png",
-        "iconImg": "img/icons/warrior-icon.png",
-        "initialSpells": [],
-        "description": "Un combatiente fuerte y resistente, experto en el uso de armas y armaduras."
+    "classFeatures": ["Hechizos", "Familiar"],
+    "initialWeapon": ["weapon-baston-010"],
+    "initialArmor": ["armor-cloth-001"],
+    "stats": {
+      "strength": 8,
+      "dexterity": 12,
+      "constitution": 10,
+      "intelligence": 16,
+      "wisdom": 14,
+      "charisma": 10
     },
-    {
-        "className": "Pícaro",
-        "hitDie": 60,
-        "manaDie": 60,
-        "dodgeDie": 2,
-        "hitRateDie": 80,
-        "saves": {
-            "fortitude": 0,
-            "reflex": 2,
-            "will": 0
-        },
-        "classFeatures": ["Ataque furtivo", "Evasión", "Esquivar"],
-        "initialWeapon": ["weapon-daga-002", "weapon-lanza-007"],
-        "initialArmor": ["armor-leather-001"],
-        "stats": {
-            "strength": 10,
-            "dexterity": 16,
-            "constitution": 12,
-            "intelligence": 14,
-            "wisdom": 10,
-            "charisma": 12
-        },
-        "img": "/img/classes/class_rogue.png",
-        "faceImg": "/img/classes/faces/charFaceRogue.png",
-        "iconImg": "img/icons/rogue-icon.png",
-        "initialSpells": [],
-        "description": "Un experto en sigilo, trucos y ataques sorpresa, con gran destreza y astucia."
+    "img": "/img/classes/class_mage.png",
+    "faceImg": "/img/classes/faces/charFaceMage.png",
+    "iconImg": "img/icons/mage-icon.png",
+    "initialSpells": ["Spell-001", "Spell-002", "Spell-003", "Spell-004"],
+    "description": "Un maestro de las artes arcanas, capaz de lanzar poderosos hechizos pero físicamente frágil."
+  },
+  {
+    "className": "Guerrero",
+    "hitDie": 100,
+    "manaDie": 40,
+    "dodgeDie": 1,
+    "hitRateDie": 60,
+    "saves": {
+      "fortitude": 2,
+      "reflex": 0,
+      "will": 0
     },
-    {
-        "className": "Clérigo",
-        "hitDie": 80,
-        "manaDie": 100,
-        "dodgeDie": 0.5,
-        "hitRateDie": 40,
-        "saves": {
-            "fortitude": 2,
-            "reflex": 0,
-            "will": 2
-        },
-        "classFeatures": ["Hechizos divinos", "Reprender muertos vivientes", "Curación"],
-        "initialWeapon": ["weapon-martillo-de-guerra-009","weapon-baston-010" ],
-        "initialArmor": ["armor-cloth-001"],
-        "stats": {
-            "strength": 12,
-            "dexterity": 10,
-            "constitution": 14,
-            "intelligence": 10,
-            "wisdom": 16,
-            "charisma": 12
-        },
-        "img": "/img/classes/class_priest.png",
-        "faceImg": "/img/classes/faces/charFacePriest.png",
-        "iconImg": "img/icons/priest-icon.png",
-        "initialSpells": ["Spell-005"],
-        "description": "Un servidor divino con habilidades para sanar y luchar contra las fuerzas del mal."
+    "classFeatures": ["Ataque poderoso", "Resistencia"],
+    "initialWeapon": ["weapon-espada-larga-001", "weapon-hacha-de-batalla-003"],
+    "initialArmor": ["armor-steel-001"],
+    "stats": {
+      "strength": 16,
+      "dexterity": 12,
+      "constitution": 14,
+      "intelligence": 10,
+      "wisdom": 10,
+      "charisma": 10
     },
-    {
-        "className": "Bárbaro",
-        "hitDie": 120,
-        "manaDie": 40,
-        "dodgeDie": 1,
-        "hitRateDie": 60,
-        "saves": {
-            "fortitude": 2,
-            "reflex": 0,
-            "will": 0
-        },
-        "classFeatures": ["Furia", "Movimiento rápido", "Esquiva asombrosa"],
-        "initialWeapon": ["weapon-hacha-de-batalla-003", "weapon-lanza-007"],
-        "initialArmor": ["armor-leather-001"],
-        "stats": {
-            "strength": 16,
-            "dexterity": 12,
-            "constitution": 14,
-            "intelligence": 8,
-            "wisdom": 10,
-            "charisma": 10
-        },
-        "img": "/img/classes/class_barbarian.png",
-        "faceImg": "/img/classes/faces/charFaceBarbarian.png",
-        "iconImg": "img/icons/barbarian-icon.png",
-        "initialSpells": [],
-        "description": "Un guerrero salvaje que canaliza su furia para infligir daño devastador."
+    "img": "/img/classes/class_warrior.png",
+    "faceImg": "/img/classes/faces/charFaceWarrior.png",
+    "iconImg": "img/icons/warrior-icon.png",
+    "initialSpells": [],
+    "description": "Un combatiente fuerte y resistente, experto en el uso de armas y armaduras."
+  },
+  {
+    "className": "Pícaro",
+    "hitDie": 60,
+    "manaDie": 60,
+    "dodgeDie": 2,
+    "hitRateDie": 80,
+    "saves": {
+      "fortitude": 0,
+      "reflex": 2,
+      "will": 0
     },
-    {
-        "className": "Bardo",
-        "hitDie": 60,
-        "manaDie": 80,
-        "dodgeDie": 1,
-        "hitRateDie": 70,
-        "saves": {
-            "fortitude": 0,
-            "reflex": 2,
-            "will": 2
-        },
-        "classFeatures": ["Inspiración bardica", "Hechizos arcanos", "Conocimiento de bardo"],
-        "initialWeapon": ["weapon-daga-002", "weapon-baston-010"],
-        "initialArmor": ["armor-leather-001"],
-        "stats": {
-            "strength": 10,
-            "dexterity": 12,
-            "constitution": 10,
-            "intelligence": 12,
-            "wisdom": 10,
-            "charisma": 16
-        },
-        "img": "/img/classes/class_bard.png",
-        "faceImg": "/img/classes/faces/charFaceBard.png",
-        "iconImg": "img/icons/bard-icon.png",
-        "initialSpells": ["Proyectil mágico"],
-        "description": "Un artista y aventurero versátil que inspira a sus aliados con música y magia."
+    "classFeatures": ["Ataque furtivo", "Evasión", "Esquivar"],
+    "initialWeapon": ["weapon-daga-002", "weapon-lanza-007"],
+    "initialArmor": ["armor-leather-001"],
+    "stats": {
+      "strength": 10,
+      "dexterity": 16,
+      "constitution": 12,
+      "intelligence": 14,
+      "wisdom": 10,
+      "charisma": 12
     },
-    {
-        "className": "Druida",
-        "hitDie": 80,
-        "manaDie": 100,
-        "dodgeDie": 0.5,
-        "hitRateDie": 50,
-        "saves": {
-            "fortitude": 2,
-            "reflex": 0,
-            "will": 2
-        },
-        "classFeatures": ["Forma salvaje", "Hechizos divinos", "Conexión con la naturaleza"],
-        "initialWeapon": ["weapon-lanza-007", "weapon-baston-010"],
-        "initialArmor": ["armor-cloth-001"],
-        "stats": {
-            "strength": 10,
-            "dexterity": 10,
-            "constitution": 12,
-            "intelligence": 10,
-            "wisdom": 16,
-            "charisma": 12
-        },
-        "img": "/img/classes/class_druid.png",
-        "faceImg": "/img/classes/faces/charFaceDruid.png",
-        "iconImg": "img/icons/druid-icon.png",
-        "initialSpells": ["Spell-006", "Spell-007"],
-        "description": "Un protector de la naturaleza con habilidades mágicas y transformaciones animales."
+    "img": "/img/classes/class_rogue.png",
+    "faceImg": "/img/classes/faces/charFaceRogue.png",
+    "iconImg": "img/icons/rogue-icon.png",
+    "initialSpells": [],
+    "description": "Un experto en sigilo, trucos y ataques sorpresa, con gran destreza y astucia."
+  },
+  {
+    "className": "Clérigo",
+    "hitDie": 80,
+    "manaDie": 100,
+    "dodgeDie": 0.5,
+    "hitRateDie": 40,
+    "saves": {
+      "fortitude": 2,
+      "reflex": 0,
+      "will": 2
     },
-    {
-        "className": "Explorador",
-        "hitDie": 80,
-        "manaDie": 60,
-        "dodgeDie": 1.5,
-        "hitRateDie": 80,
-        "saves": {
-            "fortitude": 2,
-            "reflex": 2,
-            "will": 0
-        },
-        "classFeatures": ["Enemigo predilecto", "Empatía salvaje", "Combate con dos armas"],
-        "initialWeapon": ["weapon-arco-largo-004",  "weapon-lanza-007"],
-        "initialArmor": ["armor-leather-001"],
-        "stats": {
-            "strength": 14,
-            "dexterity": 14,
-            "constitution": 12,
-            "intelligence": 10,
-            "wisdom": 12,
-            "charisma": 10
-        },
-        "img": "/img/classes/class_ranger.png",
-        "faceImg": "/img/classes/faces/charFaceRanger.png",
-        "iconImg": "img/icons/ranger-icon.png",
-        "initialSpells": [],
-        "description": "Un experto en la supervivencia y el combate en la naturaleza."
+    "classFeatures": [
+      "Hechizos divinos",
+      "Reprender muertos vivientes",
+      "Curación"
+    ],
+    "initialWeapon": ["weapon-martillo-de-guerra-009", "weapon-baston-010"],
+    "initialArmor": ["armor-cloth-001"],
+    "stats": {
+      "strength": 12,
+      "dexterity": 10,
+      "constitution": 14,
+      "intelligence": 10,
+      "wisdom": 16,
+      "charisma": 12
     },
-    {
-        "className": "Paladín",
-        "hitDie": 100,
-        "manaDie": 80,
-        "dodgeDie": 0.5,
-        "hitRateDie": 55,
-        "saves": {
-            "fortitude": 2,
-            "reflex": 0,
-            "will": 2
-        },
-        "classFeatures": ["Detectar mal", "Imposición de manos", "Aura de coraje"],
-        "initialWeapon": ["weapon-espada-larga-001", "weapon-martillo-de-guerra-009"],
-        "initialArmor": ["armor-steel-001"],
-        "stats": {
-            "strength": 14,
-            "dexterity": 10,
-            "constitution": 14,
-            "intelligence": 10,
-            "wisdom": 14,
-            "charisma": 12
-        },
-        "img": "/img/classes/class_paladin.png",
-        "faceImg": "/img/classes/faces/charFacePaladian.png",
-        "iconImg": "img/icons/paladian-icon.png",
-        "initialSpells": ["Curación menor"],
-        "description": "Un campeón sagrado dedicado a la justicia y la protección de los inocentes."
-    }
+    "img": "/img/classes/class_priest.png",
+    "faceImg": "/img/classes/faces/charFacePriest.png",
+    "iconImg": "img/icons/priest-icon.png",
+    "initialSpells": ["Spell-005"],
+    "description": "Un servidor divino con habilidades para sanar y luchar contra las fuerzas del mal."
+  },
+  {
+    "className": "Bárbaro",
+    "hitDie": 120,
+    "manaDie": 40,
+    "dodgeDie": 1,
+    "hitRateDie": 60,
+    "saves": {
+      "fortitude": 2,
+      "reflex": 0,
+      "will": 0
+    },
+    "classFeatures": ["Furia", "Movimiento rápido", "Esquiva asombrosa"],
+    "initialWeapon": ["weapon-hacha-de-batalla-003", "weapon-lanza-007"],
+    "initialArmor": ["armor-leather-001"],
+    "stats": {
+      "strength": 16,
+      "dexterity": 12,
+      "constitution": 14,
+      "intelligence": 8,
+      "wisdom": 10,
+      "charisma": 10
+    },
+    "img": "/img/classes/class_barbarian.png",
+    "faceImg": "/img/classes/faces/charFaceBarbarian.png",
+    "iconImg": "img/icons/barbarian-icon.png",
+    "initialSpells": [],
+    "description": "Un guerrero salvaje que canaliza su furia para infligir daño devastador."
+  },
+  {
+    "className": "Bardo",
+    "hitDie": 60,
+    "manaDie": 80,
+    "dodgeDie": 1,
+    "hitRateDie": 70,
+    "saves": {
+      "fortitude": 0,
+      "reflex": 2,
+      "will": 2
+    },
+    "classFeatures": [
+      "Inspiración bardica",
+      "Hechizos arcanos",
+      "Conocimiento de bardo"
+    ],
+    "initialWeapon": ["weapon-daga-002", "weapon-baston-010"],
+    "initialArmor": ["armor-leather-001"],
+    "stats": {
+      "strength": 10,
+      "dexterity": 12,
+      "constitution": 10,
+      "intelligence": 12,
+      "wisdom": 10,
+      "charisma": 16
+    },
+    "img": "/img/classes/class_bard.png",
+    "faceImg": "/img/classes/faces/charFaceBard.png",
+    "iconImg": "img/icons/bard-icon.png",
+    "initialSpells": ["Proyectil mágico"],
+    "description": "Un artista y aventurero versátil que inspira a sus aliados con música y magia."
+  },
+  {
+    "className": "Druida",
+    "hitDie": 80,
+    "manaDie": 100,
+    "dodgeDie": 0.5,
+    "hitRateDie": 50,
+    "saves": {
+      "fortitude": 2,
+      "reflex": 0,
+      "will": 2
+    },
+    "classFeatures": [
+      "Forma salvaje",
+      "Hechizos divinos",
+      "Conexión con la naturaleza"
+    ],
+    "initialWeapon": ["weapon-lanza-007", "weapon-baston-010"],
+    "initialArmor": ["armor-cloth-001"],
+    "stats": {
+      "strength": 10,
+      "dexterity": 10,
+      "constitution": 12,
+      "intelligence": 10,
+      "wisdom": 16,
+      "charisma": 12
+    },
+    "img": "/img/classes/class_druid.png",
+    "faceImg": "/img/classes/faces/charFaceDruid.png",
+    "iconImg": "img/icons/druid-icon.png",
+    "initialSpells": ["Spell-006", "Spell-007"],
+    "description": "Un protector de la naturaleza con habilidades mágicas y transformaciones animales."
+  },
+  {
+    "className": "Explorador",
+    "hitDie": 80,
+    "manaDie": 60,
+    "dodgeDie": 1.5,
+    "hitRateDie": 80,
+    "saves": {
+      "fortitude": 2,
+      "reflex": 2,
+      "will": 0
+    },
+    "classFeatures": [
+      "Enemigo predilecto",
+      "Empatía salvaje",
+      "Combate con dos armas"
+    ],
+    "initialWeapon": ["weapon-arco-largo-004", "weapon-lanza-007"],
+    "initialArmor": ["armor-leather-001"],
+    "stats": {
+      "strength": 14,
+      "dexterity": 14,
+      "constitution": 12,
+      "intelligence": 10,
+      "wisdom": 12,
+      "charisma": 10
+    },
+    "img": "/img/classes/class_ranger.png",
+    "faceImg": "/img/classes/faces/charFaceRanger.png",
+    "iconImg": "img/icons/ranger-icon.png",
+    "initialSpells": [],
+    "description": "Un experto en la supervivencia y el combate en la naturaleza."
+  },
+  {
+    "className": "Paladín",
+    "hitDie": 100,
+    "manaDie": 80,
+    "dodgeDie": 0.5,
+    "hitRateDie": 55,
+    "saves": {
+      "fortitude": 2,
+      "reflex": 0,
+      "will": 2
+    },
+    "classFeatures": ["Detectar mal", "Imposición de manos", "Aura de coraje"],
+    "initialWeapon": [
+      "weapon-espada-larga-001",
+      "weapon-martillo-de-guerra-009"
+    ],
+    "initialArmor": ["armor-steel-001"],
+    "stats": {
+      "strength": 14,
+      "dexterity": 10,
+      "constitution": 14,
+      "intelligence": 10,
+      "wisdom": 14,
+      "charisma": 12
+    },
+    "img": "/img/classes/class_paladin.png",
+    "faceImg": "/img/classes/faces/charFacePaladian.png",
+    "iconImg": "img/icons/paladian-icon.png",
+    "initialSpells": ["Curación menor"],
+    "description": "Un campeón sagrado dedicado a la justicia y la protección de los inocentes."
+  }
 ]

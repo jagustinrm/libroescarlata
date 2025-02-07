@@ -21,10 +21,7 @@
         "range": 5
       }
     ],
-    "specialAbilities": [
-      "olfato agudo",
-      "visión en la oscuridad"
-    ]
+    "specialAbilities": ["olfato agudo", "visión en la oscuridad"]
   },
   {
     "name": "Serpiente Venenosa Pequeña",
@@ -48,10 +45,7 @@
         "range": 5
       }
     ],
-    "specialAbilities": [
-      "veneno (1d6 CON)",
-      "visión en la oscuridad"
-    ],
+    "specialAbilities": ["veneno (1d6 CON)", "visión en la oscuridad"],
     "mdef": 20
   },
   {
@@ -75,10 +69,7 @@
         "range": 5
       }
     ],
-    "specialAbilities": [
-      "inmunidad a parálisis",
-      "visión en la oscuridad"
-    ],
+    "specialAbilities": ["inmunidad a parálisis", "visión en la oscuridad"],
     "mdef": 20
   },
   {
@@ -111,10 +102,7 @@
         "range": 35
       }
     ],
-    "specialAbilities": [
-      "sigilo",
-      "visión en la oscuridad"
-    ],
+    "specialAbilities": ["sigilo", "visión en la oscuridad"],
     "mdef": 20
   },
   {
@@ -147,10 +135,7 @@
         "range": 35
       }
     ],
-    "specialAbilities": [
-      "visión en la oscuridad",
-      "resistencia a conjuros"
-    ],
+    "specialAbilities": ["visión en la oscuridad", "resistencia a conjuros"],
     "mdef": 20
   },
   {
@@ -174,10 +159,7 @@
         "range": 10
       }
     ],
-    "specialAbilities": [
-      "olfato agudo",
-      "carga feroz"
-    ],
+    "specialAbilities": ["olfato agudo", "carga feroz"],
     "mdef": 40
   },
   {
@@ -210,10 +192,7 @@
         "range": 35
       }
     ],
-    "specialAbilities": [
-      "olfato agudo",
-      "carga feroz"
-    ],
+    "specialAbilities": ["olfato agudo", "carga feroz"],
     "mdef": 40
   },
   {
@@ -246,10 +225,7 @@
         "range": 35
       }
     ],
-    "specialAbilities": [
-      "disciplina marcial",
-      "visión en la oscuridad"
-    ],
+    "specialAbilities": ["disciplina marcial", "visión en la oscuridad"],
     "mdef": 40
   },
   {
@@ -282,10 +258,7 @@
         "range": 35
       }
     ],
-    "specialAbilities": [
-      "disciplina marcial",
-      "visión en la oscuridad"
-    ],
+    "specialAbilities": ["disciplina marcial", "visión en la oscuridad"],
     "mdef": 40
   },
   {
@@ -356,11 +329,7 @@
         "range": 35
       }
     ],
-    "specialAbilities": [
-      "enredar",
-      "toxicidad",
-      "visión en la oscuridad"
-    ],
+    "specialAbilities": ["enredar", "toxicidad", "visión en la oscuridad"],
     "mdef": 70
   },
   {
@@ -430,10 +399,7 @@
         "range": 30
       }
     ],
-    "specialAbilities": [
-      "invisibilidad a voluntad",
-      "visión verdadera (18 m)"
-    ],
+    "specialAbilities": ["invisibilidad a voluntad", "visión verdadera (18 m)"],
     "mdef": 100
   },
   {

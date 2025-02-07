@@ -8,20 +8,20 @@ export interface Creature {
   expertice?: number;
   dodge: number;
   hitRate: number;
-  hitPoints: string; 
+  hitPoints: string;
   armorClass: number;
   mdef: number;
   attacks: {
-    name: string; 
+    name: string;
     type: string; // "melee" o "rango"
-    bonus: number; 
+    bonus: number;
     damage: number;
     damageMax: number;
     soundEffect: string;
     range: number;
   }[];
-  specialAbilities: string[]; 
-  img: string; 
+  specialAbilities: string[];
+  img: string;
   health?: number;
   stats: Stats;
   readonly dodgePercentage: () => number;

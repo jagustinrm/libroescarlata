@@ -30,7 +30,6 @@ export const handleOptionSelect = (
     setTravelCounter,
     handleContinue,
   } = context;
-
   if (option.outcome === 'fight') {
     navigate('/fightScene', {
       state: {
@@ -104,10 +103,18 @@ export const handleContinue = (context: {
       onDialogEnd();
     }
   } else {
-    setDisplayedText('');
-    setTimeout(() => {
-      setDisplayedText(currentLine?.text || '');
-      setIsTextCompleted(true);
-    }, 0);
+    setDisplayedText(currentLine?.text || '');
+    setIsTextCompleted(true);
   }
+};
+
+export const handleCompleteText = (
+  setDisplayedText: (value: string) => void,
+  currentLine: any,
+  setIsTextCompleted: (value: boolean) => void,
+  intervalId: any,
+) => {
+  clearInterval(intervalId);
+  setDisplayedText(currentLine?.text || '');
+  setIsTextCompleted(true);
 };

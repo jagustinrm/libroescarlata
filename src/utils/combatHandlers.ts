@@ -65,8 +65,6 @@ export const handleCombatAction = (
     }
   };
 
-
-
   const handleAttack = (): boolean => {
     if (!player || !creature) return false;
 
@@ -198,8 +196,15 @@ export const handleCombatAction = (
       ) {
         const damage =
           Math.floor(
-            Math.random() * (spellDetails.damageMax + player.mDamageMax() - spellDetails.damage + player.mDamage() + 1),
-          ) + spellDetails.damage + player.mDamage();
+            Math.random() *
+              (spellDetails.damageMax +
+                player.mDamageMax() -
+                spellDetails.damage +
+                player.mDamage() +
+                1),
+          ) +
+          spellDetails.damage +
+          player.mDamage();
         const redDamage = creature.totalDmgReduction(player.level);
         const finalDamage = Math.floor(damage * (1 - redDamage / 100));
 
@@ -348,6 +353,6 @@ export const handleCombatAction = (
   }
 
   finalizeTurn();
-  console.log(result)
+  console.log(result);
   return result; // Retorna el resultado de la acción
 };

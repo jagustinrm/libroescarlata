@@ -71,7 +71,6 @@
     width: 90%; /* Ajustar al ancho del contenedor */
     font-size: 16px;
   }
-  
 
   .playerLoaderButton {
     flex-direction: column; /* Apilar botones */

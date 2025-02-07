@@ -1,191 +1,190 @@
 {
-    "weapons": [
-        {
-            "id": "weapon-espada-larga-001",
-            "name": "Espada Larga",
-            "type": "Cuerpo a cuerpo",
-            "damage": 20,
-            "damageMax": 40,
-            "critical": "19-20/x2",
-            "weight": "4 lb",
-            "cost": 100,
-            "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros.",
-            "img": "/img/weapons/espada-larga.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "range": 5,
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-daga-002",
-            "name": "Daga",
-            "type": "Cuerpo a cuerpo o distancia",
-            "damage": 15,
-            "damageMax": 30,
-            "critical": "19-20/x2",
-            "range": 5,
-            "weight": "1 lb",
-            "cost": 100,
-            "description": "Ligera y fácil de ocultar, ideal como arma secundaria.",
-            "img": "/img/weapons/daga.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-            
-        },
-        {
-            "id": "weapon-hacha-de-batalla-003",
-            "name": "Hacha de Batalla",
-            "type": "Cuerpo a cuerpo",
-            "damage": 20,
-            "damageMax": 35,
-            "critical": "x3",
-            "range": 10,
-            "weight": "6 lb",
-            "cost": 100,
-            "description": "Un arma poderosa capaz de infligir daños devastadores.",
-            "img": "/img/weapons/hacha-de-batalla.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-arco-largo-004",
-            "name": "Arco Largo",
-            "type": "Distancia",
-            "damage": 20,
-            "damageMax": 40,
-            "critical": "x3",
-            "range": 30,
-            "weight": "3 lb",
-            "cost": 100,
-            "description": "Un arco de gran alcance, preferido por arqueros experimentados.",
-            "img": "/img/weapons/arco-largo.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-maza-005",
-            "name": "Maza",
-            "type": "Cuerpo a cuerpo",
-            "damage": 20,
-            "damageMax": 40,
-            "critical": "x2",
-            "weight": "5 lb",
-            "cost": 100,
-            "description": "Perfecta para romper armaduras y golpear con fuerza contundente.",
-            "img": "/img/weapons/maza.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-espadon-006",
-            "name": "Espadón",
-            "type": "Cuerpo a cuerpo",
-            "damage": 20,
-            "damageMax": 40,
-            "critical": "19-20/x2",
-            "weight": "8 lb",
-            "cost": 100,
-            "description": "Un arma imponente que requiere ambas manos para su uso.",
-            "img": "/img/weapons/espadon.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-lanza-007",
-            "name": "Lanza",
-            "type": "Cuerpo a cuerpo o distancia",
-            "damage": 15,
-            "damageMax": 35,
-            "critical": "x3",
-            "range": 10,
-            "weight": "6 lb",
-            "cost": 100,
-            "description": "Versátil para el combate cercano o para arrojar a distancia.",
-            "img": "/img/weapons/lanza.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-ballesta-ligera-008",
-            "name": "Ballesta Ligera",
-            "type": "Distancia",
-            "damage": 20,
-            "damageMax": 40,
-            "critical": "19-20/x2",
-            "range": 35,
-            "weight": "4 lb",
-            "cost": 100,
-            "description": "Un arma fácil de usar, ideal para ataques a distancia precisos.",
-            "img": "/img/weapons/ballesta-ligera.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-martillo-de-guerra-009",
-            "name": "Martillo de Guerra",
-            "type": "Cuerpo a cuerpo",
-            "damage": 20,
-            "damageMax": 40,
-            "critical": "x3",
-            "weight": "5 lb",
-            "cost": 100,
-            "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados.",
-            "img": "/img/weapons/martillo-de-guerra.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        },
-        {
-            "id": "weapon-baston-010",
-            "name": "Bastón",
-            "type": "Cuerpo a cuerpo",
-            "damage": 15,
-            "damageMax": 30,
-            "critical": "x2",
-            "weight": "4 lb",
-            "cost": 100,
-            "description": "Un arma simple que puede utilizarse como herramienta o defensa.",
-            "img": "/img/weapons/baston.png",
-            "bodyPart": "manoDerecha",
-            "soundEffect": "/music/attacks/sword-sound.mp3",
-            "color": "#F8F8F8",
-            "actions": {
-              "equippable": true
-            }
-        }
-    ]
+  "weapons": [
+    {
+      "id": "weapon-espada-larga-001",
+      "name": "Espada Larga",
+      "type": "Cuerpo a cuerpo",
+      "damage": 20,
+      "damageMax": 40,
+      "critical": "19-20/x2",
+      "weight": "4 lb",
+      "cost": 100,
+      "description": "Un arma versátil, utilizada tanto por caballeros como por aventureros.",
+      "img": "/img/weapons/espada-larga.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "range": 5,
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-daga-002",
+      "name": "Daga",
+      "type": "Cuerpo a cuerpo o distancia",
+      "damage": 15,
+      "damageMax": 30,
+      "critical": "19-20/x2",
+      "range": 5,
+      "weight": "1 lb",
+      "cost": 100,
+      "description": "Ligera y fácil de ocultar, ideal como arma secundaria.",
+      "img": "/img/weapons/daga.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-hacha-de-batalla-003",
+      "name": "Hacha de Batalla",
+      "type": "Cuerpo a cuerpo",
+      "damage": 20,
+      "damageMax": 35,
+      "critical": "x3",
+      "range": 10,
+      "weight": "6 lb",
+      "cost": 100,
+      "description": "Un arma poderosa capaz de infligir daños devastadores.",
+      "img": "/img/weapons/hacha-de-batalla.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-arco-largo-004",
+      "name": "Arco Largo",
+      "type": "Distancia",
+      "damage": 20,
+      "damageMax": 40,
+      "critical": "x3",
+      "range": 30,
+      "weight": "3 lb",
+      "cost": 100,
+      "description": "Un arco de gran alcance, preferido por arqueros experimentados.",
+      "img": "/img/weapons/arco-largo.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-maza-005",
+      "name": "Maza",
+      "type": "Cuerpo a cuerpo",
+      "damage": 20,
+      "damageMax": 40,
+      "critical": "x2",
+      "weight": "5 lb",
+      "cost": 100,
+      "description": "Perfecta para romper armaduras y golpear con fuerza contundente.",
+      "img": "/img/weapons/maza.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-espadon-006",
+      "name": "Espadón",
+      "type": "Cuerpo a cuerpo",
+      "damage": 20,
+      "damageMax": 40,
+      "critical": "19-20/x2",
+      "weight": "8 lb",
+      "cost": 100,
+      "description": "Un arma imponente que requiere ambas manos para su uso.",
+      "img": "/img/weapons/espadon.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-lanza-007",
+      "name": "Lanza",
+      "type": "Cuerpo a cuerpo o distancia",
+      "damage": 15,
+      "damageMax": 35,
+      "critical": "x3",
+      "range": 10,
+      "weight": "6 lb",
+      "cost": 100,
+      "description": "Versátil para el combate cercano o para arrojar a distancia.",
+      "img": "/img/weapons/lanza.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-ballesta-ligera-008",
+      "name": "Ballesta Ligera",
+      "type": "Distancia",
+      "damage": 20,
+      "damageMax": 40,
+      "critical": "19-20/x2",
+      "range": 35,
+      "weight": "4 lb",
+      "cost": 100,
+      "description": "Un arma fácil de usar, ideal para ataques a distancia precisos.",
+      "img": "/img/weapons/ballesta-ligera.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-martillo-de-guerra-009",
+      "name": "Martillo de Guerra",
+      "type": "Cuerpo a cuerpo",
+      "damage": 20,
+      "damageMax": 40,
+      "critical": "x3",
+      "weight": "5 lb",
+      "cost": 100,
+      "description": "Diseñado para maximizar el daño contra objetivos fuertemente blindados.",
+      "img": "/img/weapons/martillo-de-guerra.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    },
+    {
+      "id": "weapon-baston-010",
+      "name": "Bastón",
+      "type": "Cuerpo a cuerpo",
+      "damage": 15,
+      "damageMax": 30,
+      "critical": "x2",
+      "weight": "4 lb",
+      "cost": 100,
+      "description": "Un arma simple que puede utilizarse como herramienta o defensa.",
+      "img": "/img/weapons/baston.png",
+      "bodyPart": "manoDerecha",
+      "soundEffect": "/music/attacks/sword-sound.mp3",
+      "color": "#F8F8F8",
+      "actions": {
+        "equippable": true
+      }
+    }
+  ]
 }
