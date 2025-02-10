@@ -35,63 +35,26 @@ const PlayerEquipment = () => {
     );
   };
 
-  // Lista de partes del cuerpo
-  const bodyParts = [
-    {
-      name: 'head',
-      data: player.bodyParts?.cabeza,
-      defaultImg: 'img/armors/casco.png',
-      className: 'head',
-    },
-    {
-      name: 'chest',
-      data: player.bodyParts?.pecho,
-      defaultImg: 'img/armors/leatherArmor.png',
-      className: 'chest',
-    },
-    {
-      name: 'belt',
-      data: player.bodyParts?.cintura,
-      defaultImg: 'img/armors/cinturón.png',
-      className: 'belt',
-    },
-    {
-      name: 'back',
-      data: player.bodyParts?.espalda,
-      defaultImg: 'img/armors/capeplaceholder.png',
-      className: 'back',
-    },
-    {
-      name: 'boots',
-      data: player.bodyParts?.pies,
-      defaultImg: 'img/armors/bootsplaceholder.png',
-      className: 'boots',
-    },
-    {
-      name: 'gloves',
-      data: player.bodyParts?.manos,
-      defaultImg: 'img/armors/glovesplaceholder.png',
-      className: 'gloves',
-    },
-    {
-      name: 'legs',
-      data: player.bodyParts?.piernas,
-      defaultImg: 'img/armors/leal-pantalones-metal-oso.png',
-      className: 'legs',
-    },
-    {
-      name: 'face',
-      data: player.bodyParts?.cara,
-      defaultImg: 'img/armors/máscara.png',
-      className: 'face',
-    },
-    {
-      name: 'shoulder',
-      data: player.bodyParts?.hombros,
-      defaultImg: 'img/armors/hombreras.png',
-      className: 'shoulder',
-    },
+  type BodyPartKey = keyof typeof player.bodyParts;
+
+  const bodyPartsConfig: { key: BodyPartKey; name: string; defaultImg: string }[] = [
+    { key: 'cabeza', name: 'head', defaultImg: 'img/armors/casco.png' },
+    { key: 'pecho', name: 'chest', defaultImg: 'img/armors/leatherArmor.png' },
+    { key: 'cintura', name: 'belt', defaultImg: 'img/armors/cinturón.png' },
+    { key: 'espalda', name: 'back', defaultImg: 'img/armors/capeplaceholder.png' },
+    { key: 'pies', name: 'boots', defaultImg: 'img/armors/bootsplaceholder.png' },
+    { key: 'manos', name: 'gloves', defaultImg: 'img/armors/glovesplaceholder.png' },
+    { key: 'piernas', name: 'legs', defaultImg: 'img/armors/leal-pantalones-metal-oso.png' },
+    { key: 'cara', name: 'face', defaultImg: 'img/armors/máscara.png' },
+    { key: 'hombros', name: 'shoulder', defaultImg: 'img/armors/hombreras.png' },
   ];
+  
+  const bodyParts = bodyPartsConfig.map(({ key, name, defaultImg }) => ({
+    name,
+    data: player.bodyParts?.[key],
+    defaultImg,
+    className: name,
+  }));
 
   // Renderizado
   return (

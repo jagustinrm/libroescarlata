@@ -49,6 +49,7 @@ export default function CharacterSelector() {
     playerActions.setAvatarImg(faceImg);
     playerActions.setHitDie(hitDie);
     playerActions.setManaDie(manaDie);
+    playerActions.setPlayerMaterial(10000)
     createItems(1);
     assignWeaponByClass({
       className,

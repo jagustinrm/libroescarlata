@@ -147,6 +147,11 @@ a {
     box-shadow 0.2s ease,
     border 0.2s ease;
 }
+.sectionTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .containerEquipment img,
 .containerWeaponEquip img,
 .accesoriesEquipment img {

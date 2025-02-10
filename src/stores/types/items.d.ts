@@ -5,17 +5,6 @@ import { otherItem } from './otherItems';
 import { Potion } from './potions';
 import { Scroll } from './scrolls';
 
-// export interface Item {
-//   id: string;
-//   name: string;
-//   description?: string;
-//   img?: string;
-//   cost: number;
-//   weight: number;
-//   color?: string;
-//   rarity?: string;
-//   deleteable?: boolean;
-// }
 export type Item =
   | Weapon
   | Armor

@@ -36,4 +36,26 @@ const useGlobalState = () => ({
   ...usePetStore(),
 });
 
+export const getGlobalState = () => ({
+  ...usePlayerStore.getState(),
+  ...useWeaponStore.getState(),
+  ...useCreatureStore.getState(),
+  ...useInventoryStore.getState(),
+  ...useSpellStore.getState(),
+  ...useClassStore.getState(),
+  ...useArmorStore.getState(),
+  ...usePotionStore.getState(),
+  ...usePositionStore.getState(),
+  ...useStoryStore.getState(),
+  ...useOtherItemsStore.getState(),
+  ...useItemsStore.getState(),
+  ...useAccessoryStore.getState(),
+  ...useBookStore.getState(),
+  ...useScrollStore.getState(),
+  ...useAppStore.getState(),
+  ...usePetStore.getState(),
+});
+
+useGlobalState.getState = getGlobalState;
+
 export default useGlobalState;
