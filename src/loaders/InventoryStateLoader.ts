@@ -3,7 +3,7 @@ import { Inventory } from '../stores/types/inventory';
 import useInventoryStore from '../stores/inventoryStore';
 import usePlayerStore from '../stores/playerStore';
 const InventoryStateLoader = () => {
-  const { createInventory, addItem } = useInventoryStore();
+  const { createInventory, addItemToInventory } = useInventoryStore();
   const { player } = usePlayerStore();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const InventoryStateLoader = () => {
 
             if (Array.isArray(items)) {
               items.forEach((item) => {
-                addItem(
+                addItemToInventory(
                   `${player.name}_inventory`,
                   category as keyof Inventory,
                   item,

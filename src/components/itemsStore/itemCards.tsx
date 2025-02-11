@@ -1,11 +1,9 @@
 import React from 'react';
-import { Item, Items } from '../../stores/types/items';
+import {Items } from '../../stores/types/items';
 import usePlayerStore from '../../stores/playerStore';
-import { Weapon } from '../../stores/types/weapons';
-import { Armor } from '../../stores/types/armor';
-import { Accessory } from '../../stores/types/accesories';
 import { darkenHex } from '../../utils/darkenHex';
-import { Scroll } from '../../stores/types/scrolls';
+import { handleBuy } from './handleBuy';
+import { FloatingMessageProps } from '../../stores/types/others';
 
 // Definición de Tipos
 
@@ -22,13 +20,7 @@ interface ItemGridProps {
     levelRequirement?: number,
   ) => void;
   handleMouseLeave: () => void;
-  handleBuy: (
-    playerInventoryId: string,
-    itemId: string,
-    itemType: keyof Items,
-    itemCost: number,
-    item: Item | Weapon | Armor | Accessory | Scroll,
-  ) => void;
+  setFloatingMessage: (message: FloatingMessageProps| null) => void 
 }
 
 const ItemGrid: React.FC<ItemGridProps> = ({
@@ -37,7 +29,7 @@ const ItemGrid: React.FC<ItemGridProps> = ({
   shopId,
   handleMouseMove,
   handleMouseLeave,
-  handleBuy,
+  setFloatingMessage
 }) => {
   const { player } = usePlayerStore.getState();
 
@@ -88,6 +80,7 @@ const ItemGrid: React.FC<ItemGridProps> = ({
                       selectedType,
                       item.cost,
                       item,
+                      setFloatingMessage
                     )
                   }
                   value={item.id}

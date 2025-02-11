@@ -10,9 +10,9 @@ import ReadBook from '../book/Book';
 import { handleLoadActualInventory } from './loadInventory';
 import useGlobalState from '../../customHooks/useGlobalState';
 import { Item } from '../../stores/types/items';
-import InventoryList from './inventoryList';
+import InventoryList from './InventoryList';
 import { ItemDetails } from './ItemsDetails';
-
+import { inventoryCategories } from '../../utils/inventoryCategories';
 export default function Inventory() {
   const [actualInventory, setActualInventory] = useState<Array<
     Item
@@ -30,15 +30,7 @@ export default function Inventory() {
     setReadBook(!readBook);
   };
 
-  const inventoryCategories = [
-    { key: "weapons", icon: "weaponsicon.png" },
-    { key: "armors", icon: "armoricon.png" },
-    { key: "accessories", icon: "accessoriesicon.png" },
-    { key: "others", icon: "foodicon.png" },
-    { key: "potions", icon: "potionicon.png" },
-    { key: "books", icon: "bookicon.png" },
-    { key: "scrolls", icon: "scrollicon.png" },
-  ];
+
   const lineImg = () =>  {
     return ( 
       <>

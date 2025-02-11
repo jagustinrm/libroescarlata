@@ -159,6 +159,15 @@
   filter: blur(2vmin); /* Reduced blur */
   animation: blur-animation 3s ease-in-out alternate infinite; /* Faster blur animation */
 }
+.hover-tooltip{
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: 'white';
+  padding: 5px;
+  border-radius: 5px;
+  pointer-events: 'none';
+  z-index: 1000;
+}
 
 /* Faster blur animation */
 @keyframes blur-animation {

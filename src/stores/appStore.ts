@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 import { FloatingMessageProps } from './types/others';
-
+interface HoverInfo {
+  description: string;
+  armorValue?: number;
+  damage?: number;
+  damageMax?: number;
+  levelRequirement?: number;
+  x: number;
+  y: number;
+}
 // Define la interfaz para los estados y funciones
 interface AppState {
   isMusicPlaying: boolean;
@@ -15,7 +23,7 @@ interface AppState {
     content: string;
     type: string;
   };
-
+  hoverInfo: HoverInfo | null;
   toggleMusic: () => void;
   setAmbientMusic: (music: string) => void;
   setMusicVolume: (volume: number) => void;
@@ -25,6 +33,7 @@ interface AppState {
 
   setMessage: (messageContent: string, messageType: string) => void;
   clearMessage: () => void;
+  setHoverInfo: (info: HoverInfo | null) => void;
 }
 
 // Crea el store con tipos
@@ -41,9 +50,10 @@ const useAppStore = create<AppState>((set) => ({
     content: '',
     type: '',
   },
-
+  hoverInfo: null,
+   
   // Funciones para actualizar estados
-
+  setHoverInfo: (info) => set({ hoverInfo: info }),
   toggleMusic: () =>
     set((state) => {
       return {

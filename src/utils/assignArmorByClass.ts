@@ -56,7 +56,7 @@ export function assignArmorByClass({
     const armor = armors.find((a) => a.id === armorId);
     if (armor) {
       const armorOwned = { ...armor, playerOwner: true };
-      inventoryStore.addItem(
+      inventoryStore.addItemToInventory(
         `${player.name}_inventory`,
         'armors',
         armorOwned.id,

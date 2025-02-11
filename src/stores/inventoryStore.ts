@@ -22,7 +22,7 @@ const useInventoryStore = create<InventoryStore>((set) => ({
     }),
 
   // Agregar un ítem al inventario de un ID específico
-  addItem: (id, type, item) =>
+  addItemToInventory: (id, type, item) =>
     set((state) => {
       const inventory = state.inventories[id];
       if (!inventory) {

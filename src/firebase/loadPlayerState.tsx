@@ -7,7 +7,7 @@ import useInventoryStore from '../stores/inventoryStore';
 import { Inventory } from '../stores/types/inventory';
 const LoadPlayerFromFirebase = () => {
   const { playerActions } = usePlayerStore(); // Accedemos a playerActions
-  const { createInventory, addItem } = useInventoryStore();
+  const { createInventory, addItemToInventory } = useInventoryStore();
   const navigate = useNavigate();
   const { playerName } = useParams();
 
@@ -42,7 +42,7 @@ const LoadPlayerFromFirebase = () => {
           Object.entries(inventoryDefault).forEach(([category, items]) => {
             if (Array.isArray(items)) {
               items.forEach((item) => {
-                addItem(
+                addItemToInventory(
                   `${playerData.name}_inventory`,
                   category as keyof Inventory,
                   item,

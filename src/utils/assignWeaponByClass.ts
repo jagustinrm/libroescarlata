@@ -38,7 +38,7 @@ export function assignWeaponByClass({
       saveItemToFirebase(player.name, weaponOwned.id, weaponOwned, 'weapons');
 
       // Añadir al inventario
-      inventoryStore.addItem(
+      inventoryStore.addItemToInventory(
         `${player.name}_inventory`,
         'weapons',
         weaponOwned.id,

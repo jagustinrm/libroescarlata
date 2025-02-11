@@ -262,7 +262,7 @@ export const loadPlayerFromFirebase = async (
   password: string,
 ) => {
   const { playerActions } = usePlayerStore.getState();
-  const { createInventory, addItem } = useInventoryStore.getState();
+  const { createInventory, addItemToInventory } = useInventoryStore.getState();
 
   try {
     const auth = getAuth();
@@ -316,7 +316,7 @@ export const loadPlayerFromFirebase = async (
     Object.entries(inventoryDefault).forEach(([category, items]) => {
       if (Array.isArray(items)) {
         items.forEach((item) => {
-          addItem(
+          addItemToInventory(
             `${playerData.name}_inventory`,
             category as keyof Inventory,
             item,
