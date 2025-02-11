@@ -9,8 +9,7 @@ interface InitializeEffectsProps {
   setOpcionesArmas: (value: Weapon[]) => void;
   setOpcionesSpells: (value: Spell[]) => void;
   handleCheckLevelUp: () => void;
-  resetPositions: () => void;
-  addCharacter: (character: { id: string, name: string }) => void;
+
   handleMessage: (message: string, type: string, flag: boolean) => void;
   logRef: React.RefObject<HTMLUListElement>;
   actionMessages: any;
@@ -21,13 +20,11 @@ export const initializeEffects = ({
   setOpcionesArmas,
   setOpcionesSpells,
   handleCheckLevelUp,
-  resetPositions,
-  addCharacter,
   handleMessage,
   logRef,
   actionMessages
 }: InitializeEffectsProps) => {
-  const { player, playerPosition, weapons, creature, spells, inventories, setAmbientMusic, setMusicVolume, setSummonPosition } = getGlobalState();
+  const { player, playerPosition,  addCharacter, weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition } = getGlobalState();
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {

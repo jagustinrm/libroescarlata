@@ -23,7 +23,6 @@ import useGlobalState from '../../customHooks/useGlobalState.ts';
 import CombatUI from '../battlefield/combatMenu/CombatUI.tsx';
 import { Weapon } from '../../stores/types/weapons.ts';
 import { Spell } from '../../stores/types/spells';
-import useTurnStore from '../../stores/turnStore.ts';
 import { usePetTurn } from '../../customHooks/usePetTurn.ts';
 import { Scroll } from '../../stores/types/scrolls.ts';
 import { initializeEffects } from './initializeEffects.ts';
@@ -40,10 +39,9 @@ export default function FightScene() {
     player,
     playerActions,
     creature,
+   currentCharacter, 
     setCreatureHealth,
-    resetPositions,
   } = useGlobalState();
-  const { addCharacter, currentCharacter } = useTurnStore();
   const [summon, setSummon] = useState<Creature | null>(null);
   const [activateImage, setActivateImage] = useState<boolean>(false);
   const { expTable } = useExpTable();
@@ -72,8 +70,6 @@ export default function FightScene() {
   const [opcionesSpells, setOpcionesSpells] = useState<Spell[]>();
   // ************************USEEFFECTS ******************************
 
-  // ************************USEEFFECTS ******************************
-  // ************************COMBATE *************************
   const handleMessage = (
     message: string,
     type: string,
@@ -88,13 +84,12 @@ export default function FightScene() {
     setOpcionesArmas,
     setOpcionesSpells,
     handleCheckLevelUp,
-    resetPositions,
-    addCharacter,
     handleMessage,
     logRef,
     actionMessages
   });
-
+  // ************************USEEFFECTS ******************************
+    // ************************COMBATE *************************
   const handleAction = (
     actionType: 'attack' | 'spell' | 'move' | 'scroll',
     additionalData?: any,
