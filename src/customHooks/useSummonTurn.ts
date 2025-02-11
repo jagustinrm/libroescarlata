@@ -10,16 +10,12 @@ import { Summon } from '../stores/types/summons.ts';
 
 interface SummonTurnProps {
   summon: Summon | null;
-  // turn: string;
   setCreatureHealth: (health: number) => void;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-  // switchTurn: () => void;
 }
 
 export const useSummonTurn = ({
-  // turn,
   setActionMessages,
-  // switchTurn,
   summon,
   setCreatureHealth,
 }: SummonTurnProps) => {

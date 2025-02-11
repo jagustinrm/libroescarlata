@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage.js';
 import CharacterSelector from './components/CharacterSelector';
 import Home from './components/home/Home.js';
-import FightScene from './components/FightScene';
+import FightScene from './components/FightScene/FightScene.js';
 import PetStore from './components/petStore/PetStore';
 import Inventory from './components/inventory/Inventory';
 import ItemShop from './components/itemsStore/ItemShop';

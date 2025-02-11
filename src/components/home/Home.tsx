@@ -12,7 +12,7 @@ import useAppStore from '../../stores/appStore.ts';
 import ItemsFromFirebaseLoader from '../../firebase/ItemsFromFirebaseLoader .ts';
 import { handleAction } from './handleAction.ts';
 import { useAnimateExclamationMark } from '../../utils/animateExclamationMark.ts';
-import HomeOptionsSign from '../UI/HomeOptionsSign.tsx';
+// import HomeOptionsSign from '../UI/HomeOptionsSign.tsx';
 
 export default function Home() {
   const [showMessage, setShowMessage] = useState(false);

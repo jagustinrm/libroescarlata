@@ -42,8 +42,6 @@ export const usePetTurn = ({
           playerPosition,
           enemyPosition,
         );
-        console.log(adjustedDistance);
-        console.log(player.selectedPet.attacks[0]);
 
         if (adjustedDistance <= player.selectedPet.attacks[0].range) {
           const petAttackTimeout = setTimeout(() => {
