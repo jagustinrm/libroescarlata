@@ -1,56 +1,41 @@
 import { useEffect } from 'react';
-import { rollDice } from '../utils/rollDice.ts';
-// import { CreatureInterface } from '../components/interfaces/CreatureInterface.ts';
-
-import usePositionStore from '../stores/positionStore.ts';
-import useCreatureStore from '../stores/creatures.ts';
-import usePlayerStore from '../stores/playerStore.ts';
 import useTurnStore from '../stores/turnStore.ts';
-import { Summon } from '../stores/types/summons.ts';
+import { calculateDistance } from '../utils/calculateDistance.ts';
+import automaticMove from './automaticMove.ts';
+import { simulateAttackMovement } from '../utils/simulateAttackMovement.ts';
+import { isAttackSuccessful } from '../utils/calculateStats.ts';
+import { getGlobalState } from './useGlobalState.ts';
+import useAppStore from '../stores/appStore.ts';
 
 interface SummonTurnProps {
-  summon: Summon | null;
   setCreatureHealth: (health: number) => void;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const useSummonTurn = ({
   setActionMessages,
-  summon,
   setCreatureHealth,
 }: SummonTurnProps) => {
-  const { enemyPosition, summonPosition, setSummonPosition } =
-    usePositionStore.getState();
-  const { creature } = useCreatureStore.getState();
-  const { player } = usePlayerStore.getState();
   const { currentCharacter, nextTurn } = useTurnStore.getState();
+  const { creature, player, enemyPosition, summon, 
+    summonPosition, setSummonPosition, setSoundUrl} = getGlobalState();
   useEffect(() => {
+    const adjustedDistance = calculateDistance(
+      summonPosition,
+      enemyPosition,
+    );
     const timeout = setTimeout(() => {
       if (
         currentCharacter &&
         currentCharacter.id === 'summon' &&
-        creature &&
+        summon &&
         creature.health &&
         creature.health > 0 &&
-        player.p_LeftHealth > 0
+        player.p_LeftHealth > 0 &&
+        adjustedDistance > Math.max(...summon.attacks.map((a) => a.range))
       ) {
-        const deltaX = enemyPosition.x - summonPosition.x;
-        const deltaY = enemyPosition.y - summonPosition.y;
-
-        const stepSize = 5;
-
-        const newX =
-          Math.abs(deltaX) > stepSize
-            ? summonPosition.x + (deltaX > 0 ? stepSize : -stepSize)
-            : summonPosition.x;
-
-        const newY =
-          Math.abs(deltaY) > stepSize
-            ? summonPosition.y + (deltaY > 0 ? stepSize : -stepSize)
-            : summonPosition.y;
-        setSummonPosition({ x: newX, y: newY });
+        automaticMove(summonPosition, enemyPosition, setSummonPosition);
       }
-
       if (
         enemyPosition &&
         summon &&
@@ -61,15 +46,19 @@ export const useSummonTurn = ({
         creature.health > 0 &&
         player.p_LeftHealth > 0
       ) {
-        const distanceX = Math.abs(enemyPosition.x - summonPosition.x);
-        const distanceY = Math.abs(enemyPosition.y - summonPosition.y);
-
-        if (distanceX < 10 && distanceY < 10) {
+        if (adjustedDistance <= Math.max(...creature.attacks.map((a) => a.range))) {
           const summonAttackTimeout = setTimeout(() => {
-            const totalAttack = rollDice('1d20') + summon['attacks'][0].bonus;
-            if (totalAttack > creature.armorClass && creature.health) {
+            simulateAttackMovement(summonPosition, 5, setSummonPosition);
+            const success = isAttackSuccessful(
+              summon.hitRatePercentage(), 
+              creature.dodgePercentage(),
+            );
+
+            if (success) {
               // const damageBase = summon['attacks'][0].damage;
+
               const { damage, damageMax } = summon['attacks'][0];
+              
               // 1- Daño random min y max 2- reduccion de daño 3- incrementar los daños a- calcular 4- Calculo total con el incremento
               const rollDamage =
                 Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
@@ -80,8 +69,13 @@ export const useSummonTurn = ({
               const totalDamage = Math.floor(
                 damageIncrease * (1 - redDamage / 100),
               );
-
-              setCreatureHealth(Math.max(creature.health - totalDamage, 0));
+              
+              creature.health && setCreatureHealth(Math.max(creature.health - totalDamage, 0));
+              setSoundUrl(summon.attacks[0].soundEffect);
+              setTimeout(() => {
+                setSoundUrl('');
+              }, 300);
+              
               setActionMessages((prev) => [
                 ...prev,
                 `La invocación ha atacado con ${summon['attacks'][0].name} y causó ${totalDamage} puntos de daño.`,

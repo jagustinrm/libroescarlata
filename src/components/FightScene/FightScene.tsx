@@ -17,7 +17,7 @@ import KeyboardController from '../../utils/KeyboardController.ts';
 import PlayerCharacter from '../battlefield/PlayerCharacter.tsx';
 import EndBattleActions from '../battlefield/EndBattleActions.tsx';
 import EnemyChar from '../battlefield/EnemyChar.tsx';
-import { Creature } from '../../stores/types/creatures.ts';
+
 import useAppStore from '../../stores/appStore.ts';
 import useGlobalState from '../../customHooks/useGlobalState.ts';
 import CombatUI from '../battlefield/combatMenu/CombatUI.tsx';
@@ -41,8 +41,9 @@ export default function FightScene() {
     creature,
    currentCharacter, 
     setCreatureHealth,
+    summon, setSummon
   } = useGlobalState();
-  const [summon, setSummon] = useState<Creature | null>(null);
+  // const [summon, setSummon] = useState<Creature | null>(null);
   const [activateImage, setActivateImage] = useState<boolean>(false);
   const { expTable } = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
@@ -86,7 +87,9 @@ export default function FightScene() {
     handleCheckLevelUp,
     handleMessage,
     logRef,
-    actionMessages
+    actionMessages,
+    fightType,
+    handlePostCombatActs
   });
   // ************************USEEFFECTS ******************************
     // ************************COMBATE *************************
@@ -99,7 +102,6 @@ export default function FightScene() {
       {
         setActionMessages,
         setActivateImage,
-        setSummon,
         handlePostCombatActs,
         fightType,
         handleMessage,
@@ -115,7 +117,6 @@ export default function FightScene() {
 
   useSummonTurn({
     setActionMessages,
-    summon,
     setCreatureHealth,
   });
 

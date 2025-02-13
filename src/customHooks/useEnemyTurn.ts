@@ -19,6 +19,7 @@ export const useEnemyTurn = ({ setActionMessages }: EnemyTurnProps) => {
   const { setFloatingMessage, setSoundUrl } = useAppStore.getState();
   const { player, playerActions } = usePlayerStore.getState();
   const { currentCharacter, nextTurn } = useTurnStore.getState();
+  
   useEffect(() => {
     const adjustedDistance = calculateDistance(enemyPosition, playerPosition);
     const timeout = setTimeout(() => {
@@ -31,7 +32,7 @@ export const useEnemyTurn = ({ setActionMessages }: EnemyTurnProps) => {
         player.p_LeftHealth > 0 &&
         adjustedDistance > Math.max(...creature.attacks.map((a) => a.range))
       ) {
-        automaticMove();
+        automaticMove(enemyPosition, playerPosition, setEnemyPosition);
       }
 
       if (
@@ -47,7 +48,6 @@ export const useEnemyTurn = ({ setActionMessages }: EnemyTurnProps) => {
           adjustedDistance <= Math.max(...creature.attacks.map((a) => a.range))
         ) {
           const enemyAttackTimeout = setTimeout(() => {
-            // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
             simulateAttackMovement(enemyPosition, 5, setEnemyPosition);
             const success = isAttackSuccessful(
               creature.hitRatePercentage(), // Usar 0 si hitRatePercentage no está definido
@@ -55,8 +55,7 @@ export const useEnemyTurn = ({ setActionMessages }: EnemyTurnProps) => {
             );
             if (success) {
               const { damage, damageMax } = creature['attacks'][0];
-              const rollDamage =
-                Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
+              const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
               const redDamage = player.totalDmgReduction(creature.level);
               const finalDamage = Math.floor(
                 rollDamage * (1 - redDamage / 100),

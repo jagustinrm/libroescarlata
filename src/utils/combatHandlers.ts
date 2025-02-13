@@ -21,7 +21,7 @@ interface CombatHandlersProps {
   handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
   handlePostCombatActs?: (fightType: string, creature: Creature) => void;
   fightType?: string;
-  setSummon?: Dispatch<SetStateAction<Creature | null>>;
+
   button?: Button;
   setActivateImage: Dispatch<SetStateAction<boolean>>;
 }
@@ -40,7 +40,7 @@ export const handleCombatAction = (
     handleMessage,
     handlePostCombatActs,
     fightType,
-    setSummon,
+
     setActivateImage,
   } = props;
 
@@ -53,7 +53,7 @@ export const handleCombatAction = (
   const { setFloatingMessage } = useAppStore.getState();
   const { spells } = useSpellStore.getState();
   const { weapons } = useWeaponStore.getState();
-  const { summons } = useSummonStore.getState();
+  const { summons, setSummon } = useSummonStore.getState();
   const { currentCharacter, nextTurn, addCharacter } = useTurnStore.getState();
   const { setPlayerPosition, playerPosition, enemyPosition, setPetPosition } =
     usePositionStore.getState();
@@ -294,7 +294,7 @@ export const handleCombatAction = (
         );
 
       const summon = summons.find((s) => s.name === spellDetails.invocation);
-
+      
       if (summon) {
         addCharacter({ id: 'summon', name: summon.name });
         setSummon(summon);

@@ -123,7 +123,7 @@
         "damage": 20,
         "damageMax": 40,
         "soundEffect": "/music/attacks/spear.mp3",
-        "range": 10
+        "range": 5
       },
       {
         "name": "honda",
@@ -132,7 +132,7 @@
         "damage": 20,
         "damageMax": 40,
         "soundEffect": "/music/attacks/bow.mp3",
-        "range": 35
+        "range": 15
       }
     ],
     "specialAbilities": ["visión en la oscuridad", "resistencia a conjuros"],

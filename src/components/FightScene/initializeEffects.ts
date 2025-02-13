@@ -13,6 +13,8 @@ interface InitializeEffectsProps {
   handleMessage: (message: string, type: string, flag: boolean) => void;
   logRef: React.RefObject<HTMLUListElement>;
   actionMessages: any;
+  fightType: string;
+  handlePostCombatActs: any
 };
 
 export const initializeEffects = ({
@@ -22,7 +24,9 @@ export const initializeEffects = ({
   handleCheckLevelUp,
   handleMessage,
   logRef,
-  actionMessages
+  actionMessages,
+  fightType,
+  handlePostCombatActs
 }: InitializeEffectsProps) => {
   const { player, playerPosition,  addCharacter, weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition } = getGlobalState();
   const {summon} = useSummonStore.getState();
@@ -61,12 +65,22 @@ export const initializeEffects = ({
     setMusicVolume(0.1);
   }, []);
 
-  // 4️⃣ Manejo de derrota del jugador
+  // 4️⃣ Manejo de derrota del jugador o del enemigo
   useEffect(() => {
     if (player.p_LeftHealth === 0) {
       handleMessage("¡Has sido derrotado!", "warning", true);
     }
-  }, [player.p_LeftHealth]);
+
+    if (
+      typeof creature.health === 'number' &&
+      creature.health <= 0 &&
+      fightType
+    ) {
+      handleMessage('¡Has ganado el combate!', 'success', false);
+      handlePostCombatActs?.(fightType, creature);
+    }
+  }, [player.p_LeftHealth, creature.health]);
+
 
   // 5️⃣ Ajustar posición de invocación
   useEffect(() => {

@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { usePetStore } from '../stores/petsStore';
+import useCreatureStore from '../stores/creatures';
+import { Pet } from '../stores/types/pets';
 const PetsLoader = () => {
   const { arePetsLoaded, setPets } = usePetStore();
+  const {creature} = useCreatureStore();
 
   useEffect(() => {
     if (!arePetsLoaded) {
@@ -9,8 +12,12 @@ const PetsLoader = () => {
         try {
           const res = await fetch('/mocks/pets.json'); // Ruta del archivo books.json
           const data = await res.json();
-          console.log(data);
-          setPets(data.pets);
+          const basePet = creature;
+          const petWithBase = data.pets.map((pet: Pet) => ({
+            ...basePet,
+            ...pet,
+          }));
+          setPets(petWithBase);
         } catch (error) {
           console.error('Error loading books:', error);
         }

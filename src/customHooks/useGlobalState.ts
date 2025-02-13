@@ -14,6 +14,7 @@ import usePotionStore from '../stores/potionsStore';
 import useScrollStore from '../stores/scrollStore';
 import useSpellStore from '../stores/spellsStore';
 import useStoryStore from '../stores/storyStore';
+import useSummonStore from '../stores/summonsStore';
 import useTurnStore from '../stores/turnStore';
 import { useWeaponStore } from '../stores/weaponStore';
 
@@ -35,7 +36,8 @@ const useGlobalState = () => ({
   ...useScrollStore(),
   ...useAppStore(),
   ...usePetStore(),
-  ...useTurnStore()
+  ...useTurnStore(),
+  ...useSummonStore()
 });
 
 export const getGlobalState = () => ({
@@ -56,7 +58,8 @@ export const getGlobalState = () => ({
   ...useScrollStore.getState(),
   ...useAppStore.getState(),
   ...usePetStore.getState(),
-  ...useTurnStore.getState()
+  ...useTurnStore.getState(),
+  ...useSummonStore.getState(),
 });
 
 useGlobalState.getState = getGlobalState;

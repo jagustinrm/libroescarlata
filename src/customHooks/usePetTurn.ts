@@ -8,6 +8,7 @@ import useTurnStore from '../stores/turnStore.ts';
 import { Creature } from '../stores/types/creatures.ts';
 import useAppStore from '../stores/appStore.ts';
 import { calculateDistance } from '../utils/calculateDistance.ts';
+import AttackAction from '../utils/attackAction.ts';
 
 interface EnemyTurnProps {
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
@@ -42,73 +43,19 @@ export const usePetTurn = ({
           playerPosition,
           enemyPosition,
         );
+        AttackAction(
+          adjustedDistance,
+          player.selectedPet,
+          creature,
+          petPosition,
+          enemyPosition,
+          setPetPosition,
+          setFloatingMessage,
+          setActionMessages,
+          setCreatureHealth,
+          nextTurn
+        )
 
-        if (adjustedDistance <= player.selectedPet.attacks[0].range) {
-          const petAttackTimeout = setTimeout(() => {
-            // const totalAttack = rollDice('1d20') + creature['attacks'][0].bonus;
-            simulateAttackMovement(petPosition, 5, setPetPosition);
-            const success = isAttackSuccessful(
-              creature.hitRatePercentage(), // Usar 0 si hitRatePercentage no está definido
-              player.dodgePercentage(), // Usar 0 si dodgePercentage no está definido
-            );
-
-            if (success) {
-              const { damage, damageMax } = player.selectedPet.attacks[0];
-              const totalDamage = Math.floor(
-                Math.random() * (damageMax - damage) + damage,
-              );
-              const redDamage = creature.totalDmgReduction(creature.level);
-              const finalDamage = Math.floor(
-                totalDamage * (1 - redDamage / 100),
-              );
-
-              setCreatureHealth(Math.max(player.p_LeftHealth - finalDamage, 0));
-
-              //   setSoundUrl(creature.attacks[0].soundEffect)
-              //   setTimeout(() => {
-              //     setSoundUrl('');
-              //   }, 300);
-              setActionMessages((prev) => [
-                ...prev,
-                `Tu acompañante ha atacado y causó ${finalDamage} puntos de daño.`,
-              ]);
-              setFloatingMessage({
-                message: finalDamage.toString(),
-                onComplete: () => setFloatingMessage(null),
-                textColor: 'red',
-                position: enemyPosition,
-              });
-
-              if (
-                creature.health &&
-                creature.health - finalDamage <= 0 &&
-                fightType
-              ) {
-                handleMessage?.('¡Has ganado el combate!', 'success', false);
-                handlePostCombatActs?.(fightType, creature);
-              }
-            } else {
-              setSoundUrl('/music/attacks/weapon-swing.wav');
-              setTimeout(() => {
-                setSoundUrl('');
-              }, 300);
-
-              setFloatingMessage({
-                message: '¡Falló!',
-                onComplete: () => setFloatingMessage(null),
-                textColor: 'red',
-                position: enemyPosition,
-              });
-              setActionMessages((prev) => [...prev, `¡Tu acompañante falló!`]);
-            }
-
-            nextTurn();
-          }, 1000);
-
-          return () => clearTimeout(petAttackTimeout);
-        } else {
-          nextTurn();
-        }
       } else if (
         creature &&
         currentCharacter &&

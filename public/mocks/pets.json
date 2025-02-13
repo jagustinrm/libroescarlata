@@ -11,7 +11,8 @@
         {
           "damage": 20,
           "damageMax": 40,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["visión nocturna", "sigilo"],
@@ -28,7 +29,8 @@
         {
           "damage": 20,
           "damageMax": 40,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["cambio de color", "visibilidad en la oscuridad"],
@@ -45,7 +47,8 @@
         {
           "damage": 20,
           "damageMax": 40,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["vuelo", "visión aguda"],
@@ -62,7 +65,8 @@
         {
           "damage": 20,
           "damageMax": 40,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["olfato agudo", "sentidos agudos"],
@@ -79,7 +83,8 @@
         {
           "damage": 20,
           "damageMax": 40,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": [
@@ -101,7 +106,8 @@
         {
           "damage": 25,
           "damageMax": 45,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["inmunidad al fuego", "toque ardiente"],
@@ -119,7 +125,8 @@
         {
           "damage": 25,
           "damageMax": 45,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["inmunidad al hielo", "toque congelante"],
@@ -137,7 +144,8 @@
         {
           "damage": 30,
           "damageMax": 50,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["veneno débil", "movimiento sigiloso"],
@@ -155,7 +163,8 @@
         {
           "damage": 30,
           "damageMax": 50,
-          "range": 10
+          "range": 10,
+          "soundEffect": "/music/attacks/bite.wav"
         }
       ],
       "specialAbilities": ["visión nocturna", "agilidad mejorada"],

@@ -17,7 +17,8 @@
         "bonus": 1,
         "damage": 10,
         "damageMax": 15,
-        "soundEffect": "/music/attacks/bite.wav"
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["forma gelatinosa", "elasticidad", "salto rápido"]
@@ -39,7 +40,8 @@
         "bonus": 2,
         "damage": 20,
         "damageMax": 26,
-        "soundEffect": "/music/attacks/scratch.wav"
+        "soundEffect": "/music/attacks/scratch.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["olfato agudo", "agilidad", "vista nocturna"],
@@ -62,7 +64,8 @@
         "bonus": 3,
         "damage": 4,
         "damageMax": 7,
-        "soundEffect": "/music/attacks/whip.wav"
+        "soundEffect": "/music/attacks/whip.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["lengua extendida", "camuflaje", "regeneración"],
@@ -85,7 +88,8 @@
         "bonus": 4,
         "damage": 6,
         "damageMax": 10,
-        "soundEffect": "/music/attacks/punch.wav"
+        "soundEffect": "/music/attacks/punch.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -112,7 +116,8 @@
         "bonus": 3,
         "damage": 5,
         "damageMax": 8,
-        "soundEffect": "/music/attacks/root_whip.wav"
+        "soundEffect": "/music/attacks/root_whip.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -139,7 +144,8 @@
         "bonus": 5,
         "damage": 7,
         "damageMax": 12,
-        "soundEffect": "/music/attacks/spirit_touch.wav"
+        "soundEffect": "/music/attacks/spirit_touch.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [

@@ -11,6 +11,7 @@ import usePositionStore from '../../stores/positionStore';
 import FloatingMessage from '../UI/floatingMessage/FloatingMessage';
 import useTurnStore from '../../stores/turnStore';
 import useAppStore from '../../stores/appStore';
+import { Summon } from '../../stores/types/summons';
 
 interface Button {
   x: number;
@@ -21,7 +22,7 @@ interface Button {
 interface GameBoardProps {
   SoundPlayer: React.FC<SoundPlayerProps>;
   summon?: Creature | null;
-  setSummon: React.Dispatch<React.SetStateAction<Creature | null>>;
+  setSummon: (creature: Summon) => void;
   activateImage: boolean;
   setActivateImage: React.Dispatch<React.SetStateAction<boolean>>;
 }
