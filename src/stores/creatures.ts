@@ -21,7 +21,8 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     attacks: [],
     specialAbilities: [],
     img: '',
-    health: 0,
+    health: 1,
+    p_LeftHealth: 1,
     stats: {
       str: 0,
       dex: 0,
@@ -45,8 +46,12 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     totalMDmgReduction: (enemyLevel) => {
       return calculateDmgMReduction(get().creature.mdef, enemyLevel);
     },
-  },
 
+  },
+  setP_LeftHealth: (p_LeftHealth) =>
+    set((state) => ({
+      creature: { ...state.creature, p_LeftHealth },
+    })),
   setCreatures: (creatures: Creature[]) =>
     set((state) => {
       if (state.creatures.length === 0 && creatures.length > 0) {

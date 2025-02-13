@@ -157,6 +157,7 @@ export function calculateTotalMaxDamage(
   return totalStr + damageValue;
 }
 
+
 export function calculateMTotalDamage(
   bodyParts: bodyParts,
   playerInt: number,

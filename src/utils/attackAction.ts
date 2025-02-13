@@ -12,10 +12,10 @@ export default function AttackAction (
     setFloatingMessage: any,
     setActionMessages: any,
     healthFunction: any,
-    nextTurn: () => void
+    nextTurn: () => void,
+    damageIncrease?: number,
 ) {
     const {setSoundUrl} = getGlobalState();
-    console.log(attacker)
     if (
         adjustedDistance <= Math.max(...attacker.attacks.map((a: any) => a.range))
       ) {
@@ -29,11 +29,16 @@ export default function AttackAction (
             const { damage, damageMax } = attacker['attacks'][0];
             const rollDamage = Math.floor(Math.random() * (damageMax - damage + 1)) + damage;
             const redDamage = target.totalDmgReduction(attacker.level);
-            const finalDamage = Math.floor(
-              rollDamage * (1 - redDamage / 100),
-            );
+            const finalDamage = () => {
+              if (!damageIncrease) { // Incremento de daño del player
+                return Math.floor(rollDamage * (1 - redDamage / 100));
+              } else {
+                return rollDamage + Math.round((rollDamage * damageIncrease) / 100)
+              }
+            }
+
             // VER ESTO
-            healthFunction(Math.max(target.health - finalDamage, 0));
+            healthFunction(Math.max(target.health - finalDamage(), 0));
             // VER ESTO
             setSoundUrl(attacker.attacks[0].soundEffect);
             setTimeout(() => {
@@ -41,10 +46,10 @@ export default function AttackAction (
             }, 300);
             setActionMessages((prev: any) => [
               ...prev,
-              `El enemigo te ha atacado con ${attacker['attacks'][0].name} y causó ${finalDamage} puntos de daño.`,
+              `El enemigo te ha atacado con ${attacker['attacks'][0].name} y causó ${finalDamage()} puntos de daño.`,
             ]);
             setFloatingMessage({
-              message: finalDamage.toString(),
+              message: finalDamage().toString(),
               onComplete: () => setFloatingMessage(null),
               textColor: 'red',
               position: targetPosition,
@@ -60,7 +65,7 @@ export default function AttackAction (
               textColor: 'red',
               position: targetPosition,
             });
-            setActionMessages((prev: any) => [...prev, `¡El enemigo falló!`]);
+            setActionMessages((prev: any) => [...prev, `¡${attacker.name} falló!`]);
           }
 
           nextTurn();

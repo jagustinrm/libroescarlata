@@ -23,11 +23,13 @@ export interface Creature {
   specialAbilities: string[];
   img: string;
   health?: number;
+  p_LeftHealth : number;
   stats: Stats;
   readonly dodgePercentage: () => number;
   readonly hitRatePercentage: () => number;
   readonly totalDmgReduction: (enemyLevel: number) => number;
   readonly totalMDmgReduction: (enemyLevel: number) => number;
+
 }
 
 export interface CreatureStore {
@@ -41,6 +43,7 @@ export interface CreatureStore {
   updateCreature: (updatedCreature: Creature) => void;
   updateBoss: (updatedBoss: Creature) => void; // Función para actualizar bosses
   // UNA SOLA CRIATURA (para el escenario de combate)
+  setP_LeftHealth: (p_LeftHealth: number) => void;
   creature: Creature;
   setCreature: (creature: Creature) => void;
   setCreatureHealth: (health: number) => void;
