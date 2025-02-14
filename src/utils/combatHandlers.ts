@@ -1,27 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
 import { rollDice } from './rollDice.ts';
-import { PlayerActions } from '../stores/types/player.js';
 import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures.ts';
-import usePlayerStore from '../stores/playerStore.ts';
-import useSpellStore from '../stores/spellsStore.ts';
-import { useWeaponStore } from '../stores/weaponStore.ts';
-import usePositionStore from '../stores/positionStore.ts';
 import { isAttackSuccessful } from './calculateStats.ts';
 import { simulateAttackMovement } from './simulateAttackMovement.ts';
-
-import useTurnStore from '../stores/turnStore.ts';
-import useSummonStore from '../stores/summonsStore.ts';
-import useAppStore from '../stores/appStore.ts';
 import { calculateDistance } from './calculateDistance.ts';
+import { getGlobalState } from '../customHooks/useGlobalState.ts';
 
 interface CombatHandlersProps {
-  playerActions?: PlayerActions;
-  setActionMessages?: Dispatch<SetStateAction<string[]>>;
   handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
-  handlePostCombatActs?: (fightType: string, creature: Creature) => void;
-  fightType?: string;
-
+  handlePostCombatActs?: (creature: Creature) => void;
   button?: Button;
   setActivateImage: Dispatch<SetStateAction<boolean>>;
 }
@@ -36,11 +24,7 @@ export const handleCombatAction = (
   additionalData?: any,
 ) => {
   const {
-    setActionMessages,
     handleMessage,
-    handlePostCombatActs,
-    fightType,
-
     setActivateImage,
   } = props;
 
@@ -48,15 +32,12 @@ export const handleCombatAction = (
   const addActionMessage = (message: string) => {
     setActionMessages?.((prevMessages) => [...prevMessages, message]);
   };
-  const { player, playerActions } = usePlayerStore.getState();
-  const { creature } = useCreatureStore.getState();
-  const { setFloatingMessage } = useAppStore.getState();
-  const { spells } = useSpellStore.getState();
-  const { weapons } = useWeaponStore.getState();
-  const { summons, setSummon } = useSummonStore.getState();
-  const { currentCharacter, nextTurn, addCharacter } = useTurnStore.getState();
-  const { setPlayerPosition, playerPosition, enemyPosition, setPetPosition } =
-    usePositionStore.getState();
+  const { spells, weapons, summons, setSummon, 
+    player, playerActions, creature, 
+    setActionMessages, setFloatingMessage,
+    setPlayerPosition,currentCharacter, nextTurn, 
+    addCharacter, playerPosition, enemyPosition, 
+    setPetPosition } = getGlobalState();  
 
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
@@ -224,9 +205,7 @@ export const handleCombatAction = (
           typeof spellDetails.manaCost === 'number' &&
           !scroll
         ) {
-          usePlayerStore
-            .getState()
-            .playerActions.setP_LeftMana(
+          playerActions.setP_LeftMana(
               Math.max(player.p_LeftMana - spellDetails.manaCost, 0),
             );
         }
@@ -265,10 +244,8 @@ export const handleCombatAction = (
         player.p_LeftHealth + healing,
         player.totalMaxHealth(),
       );
-      usePlayerStore.getState().playerActions.setP_LeftHealth(totalHealth);
-      usePlayerStore
-        .getState()
-        .playerActions.setP_LeftMana(
+      playerActions.setP_LeftHealth(totalHealth);
+      playerActions.setP_LeftMana(
           Math.max(player?.p_LeftMana - spellDetails.manaCost, 0),
         );
 
@@ -280,9 +257,7 @@ export const handleCombatAction = (
       typeof player?.p_LeftMana === 'number'
     ) {
       addActionMessage(`Has invocado con ${spellDetails.name}.`);
-      usePlayerStore
-        .getState()
-        .playerActions.setP_LeftMana(
+      playerActions.setP_LeftMana(
           Math.max(player?.p_LeftMana - spellDetails.manaCost, 0),
         );
 
@@ -346,6 +321,5 @@ export const handleCombatAction = (
   }
 
   finalizeTurn();
-  console.log(result);
   return result; // Retorna el resultado de la acción
 };

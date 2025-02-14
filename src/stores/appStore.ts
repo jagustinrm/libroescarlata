@@ -14,6 +14,7 @@ interface AppState {
   isMusicPlaying: boolean;
   ambientMusic: string;
   musicVolume: number;
+  actionMessages: string[];
   floatingMessage: FloatingMessageProps | null;
   soundUrl: string | null;
   areItemsLoaded: boolean;
@@ -24,13 +25,16 @@ interface AppState {
     type: string;
   };
   hoverInfo: HoverInfo | null;
+
+  fightType: string;
+  setFightType: (fType: string) => void;
   toggleMusic: () => void;
   setAmbientMusic: (music: string) => void;
   setMusicVolume: (volume: number) => void;
+  setActionMessages: (update: (prevMessages: string[]) => string[]) => void;
   setFloatingMessage: (message: FloatingMessageProps | null) => void;
   setSoundUrl: (sound: string | null) => void;
   setAreItemsLoaded: (areLoaded: boolean) => void;
-
   setMessage: (messageContent: string, messageType: string) => void;
   clearMessage: () => void;
   setHoverInfo: (info: HoverInfo | null) => void;
@@ -43,6 +47,7 @@ const useAppStore = create<AppState>((set) => ({
   ambientMusic: '',
   musicVolume: 0.2,
   floatingMessage: null,
+  actionMessages: [],
   soundUrl: null,
   areItemsLoaded: false,
   message: {
@@ -51,7 +56,7 @@ const useAppStore = create<AppState>((set) => ({
     type: '',
   },
   hoverInfo: null,
-   
+  fightType: '', 
   // Funciones para actualizar estados
   setHoverInfo: (info) => set({ hoverInfo: info }),
   toggleMusic: () =>
@@ -60,9 +65,12 @@ const useAppStore = create<AppState>((set) => ({
         isMusicPlaying: !state.isMusicPlaying,
       };
     }),
+  setFightType: (fType) => set({ fightType: fType }),
   setSoundUrl: (sound) => set({ soundUrl: sound }),
   setAreItemsLoaded: (areLoaded) => set({ areItemsLoaded: areLoaded }),
   setAmbientMusic: (music) => set({ ambientMusic: music }),
+  setActionMessages: (update) => 
+  set((state) => ({ actionMessages: update(state.actionMessages) })),
   setMusicVolume: (volume) => set({ musicVolume: volume }),
   setFloatingMessage: (message) => set({ floatingMessage: message }),
   setMessage: (messageContent, messageType) =>

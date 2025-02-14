@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
 import Dropdown from '../../../utils/DropDown';
 import AttackAndPotions from './AttackAndPotions';
-import usePlayerStore from '../../../stores/playerStore';
-import useCreatureStore from '../../../stores/creatures';
 import { Weapon } from '../../../stores/types/weapons';
 import { Spell } from '../../../stores/types/spells';
-import useTurnStore from '../../../stores/turnStore';
 import { Item, Items } from '../../../stores/types/items';
 import { handlePotion } from '../../../utils/handlePotion';
 import ListCombatItems from './listCombatItems';
+import useGlobalState from '../../../customHooks/useGlobalState';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[];
   opcionesSpells: Spell[];
-  // turn: string;
   executeAttack: () => void;
   handleMessage: (message: string, type: string, dismissible: boolean) => void;
   pocion: string | undefined;
   executeSpell: () => void;
-  fightType: string;
   executeScroll: (item: Item) => boolean;
 }
 
@@ -29,18 +25,14 @@ const CombatUI: React.FC<CombatUIProps> = ({
   handleMessage,
   pocion,
   executeSpell,
-  fightType,
   executeScroll,
 }) => {
-  const { player, playerActions } = usePlayerStore.getState();
-  const { creature } = useCreatureStore.getState();
-  const { currentCharacter } = useTurnStore.getState();
-  const [selectedType, setSelectedType] = useState<keyof Items>();
 
+  const [selectedType, setSelectedType] = useState<keyof Items>();
+  const {fightType, player, playerActions, creature, currentCharacter} = useGlobalState();
   const executeItem = (item: any): boolean => {
     if (selectedType === 'scrolls') {
       const res = executeScroll(item);
-      console.log(res);
       return res;
     } else if (selectedType === 'potions') {
       return handlePotion({ item, handleMessage });
@@ -67,7 +59,6 @@ const CombatUI: React.FC<CombatUIProps> = ({
         <AttackAndPotions
           executeAttack={executeAttack}
           pocion={pocion}
-          // turn = {turn}
         />
 
         {/* Dropdown y botón para hechizos */}

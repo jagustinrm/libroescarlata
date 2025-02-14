@@ -1,22 +1,13 @@
 import { useEffect } from 'react';
-import { Creature } from '../stores/types/creatures.ts';
 import { calculateDistance } from '../utils/calculateDistance.ts';
 import AttackAction from '../utils/attackAction.ts';
 import { getGlobalState } from './useGlobalState.ts';
 
-interface EnemyTurnProps {
-  setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-  handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
-  handlePostCombatActs?: (fightType: string, creature: Creature) => void;
-  fightType?: string;
-}
-export const usePetTurn = ({
-  setActionMessages,
-}: EnemyTurnProps) => {
+export const usePetTurn = () => {
   const {player, creature, setP_LeftHealth, setFloatingMessage, 
     currentCharacter, nextTurn, 
     enemyPosition, petPosition, setPetPosition, 
-    playerPosition } = getGlobalState();
+    playerPosition, setActionMessages } = getGlobalState();
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (

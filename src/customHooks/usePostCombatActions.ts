@@ -2,11 +2,11 @@ import checkQuests from '../utils/checkQuests.ts';
 // @ts-expect-error Para que funcione
 import gainExp from '../utils/gainExp.js';
 import { Creature } from '../stores/types/creatures.js';
-import usePlayerStore from '../stores/playerStore.ts';
+import { getGlobalState } from './useGlobalState.ts';
 
 const usePostCombatActions = () => {
-  const { player, playerActions } = usePlayerStore.getState();
-  const handlePostCombatActs = (fightType: string, creature: Creature) => {
+  const {fightType, player, playerActions } = getGlobalState();
+  const handlePostCombatActs = (creature: Creature) => {
     // Si el enemigo es derrotado
     if (creature) {
       //***** */ Incrementar el nivel de mazmorra si es un jefe*******

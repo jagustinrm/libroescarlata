@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { rollDice } from '../utils/rollDice.ts';
+import { useEffect } from 'react';
 import { Creature } from '../stores/types/creatures.ts';
 import useTurnStore from '../stores/turnStore.ts';
 import { getGlobalState } from './useGlobalState.ts';
@@ -7,18 +6,15 @@ const BOSS_PROBABILITY = 0.5; // 5% de probabilidad para bosses
 
 interface HandleNewEnemyClickParams {
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  fightType: string;
 }
 
 export function useEnemyLoader(
   level: number,
   dungeonLevel: number,
   enemy: string | null,
-  fightType: string,
 ) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { setTurn } = useTurnStore();
-  const { creatures, bosses, setCreature, creatureLoaded  } = getGlobalState();
+  const { creatures, bosses, setCreature, creatureLoaded, fightType, setCreatureLoaded  } = getGlobalState();
 
   const filterByLevel = (
     entities: Creature[],
@@ -50,13 +46,13 @@ export function useEnemyLoader(
       if (enemy) {
         const storyCreature = creatures.find((c) => c.name === enemy);
         if (storyCreature) {
-          const initialHealth = rollDice(storyCreature.hitPoints);
+          const initialHealth = storyCreature.hitPoints
           setCreature({ 
             ...storyCreature, 
             health: initialHealth, 
             p_LeftHealth: initialHealth 
           });
-          setIsLoading(false);
+          setCreatureLoaded(false)
           return;
         }
       }
@@ -68,7 +64,7 @@ export function useEnemyLoader(
           const finalBosses = filterByLevel(bosses, dungeonLevel, true);
           const randomBoss =
             finalBosses[Math.floor(Math.random() * finalBosses.length)];
-          const initialHealth = rollDice(randomBoss.hitPoints);
+          const initialHealth = randomBoss.hitPoints;
 
           setCreature({ ...randomBoss, health: initialHealth, p_LeftHealth: initialHealth  });
           return;
@@ -78,10 +74,10 @@ export function useEnemyLoader(
       const finalCreatures = filterByLevel(creatures, level, false);
       const randomCreature =
         finalCreatures[Math.floor(Math.random() * finalCreatures.length)];
-      const initialHealth = rollDice(randomCreature.hitPoints);
+      const initialHealth = randomCreature.hitPoints;
       setCreature({ ...randomCreature, health: initialHealth, p_LeftHealth: initialHealth });
     } finally {
-      setIsLoading(false);
+      setCreatureLoaded(false)
     }
   };
 
@@ -92,16 +88,15 @@ export function useEnemyLoader(
     handleMessage(`${player.name} busca un nuevo enemigo...`, 'success', false);
     setTimeout(() => {
       setTurn('player');
-      setCreatureLoaded(!creatureLoaded)
+      setCreatureLoaded(true)
       resetPositions();
       selectEnemy();
     }, 1000);
   };
 
   useEffect(() => {
-    setIsLoading(true);
     selectEnemy();
   }, [creatureLoaded]);
 
-  return { isLoading, handleNewEnemyClick };
+  return {  handleNewEnemyClick };
 }

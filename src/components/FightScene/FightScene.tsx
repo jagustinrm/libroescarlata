@@ -27,10 +27,12 @@ import { Scroll } from '../../stores/types/scrolls.ts';
 import { initializeEffects } from './initializeEffects.ts';
 
 export default function FightScene() {
+  const {soundUrl, fightType, setSoundUrl, setMessage, message, clearMessage, actionMessages, setActionMessages  } =
+  useAppStore();
   const [redirectHome, setRedirectHome] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { enemy, fightType, event } = location.state;
+  const { enemy, event } = location.state || {};
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {
     spells,
@@ -39,18 +41,15 @@ export default function FightScene() {
     playerActions,
     creature,
    currentCharacter, 
-   setP_LeftHealth,
-    summon, setSummon
+    summon, setSummon,
+    creatureLoaded
   } = useGlobalState();
-  // const [summon, setSummon] = useState<Creature | null>(null);
   const [activateImage, setActivateImage] = useState<boolean>(false);
   const { expTable } = useExpTable();
-  const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
-  const { isLoading, handleNewEnemyClick } = useEnemyLoader(
+  const { handleNewEnemyClick } = useEnemyLoader(
     player.level,
     player.dungeonLevel,
     enemy,
-    fightType,
   );
   const { handlePostCombatActs } = usePostCombatActions();
   const handleCheckLevelUp = () => {
@@ -61,8 +60,7 @@ export default function FightScene() {
       expTable,
     });
   };
-  const { soundUrl, setSoundUrl, setMessage, message, clearMessage  } =
-    useAppStore();
+
   const [pocion, setpocion] = useState<string>();
   const [opcionesArmas, setOpcionesArmas] = useState<Weapon[]>();
   const [opcionesSpells, setOpcionesSpells] = useState<Spell[]>();
@@ -84,10 +82,7 @@ export default function FightScene() {
     handleCheckLevelUp,
     handleMessage,
     logRef,
-    actionMessages,
-    fightType,
     handlePostCombatActs,
-    handleNewEnemyClick
   });
   // ************************USEEFFECTS ******************************
     // ************************COMBATE *************************
@@ -98,10 +93,8 @@ export default function FightScene() {
     const res = handleCombatAction(
       actionType,
       {
-        setActionMessages,
         setActivateImage,
         handlePostCombatActs,
-        fightType,
         handleMessage,
       },
       additionalData,
@@ -109,21 +102,9 @@ export default function FightScene() {
     return res;
   };
 
-  useEnemyTurn({
-    setActionMessages,
-  });
-
-  useSummonTurn({
-    setActionMessages,
-    setP_LeftHealth,
-  });
-
-  usePetTurn({
-    setActionMessages,
-    fightType,
-    handleMessage,
-    handlePostCombatActs,
-  });
+  useEnemyTurn();
+  useSummonTurn();
+  usePetTurn();
   const executeAttack = () => {
     if (currentCharacter && currentCharacter.id !== 'player') return;
     const weapon = weapons.find(
@@ -190,7 +171,7 @@ export default function FightScene() {
     (player.p_LeftHealth / player.totalMaxHealth()) * 100;
   const manaPercentage = (player.p_LeftMana / player.totalMaxMana()) * 100;
 
-  if (isLoading) return <p>Cargando enemigo...</p>;
+  if (creatureLoaded) return <p>Cargando enemigo...</p>;
   // if (error)  return <p>Error: {error}</p>;
   return (
     <div className="fight-scene">
@@ -214,7 +195,6 @@ export default function FightScene() {
         pocion={pocion}
         executeSpell={executeSpell}
         executeScroll={executeScroll}
-        fightType={fightType}
       />
       <div>
         <ul className="action-log fixedUI " ref={logRef}>
@@ -230,13 +210,9 @@ export default function FightScene() {
           setActivateImage={setActivateImage}
         />
         <EndBattleActions
-          creature={creature}
           creatureHealth={creature.p_LeftHealth}
           handleNewEnemyClick={handleNewEnemyClick}
-          fightType={fightType}
-          player={player}
           handleMessage={handleMessage}
-
         />
       </div>
       <PlayerCharacter

@@ -5,18 +5,11 @@ import automaticMove from './automaticMove.ts';
 import { getGlobalState } from './useGlobalState.ts';
 import AttackAction from '../utils/attackAction.ts';
 
-interface SummonTurnProps {
-  setP_LeftHealth: (health: number) => void;
-  setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
-}
-
-export const useSummonTurn = ({
-  setActionMessages,
-  setP_LeftHealth,
-}: SummonTurnProps) => {
+export const useSummonTurn = () => {
   const { currentCharacter, nextTurn } = useTurnStore.getState();
   const { creature, player, enemyPosition, summon, 
-    summonPosition, setSummonPosition, setFloatingMessage} = getGlobalState();
+    summonPosition, setSummonPosition, setFloatingMessage,
+    setActionMessages, playerActions} = getGlobalState();
   useEffect(() => {
     const adjustedDistance = calculateDistance(
       summonPosition,
@@ -53,7 +46,7 @@ export const useSummonTurn = ({
           setSummonPosition,
           setFloatingMessage,
           setActionMessages,
-          setP_LeftHealth,
+          playerActions.setP_LeftHealth,
           nextTurn,
           player.summonDmgIncrease()
         )

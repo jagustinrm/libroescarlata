@@ -1,6 +1,7 @@
 import { NavigateFunction } from 'react-router-dom';
 import openMissions from '../../utils/openMissionsWindow';
 import usePlayerStore from '../../stores/playerStore';
+import { getGlobalState } from '../../customHooks/useGlobalState';
 
 export const handleAction = (
   action: string,
@@ -8,20 +9,16 @@ export const handleAction = (
   setShowMessage: (show: boolean) => void,
 ) => {
   const { playerActions, player } = usePlayerStore.getState();
+  const {setFightType} = getGlobalState();
   switch (action) {
     case 'fight-normal':
-      navigate('/fightScene', {
-        state: {
-          fightType: 'normal',
-        },
-      });
+      setFightType('normal');
+      navigate('/fightScene');
+
       break;
     case 'fight-dungeon':
-      navigate('/fightScene', {
-        state: {
-          fightType: 'dungeon',
-        },
-      });
+      setFightType('dungeon');
+      navigate('/fightScene');
       break;
     case 'townMap':
       navigate('/townMap');

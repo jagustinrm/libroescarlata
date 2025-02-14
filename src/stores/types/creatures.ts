@@ -8,7 +8,7 @@ export interface Creature {
   expertice?: number;
   dodge: number;
   hitRate: number;
-  hitPoints: string;
+  hitPoints: number;
   armorClass: number;
   mdef: number;
   attacks: {

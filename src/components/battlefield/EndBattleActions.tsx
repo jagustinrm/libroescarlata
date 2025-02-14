@@ -1,30 +1,23 @@
 import React from 'react';
-import { Player } from '../../stores/types/player';
-import { Creature } from '../../stores/types/creatures';
+import { getGlobalState } from '../../customHooks/useGlobalState';
 
 interface NewEnemyClickParams {
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  fightType: string;
 }
 
 interface EndBattleActionsProps {
   creatureHealth?: number;
   handleNewEnemyClick: (params: NewEnemyClickParams) => void;
-  fightType: string;
-  player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  creature: Creature;
 }
 
 const EndBattleActions: React.FC<EndBattleActionsProps> = ({
   creatureHealth,
   handleNewEnemyClick,
-  fightType,
   handleMessage,
-  creature,
 }) => {
   if (creatureHealth !== 0) return null;
-
+  const {creature, fightType} = getGlobalState();
   return (
     <div>
       <div className="container-endBattle fixedUI ">
@@ -33,7 +26,6 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
             onClick={() =>
               handleNewEnemyClick({
                 handleMessage,
-                fightType,
               })
             }
             className="rpgui-button endBattleButton"

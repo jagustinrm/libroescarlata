@@ -18,7 +18,7 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     alignment: '',
     level: 0,
     mdef: 0,
-    hitPoints: '',
+    hitPoints: 0,
     armorClass: 0,
     attacks: [],
     specialAbilities: [],

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { renderCreatureImages } from './renderCreatureImages';
 
 export default function Bestiary() {
-  const { creatures, bosses, player } = useGlobalState();
+  const { creatures, bosses, player, setFightType } = useGlobalState();
   const [monsterCategory, setMonsterCategory] = useState('creatures');
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,10 +39,10 @@ export default function Bestiary() {
   // Número total de páginas
   const totalPages = Math.ceil(creatures.length / creaturesPerPage);
   const handleBattle = (enemy: string) => {
+    setFightType('normal')
     navigate('/fightScene', {
       state: {
         enemy: enemy,
-        fightType: 'normal',
       },
     });
   };

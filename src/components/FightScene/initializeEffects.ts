@@ -11,10 +11,7 @@ interface InitializeEffectsProps {
   handleCheckLevelUp: () => void;
   handleMessage: (message: string, type: string, flag: boolean) => void;
   logRef: React.RefObject<HTMLUListElement>;
-  actionMessages: any;
-  fightType: string;
   handlePostCombatActs: any
-  handleNewEnemyClick: any;
 };
 
 export const initializeEffects = ({
@@ -24,12 +21,9 @@ export const initializeEffects = ({
   handleCheckLevelUp,
   handleMessage,
   logRef,
-  actionMessages,
-  fightType,
   handlePostCombatActs,
-  handleNewEnemyClick
 }: InitializeEffectsProps) => {
-  const { player, playerPosition,  addCharacter,  weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition } = getGlobalState();
+  const { player, playerPosition,  addCharacter,  weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition, fightType, actionMessages } = getGlobalState();
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
@@ -65,6 +59,7 @@ export const initializeEffects = ({
     // handleNewEnemyClick()
     setAmbientMusic("battleSong");
     setMusicVolume(0.1);
+
   }, []);
 
   // 4️⃣ Manejo de derrota del jugador o del enemigo
