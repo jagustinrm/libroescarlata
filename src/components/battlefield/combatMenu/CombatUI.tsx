@@ -59,7 +59,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
             onChange={(value) => playerActions.setP_SelectedBodyPart(value)}
             disabled={
               (currentCharacter && currentCharacter.id !== 'player') ||
-              creature.health === 0
+              creature.p_LeftHealth === 0
             }
           />
         </div>
@@ -80,7 +80,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
               onChange={(value) => playerActions.setP_SelectedSpell(value)}
               disabled={
                 (currentCharacter && currentCharacter.id !== 'player') ||
-                creature.health === 0
+                creature.p_LeftHealth === 0
               }
             />
           </div>
@@ -89,7 +89,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
             disabled={
               (currentCharacter && currentCharacter.id !== 'player') ||
               !player.selectedSpell ||
-              creature.health === 0 ||
+              creature.p_LeftHealth === 0 ||
               player.p_LeftHealth <= 0
             }
           >

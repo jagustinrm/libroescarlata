@@ -5,7 +5,7 @@
     "type": "no-muerto",
     "alignment": "caótico maligno",
     "level": 5,
-    "hitPoints": "8d10",
+    "hitPoints": 80,
     "armorClass": 18,
     "attacks": [
       {
@@ -35,7 +35,7 @@
     "type": "dragón",
     "alignment": "neutral maligno",
     "level": 10,
-    "hitPoints": "15d12",
+    "hitPoints": 500,
     "armorClass": 20,
     "attacks": [
       {
@@ -61,7 +61,7 @@
     "type": "demonio",
     "alignment": "caótico maligno",
     "level": 7,
-    "hitPoints": "10d10",
+    "hitPoints": 1000,
     "armorClass": 16,
     "attacks": [
       {
@@ -91,7 +91,7 @@
     "type": "constructo",
     "alignment": "neutral",
     "level": 8,
-    "hitPoints": "12d10",
+    "hitPoints": 800,
     "armorClass": 22,
     "attacks": [
       {
@@ -121,7 +121,7 @@
     "type": "humanoide",
     "alignment": "neutral maligno",
     "level": 6,
-    "hitPoints": "7d8",
+    "hitPoints": 550,
     "armorClass": 14,
     "attacks": [
       {
@@ -151,7 +151,7 @@
     "type": "humanoide",
     "alignment": "neutral maligno",
     "level": 2,
-    "hitPoints": "2d8",
+    "hitPoints": 100,
     "armorClass": 13,
     "attacks": [
       {
@@ -177,7 +177,7 @@
     "type": "bestia",
     "alignment": "neutral",
     "level": 1,
-    "hitPoints": "2d6",
+    "hitPoints": 80,
     "armorClass": 12,
     "attacks": [
       {
@@ -196,7 +196,7 @@
     "type": "bestia",
     "alignment": "neutral maligno",
     "level": 3,
-    "hitPoints": "3d8",
+    "hitPoints": 250,
     "armorClass": 14,
     "attacks": [
       {
@@ -219,7 +219,7 @@
     "type": "no-muerto",
     "alignment": "neutral maligno",
     "level": 1,
-    "hitPoints": "2d8",
+    "hitPoints": 90,
     "armorClass": 10,
     "attacks": [
       {
@@ -238,7 +238,7 @@
     "type": "humanoide",
     "alignment": "neutral",
     "level": 2,
-    "hitPoints": "2d8",
+    "hitPoints": 100,
     "armorClass": 12,
     "attacks": [
       {
@@ -257,7 +257,7 @@
     "type": "humanoide",
     "alignment": "caótico maligno",
     "level": 2,
-    "hitPoints": "2d6",
+    "hitPoints": 120,
     "armorClass": 13,
     "attacks": [
       {

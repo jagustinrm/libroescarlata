@@ -1,32 +1,24 @@
 import { useState, useEffect } from 'react';
 import { rollDice } from '../utils/rollDice.ts';
 import { Creature } from '../stores/types/creatures.ts';
-import useCreatureStore from '../stores/creatures';
-import { Dispatch, SetStateAction } from 'react';
-import { Player } from '../stores/types/player';
-import usePositionStore from '../stores/positionStore.ts';
 import useTurnStore from '../stores/turnStore.ts';
+import { getGlobalState } from './useGlobalState.ts';
 const BOSS_PROBABILITY = 0.5; // 5% de probabilidad para bosses
 
 interface HandleNewEnemyClickParams {
-  player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  // setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
-  updateEnemy: boolean;
-  setUpdateEnemy: Dispatch<SetStateAction<boolean>>;
   fightType: string;
 }
 
 export function useEnemyLoader(
   level: number,
   dungeonLevel: number,
-  updateEnemy: boolean,
   enemy: string | null,
   fightType: string,
 ) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { setTurn } = useTurnStore();
-  const { creatures, bosses, setCreature } = useCreatureStore();
+  const { creatures, bosses, setCreature, creatureLoaded  } = getGlobalState();
 
   const filterByLevel = (
     entities: Creature[],
@@ -58,9 +50,12 @@ export function useEnemyLoader(
       if (enemy) {
         const storyCreature = creatures.find((c) => c.name === enemy);
         if (storyCreature) {
-          console.log(storyCreature);
           const initialHealth = rollDice(storyCreature.hitPoints);
-          setCreature({ ...storyCreature, health: initialHealth });
+          setCreature({ 
+            ...storyCreature, 
+            health: initialHealth, 
+            p_LeftHealth: initialHealth 
+          });
           setIsLoading(false);
           return;
         }
@@ -75,7 +70,7 @@ export function useEnemyLoader(
             finalBosses[Math.floor(Math.random() * finalBosses.length)];
           const initialHealth = rollDice(randomBoss.hitPoints);
 
-          setCreature({ ...randomBoss, health: initialHealth });
+          setCreature({ ...randomBoss, health: initialHealth, p_LeftHealth: initialHealth  });
           return;
         }
       }
@@ -84,34 +79,29 @@ export function useEnemyLoader(
       const randomCreature =
         finalCreatures[Math.floor(Math.random() * finalCreatures.length)];
       const initialHealth = rollDice(randomCreature.hitPoints);
-      setCreature({ ...randomCreature, health: initialHealth });
+      setCreature({ ...randomCreature, health: initialHealth, p_LeftHealth: initialHealth });
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleNewEnemyClick = ({
-    player,
     handleMessage,
-    // setTurn,
-    updateEnemy,
-    setUpdateEnemy,
   }: HandleNewEnemyClickParams) => {
-    const { resetPositions } = usePositionStore.getState();
+    const { resetPositions, player, setCreatureLoaded } = getGlobalState();
     handleMessage(`${player.name} busca un nuevo enemigo...`, 'success', false);
     setTimeout(() => {
-      // setTurn('player');
       setTurn('player');
-      setUpdateEnemy(!updateEnemy);
+      setCreatureLoaded(!creatureLoaded)
       resetPositions();
+      selectEnemy();
     }, 1000);
   };
 
   useEffect(() => {
     setIsLoading(true);
-
     selectEnemy();
-  }, [updateEnemy]);
+  }, [creatureLoaded]);
 
   return { isLoading, handleNewEnemyClick };
 }

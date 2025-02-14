@@ -25,6 +25,7 @@ export interface Creature {
   health?: number;
   p_LeftHealth : number;
   stats: Stats;
+
   readonly dodgePercentage: () => number;
   readonly hitRatePercentage: () => number;
   readonly totalDmgReduction: (enemyLevel: number) => number;
@@ -37,6 +38,8 @@ export interface CreatureStore {
   creatures: Creature[];
   bosses: Creature[]; // Lista de bosses (puedes filtrar por 'type' si quieres)
   areCreaturesLoaded: boolean;
+  creatureLoaded: boolean;
+  setCreatureLoaded: (loaded: boolean) => void;
   setCreatures: (creatures: Creature[]) => void;
   addNewCreature: (newCreature: Creature) => void;
   addNewBoss: (newBoss: Creature) => void; // Función para añadir nuevos bosses

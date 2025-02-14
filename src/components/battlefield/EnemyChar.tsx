@@ -13,7 +13,7 @@ const EnemyChar: React.FC<EnemyCharProps> = ({ creature }) => {
         <div>
           <h3>{creature.name}</h3>
           <p>Nivel: {creature.level}</p>
-          <p>Vida: {creature.health}</p>
+          <p>Vida: {creature.p_LeftHealth}</p>
         </div>
       ) : (
         <p>No hay enemigo seleccionado.</p>

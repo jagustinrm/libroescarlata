@@ -13,7 +13,7 @@ interface EnemyTurnProps {
 export const usePetTurn = ({
   setActionMessages,
 }: EnemyTurnProps) => {
-  const {player, creature, setCreatureHealth, setFloatingMessage, 
+  const {player, creature, setP_LeftHealth, setFloatingMessage, 
     currentCharacter, nextTurn, 
     enemyPosition, petPosition, setPetPosition, 
     playerPosition } = getGlobalState();
@@ -24,8 +24,8 @@ export const usePetTurn = ({
         creature &&
         currentCharacter &&
         currentCharacter.id === 'pet' &&
-        creature.health &&
-        creature.health > 0 &&
+        creature.p_LeftHealth &&
+        creature.p_LeftHealth > 0 &&
         player.p_LeftHealth > 0
       ) {
         const adjustedDistance = calculateDistance(
@@ -41,7 +41,7 @@ export const usePetTurn = ({
           setPetPosition,
           setFloatingMessage,
           setActionMessages,
-          setCreatureHealth,
+          setP_LeftHealth,
           nextTurn,
           player.summonDmgIncrease() // Aumento el daño del pet?
         )

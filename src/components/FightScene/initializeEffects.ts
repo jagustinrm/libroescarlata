@@ -9,12 +9,12 @@ interface InitializeEffectsProps {
   setOpcionesArmas: (value: Weapon[]) => void;
   setOpcionesSpells: (value: Spell[]) => void;
   handleCheckLevelUp: () => void;
-
   handleMessage: (message: string, type: string, flag: boolean) => void;
   logRef: React.RefObject<HTMLUListElement>;
   actionMessages: any;
   fightType: string;
   handlePostCombatActs: any
+  handleNewEnemyClick: any;
 };
 
 export const initializeEffects = ({
@@ -26,9 +26,10 @@ export const initializeEffects = ({
   logRef,
   actionMessages,
   fightType,
-  handlePostCombatActs
+  handlePostCombatActs,
+  handleNewEnemyClick
 }: InitializeEffectsProps) => {
-  const { player, playerPosition,  addCharacter, weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition } = getGlobalState();
+  const { player, playerPosition,  addCharacter,  weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition } = getGlobalState();
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
@@ -61,6 +62,7 @@ export const initializeEffects = ({
     if (player.selectedPet) {
       addCharacter({ id: "pet", name: player.selectedPet.name });
     }
+    // handleNewEnemyClick()
     setAmbientMusic("battleSong");
     setMusicVolume(0.1);
   }, []);
@@ -72,14 +74,14 @@ export const initializeEffects = ({
     }
 
     if (
-      typeof creature.health === 'number' &&
-      creature.health <= 0 &&
+      typeof creature.p_LeftHealth === 'number' &&
+      creature.p_LeftHealth <= 0 &&
       fightType
     ) {
       handleMessage('¡Has ganado el combate!', 'success', false);
       handlePostCombatActs?.(fightType, creature);
     }
-  }, [player.p_LeftHealth, creature.health]);
+  }, [player.p_LeftHealth, creature.p_LeftHealth]);
 
 
   // 5️⃣ Ajustar posición de invocación

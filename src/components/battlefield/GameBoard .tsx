@@ -212,7 +212,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
           />
         )}
 
-        {summon && (
+        {summon && summon.name &&(
           <img
             src={summon.img}
             alt="Summon"

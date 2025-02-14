@@ -16,6 +16,7 @@ const useSummonStore = create<SummonsStore>((set, get) => ({
     alignment: '',
     level: 0,
     hitPoints: '',
+    p_LeftHealth: 1,
     armorClass: 0,
     attacks: [],
     specialAbilities: [],
@@ -49,7 +50,7 @@ const useSummonStore = create<SummonsStore>((set, get) => ({
     set(() => ({
       summon: creature,
     })),
-
+  
   setSummonHealth: (health: number) =>
     set((state) => {
       if (state.summon) {

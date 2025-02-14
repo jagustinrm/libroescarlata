@@ -37,9 +37,7 @@ export default function AttackAction (
               }
             }
 
-            // VER ESTO
-            healthFunction(Math.max(target.health - finalDamage(), 0));
-            // VER ESTO
+            healthFunction(Math.max(target.p_LeftHealth - finalDamage(), 0));
             setSoundUrl(attacker.attacks[0].soundEffect);
             setTimeout(() => {
               setSoundUrl('');

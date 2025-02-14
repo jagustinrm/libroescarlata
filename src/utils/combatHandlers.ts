@@ -92,7 +92,7 @@ export const handleCombatAction = (
         creature.dodgePercentage?.() ?? 0,
       );
 
-      if (weaponFiltered && success && creature.health) {
+      if (weaponFiltered && success && creature.p_LeftHealth) {
         setActivateImage(true);
         setTimeout(() => {
           setActivateImage(false);
@@ -106,7 +106,7 @@ export const handleCombatAction = (
         const finalDamage = Math.floor(totalDamage * (1 - redDamage / 100));
         useCreatureStore
           .getState()
-          .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
+          .setP_LeftHealth(Math.max(creature.p_LeftHealth - finalDamage, 0));
 
         addActionMessage(
           `Has atacado al enemigo y causado ${finalDamage} puntos de daño.`,
@@ -118,10 +118,6 @@ export const handleCombatAction = (
           position: enemyPosition,
         });
 
-        if (creature.health - finalDamage <= 0 && fightType) {
-          handleMessage?.('¡Has ganado el combate!', 'success', false);
-          handlePostCombatActs?.(fightType, creature);
-        }
 
         return true; // Ataque exitoso
       } else {
@@ -221,7 +217,7 @@ export const handleCombatAction = (
 
         useCreatureStore
           .getState()
-          .setCreatureHealth(Math.max(creature.health - finalDamage, 0));
+          .setP_LeftHealth(Math.max(creature.p_LeftHealth - finalDamage, 0));
 
         if (
           typeof player?.p_LeftMana === 'number' &&
@@ -235,10 +231,7 @@ export const handleCombatAction = (
             );
         }
 
-        if (creature.health - damage <= 0 && fightType) {
-          handleMessage?.('¡Has ganado el combate!', 'success', false);
-          handlePostCombatActs?.(fightType, creature);
-        }
+
 
         return true; // Hechizo exitoso
       } else {

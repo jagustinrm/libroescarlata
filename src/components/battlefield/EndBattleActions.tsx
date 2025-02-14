@@ -3,11 +3,7 @@ import { Player } from '../../stores/types/player';
 import { Creature } from '../../stores/types/creatures';
 
 interface NewEnemyClickParams {
-  player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  // setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
-  updateEnemy: boolean;
-  setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
   fightType: string;
 }
 
@@ -17,9 +13,6 @@ interface EndBattleActionsProps {
   fightType: string;
   player: Player;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
-  // setTurn: React.Dispatch<React.SetStateAction<'player' | 'enemy' | 'summon'>>;
-  updateEnemy: boolean;
-  setUpdateEnemy: React.Dispatch<React.SetStateAction<boolean>>;
   creature: Creature;
 }
 
@@ -27,11 +20,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
   creatureHealth,
   handleNewEnemyClick,
   fightType,
-  player,
   handleMessage,
-  // setTurn,
-  updateEnemy,
-  setUpdateEnemy,
   creature,
 }) => {
   if (creatureHealth !== 0) return null;
@@ -43,11 +32,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
           <button
             onClick={() =>
               handleNewEnemyClick({
-                player,
                 handleMessage,
-                // setTurn,
-                updateEnemy,
-                setUpdateEnemy,
                 fightType,
               })
             }

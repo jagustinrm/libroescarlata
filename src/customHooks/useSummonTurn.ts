@@ -6,13 +6,13 @@ import { getGlobalState } from './useGlobalState.ts';
 import AttackAction from '../utils/attackAction.ts';
 
 interface SummonTurnProps {
-  setCreatureHealth: (health: number) => void;
+  setP_LeftHealth: (health: number) => void;
   setActionMessages: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const useSummonTurn = ({
   setActionMessages,
-  setCreatureHealth,
+  setP_LeftHealth,
 }: SummonTurnProps) => {
   const { currentCharacter, nextTurn } = useTurnStore.getState();
   const { creature, player, enemyPosition, summon, 
@@ -27,8 +27,8 @@ export const useSummonTurn = ({
         currentCharacter &&
         currentCharacter.id === 'summon' &&
         summon &&
-        creature.health &&
-        creature.health > 0 &&
+        creature.p_LeftHealth &&
+        creature.p_LeftHealth > 0 &&
         player.p_LeftHealth > 0 &&
         adjustedDistance > Math.max(...summon.attacks.map((a) => a.range))
       ) {
@@ -40,8 +40,8 @@ export const useSummonTurn = ({
         creature &&
         currentCharacter &&
         currentCharacter.id === 'summon' &&
-        creature.health &&
-        creature.health > 0 &&
+        creature.p_LeftHealth &&
+        creature.p_LeftHealth > 0 &&
         player.p_LeftHealth > 0
       ) {
         AttackAction(
@@ -53,7 +53,7 @@ export const useSummonTurn = ({
           setSummonPosition,
           setFloatingMessage,
           setActionMessages,
-          setCreatureHealth,
+          setP_LeftHealth,
           nextTurn,
           player.summonDmgIncrease()
         )

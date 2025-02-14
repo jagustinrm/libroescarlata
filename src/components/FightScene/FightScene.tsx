@@ -17,7 +17,6 @@ import KeyboardController from '../../utils/KeyboardController.ts';
 import PlayerCharacter from '../battlefield/PlayerCharacter.tsx';
 import EndBattleActions from '../battlefield/EndBattleActions.tsx';
 import EnemyChar from '../battlefield/EnemyChar.tsx';
-
 import useAppStore from '../../stores/appStore.ts';
 import useGlobalState from '../../customHooks/useGlobalState.ts';
 import CombatUI from '../battlefield/combatMenu/CombatUI.tsx';
@@ -40,18 +39,16 @@ export default function FightScene() {
     playerActions,
     creature,
    currentCharacter, 
-    setCreatureHealth,
+   setP_LeftHealth,
     summon, setSummon
   } = useGlobalState();
   // const [summon, setSummon] = useState<Creature | null>(null);
   const [activateImage, setActivateImage] = useState<boolean>(false);
   const { expTable } = useExpTable();
   const [actionMessages, setActionMessages] = useState<string[]>([]); // Estado para el mensaje de acción
-  const [updateEnemy, setUpdateEnemy] = useState<boolean>(false);
   const { isLoading, handleNewEnemyClick } = useEnemyLoader(
     player.level,
     player.dungeonLevel,
-    updateEnemy,
     enemy,
     fightType,
   );
@@ -89,7 +86,8 @@ export default function FightScene() {
     logRef,
     actionMessages,
     fightType,
-    handlePostCombatActs
+    handlePostCombatActs,
+    handleNewEnemyClick
   });
   // ************************USEEFFECTS ******************************
     // ************************COMBATE *************************
@@ -117,7 +115,7 @@ export default function FightScene() {
 
   useSummonTurn({
     setActionMessages,
-    setCreatureHealth,
+    setP_LeftHealth,
   });
 
   usePetTurn({
@@ -233,14 +231,12 @@ export default function FightScene() {
         />
         <EndBattleActions
           creature={creature}
-          creatureHealth={creature.health}
+          creatureHealth={creature.p_LeftHealth}
           handleNewEnemyClick={handleNewEnemyClick}
           fightType={fightType}
           player={player}
           handleMessage={handleMessage}
-          // setTurn={setTurn}
-          updateEnemy={updateEnemy}
-          setUpdateEnemy={setUpdateEnemy}
+
         />
       </div>
       <PlayerCharacter

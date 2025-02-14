@@ -10,6 +10,8 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
   creatures: [],
   bosses: [],
   areCreaturesLoaded: false,
+  creatureLoaded: false,
+
   creature: {
     name: '',
     type: '',
@@ -46,8 +48,11 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     totalMDmgReduction: (enemyLevel) => {
       return calculateDmgMReduction(get().creature.mdef, enemyLevel);
     },
-
   },
+  setCreatureLoaded: (loaded) => // ESTO quizás podría hacerlo directamente cuando cargo una criatura.
+    set((state) => ({
+      creature: { ...state.creature, loaded },
+    })),
   setP_LeftHealth: (p_LeftHealth) =>
     set((state) => ({
       creature: { ...state.creature, p_LeftHealth },

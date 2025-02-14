@@ -28,7 +28,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         id="newDesign"
         onClick={executeAttack}
         disabled={
-          creature.health === 0 ||
+          creature.p_LeftHealth === 0 ||
           player.p_LeftHealth === 0 ||
           !player.bodyParts.manoDerecha ||
           currentCharacter?.id !== 'player'
@@ -41,7 +41,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         <button
           className="rpgui-button newDesign potionsButton"
           id="newDesign"
-          disabled={creature.health === 0 || player.p_LeftHealth === 0}
+          disabled={creature.p_LeftHealth === 0 || player.p_LeftHealth === 0}
         >
           {
             // Buscar la poción en la lista de potions y mostrar la imagen
