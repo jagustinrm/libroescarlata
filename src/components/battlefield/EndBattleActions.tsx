@@ -6,18 +6,17 @@ interface NewEnemyClickParams {
 }
 
 interface EndBattleActionsProps {
-  creatureHealth?: number;
   handleNewEnemyClick: (params: NewEnemyClickParams) => void;
   handleMessage: (message: string, type: string, shouldClose: boolean) => void;
 }
 
 const EndBattleActions: React.FC<EndBattleActionsProps> = ({
-  creatureHealth,
   handleNewEnemyClick,
   handleMessage,
 }) => {
-  if (creatureHealth !== 0) return null;
+
   const {creature, fightType} = getGlobalState();
+  if (creature.p_LeftHealth !== 0) return null;
   return (
     <div>
       <div className="container-endBattle fixedUI ">

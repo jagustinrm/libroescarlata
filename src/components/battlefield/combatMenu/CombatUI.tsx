@@ -7,32 +7,31 @@ import { Item, Items } from '../../../stores/types/items';
 import { handlePotion } from '../../../utils/handlePotion';
 import ListCombatItems from './listCombatItems';
 import useGlobalState from '../../../customHooks/useGlobalState';
+import { Scroll } from '../../../stores/types/scrolls';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[];
   opcionesSpells: Spell[];
-  executeAttack: () => void;
+  executeAction: (type: any, item?: any) => boolean | undefined;
   handleMessage: (message: string, type: string, dismissible: boolean) => void;
   pocion: string | undefined;
-  executeSpell: () => void;
-  executeScroll: (item: Item) => boolean;
+
 }
 
 const CombatUI: React.FC<CombatUIProps> = ({
   opcionesArmas,
   opcionesSpells,
-  executeAttack,
+  executeAction,
   handleMessage,
   pocion,
-  executeSpell,
-  executeScroll,
 }) => {
 
   const [selectedType, setSelectedType] = useState<keyof Items>();
   const {fightType, player, playerActions, creature, currentCharacter} = useGlobalState();
   const executeItem = (item: any): boolean => {
     if (selectedType === 'scrolls') {
-      const res = executeScroll(item);
+      const res = executeAction('scroll', item);
+      if (!res) return false;
       return res;
     } else if (selectedType === 'potions') {
       return handlePotion({ item, handleMessage });
@@ -57,7 +56,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
         </div>
         {/* Ataques y pociones */}
         <AttackAndPotions
-          executeAttack={executeAttack}
+          executeAction={executeAction}
           pocion={pocion}
         />
 
@@ -76,7 +75,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
             />
           </div>
           <button
-            onClick={executeSpell}
+            onClick={ () => executeAction('spell')}
             disabled={
               (currentCharacter && currentCharacter.id !== 'player') ||
               !player.selectedSpell ||

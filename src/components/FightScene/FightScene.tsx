@@ -46,11 +46,7 @@ export default function FightScene() {
   } = useGlobalState();
   const [activateImage, setActivateImage] = useState<boolean>(false);
   const { expTable } = useExpTable();
-  const { handleNewEnemyClick } = useEnemyLoader(
-    player.level,
-    player.dungeonLevel,
-    enemy,
-  );
+  const { handleNewEnemyClick } = useEnemyLoader(enemy);
   const { handlePostCombatActs } = usePostCombatActions();
   const handleCheckLevelUp = () => {
     checkLevelUp({
@@ -83,67 +79,32 @@ export default function FightScene() {
     handleMessage,
     logRef,
     handlePostCombatActs,
+    enemy
   });
   // ************************USEEFFECTS ******************************
     // ************************COMBATE *************************
-  const handleAction = (
-    actionType: 'attack' | 'spell' | 'move' | 'scroll',
-    additionalData?: any,
-  ) => {
-    const res = handleCombatAction(
-      actionType,
-      {
-        setActivateImage,
-        handlePostCombatActs,
-        handleMessage,
-      },
-      additionalData,
-    );
-    return res;
-  };
+    const executeAction = (type: 'attack' | 'spell' | 'scroll', item?: Weapon | Spell | Scroll) => {
+      if (currentCharacter?.id !== 'player') return;
+      
+      const selectedItem = item ?? 
+        (type === 'attack' 
+          ? weapons.find((w) => player.bodyParts.manoDerecha?.name === w.name) 
+          : spells.find((s) => player.selectedSpell?.name === s.name));
+      
+      setSoundUrl(selectedItem?.soundEffect || null);
+    
+      const res = handleCombatAction(type, { setActivateImage, handlePostCombatActs, handleMessage }, selectedItem);
+    
+      setTimeout(() => setSoundUrl(null), type === 'attack' ? 300 : 1000);
+      
+      return res;
+    };
+    
 
   useEnemyTurn();
   useSummonTurn();
   usePetTurn();
-  const executeAttack = () => {
-    if (currentCharacter && currentCharacter.id !== 'player') return;
-    const weapon = weapons.find(
-      (s) => player.bodyParts.manoDerecha?.name === s.name,
-    );
-    const url = weapon?.soundEffect || null;
-    setSoundUrl(url);
-    handleAction('attack');
-    setTimeout(() => {
-      setSoundUrl(null);
-    }, 300);
-  };
-  const executeSpell = () => {
-    if (
-      (currentCharacter && currentCharacter.id !== 'player') ||
-      !player.selectedSpell
-    )
-      return;
-    const spell = spells.find((s) => player.selectedSpell?.name === s.name);
-    const url = spell?.soundEffect || null;
-    setSoundUrl(url);
-    handleAction('spell');
-    setTimeout(() => {
-      setSoundUrl(null);
-    }, 1000);
-  };
 
-  const executeScroll = (scroll: Scroll): boolean => {
-    const selectedAttack = scroll;
-    const url = selectedAttack?.soundEffect || null;
-    setSoundUrl(url);
-    const res = handleAction('scroll', selectedAttack);
-    console.log(res);
-    setTimeout(() => {
-      setSoundUrl(null);
-    }, 1000);
-    return res;
-  };
-  
   // ************************COMBATE *************************
 
   const handleClose = (shouldClose: boolean) => {
@@ -190,11 +151,9 @@ export default function FightScene() {
       <CombatUI
         opcionesArmas={opcionesArmas ?? []}
         opcionesSpells={opcionesSpells ?? []}
-        executeAttack={executeAttack}
+        executeAction={executeAction}
         handleMessage={handleMessage}
         pocion={pocion}
-        executeSpell={executeSpell}
-        executeScroll={executeScroll}
       />
       <div>
         <ul className="action-log fixedUI " ref={logRef}>
@@ -210,7 +169,6 @@ export default function FightScene() {
           setActivateImage={setActivateImage}
         />
         <EndBattleActions
-          creatureHealth={creature.p_LeftHealth}
           handleNewEnemyClick={handleNewEnemyClick}
           handleMessage={handleMessage}
         />

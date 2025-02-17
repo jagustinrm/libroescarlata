@@ -5,12 +5,12 @@ import useCreatureStore from '../../../stores/creatures';
 import useTurnStore from '../../../stores/turnStore';
 
 interface AttackAndPotionsProps {
-  executeAttack: () => void;
+  executeAction: (type: any, item?: any) => void;
   pocion: string | undefined; // Cambiar el tipo a string | undefined
 }
 
 const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
-  executeAttack,
+  executeAction,
   pocion,
 }) => {
   // Lógica para encontrar la poción específica
@@ -26,7 +26,7 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
       <button
         className="rpgui-button newDesign espada"
         id="newDesign"
-        onClick={executeAttack}
+        onClick={() => executeAction('attack')}
         disabled={
           creature.p_LeftHealth === 0 ||
           player.p_LeftHealth === 0 ||

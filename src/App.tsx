@@ -7,12 +7,16 @@ import FightScene from './components/FightScene/FightScene.js';
 import PetStore from './components/petStore/PetStore';
 import Inventory from './components/inventory/Inventory';
 import ItemShop from './components/itemsStore/ItemShop';
+import PlayerStats from './components/playerStats/PlayerStats';
+import Chat from './components/IA/chat.js';
+import StoryMode from './components/storyMode/StoryMode.js';
+import Chapter from './components/storyMode/Chapter.js';
 import PlayerStateLoader from './loaders/PlayerStateLoader.js';
 import InventoryStateLoader from './loaders/InventoryStateLoader.js';
 import WeaponLoader from './loaders/NewWeaponLoader';
 import PotionsLoader from './loaders/PotionsLoader';
 import ClassLoader from './loaders/ClassLoaders';
-import PlayerStats from './components/playerStats/PlayerStats';
+
 import DelayedDisplay from './utils/DelayedDisplayProps';
 import SpellLoader from './loaders/SpellsLoader';
 import CreatureLoader from './loaders/CreaturesLoaders';
@@ -20,10 +24,9 @@ import PlayerStateSaver from './firebase/savePlayerStateToFirebase .js';
 import ArmorsLoader from './loaders/ArmorsLoader.js';
 import Particles from './components/UI/details/particles.js';
 import ItemShopLoader from './components/itemsStore/ItemShopLoader.js';
-import Chat from './components/IA/chat.js';
-import StoryMode from './components/storyMode/StoryMode.js';
+
 import StoryLoader from './loaders/StoryLoader.js';
-import Chapter from './components/storyMode/Chapter.js';
+
 import DialogLoader from './loaders/DialogLoader.js';
 import HeaderMenu from './components/UI/menu/HeaderMenu.js';
 import useGlobalState from './customHooks/useGlobalState.js';

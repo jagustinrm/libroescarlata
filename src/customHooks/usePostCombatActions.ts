@@ -1,6 +1,5 @@
 import checkQuests from '../utils/checkQuests.ts';
-// @ts-expect-error Para que funcione
-import gainExp from '../utils/gainExp.js';
+import gainExp from '../utils/gainExp.ts';
 import { Creature } from '../stores/types/creatures.js';
 import { getGlobalState } from './useGlobalState.ts';
 
@@ -15,7 +14,6 @@ const usePostCombatActions = () => {
         playerActions.setDungeonLevel(newLevel);
       }
       gainExp(creature.level, playerActions.setPlayerExp, player.playerExp);
-
       playerActions.setPlayerMaterial(
         player.playerMaterial + creature.level * 100,
       );

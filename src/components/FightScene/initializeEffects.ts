@@ -3,6 +3,7 @@ import { Weapon } from "../../stores/types/weapons";
 import { Spell } from "../../stores/types/spells";
 import { getGlobalState } from "../../customHooks/useGlobalState";
 import useSummonStore from "../../stores/summonsStore";
+import { selectEnemy } from "../handlers/handleSelectEnemy";
 
 interface InitializeEffectsProps {
   setpocion: (value: any) => void;
@@ -11,7 +12,8 @@ interface InitializeEffectsProps {
   handleCheckLevelUp: () => void;
   handleMessage: (message: string, type: string, flag: boolean) => void;
   logRef: React.RefObject<HTMLUListElement>;
-  handlePostCombatActs: any
+  handlePostCombatActs: any;
+  enemy: string | null,
 };
 
 export const initializeEffects = ({
@@ -22,8 +24,9 @@ export const initializeEffects = ({
   handleMessage,
   logRef,
   handlePostCombatActs,
+  enemy,
 }: InitializeEffectsProps) => {
-  const { player, playerPosition,  addCharacter,  weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition, fightType, actionMessages } = getGlobalState();
+  const { player, playerPosition,  addCharacter, creatureLoaded,  weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition, fightType, actionMessages } = getGlobalState();
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
@@ -74,7 +77,7 @@ export const initializeEffects = ({
       fightType
     ) {
       handleMessage('¡Has ganado el combate!', 'success', false);
-      handlePostCombatActs?.(fightType, creature);
+      handlePostCombatActs?.(creature, fightType);
     }
   }, [player.p_LeftHealth, creature.p_LeftHealth]);
 
@@ -96,4 +99,11 @@ export const initializeEffects = ({
       logRef.current.scrollTop = logRef.current.scrollHeight;
     }
   }, [actionMessages]);
+
+    useEffect(() => {
+      selectEnemy(
+        player.level,
+        player.dungeonLevel,
+        enemy);
+    }, [creatureLoaded]);
 };
