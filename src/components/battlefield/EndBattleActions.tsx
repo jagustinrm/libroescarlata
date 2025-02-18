@@ -14,8 +14,11 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
   handleNewEnemyClick,
   handleMessage,
 }) => {
+  const {creature, fightType, } = getGlobalState();
+  const goBack = () => {
+    handleMessage('¡Has vuelto sano y salvo!', 'warning', true)
+  }
 
-  const {creature, fightType} = getGlobalState();
   if (creature.p_LeftHealth !== 0) return null;
   return (
     <div>
@@ -39,7 +42,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
           <button
             className="rpgui-button endBattleButton"
             onClick={() =>
-              handleMessage('¡Has vuelto sano y salvo!', 'warning', true)
+              goBack()
             }
           >
             Volver

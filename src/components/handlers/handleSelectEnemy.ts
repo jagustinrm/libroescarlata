@@ -7,7 +7,7 @@ export const selectEnemy = (
   dungeonLevel: number,
   enemy: string | null,
 ) => {
-    const { creatures, bosses, setCreature, fightType, setCreatureLoaded  } = getGlobalState();
+    const { creatures, bosses, setCreature, fightType, setCreatureLoaded, creatureLoaded  } = getGlobalState();
     const BOSS_PROBABILITY = 0.5; 
     try {
       // Si recibe un enemy carga solamente ese enemy, no busca otro. Modo historia.
@@ -20,7 +20,8 @@ export const selectEnemy = (
             health: initialHealth, 
             p_LeftHealth: initialHealth 
           });
-          setCreatureLoaded(false)
+          setCreatureLoaded(true)
+          console.log(creatureLoaded)
           return;
         }
       }
@@ -45,7 +46,7 @@ export const selectEnemy = (
       const initialHealth = randomCreature.hitPoints;
       setCreature({ ...randomCreature, health: initialHealth, p_LeftHealth: initialHealth });
     } finally {
-      setCreatureLoaded(false)
+      setCreatureLoaded(true)
     }
   };
 

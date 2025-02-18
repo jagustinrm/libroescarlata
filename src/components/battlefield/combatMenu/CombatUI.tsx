@@ -8,11 +8,12 @@ import { handlePotion } from '../../../utils/handlePotion';
 import ListCombatItems from './listCombatItems';
 import useGlobalState from '../../../customHooks/useGlobalState';
 import { Scroll } from '../../../stores/types/scrolls';
+import { executeAction } from '../../FightScene/executeAction';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[];
   opcionesSpells: Spell[];
-  executeAction: (type: any, item?: any) => boolean | undefined;
+  setActivateImage: any;
   handleMessage: (message: string, type: string, dismissible: boolean) => void;
   pocion: string | undefined;
 
@@ -21,16 +22,22 @@ interface CombatUIProps {
 const CombatUI: React.FC<CombatUIProps> = ({
   opcionesArmas,
   opcionesSpells,
-  executeAction,
+  setActivateImage,
+  // executeAction,
   handleMessage,
   pocion,
 }) => {
 
   const [selectedType, setSelectedType] = useState<keyof Items>();
   const {fightType, player, playerActions, creature, currentCharacter} = useGlobalState();
+  const executeActionWithProps = (type: 'attack' | 'spell' | 'scroll', item?: Weapon | Spell | Scroll) => {
+    const res = executeAction(type, setActivateImage, handleMessage, item)
+    return res;
+  };
+
   const executeItem = (item: any): boolean => {
     if (selectedType === 'scrolls') {
-      const res = executeAction('scroll', item);
+      const res = executeActionWithProps('scroll', item);
       if (!res) return false;
       return res;
     } else if (selectedType === 'potions') {
@@ -56,7 +63,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
         </div>
         {/* Ataques y pociones */}
         <AttackAndPotions
-          executeAction={executeAction}
+          executeAction={executeActionWithProps}
           pocion={pocion}
         />
 
@@ -75,7 +82,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
             />
           </div>
           <button
-            onClick={ () => executeAction('spell')}
+            onClick={ () => executeActionWithProps('spell')}
             disabled={
               (currentCharacter && currentCharacter.id !== 'player') ||
               !player.selectedSpell ||

@@ -6,7 +6,6 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEnemyLoader } from '../../customHooks/useEnemyLoader.ts';
 import { checkLevelUp } from '../../utils/checkLevelUp.ts';
-import { handleCombatAction } from '../../utils/combatHandlers.ts';
 import useExpTable from '../../customHooks/useExpTable.ts';
 import MessageBox from '../UI/MessageBox.tsx';
 import { useEnemyTurn } from '../../customHooks/useEnemyTurn.ts';
@@ -23,11 +22,10 @@ import CombatUI from '../battlefield/combatMenu/CombatUI.tsx';
 import { Weapon } from '../../stores/types/weapons.ts';
 import { Spell } from '../../stores/types/spells';
 import { usePetTurn } from '../../customHooks/usePetTurn.ts';
-import { Scroll } from '../../stores/types/scrolls.ts';
 import { initializeEffects } from './initializeEffects.ts';
 
 export default function FightScene() {
-  const {soundUrl, fightType, setSoundUrl, setMessage, message, clearMessage, actionMessages, setActionMessages  } =
+  const {soundUrl, fightType, setMessage, message, clearMessage, actionMessages, setActionMessages  } =
   useAppStore();
   const [redirectHome, setRedirectHome] = useState(false);
   const navigate = useNavigate();
@@ -35,8 +33,6 @@ export default function FightScene() {
   const { enemy, event } = location.state || {};
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {
-    spells,
-    weapons,
     player,
     playerActions,
     creature,
@@ -82,30 +78,11 @@ export default function FightScene() {
     enemy
   });
   // ************************USEEFFECTS ******************************
-    // ************************COMBATE *************************
-    const executeAction = (type: 'attack' | 'spell' | 'scroll', item?: Weapon | Spell | Scroll) => {
-      if (currentCharacter?.id !== 'player') return;
-      
-      const selectedItem = item ?? 
-        (type === 'attack' 
-          ? weapons.find((w) => player.bodyParts.manoDerecha?.name === w.name) 
-          : spells.find((s) => player.selectedSpell?.name === s.name));
-      
-      setSoundUrl(selectedItem?.soundEffect || null);
-    
-      const res = handleCombatAction(type, { setActivateImage, handlePostCombatActs, handleMessage }, selectedItem);
-    
-      setTimeout(() => setSoundUrl(null), type === 'attack' ? 300 : 1000);
-      
-      return res;
-    };
-    
-
+    // ************************TURNOS *************************
   useEnemyTurn();
   useSummonTurn();
   usePetTurn();
-
-  // ************************COMBATE *************************
+  // ************************TURNOS *************************
 
   const handleClose = (shouldClose: boolean) => {
     clearMessage()
@@ -132,7 +109,7 @@ export default function FightScene() {
     (player.p_LeftHealth / player.totalMaxHealth()) * 100;
   const manaPercentage = (player.p_LeftMana / player.totalMaxMana()) * 100;
 
-  if (creatureLoaded) return <p>Cargando enemigo...</p>;
+  if (!creatureLoaded) return <p>Cargando enemigo...</p>;
   // if (error)  return <p>Error: {error}</p>;
   return (
     <div className="fight-scene">
@@ -151,7 +128,7 @@ export default function FightScene() {
       <CombatUI
         opcionesArmas={opcionesArmas ?? []}
         opcionesSpells={opcionesSpells ?? []}
-        executeAction={executeAction}
+        setActivateImage= {setActivateImage}
         handleMessage={handleMessage}
         pocion={pocion}
       />

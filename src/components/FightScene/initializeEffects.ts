@@ -26,7 +26,11 @@ export const initializeEffects = ({
   handlePostCombatActs,
   enemy,
 }: InitializeEffectsProps) => {
-  const { player, playerPosition,  addCharacter, creatureLoaded,  weapons, creature, spells, inventories, resetPositions, setAmbientMusic, setMusicVolume, setSummonPosition, fightType, actionMessages } = getGlobalState();
+  const { player, playerPosition,  addCharacter,
+    creatureLoaded, setCreatureLoaded,  weapons, creature,
+    spells, inventories, resetPositions, setAmbientMusic, 
+    setMusicVolume, setSummonPosition, fightType, 
+    actionMessages } = getGlobalState();
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
@@ -53,7 +57,6 @@ export const initializeEffects = ({
 
   // 3️⃣ Configuración inicial de batalla
   useEffect(() => {
-    resetPositions();
     addCharacter({ id: "player", name: player.name });
     addCharacter({ id: "enemy", name: creature.name });
     if (player.selectedPet) {
@@ -62,13 +65,19 @@ export const initializeEffects = ({
     // handleNewEnemyClick()
     setAmbientMusic("battleSong");
     setMusicVolume(0.1);
-
+ 
+    selectEnemy(
+      player.level,
+      player.dungeonLevel,
+      enemy);
   }, []);
 
   // 4️⃣ Manejo de derrota del jugador o del enemigo
   useEffect(() => {
+    if(creatureLoaded) {
     if (player.p_LeftHealth === 0) {
       handleMessage("¡Has sido derrotado!", "warning", true);
+      
     }
 
     if (
@@ -78,7 +87,9 @@ export const initializeEffects = ({
     ) {
       handleMessage('¡Has ganado el combate!', 'success', false);
       handlePostCombatActs?.(creature, fightType);
+      
     }
+  }
   }, [player.p_LeftHealth, creature.p_LeftHealth]);
 
 
@@ -100,10 +111,12 @@ export const initializeEffects = ({
     }
   }, [actionMessages]);
 
-    useEffect(() => {
-      selectEnemy(
-        player.level,
-        player.dungeonLevel,
-        enemy);
-    }, [creatureLoaded]);
+  useEffect(() => {
+    return () => {
+      setCreatureLoaded(false); 
+      resetPositions();
+    };
+  }, []);
+  
+ 
 };

@@ -15,7 +15,6 @@ export function useEnemyLoader(
     handleMessage(`${player.name} busca un nuevo enemigo...`, 'success', false);
     setTimeout(() => {
       setTurn('player');
-      setCreatureLoaded(true)
       selectEnemy(
         player.level,
         player.dungeonLevel,
