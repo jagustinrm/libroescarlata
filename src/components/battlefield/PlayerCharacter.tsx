@@ -63,7 +63,7 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
                 style={{ width: `${xpPercentage}%` }}
               ></div>
             </div>
-            <div>
+            <div style={{overflow: 'hidden'}}>
               <p className="experience-text">
                 {player.playerExp} / {player.p_ExpToNextLevel}
               </p>

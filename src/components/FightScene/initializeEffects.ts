@@ -30,7 +30,7 @@ export const initializeEffects = ({
     creatureLoaded, setCreatureLoaded,  weapons, creature,
     spells, inventories, resetPositions, setAmbientMusic, 
     setMusicVolume, setSummonPosition, fightType, 
-    actionMessages } = getGlobalState();
+    actionMessages, playerActions, setTurn } = getGlobalState();
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
@@ -115,6 +115,8 @@ export const initializeEffects = ({
     return () => {
       setCreatureLoaded(false); 
       resetPositions();
+      playerActions.resetBuffs();
+      setTurn("player")
     };
   }, []);
   

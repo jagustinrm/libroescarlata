@@ -81,6 +81,11 @@ const useInventoryStore = create<InventoryStore>((set) => ({
         },
       };
     }),
-}));
+    checkIfIdExists: (playerInvId, category, id): boolean => {
+      console.log(useInventoryStore.getState().inventories[playerInvId][category]);
+      return useInventoryStore.getState().inventories[playerInvId][category].some(o => o === id);
+    },
+  }));
+
 
 export default useInventoryStore;

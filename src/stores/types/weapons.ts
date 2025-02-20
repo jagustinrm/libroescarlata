@@ -1,3 +1,5 @@
+import { generalItem } from "./items";
+
 export type WeaponType =
   | 'Espada'
   | 'Hacha'
@@ -6,7 +8,7 @@ export type WeaponType =
   | 'Daga'
   | 'Bastón';
 
-export interface Weapon {
+export interface Weapon extends generalItem {
   id: string; // Identificador único del arma
   name: string; // Nombre del arma
   type: string; // Tipo de arma (Cuerpo a cuerpo, Distancia)

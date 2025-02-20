@@ -1,8 +1,11 @@
 import { darkenHex } from "../../utils/darkenHex";
 import ButtonEdited from "../UI/ButtonEdited";
-import { Item } from "../../stores/types/items";
+import { Item, Items } from "../../stores/types/items";
 import { handleEquip } from "./handleEquip";
 import { FloatingMessageProps } from "../../stores/types/others";
+import { getGlobalState } from "../../customHooks/useGlobalState";
+import { Inventory } from "../../stores/types/inventory";
+import useInventoryStore from "../../stores/inventoryStore";
 
 type AccessoryEquipped = {
   type: string;
@@ -14,6 +17,7 @@ interface ItemDetailsProps {
   selectedAccessoryEquipped: AccessoryEquipped;
   handleRead: () => void;
   setFloatingMessage: (message: FloatingMessageProps| null) => void;
+  actualCategory: keyof Inventory;
 }
 
 export const ItemDetails: React.FC<ItemDetailsProps> = ({
@@ -21,7 +25,14 @@ export const ItemDetails: React.FC<ItemDetailsProps> = ({
   selectedAccessoryEquipped,
   handleRead,
   setFloatingMessage,
+  actualCategory
 }) => {
+  const { player} = getGlobalState();
+  const {removeItem} = useInventoryStore.getState();
+  const handleDelete = (id: string, type: keyof Items, itemId: string) => {
+    removeItem(id, type, itemId)
+  }
+
   if (!selectedItem) {
     return <p>Selecciona un objeto para ver los detalles</p>;
   }
@@ -73,6 +84,14 @@ export const ItemDetails: React.FC<ItemDetailsProps> = ({
                 ? handleRead()
                 : undefined
             }
+          />
+           <ButtonEdited
+            label={
+              "Eliminar"
+            }
+            width="130px"
+            height="40px"
+            onClick={() => handleDelete(player.inventoryId, actualCategory, selectedItem.id) }
           />
         </div>
       )}

@@ -13,9 +13,18 @@ const useArmorStore = create<ArmorStore>((set) => ({
     set((state) => ({ armors: [...state.armors, newArmor] }));
   },
   addNewArmor: (newArmor: Armor) =>
-    set((state) => ({
-      armors: [...state.armors, newArmor],
-    })),
+    set((state) => {
+      const armorExists = state.armors.some((armor) => armor.id === newArmor.id);
+      
+      if (armorExists) {
+        return state;
+      }
+  
+      return {
+        armors: [...state.armors, newArmor],
+      };
+    }),
+  
   updatesetArmors: (updatedArmor: Armor) => {
     set((state) => ({
       armors: state.armors.map((armor) =>

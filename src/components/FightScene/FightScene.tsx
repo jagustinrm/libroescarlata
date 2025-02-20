@@ -23,6 +23,7 @@ import { Weapon } from '../../stores/types/weapons.ts';
 import { Spell } from '../../stores/types/spells';
 import { usePetTurn } from '../../customHooks/usePetTurn.ts';
 import { initializeEffects } from './initializeEffects.ts';
+import { handleClose } from './handleClose.ts';
 
 export default function FightScene() {
   const {soundUrl, fightType, setMessage, message, clearMessage, actionMessages, setActionMessages  } =
@@ -30,7 +31,7 @@ export default function FightScene() {
   const [redirectHome, setRedirectHome] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { enemy, event } = location.state || {};
+  const { enemy} = location.state || {};
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {
     player,
@@ -84,20 +85,6 @@ export default function FightScene() {
   usePetTurn();
   // ************************TURNOS *************************
 
-  const handleClose = (shouldClose: boolean) => {
-    clearMessage()
-    if (shouldClose) {
-      if (event) {
-        const key = fightType === 'travel' ? 'updateTravel' : 'updatedEvent';
-        const data =
-          fightType === 'travel' ? event : { ...event, status: 'completed' };
-
-        localStorage.setItem(key, JSON.stringify(data));
-      }
-      playerActions.resetBuffs();
-      navigate(-1);
-    }
-  };
 
   const xpPercentage =
     player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0
@@ -110,7 +97,6 @@ export default function FightScene() {
   const manaPercentage = (player.p_LeftMana / player.totalMaxMana()) * 100;
 
   if (!creatureLoaded) return <p>Cargando enemigo...</p>;
-  // if (error)  return <p>Error: {error}</p>;
   return (
     <div className="fight-scene">
       {fightType === 'dungeon' ? (
@@ -163,7 +149,7 @@ export default function FightScene() {
         <MessageBox
           message={message.content}
           type={message.type as 'error' | 'warning' | 'success'}
-          onClose={() => handleClose(redirectHome)}
+          onClose={() => handleClose(redirectHome, clearMessage, navigate)}
         />
       )}
       <KeyboardController />

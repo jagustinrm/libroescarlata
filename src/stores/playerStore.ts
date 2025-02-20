@@ -19,6 +19,7 @@ import {
   calculateTotalMaxHealth,
   calculateTotalMaxMana,
 } from '../utils/calculateStats';
+import { Item } from './types/items';
 
 const initialPlayerState: Player = {
   name: '',
@@ -464,12 +465,6 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => {
         console.log(selectedBodyPart);
         const { bodyPart } = selectedBodyPart; // Obtenemos la parte del cuerpo del Armor
-        // console.log(bodyPart)
-        // console.log(!state.player.bodyParts.hasOwnProperty(bodyPart))
-        // if (!bodyPart || !state.player.bodyParts.hasOwnProperty(bodyPart)) {
-        //   console.error('Invalid bodyPart:', bodyPart);
-        //   return state; // Retornamos el estado actual si el bodyPart no es válido
-        // }
         return {
           player: {
             ...state.player,
@@ -500,7 +495,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
 
         // Verificar si el accesorio ya está equipado
         const isAlreadyEquipped = Object.values(currentAccessories).some(
-          (accessory: any) => accessory.id === id,
+          (accessory: Item) => accessory.id === id,
         );
 
         if (isAlreadyEquipped) {
@@ -510,10 +505,6 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
 
         // Si es un amuleto, tratarlo como un objeto único
         if (lowerCaseType === 'amuleto') {
-          // if (index !== null) {
-          //   console.error("No se puede reemplazar un amuleto con un índice.");
-          //   return state; // No se realizan cambios
-          // }
           return {
             player: {
               ...state.player,

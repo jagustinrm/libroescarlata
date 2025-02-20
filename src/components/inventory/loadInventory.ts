@@ -1,15 +1,10 @@
+import { Dispatch, SetStateAction } from "react";
 import { getGlobalState } from "../../customHooks/useGlobalState";
 import { Inventory } from "../../stores/types/inventory";
-import { getCategoryMap } from "./categoryMap";
 
-  const getItemsByCategory = (category: keyof Inventory, itemIds?: string[]) => {
-    const categoryMap = getCategoryMap();
-    return categoryMap[category]?.filter((item) => itemIds?.includes(item.id)) ?? [];
-  };
-  
   export const handleLoadActualInventory = (
     category: keyof Inventory, 
-    setActualInventory: React.Dispatch<React.SetStateAction<any[] | null>>, 
+    setActualInventory: Dispatch<SetStateAction<[any, number][] | null>>, 
     setActualCategory: React.Dispatch<React.SetStateAction<keyof Inventory>>
   ) => {
     const {player, inventories} = getGlobalState();
@@ -18,7 +13,5 @@ import { getCategoryMap } from "./categoryMap";
       setActualInventory(null);
       return;
     }
-  
     setActualCategory(category);
-    setActualInventory(getItemsByCategory(category, inventory[category] ?? []));
   };

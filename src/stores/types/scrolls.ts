@@ -1,4 +1,6 @@
-export interface Scroll {
+import { generalItem } from "./items";
+
+export interface Scroll extends generalItem {
   name: string;
   id: string;
   level: string;

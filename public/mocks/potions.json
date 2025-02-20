@@ -11,7 +11,8 @@
     },
     "description": "Restaura 100 puntos de vida.",
     "img": "/img/potions/low-healing-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "mediumHealing-potion-002",
@@ -25,7 +26,8 @@
     },
     "description": "Restaura 300 puntos de vida.",
     "img": "/img/potions/moderate-healing-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "mediumHealing-potion-012",
@@ -39,7 +41,8 @@
     },
     "description": "Restaura 600 puntos de vida.",
     "img": "/img/potions/bigHealth-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "bullStrenght-potion-003",
@@ -55,7 +58,8 @@
     },
     "description": "Aumenta tu fuerza.",
     "img": "/img/potions/str-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "speed-potion-005",
@@ -71,7 +75,8 @@
     },
     "description": "Aumenta tu agilidad.",
     "img": "/img/potions/speed-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable":true
   },
   {
     "id": "clarity-potion-007",
@@ -87,7 +92,8 @@
     },
     "description": "Aumenta tu destreza.",
     "img": "/img/potions/clairvoyance-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "potion-008",
@@ -103,7 +109,8 @@
     },
     "description": "Aumenta tu carisma.",
     "img": "/img/potions/car-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "potion-009",
@@ -119,7 +126,8 @@
     },
     "description": "Aumenta tu constitución.",
     "img": "/img/potions/con-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "potion-010",
@@ -135,7 +143,8 @@
     },
     "description": "Aumenta tu inteligencia.",
     "img": "/img/potions/int-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "underWater-potion-002",
@@ -150,7 +159,8 @@
     },
     "description": "Te permite resistir los ataques acuáticos",
     "img": "/img/potions/water-res.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "fireResistance-potion-006",
@@ -166,7 +176,8 @@
     },
     "description": "Reduce 10 puntos de daño por fuego durante 10 minutos.",
     "img": "/img/potions/fire-resistance-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "faithShield-potion-002",
@@ -182,7 +193,8 @@
     },
     "description": "Otorga un bono de +2 a la clase de armadura durante 1 minuto.",
     "img": "/img/potions/shield-of-faith-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "flying-potion-002",
@@ -197,7 +209,8 @@
     },
     "description": "Te permite volar durante 5 minutos.",
     "img": "/img/potions/fly-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "id": "invisibility-potion-004",
@@ -212,6 +225,7 @@
     },
     "description": "Te hace invisible durante 10 minutos.",
     "img": "/img/potions/invisibility-potion.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   }
 ]

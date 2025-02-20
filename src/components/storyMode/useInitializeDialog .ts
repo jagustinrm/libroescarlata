@@ -2,45 +2,33 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import useDialogStore from '../../stores/dialogStore';
 import usePlayerStore from '../../stores/playerStore';
 import useStoryStore from '../../stores/storyStore';
-import { Dialog, DialogLine } from '../../stores/types/dialog';
-
 interface UseInitializeDialogProps {
   dialogId: string | 0 | undefined;
-  currentDialog: Dialog | null;
   currentLineIndex: number;
   storyIndex: number | undefined;
   chapterIndex: number | undefined;
-  setCurrentDialog: (dialog: Dialog | null) => void;
-  setCurrentLine: (line: DialogLine | null) => void;
   setCurrentLineIndex: (index: number) => void;
-  setCurrentEvent: (event: any | null) => void;
   setTravelCounter: (count: number) => void;
   currentChapter: { currentDialogLine: number };
   storyId: string;
-  currentLine: DialogLine | null;
   setDisplayedText: Dispatch<SetStateAction<string>>;
   setIsTextCompleted: Dispatch<SetStateAction<boolean>>;
   setIntervalId: Dispatch<SetStateAction<NodeJS.Timeout | null>>;
 }
 export const useInitializeDialog = ({
   dialogId,
-  currentDialog,
   currentLineIndex,
   storyIndex,
   chapterIndex,
-  setCurrentDialog,
-  setCurrentLine,
   setCurrentLineIndex,
-  setCurrentEvent,
   setTravelCounter,
   currentChapter,
   storyId,
-  currentLine,
   setDisplayedText,
   setIsTextCompleted,
   setIntervalId,
 }: UseInitializeDialogProps) => {
-  const { getDialogById, dialogs } = useDialogStore.getState();
+  const { getDialogById, dialogs, currentLine, setCurrentLine, setCurrentEvent, currentDialog, setCurrentDialog } = useDialogStore.getState();
   const { playerActions } = usePlayerStore.getState();
   const { stories } = useStoryStore.getState();
   useEffect(() => {

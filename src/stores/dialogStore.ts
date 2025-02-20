@@ -1,9 +1,16 @@
 import { create } from 'zustand';
-import { Dialog } from './types/dialog'; // Asegúrate de definir el tipo "Dialog" en otro archivo
+import { Dialog, DialogLine } from './types/dialog'; // Asegúrate de definir el tipo "Dialog" en otro archivo
+import { CEvent } from './types/story';
 
 const useDialogStore = create<{
   dialogs: Dialog[];
   userDialogProgress: { [userId: string]: { [dialogId: string]: boolean } };
+  currentLine: DialogLine;
+  currentDialog: Dialog;
+  currentEvent: CEvent | null;
+  setCurrentLine: (line: DialogLine) => void;
+  setCurrentDialog: (dialog: Dialog) => void;
+  setCurrentEvent: (cEvent: CEvent | null) => void; 
   loadDialogs: (dialogs: Dialog[]) => void;
   completeDialog: (userId: string, dialogId: string) => void;
   isDialogCompleted: (userId: string, dialogId: string) => boolean;
@@ -11,7 +18,12 @@ const useDialogStore = create<{
 }>((set, get) => ({
   dialogs: [],
   userDialogProgress: {},
-
+  currentLine: {text: '', event: ''},
+  currentDialog: {id: '', lines: []},
+  currentEvent: null,
+  setCurrentLine: (line) => set({ currentLine: line }),
+  setCurrentDialog: (dialog) => set({ currentDialog: dialog }),
+  setCurrentEvent:  (cEvent) => set({ currentEvent: cEvent }),
   loadDialogs: (dialogs) =>
     set(() => {
       return { dialogs };

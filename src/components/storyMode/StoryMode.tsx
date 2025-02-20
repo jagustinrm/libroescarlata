@@ -37,6 +37,7 @@ export default function StoryMode() {
 
   return (
     <div className="story-mode-container rpgui-container framed-golden-2">
+    
       {currentStory && (
         <div>
           {/* Título de la historia */}
@@ -63,6 +64,7 @@ export default function StoryMode() {
 
           {/* Tarjetas de capítulos */}
           <div className="chapter-cards rpgui-cursor-point">
+      
             {currentStory.chapters &&
               currentStory.chapters.map((chapter) => (
                 <div
@@ -76,6 +78,7 @@ export default function StoryMode() {
                   onClick={() => handleChapterClick(chapter.id)}
                 >
                   <h3>{chapter.title}</h3>
+                  
                 </div>
               ))}
           </div>

@@ -1,4 +1,6 @@
-export interface Armor {
+import { generalItem } from "./items";
+
+export interface Armor extends generalItem{
   id: string;
   name: string;
   img: string;

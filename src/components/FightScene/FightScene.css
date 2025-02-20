@@ -181,7 +181,7 @@ button:disabled:hover {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-  height: 19%;
+  height: 22%;
 }
 
 .blackBar {
@@ -227,7 +227,7 @@ button:disabled:hover {
 
 .bars {
   width: 300px;
-  height: 90%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -240,6 +240,7 @@ button:disabled:hover {
   color: rgb(255, 255, 255); /* Texto negro para contraste */
   font-weight: bold;
   z-index: 1;
+  
 }
 
 .heal-bar-container-text {
@@ -259,7 +260,7 @@ button:disabled:hover {
   height: 70%;
   background-color: #ccc;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: hidden
 }
 
 .experience-bar,
@@ -267,6 +268,7 @@ button:disabled:hover {
 .mana-bar {
   height: 100%;
   border-radius: 10px;
+  
 }
 .mana-bar {
   background-color: #2e71ee;

@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import { rollDice } from './rollDice.ts';
 import { Creature } from '../stores/types/creatures.ts';
 import useCreatureStore from '../stores/creatures.ts';
 import { isAttackSuccessful } from './calculateStats.ts';
@@ -228,7 +227,7 @@ export const handleCombatAction = (
       spellDetails.manaCost &&
       typeof player?.p_LeftMana === 'number'
     ) {
-      const healing = rollDice(spellDetails.healingAmount);
+      const healing = spellDetails.healingAmount;
       addActionMessage(
         `Has lanzado ${spellDetails.name} y curado ${healing} puntos de vida.`,
       );

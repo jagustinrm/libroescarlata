@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import useGlobalState from '../../../customHooks/useGlobalState';
 import { removeItemFromFirebase } from '../../../firebase/saveItemToFirebase';
 import useInventoryStore from '../../../stores/inventoryStore';
@@ -9,7 +10,7 @@ export default function ListCombatItems({
   executeItem,
 }: {
   selectedType: keyof Items;
-  setSelectedType: any;
+  setSelectedType: Dispatch<SetStateAction<keyof Items | undefined>>;
   executeItem: (item: Item) => boolean;
 }) {
   const { inventories, player, scrolls, potions } = useGlobalState();
@@ -31,7 +32,7 @@ export default function ListCombatItems({
   const executeAction = async (item: Item, selectedType: keyof Items) => {
     const wasItemUsed = executeItem(item);
     if (wasItemUsed) {
-      setSelectedType('');
+      setSelectedType(undefined);
       removeItem(player.inventoryId, selectedType, item.id);
       await removeItemFromFirebase(player.name, item.id, selectedType);
     }
@@ -49,7 +50,7 @@ export default function ListCombatItems({
           />
         ))
       ) : (
-        <p onClick={() => setSelectedType('')}>No hay objetos</p>
+        <p onClick={() => setSelectedType(undefined)}>No hay objetos</p>
       )}
     </div>
   );

@@ -7,13 +7,12 @@ import { Item, Items } from '../../../stores/types/items';
 import { handlePotion } from '../../../utils/handlePotion';
 import ListCombatItems from './listCombatItems';
 import useGlobalState from '../../../customHooks/useGlobalState';
-import { Scroll } from '../../../stores/types/scrolls';
 import { executeAction } from '../../FightScene/executeAction';
 
 interface CombatUIProps {
   opcionesArmas: Weapon[];
   opcionesSpells: Spell[];
-  setActivateImage: any;
+  setActivateImage: React.Dispatch<React.SetStateAction<boolean>>;
   handleMessage: (message: string, type: string, dismissible: boolean) => void;
   pocion: string | undefined;
 
@@ -30,12 +29,12 @@ const CombatUI: React.FC<CombatUIProps> = ({
 
   const [selectedType, setSelectedType] = useState<keyof Items>();
   const {fightType, player, playerActions, creature, currentCharacter} = useGlobalState();
-  const executeActionWithProps = (type: 'attack' | 'spell' | 'scroll', item?: Weapon | Spell | Scroll) => {
+  const executeActionWithProps = (type: 'attack' | 'spell' | 'scroll', item?: Item) => {
     const res = executeAction(type, setActivateImage, handleMessage, item)
     return res;
   };
 
-  const executeItem = (item: any): boolean => {
+  const executeItem = (item: Item): boolean => {
     if (selectedType === 'scrolls') {
       const res = executeActionWithProps('scroll', item);
       if (!res) return false;

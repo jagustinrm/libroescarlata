@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Inventory.css';
 import type { Inventory } from '../../stores/types/inventory';
 import BackButton from '../UI/BackButton';
@@ -13,13 +13,13 @@ import { Item } from '../../stores/types/items';
 import InventoryList from './InventoryList';
 import { ItemDetails } from './ItemsDetails';
 import { inventoryCategories } from '../../utils/inventoryCategories';
+import { handleSelectItem } from './handleSelectItem';
+import useFilteredInventoryEffect from './useFilteredInventoryEffect ';
 export default function Inventory() {
-  const [actualInventory, setActualInventory] = useState<Array<
-    Item
-  > | null>(null);
+  const [actualInventory, setActualInventory] = useState<Array<[Item, number]> | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [readBook, setReadBook] = useState<boolean>(false);
-  const {setFloatingMessage, floatingMessage} = useGlobalState();
+  const {setFloatingMessage, floatingMessage, player, inventories} = useGlobalState();
   const [selectedAccessoryEquipped, setSelectedAccessoryEquipped] = useState<{
     type: string;
     index: number;
@@ -29,7 +29,15 @@ export default function Inventory() {
   const handleRead = () => {
     setReadBook(!readBook);
   };
-
+  const inventory = inventories[player.inventoryId]
+ 
+    useFilteredInventoryEffect({ 
+      actualCategory, 
+      inventory, 
+      setActualInventory, 
+      handleSelectItem, 
+      setSelectedItem 
+    });
 
   const lineImg = () =>  {
     return ( 
@@ -68,6 +76,7 @@ export default function Inventory() {
         selectedAccessoryEquipped={selectedAccessoryEquipped}
         handleRead= {handleRead}
         setFloatingMessage= {setFloatingMessage} 
+        actualCategory= {actualCategory}
         />
          </div>
         <div className='sectionTitle'>

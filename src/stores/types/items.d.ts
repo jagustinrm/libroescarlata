@@ -5,6 +5,10 @@ import { otherItem } from './otherItems';
 import { Potion } from './potions';
 import { Scroll } from './scrolls';
 
+export interface generalItem {
+  repeatable: boolean
+}
+
 export type Item =
   | Weapon
   | Armor
@@ -25,15 +29,15 @@ export interface Items {
 }
 
 export interface ItemsStore {
-  items: Record<number, Items>; // El ID del inventario ahora es un número
+  items: Record<string, Items>; // El ID del inventario ahora es un número
   isInitialized: boolean; // Nuevo flag
   createItems: (id: number) => void;
   addItem: (
     id: number,
     type: keyof Items,
-    item: Item | Weapons | Accessory | Armor,
+    item: Item,
   ) => void;
-  removeItem: (id: number, type: keyof Items, itemId: string) => void;
+  removeItem: (id: string, type: keyof Items, itemId: string) => void;
   clearItems: (id: number) => void;
   removeItems: () => void;
 }

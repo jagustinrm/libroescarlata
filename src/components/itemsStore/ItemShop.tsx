@@ -8,12 +8,13 @@ import { inventoryCategories } from '../../utils/inventoryCategories';
 import { Inventory } from '../../stores/types/inventory';
 import useGlobalState from '../../customHooks/useGlobalState';
 import { HoverInfo } from '../UI/hoverInfo/HoverInfoComponent';
+import ShopMenu from './ShopMenu';
 const ItemShop: React.FC = () => {
   const {player, items, hoverInfo, setHoverInfo} = useGlobalState();
   const [selectedType, setSelectedType] = useState<keyof Items>('weapons');
   const shopId = 1;
   const {setFloatingMessage, floatingMessage} = useGlobalState();
-
+  const [buyOrSell, setBuyOrSell] = useState('Comprar');
 
   const handleMouseMove = (
     event: React.MouseEvent,
@@ -45,7 +46,12 @@ const ItemShop: React.FC = () => {
       </>
     )}
   return (
-    <div className="item-shop-container rpgui-container framed-golden-2">
+    <div>
+      <ShopMenu 
+      buyOrSell= {buyOrSell} 
+      setBuyOrSell = {setBuyOrSell}
+      />
+      <div className="item-shop-container rpgui-container framed-golden-2">
       <div
         style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
       >
@@ -74,6 +80,7 @@ const ItemShop: React.FC = () => {
         handleMouseMove={handleMouseMove}
         handleMouseLeave={handleMouseLeave}
         setFloatingMessage={setFloatingMessage}
+        buyOrSell= {buyOrSell} 
       />
       <BackButton />
       <p>Materiales: {player.playerMaterial} 🛠️</p>
@@ -90,6 +97,8 @@ const ItemShop: React.FC = () => {
         />
       )}
     </div>
+    </div>
+   
   );
 };
 

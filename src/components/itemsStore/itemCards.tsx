@@ -4,13 +4,13 @@ import usePlayerStore from '../../stores/playerStore';
 import { darkenHex } from '../../utils/darkenHex';
 import { handleBuy } from './handleBuy';
 import { FloatingMessageProps } from '../../stores/types/others';
-
-// Definición de Tipos
+import { SellItems } from './selItems';
 
 interface ItemGridProps {
   selectedType: keyof Items;
   items: Record<number, Items>;
   shopId: number;
+  buyOrSell: string;
   handleMouseMove: (
     event: React.MouseEvent<HTMLDivElement>,
     description: string,
@@ -29,12 +29,13 @@ const ItemGrid: React.FC<ItemGridProps> = ({
   shopId,
   handleMouseMove,
   handleMouseLeave,
-  setFloatingMessage
+  setFloatingMessage,
+  buyOrSell
 }) => {
   const { player } = usePlayerStore.getState();
-
-  return (
-    <div className="item-grid">
+  const buyItems = () =>  {
+    return (
+      <div className="item-grid">
       {selectedType &&
         items[shopId]?.[selectedType]?.map(
           (item: any) =>
@@ -91,6 +92,16 @@ const ItemGrid: React.FC<ItemGridProps> = ({
             ),
         )}
     </div>
+    )
+  }
+  return (
+    buyOrSell === 'Comprar'? buyItems() : 
+    <SellItems 
+    selectedType= {selectedType}
+    handleMouseMove = {handleMouseMove}
+    handleMouseLeave = {handleMouseLeave}
+    setFloatingMessage = {setFloatingMessage}
+    />
   );
 };
 

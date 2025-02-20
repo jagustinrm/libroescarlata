@@ -1,4 +1,6 @@
-export interface Accessory {
+import { generalItem } from "./items";
+
+export interface Accessory  extends generalItem {
   id: string;
   name: string;
   img: string;

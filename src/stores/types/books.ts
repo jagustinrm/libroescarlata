@@ -1,4 +1,6 @@
-export interface Book {
+import { generalItem } from "./items";
+
+export interface Book extends generalItem {
   id: string;
   name: string;
   author: string;

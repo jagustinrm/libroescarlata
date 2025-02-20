@@ -1,4 +1,7 @@
 // OJO QUE AMOUNT ES UN STRING, ES UN DADO
+
+import { generalItem } from "./items";
+
 // HABRÍA QUE AGREGAR VALUE PARA LAS OTRAS POCIONES QUE NO SON DE CURACIÓN
 export interface PotionEffect {
   type: string;
@@ -8,7 +11,7 @@ export interface PotionEffect {
   description?: string;
 }
 
-export interface Potion {
+export interface Potion extends generalItem {
   id: string;
   name: string;
   effect?: PotionEffect;

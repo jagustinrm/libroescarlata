@@ -3,9 +3,10 @@ import usePlayerStore from '../../../stores/playerStore';
 import usePotionStore from '../../../stores/potionsStore';
 import useCreatureStore from '../../../stores/creatures';
 import useTurnStore from '../../../stores/turnStore';
+import { Item } from '../../../stores/types/items';
 
 interface AttackAndPotionsProps {
-  executeAction: (type: any, item?: any) => void;
+  executeAction: (type: 'attack' | 'spell' | 'scroll', item?: Item) => void;
   pocion: string | undefined; // Cambiar el tipo a string | undefined
 }
 

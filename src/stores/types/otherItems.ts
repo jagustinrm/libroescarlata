@@ -1,4 +1,6 @@
-export interface otherItem {
+import { generalItem } from "./items";
+
+export interface otherItem extends generalItem {
   id: string;
   name: string;
   cost: number;

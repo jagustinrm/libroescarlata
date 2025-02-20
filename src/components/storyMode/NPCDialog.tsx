@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import BackButton from '../UI/BackButton';
-import { Dialog, DialogLine } from '../../stores/types/dialog';
 import { useNavigate } from 'react-router-dom';
 import useGlobalState from '../../customHooks/useGlobalState';
 import {
@@ -10,23 +9,19 @@ import {
 } from '../handlers/dialogHandlers';
 import ButtonEdited from '../UI/ButtonEdited';
 import { useInitializeDialog } from './useInitializeDialog ';
-import { CEvent } from '../../stores/types/story';
+import useDialogStore from '../../stores/dialogStore';
 
 const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
   const [currentLineIndex, setCurrentLineIndex] = useState<number>(0);
-  const [currentLine, setCurrentLine] = useState<DialogLine | null>(null);
-  const [currentDialog, setCurrentDialog] = useState<Dialog | null>(null);
-  const [currentEvent, setCurrentEvent] = useState<CEvent | null>(null); // Estado para el evento
+  const {currentLine, currentDialog, currentEvent} = useDialogStore();
   const [displayedText, setDisplayedText] = useState(''); // Texto progresivo
   const [isTextCompleted, setIsTextCompleted] = useState(false); // Estado de finalización del texto
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null); // Estado para guardar el ID del intervalo
   const navigate = useNavigate();
   const {
     player,
-    playerActions,
     stories,
     inventories,
-    removeItem,
     currentChapter,
   } = useGlobalState();
   const [travelCounter, setTravelCounter] = useState<number>(0);
@@ -42,18 +37,13 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
 
   useInitializeDialog({
     dialogId,
-    currentDialog,
     currentLineIndex,
     storyIndex,
     chapterIndex,
-    setCurrentDialog,
-    setCurrentLine,
     setCurrentLineIndex,
-    setCurrentEvent,
     setTravelCounter,
     currentChapter,
     storyId,
-    currentLine,
     setDisplayedText,
     setIsTextCompleted,
     setIntervalId,
@@ -62,11 +52,6 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
   const handleOptionSelectWrapper = (option: any) => {
     handleOptionSelect(option, {
       navigate,
-      playerActions,
-      removeItem,
-      player,
-      storyId,
-      currentEvent,
       travelCounter,
       setTravelCounter,
       handleContinue: handleContinueWrapper,
@@ -75,12 +60,10 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
 
   const handleContinueWrapper = () => {
     handleContinue({
-      currentDialog,
       currentLineIndex,
       setCurrentLineIndex,
       isTextCompleted,
       setIsTextCompleted,
-      currentLine,
       setDisplayedText,
       onDialogEnd,
     });
@@ -89,7 +72,6 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
   const handleComplete = () => {
     handleCompleteText(
       setDisplayedText,
-      currentLine,
       setIsTextCompleted,
       intervalId,
     );
@@ -100,7 +82,6 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
     if (intervalId) {
       handleCompleteText(
         setDisplayedText,
-        currentLine,
         setIsTextCompleted,
         intervalId,
       );

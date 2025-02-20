@@ -8,6 +8,7 @@ import { getCategoryMap } from "./categoryMap";
         (item) => item.id === itemId
       );
       if (foundItem) {
+        
         setSelectedItem(foundItem);
         return;
       }

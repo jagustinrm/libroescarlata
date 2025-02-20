@@ -143,13 +143,14 @@ const GameBoard: React.FC<GameBoardProps> = ({
   return (
     <div className="gameBoard">
       <div className="containerGameBoard">
+      
         {buttons.map((button, index) => (
           <div
             key={index}
             className={`bottomGB ${
               button.type === 'border' ? 'border' : 'main'
             } 
-            ${isButtonPlayerPosition(button) ? 'player-position' : ''} 
+            ${isButtonPlayerPosition(button) ? 'player-position' : ''}
             ${isButtonEnemyPosition(button) ? 'enemy-position' : ''} 
             ${isButtonHighlighted(button) ? 'highlighted rpgui-cursor-point' : ''}
             ${isButtonInAttackRange(button) ? 'attack-range' : ''}
@@ -169,6 +170,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
               }
             }}
           />
+          
         ))}
         {player.selectedPet && (
           <img

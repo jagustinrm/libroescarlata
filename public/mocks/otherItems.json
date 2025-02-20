@@ -4,20 +4,23 @@
     "id": "1",
     "cost": 10,
     "img": "/img/otherItems/pieceOfMeat.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "name": "Cantimplora",
     "id": "2",
     "cost": 10,
     "img": "/img/otherItems/canteen.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   },
   {
     "name": "Manzana",
     "id": "3",
     "cost": 10,
     "img": "/img/otherItems/apple.png",
-    "color": "#F8F8F8"
+    "color": "#F8F8F8",
+    "repeatable": true
   }
 ]

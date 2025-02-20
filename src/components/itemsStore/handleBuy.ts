@@ -6,8 +6,10 @@ import { Weapon } from "../../stores/types/weapons";
 import { Accessory } from "../../stores/types/accesories";
 import { Scroll } from "../../stores/types/scrolls";
 import { FloatingMessageProps } from "../../stores/types/others";
+import { generateUniqueId } from "../../generators/generateUniqueId";
+import { Potion } from "../../stores/types/potions";
 
-export const handleBuy = (
+export const handleBuy = async (
     playerInventoryId: string,
     itemId: string,
     itemType: any,
@@ -17,11 +19,20 @@ export const handleBuy = (
   ) => {
     const {player, playerActions,
          addItemToInventory, addNewArmor, 
-         addNewWeapon, addNewAccessory, addNewScroll} = getGlobalState();
+         addNewWeapon, addNewAccessory, addNewScroll, addNewPotion, checkIfIdExists} = getGlobalState();
 
-    if (player.playerMaterial >= itemCost) {
-      const updatedItem = { ...item, playerOwner: true } as Item
-      addItemToInventory(playerInventoryId, itemType, itemId);
+    if (player.playerMaterial >= itemCost)  {
+      let updatedItem = item;
+      console.log(checkIfIdExists(player.inventoryId, itemType, item.id))
+      if(checkIfIdExists(player.inventoryId, itemType,  item.id)) {
+        const uniqueId = await generateUniqueId(itemType);
+        updatedItem = { ...item, playerOwner: true, id: uniqueId } as Item
+        addItemToInventory(playerInventoryId, itemType, uniqueId);
+      } else {
+        updatedItem = { ...item, playerOwner: true } as Item
+        addItemToInventory(playerInventoryId, itemType, itemId);
+      }
+      
       if (itemType === 'armors') {
         addNewArmor(updatedItem as Armor);
         saveItemToFirebase(
@@ -54,6 +65,8 @@ export const handleBuy = (
           'scrolls',
         );
         addNewScroll(updatedItem as Scroll);
+      } else if (itemType === "potions") {
+        addNewPotion(updatedItem as Potion)
       }
       // else if (itemType === "others") {
       //   saveItemToFirebase(player.name, (updatedItem as otherItem).id, updatedItem as otherItem, "others");

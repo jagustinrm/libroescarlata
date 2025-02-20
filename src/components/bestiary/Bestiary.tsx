@@ -75,6 +75,7 @@ export default function Bestiary() {
             disabled={currentPage === 1}
           />
         </div>
+
         <span>
           Página {currentPage} de {totalPages}
         </span>

@@ -1,6 +1,6 @@
 import { Creature } from '../../stores/types/creatures';
 import { Player } from '../../stores/types/player';
-interface ed {
+interface Ed {
   count: number;
   name: string;
 }
@@ -13,10 +13,10 @@ export const renderCreatureImages = (
   <div className="bestiaryGrid">
     {currentMonsters.map((c) => {
       const isDefeated = player.enemiesDeleted?.some(
-        (ed: ed) => ed.name === c.name,
+        (ed: Ed) => ed.name === c.name,
       );
       const cant = player.enemiesDeleted.find(
-        (ed: ed) => ed.name === c.name,
+        (ed: Ed) => ed.name === c.name,
       )?.count;
       return (
         <div
@@ -42,7 +42,9 @@ export const renderCreatureImages = (
           >
             Cantidad: {cant}
           </p>
+          
         </div>
+        
       );
     })}
   </div>
