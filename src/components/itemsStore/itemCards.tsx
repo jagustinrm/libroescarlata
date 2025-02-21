@@ -4,7 +4,7 @@ import usePlayerStore from '../../stores/playerStore';
 import { darkenHex } from '../../utils/darkenHex';
 import { handleBuy } from './handleBuy';
 import { FloatingMessageProps } from '../../stores/types/others';
-import { SellItems } from './selItems';
+import { SellItems } from './SelItems';
 
 interface ItemGridProps {
   selectedType: keyof Items;

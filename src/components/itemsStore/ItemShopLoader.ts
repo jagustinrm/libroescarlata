@@ -56,7 +56,8 @@ const ItemShopLoader = () => {
     });
     potions.forEach((potion) => {
       if (!items[shopId]?.potions.some((p: Item) => p.id === potion.id)) {
-        addItem(shopId, 'potions', potion);
+        if (potion.playerOwner === false || !potion.playerOwner) {
+        addItem(shopId, 'potions', potion) } ;
       }
     });
 

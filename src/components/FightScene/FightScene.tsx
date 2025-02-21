@@ -54,7 +54,6 @@ export default function FightScene() {
     });
   };
 
-  const [pocion, setpocion] = useState<string>();
   const [opcionesArmas, setOpcionesArmas] = useState<Weapon[]>();
   const [opcionesSpells, setOpcionesSpells] = useState<Spell[]>();
   // ************************USEEFFECTS ******************************
@@ -69,7 +68,6 @@ export default function FightScene() {
   };
 
   initializeEffects({
-    setpocion,
     setOpcionesArmas,
     setOpcionesSpells,
     handleCheckLevelUp,
@@ -116,7 +114,6 @@ export default function FightScene() {
         opcionesSpells={opcionesSpells ?? []}
         setActivateImage= {setActivateImage}
         handleMessage={handleMessage}
-        pocion={pocion}
       />
       <div>
         <ul className="action-log fixedUI " ref={logRef}>

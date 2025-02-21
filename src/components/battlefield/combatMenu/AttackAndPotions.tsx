@@ -7,19 +7,13 @@ import { Item } from '../../../stores/types/items';
 
 interface AttackAndPotionsProps {
   executeAction: (type: 'attack' | 'spell' | 'scroll', item?: Item) => void;
-  pocion: string | undefined; // Cambiar el tipo a string | undefined
 }
 
 const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
   executeAction,
-  pocion,
 }) => {
   // Lógica para encontrar la poción específica
-  const findPotion = (name: string) => {
-    return potions.find((potion) => potion.name === name);
-  };
   const { player } = usePlayerStore();
-  const { potions } = usePotionStore();
   const { creature } = useCreatureStore();
   const { currentCharacter } = useTurnStore();
   return (
@@ -37,25 +31,6 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
       >
         ⚔️
       </button>
-
-      {pocion && (
-        <button
-          className="rpgui-button newDesign potionsButton"
-          id="newDesign"
-          disabled={creature.p_LeftHealth === 0 || player.p_LeftHealth === 0}
-        >
-          {
-            // Buscar la poción en la lista de potions y mostrar la imagen
-            findPotion('Poción de Curación Menor') ? (
-              <img
-                className="potionImg"
-                src={findPotion('Poción de Curación Menor')?.img}
-                alt="Poción de Curación Menor"
-              />
-            ) : null
-          }
-        </button>
-      )}
     </div>
   );
 };

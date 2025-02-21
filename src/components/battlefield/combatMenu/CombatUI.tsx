@@ -14,7 +14,7 @@ interface CombatUIProps {
   opcionesSpells: Spell[];
   setActivateImage: React.Dispatch<React.SetStateAction<boolean>>;
   handleMessage: (message: string, type: string, dismissible: boolean) => void;
-  pocion: string | undefined;
+
 
 }
 
@@ -24,7 +24,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
   setActivateImage,
   // executeAction,
   handleMessage,
-  pocion,
+
 }) => {
 
   const [selectedType, setSelectedType] = useState<keyof Items>();
@@ -63,7 +63,6 @@ const CombatUI: React.FC<CombatUIProps> = ({
         {/* Ataques y pociones */}
         <AttackAndPotions
           executeAction={executeActionWithProps}
-          pocion={pocion}
         />
 
         {/* Dropdown y botón para hechizos */}

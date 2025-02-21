@@ -7,6 +7,7 @@ import { Scroll } from './scrolls';
 
 export interface generalItem {
   repeatable: boolean
+  playerOwner: boolean
 }
 
 export type Item =

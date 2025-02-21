@@ -6,7 +6,7 @@ import useSummonStore from "../../stores/summonsStore";
 import { selectEnemy } from "../handlers/handleSelectEnemy";
 
 interface InitializeEffectsProps {
-  setpocion: (value: any) => void;
+
   setOpcionesArmas: (value: Weapon[]) => void;
   setOpcionesSpells: (value: Spell[]) => void;
   handleCheckLevelUp: () => void;
@@ -17,7 +17,6 @@ interface InitializeEffectsProps {
 };
 
 export const initializeEffects = ({
-  setpocion,
   setOpcionesArmas,
   setOpcionesSpells,
   handleCheckLevelUp,
@@ -34,11 +33,6 @@ export const initializeEffects = ({
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
-    const pot = inventories[player.inventoryId].potions.find(
-      (p: string) => p === "Poción de Curación Menor"
-    );
-    setpocion(pot);
-
     const opctArm = inventories[player.inventoryId].weapons
       .map((w) => weapons.find((ws) => ws.id === w))
       .filter((w): w is Weapon => w !== undefined);

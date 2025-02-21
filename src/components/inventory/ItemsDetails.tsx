@@ -34,7 +34,7 @@ export const ItemDetails: React.FC<ItemDetailsProps> = ({
   }
 
   if (!selectedItem) {
-    return <p>Selecciona un objeto para ver los detalles</p>;
+    return <p>Seleccioná un objeto.</p>;
   }
 
   return (
@@ -46,11 +46,14 @@ export const ItemDetails: React.FC<ItemDetailsProps> = ({
         background: `linear-gradient(0deg, ${darkenHex(selectedItem.color, 70, 0.8)} 10%, ${darkenHex(selectedItem.color, 40)} 50%, ${darkenHex(selectedItem.color, 10)} 70%)`,
       }}
     >
-      <h2 style={{ color: darkenHex(selectedItem.color, 0, 1) }}>
+      <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '15px'}}>
+        <div>
+        <h2 style={{ color: darkenHex(selectedItem.color, 0, 1) }}>
         {selectedItem.name}
-      </h2>
-      <img className="itemIventoryImg" src={selectedItem.img} alt={selectedItem.name} />
-
+        </h2>
+        <img className="itemIventoryImg" src={selectedItem.img} alt={selectedItem.name} />
+      </div>
+      {/* <div>
       {typeof selectedItem.armorValue === "number" && (
         <p>
           <strong>Armadura:</strong> {selectedItem.armorValue}
@@ -66,9 +69,12 @@ export const ItemDetails: React.FC<ItemDetailsProps> = ({
           <strong>Rango de ataque:</strong> {selectedItem.range}
         </p>
       )}
-
+      </div> */}
+      
+      
       {selectedItem.actions && (
-        <div style={{ marginTop: "3px" }}>
+        <div style={{ marginTop: "3px", display:'flex', flexDirection: 'column', gap: '20px' }}>
+
           <ButtonEdited
             label={
               (selectedItem.actions.equippable && "Equipar") ||
@@ -95,6 +101,9 @@ export const ItemDetails: React.FC<ItemDetailsProps> = ({
           />
         </div>
       )}
+      </div>
+
+
     </div>
   );
 };

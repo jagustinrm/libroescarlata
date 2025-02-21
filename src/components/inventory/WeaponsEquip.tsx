@@ -34,7 +34,7 @@ const WeaponEquipment = () => {
   };
 
   return (
-    <div className="rpgui-container framed-golden-2 containerWeaponEquip">
+    <div className=" containerWeaponEquip">
       {renderWeapon('manoDerecha', 'img/armors/righthand.png')}
       {renderWeapon('manoIzquierda', 'img/armors/lefthand.png')}
     </div>

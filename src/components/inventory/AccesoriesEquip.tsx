@@ -109,7 +109,7 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
   };
 
   return (
-    <div className="rpgui-container framed-golden-2 accessoriesContainer">
+    <div className="accessoriesContainer">
       <h2>Equipo</h2>
       <div className="accesoriesEquipment">
         {rings.map((ring, index) => {

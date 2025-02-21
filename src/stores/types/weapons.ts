@@ -67,7 +67,6 @@ export interface Weapon extends generalItem {
   };
   questReward?: boolean; // Indica si proviene de una misión
   deleteable?: boolean;
-  playerOwner: boolean;
   soundEffect: string;
   actions: {
     equippable: boolean;

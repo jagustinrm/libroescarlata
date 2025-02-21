@@ -52,7 +52,6 @@ export interface Accessory  extends generalItem {
     setName: string; // Nombre del conjunto
     bonuses: string[]; // Lista de bonificaciones por piezas equipadas
   };
-  playerOwner: boolean;
   actions: {
     equippable: boolean;
   };

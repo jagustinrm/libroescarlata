@@ -1,3 +1,4 @@
+import { getGlobalState } from '../../customHooks/useGlobalState';
 import { Item } from '../../stores/types/items';
 import { darkenHex } from '../../utils/darkenHex';
 import { handleSelectItem } from './handleSelectItem';
@@ -6,11 +7,11 @@ const InventoryList = (
   { actualInventory, setSelectedItem }: 
   { actualInventory: Array<[Item, number]> | null, setSelectedItem: any }
 ) => {
-  console.log(actualInventory);
 
+  const {setHoverInfo} = getGlobalState();
   return (
     <div className="containerInventory">
-      <ul className="rpgui-list-imp">
+      <ul className="rpgui-list-imp" style={{minHeight: '150px'}}>
         {actualInventory && actualInventory.length > 0 ? (
           actualInventory.map(([item, count], index) => 
             item.color && (
@@ -21,8 +22,20 @@ const InventoryList = (
                   marginTop: "2px",
                 }}
                 onClick={() => handleSelectItem(item.id, setSelectedItem)}
-              >
-                {item.name} {count > 1 ? `x${count}` : ""}
+                onMouseMove={(e) =>setHoverInfo(
+                  {
+                    description: item.name,
+                    armorValue: item.armorValue,
+                    damage: item.damage,
+                    damageMax: item.damageMax,
+                    levelRequirement: item.levelRequirement,
+                    x: e.pageX, 
+                    y: e.pageY, 
+                  })}
+                onMouseLeave={() => setHoverInfo(null)}
+                >
+                  
+               {count > 1 ? `x${count}` : ""} {item.name}
               </li>
             )
           )

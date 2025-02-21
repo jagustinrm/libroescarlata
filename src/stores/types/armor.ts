@@ -56,7 +56,6 @@ export interface Armor extends generalItem{
   questReward?: boolean; // Indica si proviene de una misión
   deleteable?: boolean;
   color: string;
-  playerOwner: boolean;
   actions: {
     equippable: boolean;
   };

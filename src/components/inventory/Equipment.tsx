@@ -58,7 +58,7 @@ const PlayerEquipment = () => {
 
   // Renderizado
   return (
-    <div className="rpgui-container framed-golden-2 containerEquipment">
+    <div className="containerEquipment" >
       {bodyParts.map(({ name, data, defaultImg, className }) =>
         generateImage(name, data, defaultImg, className),
       )}
