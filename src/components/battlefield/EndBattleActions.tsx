@@ -19,7 +19,7 @@ const EndBattleActions: React.FC<EndBattleActionsProps> = ({
     handleMessage('¡Has vuelto sano y salvo!', 'warning', true)
   }
 
-  if (creature.p_LeftHealth !== 0) return null;
+  if (creature.c_LeftHealth !== 0) return null;
   return (
     <div>
       <div className="container-endBattle fixedUI ">

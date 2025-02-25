@@ -52,25 +52,25 @@ export function calculateHitRatePercentage(
 export function calculateTotalMaxHealth(
   con: number = 1,
   cha: number = 1,
-  p_MaxHealth: number,
+  c_MaxHealth: number,
 ): number {
   const HEALTH_PER_CON = 5;
   const HEALTH_PER_CHA = 1;
   const healthFromCon = con * HEALTH_PER_CON;
   const healthFromCha = cha * HEALTH_PER_CHA;
-  const totalMaxHealth = p_MaxHealth + healthFromCon + healthFromCha;
+  const totalMaxHealth = c_MaxHealth + healthFromCon + healthFromCha;
   return totalMaxHealth;
 }
 export function calculateTotalMaxMana(
   int: number = 1,
   cha: number = 1,
-  p_MaxMana: number,
+  c_MaxMana: number,
 ): number {
   const MANA_PER_INT = 5;
   const MANA_PER_CHA = 1;
   const manaFromInt = int * MANA_PER_INT;
   const manaFromCha = cha * MANA_PER_CHA;
-  const totalMaxMana = p_MaxMana + manaFromInt + manaFromCha;
+  const totalMaxMana = c_MaxMana + manaFromInt + manaFromCha;
   return totalMaxMana;
 }
 
@@ -185,4 +185,12 @@ export function calculateMTotalMaxDamage(
 export function calculateSummonDmgIncrease(playerCar: number): number {
   const summonDmg = parseFloat(((playerCar / 100) * 50).toFixed(2));
   return summonDmg;
+}
+
+export function calculatStatReg(stat: number, weaponStatReg?:number) {
+  console.log(stat)
+  console.log(weaponStatReg)
+  const totalStatReg = weaponStatReg ? stat + weaponStatReg : stat
+   
+  return totalStatReg
 }

@@ -28,7 +28,7 @@ export interface Spell {
   scalingDamage?: number;
   scalingRange?: string; // Opcional: Cómo escala el rango con el nivel
   maxLevelEffect?: number; // Opcional: Nivel máximo que afecta
-  condition?: string; // Opcional: Condición adicional (Ej: "Prendido en llamas")
+  condition?: {name: string , duration: number, probability: number },
   conditionDuration?: string; // Opcional: Duración de la condición
   soundEffect?: string; // Opcional: URL
   flavorText?: string; // Opcional: Texto narrativo adicional

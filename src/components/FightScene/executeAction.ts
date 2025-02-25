@@ -12,6 +12,7 @@ import usePostCombatActions from "../../customHooks/usePostCombatActions";
         handleMessage: (message: string, type: string, shouldClose: boolean) => void,
         item?: Weapon | Spell | Scroll,
         ) => {
+        
       const { currentCharacter, weapons, spells, player, setSoundUrl} =getGlobalState();
       const { handlePostCombatActs } = usePostCombatActions();
       if (currentCharacter?.id !== 'player') return;
@@ -22,9 +23,9 @@ import usePostCombatActions from "../../customHooks/usePostCombatActions";
           : spells.find((s) => player.selectedSpell?.name === s.name));
       
       setSoundUrl(selectedItem?.soundEffect || null);
-    
+
       const res = handleCombatAction(type, { setActivateImage, handlePostCombatActs, handleMessage }, selectedItem);
-    
+          
       setTimeout(() => setSoundUrl(null), type === 'attack' ? 300 : 1000);
       
       return res;

@@ -16,7 +16,7 @@ const useSummonStore = create<SummonsStore>((set, get) => ({
     alignment: '',
     level: 0,
     hitPoints: '',
-    p_LeftHealth: 1,
+    c_LeftHealth: 1,
     armorClass: 0,
     attacks: [],
     specialAbilities: [],

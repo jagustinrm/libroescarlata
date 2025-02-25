@@ -45,7 +45,7 @@ const useFilteredInventoryEffect = ({
 
     // Seleccionar automáticamente el primer ítem si hay cambios
     if (filteredItems.length > 0) {
-      handleSelectItem(filteredItems[0][0], setSelectedItem);
+      handleSelectItem(filteredItems[0][0].id, setSelectedItem);
     }
   }, [actualCategory, inventory]);
 };

@@ -6,8 +6,8 @@ import { Potion } from './potions';
 import { Scroll } from './scrolls';
 
 export interface generalItem {
-  repeatable: boolean
-  playerOwner: boolean
+  repeatable?: boolean
+  playerOwner?: boolean
 }
 
 export type Item =
@@ -38,7 +38,7 @@ export interface ItemsStore {
     type: keyof Items,
     item: Item,
   ) => void;
-  removeItem: (id: string, type: keyof Items, itemId: string) => void;
+  removeItemFromStore: (id: number, type: keyof Items, itemId: string) => void;
   clearItems: (id: number) => void;
   removeItems: () => void;
 }

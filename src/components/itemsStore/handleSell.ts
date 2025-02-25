@@ -9,9 +9,10 @@ export const handleSell = (
     itemCost: number,
     setFloatingMessage: (message: FloatingMessageProps| null) => void
   ) => {
-    const {player, playerActions} = getGlobalState();
+    const {player, playerActions, } = getGlobalState();
     const {removeItem} = useInventoryStore.getState();
     removeItem(playerInventoryId, itemType, itemId)
+
       playerActions.setPlayerMaterial(player.playerMaterial + itemCost);
       setFloatingMessage({
         message: "Vendido!",

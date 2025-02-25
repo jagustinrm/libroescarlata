@@ -18,7 +18,7 @@
         "damage": 10,
         "damageMax": 15,
         "soundEffect": "/music/attacks/bite.wav",
-        "range": 5
+        "range": 10
       }
     ],
     "specialAbilities": ["forma gelatinosa", "elasticidad", "salto rápido"]
@@ -41,7 +41,7 @@
         "damage": 20,
         "damageMax": 26,
         "soundEffect": "/music/attacks/scratch.wav",
-        "range": 5
+        "range": 10
       }
     ],
     "specialAbilities": ["olfato agudo", "agilidad", "vista nocturna"],

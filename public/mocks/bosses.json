@@ -13,14 +13,18 @@
         "type": "melee",
         "bonus": 4,
         "damage": 8,
-        "damageMax": 14
+        "damageMax": 14,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "Rayo de Oscuridad",
         "type": "rango",
         "bonus": 3,
         "damage": 8,
-        "damageMax": 14
+        "damageMax": 14,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -43,14 +47,18 @@
         "type": "melee",
         "bonus": 6,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "Aliento de Fuego",
         "type": "rango",
         "bonus": 5,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["inmunidad al fuego", "vuelo", "visión verdadera"]
@@ -69,14 +77,18 @@
         "type": "melee",
         "bonus": 5,
         "damage": 6,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "Llama Infernal",
         "type": "rango",
         "bonus": 4,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -99,14 +111,18 @@
         "type": "melee",
         "bonus": 5,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "Lanzamiento de Rocas",
         "type": "rango",
         "bonus": 3,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -129,14 +145,18 @@
         "type": "rango",
         "bonus": 4,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "Explosión de Hielo",
         "type": "área",
         "bonus": 3,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -159,14 +179,18 @@
         "type": "melee",
         "bonus": 2,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "Arco corto",
         "type": "rango",
         "bonus": 2,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["esquivar", "sigilo"]
@@ -185,7 +209,9 @@
         "type": "melee",
         "bonus": 1,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["aullido intimidante", "percepción aguda"]
@@ -204,7 +230,9 @@
         "type": "melee",
         "bonus": 3,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": [
@@ -227,7 +255,9 @@
         "type": "melee",
         "bonus": 1,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["resistencia al daño cortante", "inmunidad a veneno"]
@@ -246,7 +276,9 @@
         "type": "rango",
         "bonus": 3,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["crear ilusiones menores", "invisibilidad"]
@@ -265,14 +297,18 @@
         "type": "rango",
         "bonus": 2,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       },
       {
         "name": "Daga oxidada",
         "type": "melee",
         "bonus": 1,
         "damage": 10,
-        "damageMax": 18
+        "damageMax": 18,
+        "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
       }
     ],
     "specialAbilities": ["trampas explosivas", "locura impredecible"]

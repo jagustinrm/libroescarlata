@@ -83,7 +83,7 @@ export default function FightScene() {
   usePetTurn();
   // ************************TURNOS *************************
 
-
+  console.log(creature)
   const xpPercentage =
     player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0
       ? ((player.playerExp - player.p_ExpPrevLevel) /
@@ -91,8 +91,8 @@ export default function FightScene() {
         100
       : 0;
   const healthPercentage =
-    (player.p_LeftHealth / player.totalMaxHealth()) * 100;
-  const manaPercentage = (player.p_LeftMana / player.totalMaxMana()) * 100;
+    (player.c_LeftHealth / player.totalMaxHealth()) * 100;
+  const manaPercentage = (player.c_LeftMana / player.totalMaxMana()) * 100;
 
   if (!creatureLoaded) return <p>Cargando enemigo...</p>;
   return (

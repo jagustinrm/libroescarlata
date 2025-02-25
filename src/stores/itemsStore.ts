@@ -40,7 +40,7 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
       };
     }),
 
-  removeItem: (id, type, itemId) =>
+  removeItemFromStore: (id, type, itemId) =>
     set((state) => {
       
       const itemSet = state.items[id];

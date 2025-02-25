@@ -13,7 +13,7 @@ export const handlePotion = ({
   handleMessage,
 }: HandleHealingParams): boolean => {
   const { player, playerActions } = usePlayerStore.getState();
-  const currentHealth = player.p_LeftHealth;
+  const currentHealth = player.c_LeftHealth;
   const { nextTurn } = useTurnStore.getState();
   const { setFloatingMessage, setSoundUrl } = useAppStore.getState();
   const { playerPosition } = usePositionStore.getState();
@@ -22,7 +22,7 @@ export const handlePotion = ({
 
     if (currentHealth < player.totalMaxHealth()) {
       const totalLeftHealth = currentHealth + item.effect?.amount;
-      playerActions.setP_LeftHealth(
+      playerActions.setc_LeftHealth(
         Math.min(totalLeftHealth, player.totalMaxHealth()),
       );
       nextTurn();

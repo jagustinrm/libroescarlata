@@ -9,7 +9,7 @@ export const useSummonTurn = () => {
   const { currentCharacter, nextTurn } = useTurnStore.getState();
   const { creature, player, enemyPosition, summon, 
     summonPosition, setSummonPosition, setFloatingMessage,
-    setActionMessages, playerActions} = getGlobalState();
+    setActionMessages, setc_LeftHealth} = getGlobalState();
   useEffect(() => {
     const adjustedDistance = calculateDistance(
       summonPosition,
@@ -20,9 +20,9 @@ export const useSummonTurn = () => {
         currentCharacter &&
         currentCharacter.id === 'summon' &&
         summon &&
-        creature.p_LeftHealth &&
-        creature.p_LeftHealth > 0 &&
-        player.p_LeftHealth > 0 &&
+        creature.c_LeftHealth &&
+        creature.c_LeftHealth > 0 &&
+        player.c_LeftHealth > 0 &&
         adjustedDistance > Math.max(...summon.attacks.map((a) => a.range))
       ) {
         automaticMove(summonPosition, enemyPosition, setSummonPosition);
@@ -33,9 +33,9 @@ export const useSummonTurn = () => {
         creature &&
         currentCharacter &&
         currentCharacter.id === 'summon' &&
-        creature.p_LeftHealth &&
-        creature.p_LeftHealth > 0 &&
-        player.p_LeftHealth > 0
+        creature.c_LeftHealth &&
+        creature.c_LeftHealth > 0 &&
+        player.c_LeftHealth > 0
       ) {
         AttackAction(
           adjustedDistance,
@@ -46,7 +46,7 @@ export const useSummonTurn = () => {
           setSummonPosition,
           setFloatingMessage,
           setActionMessages,
-          playerActions.setP_LeftHealth,
+          setc_LeftHealth,
           nextTurn,
           player.summonDmgIncrease()
         )

@@ -4,7 +4,7 @@ import AttackAction from '../utils/attackAction.ts';
 import { getGlobalState } from './useGlobalState.ts';
 
 export const usePetTurn = () => {
-  const {player, creature, setP_LeftHealth, setFloatingMessage, 
+  const {player, creature, setc_LeftHealth, setFloatingMessage, 
     currentCharacter, nextTurn, 
     enemyPosition, petPosition, setPetPosition, 
     playerPosition, setActionMessages } = getGlobalState();
@@ -15,9 +15,9 @@ export const usePetTurn = () => {
         creature &&
         currentCharacter &&
         currentCharacter.id === 'pet' &&
-        creature.p_LeftHealth &&
-        creature.p_LeftHealth > 0 &&
-        player.p_LeftHealth > 0
+        creature.c_LeftHealth &&
+        creature.c_LeftHealth > 0 &&
+        player.c_LeftHealth > 0
       ) {
         const adjustedDistance = calculateDistance(
           playerPosition,
@@ -32,7 +32,7 @@ export const usePetTurn = () => {
           setPetPosition,
           setFloatingMessage,
           setActionMessages,
-          setP_LeftHealth,
+          setc_LeftHealth,
           nextTurn,
           player.summonDmgIncrease() // Aumento el daño del pet?
         )

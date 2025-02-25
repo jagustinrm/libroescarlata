@@ -31,10 +31,10 @@ export default function CharacterSelector() {
     } = classData;
 
     playerActions.setPlayerClass(className);
-    playerActions.setP_MaxHealth(hitDie);
-    playerActions.setP_LeftHealth(hitDie);
-    playerActions.setP_MaxMana(manaDie);
-    playerActions.setP_LeftMana(manaDie);
+    playerActions.setc_MaxHealth(hitDie);
+    playerActions.setc_LeftHealth(hitDie);
+    playerActions.setc_MaxMana(manaDie);
+    playerActions.setc_LeftMana(manaDie);
     playerActions.setDodge(dodgeDie);
     playerActions.setHitRate(hitRateDie);
     playerActions.setDodgeDie(dodgeDie);

@@ -267,7 +267,7 @@ button:disabled:hover {
 .health-bar,
 .mana-bar {
   height: 100%;
-  border-radius: 10px;
+
   
 }
 .mana-bar {

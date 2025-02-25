@@ -1,6 +1,5 @@
 import React from 'react';
 import usePlayerStore from '../../../stores/playerStore';
-import usePotionStore from '../../../stores/potionsStore';
 import useCreatureStore from '../../../stores/creatures';
 import useTurnStore from '../../../stores/turnStore';
 import { Item } from '../../../stores/types/items';
@@ -23,8 +22,8 @@ const AttackAndPotions: React.FC<AttackAndPotionsProps> = ({
         id="newDesign"
         onClick={() => executeAction('attack')}
         disabled={
-          creature.p_LeftHealth === 0 ||
-          player.p_LeftHealth === 0 ||
+          creature.c_LeftHealth === 0 ||
+          player.c_LeftHealth === 0 ||
           !player.bodyParts.manoDerecha ||
           currentCharacter?.id !== 'player'
         }
