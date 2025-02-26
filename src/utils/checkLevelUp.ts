@@ -38,16 +38,16 @@ export function checkLevelUp({
     // Aumentar salud con un mínimo de 1
     const healthIncrease = Math.floor(Math.random() * player.hitDie);
     const newPlayerHealth =
-      parseInt(player.p_MaxHealth.toString(), 10) + Math.max(1, healthIncrease);
-    playerActions.setP_LeftHealth(newPlayerHealth);
-    playerActions.setP_MaxHealth(newPlayerHealth);
+      parseInt(player.c_MaxHealth.toString(), 10) + Math.max(1, healthIncrease);
+    playerActions.setc_LeftHealth(newPlayerHealth);
+    playerActions.setc_MaxHealth(newPlayerHealth);
 
     // Aumentar mana con un mínimo de 1
     const manaIncrease = Math.floor(Math.random() * player.manaDie);
     const newPlayerMana =
-      parseInt(player.p_MaxMana.toString(), 10) + Math.max(1, manaIncrease);
-    playerActions.setP_LeftMana(newPlayerMana);
-    playerActions.setP_MaxMana(newPlayerMana);
+      parseInt(player.c_MaxMana.toString(), 10) + Math.max(1, manaIncrease);
+    playerActions.setc_LeftMana(newPlayerMana);
+    playerActions.setc_MaxMana(newPlayerMana);
 
     playerActions.setPlayerLevel(newLevel);
     gainXpToNextLevel(newLevel); // Actualizar la experiencia necesaria para el próximo nivel

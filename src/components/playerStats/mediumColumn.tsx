@@ -1,13 +1,27 @@
+import { useState } from 'react';
 import useStatManagement from '../../customHooks/useStatManagement';
 import usePlayerStore from '../../stores/playerStore';
 import { Stats } from '../../stores/types/stats';
 import BackButton from '../UI/BackButton';
+import ButtonEdited from '../UI/ButtonEdited';
+import ElementsStatsColumn from './ElementsStatsColumn';
 
 export default function MediumColumnPStats() {
   const { handleIncreaseStat } = useStatManagement();
   const { player } = usePlayerStore();
+  const [eStatsView, setEStatsView] = useState(false);
+  const toggleEStats = () => {
+    setEStatsView(!eStatsView)
+  }
+
   return (
     <div className="mediumColumnStats">
+      <ButtonEdited  
+        label="Elementos"
+        width="130px"
+        height="33px"
+        onClick={() => toggleEStats() }
+      />
       <div className="statsAndAdd">
         <ul className="statsPoints">
           {/* **************************************** ESTADÍSTICAS ************************************ */}
@@ -88,6 +102,7 @@ export default function MediumColumnPStats() {
         </div>
       )}
       <BackButton />
+      {eStatsView && <ElementsStatsColumn onClose={toggleEStats}/>}
     </div>
   );
 }

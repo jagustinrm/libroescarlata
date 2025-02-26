@@ -8,7 +8,7 @@ export const selectEnemy = (
   enemy: string | null,
 ) => {
     const { creatures, bosses, setCreature, fightType, setCreatureLoaded, creatureLoaded  } = getGlobalState();
-    const BOSS_PROBABILITY = 0.5; 
+    const BOSS_PROBABILITY = 100; 
     try {
       // Si recibe un enemy carga solamente ese enemy, no busca otro. Modo historia.
       if (enemy) {
@@ -18,7 +18,7 @@ export const selectEnemy = (
           setCreature({ 
             ...storyCreature, 
             health: initialHealth, 
-            p_LeftHealth: initialHealth 
+            c_LeftHealth: initialHealth 
           });
           setCreatureLoaded(true)
           console.log(creatureLoaded)
@@ -35,7 +35,7 @@ export const selectEnemy = (
             finalBosses[Math.floor(Math.random() * finalBosses.length)];
           const initialHealth = randomBoss.hitPoints;
 
-          setCreature({ ...randomBoss, health: initialHealth, p_LeftHealth: initialHealth  });
+          setCreature({ ...randomBoss, health: initialHealth, c_LeftHealth: initialHealth  });
           return;
         }
       }
@@ -44,7 +44,7 @@ export const selectEnemy = (
       const randomCreature =
         finalCreatures[Math.floor(Math.random() * finalCreatures.length)];
       const initialHealth = randomCreature.hitPoints;
-      setCreature({ ...randomCreature, health: initialHealth, p_LeftHealth: initialHealth });
+      setCreature({ ...randomCreature, health: initialHealth, c_LeftHealth: initialHealth });
     } finally {
       setCreatureLoaded(true)
     }

@@ -3,24 +3,48 @@ import { calculateDistance } from '../utils/calculateDistance.ts';
 import automaticMove from './automaticMove.ts';
 import AttackAction from '../utils/attackAction.ts';
 import { getGlobalState } from './useGlobalState.ts';
+import useCreatureStore from '../stores/creatures.ts';
+import { checkForConditions } from '../utils/checkForConditions.ts';
+import { reduceDurationFromConditions } from '../utils/reduceDurationFromConditions.ts';
+
+
+
+
+
 
 export const useEnemyTurn = () => {
+
   const {setActionMessages, creature, 
     setFloatingMessage, player, playerActions, 
     currentCharacter, nextTurn, playerPosition, enemyPosition,
     setEnemyPosition } = getGlobalState();
+
   useEffect(() => {
     const adjustedDistance = calculateDistance(enemyPosition, playerPosition);
+    const checkConditions = checkForConditions() // Chequea si tiene alguna condición. Ej: "stun".
     const timeout = setTimeout(() => {
+      if (    currentCharacter && currentCharacter.id === 'enemy' && 
+         creature &&
+        creature.c_LeftHealth &&
+        creature.c_LeftHealth > 0 &&
+        player.c_LeftHealth > 0 && 
+        checkConditions) {
+        reduceDurationFromConditions()
+        nextTurn()
+        return
+      }
       if (
         currentCharacter &&
         currentCharacter.id === 'enemy' &&
         creature &&
-        creature.p_LeftHealth &&
-        creature.p_LeftHealth > 0 &&
-        player.p_LeftHealth > 0 &&
-        adjustedDistance > Math.max(...creature.attacks.map((a) => a.range))
+        creature.c_LeftHealth &&
+        creature.c_LeftHealth > 0 &&
+        player.c_LeftHealth > 0 &&
+        adjustedDistance > Math.max(...creature.attacks.map((a) => a.range)) 
+    
+        
       ) {
+
         automaticMove(enemyPosition, playerPosition, setEnemyPosition);
       }
 
@@ -29,9 +53,10 @@ export const useEnemyTurn = () => {
         creature &&
         currentCharacter &&
         currentCharacter.id === 'enemy' &&
-        creature.p_LeftHealth &&
-        creature.p_LeftHealth > 0 &&
-        player.p_LeftHealth > 0
+        creature.c_LeftHealth &&
+        creature.c_LeftHealth > 0 &&
+        player.c_LeftHealth > 0       
+        
       ) {
         AttackAction(
           adjustedDistance,
@@ -42,10 +67,18 @@ export const useEnemyTurn = () => {
           setEnemyPosition,
           setFloatingMessage,
           setActionMessages,
-          playerActions.setP_LeftHealth,
+          playerActions.setc_LeftHealth,
           nextTurn,
         )
+        reduceDurationFromConditions()
+
+
+
+
+
       } 
+
+
     }, 500);
 
     return () => clearTimeout(timeout);

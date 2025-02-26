@@ -20,6 +20,10 @@ import {
   calculateTotalMaxMana,
 } from '../utils/calculateStats';
 import { Item } from './types/items';
+import { stats } from './entitiesData/stats';
+import { elementStats } from './entitiesData/elementStats';
+import { abilities } from './entitiesData/abilities';
+import { bodyParts } from './entitiesData/bodyParts';
 
 const initialPlayerState: Player = {
   name: '',
@@ -28,77 +32,47 @@ const initialPlayerState: Player = {
   playerExp: 0,
   p_ExpToNextLevel: 1000,
   p_ExpPrevLevel: 0,
-  p_MaxHealth: 1,
+  c_MaxHealth: 1,
   totalMaxHealth: () => {
     const state = usePlayerStore.getState().player;
     return (
       calculateTotalMaxHealth(
         state.stats.con,
         state.stats.cha,
-        state.p_MaxHealth,
+        state.c_MaxHealth,
       ) || 0
     );
   },
-  p_LeftHealth: 1,
-  p_MaxMana: 1,
+  c_LeftHealth: 1,
+  c_MaxMana: 1,
+  mdef: 1,
   totalMaxMana: () => {
     const state = usePlayerStore.getState().player;
     return (
       calculateTotalMaxMana(
         state.stats.int,
         state.stats.cha,
-        state.p_MaxMana,
+        state.c_MaxMana,
       ) || 0
     );
   },
-  p_LeftMana: 1,
+  c_LeftMana: 1,
   classes: [],
   hitDie: 0,
   manaDie: 0,
   hitRateDie: 0,
   dodgeDie: 0,
+  c_Conditions: [],
   dungeonLevel: 1,
-  stats: {
-    str: 0,
-    dex: 0,
-    con: 0,
-    int: 0,
-    agi: 0,
-    cha: 0,
-  },
+  stats: stats,
+  elementsStats: elementStats,
   statusEffects: [],
   buffs: {},
   leftPoints: 25,
-  movement: 0, // nuevo
-  turnSpeed: 0, //nuevo
-  blockChance: 0, //nuevo
-  parry: 0, //nuevo
-  critChance: 0, // nuevo
-  critDamage: 0, //nuevo
-  spellHitRate: 0, //nuevo
-  spellPenetration: 0, //nuevo
-  spellCrit: 0, //nuevo
-  spellDmg: 0, //nuevo
-  spiritReg: 0, //nuevo
-  healthReg: 0, //nuevo
-  healingPower: 0, //nuevo
+  ...abilities,
   classFeatures: [],
   selectedPet: '',
-  // selectedWeapon: null,
-  // selectedArmor: null,
-  bodyParts: {
-    cabeza: null,
-    cara: null,
-    hombros: null,
-    pecho: null,
-    manos: null,
-    espalda: null,
-    cintura: null,
-    piernas: null,
-    pies: null,
-    manoDerecha: null,
-    manoIzquierda: null,
-  },
+  bodyParts: bodyParts,
   accessoriesParts: {
     anillo: {},
     aro: {},
@@ -336,26 +310,27 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, level },
       })),
-    setP_MaxHealth: (p_MaxHealth) =>
+    setc_MaxHealth: (c_MaxHealth) =>
       set((state) => ({
-        player: { ...state.player, p_MaxHealth },
+        player: { ...state.player, c_MaxHealth },
       })),
-    setP_LeftHealth: (p_LeftHealth) =>
+    setc_LeftHealth: (c_LeftHealth) =>
       set((state) => ({
-        player: { ...state.player, p_LeftHealth },
+        player: { ...state.player, c_LeftHealth },
       })),
-    setP_MaxMana: (p_MaxMana) =>
+    setc_MaxMana: (c_MaxMana) =>
       set((state) => ({
-        player: { ...state.player, p_MaxMana },
+        player: { ...state.player, c_MaxMana },
       })),
-    setDungeonLevel: (dungeonLevel) =>
+
+    setc_LeftMana: (c_LeftMana) =>
       set((state) => ({
-        player: { ...state.player, dungeonLevel },
+        player: { ...state.player, c_LeftMana },
       })),
-    setP_LeftMana: (p_LeftMana) =>
-      set((state) => ({
-        player: { ...state.player, p_LeftMana },
-      })),
+      setDungeonLevel: (dungeonLevel) =>
+        set((state) => ({
+          player: { ...state.player, dungeonLevel },
+        })),
     // setArmorClass: (armorClass) =>
     //   set((state) => ({
     //     player: { ...state.player, armorClass },
@@ -627,6 +602,14 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, currentStoryId: storyId },
       })),
+      setC_Conditions: (newConditions) => {
+        set((state) => ({
+          player: {
+            ...state.player,
+            c_Conditions: newConditions, 
+          },
+        }))
+      },
     setPlayer: (newPlayer: Partial<Player>) =>
       set((state) => ({
         player: {

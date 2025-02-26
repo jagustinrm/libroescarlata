@@ -22,7 +22,7 @@ export const handleOptionSelect = (
     setTravelCounter,
     handleContinue,
   } = context;
-  const {player, playerActions, removeItem, currentChapter} = getGlobalState();
+  const {player, playerActions, removeItem, currentChapter } = getGlobalState();
   const {currentEvent} = useDialogStore.getState();
   if (option.outcome === 'fight') {
     navigate('/fightScene', {
@@ -36,6 +36,7 @@ export const handleOptionSelect = (
     option.requiresItem.forEach((item) => {
       for (let i = 0; i < item.cant; i++) {
         removeItem(player.inventoryId, 'others', item.id);
+     
       }
     });
     playerActions.updateStoryProgress(currentChapter.storyId, {

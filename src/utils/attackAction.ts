@@ -37,7 +37,7 @@ export default function AttackAction (
               }
             }
 
-            healthFunction(Math.max(target.p_LeftHealth - finalDamage(), 0));
+            healthFunction(Math.max(target.c_LeftHealth - finalDamage(), 0));
             setSoundUrl(attacker.attacks[0].soundEffect);
             setTimeout(() => {
               setSoundUrl('');

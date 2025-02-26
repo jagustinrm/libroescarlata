@@ -18,6 +18,7 @@ export default function RightColumnPStats() {
       <p>Porcentaje de esquiva: {player.dodgePercentage()}% </p>
       <p>Porcentaje de puntería: {player.hitRatePercentage()}% </p>
       <p>Reducción de daño: {player.totalDmgReduction(player.level)}%</p>
+      <p>Regeneración de vida: {player.healthReg()} </p>
       <p>
         Reducción de daño mágico: {player.totalDmgMReduction(player.level)}%
       </p>

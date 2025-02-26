@@ -39,8 +39,8 @@ export const handleAction = (
       navigate('/inventory');
       break;
     case 'recoverHealth':
-      playerActions.setP_LeftHealth(player.totalMaxHealth());
-      playerActions.setP_LeftMana(player.totalMaxMana());
+      playerActions.setc_LeftHealth(player.totalMaxHealth());
+      playerActions.setc_LeftMana(player.totalMaxMana());
       setShowMessage(true);
       break;
     case 'missions':

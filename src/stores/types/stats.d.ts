@@ -6,3 +6,9 @@ export interface Stats {
   agi: number;
   cha: number;
 }
+
+export interface ElementsStats {
+  name: string;
+  symbol: string;
+  amount: number;
+}

@@ -29,7 +29,7 @@ export const initializeEffects = ({
     creatureLoaded, setCreatureLoaded,  weapons, creature,
     spells, inventories, resetPositions, setAmbientMusic, 
     setMusicVolume, setSummonPosition, fightType, 
-    actionMessages, playerActions, setTurn } = getGlobalState();
+    actionMessages, playerActions, setTurn, currentCharacter } = getGlobalState();
   const {summon} = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
@@ -69,14 +69,14 @@ export const initializeEffects = ({
   // 4️⃣ Manejo de derrota del jugador o del enemigo
   useEffect(() => {
     if(creatureLoaded) {
-    if (player.p_LeftHealth === 0) {
+    if (player.c_LeftHealth === 0) {
       handleMessage("¡Has sido derrotado!", "warning", true);
       
     }
 
     if (
-      typeof creature.p_LeftHealth === 'number' &&
-      creature.p_LeftHealth <= 0 &&
+      typeof creature.c_LeftHealth === 'number' &&
+      creature.c_LeftHealth <= 0 &&
       fightType
     ) {
       handleMessage('¡Has ganado el combate!', 'success', false);
@@ -84,7 +84,7 @@ export const initializeEffects = ({
       
     }
   }
-  }, [player.p_LeftHealth, creature.p_LeftHealth]);
+  }, [player.c_LeftHealth, creature.c_LeftHealth]);
 
 
   // 5️⃣ Ajustar posición de invocación
@@ -114,5 +114,11 @@ export const initializeEffects = ({
     };
   }, []);
   
+  useEffect(() => {
+   if (currentCharacter?.id === 'player' && player.c_LeftHealth > 0 && player.c_LeftHealth < player.totalMaxHealth()) {
+    playerActions.setc_LeftHealth(Math.min(player.c_LeftHealth + player.healthReg(), player.totalMaxHealth()))
+    playerActions.setc_LeftMana(Math.min(player.c_LeftMana + player.spiritReg(), player.totalMaxMana()))
+  } 
+  }, [currentCharacter]);
  
 };

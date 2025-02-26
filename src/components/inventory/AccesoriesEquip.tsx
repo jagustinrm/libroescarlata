@@ -110,7 +110,7 @@ const AccesoriesEquipment: React.FC<AccessoriesEquipmentProps> = ({
 
   return (
     <div className="accessoriesContainer">
-      <h2>Equipo</h2>
+
       <div className="accesoriesEquipment">
         {rings.map((ring, index) => {
           return renderAccessory(

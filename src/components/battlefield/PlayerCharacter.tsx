@@ -37,7 +37,7 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
             </div>
             <div>
               <p className="health-text">
-                {player.p_LeftHealth} / {player.totalMaxHealth()}
+                {player.c_LeftHealth} / {player.totalMaxHealth()}
               </p>
             </div>
           </div>
@@ -51,7 +51,7 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
             </div>
             <div>
               <p className="mana-text">
-                {player.p_LeftMana} / {player.totalMaxMana()}
+                {player.c_LeftMana} / {player.totalMaxMana()}
               </p>
             </div>
           </div>

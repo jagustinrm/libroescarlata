@@ -75,11 +75,11 @@ export default function Home() {
                   <div className="p_leaftHealth">
                     <div className="heart">❤️</div>
                     <p>
-                      Vida: {player.p_LeftHealth} / {player.totalMaxHealth()}
+                      Vida: {player.c_LeftHealth} / {player.totalMaxHealth()}
                     </p>
                   </div>
                   <p>
-                    🌀 Espíritu: {player.p_LeftMana} / {player.totalMaxMana()}
+                    🌀 Espíritu: {player.c_LeftMana} / {player.totalMaxMana()}
                   </p>
                   <p>
                     ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}
@@ -106,7 +106,7 @@ export default function Home() {
         </div>
 
         <div className="buttonsHome ">
-          {player.p_LeftHealth > 0 && (
+          {player.c_LeftHealth > 0 && (
             <img
               onClick={() =>
                 handleAction('fight-normal', navigate, setShowMessage)
@@ -116,7 +116,7 @@ export default function Home() {
               alt=""
             />
           )}
-          {player.p_LeftHealth > 0 && (
+          {player.c_LeftHealth > 0 && (
             <img
               onClick={() =>
                 handleAction('fight-dungeon', navigate, setShowMessage)
@@ -135,7 +135,7 @@ export default function Home() {
               src="/img/UI/innButton.png"
               alt=""
             />
-            {player.p_LeftHealth === 0 && <div className="arrows"></div>}
+            {player.c_LeftHealth === 0 && <div className="arrows"></div>}
           </div>
           <img
             onClick={() => handleAction('petStore', navigate, setShowMessage)}

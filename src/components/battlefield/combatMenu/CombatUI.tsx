@@ -36,7 +36,8 @@ const CombatUI: React.FC<CombatUIProps> = ({
 
   const executeItem = (item: Item): boolean => {
     if (selectedType === 'scrolls') {
-      const res = executeActionWithProps('scroll', item);
+      
+      const res = executeActionWithProps('scroll', { ...item, scroll: true });
       if (!res) return false;
       return res;
     } else if (selectedType === 'potions') {
@@ -56,7 +57,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
             onChange={(value) => playerActions.setP_SelectedBodyPart(value)}
             disabled={
               (currentCharacter && currentCharacter.id !== 'player') ||
-              creature.p_LeftHealth === 0
+              creature.c_LeftHealth === 0
             }
           />
         </div>
@@ -75,7 +76,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
               onChange={(value) => playerActions.setP_SelectedSpell(value)}
               disabled={
                 (currentCharacter && currentCharacter.id !== 'player') ||
-                creature.p_LeftHealth === 0
+                creature.c_LeftHealth === 0
               }
             />
           </div>
@@ -84,8 +85,8 @@ const CombatUI: React.FC<CombatUIProps> = ({
             disabled={
               (currentCharacter && currentCharacter.id !== 'player') ||
               !player.selectedSpell ||
-              creature.p_LeftHealth === 0 ||
-              player.p_LeftHealth <= 0
+              creature.c_LeftHealth === 0 ||
+              player.c_LeftHealth <= 0
             }
           >
             Lanzar hechizo
@@ -106,7 +107,7 @@ const CombatUI: React.FC<CombatUIProps> = ({
           />
         </div>
         {/* Botón para huir */}
-        {fightType === 'normal' || player.p_LeftHealth === 0 ? (
+        {fightType === 'normal' || player.c_LeftHealth === 0 ? (
           <button
             onClick={() =>
               handleMessage('¡Has huido del combate!', 'warning', true)

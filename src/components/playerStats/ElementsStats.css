@@ -1,0 +1,12 @@
+.two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas de tamaño igual */
+    gap: 10px; /* Espacio entre las columnas */
+    list-style-type: none; /* Eliminar los puntos de la lista */
+    padding: 0;
+  }
+  
+  .two-columns li {
+    display: flex;
+    justify-content: space-between; /* Asegura que el nombre y la cantidad estén separados */
+  }

@@ -24,7 +24,11 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     specialAbilities: [],
     img: '',
     health: 1,
-    p_LeftHealth: 1,
+    c_MaxHealth: 1,
+    c_MaxMana: 1,
+    c_LeftMana: 1,
+    c_LeftHealth: 1,
+    c_Conditions: [],
     stats: {
       str: 0,
       dex: 0,
@@ -51,10 +55,7 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
   },
   // ESTO quizás podría hacerlo directamente cuando cargo una criatura.
   setCreatureLoaded: (loaded) => set({ creatureLoaded: loaded }),
-  setP_LeftHealth: (p_LeftHealth) =>
-    set((state) => ({
-      creature: { ...state.creature, p_LeftHealth },
-    })),
+
   setCreatures: (creatures: Creature[]) =>
     set((state) => {
       if (state.creatures.length === 0 && creatures.length > 0) {
@@ -83,7 +84,25 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     set((state) => ({
       bosses: [...state.bosses, newBoss],
     })),
-
+    updateC_Conditions: (newCondition) =>
+    {  
+    
+      set((state) => ({
+        creature: {
+          ...state.creature,
+          c_Conditions: [...state.creature.c_Conditions, newCondition], // Agrega la nueva condición al array
+        },
+      }))
+    },
+    setC_Conditions: (newConditions) => {
+   
+      set((state) => ({
+        creature: {
+          ...state.creature,
+          c_Conditions: newConditions, 
+        },
+      }))
+    },
   updateCreature: (updatedCreature) =>
     set((state) => {
       const existingCreatureIndex = state.creatures.findIndex(
@@ -118,11 +137,29 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     set(() => ({
       creature,
     })),
-
+  // este hay que borrarlo  
   setCreatureHealth: (health) =>
     set((state) => ({
       creature: { ...state.creature, health },
     })),
+    setc_MaxHealth: (c_MaxHealth) =>
+      set((state) => ({
+        creature: { ...state.creature, c_MaxHealth },
+      })),
+      setc_LeftHealth: (c_LeftHealth) =>
+        set((state) => ({
+          creature: { ...state.creature, c_LeftHealth },
+      })),
+    setc_MaxMana: (c_MaxMana) =>
+      set((state) => ({
+        creature: { ...state.creature, c_MaxMana },
+      })),
+
+    setc_LeftMana: (c_LeftMana) =>
+      set((state) => ({
+        creature: { ...state.creature, c_LeftMana },
+      })),
+  
 }));
 
 export default useCreatureStore;

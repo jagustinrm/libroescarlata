@@ -34,6 +34,7 @@ export default function ListCombatItems({
     if (wasItemUsed) {
       setSelectedType(undefined);
       removeItem(player.inventoryId, selectedType, item.id);
+
       await removeItemFromFirebase(player.name, item.id, selectedType);
     }
   };

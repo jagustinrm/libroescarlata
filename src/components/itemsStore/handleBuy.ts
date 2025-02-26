@@ -23,7 +23,7 @@ export const handleBuy = async (
 
     if (player.playerMaterial >= itemCost)  {
       let updatedItem = item;
-      console.log(checkIfIdExists(player.inventoryId, itemType, item.id))
+
       if(checkIfIdExists(player.inventoryId, itemType,  item.id)) {
         const uniqueId = await generateUniqueId(itemType);
         updatedItem = { ...item, playerOwner: true, id: uniqueId } as Item

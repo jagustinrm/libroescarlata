@@ -44,8 +44,8 @@ const HeaderMenu = () => {
           {/* Mostrar "Misiones" solo si no estamos en la URL "/" */}
           {location.pathname !== '/' &&
             location.pathname !== '/characterSelector' && (
-              <li onClick={() => setShowMissions(true)}>
-                <a href="#">Misiones</a>
+              <li onClick={() => setShowMissions(true)} className='rpgui-cursor-point'>
+                Misiones
               </li>
             )}
           <li>

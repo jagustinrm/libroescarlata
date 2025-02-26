@@ -1,16 +1,13 @@
-import { Stats } from './stats';
-export interface Creature {
-  name: string;
-  level: number;
+import { Character, CharacterStore } from './character';
+
+export interface Creature   extends Character {
   type?: string;
   role?: string; // "creature" o "boss"
   alignment: string;
   expertice?: number;
-  dodge: number;
   hitRate: number;
   hitPoints: number;
   armorClass: number;
-  mdef: number;
   attacks: {
     name: string;
     type: string; // "melee" o "rango"
@@ -23,8 +20,6 @@ export interface Creature {
   specialAbilities: string[];
   img: string;
   health?: number;
-  p_LeftHealth : number;
-  stats: Stats;
 
   readonly dodgePercentage: () => number;
   readonly hitRatePercentage: () => number;
@@ -33,7 +28,7 @@ export interface Creature {
 
 }
 
-export interface CreatureStore {
+export interface CreatureStore extends CharacterStore {
   // LISTA DE TODAS LAS CRIATURAS (creatures y bosses separados)
   creatures: Creature[];
   bosses: Creature[]; // Lista de bosses (puedes filtrar por 'type' si quieres)
@@ -46,8 +41,11 @@ export interface CreatureStore {
   updateCreature: (updatedCreature: Creature) => void;
   updateBoss: (updatedBoss: Creature) => void; // Función para actualizar bosses
   // UNA SOLA CRIATURA (para el escenario de combate)
-  setP_LeftHealth: (p_LeftHealth: number) => void;
+  updateC_Conditions: (newCondition: { name: string; duration: number }) => void;
+  setC_Conditions: (newCondition: { name: string; duration: number }[]) => void;
+
   creature: Creature;
   setCreature: (creature: Creature) => void;
   setCreatureHealth: (health: number) => void;
+
 }

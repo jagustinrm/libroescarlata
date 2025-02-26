@@ -16,11 +16,11 @@ export default function LeftColumnPStats() {
         <div className="heart">❤️</div>
         <p>
           {' '}
-          Vida: {player.p_LeftHealth} / {player.totalMaxHealth()}
+          Vida: {player.c_LeftHealth} / {player.totalMaxHealth()}
         </p>
       </div>
       <p>
-        🌀 Espíritu: {player.p_LeftMana} / {player.totalMaxMana()}
+        🌀 Espíritu: {player.c_LeftMana} / {player.totalMaxMana()}
       </p>
       <p>
         ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}

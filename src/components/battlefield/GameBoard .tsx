@@ -75,7 +75,12 @@ const GameBoard: React.FC<GameBoardProps> = ({
     actionType: 'attack' | 'spell' | 'move',
     additionalData?: any,
   ) => {
-    handleCombatAction(actionType, { setActivateImage }, additionalData);
+    console.log(additionalData, "hgola")
+    additionalData ? 
+    handleCombatAction(actionType, { setActivateImage }, additionalData) 
+    :
+    handleCombatAction(actionType, { setActivateImage })
+    
 
     setPlaySound(true);
     setTimeout(() => {

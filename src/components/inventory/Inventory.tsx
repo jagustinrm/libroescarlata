@@ -94,7 +94,10 @@ export default function Inventory() {
           ))}
           </div>
         </div> 
-       <div style={{width: '400px', height: '400px', display:'flex'}}>
+        <div>
+        <h2 style={{display:'flex', justifyContent: 'center'}}>Equipo</h2>
+       <div style={{width: '400px', height: '400px', display:'flex', justifyContent: 'center'}}>
+      
       {actualCategory === 'armors' && <PlayerEquipment />}
       {actualCategory === 'accessories' && (
         <AccesoriesEquipment
@@ -104,6 +107,7 @@ export default function Inventory() {
       )}
       {actualCategory === 'weapons' && <WeaponEquipment />}
       </div>   
+      </div>
         </div>
         <div className='sectionTitle'>
         {lineImg()}
