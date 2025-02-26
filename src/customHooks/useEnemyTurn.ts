@@ -3,7 +3,6 @@ import { calculateDistance } from '../utils/calculateDistance.ts';
 import automaticMove from './automaticMove.ts';
 import AttackAction from '../utils/attackAction.ts';
 import { getGlobalState } from './useGlobalState.ts';
-import useCreatureStore from '../stores/creatures.ts';
 import { checkForConditions } from '../utils/checkForConditions.ts';
 import { reduceDurationFromConditions } from '../utils/reduceDurationFromConditions.ts';
 
