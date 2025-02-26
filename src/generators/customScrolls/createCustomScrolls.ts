@@ -51,6 +51,7 @@ export async function createCustomScroll(): Promise<Scroll | null> {
     color: '#F8F8F8',
     weight: 1,
     playerOwner: false,
+    repeatable: true,
   };
 
   return customScroll;

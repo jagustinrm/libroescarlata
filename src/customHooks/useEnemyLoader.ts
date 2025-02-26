@@ -11,7 +11,7 @@ export function useEnemyLoader(
   const handleNewEnemyClick = ({
     handleMessage,
   }: HandleNewEnemyClickParams) => {
-    const {setTurn, resetPositions, player, setCreatureLoaded } = getGlobalState();
+    const {setTurn, resetPositions, player } = getGlobalState();
     handleMessage(`${player.name} busca un nuevo enemigo...`, 'success', false);
     setTimeout(() => {
       setTurn('player');

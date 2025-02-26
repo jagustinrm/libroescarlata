@@ -163,6 +163,30 @@
     "mdef": 40
   },
   {
+    "name": "Axolt joven",
+    "img": "/img/enemies/axolt_young.png",
+    "type": "humanoide",
+    "alignment": "neutral",
+    "level": 2,
+    "hitPoints": 100,
+    "dodge": 30,
+    "hitRate": 45,
+    "armorClass": 16,
+    "attacks": [
+      {
+        "name": "lanza",
+        "type": "melee",
+        "bonus": 3,
+        "damage": 35,
+        "damageMax": 60,
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
+      }
+    ],
+    "specialAbilities": ["olfato agudo", "carga feroz"],
+    "mdef": 40
+  },
+  {
     "name": "Gnoll",
     "img": "/img/enemies/gnoll.png",
     "type": "humanoide",
@@ -347,8 +371,8 @@
         "name": "mordisco",
         "type": "melee",
         "bonus": 4,
-        "damage": 50,
-        "damageMax": 100,
+        "damage": 40,
+        "damageMax": 80,
         "soundEffect": "/music/attacks/bite.wav",
         "range": 5
       },
@@ -356,8 +380,8 @@
         "name": "garras",
         "type": "melee",
         "bonus": 4,
-        "damage": 50,
-        "damageMax": 100,
+        "damage": 40,
+        "damageMax": 90,
         "soundEffect": "/music/attacks/claws-scratch.mp3",
         "range": 5
       },
@@ -365,8 +389,8 @@
         "name": "aliento de fuego",
         "type": "rango",
         "bonus": "ninguno",
-        "damage": 50,
-        "damageMax": 100,
+        "damage": 30,
+        "damageMax": 70,
         "soundEffect": "/music/attacks/fireBall.wav",
         "range": 30
       }
@@ -377,6 +401,30 @@
       "resistencia al fuego (10)"
     ],
     "mdef": 80
+  },
+  {
+    "name": "Axolt explorador",
+    "img": "/img/enemies/axolt_explorer.png",
+    "type": "axolt",
+    "alignment": "neutral",
+    "level": 3,
+    "hitPoints": 300,
+    "armorClass": 13,
+    "dodge": 20,
+    "hitRate": 60,
+    "attacks": [
+      {
+        "name": "lanza",
+        "type": "melee",
+        "bonus": 3,
+        "damage": 50,
+        "damageMax": 100,
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
+      }
+    ],
+    "specialAbilities": ["visión en la oscuridad"],
+    "mdef": 70
   },
   {
     "name": "Demonio pequeño",
@@ -431,6 +479,34 @@
     "mdef": 110
   },
   {
+    "name": "Axolt lancero",
+    "img": "/img/enemies/axolt_lancer.png",
+    "type": "axolt",
+    "dodge": 80,
+    "hitRate": 80,
+    "alignment": "neutral bueno",
+    "level": 4,
+    "hitPoints": 250,
+    "armorClass": 16,
+    "attacks": [
+      {
+        "name": "lanza",
+        "type": "rango",
+        "bonus": 5,
+        "damage": 70,
+        "damageMax": 140,
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 10
+      }
+    ],
+    "specialAbilities": [
+      "invisibilidad a voluntad",
+      "visión verdadera (18 m)",
+      "polvo de confusión"
+    ],
+    "mdef": 110
+  },
+  {
     "name": "Troll",
     "img": "/img/enemies/troll.png",
     "type": "gigante",
@@ -457,6 +533,90 @@
         "damage": 85,
         "damageMax": 150,
         "soundEffect": "/music/attacks/bite.wav",
+        "range": 5
+      }
+    ],
+    "specialAbilities": [
+      "regeneración (5 HP por turno)",
+      "visión en la oscuridad",
+      "olfato agudo"
+    ],
+    "mdef": 120
+  },
+  {
+    "name": "Axolt paladín",
+    "img": "/img/enemies/axolt_paladin.png",
+    "type": "axolt",
+    "alignment": "neutral",
+    "level": 5,
+    "hitPoints": 600,
+    "armorClass": 16,
+    "dodge": 50,
+    "hitRate": 40,
+    "attacks": [
+      {
+        "name": "espada larga",
+        "type": "melee",
+        "bonus": 7,
+        "damage": 85,
+        "damageMax": 150,
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 5
+      }
+    ],
+    "specialAbilities": [
+      "regeneración (5 HP por turno)",
+      "visión en la oscuridad",
+      "olfato agudo"
+    ],
+    "mdef": 120
+  },
+  {
+    "name": "Axolt lancero supremo",
+    "img": "/img/enemies/axolt_lancerSup.png",
+    "type": "axolt",
+    "alignment": "neutral",
+    "level": 6,
+    "hitPoints": 750,
+    "armorClass": 20,
+    "dodge": 70,
+    "hitRate": 40,
+    "attacks": [
+      {
+        "name": "lanza",
+        "type": "melee",
+        "bonus": 7,
+        "damage": 110,
+        "damageMax": 170,
+        "soundEffect": "/music/attacks/sword-sound.mp3",
+        "range": 5
+      }
+    ],
+    "specialAbilities": [
+      "regeneración (5 HP por turno)",
+      "visión en la oscuridad",
+      "olfato agudo"
+    ],
+    "mdef": 120
+  },
+  {
+    "name": "Guerrero Calavera",
+    "img": "/img/enemies/skull_warrior.png",
+    "type": "skeleton",
+    "alignment": "evil",
+    "level": 8,
+    "hitPoints": 750,
+    "armorClass": 20,
+    "dodge": 70,
+    "hitRate": 40,
+    "attacks": [
+      {
+        "name": "bastón",
+        "type": "melee",
+        "bonus": 7,
+        "damage": 130,
+        "damageMax": 175,
+        "soundEffect": "/music/attacks/spear.mp3",
         "range": 5
       }
     ],
