@@ -6,4 +6,5 @@ export const inventoryCategories = [
     { key: "potions", icon: "potionicon.png" },
     { key: "books", icon: "bookicon.png" },
     { key: "scrolls", icon: "scrollicon.png" },
+    { key: "shields", icon: "shieldicon.png" },
   ];

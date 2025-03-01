@@ -2,6 +2,7 @@ import usePlayerStore from '../../stores/playerStore';
 
 export default function RightColumnPStats() {
   const { player } = usePlayerStore();
+  console.log(player.TotalControlRes())
   return (
     <div className="additional-stats">
       <p>🎲 Dados de golpe: {player.hitDie}</p>
@@ -31,6 +32,14 @@ export default function RightColumnPStats() {
           ))}
         </ul>
       </p>
+      <div>
+      <p>Resistencia mágica: </p>
+      <div style={{display:'flex', flexDirection: 'column'}}>
+      {player.TotalControlRes().map(r => {
+        return <span>{r.name} : {r.value}</span>
+      })}
+      </div>
+      </div>
     </div>
   );
 }

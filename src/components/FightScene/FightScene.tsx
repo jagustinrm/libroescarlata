@@ -83,7 +83,7 @@ export default function FightScene() {
   usePetTurn();
   // ************************TURNOS *************************
 
-  console.log(creature)
+  console.log(player)
   const xpPercentage =
     player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0
       ? ((player.playerExp - player.p_ExpPrevLevel) /

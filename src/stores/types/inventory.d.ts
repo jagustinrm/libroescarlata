@@ -6,6 +6,7 @@ export interface Inventory {
   books: Array<string>;
   scrolls: Array<string>;
   others: Array<string>;
+  shields: Array<string>;
 }
 
 export interface InventoryStore {

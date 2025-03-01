@@ -1,4 +1,6 @@
+import { create } from "zustand";
 import { getGlobalState } from "../customHooks/useGlobalState";
+import usePlayerStore from "../stores/playerStore";
 import { Position } from "../stores/types/others";
 import { isAttackSuccessful } from "./calculateStats";
 import { simulateAttackMovement } from "./simulateAttackMovement";
@@ -16,6 +18,7 @@ export default function AttackAction (
     damageIncrease?: number,
 ) {
     const {setSoundUrl} = getGlobalState();
+    const {playerActions} = usePlayerStore.getState();
     if (
         adjustedDistance <= Math.max(...attacker.attacks.map((a: any) => a.range))
       ) {
@@ -46,6 +49,9 @@ export default function AttackAction (
               ...prev,
               `El enemigo te ha atacado con ${attacker['attacks'][0].name} y causó ${finalDamage()} puntos de daño.`,
             ]);
+
+            attacker['attacks'][0].condition && playerActions.updateC_Conditions(attacker['attacks'][0].condition)
+          
             setFloatingMessage({
               message: finalDamage().toString(),
               onComplete: () => setFloatingMessage(null),

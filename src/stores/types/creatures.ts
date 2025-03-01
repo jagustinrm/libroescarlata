@@ -41,7 +41,7 @@ export interface CreatureStore extends CharacterStore {
   updateCreature: (updatedCreature: Creature) => void;
   updateBoss: (updatedBoss: Creature) => void; // Función para actualizar bosses
   // UNA SOLA CRIATURA (para el escenario de combate)
-  updateC_Conditions: (newCondition: { name: string; duration: number }) => void;
+
   setC_Conditions: (newCondition: { name: string; duration: number }[]) => void;
 
   creature: Creature;

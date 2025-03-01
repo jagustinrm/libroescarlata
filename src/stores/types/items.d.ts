@@ -27,6 +27,7 @@ export interface Items {
   books: Book[];
   scrolls: Scroll[];
   others: otherItem[];
+  shields: Armor[];
 }
 
 export interface ItemsStore {

@@ -18,6 +18,7 @@ import {
   calculateTotalMaxDamage,
   calculateTotalMaxHealth,
   calculateTotalMaxMana,
+  calculateTotalRes,
 } from '../utils/calculateStats';
 import { Item } from './types/items';
 import { stats } from './entitiesData/stats';
@@ -33,28 +34,21 @@ const initialPlayerState: Player = {
   p_ExpToNextLevel: 1000,
   p_ExpPrevLevel: 0,
   c_MaxHealth: 1,
+  controlResist: [{name: 'aturdir', value: 0}, {name: 'dormir', value: 0}, {name: 'paralizar', value: 0}],
+  TotalControlRes: () => {
+    const stateP = usePlayerStore.getState().player;
+    return calculateTotalRes(stateP.controlResist, stateP.stats)
+  },
   totalMaxHealth: () => {
     const state = usePlayerStore.getState().player;
-    return (
-      calculateTotalMaxHealth(
-        state.stats.con,
-        state.stats.cha,
-        state.c_MaxHealth,
-      ) || 0
-    );
+    return calculateTotalMaxHealth(state.stats.con, state.stats.cha, state.c_MaxHealth) || 0;
   },
   c_LeftHealth: 1,
   c_MaxMana: 1,
   mdef: 1,
   totalMaxMana: () => {
     const state = usePlayerStore.getState().player;
-    return (
-      calculateTotalMaxMana(
-        state.stats.int,
-        state.stats.cha,
-        state.c_MaxMana,
-      ) || 0
-    );
+    return calculateTotalMaxMana(state.stats.int,  state.stats.cha, state.c_MaxMana) || 0;
   },
   c_LeftMana: 1,
   classes: [],
@@ -610,6 +604,14 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           },
         }))
       },
+      updateC_Conditions: (newCondition) => { 
+        set((state) => ({
+            player: {
+              ...state.player,
+              c_Conditions: [...state.player.c_Conditions, newCondition], // Agrega la nueva condición al array
+            },
+          }))
+        },
     setPlayer: (newPlayer: Partial<Player>) =>
       set((state) => ({
         player: {

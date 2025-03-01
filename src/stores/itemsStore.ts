@@ -3,6 +3,7 @@ import { Items, ItemsStore } from './types/items';
 
 const useItemsStore = create<ItemsStore>((set, get) => ({
   items: {},
+
   isInitialized: false,
   createItems: (id) =>
     set((state) => {
@@ -15,6 +16,7 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
             weapons: [],
             armors: [],
             potions: [],
+            shields: [],
             books: [],
             scrolls: [],
             others: [],
@@ -70,6 +72,7 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
             scrolls: [],
             accessories: [],
             others: [],
+            shiels: [],
           },
         },
       };
@@ -86,6 +89,7 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
             scrolls: itemSet.scrolls.filter((item) => !item.deleteable),
             others: itemSet.others.filter((item) => !item.deleteable),
             accessories: itemSet.accessories.filter((item) => !item.deleteable),
+            shields: itemSet.shields.filter((item) => !item.deleteable),
           };
           return [id, filteredItemSet];
         }),

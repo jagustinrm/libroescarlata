@@ -53,7 +53,7 @@ export interface Armor extends generalItem{
     levelUpgrades: number[]; // Mejora de estadísticas por nivel
     newFeatures?: string[]; // Nuevas características al subir nivel
   };
-  questReward?: boolean; // Indica si proviene de una misión
+  questReward?: boolean; 
   deleteable?: boolean;
   color: string;
   actions: {
@@ -62,10 +62,14 @@ export interface Armor extends generalItem{
 }
 
 export interface ArmorStore {
-  armors: Armor[]; // Lista de armas
-  areArmorsLoaded: boolean; // Indica si las armas están cargadas
+  armors: Armor[]; 
+  shields: Armor[]
+  areArmorsLoaded: boolean; 
+  areShieldsLoaded: boolean;
   setArmors: (armor: Armor[]) => void;
+  setShields: (shield: Armor[]) => void;
   addNewArmor: (armor: Armor) => void;
+  addNewShield: (shield: Armor) => void;
   addNewsetArmors: (newArmor: Armor) => void;
-  updatesetArmors: (updatedArmor: Armor) => void; // Función para actualizar una arma existente
+  updatesetArmors: (updatedArmor: Armor) => void; 
 }

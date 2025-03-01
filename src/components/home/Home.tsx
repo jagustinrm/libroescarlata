@@ -34,6 +34,9 @@ export default function Home() {
   const handleStats = () => {
     navigate('/playerStats');
   };
+  const style: React.CSSProperties = player.c_LeftHealth <= 0 
+  ? { filter: 'grayscale(100%)', pointerEvents: 'none', cursor: 'not-allowed' } 
+  : {};
 
   return (
     <div>
@@ -106,7 +109,7 @@ export default function Home() {
         </div>
 
         <div className="buttonsHome ">
-          {player.c_LeftHealth > 0 && (
+      
             <img
               onClick={() =>
                 handleAction('fight-normal', navigate, setShowMessage)
@@ -114,9 +117,10 @@ export default function Home() {
               className="buttonPrueba  rpgui-cursor-point"
               src="/img/UI/training.png"
               alt=""
+              style= {style}
             />
-          )}
-          {player.c_LeftHealth > 0 && (
+      
+       
             <img
               onClick={() =>
                 handleAction('fight-dungeon', navigate, setShowMessage)
@@ -124,8 +128,9 @@ export default function Home() {
               className="buttonPrueba  rpgui-cursor-point"
               src="/img/UI/dungeonButton.png"
               alt=""
+              style={style}
             />
-          )}
+       
           <div className="hospitalRecover">
             <img
               onClick={() =>

@@ -199,6 +199,7 @@ const generateRandomArmor = async (playerLevel: number): Promise<Armor> => {
 //   return { generatedArmor, createArmor };
 // };
 export const CreateCustomArmors = () => {
+
   const [generatedArmors, setGeneratedArmors] = useState<Armor[]>([]); // Cambiamos a un array para almacenar múltiples armaduras
   const player = usePlayerStore((state) => state.player);
 

@@ -18,7 +18,7 @@ export const handleBuy = async (
     setFloatingMessage: (message: FloatingMessageProps| null) => void
   ) => {
     const {player, playerActions,
-         addItemToInventory, addNewArmor, 
+         addItemToInventory, addNewArmor, addNewShield,
          addNewWeapon, addNewAccessory, addNewScroll, addNewPotion, checkIfIdExists} = getGlobalState();
 
     if (player.playerMaterial >= itemCost)  {
@@ -40,6 +40,14 @@ export const handleBuy = async (
           (updatedItem as Armor).id,
           updatedItem as Armor,
           'armors',
+        );
+      } else if (itemType === 'shields') {
+        addNewShield(updatedItem as Armor);
+        saveItemToFirebase(
+          player.name,
+          (updatedItem as Armor).id,
+          updatedItem as Armor,
+          'shields',
         );
       } else if (itemType === 'weapons') {
         saveItemToFirebase(

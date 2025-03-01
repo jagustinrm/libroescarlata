@@ -11,10 +11,13 @@ export interface Character {
     mdef: number;
     stats: Stats;
     c_Conditions: { name: string; duration: number }[] | [];
+    controlResist: {name: string; value: number}[];
+    readonly TotalControlRes: () => {name: string; value: number}[];
 }
 
 export interface CharacterStore {
     setc_MaxHealth: (c_MaxHealth: number) => void;
+    updateC_Conditions: (newCondition: { name: string; duration: number }) => void;
     setc_LeftHealth: (c_LeftHealth: number) => void;
     setc_MaxMana: (c_MaxMana: number) => void;
     setc_LeftMana: (c_LeftMana: number) => void;

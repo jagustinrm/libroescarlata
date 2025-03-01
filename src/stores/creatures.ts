@@ -5,6 +5,7 @@ import {
   calculateDmgReduction,
   calculateDodgePercentage,
   calculateHitRatePercentage,
+  calculateTotalRes,
 } from '../utils/calculateStats';
 const useCreatureStore = create<CreatureStore>((set, get) => ({
   creatures: [],
@@ -15,6 +16,7 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
   creature: {
     name: '',
     type: '',
+    controlResist: [],
     alignment: '',
     level: 0,
     mdef: 0,
@@ -51,6 +53,10 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     },
     totalMDmgReduction: (enemyLevel) => {
       return calculateDmgMReduction(get().creature.mdef, enemyLevel);
+    },
+    TotalControlRes: (): { name: string; value: number }[] => {
+      const stateP = useCreatureStore.getState().creature;
+      return calculateTotalRes(stateP.controlResist, stateP.stats);
     },
   },
   // ESTO quizás podría hacerlo directamente cuando cargo una criatura.

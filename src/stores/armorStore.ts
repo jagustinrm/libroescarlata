@@ -3,12 +3,15 @@ import { Armor, ArmorStore } from './types/armor';
 
 const useArmorStore = create<ArmorStore>((set) => ({
   armors: [],
+  shields: [],
   areArmorsLoaded: false,
-
+  areShieldsLoaded: false,
   setArmors: (armors: Armor[]) => {
     set({ armors, areArmorsLoaded: true });
   },
-
+  setShields: (shields: Armor[]) => {
+    set({ shields, areShieldsLoaded: true });
+  },
   addNewsetArmors: (newArmor: Armor) => {
     set((state) => ({ armors: [...state.armors, newArmor] }));
   },
@@ -24,7 +27,16 @@ const useArmorStore = create<ArmorStore>((set) => ({
         armors: [...state.armors, newArmor],
       };
     }),
-  
+  addNewShield: (newShield: Armor) =>
+    set((state) => {
+      const shieldExists = state.shields.some((shield) => shield.id === newShield.id);
+      if (shieldExists) {
+        return state;
+      }
+      return {
+        shields: [...state.shields, newShield],
+      };
+    }),
   updatesetArmors: (updatedArmor: Armor) => {
     set((state) => ({
       armors: state.armors.map((armor) =>

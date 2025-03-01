@@ -18,7 +18,8 @@
         "damage": 20,
         "damageMax": 40,
         "soundEffect": "/music/attacks/bite.wav",
-        "range": 5
+        "range": 5,
+        "condition": {"name": "atontar", "duration": 2, "chance": 50}
       }
     ],
     "specialAbilities": ["olfato agudo", "visión en la oscuridad"]
@@ -42,7 +43,8 @@
         "damageMax": 40,
         "additionalEffect": "veneno (1d6 CON)",
         "soundEffect": "/music/attacks/bite.wav",
-        "range": 5
+        "range": 5,
+        "condition": {"name": "atontar", "duration": 2, "chance": 50}
       }
     ],
     "specialAbilities": ["veneno (1d6 CON)", "visión en la oscuridad"],
@@ -66,7 +68,8 @@
         "damage": 20,
         "damageMax": 40,
         "soundEffect": "/music/attacks/sword-sound.mp3",
-        "range": 5
+        "range": 5,
+        "condition": {"name": "atontar", "duration": 2, "chance": 50}
       }
     ],
     "specialAbilities": ["inmunidad a parálisis", "visión en la oscuridad"],
@@ -90,7 +93,8 @@
         "damage": 20,
         "damageMax": 40,
         "soundEffect": "/music/attacks/sword-sound.mp3",
-        "range": 5
+        "range": 5,
+        "condition": {"name": "atontar", "duration": 2, "chance": 50}
       },
       {
         "name": "arco corto",
@@ -123,7 +127,8 @@
         "damage": 20,
         "damageMax": 40,
         "soundEffect": "/music/attacks/spear.mp3",
-        "range": 5
+        "range": 5,
+        "condition": {"name": "atontar", "duration": 2, "chance": 50}
       },
       {
         "name": "honda",
@@ -132,7 +137,8 @@
         "damage": 20,
         "damageMax": 40,
         "soundEffect": "/music/attacks/bow.mp3",
-        "range": 15
+        "range": 15,
+        "condition": {"name": "atontar", "duration": 2, "chance": 50}
       }
     ],
     "specialAbilities": ["visión en la oscuridad", "resistencia a conjuros"],

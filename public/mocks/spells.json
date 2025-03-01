@@ -60,7 +60,7 @@
     "description": "Misiles mágicos infalibles golpean a los objetivos, causando 1d4+1 de daño cada uno. El lanzador puede disparar 1 misil por cada 2 niveles (máx. 5).",
     "damageType": "Fuerza",
     "maxLevelEffect": 9,
-    "condition": {"name": "stun", "duration": 2,"probability": 100 },
+    "condition": {"name": "aturdir", "duration": 2,"probability": 100 },
     "soundEffect": "/music/attacks/magicMissile.wav",
     "flavorText": "Una herramienta confiable de cualquier mago, capaz de dañar incluso a los enemigos más escurridizos.",
     "interactionWithOtherSpells": "Ignora escudos mágicos de nivel bajo.",

@@ -1,4 +1,5 @@
 import { bodyParts } from '../stores/types/others';
+import { Stats } from '../stores/types/stats';
 
 export function calculateTotalDodge(agi: number = 1, dodge: number): number {
   // Constantes específicas del juego
@@ -188,9 +189,23 @@ export function calculateSummonDmgIncrease(playerCar: number): number {
 }
 
 export function calculatStatReg(stat: number, weaponStatReg?:number) {
-  console.log(stat)
-  console.log(weaponStatReg)
   const totalStatReg = weaponStatReg ? stat + weaponStatReg : stat
-   
   return totalStatReg
+}
+
+export function calculateTotalRes(
+  controlResist: { name: string; value: number }[], 
+  stats: Stats
+): { name: string; value: number }[] {
+  const STAT_MODIFIER = 0.01;
+
+  return controlResist.map(r => ({
+    name: r.name,
+    value: r.value + (
+      r.name === 'aturdir' ? (stats.str || 0) * STAT_MODIFIER :
+      r.name === 'paraliar' ? (stats.int || 0) * STAT_MODIFIER :
+      r.name === 'dormir' ? (stats.con || 0) * STAT_MODIFIER :
+      0 // Si no es ninguno de los anteriores, no se modifica
+    )
+  }));
 }

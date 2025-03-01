@@ -47,7 +47,7 @@ export default function Inventory() {
         <img className="lines" src="/img/UI/horizontallines.png" alt="" />
       </>
     )}
-
+  
   return (
     <section style={{ display: 'flex', flexDirection: 'row' }}>
       {readBook && (

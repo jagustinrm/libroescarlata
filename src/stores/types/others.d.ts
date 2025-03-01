@@ -10,8 +10,8 @@ export interface bodyParts {
   cintura: Armor | null;
   piernas: Armor | null;
   pies: Armor | null;
-  manoDerecha: Weapon | null;
-  manoIzquierda: Weapon | null;
+  manoDerecha: Weapon  | null;
+  manoIzquierda: Weapon |  Armor | null;
 }
 export interface accessoriesParts {
   anillo: Accessory[];

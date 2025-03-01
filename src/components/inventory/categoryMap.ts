@@ -10,6 +10,7 @@ export const getCategoryMap = (): Record<keyof Inventory, any[]> => {
       accessories,
       books,
       scrolls,
+      shields,
     } = getGlobalState();
   
     return {
@@ -20,5 +21,6 @@ export const getCategoryMap = (): Record<keyof Inventory, any[]> => {
       accessories,
       books,
       scrolls,
+      shields,
     };
   };

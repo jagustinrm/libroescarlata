@@ -71,8 +71,12 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
           </div>
         </div>
         {pet && <img className="imgPet" src={pet.img} alt="" />}
-
         {pet ? <p>Mascota: {pet.name}</p> : null}
+        <div>
+          {player.c_Conditions.length > 0 && player.c_Conditions.map(c => {
+            return <p>{c.name}: {c.duration} </p>
+          })}
+        </div>
       </div>
       {/* <div className="blackBar"></div> */}
     </div>

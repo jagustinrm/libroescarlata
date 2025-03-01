@@ -50,8 +50,8 @@ const ButtonEdited: React.FC<HoverSoundButtonProps> = ({
       <div
         style={{
           width,
-          filter: disabled ? 'grayscale(100%)' : 'none',
-          pointerEvents: disabled ? 'none' : 'auto', // Evitar clics cuando está deshabilitado
+          filter: disabled ? 'grayscale(100%)' : 'default',
+          pointerEvents: disabled ? 'none' : 'auto', 
           cursor: disabled ? 'not-allowed' : 'auto',
           display: disabled ? 'inline-block' : '',
         }}

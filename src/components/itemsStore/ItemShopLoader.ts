@@ -2,19 +2,18 @@ import { useEffect } from 'react';
 import useItemsStore from '../../stores/itemsStore';
 import { Item } from '../../stores/types/items';
 import { CreateCustomArmors } from '../../generators/customArmors/createCustomArmor';
-// import { deleteArmorFromFirebase } from '../../firebase/saveArmorToFirebase';
 import useGlobalState from '../../customHooks/useGlobalState';
 import { CreateCustomWeapons } from '../../generators/customWeapons/createCustomWeapons';
 import { CreateCustomAccessories } from '../../generators/customAccesories/createCustomAccesories';
 import { useCreateCustomScrolls } from '../../generators/customScrolls/createCustomScrolls';
-// import { Accessory } from '../../stores/types/accesories';
+import { CreateCustomShields } from '../../generators/customShields/createCustomShields';
 
 const ItemShopLoader = () => {
-  // const { generatedArmor, createArmor } = CreateCustomArmor();
   const { generatedArmors, createArmors } = CreateCustomArmors();
   const { generatedWeapons, createWeapons } = CreateCustomWeapons();
   const { generatedAccessories, createAccessories } = CreateCustomAccessories();
   const { generatedScrolls, createScrolls } = useCreateCustomScrolls();
+  const { generatedShields, createShields } = CreateCustomShields()
   const {
     weapons,
     armors,
@@ -24,6 +23,7 @@ const ItemShopLoader = () => {
     accessories,
     scrolls,
     books,
+    shields,
   } = useGlobalState();
   const { items, createItems, addItem } = useItemsStore();
   const shopId = 1; // ID único para el inventario del shop (ahora es un número)
@@ -60,7 +60,12 @@ const ItemShopLoader = () => {
         addItem(shopId, 'potions', potion) } ;
       }
     });
-
+    shields.forEach((shield) => {
+      if (!items[shopId]?.shields.some((p: Item) => p.id === shield.id)) {
+        if (shield.playerOwner === false || !shield.playerOwner) {
+        addItem(shopId, 'shields', shield) } ;
+      }
+    });
     otherItems.forEach((otherItem) => {
       if (!items[shopId]?.others.some((i: Item) => i.id === otherItem.id)) {
         addItem(shopId, 'others', otherItem);
@@ -98,6 +103,14 @@ const ItemShopLoader = () => {
     }
   }, [generatedArmors]);
   useEffect(() => {
+
+    if (generatedShields) {
+      generatedShields.forEach((s) => {
+        addItem(shopId, 'shields', s);
+      });
+    }
+  }, [generatedArmors]);
+  useEffect(() => {
     if (generatedWeapons) {
       generatedWeapons.forEach((w) => {
         addItem(shopId, 'weapons', w);
@@ -130,6 +143,7 @@ const ItemShopLoader = () => {
       await createWeapons(5);
       await createAccessories(5);
       await createScrolls(5);
+      await createShields(5)
     };
 
     // Ejecuta la lógica inmediatamente al cargar el componente
