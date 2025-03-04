@@ -303,13 +303,14 @@ export const loadPlayerFromFirebase = async (
     const inventoryDefault: Inventory = {
       weapons: inventoryData?.weapons || [],
       armors: inventoryData?.armors || [],
+      shields: inventoryData?.shields || [],
       potions: inventoryData?.potions || [],
       books: inventoryData?.books || [],
       scrolls: inventoryData?.scrolls || [],
       accessories: inventoryData?.accessories || [],
       others: inventoryData?.others || [],
+
     };
-    console.log(inventoryDefault);
     createInventory(`${playerData.name}_inventory`);
 
     // Agregar ítems al inventario

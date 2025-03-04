@@ -13,11 +13,13 @@ const ItemsFromFirebaseLoader = () => {
     setAccessories,
     setArmors,
     setScrolls,
+    setShields,
     player,
     weapons,
     accessories,
     armors,
     scrolls,
+    shields,
     areItemsLoaded,
     setAreItemsLoaded,
   } = useGlobalState();
@@ -35,14 +37,15 @@ const ItemsFromFirebaseLoader = () => {
         );
         const playerArmorsRef = ref(database, `armors_${player.name}`);
         const playerScrollsRef = ref(database, `scrolls_${player.name}`);
-
+        const playerShieldsRef = ref(database, `shields_${player.name}`);
         // 🔹 Obtener datos de cada categoría
-        const [weaponsSnap, accessoriesSnap, armorsSnap, scrollsSnap] =
+        const [weaponsSnap, accessoriesSnap, armorsSnap, scrollsSnap, ShieldsSnap] =
           await Promise.all([
             get(playerWeaponsRef),
             get(playerAccessoriesRef),
             get(playerArmorsRef),
             get(playerScrollsRef),
+            get(playerShieldsRef),
           ]);
 
         // 🔹 Convertir los datos de Firebase en arrays
@@ -58,7 +61,9 @@ const ItemsFromFirebaseLoader = () => {
         const newScrolls = scrollsSnap.exists()
           ? (Object.values(scrollsSnap.val()) as Scroll[])
           : [];
-
+          const newShields = ShieldsSnap.exists()
+          ? (Object.values(ShieldsSnap.val()) as Armor[])
+          : [];  
         // 🔹 Filtrar para que no se agreguen duplicados (comparando por `id`)
         const filteredWeapons = newWeapons.filter(
           (newItem) =>
@@ -76,12 +81,17 @@ const ItemsFromFirebaseLoader = () => {
           (newItem) =>
             !scrolls.some((existingItem) => existingItem.id === newItem.id),
         );
+        const filteredShields = newShields.filter(
+          (newItem) =>
+            !shields.some((existingItem) => existingItem.id === newItem.id),
+        );
 
         // 🔹 Actualizar el estado solo con los nuevos elementos
         setWeapons([...weapons, ...filteredWeapons]);
         setAccessories([...accessories, ...filteredAccessories]);
         setArmors([...armors, ...filteredArmors]);
         setScrolls([...scrolls, ...filteredScrolls]);
+        setShields([...shields, ...filteredShields])
       } catch (error) {
         console.error('Error loading items from Firebase:', error);
       }
@@ -95,10 +105,12 @@ const ItemsFromFirebaseLoader = () => {
     setAccessories,
     setArmors,
     setScrolls,
+    setShields,
     weapons,
     accessories,
     armors,
     scrolls,
+    shields
   ]);
 
   return null;

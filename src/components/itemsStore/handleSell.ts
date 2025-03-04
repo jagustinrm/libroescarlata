@@ -11,13 +11,22 @@ export const handleSell = (
   ) => {
     const {player, playerActions, } = getGlobalState();
     const {removeItem} = useInventoryStore.getState();
+    if (!Object.values(player.bodyParts).some(item => item?.id === itemId)) {
+    // console.log(Object.values(player.bodyParts).some(item => item.id != itemId))
     removeItem(playerInventoryId, itemType, itemId)
 
       playerActions.setPlayerMaterial(player.playerMaterial + itemCost);
       setFloatingMessage({
-        message: "Vendido!",
+        message: "¡Vendido!",
         onComplete: () => setFloatingMessage(null),
         position: {x: 100, y:100}
     });
-    
+  } else {
+    playerActions.setPlayerMaterial(player.playerMaterial + itemCost);
+      setFloatingMessage({
+        message: "¡Deberías desequiparte primero!",
+        onComplete: () => setFloatingMessage(null),
+        position: {x: 100, y:100}
+    })
+  }
   };

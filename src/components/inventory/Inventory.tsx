@@ -83,7 +83,7 @@ export default function Inventory() {
           />
           </div>
           <div className="buttonsInventory rpgui-cursor-point">
-          {inventoryCategories.slice(4, 7).map(({ key, icon }) => (
+          {inventoryCategories.slice(4, 8).map(({ key, icon }) => (
             <img
               key={key}
               onClick={() => handleLoadActualInventory(key as keyof Inventory, setActualInventory, setActualCategory)}
@@ -105,7 +105,8 @@ export default function Inventory() {
           setSelectedAccessoryEquipped={setSelectedAccessoryEquipped}
         />
       )}
-      {actualCategory === 'weapons' && <WeaponEquipment />}
+      {  actualCategory === 'weapons'  && <WeaponEquipment />}
+      { actualCategory === 'shields' && <WeaponEquipment />}
       </div>   
       </div>
         </div>

@@ -1,12 +1,20 @@
 import { generalItem } from "./items";
 
-export type WeaponType =
-  | 'Espada'
-  | 'Hacha'
-  | 'Lanza'
-  | 'Arco'
-  | 'Daga'
-  | 'Bastón';
+export const weaponTypes = [
+  'Espada',
+  'Hacha',
+  'Lanza',
+  'Arco',
+  'Daga',
+  'Bastón',
+  'Mandoble',
+  'Bardiche',
+  'Arco Largo',
+  'Martillo de guerra',
+  'Alabarda',
+] as const;
+
+export type WeaponType = (typeof weaponTypes)[number];
 
 export interface Weapon extends generalItem {
   id: string; // Identificador único del arma

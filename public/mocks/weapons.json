@@ -97,7 +97,8 @@
     {
       "id": "weapon-espadon-006",
       "name": "Espadón",
-      "type": "Cuerpo a cuerpo",
+      "type": "Espada",
+      "twoHanded": true,
       "damage": 20,
       "damageMax": 40,
       "critical": "19-20/x2",

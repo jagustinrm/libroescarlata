@@ -11,11 +11,13 @@ const useInventoryStore = create<InventoryStore>((set) => ({
           [id]: {
             weapons: [],
             armors: [],
+            shields: [],
             potions: [],
             books: [],
             scrolls: [],
             others: [],
             accessories: [],
+
           },
         },
       };
@@ -72,11 +74,13 @@ const useInventoryStore = create<InventoryStore>((set) => ({
           [id]: {
             weapons: [],
             armors: [],
+            shields: [],
             potions: [],
             books: [],
             scrolls: [],
             others: [],
             accessories: [],
+
           },
         },
       };

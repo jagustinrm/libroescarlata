@@ -30,6 +30,7 @@ const LoadPlayerFromFirebase = () => {
           const inventoryDefault: Inventory = {
             weapons: inventoryData?.weapons || [],
             armors: inventoryData?.armors || [],
+            shields: inventoryData?.shields || [], 
             potions: inventoryData?.potions || [],
             books: inventoryData?.books || [],
             scrolls: inventoryData?.scrolls || [],

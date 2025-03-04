@@ -8,6 +8,7 @@ import { Scroll } from './scrolls';
 export interface generalItem {
   repeatable?: boolean
   playerOwner?: boolean
+  twoHanded?: boolean
 }
 
 export type Item =
@@ -22,12 +23,13 @@ export type Item =
 export interface Items {
   weapons: Weapon[];
   armors: Armor[];
+  shields: Armor[];
   accessories: Accessory[];
   potions: Potion[];
   books: Book[];
   scrolls: Scroll[];
   others: otherItem[];
-  shields: Armor[];
+
 }
 
 export interface ItemsStore {

@@ -56,6 +56,7 @@ export const getItemsFromFirebase = async (
   accessories: Accessory[];
   armors: Armor[];
   scrolls: Scroll[];
+  shields: Armor[];
 }> => {
   try {
     // Define las referencias de armas, accesorios y armaduras para el jugador
@@ -63,6 +64,7 @@ export const getItemsFromFirebase = async (
     const accessoriesRef = ref(database, `accessories_${playerId}`);
     const armorsRef = ref(database, `armors_${playerId}`); // Referencia para armors
     const scrollsRef = ref(database, `scrolls_${playerId}`); // Referencia para armors
+    const shieldsRef = ref(database, `shields_${playerId}`); // Referencia para armors
 
     // Obtén los datos desde Firebase en paralelo
     const [
@@ -70,11 +72,13 @@ export const getItemsFromFirebase = async (
       snapshotAccessories,
       snapshotArmors,
       snapshotScrolls,
+      snapshotShields,
     ] = await Promise.all([
       get(weaponsRef),
       get(accessoriesRef),
       get(armorsRef),
       get(scrollsRef),
+      get(shieldsRef),
     ]);
 
     // Mapea los datos a arrays de Weapon, Accessory y Armor
@@ -104,13 +108,19 @@ export const getItemsFromFirebase = async (
           ...snapshotScrolls.val()[key],
         }))
       : [];
-    return { weapons, accessories, armors, scrolls }; // Retorna todos los arrays en un objeto
+      const shields: Armor[] = snapshotShields.exists()
+      ? Object.keys(snapshotShields.val()).map((key) => ({
+          id: key,
+          ...snapshotShields.val()[key],
+        }))
+      : [];    
+    return { weapons, accessories, armors, scrolls, shields }; // Retorna todos los arrays en un objeto
   } catch (error) {
     console.error(
       `Error al obtener los ítems desde Firebase para el jugador ${playerId}:`,
       error,
     );
-    return { weapons: [], accessories: [], armors: [], scrolls: [] };
+    return { weapons: [], accessories: [], armors: [], scrolls: [], shields: [] };
   }
 };
 

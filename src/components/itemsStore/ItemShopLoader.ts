@@ -17,13 +17,14 @@ const ItemShopLoader = () => {
   const {
     weapons,
     armors,
+    shields,
     potions,
     otherItems,
     removeItems,
     accessories,
     scrolls,
     books,
-    shields,
+
   } = useGlobalState();
   const { items, createItems, addItem } = useItemsStore();
   const shopId = 1; // ID único para el inventario del shop (ahora es un número)
@@ -93,6 +94,7 @@ const ItemShopLoader = () => {
     shopId,
     armors,
     books,
+    shields
   ]);
 
   useEffect(() => {
@@ -109,7 +111,7 @@ const ItemShopLoader = () => {
         addItem(shopId, 'shields', s);
       });
     }
-  }, [generatedArmors]);
+  }, [generatedShields]);
   useEffect(() => {
     if (generatedWeapons) {
       generatedWeapons.forEach((w) => {

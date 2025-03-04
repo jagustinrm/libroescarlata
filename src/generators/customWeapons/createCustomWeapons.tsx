@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Weapon, WeaponType } from '../../stores/types/weapons';
+import { Weapon, weaponTypes } from '../../stores/types/weapons';
 // import { saveItemToFirebase } from '../../firebase/saveItemToFirebase';
 import usePlayerStore from '../../stores/playerStore';
 import { generateUniqueId } from '../generateUniqueId';
@@ -26,14 +26,8 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     'Prototipo',
     'Irónicas',
   ];
-  const weaponTypes: WeaponType[] = [
-    'Espada',
-    'Hacha',
-    'Lanza',
-    'Arco',
-    'Daga',
-    'Bastón',
-  ];
+
+
   const materials = ['Hierro', 'Acero', 'Madera', 'Cristal'];
   const prefixes = ['Feroz', 'Ágil', 'Implacable'];
   const suffixes = ['del Dragón', 'de la Tormenta', 'de las Sombras'];
@@ -45,6 +39,15 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
 
   const randomWeaponType =
     weaponTypes[Math.floor(Math.random() * weaponTypes.length)];
+    const twoHandedWeapons = [
+      'Mandoble',
+      'Bardiche',
+      'Arco Largo',
+      'Martillo de guerra',
+      'Alabarda',
+    ];
+    
+  const twoHanded = (twoHandedWeapons).includes(randomWeaponType);
   const weaponSound = getWeaponSound(randomWeaponType);
   const randomMaterial =
     materials[Math.floor(Math.random() * materials.length)];
@@ -99,6 +102,7 @@ const generateRandomWeapon = async (playerLevel: number): Promise<Weapon> => {
     img: imgUrl,
     weight: Math.floor(Math.random() * 10) + 1,
     cost,
+    twoHanded,
     bodyPart: 'manoDerecha',
     description: 'Una poderosa arma con efectos mágicos.',
     type: randomWeaponType,

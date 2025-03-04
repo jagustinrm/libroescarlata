@@ -15,8 +15,8 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
           [id]: {
             weapons: [],
             armors: [],
-            potions: [],
             shields: [],
+            potions: [],
             books: [],
             scrolls: [],
             others: [],
@@ -67,12 +67,13 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
           [id]: {
             weapons: [],
             armors: [],
+            shiels: [],
             potions: [],
             books: [],
             scrolls: [],
             accessories: [],
             others: [],
-            shiels: [],
+
           },
         },
       };
@@ -84,12 +85,13 @@ const useItemsStore = create<ItemsStore>((set, get) => ({
           const filteredItemSet: Items = {
             weapons: itemSet.weapons.filter((item) => !item.deleteable),
             armors: itemSet.armors.filter((item) => !item.deleteable),
+            shields: itemSet.shields.filter((item) => !item.deleteable),
             potions: itemSet.potions.filter((item) => !item.deleteable),
             books: itemSet.books.filter((item) => !item.deleteable),
             scrolls: itemSet.scrolls.filter((item) => !item.deleteable),
             others: itemSet.others.filter((item) => !item.deleteable),
             accessories: itemSet.accessories.filter((item) => !item.deleteable),
-            shields: itemSet.shields.filter((item) => !item.deleteable),
+
           };
           return [id, filteredItemSet];
         }),

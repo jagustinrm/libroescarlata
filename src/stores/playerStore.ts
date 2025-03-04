@@ -430,20 +430,23 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           bodyParts: { ...state.player.bodyParts, ...newBodyParts },
         },
       })),
-    setP_SelectedBodyPart: (selectedBodyPart) =>
-      set((state) => {
-        console.log(selectedBodyPart);
-        const { bodyPart } = selectedBodyPart; // Obtenemos la parte del cuerpo del Armor
-        return {
-          player: {
-            ...state.player,
-            bodyParts: {
-              ...state.player.bodyParts,
-              [bodyPart]: selectedBodyPart, // Actualizamos solo la parte específica del cuerpo
+      setP_SelectedBodyPart: (selectedBodyPart) =>
+        set((state) => {
+          const { bodyPart, twoHanded } = selectedBodyPart;
+          // SI el tipo que me quiero equipar es a dos manos, saca lo que tenga de la mano izq.
+          // Si el tipo es de manoIzq y en la mano derecha ya tiene un arma de dos manos, se la saca.
+          return {
+            player: {
+              ...state.player,
+              bodyParts: {
+                ...state.player.bodyParts,
+                [bodyPart]: selectedBodyPart,
+                ...(twoHanded === true && { manoIzquierda: null }),
+                ...(bodyPart === "manoIzquierda" && state.player.bodyParts.manoDerecha.twoHanded === true && {manoDerecha: null})
+              },
             },
-          },
-        };
-      }),
+          };
+        }),
 
     addP_SelectedAccesories: (selectedAccesory, index = null) => {
       const { type, id } = selectedAccesory; // Asegúrate de que `id` esté disponible en el accesorio

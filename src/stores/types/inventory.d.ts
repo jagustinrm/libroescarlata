@@ -1,12 +1,13 @@
 export interface Inventory {
   weapons: Array<string>;
+  shields: Array<string>;
   armors: Array<string>;
   accessories: Array<string>;
   potions: Array<string>;
   books: Array<string>;
   scrolls: Array<string>;
   others: Array<string>;
-  shields: Array<string>;
+
 }
 
 export interface InventoryStore {
