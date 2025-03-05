@@ -58,11 +58,11 @@ export const useInitializeDialog = ({
       setCurrentLineIndex(index !== -1 ? index : currentLineIndex);
       localStorage.removeItem('updateTravel');
     }
-
+    console.log(storedEvent, "voy a verificar si hay evento grabado")
     if (storedEvent) {
       const updatedEvent = JSON.parse(storedEvent);
       setCurrentEvent(updatedEvent);
-
+      console.log(storedEvent, "Hay evento grabado")
       if (updatedEvent.status === 'completed' && currentDialog) {
         playerActions.updateStoryProgress(storyId, {
           completedEvents: [updatedEvent.id],

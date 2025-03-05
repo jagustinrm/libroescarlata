@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { FloatingMessageProps } from './types/others';
 interface HoverInfo {
   description: string;
+  bodyPart: string;
   armorValue?: number;
   damage?: number;
   damageMax?: number;

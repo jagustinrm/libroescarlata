@@ -28,6 +28,7 @@ import { handleClose } from './handleClose.ts';
 export default function FightScene() {
   const {soundUrl, fightType, setMessage, message, clearMessage, actionMessages, setActionMessages  } =
   useAppStore();
+  console.log(fightType)
   const [redirectHome, setRedirectHome] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -82,8 +83,6 @@ export default function FightScene() {
   useSummonTurn();
   usePetTurn();
   // ************************TURNOS *************************
-
-  console.log(player)
   const xpPercentage =
     player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0
       ? ((player.playerExp - player.p_ExpPrevLevel) /

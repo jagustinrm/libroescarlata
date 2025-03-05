@@ -14,6 +14,7 @@ interface ItemGridProps {
   handleMouseMove: (
     event: React.MouseEvent<HTMLDivElement>,
     description: string,
+    bodyPart: string,
     armorValue?: number,
     damage?: number,
     damageMax?: number,
@@ -52,6 +53,7 @@ const ItemGrid: React.FC<ItemGridProps> = ({
                   handleMouseMove(
                     e,
                     item.description || 'Sin descripción',
+                    item.bodyPart,
                     item.armorValue,
                     item.damage,
                     item.damageMax,

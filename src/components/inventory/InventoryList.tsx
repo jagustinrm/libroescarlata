@@ -7,7 +7,7 @@ const InventoryList = (
   { actualInventory, setSelectedItem }: 
   { actualInventory: Array<[Item, number]> | null, setSelectedItem: any }
 ) => {
-
+  console.log(actualInventory)
   const {setHoverInfo} = getGlobalState();
   return (
     <div className="containerInventory">
@@ -25,6 +25,7 @@ const InventoryList = (
                 onMouseMove={(e) =>setHoverInfo(
                   {
                     description: item.name,
+                    bodyPart: item.bodyPart,
                     armorValue: item.armorValue,
                     damage: item.damage,
                     damageMax: item.damageMax,

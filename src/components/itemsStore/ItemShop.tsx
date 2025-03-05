@@ -19,6 +19,7 @@ const ItemShop: React.FC = () => {
   const handleMouseMove = (
     event: React.MouseEvent,
     description: string,
+    bodyPart: string,
     armorValue?: number,
     damage?: number,
     damageMax?: number,
@@ -27,6 +28,7 @@ const ItemShop: React.FC = () => {
     setHoverInfo({
       description,
       armorValue,
+      bodyPart,
       damage,
       damageMax,
       levelRequirement,

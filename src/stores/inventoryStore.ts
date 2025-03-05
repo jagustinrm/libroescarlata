@@ -31,7 +31,7 @@ const useInventoryStore = create<InventoryStore>((set) => ({
         console.error('No hay inventario con ese id');
         return state;
       }
-
+      
       return {
         inventories: {
           ...state.inventories,
@@ -86,7 +86,6 @@ const useInventoryStore = create<InventoryStore>((set) => ({
       };
     }),
     checkIfIdExists: (playerInvId, category, id): boolean => {
-      console.log(useInventoryStore.getState().inventories[playerInvId][category]);
       return useInventoryStore.getState().inventories[playerInvId][category].some(o => o === id);
     },
   }));

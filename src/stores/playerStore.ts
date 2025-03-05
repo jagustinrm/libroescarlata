@@ -568,7 +568,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
         const existingStory = state.player.storyProgress.find(
           (story) => story.storyId === storyId,
         );
-
+        console.log(existingStory, 'historia existente')
         let updatedProgress;
         if (existingStory) {
           // Si el storyId existe, actualiza el progreso

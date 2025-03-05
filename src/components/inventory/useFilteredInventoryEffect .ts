@@ -25,6 +25,8 @@ const useFilteredInventoryEffect = ({
     
     getItemsByCategory(actualCategory, inventory[actualCategory] ?? []).forEach((item) => {
         // Si el item tiene repeatable como true, solo agregamos una instancia y contamos repeticiones
+        console.log(inventory[actualCategory])
+        console.log(item)
         if (item.repeatable) {
           if (itemMap.has(item.name)) {
 

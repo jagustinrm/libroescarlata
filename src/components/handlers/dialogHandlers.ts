@@ -22,7 +22,8 @@ export const handleOptionSelect = (
     setTravelCounter,
     handleContinue,
   } = context;
-  const {player, playerActions, removeItem, currentChapter } = getGlobalState();
+  const {player, playerActions, removeItem, currentChapter, setFightType } = getGlobalState();
+  console.log(player)
   const {currentEvent} = useDialogStore.getState();
   if (option.outcome === 'fight') {
     navigate('/fightScene', {
@@ -32,6 +33,8 @@ export const handleOptionSelect = (
         event: currentEvent,
       },
     });
+    console.log(currentEvent, "evento actual")
+    setFightType('story')
   } else if (option.outcome === 'deliver' && option.requiresItem) {
     option.requiresItem.forEach((item) => {
       for (let i = 0; i < item.cant; i++) {
@@ -62,7 +65,9 @@ export const handleOptionSelect = (
             event: currentEvent,
           },
         });
+        setFightType('travel')
       }
+
     }
   } else {
     handleContinue();
@@ -92,6 +97,7 @@ export const handleContinue = (context: {
       setCurrentLineIndex((prev: number) => prev + 1);
       setIsTextCompleted(false);
     } else if (onDialogEnd) {
+
       onDialogEnd();
     }
   } else {

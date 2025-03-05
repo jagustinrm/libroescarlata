@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import BackButton from '../UI/BackButton';
 import { useNavigate } from 'react-router-dom';
-import useGlobalState from '../../customHooks/useGlobalState';
+import useGlobalState, { getGlobalState } from '../../customHooks/useGlobalState';
 import {
   handleOptionSelect,
   handleContinue,
@@ -90,11 +90,16 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
   if (!currentLine || !currentDialog) {
     return <div className="npc-dialog">Cargando...</div>;
   }
-  const findItem = (id: string): number => {
+  const findItem = (name: string): number => {
     const inventory = inventories[player.inventoryId];
-    if (!inventory || !inventory.others) return 0; // Manejo de casos en que no existe el inventario
-
-    const countItems = inventory.others.filter((item) => item === id).length;
+    const {otherItems} = getGlobalState();
+    if (!inventory || !inventory.others) return 0; 
+    const itemNames = inventory.others.map(i => 
+      otherItems.find(o => o.id === i)?.name
+    ).filter(name => name !== undefined); // Filtra los `undefined` en caso de que no haya coincidencia
+    
+   
+    const countItems = itemNames.filter((item) => item === name).length;
     return countItems;
   };
   const verifyEvent = () => {
@@ -142,8 +147,8 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
           {currentEvent.options?.map((option) => (
             <div key={option.id}>
               {option.requiresItem?.map((i) => (
-                <p key={i.id}>
-                  {i.name}: {findItem(i.id)}/{i.cant}
+                <p key={i.id}>  
+                  {i.name}: {findItem(i.name)}/{i.cant}
                 </p>
               ))}
               {option.outcome === 'travel' && (
@@ -164,7 +169,7 @@ const NPCDialog = ({ onDialogEnd }: { onDialogEnd: () => void }) => {
                   option.outcome && handleOptionSelectWrapper(option)
                 }
                 disabled={option.requiresItem?.some(
-                  (i) => findItem(i.id) < i.cant,
+                  (i) => findItem(i.name) < i.cant,
                 )}
               />
             ))}

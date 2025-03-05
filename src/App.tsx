@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage.js';
 import CharacterSelector from './components/CharacterSelector';
 import Home from './components/home/Home.js';
@@ -68,6 +68,7 @@ function App() {
       <HeaderMenu />
       <DelayedDisplay delay={300} duration={200}>
         <Routes>
+          <Route path="*" element={<Navigate to="/" replace />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/characterSelector" element={<CharacterSelector />} />
           <Route path="/home" element={<Home />} />

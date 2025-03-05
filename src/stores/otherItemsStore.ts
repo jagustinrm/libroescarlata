@@ -10,6 +10,11 @@ const useOtherItemsStore = create<otherItemsStore>((set) => ({
       areOtherItemsLoaded: true,
     });
   },
+  addNewOtherItem: (newItem) => {
+    set((state) => ({
+      otherItems: [...state.otherItems, newItem],
+    }))
+  },
 }));
 
 export default useOtherItemsStore;

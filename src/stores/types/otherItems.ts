@@ -13,4 +13,5 @@ export interface otherItemsStore {
   otherItems: otherItem[];
   areOtherItemsLoaded: boolean;
   setotherItems: (otherItem: otherItem[]) => void;
+  addNewOtherItem: (newItem: otherItem) => void;
 }

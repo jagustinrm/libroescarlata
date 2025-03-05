@@ -1,6 +1,7 @@
 import { getGlobalState } from "../../customHooks/useGlobalState";
 import { FloatingMessageProps } from "../../stores/types/others";
 import useInventoryStore from "../../stores/inventoryStore";
+import { Accessory } from "../../stores/types/accesories";
 
 export const handleSell = (
     playerInventoryId: string,
@@ -11,7 +12,11 @@ export const handleSell = (
   ) => {
     const {player, playerActions, } = getGlobalState();
     const {removeItem} = useInventoryStore.getState();
-    if (!Object.values(player.bodyParts).some(item => item?.id === itemId)) {
+    if (!Object.values(player.bodyParts).some(item => item?.id === itemId) 
+    && !Object.values(player.accessoriesParts.anillo).some(item => (item as Accessory)?.id === itemId)
+    && !Object.values(player.accessoriesParts.aro).some(item => (item as Accessory)?.id === itemId)
+    && player.accessoriesParts.amuleto.id != itemId
+  ) {
     // console.log(Object.values(player.bodyParts).some(item => item.id != itemId))
     removeItem(playerInventoryId, itemType, itemId)
 
@@ -22,8 +27,7 @@ export const handleSell = (
         position: {x: 100, y:100}
     });
   } else {
-    playerActions.setPlayerMaterial(player.playerMaterial + itemCost);
-      setFloatingMessage({
+    setFloatingMessage({
         message: "¡Deberías desequiparte primero!",
         onComplete: () => setFloatingMessage(null),
         position: {x: 100, y:100}

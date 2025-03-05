@@ -5,6 +5,7 @@ import { getGlobalState } from './useGlobalState.ts';
 
 const usePostCombatActions = () => {
   const {fightType, player, playerActions } = getGlobalState();
+  
   const handlePostCombatActs = (creature: Creature) => {
     // Si el enemigo es derrotado
     if (creature) {

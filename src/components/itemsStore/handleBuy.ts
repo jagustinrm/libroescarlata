@@ -8,6 +8,7 @@ import { Scroll } from "../../stores/types/scrolls";
 import { FloatingMessageProps } from "../../stores/types/others";
 import { generateUniqueId } from "../../generators/generateUniqueId";
 import { Potion } from "../../stores/types/potions";
+import { otherItem } from "../../stores/types/otherItems";
 
 export const handleBuy = async (
     playerInventoryId: string,
@@ -19,7 +20,7 @@ export const handleBuy = async (
   ) => {
     const {player, playerActions,
          addItemToInventory, addNewArmor, addNewShield,
-         addNewWeapon, addNewAccessory, addNewScroll, addNewPotion, checkIfIdExists} = getGlobalState();
+         addNewWeapon,addNewOtherItem, addNewAccessory, addNewScroll, addNewPotion, checkIfIdExists} = getGlobalState();
 
     if (player.playerMaterial >= itemCost)  {
       let updatedItem = item;
@@ -27,6 +28,7 @@ export const handleBuy = async (
       if(checkIfIdExists(player.inventoryId, itemType,  item.id)) {
         const uniqueId = await generateUniqueId(itemType);
         updatedItem = { ...item, playerOwner: true, id: uniqueId } as Item
+        console.log("hola")
         addItemToInventory(playerInventoryId, itemType, uniqueId);
       } else {
         updatedItem = { ...item, playerOwner: true } as Item
@@ -76,9 +78,11 @@ export const handleBuy = async (
       } else if (itemType === "potions") {
         addNewPotion(updatedItem as Potion)
       }
-      // else if (itemType === "others") {
-      //   saveItemToFirebase(player.name, (updatedItem as otherItem).id, updatedItem as otherItem, "others");
-      // } else if (itemType === "books") {
+      else if (itemType === "others") {
+        addNewOtherItem(updatedItem as otherItem)
+        // saveItemToFirebase(player.name, (updatedItem as otherItem).id, updatedItem as otherItem, "others");
+      }
+      //  else if (itemType === "books") {
       //   saveItemToFirebase(player.name, (updatedItem as Book).id, updatedItem as Book, "books");
       // }
       playerActions.setPlayerMaterial(player.playerMaterial - itemCost);
