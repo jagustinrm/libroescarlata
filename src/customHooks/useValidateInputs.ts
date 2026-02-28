@@ -5,7 +5,7 @@ import { validatePassword } from '../utils/validations/validatePassword';
 export const useValidateInputs = (
   inputName: string,
   inputPassword: string,
-  setValidatedName: (val: boolean) => void,
+  setValidatedName: (val: string) => void,
   setValidatedPassword: (val: string) => void,
 ) => {
   useEffect(() => {

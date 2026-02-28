@@ -30,12 +30,12 @@ export const handleSaveNewPlayer = async ({
     return;
   }
   const validateRes = validateUsername(inputName);
-  if (!validateRes) {
-    console.log('Nombre de usuario incorrecto');
+  if (validateRes !== '') {
+    console.log(validateRes);
     return;
   }
   const validatePRes = validatePassword(inputPassword, inputName);
-  if (validatePRes) {
+  if (validatePRes !== '') {
     console.log(validatePRes);
     return;
   }

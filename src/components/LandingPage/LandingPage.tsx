@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ButtonEdited from '../UI/ButtonEdited';
 import useGlobalState from '../../customHooks/useGlobalState';
-import { useValidateInputs } from '../../customHooks/useValidateInputs ';
+import { useValidateInputs } from '../../customHooks/useValidateInputs';
 import { handleSaveNewPlayer } from './handleSaveNewPlayer';
 import { handleLoadPlayer } from './handleLoadPlayer';
 
@@ -12,7 +12,7 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [inputName, setInputName] = useState<string>('');
   const [inputPassword, setInputPassword] = useState<string>('');
-  const [validatedName, setValidatedName] = useState<boolean>(false);
+  const [validatedName, setValidatedName] = useState<string>('');
   const [validatedPassword, setValidatedPassword] = useState<string>('');
   const [isCreatingAccount, setIsCreatingAccount] = useState<boolean>(false); // Estado para alternar vistas
   const { setAreItemsLoaded, playerActions } = useGlobalState();
@@ -99,15 +99,24 @@ const LandingPage: React.FC = () => {
                     height="0px"
                     onClick={onNewPlayer}
                     disabled={
-                      !validatedName || validatedPassword ? true : false
+                      validatedName !== '' || validatedPassword !== ''
                     }
                   />
                 }
               </div>
             </div>
-            <p style={{ fontSize: '18px', marginBottom: '0px' }}>
-              {validatedPassword}{' '}
-            </p>
+            <div style={{ minHeight: '30px', marginTop: '5px' }}>
+              {validatedName && (
+                <p style={{ fontSize: '16px', marginBottom: '0px', color: '#ffbaba' }}>
+                  {validatedName}
+                </p>
+              )}
+              {validatedPassword && (
+                <p style={{ fontSize: '16px', marginBottom: '0px', color: '#ffbaba' }}>
+                  {validatedPassword}
+                </p>
+              )}
+            </div>
             <div className="createAccount">
               <p>¿Tenés cuenta? </p>
               <p className="linkButton rpgui-cursor-point" onClick={toggleView}>
