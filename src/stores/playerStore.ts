@@ -2,24 +2,6 @@ import { create } from 'zustand';
 import { Player, PlayerStore } from './types/player';
 import useInventoryStore from './inventoryStore';
 import { StoryProgress } from './types/story';
-import {
-  calculateDmgMReduction,
-  calculateDmgReduction,
-  calculateDodgePercentage,
-  calculateHitRatePercentage,
-  calculateMTotalDamage,
-  calculateMTotalMaxDamage,
-  calculateSummonDmgIncrease,
-  calculateTotalArmor,
-  calculateTotalDamage,
-  calculateTotalDodge,
-  calculateTotalHitRate,
-  calculateTotalMArmor,
-  calculateTotalMaxDamage,
-  calculateTotalMaxHealth,
-  calculateTotalMaxMana,
-  calculateTotalRes,
-} from '../utils/calculateStats';
 import { Item } from './types/items';
 import { stats } from './entitiesData/stats';
 import { elementStats } from './entitiesData/elementStats';
@@ -34,22 +16,10 @@ const initialPlayerState: Player = {
   p_ExpToNextLevel: 1000,
   p_ExpPrevLevel: 0,
   c_MaxHealth: 1,
-  controlResist: [{name: 'aturdir', value: 0}, {name: 'dormir', value: 0}, {name: 'paralizar', value: 0}],
-  TotalControlRes: () => {
-    const stateP = usePlayerStore.getState().player;
-    return calculateTotalRes(stateP.controlResist, stateP.stats)
-  },
-  totalMaxHealth: () => {
-    const state = usePlayerStore.getState().player;
-    return calculateTotalMaxHealth(state.stats.con, state.stats.cha, state.c_MaxHealth) || 0;
-  },
+  controlResist: [{ name: 'aturdir', value: 0 }, { name: 'dormir', value: 0 }, { name: 'paralizar', value: 0 }],
   c_LeftHealth: 1,
   c_MaxMana: 1,
   mdef: 1,
-  totalMaxMana: () => {
-    const state = usePlayerStore.getState().player;
-    return calculateTotalMaxMana(state.stats.int,  state.stats.cha, state.c_MaxMana) || 0;
-  },
   c_LeftMana: 1,
   classes: [],
   hitDie: 0,
@@ -78,101 +48,12 @@ const initialPlayerState: Player = {
   enemiesDeleted: [],
   spells: [],
   inventoryId: '',
-  classImg: '',
   avatarImg: '',
+  classImg: '',
   hitRate: 50,
   dodge: 1,
   storyProgress: [], // Lista de progresos del jugador en las historias
   currentStoryId: null,
-  totalDodge: () => {
-    const state = usePlayerStore.getState().player;
-    return calculateTotalDodge(state.stats.agi, state.dodge) || 0;
-  },
-  totalHitRate: () => {
-    const state = usePlayerStore.getState().player;
-    return calculateTotalHitRate(state.stats.dex, state.hitRate) || 0;
-  },
-  hitRatePercentage: () => {
-    return calculateHitRatePercentage(
-      usePlayerStore.getState().player.totalHitRate(),
-      usePlayerStore.getState().player.level,
-    );
-  },
-  dodgePercentage: () => {
-    return calculateDodgePercentage(
-      usePlayerStore.getState().player.totalDodge(),
-    );
-  },
-
-  damage: () => {
-    const state = usePlayerStore.getState().player;
-    return (
-      calculateTotalDamage(
-        state.bodyParts,
-        state.stats.str,
-        state.buffs.str?.value,
-      ) || 0
-    );
-  },
-  damageMax: () => {
-    const state = usePlayerStore.getState().player;
-    return (
-      calculateTotalMaxDamage(
-        state.bodyParts,
-        state.stats.str,
-        state.buffs.str?.value,
-      ) || 0
-    );
-  },
-  mDamage: () => {
-    const state = usePlayerStore.getState().player;
-    return (
-      calculateMTotalDamage(
-        state.bodyParts,
-        state.stats.int,
-        state.buffs.int?.value,
-      ) || 0
-    );
-  },
-  mDamageMax: () => {
-    const state = usePlayerStore.getState().player;
-    return (
-      calculateMTotalMaxDamage(
-        state.bodyParts,
-        state.stats.int,
-        state.buffs.int?.value,
-      ) || 0
-    );
-  },
-  summonDmgIncrease: () => {
-    const state = usePlayerStore.getState().player;
-    return calculateSummonDmgIncrease(state.stats.cha) || 0;
-  },
-
-  totalArmorClass: () => {
-    const state = usePlayerStore.getState().player;
-    return (
-      calculateTotalArmor(state.bodyParts, state.stats.con, state.level) || 0
-    );
-  },
-  totalDmgReduction: (enemyLevel) => {
-    const state = usePlayerStore.getState().player;
-    return calculateDmgReduction(state.totalArmorClass(), enemyLevel);
-  },
-  totalMArmor: () => {
-    const state = usePlayerStore.getState().player;
-    return (
-      calculateTotalMArmor(state.bodyParts, state.stats.int, state.level) || 0
-    );
-  },
-  totalDmgMReduction: (enemyLevel) => {
-    const state = usePlayerStore.getState().player;
-    return calculateDmgMReduction(state.totalMArmor(), enemyLevel);
-  },
-
-  totalBlockValue: () => {
-    return 0; // Valor predeterminado para bloqueo
-  },
 };
 
 export const usePlayerStore = create<PlayerStore>((set) => ({
@@ -321,10 +202,10 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, c_LeftMana },
       })),
-      setDungeonLevel: (dungeonLevel) =>
-        set((state) => ({
-          player: { ...state.player, dungeonLevel },
-        })),
+    setDungeonLevel: (dungeonLevel) =>
+      set((state) => ({
+        player: { ...state.player, dungeonLevel },
+      })),
     // setArmorClass: (armorClass) =>
     //   set((state) => ({
     //     player: { ...state.player, armorClass },
@@ -430,23 +311,23 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
           bodyParts: { ...state.player.bodyParts, ...newBodyParts },
         },
       })),
-      setP_SelectedBodyPart: (selectedBodyPart) =>
-        set((state) => {
-          const { bodyPart, twoHanded } = selectedBodyPart;
-          // SI el tipo que me quiero equipar es a dos manos, saca lo que tenga de la mano izq.
-          // Si el tipo es de manoIzq y en la mano derecha ya tiene un arma de dos manos, se la saca.
-          return {
-            player: {
-              ...state.player,
-              bodyParts: {
-                ...state.player.bodyParts,
-                [bodyPart]: selectedBodyPart,
-                ...(twoHanded === true && { manoIzquierda: null }),
-                ...(bodyPart === "manoIzquierda" && state.player.bodyParts.manoDerecha.twoHanded === true && {manoDerecha: null})
-              },
+    setP_SelectedBodyPart: (selectedBodyPart) =>
+      set((state) => {
+        const { bodyPart, twoHanded } = selectedBodyPart;
+        // SI el tipo que me quiero equipar es a dos manos, saca lo que tenga de la mano izq.
+        // Si el tipo es de manoIzq y en la mano derecha ya tiene un arma de dos manos, se la saca.
+        return {
+          player: {
+            ...state.player,
+            bodyParts: {
+              ...state.player.bodyParts,
+              [bodyPart]: selectedBodyPart,
+              ...(twoHanded === true && { manoIzquierda: null }),
+              ...(bodyPart === "manoIzquierda" && state.player.bodyParts.manoDerecha.twoHanded === true && { manoDerecha: null })
             },
-          };
-        }),
+          },
+        };
+      }),
 
     addP_SelectedAccesories: (selectedAccesory, index = null) => {
       const { type, id } = selectedAccesory; // Asegúrate de que `id` esté disponible en el accesorio
@@ -599,22 +480,22 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
       set((state) => ({
         player: { ...state.player, currentStoryId: storyId },
       })),
-      setC_Conditions: (newConditions) => {
-        set((state) => ({
-          player: {
-            ...state.player,
-            c_Conditions: newConditions, 
-          },
-        }))
-      },
-      updateC_Conditions: (newCondition) => { 
-        set((state) => ({
-            player: {
-              ...state.player,
-              c_Conditions: [...state.player.c_Conditions, newCondition], // Agrega la nueva condición al array
-            },
-          }))
+    setC_Conditions: (newConditions) => {
+      set((state) => ({
+        player: {
+          ...state.player,
+          c_Conditions: newConditions,
         },
+      }))
+    },
+    updateC_Conditions: (newCondition) => {
+      set((state) => ({
+        player: {
+          ...state.player,
+          c_Conditions: [...state.player.c_Conditions, newCondition], // Agrega la nueva condición al array
+        },
+      }))
+    },
     setPlayer: (newPlayer: Partial<Player>) =>
       set((state) => ({
         player: {

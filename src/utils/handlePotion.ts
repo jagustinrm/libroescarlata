@@ -3,6 +3,7 @@ import usePlayerStore from '../stores/playerStore';
 import usePositionStore from '../stores/positionStore';
 import useTurnStore from '../stores/turnStore';
 import { Item } from '../stores/types/items';
+import { calculateTotalMaxHealth } from './calculateStats';
 
 interface HandleHealingParams {
   item: Item;
@@ -20,10 +21,10 @@ export const handlePotion = ({
   if (item.type === 'Curación') {
     if (!item) return false;
 
-    if (currentHealth < player.totalMaxHealth()) {
+    if (currentHealth < calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth)) {
       const totalLeftHealth = currentHealth + item.effect?.amount;
       playerActions.setc_LeftHealth(
-        Math.min(totalLeftHealth, player.totalMaxHealth()),
+        Math.min(totalLeftHealth, calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth)),
       );
       nextTurn();
       setFloatingMessage({

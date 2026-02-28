@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { calculateDistance } from '../utils/calculateDistance.ts';
+import { calculateSummonDmgIncrease } from '../utils/calculateStats.ts';
 import AttackAction from '../utils/attackAction.ts';
 import { getGlobalState } from './useGlobalState.ts';
 
 export const usePetTurn = () => {
-  const {player, creature, setc_LeftHealth, setFloatingMessage, 
-    currentCharacter, nextTurn, 
-    enemyPosition, petPosition, setPetPosition, 
+  const { player, creature, setc_LeftHealth, setFloatingMessage,
+    currentCharacter, nextTurn,
+    enemyPosition, petPosition, setPetPosition,
     playerPosition, setActionMessages } = getGlobalState();
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -34,7 +35,7 @@ export const usePetTurn = () => {
           setActionMessages,
           setc_LeftHealth,
           nextTurn,
-          player.summonDmgIncrease() // Aumento el daño del pet?
+          calculateSummonDmgIncrease(player.stats.cha) // Aumento el daño del pet?
         )
       }
     }, 500);

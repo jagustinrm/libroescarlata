@@ -7,7 +7,7 @@ import { accesoriesParts, bodyParts } from './others';
 import { Accessory } from './accesories';
 import { Character, CharacterStore } from './character';
 
-export interface Player extends Character{
+export interface Player extends Character {
   playerId: string;
   playerExp: number;
   p_ExpToNextLevel: number;
@@ -26,6 +26,8 @@ export interface Player extends Character{
   bodyParts: bodyParts;
   accessoriesParts: accessoriesParts;
   inventoryId: string;
+  avatarImg: string;
+  classImg: string;
   playerMaterial: number;
   elementsStats: ElementsStats[];
   buffs: {
@@ -45,31 +47,10 @@ export interface Player extends Character{
   critDamage: number; //nuevo
   spellHitRate: number; //nuevo
   spellPenetration: number; //nuevo
-  c_conditions: {name: string, duration: number}[] | [];
+  c_conditions: { name: string, duration: number }[] | [];
   spellCrit: number; //nuevo
   spellDmg: number; //nuevo
-  readonly spiritReg: () => number;
-  readonly healthReg: () => number;
-  healingPower: number; //nuevo
-  // ******  Otras cosas ************
-  classImg: string;
-  avatarImg: string;
-  readonly totalDodge: () => number;
-  readonly totalHitRate: () => number;
-  readonly damage: () => number;
-  readonly damageMax: () => number;
-  readonly mDamage: () => number;
-  readonly mDamageMax: () => number;
-  readonly summonDmgIncrease: () => number;
-  readonly totalArmorClass: () => number;
-  readonly totalMArmor: () => number;
-  readonly totalDmgReduction: (enemyLevel) => number;
-  readonly totalDmgMReduction: (enemyLevel) => number;
-  readonly totalBlockValue: () => number; // nuevo
-  readonly dodgePercentage: () => number;
-  readonly hitRatePercentage: () => number;
-  readonly totalMaxHealth: () => number;
-  readonly totalMaxMana: () => number;
+  // Getter functions removed for Firebase compatibility. Calculate directly when needed.
   storyProgress: StoryProgress[]; // Lista de progresos del jugador en las historias
   currentStoryId: string | null; // ID de la historia en la que está actualmente
   enemiesDeleted: { count: number; name: string }[];

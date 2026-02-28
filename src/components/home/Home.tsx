@@ -12,6 +12,7 @@ import useAppStore from '../../stores/appStore.ts';
 import ItemsFromFirebaseLoader from '../../firebase/ItemsFromFirebaseLoader .ts';
 import { handleAction } from './handleAction.ts';
 import { useAnimateExclamationMark } from '../../utils/animateExclamationMark.ts';
+import { calculateTotalMaxHealth, calculateTotalMaxMana } from '../../utils/calculateStats.ts';
 // import HomeOptionsSign from '../UI/HomeOptionsSign.tsx';
 
 export default function Home() {
@@ -34,9 +35,9 @@ export default function Home() {
   const handleStats = () => {
     navigate('/playerStats');
   };
-  const style: React.CSSProperties = player.c_LeftHealth <= 0 
-  ? { filter: 'grayscale(100%)', pointerEvents: 'none', cursor: 'not-allowed' } 
-  : {};
+  const style: React.CSSProperties = player.c_LeftHealth <= 0
+    ? { filter: 'grayscale(100%)', pointerEvents: 'none', cursor: 'not-allowed' }
+    : {};
 
   return (
     <div>
@@ -78,11 +79,11 @@ export default function Home() {
                   <div className="p_leaftHealth">
                     <div className="heart">❤️</div>
                     <p>
-                      Vida: {player.c_LeftHealth} / {player.totalMaxHealth()}
+                      Vida: {player.c_LeftHealth} / {calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth)}
                     </p>
                   </div>
                   <p>
-                    🌀 Espíritu: {player.c_LeftMana} / {player.totalMaxMana()}
+                    🌀 Espíritu: {player.c_LeftMana} / {calculateTotalMaxMana(player.stats.int, player.stats.cha, player.c_MaxMana)}
                   </p>
                   <p>
                     ✨ Exp: {player.playerExp} / {player.p_ExpToNextLevel}
@@ -109,28 +110,28 @@ export default function Home() {
         </div>
 
         <div className="buttonsHome ">
-      
-            <img
-              onClick={() =>
-                handleAction('fight-normal', navigate, setShowMessage)
-              }
-              className="buttonPrueba  rpgui-cursor-point"
-              src="/img/UI/training.png"
-              alt=""
-              style= {style}
-            />
-      
-       
-            <img
-              onClick={() =>
-                handleAction('fight-dungeon', navigate, setShowMessage)
-              }
-              className="buttonPrueba  rpgui-cursor-point"
-              src="/img/UI/dungeonButton.png"
-              alt=""
-              style={style}
-            />
-       
+
+          <img
+            onClick={() =>
+              handleAction('fight-normal', navigate, setShowMessage)
+            }
+            className="buttonPrueba  rpgui-cursor-point"
+            src="/img/UI/training.png"
+            alt=""
+            style={style}
+          />
+
+
+          <img
+            onClick={() =>
+              handleAction('fight-dungeon', navigate, setShowMessage)
+            }
+            className="buttonPrueba  rpgui-cursor-point"
+            src="/img/UI/dungeonButton.png"
+            alt=""
+            style={style}
+          />
+
           <div className="hospitalRecover">
             <img
               onClick={() =>

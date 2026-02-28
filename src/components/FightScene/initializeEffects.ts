@@ -4,6 +4,7 @@ import { Spell } from "../../stores/types/spells";
 import { getGlobalState } from "../../customHooks/useGlobalState";
 import useSummonStore from "../../stores/summonsStore";
 import { selectEnemy } from "../handlers/handleSelectEnemy";
+import { calculatStatReg, calculateTotalMaxHealth, calculateTotalMaxMana } from "../../utils/calculateStats";
 
 interface InitializeEffectsProps {
 
@@ -25,12 +26,12 @@ export const initializeEffects = ({
   handlePostCombatActs,
   enemy,
 }: InitializeEffectsProps) => {
-  const { player, playerPosition,  addCharacter,
-    creatureLoaded, setCreatureLoaded,  weapons, creature,
-    spells, inventories, resetPositions, setAmbientMusic, 
-    setMusicVolume, setSummonPosition, fightType, 
+  const { player, playerPosition, addCharacter,
+    creatureLoaded, setCreatureLoaded, weapons, creature,
+    spells, inventories, resetPositions, setAmbientMusic,
+    setMusicVolume, setSummonPosition, fightType,
     actionMessages, playerActions, setTurn, currentCharacter } = getGlobalState();
-  const {summon} = useSummonStore.getState();
+  const { summon } = useSummonStore.getState();
   // 1️⃣ Configuración inicial de inventarios y opciones
   useEffect(() => {
     const opctArm = inventories[player.inventoryId].weapons
@@ -59,7 +60,7 @@ export const initializeEffects = ({
     // handleNewEnemyClick()
     setAmbientMusic("battleSong");
     setMusicVolume(0.1);
- 
+
     selectEnemy(
       player.level,
       player.dungeonLevel,
@@ -68,22 +69,22 @@ export const initializeEffects = ({
 
   // 4️⃣ Manejo de derrota del jugador o del enemigo
   useEffect(() => {
-    if(creatureLoaded) {
-    if (player.c_LeftHealth === 0) {
-      handleMessage("¡Has sido derrotado!", "warning", true);
-      
-    }
+    if (creatureLoaded) {
+      if (player.c_LeftHealth === 0) {
+        handleMessage("¡Has sido derrotado!", "warning", true);
 
-    if (
-      typeof creature.c_LeftHealth === 'number' &&
-      creature.c_LeftHealth <= 0 &&
-      fightType
-    ) {
-      handleMessage('¡Has ganado el combate!', 'success', false);
-      handlePostCombatActs?.(creature, fightType);
-      
+      }
+
+      if (
+        typeof creature.c_LeftHealth === 'number' &&
+        creature.c_LeftHealth <= 0 &&
+        fightType
+      ) {
+        handleMessage('¡Has ganado el combate!', 'success', false);
+        handlePostCombatActs?.(creature, fightType);
+
+      }
     }
-  }
   }, [player.c_LeftHealth, creature.c_LeftHealth]);
 
 
@@ -107,18 +108,18 @@ export const initializeEffects = ({
 
   useEffect(() => {
     return () => {
-      setCreatureLoaded(false); 
+      setCreatureLoaded(false);
       resetPositions();
       playerActions.resetBuffs();
       setTurn("player")
     };
   }, []);
-  
+
   useEffect(() => {
-   if (currentCharacter?.id === 'player' && player.c_LeftHealth > 0 && player.c_LeftHealth < player.totalMaxHealth()) {
-    playerActions.setc_LeftHealth(Math.min(player.c_LeftHealth + player.healthReg(), player.totalMaxHealth()))
-    playerActions.setc_LeftMana(Math.min(player.c_LeftMana + player.spiritReg(), player.totalMaxMana()))
-  } 
+    if (currentCharacter?.id === 'player' && player.c_LeftHealth > 0 && player.c_LeftHealth < calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth)) {
+      playerActions.setc_LeftHealth(Math.min(player.c_LeftHealth + calculatStatReg(player.stats.con, player.bodyParts.pecho?.healthReg), calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth)))
+      playerActions.setc_LeftMana(Math.min(player.c_LeftMana + calculatStatReg(player.stats.int, player.bodyParts.manoDerecha?.spiritReg), calculateTotalMaxMana(player.stats.int, player.stats.cha, player.c_MaxMana)))
+    }
   }, [currentCharacter]);
- 
+
 };

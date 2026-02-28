@@ -1,6 +1,7 @@
 import React from 'react';
 import { Player } from '../../stores/types/player';
 import { Pet } from '../../stores/types/pets';
+import { calculateTotalMaxHealth, calculateTotalMaxMana } from '../../utils/calculateStats';
 
 interface PlayerProps {
   player: Player;
@@ -37,7 +38,7 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
             </div>
             <div>
               <p className="health-text">
-                {player.c_LeftHealth} / {player.totalMaxHealth()}
+                {player.c_LeftHealth} / {calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth)}
               </p>
             </div>
           </div>
@@ -51,7 +52,7 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
             </div>
             <div>
               <p className="mana-text">
-                {player.c_LeftMana} / {player.totalMaxMana()}
+                {player.c_LeftMana} / {calculateTotalMaxMana(player.stats.int, player.stats.cha, player.c_MaxMana)}
               </p>
             </div>
           </div>
@@ -63,7 +64,7 @@ const PlayerCharacter: React.FC<PlayerProps> = ({
                 style={{ width: `${xpPercentage}%` }}
               ></div>
             </div>
-            <div style={{overflow: 'hidden'}}>
+            <div style={{ overflow: 'hidden' }}>
               <p className="experience-text">
                 {player.playerExp} / {player.p_ExpToNextLevel}
               </p>

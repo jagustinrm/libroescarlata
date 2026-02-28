@@ -11,8 +11,7 @@ export interface Character {
     mdef: number;
     stats: Stats;
     c_Conditions: { name: string; duration: number }[] | [];
-    controlResist: {name: string; value: number}[];
-    readonly TotalControlRes: () => {name: string; value: number}[];
+    controlResist: { name: string; value: number }[];
 }
 
 export interface CharacterStore {

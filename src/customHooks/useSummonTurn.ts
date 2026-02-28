@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { calculateSummonDmgIncrease } from '../utils/calculateStats.ts';
 import useTurnStore from '../stores/turnStore.ts';
 import { calculateDistance } from '../utils/calculateDistance.ts';
 import automaticMove from './automaticMove.ts';
@@ -7,9 +8,9 @@ import AttackAction from '../utils/attackAction.ts';
 
 export const useSummonTurn = () => {
   const { currentCharacter, nextTurn } = useTurnStore.getState();
-  const { creature, player, enemyPosition, summon, 
+  const { creature, player, enemyPosition, summon,
     summonPosition, setSummonPosition, setFloatingMessage,
-    setActionMessages, setc_LeftHealth} = getGlobalState();
+    setActionMessages, setc_LeftHealth } = getGlobalState();
   useEffect(() => {
     const adjustedDistance = calculateDistance(
       summonPosition,
@@ -48,9 +49,9 @@ export const useSummonTurn = () => {
           setActionMessages,
           setc_LeftHealth,
           nextTurn,
-          player.summonDmgIncrease()
+          calculateSummonDmgIncrease(player.stats.cha)
         )
-      } 
+      }
     }, 500);
 
     return () => clearTimeout(timeout);

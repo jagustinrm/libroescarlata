@@ -1,8 +1,11 @@
 import usePlayerStore from '../../stores/playerStore';
+import { calculateTotalDodge, calculateTotalHitRate, calculateDodgePercentage, calculateHitRatePercentage, calculateDmgReduction, calculateDmgMReduction, calculateSummonDmgIncrease, calculateTotalRes } from '../../utils/calculateStats';
 
 export default function RightColumnPStats() {
   const { player } = usePlayerStore();
-  console.log(player.TotalControlRes())
+  const totalDodge = calculateTotalDodge(player.stats.agi, player.dodge);
+  const totalHitRate = calculateTotalHitRate(player.stats.dex, player.hitRate);
+  console.log(calculateTotalRes(player.controlResist, player.stats));
   return (
     <div className="additional-stats">
       <p>🎲 Dados de golpe: {player.hitDie}</p>
@@ -14,16 +17,16 @@ export default function RightColumnPStats() {
           ))}
         </ul>
       </p>
-      <p>Esquiva: {player.totalDodge().toFixed(2)} </p>
-      <p>Puntería: {player.totalHitRate()} </p>
-      <p>Porcentaje de esquiva: {player.dodgePercentage()}% </p>
-      <p>Porcentaje de puntería: {player.hitRatePercentage()}% </p>
-      <p>Reducción de daño: {player.totalDmgReduction(player.level)}%</p>
-      <p>Regeneración de vida: {player.healthReg()} </p>
+      <p>Esquiva: {totalDodge.toFixed(2)} </p>
+      <p>Puntería: {totalHitRate} </p>
+      <p>Porcentaje de esquiva: {calculateDodgePercentage(totalDodge)}% </p>
+      <p>Porcentaje de puntería: {calculateHitRatePercentage(totalHitRate, player.level)}% </p>
+      <p>Reducción de daño: {calculateDmgReduction(player.bodyParts.pecho?.armorValue || 0, player.level)}%</p>
+      <p>Regeneración de vida: {1} </p>
       <p>
-        Reducción de daño mágico: {player.totalDmgMReduction(player.level)}%
+        Reducción de daño mágico: {calculateDmgMReduction(player.bodyParts.pecho?.mArmorValue || 0, player.level)}%
       </p>
-      <p>Aumento de daño de invocación: {player.summonDmgIncrease()}%</p>
+      <p>Aumento de daño de invocación: {calculateSummonDmgIncrease(player.stats.cha)}%</p>
       <p>
         🐾 Mascotas:
         <ul>
@@ -33,12 +36,12 @@ export default function RightColumnPStats() {
         </ul>
       </p>
       <div>
-      <p>Resistencia mágica: </p>
-      <div style={{display:'flex', flexDirection: 'column'}}>
-      {player.TotalControlRes().map(r => {
-        return <span>{r.name} : {r.value}</span>
-      })}
-      </div>
+        <p>Resistencia mágica: </p>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {calculateTotalRes(player.controlResist, player.stats).map(r => {
+            return <span key={r.name}>{r.name} : {r.value}</span>
+          })}
+        </div>
       </div>
     </div>
   );

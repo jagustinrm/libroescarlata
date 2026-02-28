@@ -1,12 +1,7 @@
 import { create } from 'zustand';
 
-import {
-  calculateDmgReduction,
-  calculateDodgePercentage,
-  calculateHitRatePercentage,
-} from '../utils/calculateStats';
 import { Summon, SummonsStore } from './types/summons';
-const useSummonStore = create<SummonsStore>((set, get) => ({
+const useSummonStore = create<SummonsStore>((set) => ({
   summons: [],
   areSummonsLoaded: false,
   summon: {
@@ -17,10 +12,11 @@ const useSummonStore = create<SummonsStore>((set, get) => ({
     level: 0,
     hitPoints: 1,
     c_LeftHealth: 1,
-    c_MaxHealth: 1, 
-    c_MaxMana: 1, 
-    c_LeftMana: 1, 
+    c_MaxHealth: 1,
+    c_MaxMana: 1,
+    c_LeftMana: 1,
     c_Conditions: [],
+    controlResist: [{ name: 'aturdir', value: 0 }, { name: 'dormir', value: 0 }, { name: 'paralizar', value: 0 }],
     armorClass: 0,
     attacks: [],
     specialAbilities: [],
@@ -36,25 +32,12 @@ const useSummonStore = create<SummonsStore>((set, get) => ({
     },
     dodge: 0,
     hitRate: 0,
-    dodgePercentage: () => {
-      return calculateDodgePercentage(get().summon.dodge);
-    },
-    hitRatePercentage: () => {
-      console.log(get().summon.stats.dex, get().summon.hitRate);
-      return calculateHitRatePercentage(20);
-    },
-    totalDmgReduction: (enemyLevel) => {
-      return calculateDmgReduction(get().summon.armorClass, enemyLevel);
-    },
-    totalMDmgReduction: (enemyLevel) => {
-      return calculateDmgReduction(get().summon.armorClass, enemyLevel);
-    },
   },
   setSummon: (creature: Summon) =>
     set(() => ({
       summon: creature,
     })),
-  
+
   setSummonHealth: (health: number) =>
     set((state) => {
       if (state.summon) {

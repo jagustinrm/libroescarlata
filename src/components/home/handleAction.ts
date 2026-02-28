@@ -2,6 +2,7 @@ import { NavigateFunction } from 'react-router-dom';
 import openMissions from '../../utils/openMissionsWindow';
 import usePlayerStore from '../../stores/playerStore';
 import { getGlobalState } from '../../customHooks/useGlobalState';
+import { calculateTotalMaxHealth, calculateTotalMaxMana } from '../../utils/calculateStats';
 
 export const handleAction = (
   action: string,
@@ -9,7 +10,7 @@ export const handleAction = (
   setShowMessage: (show: boolean) => void,
 ) => {
   const { playerActions, player } = usePlayerStore.getState();
-  const {setFightType} = getGlobalState();
+  const { setFightType } = getGlobalState();
   switch (action) {
     case 'fight-normal':
       setFightType('normal');
@@ -39,8 +40,8 @@ export const handleAction = (
       navigate('/inventory');
       break;
     case 'recoverHealth':
-      playerActions.setc_LeftHealth(player.totalMaxHealth());
-      playerActions.setc_LeftMana(player.totalMaxMana());
+      playerActions.setc_LeftHealth(calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth));
+      playerActions.setc_LeftMana(calculateTotalMaxMana(player.stats.int, player.stats.cha, player.c_MaxMana));
       setShowMessage(true);
       break;
     case 'missions':

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { calculateSummonDmgIncrease } from '../../utils/calculateStats';
 import useStatManagement from '../../customHooks/useStatManagement';
 import usePlayerStore from '../../stores/playerStore';
 import { Stats } from '../../stores/types/stats';
@@ -16,11 +17,11 @@ export default function MediumColumnPStats() {
 
   return (
     <div className="mediumColumnStats">
-      <ButtonEdited  
+      <ButtonEdited
         label="Elementos"
         width="130px"
         height="33px"
-        onClick={() => toggleEStats() }
+        onClick={() => toggleEStats()}
       />
       <div className="statsAndAdd">
         <ul className="statsPoints">
@@ -90,11 +91,11 @@ export default function MediumColumnPStats() {
               {' '}
               {player.selectedPet.attacks[0].damage} (+
               {(player.selectedPet.attacks[0].damage *
-                player.summonDmgIncrease()) /
+                calculateSummonDmgIncrease(player.stats.cha)) /
                 100}
               ) -{player.selectedPet.attacks[0].damageMax} (+
               {(player.selectedPet.attacks[0].damageMax *
-                player.summonDmgIncrease()) /
+                calculateSummonDmgIncrease(player.stats.cha)) /
                 100}
               )
             </p>
@@ -102,7 +103,7 @@ export default function MediumColumnPStats() {
         </div>
       )}
       <BackButton />
-      {eStatsView && <ElementsStatsColumn onClose={toggleEStats}/>}
+      {eStatsView && <ElementsStatsColumn onClose={toggleEStats} />}
     </div>
   );
 }

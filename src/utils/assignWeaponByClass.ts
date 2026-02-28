@@ -35,11 +35,11 @@ export function assignWeaponByClass({
       const weaponOwned = { ...weapon, playerOwner: true };
 
       // Guardar en Firebase
-      saveItemToFirebase(player.name, weaponOwned.id, weaponOwned, 'weapons');
+      saveItemToFirebase(player.playerId, weaponOwned.id, weaponOwned, 'weapons');
 
       // Añadir al inventario
       inventoryStore.addItemToInventory(
-        `${player.name}_inventory`,
+        `${player.playerId}_inventory`,
         'weapons',
         weaponOwned.id,
       );

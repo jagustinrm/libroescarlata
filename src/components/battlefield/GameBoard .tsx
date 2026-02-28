@@ -76,11 +76,11 @@ const GameBoard: React.FC<GameBoardProps> = ({
     additionalData?: any,
   ) => {
     console.log(additionalData, "hgola")
-    additionalData ? 
-    handleCombatAction(actionType, { setActivateImage }, additionalData) 
-    :
-    handleCombatAction(actionType, { setActivateImage })
-    
+    additionalData ?
+      handleCombatAction(actionType, { setActivateImage }, additionalData)
+      :
+      handleCombatAction(actionType, { setActivateImage })
+
 
     setPlaySound(true);
     setTimeout(() => {
@@ -148,13 +148,12 @@ const GameBoard: React.FC<GameBoardProps> = ({
   return (
     <div className="gameBoard">
       <div className="containerGameBoard">
-      
+
         {buttons.map((button, index) => (
           <div
             key={index}
-            className={`bottomGB ${
-              button.type === 'border' ? 'border' : 'main'
-            } 
+            className={`bottomGB ${button.type === 'border' ? 'border' : 'main'
+              } 
             ${isButtonPlayerPosition(button) ? 'player-position' : ''}
             ${isButtonEnemyPosition(button) ? 'enemy-position' : ''} 
             ${isButtonHighlighted(button) ? 'highlighted rpgui-cursor-point' : ''}
@@ -175,7 +174,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
               }
             }}
           />
-          
+
         ))}
         {player.selectedPet && (
           <img
@@ -219,7 +218,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
           />
         )}
 
-        {summon && summon.name &&(
+        {summon && summon.name && (
           <img
             src={summon.img}
             alt="Summon"

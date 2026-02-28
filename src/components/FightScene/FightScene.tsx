@@ -6,6 +6,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEnemyLoader } from '../../customHooks/useEnemyLoader.ts';
 import { checkLevelUp } from '../../utils/checkLevelUp.ts';
+import { calculateTotalMaxHealth, calculateTotalMaxMana } from '../../utils/calculateStats.ts';
 import useExpTable from '../../customHooks/useExpTable.ts';
 import MessageBox from '../UI/MessageBox.tsx';
 import { useEnemyTurn } from '../../customHooks/useEnemyTurn.ts';
@@ -26,19 +27,19 @@ import { initializeEffects } from './initializeEffects.ts';
 import { handleClose } from './handleClose.ts';
 
 export default function FightScene() {
-  const {soundUrl, fightType, setMessage, message, clearMessage, actionMessages, setActionMessages  } =
-  useAppStore();
+  const { soundUrl, fightType, setMessage, message, clearMessage, actionMessages, setActionMessages } =
+    useAppStore();
   console.log(fightType)
   const [redirectHome, setRedirectHome] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { enemy} = location.state || {};
+  const { enemy } = location.state || {};
   const logRef = useRef<HTMLUListElement>(null); // REFERENCIA DEL LOG PARA BAJAR CON SCROLL
   const {
     player,
     playerActions,
     creature,
-   currentCharacter, 
+    currentCharacter,
     summon, setSummon,
     creatureLoaded
   } = useGlobalState();
@@ -65,7 +66,7 @@ export default function FightScene() {
     shouldClose: boolean,
   ) => {
     setRedirectHome(shouldClose);
-    setMessage(message,type)
+    setMessage(message, type)
   };
 
   initializeEffects({
@@ -78,7 +79,7 @@ export default function FightScene() {
     enemy
   });
   // ************************USEEFFECTS ******************************
-    // ************************TURNOS *************************
+  // ************************TURNOS *************************
   useEnemyTurn();
   useSummonTurn();
   usePetTurn();
@@ -86,12 +87,12 @@ export default function FightScene() {
   const xpPercentage =
     player.p_ExpToNextLevel - player.p_ExpPrevLevel !== 0
       ? ((player.playerExp - player.p_ExpPrevLevel) /
-          (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) *
-        100
+        (player.p_ExpToNextLevel - player.p_ExpPrevLevel)) *
+      100
       : 0;
   const healthPercentage =
-    (player.c_LeftHealth / player.totalMaxHealth()) * 100;
-  const manaPercentage = (player.c_LeftMana / player.totalMaxMana()) * 100;
+    (player.c_LeftHealth / calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth)) * 100;
+  const manaPercentage = (player.c_LeftMana / calculateTotalMaxMana(player.stats.int, player.stats.cha, player.c_MaxMana)) * 100;
 
   if (!creatureLoaded) return <p>Cargando enemigo...</p>;
   return (
@@ -111,7 +112,7 @@ export default function FightScene() {
       <CombatUI
         opcionesArmas={opcionesArmas ?? []}
         opcionesSpells={opcionesSpells ?? []}
-        setActivateImage= {setActivateImage}
+        setActivateImage={setActivateImage}
         handleMessage={handleMessage}
       />
       <div>

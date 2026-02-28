@@ -1,13 +1,6 @@
 import { create } from 'zustand';
 import { CreatureStore, Creature } from './types/creatures';
-import {
-  calculateDmgMReduction,
-  calculateDmgReduction,
-  calculateDodgePercentage,
-  calculateHitRatePercentage,
-  calculateTotalRes,
-} from '../utils/calculateStats';
-const useCreatureStore = create<CreatureStore>((set, get) => ({
+const useCreatureStore = create<CreatureStore>((set) => ({
   creatures: [],
   bosses: [],
   areCreaturesLoaded: false,
@@ -41,23 +34,6 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     },
     dodge: 0,
     hitRate: 0,
-    dodgePercentage: () => {
-      return calculateDodgePercentage(get().creature.dodge);
-    },
-    hitRatePercentage: () => {
-      console.log(get().creature.stats.dex, get().creature.hitRate);
-      return calculateHitRatePercentage(20);
-    },
-    totalDmgReduction: (enemyLevel) => {
-      return calculateDmgReduction(get().creature.armorClass, enemyLevel);
-    },
-    totalMDmgReduction: (enemyLevel) => {
-      return calculateDmgMReduction(get().creature.mdef, enemyLevel);
-    },
-    TotalControlRes: (): { name: string; value: number }[] => {
-      const stateP = useCreatureStore.getState().creature;
-      return calculateTotalRes(stateP.controlResist, stateP.stats);
-    },
   },
   // ESTO quizás podría hacerlo directamente cuando cargo una criatura.
   setCreatureLoaded: (loaded) => set({ creatureLoaded: loaded }),
@@ -90,25 +66,24 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     set((state) => ({
       bosses: [...state.bosses, newBoss],
     })),
-    updateC_Conditions: (newCondition) =>
-    {  
-    
-      set((state) => ({
-        creature: {
-          ...state.creature,
-          c_Conditions: [...state.creature.c_Conditions, newCondition], // Agrega la nueva condición al array
-        },
-      }))
-    },
-    setC_Conditions: (newConditions) => {
-   
-      set((state) => ({
-        creature: {
-          ...state.creature,
-          c_Conditions: newConditions, 
-        },
-      }))
-    },
+  updateC_Conditions: (newCondition) => {
+
+    set((state) => ({
+      creature: {
+        ...state.creature,
+        c_Conditions: [...state.creature.c_Conditions, newCondition], // Agrega la nueva condición al array
+      },
+    }))
+  },
+  setC_Conditions: (newConditions) => {
+
+    set((state) => ({
+      creature: {
+        ...state.creature,
+        c_Conditions: newConditions,
+      },
+    }))
+  },
   updateCreature: (updatedCreature) =>
     set((state) => {
       const existingCreatureIndex = state.creatures.findIndex(
@@ -148,24 +123,24 @@ const useCreatureStore = create<CreatureStore>((set, get) => ({
     set((state) => ({
       creature: { ...state.creature, health },
     })),
-    setc_MaxHealth: (c_MaxHealth) =>
-      set((state) => ({
-        creature: { ...state.creature, c_MaxHealth },
-      })),
-      setc_LeftHealth: (c_LeftHealth) =>
-        set((state) => ({
-          creature: { ...state.creature, c_LeftHealth },
-      })),
-    setc_MaxMana: (c_MaxMana) =>
-      set((state) => ({
-        creature: { ...state.creature, c_MaxMana },
-      })),
+  setc_MaxHealth: (c_MaxHealth) =>
+    set((state) => ({
+      creature: { ...state.creature, c_MaxHealth },
+    })),
+  setc_LeftHealth: (c_LeftHealth) =>
+    set((state) => ({
+      creature: { ...state.creature, c_LeftHealth },
+    })),
+  setc_MaxMana: (c_MaxMana) =>
+    set((state) => ({
+      creature: { ...state.creature, c_MaxMana },
+    })),
 
-    setc_LeftMana: (c_LeftMana) =>
-      set((state) => ({
-        creature: { ...state.creature, c_LeftMana },
-      })),
-  
+  setc_LeftMana: (c_LeftMana) =>
+    set((state) => ({
+      creature: { ...state.creature, c_LeftMana },
+    })),
+
 }));
 
 export default useCreatureStore;

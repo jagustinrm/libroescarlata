@@ -5,6 +5,7 @@ import { isAttackSuccessful } from './calculateStats.ts';
 import { simulateAttackMovement } from './simulateAttackMovement.ts';
 import { calculateDistance } from './calculateDistance.ts';
 import { getGlobalState } from '../customHooks/useGlobalState.ts';
+import { calculateTotalHitRate, calculateHitRatePercentage, calculateTotalMaxHealth, calculateMTotalMaxDamage, calculateMTotalDamage, calculateTotalDamage, calculateTotalMaxDamage, calculateDodgePercentage, calculateDmgReduction } from './calculateStats.ts';
 
 interface CombatHandlersProps {
   handleMessage?: (message: string, type: string, shouldClose: boolean) => void;
@@ -22,7 +23,7 @@ export const handleCombatAction = (
   props: CombatHandlersProps,
   additionalData?: any,
 ) => {
- 
+
   const {
     handleMessage,
     setActivateImage,
@@ -32,12 +33,12 @@ export const handleCombatAction = (
   const addActionMessage = (message: string) => {
     setActionMessages?.((prevMessages) => [...prevMessages, message]);
   };
-  const { spells, weapons, summons, setSummon, 
-    player, playerActions, creature, 
+  const { spells, weapons, summons, setSummon,
+    player, playerActions, creature,
     setActionMessages, setFloatingMessage,
-    setPlayerPosition,currentCharacter, nextTurn, 
-    addCharacter, playerPosition, enemyPosition, 
-    setPetPosition } = getGlobalState();  
+    setPlayerPosition, currentCharacter, nextTurn,
+    addCharacter, playerPosition, enemyPosition,
+    setPetPosition } = getGlobalState();
 
   const finalizeTurn = () => {
     if (shouldFinalizeTurn) {
@@ -69,8 +70,11 @@ export const handleCombatAction = (
       }, 100);
 
       const success = isAttackSuccessful(
-        player.hitRatePercentage?.() ?? 0,
-        creature.dodgePercentage?.() ?? 0,
+        calculateHitRatePercentage(
+          calculateTotalHitRate(player.stats.dex, player.hitRate),
+          player.level
+        ),
+        calculateDodgePercentage(creature.dodge) ?? 0,
       );
 
       if (weaponFiltered && success && creature.c_LeftHealth) {
@@ -79,10 +83,12 @@ export const handleCombatAction = (
           setActivateImage(false);
         }, 250);
 
-        const redDamage = creature.totalDmgReduction(player.level);
+        const redDamage = calculateDmgReduction(creature.armorClass, player.level);
+        const playerDamageRaw = calculateTotalDamage(player.bodyParts, player.stats.str, player.buffs.str?.value);
+        const playerDamageMaxRaw = calculateTotalMaxDamage(player.bodyParts, player.stats.str, player.buffs.str?.value);
         const totalDamage = Math.floor(
-          Math.random() * (player.damageMax() - player.damage()) +
-            player.damage(),
+          Math.random() * (playerDamageMaxRaw - playerDamageRaw) +
+          playerDamageRaw,
         );
         const finalDamage = Math.floor(totalDamage * (1 - redDamage / 100));
         useCreatureStore
@@ -119,7 +125,7 @@ export const handleCombatAction = (
   const handleSpell = (): boolean => {
     const scroll = additionalData;
     let spellDetails = null;
-    const {updateC_Conditions} = useCreatureStore.getState()
+    const { updateC_Conditions } = useCreatureStore.getState()
     if (actionType === 'scroll' && scroll) {
       spellDetails = scroll;
     } else {
@@ -131,7 +137,7 @@ export const handleCombatAction = (
         typeof player?.c_LeftMana === 'number' &&
         spellDetails.manaCost > player?.c_LeftMana
       ) {
-      
+
         addActionMessage(
           `No tienes suficiente maná para lanzar ${spellDetails.name}.`,
         );
@@ -172,28 +178,30 @@ export const handleCombatAction = (
         spellDetails.damage &&
         spellDetails.damageMax
       ) {
+        const playerMDamageRaw = calculateMTotalDamage(player.bodyParts, player.stats.int, player.buffs.int?.value);
+        const playerMDamageMaxRaw = calculateMTotalMaxDamage(player.bodyParts, player.stats.int, player.buffs.int?.value);
         const damage =
           Math.floor(
             Math.random() *
-              (spellDetails.damageMax +
-                player.mDamageMax() -
-                spellDetails.damage +
-                player.mDamage() +
-                1),
+            (spellDetails.damageMax +
+              playerMDamageMaxRaw -
+              spellDetails.damage +
+              playerMDamageRaw +
+              1),
           ) +
           spellDetails.damage +
-          player.mDamage();
-        const redDamage = creature.totalDmgReduction(player.level);
+          playerMDamageRaw;
+        const redDamage = calculateDmgReduction(creature.armorClass, player.level);
         const finalDamage = Math.floor(damage * (1 - redDamage / 100));
 
         simulateAttackMovement(playerPosition, 5, setPlayerPosition);
         console.log(spellDetails.condition)
         spellDetails.condition &&
-        Math.random() * 100 < spellDetails.condition.probability &&
-        updateC_Conditions({
-          name: spellDetails.condition.name,
-          duration: spellDetails.condition.duration,
-        });
+          Math.random() * 100 < spellDetails.condition.probability &&
+          updateC_Conditions({
+            name: spellDetails.condition.name,
+            duration: spellDetails.condition.duration,
+          });
         console.log(creature)
         addActionMessage(
           `Has lanzado ${spellDetails.name} y causado ${finalDamage} puntos de daño.`,
@@ -208,7 +216,7 @@ export const handleCombatAction = (
         useCreatureStore
           .getState()
           .setc_LeftHealth(Math.max(creature.c_LeftHealth - finalDamage, 0));
-  
+
         if (
           typeof player?.c_LeftMana === 'number' &&
           typeof spellDetails.manaCost === 'number' &&
@@ -216,8 +224,8 @@ export const handleCombatAction = (
         ) {
 
           playerActions.setc_LeftMana(
-              Math.max(player.c_LeftMana - spellDetails.manaCost, 0),
-            );
+            Math.max(player.c_LeftMana - spellDetails.manaCost, 0),
+          );
         }
 
 
@@ -252,12 +260,12 @@ export const handleCombatAction = (
 
       const totalHealth = Math.min(
         player.c_LeftHealth + healing,
-        player.totalMaxHealth(),
+        calculateTotalMaxHealth(player.stats.con, player.stats.cha, player.c_MaxHealth),
       );
       playerActions.setc_LeftHealth(totalHealth);
       playerActions.setc_LeftMana(
-          Math.max(player?.c_LeftMana - spellDetails.manaCost, 0),
-        );
+        Math.max(player?.c_LeftMana - spellDetails.manaCost, 0),
+      );
 
       return true; // Hechizo de curación exitoso
     } else if (
@@ -268,11 +276,11 @@ export const handleCombatAction = (
     ) {
       addActionMessage(`Has invocado con ${spellDetails.name}.`);
       playerActions.setc_LeftMana(
-          Math.max(player?.c_LeftMana - spellDetails.manaCost, 0),
-        );
+        Math.max(player?.c_LeftMana - spellDetails.manaCost, 0),
+      );
 
       const summon = summons.find((s) => s.name === spellDetails.invocation);
-      
+
       if (summon) {
         addCharacter({ id: 'summon', name: summon.name });
         setSummon(summon);
