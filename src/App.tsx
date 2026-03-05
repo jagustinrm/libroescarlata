@@ -37,17 +37,61 @@ import BooksLoader from './loaders/BooksLoader.js';
 import SummonLoader from './loaders/SummonLoader.js';
 import PetsLoader from './loaders/PetsLoader.js';
 
+import { useMemo } from 'react';
+import { useImagePreloader } from './customHooks/useImagePreloader';
+import { GlobalLoadingScreen } from './components/UI/GlobalLoadingScreen';
+
 function App() {
-  const { player, inventories } = useGlobalState();
+  const globalState = useGlobalState();
+  const { player, inventories, weapons, creatures, armors, pets, items } = globalState;
 
   window.addEventListener('beforeunload', () => {
     localStorage.setItem('playerState', JSON.stringify(player));
     localStorage.setItem('inventoryState', JSON.stringify(inventories));
   });
 
+  // Recopilar URLs de imágenes del estado global
+  const imageUrlsToPreload = useMemo(() => {
+    const urls: string[] = [];
+
+    // Avatar y clase del jugador
+    if (player.avatarImg) urls.push(player.avatarImg);
+    if (player.classImg) urls.push(player.classImg);
+
+    // Armas
+    if (weapons) weapons.forEach(w => w.img && urls.push(w.img));
+
+    // Armaduras
+    if (armors) armors.forEach(a => a.img && urls.push(a.img));
+
+    // Criaturas y Jefes
+    if (creatures) creatures.forEach(c => c.img && urls.push(c.img));
+
+    // Mascotas
+    if (pets) pets.forEach(p => p.img && urls.push(p.img));
+
+    // Items generales (items es Record<string, Items>)
+    if (items) {
+      Object.values(items).forEach((invItems) => {
+        if (invItems) {
+          Object.values(invItems).forEach((itemArray) => {
+            if (Array.isArray(itemArray)) {
+              itemArray.forEach(i => i && i.img && urls.push(i.img));
+            }
+          });
+        }
+      });
+    }
+
+    // Filtrar falsy values y duplicados
+    return [...new Set(urls.filter(Boolean))];
+  }, [player.avatarImg, player.classImg, weapons, creatures, armors, pets, items]);
+
+  const { imagesPreloaded, progress } = useImagePreloader(imageUrlsToPreload);
+
   return (
     <BrowserRouter>
-      <Particles />
+      {/* Loaders (Sin UI, solo data logic) */}
       <PlayerStateLoader />
       <OtherItemsLoader />
       <WeaponLoader />
@@ -65,24 +109,36 @@ function App() {
       <StoryLoader />
       <PlayerStateSaver />
       <InventoryStateLoader />
-      <HeaderMenu />
-      <DelayedDisplay delay={300} duration={200}>
-        <Routes>
-          <Route path="*" element={<Navigate to="/" replace />} />
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/characterSelector" element={<CharacterSelector />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/fightScene" element={<FightScene />} />
-          <Route path="/petStore" element={<PetStore />} />
-          <Route path="/inventory" element={<Inventory />} />
-          <Route path="/itemShop" element={<ItemShop />} />
-          <Route path="/playerstats" element={<PlayerStats />} />
-          <Route path="/storyMode" element={<StoryMode />} />
-          <Route path="/chapter" element={<Chapter />} />
-          <Route path="/bestiary" element={<Bestiary />} />
-          <Route path="/chat" element={<Chat />} />
-        </Routes>
-      </DelayedDisplay>
+
+      {/* Pantalla de Carga Global */}
+      {!imagesPreloaded && <GlobalLoadingScreen progress={progress} />}
+
+      {/* Renderizado de la app real, montada siempre pero visible u oculta, 
+          o solo renderizada cuando terminó de cargar (aquí optamos por montar 
+          solo si cargó para evitar parpadeos). */}
+      {imagesPreloaded && (
+        <div style={{ animation: 'fadeIn 0.5s ease-in' }}>
+          <Particles />
+          <HeaderMenu />
+          <DelayedDisplay delay={300} duration={200}>
+            <Routes>
+              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/characterSelector" element={<CharacterSelector />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/fightScene" element={<FightScene />} />
+              <Route path="/petStore" element={<PetStore />} />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/itemShop" element={<ItemShop />} />
+              <Route path="/playerstats" element={<PlayerStats />} />
+              <Route path="/storyMode" element={<StoryMode />} />
+              <Route path="/chapter" element={<Chapter />} />
+              <Route path="/bestiary" element={<Bestiary />} />
+              <Route path="/chat" element={<Chat />} />
+            </Routes>
+          </DelayedDisplay>
+        </div>
+      )}
     </BrowserRouter>
   );
 }
